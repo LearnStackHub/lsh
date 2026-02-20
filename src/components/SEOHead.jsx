@@ -8,6 +8,17 @@ function SEOHead({ title, description, keywords, topicId }) {
   const baseUrl = 'https://learnstackhub.com';
   
   useEffect(() => {
+    // Update title immediately (synchronous) before any async operations
+    const updateTitleImmediately = (newTitle) => {
+      if (document) {
+        document.title = newTitle;
+        let titleTag = document.querySelector('title');
+        if (titleTag) {
+          titleTag.textContent = newTitle;
+        }
+      }
+    };
+
     // Route-based title mapping for static pages
     const routeTitles = {
       '/': 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub',
@@ -61,8 +72,8 @@ function SEOHead({ title, description, keywords, topicId }) {
       pageTitle = 'LearnStackHub - Master Java Full Stack Development';
     }
 
-    // Update document title
-    document.title = pageTitle;
+    // Update title immediately (synchronous update)
+    updateTitleImmediately(pageTitle);
 
     // Update or create meta tags
     const updateMetaTag = (name, content, isProperty = false) => {
@@ -76,9 +87,15 @@ function SEOHead({ title, description, keywords, topicId }) {
       meta.setAttribute('content', content);
     };
 
-    // Standard meta tags
+    // Standard meta tags - Update description and keywords
     updateMetaTag('description', pageDescription);
     updateMetaTag('keywords', pageKeywords);
+    
+    // Also update the meta description tag directly (in case it exists in index.html)
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', pageDescription);
+    }
     
     // Open Graph tags
     updateMetaTag('og:title', pageTitle, true);
