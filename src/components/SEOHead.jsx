@@ -94,14 +94,16 @@ function SEOHead({ title, description, keywords, topicId }) {
     updateMetaTag('twitter:description', pageDescription);
     updateMetaTag('twitter:image', pageImage);
     
-    // Canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
+    // Canonical URL - Always update to current page URL
+    // Remove any existing canonical links first to avoid duplicates
+    const existingCanonicals = document.querySelectorAll('link[rel="canonical"]');
+    existingCanonicals.forEach(link => link.remove());
+    
+    // Create new canonical link with current page URL
+    const canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
     canonical.setAttribute('href', pageUrl);
+    document.head.appendChild(canonical);
 
   }, [location.pathname, title, description, keywords, topicId]);
 
