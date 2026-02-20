@@ -17,3 +17,4 @@ export const emailjsConfig = {
   publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'oW1iKw8tP4_VthDYL'
 };
 
+
