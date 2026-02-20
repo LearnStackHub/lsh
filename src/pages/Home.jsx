@@ -44,7 +44,10 @@ function Home() {
 
   return (
     <div className="home-page">
-      <SEOHead />
+      <SEOHead 
+        title="Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub"
+        description="Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers."
+      />
       <StructuredData type="WebSite" />
       {/* Hero Section */}
       <section className="hero-section fade-in">

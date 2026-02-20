@@ -70,6 +70,7 @@ export const generateSEOTitle = (topic) => {
     'Operators in Java': 'Java Operators Tutorial - Arithmetic, Logical, Comparison Operators',
     'Methods in Java': 'Java Methods Tutorial - Method Declaration, Parameters, Return Types',
     'Java Keywords': 'Java Keywords Tutorial - Reserved Words in Java',
+    'Top 30 Core Java Interview Questions (1 Year Experience)': 'Top 30 Core Java Interview Questions for 1 Year Experience - OOPs, Collections, Exceptions',
     
     // MySQL Topics
     'MySQL Introduction': 'MySQL Database Tutorial for Beginners - Relational Database Management',

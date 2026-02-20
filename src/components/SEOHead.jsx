@@ -8,10 +8,29 @@ function SEOHead({ title, description, keywords, topicId }) {
   const baseUrl = 'https://learnstackhub.com';
   
   useEffect(() => {
+    // Route-based title mapping for static pages
+    const routeTitles = {
+      '/': 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub',
+      '/about': 'About Us - LearnStackHub | Free Java Full Stack Learning Platform',
+      '/contact': 'Contact Us - LearnStackHub | Get in Touch',
+      '/privacy': 'Privacy Policy - LearnStackHub | Data Protection & Privacy',
+      '/terms': 'Terms of Service - LearnStackHub | Terms & Conditions',
+      '/sitemap': 'Sitemap - LearnStackHub | All Tutorials & Pages'
+    };
+
+    const routeDescriptions = {
+      '/': 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.',
+      '/about': 'Learn about LearnStackHub - a free platform for learning Java Full Stack Development with interactive tutorials and live code execution. Our mission, features, and commitment to free education.',
+      '/contact': 'Get in touch with LearnStackHub. Have questions, suggestions, or feedback? Contact us for support, contributions, or general inquiries about our Java tutorials.',
+      '/privacy': 'LearnStackHub Privacy Policy - Learn how we collect, use, and protect your personal information. Our commitment to data protection and user privacy.',
+      '/terms': 'LearnStackHub Terms of Service - Read our terms and conditions, disclaimer, and usage guidelines for using our free Java learning platform.',
+      '/sitemap': 'Complete sitemap of LearnStackHub - Browse all Java tutorials, courses, and pages. Find Core Java, JDBC, Servlets, JSP, Hibernate, and MySQL tutorials.'
+    };
+
     // Get topic data if topicId is provided
-    let pageTitle = title || 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub';
-    let pageDescription = description || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
-    let pageKeywords = keywords || 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
+    let pageTitle = title;
+    let pageDescription = description;
+    let pageKeywords = keywords;
     let pageUrl = baseUrl + location.pathname;
     let pageImage = baseUrl + '/LSH.png';
 
@@ -23,6 +42,11 @@ function SEOHead({ title, description, keywords, topicId }) {
         pageDescription = description || generateSEODescription(topic);
         pageKeywords = keywords || generateSEOKeywords(topic);
       }
+    } else if (!title) {
+      // Use route-based title if no title provided
+      pageTitle = routeTitles[location.pathname] || 'LearnStackHub - Master Java Full Stack Development';
+      pageDescription = routeDescriptions[location.pathname] || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
+      pageKeywords = 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
     }
 
     // Update document title
