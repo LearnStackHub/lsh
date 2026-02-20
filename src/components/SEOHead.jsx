@@ -41,12 +41,24 @@ function SEOHead({ title, description, keywords, topicId }) {
         pageTitle = generateSEOTitle(topic);
         pageDescription = description || generateSEODescription(topic);
         pageKeywords = keywords || generateSEOKeywords(topic);
+      } else {
+        // Topic not found - generate title from URL
+        const topicName = topicId.split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+        pageTitle = `${topicName} Tutorial - LearnStackHub`;
+        pageDescription = description || `Learn ${topicName} with step-by-step tutorials and code examples. Complete guide for beginners and advanced developers.`;
       }
     } else if (!title) {
       // Use route-based title if no title provided
       pageTitle = routeTitles[location.pathname] || 'LearnStackHub - Master Java Full Stack Development';
       pageDescription = routeDescriptions[location.pathname] || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
       pageKeywords = 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
+    }
+
+    // Ensure pageTitle is never undefined or empty
+    if (!pageTitle || pageTitle.trim() === '') {
+      pageTitle = 'LearnStackHub - Master Java Full Stack Development';
     }
 
     // Update document title
