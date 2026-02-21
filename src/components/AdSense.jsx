@@ -17,43 +17,60 @@ function AdSense({
   const [isVisible, setIsVisible] = useState(false);
 
   // Check if container has width and is visible before loading ad
+  // Use requestAnimationFrame to batch layout reads and avoid forced reflow
   const checkContainerReady = () => {
     if (!containerRef.current || !adRef.current) return false;
     
+    // Batch all layout reads together to avoid forced reflow
     const rect = containerRef.current.getBoundingClientRect();
+    const computedStyle = window.getComputedStyle(containerRef.current);
     const hasWidth = rect.width > 0;
     const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-    const isNotHidden = window.getComputedStyle(containerRef.current).display !== 'none';
+    const isNotHidden = computedStyle.display !== 'none';
     
     return hasWidth && isInViewport && isNotHidden;
   };
 
   // Use IntersectionObserver to only load ads when visible
+  // Delay on mobile to reduce initial load
   useEffect(() => {
     if (!containerRef.current || !isAdSenseConfigured() || !isValidAdSlot(adSlot)) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0) {
-            const rect = entry.boundingClientRect;
-            if (rect.width > 0) {
-              setIsVisible(true);
+    // Delay ad loading on mobile devices to improve initial performance
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const delay = isMobile ? 1000 : 0;
+
+    const setupObserver = () => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0) {
+              const rect = entry.boundingClientRect;
+              if (rect.width > 0) {
+                setIsVisible(true);
+              }
             }
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px'
-      }
-    );
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: isMobile ? '100px' : '50px' // Larger margin on mobile for earlier loading
+        }
+      );
 
-    observer.observe(containerRef.current);
+      observer.observe(containerRef.current);
 
-    return () => {
-      observer.disconnect();
+      return () => {
+        observer.disconnect();
+      };
     };
+
+    if (delay > 0) {
+      const timeout = setTimeout(setupObserver, delay);
+      return () => clearTimeout(timeout);
+    } else {
+      return setupObserver();
+    }
   }, []);
 
   // Load ad only when container is ready and visible
@@ -95,16 +112,24 @@ function AdSense({
       const status = adRef.current?.getAttribute('data-adsbygoogle-status');
       if (status === 'done') {
         setAdLoaded(true);
-        // Check if ad actually rendered content (has height)
-        setTimeout(() => {
-          const iframe = adRef.current?.querySelector('iframe');
-          if (iframe && iframe.offsetHeight > 0) {
-            setAdLoaded(true);
-          } else {
-            // Ad slot filled but no content - likely no ads available
-            setAdFailed(true);
-          }
-        }, 500);
+        // Check if ad actually rendered content (has height) - use requestAnimationFrame to avoid forced reflow
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            requestAnimationFrame(() => {
+              const iframe = adRef.current?.querySelector('iframe');
+              if (iframe) {
+                // Batch layout read
+                const height = iframe.offsetHeight;
+                if (height > 0) {
+                  setAdLoaded(true);
+                } else {
+                  // Ad slot filled but no content - likely no ads available
+                  setAdFailed(true);
+                }
+              }
+            });
+          }, 500);
+        });
       } else if (status === 'error' || status === 'unfilled') {
         setAdFailed(true);
       }

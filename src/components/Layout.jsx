@@ -36,11 +36,15 @@ function Layout() {
       });
     };
     
+    // Detect mobile and use longer delay to reduce TBT
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const delay = isMobile ? 800 : 500;
+    
     // Delay data loading to reduce TBT - load after critical render
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadData, { timeout: 500 });
+      requestIdleCallback(loadData, { timeout: delay });
     } else {
-      setTimeout(loadData, 200);
+      setTimeout(loadData, isMobile ? 400 : 200);
     }
   }, []);
 
