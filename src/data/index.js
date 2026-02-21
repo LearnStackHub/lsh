@@ -74,6 +74,7 @@ import exceptionIntroduction from './corejava/exceptions/ExceptionIntroduction';
 import tryCatchFinally from './corejava/exceptions/TryCatchFinally';
 import throwThrows from './corejava/exceptions/ThrowThrows';
 import customExceptions from './corejava/exceptions/CustomExceptions';
+import globalExceptionHandling from './corejava/exceptions/GlobalExceptionHandling';
 
 // Core Java - Collections
 import collectionIntroduction from './corejava/collections/CollectionIntroduction';
@@ -91,6 +92,9 @@ import threadIntroduction from './corejava/multithreading/ThreadIntroduction';
 import threadCreation from './corejava/multithreading/ThreadCreation';
 import threadLifecycle from './corejava/multithreading/ThreadLifecycle';
 import threadMethods from './corejava/multithreading/ThreadMethods';
+
+// Core Java - Interview Questions
+import javaInterviewQuestions from './corejava/interview/JavaInterviewQuestions';
 
 // MySQL
 import mysqlIntroduction from './mysql/MySQLIntroduction';
@@ -196,6 +200,10 @@ import mavenCommands from './maven/MavenCommands';
 import mavenCommonErrors from './maven/MavenCommonErrors';
 import mavenVsGradle from './maven/MavenVsGradle';
 import mavenBestPractices from './maven/MavenBestPractices';
+
+// HTTP & APIs
+import httpStatusCodes from './http/HttpStatusCodes';
+import globalExceptionHandlingHttp from './http/GlobalExceptionHandling';
 
 // Spring Framework
 import {
@@ -352,7 +360,8 @@ export const courseStructure = {
           exceptionIntroduction,
           tryCatchFinally,
           throwThrows,
-          customExceptions
+          customExceptions,
+          globalExceptionHandling
         ]
       },
       collections: {
@@ -379,6 +388,12 @@ export const courseStructure = {
           threadCreation,
           threadLifecycle,
           threadMethods
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          javaInterviewQuestions
         ]
       }
     }
@@ -742,6 +757,25 @@ export const courseStructure = {
           springAOPCustomAnnotations,
           springAOPAspectOrdering,
           springAOPWithSpringBoot
+        ]
+      }
+    }
+  },
+  http: {
+    title: "HTTP & APIs",
+    icon: "🌐",
+    color: "#0052CC",
+    sections: {
+      basics: {
+        title: "HTTP Fundamentals",
+        topics: [
+          httpStatusCodes
+        ]
+      },
+      exceptionHandling: {
+        title: "Exception Handling",
+        topics: [
+          globalExceptionHandlingHttp
         ]
       }
     }

@@ -13,6 +13,13 @@ const __dirname = path.dirname(__filename);
 const baseUrl = 'https://learnstackhub.com';
 const currentDate = new Date().toISOString().split('T')[0];
 
+// New pages added today - only these should have today's date
+const newPagesToday = [
+  'http-status-codes',
+  'global-exception-handling-http',
+  'java-interview-questions'
+];
+
 // Static pages
 const staticPages = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
@@ -21,6 +28,29 @@ const staticPages = [
   { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
   { url: '/terms', priority: '0.5', changefreq: 'yearly' },
 ];
+
+// Function to read existing sitemap and extract old dates
+function readExistingSitemap(sitemapPath) {
+  const existingDates = new Map();
+  
+  if (fs.existsSync(sitemapPath)) {
+    try {
+      const content = fs.readFileSync(sitemapPath, 'utf8');
+      // Extract URLs and their lastmod dates using regex
+      const urlMatches = content.matchAll(/<loc>(.*?)<\/loc>\s*<lastmod>(.*?)<\/lastmod>/g);
+      
+      for (const match of urlMatches) {
+        const url = match[1].replace(baseUrl, '');
+        const lastmod = match[2];
+        existingDates.set(url, lastmod);
+      }
+    } catch (error) {
+      console.warn('Could not read existing sitemap:', error.message);
+    }
+  }
+  
+  return existingDates;
+}
 
 // Import getAllTopics from the data index
 // We need to use dynamic import since we're in a Node.js script
@@ -63,14 +93,48 @@ async function generateSitemap() {
     // Convert Set to Array and create tutorial pages
     const allTopicIds = Array.from(foundTopicIds).sort();
     
-    // Create tutorial pages
+    // Read existing sitemap to preserve old dates
+    const projectRoot = path.join(__dirname, '..');
+    const existingSitemapPath = path.join(projectRoot, 'sitemap.xml');
+    const existingDates = readExistingSitemap(existingSitemapPath);
+    
+    // Create tutorial pages - preserve old dates, only update new pages
     allTopicIds.forEach(topicId => {
+      const url = `/tutorial/${topicId}`;
+      let lastmod;
+      
+      // If it's a new page, use today's date
+      if (newPagesToday.includes(topicId)) {
+        lastmod = currentDate;
+      } else {
+        // Otherwise, use existing date if it's NOT today's date, otherwise use old default
+        const existingDate = existingDates.get(url);
+        // If existing date is today's date, it means we overwrote it, so use old default
+        if (existingDate && existingDate !== currentDate) {
+          lastmod = existingDate;
+        } else {
+          // Default to old date (2026-02-18) for all old pages
+          lastmod = '2026-02-18';
+        }
+      }
+      
       tutorialPages.push({
-        url: `/tutorial/${topicId}`,
+        url: url,
         priority: '0.9',
         changefreq: 'weekly',
-        lastmod: currentDate
+        lastmod: lastmod
       });
+    });
+    
+    // Preserve old dates for static pages too
+    staticPages.forEach(page => {
+      const existingDate = existingDates.get(page.url);
+      // If existing date is today's date, it means we overwrote it, so use old default
+      if (existingDate && existingDate !== currentDate) {
+        page.lastmod = existingDate;
+      } else {
+        page.lastmod = '2026-02-18'; // Default old date
+      }
     });
     
     // Combine all pages
@@ -87,7 +151,7 @@ async function generateSitemap() {
     allPages.forEach(page => {
       xml += `  <url>
     <loc>${baseUrl}${page.url}</loc>
-    <lastmod>${page.lastmod || currentDate}</lastmod>
+    <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>
@@ -97,7 +161,6 @@ async function generateSitemap() {
     xml += `</urlset>`;
     
     // Write to project root (same level as package.json, index.html)
-    const projectRoot = path.join(__dirname, '..');
     const rootSitemapPath = path.join(projectRoot, 'sitemap.xml');
     fs.writeFileSync(rootSitemapPath, xml, 'utf8');
     

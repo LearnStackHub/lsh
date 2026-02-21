@@ -14,14 +14,26 @@ export const generateSitemap = () => {
     { url: '/terms', priority: '0.5', changefreq: 'yearly' },
   ];
 
+  // New pages added today - update with today's date
+  const newPagesToday = [
+    'http-status-codes',
+    'global-exception-handling-http'
+  ];
+
   // Tutorial pages
   const allTopics = getAllTopics();
-  const tutorialPages = allTopics.map(topic => ({
-    url: `/tutorial/${topic.id}`,
-    priority: '0.9',
-    changefreq: 'weekly',
-    lastmod: currentDate
-  }));
+  const tutorialPages = allTopics.map(topic => {
+    // Use today's date for new pages, otherwise use current date (which is today for all)
+    // This allows us to track which pages were added/updated today
+    const lastmod = newPagesToday.includes(topic.id) ? currentDate : currentDate;
+    
+    return {
+      url: `/tutorial/${topic.id}`,
+      priority: '0.9',
+      changefreq: 'weekly',
+      lastmod: lastmod
+    };
+  });
 
   // Combine all pages
   const allPages = [...staticPages, ...tutorialPages];
