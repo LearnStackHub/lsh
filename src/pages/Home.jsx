@@ -9,23 +9,32 @@ function Home() {
   const [totalTopics, setTotalTopics] = useState(0);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Load data immediately but asynchronously to not block render
+  // Load only course structure metadata first
   useEffect(() => {
-    // Use requestIdleCallback if available, otherwise setTimeout
-    const loadData = () => {
-      import('../data').then(({ courseStructure: cs, getAllTopics }) => {
-        setCourseStructure(cs);
-        const allTopics = getAllTopics();
-        setTotalTopics(allTopics.length);
-        setDataLoaded(true);
+    import('../data').then((module) => {
+      // Create minimal structure for display
+      const minimalStructure = {};
+      let totalCount = 0;
+      Object.keys(module.courseStructure).forEach(key => {
+        minimalStructure[key] = {
+          title: module.courseStructure[key].title,
+          icon: module.courseStructure[key].icon,
+          color: module.courseStructure[key].color,
+          sections: {}
+        };
+        Object.keys(module.courseStructure[key].sections).forEach(sectionKey => {
+          const section = module.courseStructure[key].sections[sectionKey];
+          totalCount += section.topics.length;
+          minimalStructure[key].sections[sectionKey] = {
+            title: section.title,
+            topics: section.topics.map(t => ({ id: t.id, title: t.title }))
+          };
+        });
       });
-    };
-    
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadData, { timeout: 2000 });
-    } else {
-      setTimeout(loadData, 0);
-    }
+      setCourseStructure(minimalStructure);
+      setTotalTopics(totalCount);
+      setDataLoaded(true);
+    });
   }, []);
 
   const features = [

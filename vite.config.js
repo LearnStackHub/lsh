@@ -29,9 +29,43 @@ export default defineConfig({
             // Other node_modules
             return 'vendor';
           }
-          // Split data files into separate chunk
+          // Split data files by course for better code splitting
+          if (id.includes('/data/corejava/')) {
+            return 'data-corejava';
+          }
+          if (id.includes('/data/html/')) {
+            return 'data-html';
+          }
+          if (id.includes('/data/css/')) {
+            return 'data-css';
+          }
+          if (id.includes('/data/jdbc/')) {
+            return 'data-jdbc';
+          }
+          if (id.includes('/data/servlets/')) {
+            return 'data-servlets';
+          }
+          if (id.includes('/data/jsp/')) {
+            return 'data-jsp';
+          }
+          if (id.includes('/data/hibernate/')) {
+            return 'data-hibernate';
+          }
+          if (id.includes('/data/mysql/')) {
+            return 'data-mysql';
+          }
+          if (id.includes('/data/git/')) {
+            return 'data-git';
+          }
+          if (id.includes('/data/maven/')) {
+            return 'data-maven';
+          }
+          if (id.includes('/data/spring/')) {
+            return 'data-spring';
+          }
+          // Other data files
           if (id.includes('/data/')) {
-            return 'data';
+            return 'data-other';
           }
         },
         // Optimize chunk file names

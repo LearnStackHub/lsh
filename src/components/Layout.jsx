@@ -26,11 +26,30 @@ function Layout() {
   const [courseStructure, setCourseStructure] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Lazy load data to avoid blocking initial render
+  // Load only course structure metadata first, not all topics
   useEffect(() => {
-    import('../data').then(({ courseStructure: cs, getAllTopics }) => {
-      setCourseStructure(cs);
-      window.__getAllTopics = getAllTopics; // Store for later use
+    import('../data').then((module) => {
+      // Create minimal structure with just metadata
+      const minimalStructure = {};
+      Object.keys(module.courseStructure).forEach(key => {
+        minimalStructure[key] = {
+          title: module.courseStructure[key].title,
+          icon: module.courseStructure[key].icon,
+          color: module.courseStructure[key].color,
+          sections: {}
+        };
+        // Only load first topic of each section for navigation
+        Object.keys(module.courseStructure[key].sections).forEach(sectionKey => {
+          const section = module.courseStructure[key].sections[sectionKey];
+          minimalStructure[key].sections[sectionKey] = {
+            title: section.title,
+            topics: section.topics.map(t => ({ id: t.id, title: t.title })) // Only metadata
+          };
+        });
+      });
+      setCourseStructure(minimalStructure);
+      window.__getAllTopics = module.getAllTopics;
+      window.__fullCourseStructure = module.courseStructure;
       setDataLoaded(true);
     });
   }, []);
