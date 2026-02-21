@@ -252,7 +252,7 @@ function Layout() {
                 <span className="main-topic-name">{course.title}</span>
               </Link>
             );
-          })}
+          }) : null}
         </div>
       </nav>
 

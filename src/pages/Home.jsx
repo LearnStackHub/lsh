@@ -169,7 +169,7 @@ function Home() {
                 </div>
               </Link>
             );
-          })}
+          }) : null}
         </div>
       </section>
 

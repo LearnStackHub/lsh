@@ -43,15 +43,13 @@ export default defineConfig({
     // Minification
     minify: 'esbuild',
     // Chunk size warning limit
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 600,
     // Enable CSS code splitting
     cssCodeSplit: true,
     // Target modern browsers for smaller bundle
     target: 'es2015',
     // Enable compression
-    reportCompressedSize: true,
-    // Reduce chunk size
-    chunkSizeWarningLimit: 600
+    reportCompressedSize: true
   },
   // Optimize dependencies
   optimizeDeps: {
