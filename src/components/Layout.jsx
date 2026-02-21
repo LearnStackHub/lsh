@@ -124,24 +124,6 @@ function Layout() {
   };
 
   const courseTopics = getCurrentCourseTopics();
-  
-  // Show loading state if data not loaded yet
-  if (!dataLoaded || !courseStructure) {
-    return (
-      <div className="app-layout">
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          minHeight: '100vh',
-          fontSize: '18px',
-          color: 'var(--text-secondary)'
-        }}>
-          Loading...
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="app-layout">
@@ -254,7 +236,7 @@ function Layout() {
       {/* Main Topics Navigation Bar - Shows main courses */}
       <nav className="main-topics-nav-bar">
         <div className="main-topics-container">
-          {courseStructure && Object.entries(courseStructure).map(([courseKey, course]) => {
+          {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => {
             const firstTopic = Object.values(course.sections)[0]?.topics[0];
             return (
               <Link

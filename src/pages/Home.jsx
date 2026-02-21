@@ -9,14 +9,23 @@ function Home() {
   const [totalTopics, setTotalTopics] = useState(0);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Lazy load data to avoid blocking initial render
+  // Load data immediately but asynchronously to not block render
   useEffect(() => {
-    import('../data').then(({ courseStructure: cs, getAllTopics }) => {
-      setCourseStructure(cs);
-      const allTopics = getAllTopics();
-      setTotalTopics(allTopics.length);
-      setDataLoaded(true);
-    });
+    // Use requestIdleCallback if available, otherwise setTimeout
+    const loadData = () => {
+      import('../data').then(({ courseStructure: cs, getAllTopics }) => {
+        setCourseStructure(cs);
+        const allTopics = getAllTopics();
+        setTotalTopics(allTopics.length);
+        setDataLoaded(true);
+      });
+    };
+    
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadData, { timeout: 2000 });
+    } else {
+      setTimeout(loadData, 0);
+    }
   }, []);
 
   const features = [
@@ -53,26 +62,7 @@ function Home() {
     maven: 'Master Maven build automation - dependencies, plugins, multi-module projects, Spring Boot integration & more'
   };
 
-  if (!dataLoaded || !courseStructure) {
-    return (
-      <div className="home-page">
-        <SEOHead 
-          title="Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub"
-          description="Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers."
-        />
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          minHeight: '50vh',
-          fontSize: '18px',
-          color: 'var(--text-secondary)'
-        }}>
-          Loading...
-        </div>
-      </div>
-    );
-  }
+  // Show content immediately, data will load in background
 
   return (
     <div className="home-page">
@@ -146,7 +136,7 @@ function Home() {
         </div>
 
         <div className="courses-grid">
-          {Object.entries(courseStructure).map(([courseKey, course]) => {
+          {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => {
             const topicCount = Object.values(course.sections).reduce(
               (acc, section) => acc + section.topics.length, 0
             );
@@ -189,7 +179,7 @@ function Home() {
           <h2 className="section-title-main">📋 What You'll Learn</h2>
         </div>
 
-        {Object.entries(courseStructure).map(([courseKey, course]) => (
+        {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => (
           <div key={courseKey} className="course-module">
             <div className="course-module-header">
               <span className="module-icon">{course.icon}</span>
@@ -217,7 +207,7 @@ function Home() {
               ))}
             </div>
           </div>
-        ))}
+        )) : null}
       </section>
 
       {/* Features Section */}
