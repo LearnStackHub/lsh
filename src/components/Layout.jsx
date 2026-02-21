@@ -119,12 +119,21 @@ function Layout() {
           <button 
             className="mobile-menu-btn"
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label={sidebarOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={sidebarOpen}
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           
           <Link to="/" className="logo">
-            <img src={logoImage} alt="LearnStackHub Logo" className="logo-image" />
+            <img 
+              src={logoImage} 
+              alt="LearnStackHub Logo" 
+              className="logo-image"
+              fetchPriority="high"
+              width="40"
+              height="40"
+            />
             <span>LearnStackHub</span>
           </Link>
         </div>
@@ -173,6 +182,8 @@ function Layout() {
               <button 
                 className="user-menu-btn"
                 onClick={() => setShowUserMenu(!showUserMenu)}
+                aria-label={`User menu for ${user?.name}`}
+                aria-expanded={showUserMenu}
               >
                 <div className="user-avatar">
                   {user?.name?.charAt(0).toUpperCase()}
@@ -188,11 +199,11 @@ function Layout() {
                     <span>{user?.email}</span>
                   </div>
                   <div className="user-dropdown-divider" />
-                  <button onClick={handleAddClick}>
+                  <button onClick={handleAddClick} aria-label="Add new tutorial">
                     <Plus size={16} />
                     Add Tutorial
                   </button>
-                  <button onClick={() => { logout(); setShowUserMenu(false); }}>
+                  <button onClick={() => { logout(); setShowUserMenu(false); }} aria-label="Sign out">
                     <LogOut size={16} />
                     Sign Out
                   </button>
@@ -200,7 +211,7 @@ function Layout() {
               )}
             </div>
           ) : (
-            <button className="login-btn" onClick={openLoginModal}>
+            <button className="login-btn" onClick={openLoginModal} aria-label="Sign in to your account">
               <User size={18} />
               <span>Sign In</span>
             </button>
