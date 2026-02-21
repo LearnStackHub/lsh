@@ -34,8 +34,6 @@ export function ImageGif({ src, alt, caption, type = 'image', width, height }) {
               alt={alt || 'Animated GIF'}
               className="gif-image"
               onLoad={handleImageLoad}
-              loading="lazy"
-              decoding="async"
               style={{ width, height }}
             />
           ) : (
@@ -44,8 +42,6 @@ export function ImageGif({ src, alt, caption, type = 'image', width, height }) {
               alt={alt || 'Image'}
               className="static-image"
               onLoad={handleImageLoad}
-              loading="lazy"
-              decoding="async"
               style={{ width, height }}
             />
           )}
@@ -96,7 +92,7 @@ export function ImageCard3D({ src, alt, title, description, rotation = 0 }) {
     <div className="image-card-3d" style={{ '--rotation': `${rotation}deg` }}>
       <div className="card-3d-inner">
         <div className="card-3d-front">
-          <img src={src} alt={alt} loading="lazy" decoding="async" />
+          <img src={src} alt={alt} />
           {title && <div className="card-3d-title">{title}</div>}
         </div>
         <div className="card-3d-back">

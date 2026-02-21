@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Shield, Lock, Eye, FileText, Cookie } from 'lucide-react';
-import SEOHead from '../components/SEOHead';
 
 function PrivacyPolicy() {
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
-      <SEOHead 
-        title="Privacy Policy - LearnStackHub | Data Protection & Privacy"
-        description="LearnStackHub Privacy Policy - Learn how we collect, use, and protect your personal information. Our commitment to data protection and user privacy."
-      />
       <h1 className="tutorial-title">Privacy Policy</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
         Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

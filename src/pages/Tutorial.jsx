@@ -346,7 +346,7 @@ function Tutorial() {
       <StructuredData topicId={topicId} type="Article" />
       {/* Breadcrumb */}
       <div className="tutorial-breadcrumb">
-        <Link to="/" aria-label="Go to homepage">Home</Link>
+        <Link to="/">Home</Link>
         <ChevronRight size={14} />
         <span>{currentTopic.courseTitle || 'Core Java'}</span>
         <ChevronRight size={14} />
@@ -492,7 +492,7 @@ function Tutorial() {
           <h2>Practice Questions</h2>
           {currentTopic.practiceQuestions.map((q, index) => (
             <div key={index} className="practice-question">
-              <h3>Question {index + 1}: {q.question}</h3>
+              <h4>Question {index + 1}: {q.question}</h4>
               <p className="hint"><strong>Hint:</strong> {q.hint}</p>
               {q.starterCode && (
                 <div className="starter-code">

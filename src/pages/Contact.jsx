@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Send, Loader2, AlertCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
+import { Mail, MessageSquare, Send, Github, Linkedin, Twitter } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
-import { emailjsConfig } from '../config/emailjs';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -13,56 +11,16 @@ function Contact() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      // Check if EmailJS is configured
-      if (
-        emailjsConfig.serviceId === 'YOUR_SERVICE_ID' ||
-        emailjsConfig.templateId === 'YOUR_TEMPLATE_ID' ||
-        emailjsConfig.publicKey === 'YOUR_PUBLIC_KEY'
-      ) {
-        throw new Error('EmailJS is not configured. Please set up your EmailJS credentials in src/config/emailjs.js');
-      }
-
-      // Initialize EmailJS with public key
-      emailjs.init(emailjsConfig.publicKey);
-
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          to_email: 'dattudattakumar369@gmail.com', // Your email address
-        }
-      );
-
-      if (response.status === 200) {
-        setSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => {
-          setSubmitted(false);
-        }, 5000);
-      }
-    } catch (err) {
-      console.error('EmailJS Error:', err);
-      setError(
-        err.message || 
-        'Failed to send message. Please try again later or contact us directly at dattudattakumar369@gmail.com'
-      );
-    } finally {
-      setLoading(false);
-    }
+    // In a real application, you would send this to a backend
+    console.log('Form submitted:', formData);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }, 3000);
   };
 
   const handleChange = (e) => {
@@ -112,6 +70,27 @@ function Contact() {
               We typically respond within 24-48 hours during business days.
             </p>
           </div>
+
+          <div>
+            <h3 style={{ marginBottom: '1rem' }}>Follow Us</h3>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <a 
+                href="https://github.com/Dattakumar369/learnstackhub" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: 'var(--accent-primary)',
+                  textDecoration: 'none'
+                }}
+              >
+                <Github size={20} />
+                GitHub
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Contact Form */}
@@ -133,100 +112,64 @@ function Contact() {
               </p>
             </div>
           ) : (
-            <>
-              {error && (
-                <div style={{
-                  background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
-                  border: '2px solid #ef4444',
-                  borderRadius: '12px',
-                  padding: '1rem',
-                  marginBottom: '1.5rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem'
-                }}>
-                  <AlertCircle size={20} style={{ color: '#dc2626', flexShrink: 0 }} />
-                  <p style={{ color: '#991b1b', margin: 0, fontSize: '0.9rem' }}>{error}</p>
-                </div>
-              )}
-              
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-group">
-                  <label htmlFor="name">Name *</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="Your name"
-                    disabled={loading}
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-group">
+                <label htmlFor="name">Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Your name"
+                />
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email *</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="your.email@example.com"
-                    disabled={loading}
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="email">Email *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="your.email@example.com"
+                />
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="subject">Subject *</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    placeholder="What is this regarding?"
-                    disabled={loading}
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="subject">Subject *</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  placeholder="What is this regarding?"
+                />
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="message">Message *</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="6"
-                    placeholder="Tell us what's on your mind..."
-                    disabled={loading}
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="6"
+                  placeholder="Tell us what's on your mind..."
+                />
+              </div>
 
-                <button 
-                  type="submit" 
-                  className="btn btn-primary" 
-                  style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            </>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+                <Send size={18} />
+                Send Message
+              </button>
+            </form>
           )}
         </div>
       </div>

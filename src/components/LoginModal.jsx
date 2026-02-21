@@ -32,7 +32,7 @@ function LoginModal() {
   return (
     <div className="modal-overlay" onClick={closeLoginModal}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={closeLoginModal} aria-label="Close login modal">
+        <button className="modal-close" onClick={closeLoginModal}>
           <X size={20} />
         </button>
 

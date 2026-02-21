@@ -92,9 +92,6 @@ import threadCreation from './corejava/multithreading/ThreadCreation';
 import threadLifecycle from './corejava/multithreading/ThreadLifecycle';
 import threadMethods from './corejava/multithreading/ThreadMethods';
 
-// Core Java - Interview Questions
-import javaInterviewQuestions from './corejava/interview/JavaInterviewQuestions';
-
 // MySQL
 import mysqlIntroduction from './mysql/MySQLIntroduction';
 import mysqlInstallation from './mysql/MySQLInstallation';
@@ -382,12 +379,6 @@ export const courseStructure = {
           threadCreation,
           threadLifecycle,
           threadMethods
-        ]
-      },
-      interview: {
-        title: "Interview Questions",
-        topics: [
-          javaInterviewQuestions
         ]
       }
     }

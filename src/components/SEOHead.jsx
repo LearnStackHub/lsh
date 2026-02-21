@@ -8,40 +8,10 @@ function SEOHead({ title, description, keywords, topicId }) {
   const baseUrl = 'https://learnstackhub.com';
   
   useEffect(() => {
-    // Update title immediately (synchronous) before any async operations
-    const updateTitleImmediately = (newTitle) => {
-      if (document) {
-        document.title = newTitle;
-        let titleTag = document.querySelector('title');
-        if (titleTag) {
-          titleTag.textContent = newTitle;
-        }
-      }
-    };
-
-    // Route-based title mapping for static pages
-    const routeTitles = {
-      '/': 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub',
-      '/about': 'About Us - LearnStackHub | Free Java Full Stack Learning Platform',
-      '/contact': 'Contact Us - LearnStackHub | Get in Touch',
-      '/privacy': 'Privacy Policy - LearnStackHub | Data Protection & Privacy',
-      '/terms': 'Terms of Service - LearnStackHub | Terms & Conditions',
-      '/sitemap': 'Sitemap - LearnStackHub | All Tutorials & Pages'
-    };
-
-    const routeDescriptions = {
-      '/': 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.',
-      '/about': 'Learn about LearnStackHub - a free platform for learning Java Full Stack Development with interactive tutorials and live code execution. Our mission, features, and commitment to free education.',
-      '/contact': 'Get in touch with LearnStackHub. Have questions, suggestions, or feedback? Contact us for support, contributions, or general inquiries about our Java tutorials.',
-      '/privacy': 'LearnStackHub Privacy Policy - Learn how we collect, use, and protect your personal information. Our commitment to data protection and user privacy.',
-      '/terms': 'LearnStackHub Terms of Service - Read our terms and conditions, disclaimer, and usage guidelines for using our free Java learning platform.',
-      '/sitemap': 'Complete sitemap of LearnStackHub - Browse all Java tutorials, courses, and pages. Find Core Java, JDBC, Servlets, JSP, Hibernate, and MySQL tutorials.'
-    };
-
     // Get topic data if topicId is provided
-    let pageTitle = title;
-    let pageDescription = description;
-    let pageKeywords = keywords;
+    let pageTitle = title || 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub';
+    let pageDescription = description || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
+    let pageKeywords = keywords || 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
     let pageUrl = baseUrl + location.pathname;
     let pageImage = baseUrl + '/LSH.png';
 
@@ -52,28 +22,11 @@ function SEOHead({ title, description, keywords, topicId }) {
         pageTitle = generateSEOTitle(topic);
         pageDescription = description || generateSEODescription(topic);
         pageKeywords = keywords || generateSEOKeywords(topic);
-      } else {
-        // Topic not found - generate title from URL
-        const topicName = topicId.split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ');
-        pageTitle = `${topicName} Tutorial - LearnStackHub`;
-        pageDescription = description || `Learn ${topicName} with step-by-step tutorials and code examples. Complete guide for beginners and advanced developers.`;
       }
-    } else if (!title) {
-      // Use route-based title if no title provided
-      pageTitle = routeTitles[location.pathname] || 'LearnStackHub - Master Java Full Stack Development';
-      pageDescription = routeDescriptions[location.pathname] || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
-      pageKeywords = 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
     }
 
-    // Ensure pageTitle is never undefined or empty
-    if (!pageTitle || pageTitle.trim() === '') {
-      pageTitle = 'LearnStackHub - Master Java Full Stack Development';
-    }
-
-    // Update title immediately (synchronous update)
-    updateTitleImmediately(pageTitle);
+    // Update document title
+    document.title = pageTitle;
 
     // Update or create meta tags
     const updateMetaTag = (name, content, isProperty = false) => {
@@ -87,15 +40,9 @@ function SEOHead({ title, description, keywords, topicId }) {
       meta.setAttribute('content', content);
     };
 
-    // Standard meta tags - Update description and keywords
+    // Standard meta tags
     updateMetaTag('description', pageDescription);
     updateMetaTag('keywords', pageKeywords);
-    
-    // Also update the meta description tag directly (in case it exists in index.html)
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', pageDescription);
-    }
     
     // Open Graph tags
     updateMetaTag('og:title', pageTitle, true);
@@ -111,16 +58,14 @@ function SEOHead({ title, description, keywords, topicId }) {
     updateMetaTag('twitter:description', pageDescription);
     updateMetaTag('twitter:image', pageImage);
     
-    // Canonical URL - Always update to current page URL
-    // Remove any existing canonical links first to avoid duplicates
-    const existingCanonicals = document.querySelectorAll('link[rel="canonical"]');
-    existingCanonicals.forEach(link => link.remove());
-    
-    // Create new canonical link with current page URL
-    const canonical = document.createElement('link');
-    canonical.setAttribute('rel', 'canonical');
+    // Canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
     canonical.setAttribute('href', pageUrl);
-    document.head.appendChild(canonical);
 
   }, [location.pathname, title, description, keywords, topicId]);
 

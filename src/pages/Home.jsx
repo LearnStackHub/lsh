@@ -7,36 +7,24 @@ import StructuredData from '../components/StructuredData';
 function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
   const [totalTopics, setTotalTopics] = useState(0);
-  const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Load only course structure metadata first
+  // Lazy load data after initial render to prevent blocking
   useEffect(() => {
-    import('../data').then((module) => {
-      // Create minimal structure for display
-      const minimalStructure = {};
-      let totalCount = 0;
-      Object.keys(module.courseStructure).forEach(key => {
-        minimalStructure[key] = {
-          title: module.courseStructure[key].title,
-          icon: module.courseStructure[key].icon,
-          color: module.courseStructure[key].color,
-          sections: {}
-        };
-        Object.keys(module.courseStructure[key].sections).forEach(sectionKey => {
-          const section = module.courseStructure[key].sections[sectionKey];
-          totalCount += section.topics.length;
-          minimalStructure[key].sections[sectionKey] = {
-            title: section.title,
-            topics: section.topics.map(t => ({ id: t.id, title: t.title }))
-          };
-        });
+    // Use requestIdleCallback or setTimeout to defer data loading
+    const loadData = () => {
+      import('../data').then((module) => {
+        setCourseStructure(module.courseStructure);
+        const allTopics = module.getAllTopics();
+        setTotalTopics(allTopics.length);
       });
-      setCourseStructure(minimalStructure);
-      setTotalTopics(totalCount);
-      setDataLoaded(true);
-    });
+    };
+    
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadData, { timeout: 100 });
+    } else {
+      setTimeout(loadData, 0);
+    }
   }, []);
-
   const features = [
     {
       icon: <BookOpen size={28} />,
@@ -60,6 +48,7 @@ function Home() {
     }
   ];
 
+
   const courseDescriptions = {
     corejava: 'Master the fundamentals - variables, OOP, collections, multithreading & more',
     mysql: 'Learn MySQL database - DDL, DML, DQL, joins, stored procedures, triggers & more',
@@ -71,14 +60,9 @@ function Home() {
     maven: 'Master Maven build automation - dependencies, plugins, multi-module projects, Spring Boot integration & more'
   };
 
-  // Show content immediately, data will load in background
-
   return (
     <div className="home-page">
-      <SEOHead 
-        title="Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub"
-        description="Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers."
-      />
+      <SEOHead />
       <StructuredData type="WebSite" />
       {/* Hero Section */}
       <section className="hero-section fade-in">
@@ -177,7 +161,7 @@ function Home() {
                   </span>
                 </div>
               </Link>
-            );
+              );
           }) : null}
         </div>
       </section>
@@ -215,9 +199,9 @@ function Home() {
                 </Link>
               ))}
             </div>
-          </div>
-        )) : null}
-      </section>
+            </div>
+          )) : null}
+        </section>
 
       {/* Features Section */}
       <section className="features-section">

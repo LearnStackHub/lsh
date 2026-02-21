@@ -110,7 +110,7 @@ function ContributeModal({ isOpen, onClose, mode = 'add', existingTopic = null }
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content contribute-modal" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close contribute modal">
+        <button className="modal-close" onClick={onClose}>
           <X size={20} />
         </button>
 

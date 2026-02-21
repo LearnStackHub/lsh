@@ -3,13 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Title and meta tags are updated dynamically by SEOHead component for each page -->
-    <title>LearnStackHub - Loading...</title>
-    <meta name="description" content="LearnStackHub - Java Full Stack Development Tutorials" />
-    <meta name="keywords" content="learn java, java tutorial, java full stack" />
+    <title>Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub</title>
+    <meta name="description" content="Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers." />
+    <meta name="keywords" content="learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices" />
     <meta name="author" content="LearnStackHub" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <!-- Canonical URL is set dynamically by SEOHead component for each page -->
+    <link rel="canonical" href="https://learnstackhub.com/" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -30,30 +29,22 @@
     <link rel="icon" type="image/png" href="/LSH.png" />
     <link rel="apple-touch-icon" href="/LSH.png" />
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/LSH.png" as="image" type="image/png" />
+    <!-- Preload critical logo image for LCP -->
+    <link rel="preload" href="/LSH.png" as="image" type="image/png" fetchpriority="high" />
     
-    <!-- Google Fonts - Load asynchronously to avoid blocking -->
+    <!-- Google Fonts - Load asynchronously -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     
-    <!-- Resource Hints for Performance - Reduced to avoid warning -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-    
-    <!-- Security Headers (Note: X-Frame-Options must be set via HTTP headers, not meta tags) -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-    
-    <!-- Google AdSense - Defer loading to improve initial page load -->
+    <!-- Google AdSense - Defer to improve initial load -->
     <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176490979231754"
-     crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script>
     
-    <!-- Google tag (gtag.js) - Load after page render for better performance -->
+    <!-- Google Analytics - Load after page render -->
     <script>
-      // Load analytics after page load
+      // Defer analytics loading
       window.addEventListener('load', function() {
         setTimeout(function() {
           var script = document.createElement('script');

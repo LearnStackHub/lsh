@@ -26,32 +26,21 @@ function Layout() {
   const [courseStructure, setCourseStructure] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Load only course structure metadata first, not all topics
+  // Lazy load data after initial render
   useEffect(() => {
-    import('../data').then((module) => {
-      // Create minimal structure with just metadata
-      const minimalStructure = {};
-      Object.keys(module.courseStructure).forEach(key => {
-        minimalStructure[key] = {
-          title: module.courseStructure[key].title,
-          icon: module.courseStructure[key].icon,
-          color: module.courseStructure[key].color,
-          sections: {}
-        };
-        // Only load first topic of each section for navigation
-        Object.keys(module.courseStructure[key].sections).forEach(sectionKey => {
-          const section = module.courseStructure[key].sections[sectionKey];
-          minimalStructure[key].sections[sectionKey] = {
-            title: section.title,
-            topics: section.topics.map(t => ({ id: t.id, title: t.title })) // Only metadata
-          };
-        });
+    const loadData = () => {
+      import('../data').then((module) => {
+        setCourseStructure(module.courseStructure);
+        window.__getAllTopics = module.getAllTopics;
+        setDataLoaded(true);
       });
-      setCourseStructure(minimalStructure);
-      window.__getAllTopics = module.getAllTopics;
-      window.__fullCourseStructure = module.courseStructure;
-      setDataLoaded(true);
-    });
+    };
+    
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadData, { timeout: 100 });
+    } else {
+      setTimeout(loadData, 0);
+    }
   }, []);
 
   // Auto-detect active course based on current topic
@@ -68,26 +57,26 @@ function Layout() {
 
   // Filter topics based on search
   useEffect(() => {
-    if (!dataLoaded || !searchQuery.trim()) {
+    if (!dataLoaded) return;
+    if (searchQuery.trim()) {
+      const allTopics = window.__getAllTopics();
+      const filtered = allTopics.filter(topic => 
+        topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        topic.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredTopics(filtered);
+      
+      // Track search in Google Analytics (debounced)
+      const timeoutId = setTimeout(() => {
+        if (searchQuery.trim().length >= 3) {
+          trackSearch(searchQuery.trim());
+        }
+      }, 1000);
+      
+      return () => clearTimeout(timeoutId);
+    } else {
       setFilteredTopics([]);
-      return;
     }
-    
-    const allTopics = window.__getAllTopics();
-    const filtered = allTopics.filter(topic => 
-      topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      topic.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredTopics(filtered);
-    
-    // Track search in Google Analytics (debounced)
-    const timeoutId = setTimeout(() => {
-      if (searchQuery.trim().length >= 3) {
-        trackSearch(searchQuery.trim());
-      }
-    }, 1000);
-    
-    return () => clearTimeout(timeoutId);
   }, [searchQuery, dataLoaded]);
 
   const isTopicActive = (topicId) => {
@@ -109,14 +98,12 @@ function Layout() {
     setSearchQuery('');
     
     // Navigate to the first topic of the selected course
-    if (courseStructure) {
-      const course = courseStructure[courseKey];
-      if (course) {
-        const firstSection = Object.values(course.sections)[0];
-        if (firstSection && firstSection.topics.length > 0) {
-          const firstTopic = firstSection.topics[0];
-          navigate(`/tutorial/${firstTopic.id}`);
-        }
+    const course = courseStructure[courseKey];
+    if (course) {
+      const firstSection = Object.values(course.sections)[0];
+      if (firstSection && firstSection.topics.length > 0) {
+        const firstTopic = firstSection.topics[0];
+        navigate(`/tutorial/${firstTopic.id}`);
       }
     }
   };
@@ -152,8 +139,6 @@ function Layout() {
           <button 
             className="mobile-menu-btn"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label={sidebarOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={sidebarOpen}
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -163,6 +148,7 @@ function Layout() {
               src={logoImage} 
               alt="LearnStackHub Logo" 
               className="logo-image"
+              loading="eager"
               fetchPriority="high"
               width="40"
               height="40"
@@ -215,8 +201,6 @@ function Layout() {
               <button 
                 className="user-menu-btn"
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                aria-label={`User menu for ${user?.name}`}
-                aria-expanded={showUserMenu}
               >
                 <div className="user-avatar">
                   {user?.name?.charAt(0).toUpperCase()}
@@ -232,11 +216,11 @@ function Layout() {
                     <span>{user?.email}</span>
                   </div>
                   <div className="user-dropdown-divider" />
-                  <button onClick={handleAddClick} aria-label="Add new tutorial">
+                  <button onClick={handleAddClick}>
                     <Plus size={16} />
                     Add Tutorial
                   </button>
-                  <button onClick={() => { logout(); setShowUserMenu(false); }} aria-label="Sign out">
+                  <button onClick={() => { logout(); setShowUserMenu(false); }}>
                     <LogOut size={16} />
                     Sign Out
                   </button>
@@ -244,7 +228,7 @@ function Layout() {
               )}
             </div>
           ) : (
-            <button className="login-btn" onClick={openLoginModal} aria-label="Sign in to your account">
+            <button className="login-btn" onClick={openLoginModal}>
               <User size={18} />
               <span>Sign In</span>
             </button>

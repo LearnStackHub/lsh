@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Scale, AlertTriangle, Book, Code, Shield } from 'lucide-react';
-import SEOHead from '../components/SEOHead';
 
 function Terms() {
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
-      <SEOHead 
-        title="Terms of Service - LearnStackHub | Terms & Conditions"
-        description="LearnStackHub Terms of Service - Read our terms and conditions, disclaimer, and usage guidelines for using our free Java learning platform."
-      />
       <h1 className="tutorial-title">Terms of Service & Disclaimer</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
         Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

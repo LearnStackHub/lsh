@@ -3,10 +3,12 @@ import { useEffect, lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ContributionProvider } from './context/ContributionContext';
 import Layout from './components/Layout';
+import Home from './pages/Home';
+import { initGA } from './config/analytics';
+import { usePageTracking } from './hooks/usePageTracking';
 import './App.css';
 
-// Lazy load route components for better performance
-const Home = lazy(() => import('./pages/Home'));
+// Lazy load all routes except Home (critical above-the-fold)
 const Tutorial = lazy(() => import('./pages/Tutorial'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Terms = lazy(() => import('./pages/Terms'));
@@ -14,33 +16,8 @@ const Contact = lazy(() => import('./pages/Contact'));
 const About = lazy(() => import('./pages/About'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
 
-// Load analytics after initial render
-let analyticsLoaded = false;
-const loadAnalytics = () => {
-  if (!analyticsLoaded && typeof window !== 'undefined') {
-    import('./config/analytics').then(({ initGA }) => {
-      initGA();
-      analyticsLoaded = true;
-    });
-    import('./hooks/usePageTracking').then(({ usePageTracking }) => {
-      // This will be handled by the component
-    });
-  }
-};
-
-// Loading fallback component
-const LoadingFallback = () => (
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    minHeight: '100vh',
-    fontSize: '18px',
-    color: 'var(--text-secondary)'
-  }}>
-    Loading...
-  </div>
-);
+// Minimal loading fallback
+const LoadingFallback = () => null;
 
 // URL redirects mapping for old incorrect URLs to correct ones
 const urlRedirects = {
@@ -52,14 +29,13 @@ const urlRedirects = {
 
 // Component to initialize GA and track routes
 function AppWithTracking() {
-  // Load analytics after initial render to improve performance
+  // Initialize Google Analytics on mount
   useEffect(() => {
-    // Delay analytics loading to not block initial render
-    const timer = setTimeout(() => {
-      loadAnalytics();
-    }, 2000); // Increased delay for better performance
-    return () => clearTimeout(timer);
+    initGA();
   }, []);
+
+  // Track page views on route changes
+  usePageTracking();
 
   return (
     <Suspense fallback={<LoadingFallback />}>

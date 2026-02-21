@@ -6,9 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/', // Custom domain - no base path needed
   build: {
-    // Enable source maps for debugging (can be disabled in production)
-    sourcemap: false, // Set to true for debugging, false for production
-    // Optimize chunk splitting
+    sourcemap: false,
+    // Aggressive code splitting
     rollupOptions: {
       output: {
         manualChunks: (id) => {
@@ -26,10 +25,9 @@ export default defineConfig({
             if (id.includes('lucide-react')) {
               return 'icons';
             }
-            // Other node_modules
             return 'vendor';
           }
-          // Split data files by course for better code splitting
+          // Split data files by course - CRITICAL for performance
           if (id.includes('/data/corejava/')) {
             return 'data-corejava';
           }
@@ -63,29 +61,21 @@ export default defineConfig({
           if (id.includes('/data/spring/')) {
             return 'data-spring';
           }
-          // Other data files
           if (id.includes('/data/')) {
             return 'data-other';
           }
         },
-        // Optimize chunk file names
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
       }
     },
-    // Minification
     minify: 'esbuild',
-    // Chunk size warning limit
     chunkSizeWarningLimit: 600,
-    // Enable CSS code splitting
     cssCodeSplit: true,
-    // Target modern browsers for smaller bundle
     target: 'es2015',
-    // Enable compression
     reportCompressedSize: true
   },
-  // Optimize dependencies
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom']
   }
