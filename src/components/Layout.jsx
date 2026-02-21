@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, Menu, X, ChevronDown, Plus, User, LogOut, BookOpen } from 'lucide-react';
-import { courseStructure, getAllTopics } from '../data';
 import { useAuth } from '../context/AuthContext';
 import { useContributions } from '../context/ContributionContext';
 import LoginModal from './LoginModal';
@@ -24,40 +23,53 @@ function Layout() {
 
   const { user, isLoggedIn, openLoginModal, logout } = useAuth();
   const { getAllContributions } = useContributions();
+  const [courseStructure, setCourseStructure] = useState(null);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Lazy load data to avoid blocking initial render
+  useEffect(() => {
+    import('../data').then(({ courseStructure: cs, getAllTopics }) => {
+      setCourseStructure(cs);
+      window.__getAllTopics = getAllTopics; // Store for later use
+      setDataLoaded(true);
+    });
+  }, []);
 
   // Auto-detect active course based on current topic
   useEffect(() => {
+    if (!dataLoaded) return;
     const currentPath = location.pathname;
-    const allTopics = getAllTopics();
+    const allTopics = window.__getAllTopics();
     const currentTopic = allTopics.find(t => currentPath.includes(t.id));
     
     if (currentTopic) {
       setActiveCourse(currentTopic.courseKey);
     }
-  }, [location.pathname]);
+  }, [location.pathname, dataLoaded]);
 
   // Filter topics based on search
   useEffect(() => {
-    if (searchQuery.trim()) {
-      const allTopics = getAllTopics();
-      const filtered = allTopics.filter(topic => 
-        topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        topic.description?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredTopics(filtered);
-      
-      // Track search in Google Analytics (debounced)
-      const timeoutId = setTimeout(() => {
-        if (searchQuery.trim().length >= 3) {
-          trackSearch(searchQuery.trim());
-        }
-      }, 1000);
-      
-      return () => clearTimeout(timeoutId);
-    } else {
+    if (!dataLoaded || !searchQuery.trim()) {
       setFilteredTopics([]);
+      return;
     }
-  }, [searchQuery]);
+    
+    const allTopics = window.__getAllTopics();
+    const filtered = allTopics.filter(topic => 
+      topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      topic.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredTopics(filtered);
+    
+    // Track search in Google Analytics (debounced)
+    const timeoutId = setTimeout(() => {
+      if (searchQuery.trim().length >= 3) {
+        trackSearch(searchQuery.trim());
+      }
+    }, 1000);
+    
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, dataLoaded]);
 
   const isTopicActive = (topicId) => {
     return location.pathname.includes(topicId);
@@ -78,12 +90,14 @@ function Layout() {
     setSearchQuery('');
     
     // Navigate to the first topic of the selected course
-    const course = courseStructure[courseKey];
-    if (course) {
-      const firstSection = Object.values(course.sections)[0];
-      if (firstSection && firstSection.topics.length > 0) {
-        const firstTopic = firstSection.topics[0];
-        navigate(`/tutorial/${firstTopic.id}`);
+    if (courseStructure) {
+      const course = courseStructure[courseKey];
+      if (course) {
+        const firstSection = Object.values(course.sections)[0];
+        if (firstSection && firstSection.topics.length > 0) {
+          const firstTopic = firstSection.topics[0];
+          navigate(`/tutorial/${firstTopic.id}`);
+        }
       }
     }
   };
@@ -92,7 +106,7 @@ function Layout() {
   const userContributions = getAllContributions();
 
   // Get the active course data
-  const currentCourse = courseStructure[activeCourse];
+  const currentCourse = courseStructure?.[activeCourse];
 
   // Get all topics for current course (flat list like W3Schools)
   const getCurrentCourseTopics = () => {
@@ -110,6 +124,24 @@ function Layout() {
   };
 
   const courseTopics = getCurrentCourseTopics();
+  
+  // Show loading state if data not loaded yet
+  if (!dataLoaded || !courseStructure) {
+    return (
+      <div className="app-layout">
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          fontSize: '18px',
+          color: 'var(--text-secondary)'
+        }}>
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-layout">
@@ -222,7 +254,7 @@ function Layout() {
       {/* Main Topics Navigation Bar - Shows main courses */}
       <nav className="main-topics-nav-bar">
         <div className="main-topics-container">
-          {Object.entries(courseStructure).map(([courseKey, course]) => {
+          {courseStructure && Object.entries(courseStructure).map(([courseKey, course]) => {
             const firstTopic = Object.values(course.sections)[0]?.topics[0];
             return (
               <Link

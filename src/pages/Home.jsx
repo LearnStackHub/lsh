@@ -1,10 +1,24 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { BookOpen, Code, Play, Zap, ArrowRight, Clock, FileText, Users, Award, Rocket, Target, CheckCircle } from 'lucide-react';
-import { courseStructure, getAllTopics } from '../data';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 
 function Home() {
+  const [courseStructure, setCourseStructure] = useState(null);
+  const [totalTopics, setTotalTopics] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Lazy load data to avoid blocking initial render
+  useEffect(() => {
+    import('../data').then(({ courseStructure: cs, getAllTopics }) => {
+      setCourseStructure(cs);
+      const allTopics = getAllTopics();
+      setTotalTopics(allTopics.length);
+      setDataLoaded(true);
+    });
+  }, []);
+
   const features = [
     {
       icon: <BookOpen size={28} />,
@@ -28,9 +42,6 @@ function Home() {
     }
   ];
 
-  const allTopics = getAllTopics();
-  const totalTopics = allTopics.length;
-
   const courseDescriptions = {
     corejava: 'Master the fundamentals - variables, OOP, collections, multithreading & more',
     mysql: 'Learn MySQL database - DDL, DML, DQL, joins, stored procedures, triggers & more',
@@ -41,6 +52,27 @@ function Home() {
     git: 'Learn Git version control and GitHub collaboration - branches, commits, pull requests & workflows',
     maven: 'Master Maven build automation - dependencies, plugins, multi-module projects, Spring Boot integration & more'
   };
+
+  if (!dataLoaded || !courseStructure) {
+    return (
+      <div className="home-page">
+        <SEOHead 
+          title="Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub"
+          description="Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers."
+        />
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '50vh',
+          fontSize: '18px',
+          color: 'var(--text-secondary)'
+        }}>
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="home-page">
