@@ -8,9 +8,8 @@ function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
   const [totalTopics, setTotalTopics] = useState(0);
 
-  // Lazy load data after initial render to prevent blocking
+  // Lazy load data after initial render - delay to reduce TBT
   useEffect(() => {
-    // Use requestIdleCallback or setTimeout to defer data loading
     const loadData = () => {
       import('../data').then((module) => {
         setCourseStructure(module.courseStructure);
@@ -19,10 +18,11 @@ function Home() {
       });
     };
     
+    // Delay data loading to reduce TBT - load after critical render
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadData, { timeout: 100 });
+      requestIdleCallback(loadData, { timeout: 500 });
     } else {
-      setTimeout(loadData, 0);
+      setTimeout(loadData, 200);
     }
   }, []);
   const features = [

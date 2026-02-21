@@ -26,7 +26,7 @@ function Layout() {
   const [courseStructure, setCourseStructure] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Lazy load data after initial render
+  // Lazy load data after initial render - delay to reduce TBT
   useEffect(() => {
     const loadData = () => {
       import('../data').then((module) => {
@@ -36,10 +36,11 @@ function Layout() {
       });
     };
     
+    // Delay data loading to reduce TBT - load after critical render
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadData, { timeout: 100 });
+      requestIdleCallback(loadData, { timeout: 500 });
     } else {
-      setTimeout(loadData, 0);
+      setTimeout(loadData, 200);
     }
   }, []);
 
@@ -152,6 +153,7 @@ function Layout() {
               fetchPriority="high"
               width="40"
               height="40"
+              decoding="async"
             />
             <span>LearnStackHub</span>
           </Link>
