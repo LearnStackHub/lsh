@@ -65,7 +65,7 @@ function Home() {
       <SEOHead />
       <StructuredData type="WebSite" />
       {/* Hero Section */}
-      <section className="hero-section fade-in">
+      <section className="hero-section">
         <div className="hero-badge">
           <Zap size={16} />
           <span>📚 Free Java Full Stack Course</span>

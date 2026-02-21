@@ -32,9 +32,11 @@
     <!-- Preload critical logo image for LCP -->
     <link rel="preload" href="/LSH.png" as="image" type="image/png" fetchpriority="high" />
     
-    <!-- Google Fonts - Load asynchronously -->
+    <!-- Google Fonts - Preconnect and load with font-display: swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload critical Poppins font for hero title -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" as="style" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     
