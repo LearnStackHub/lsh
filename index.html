@@ -33,6 +33,11 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="/LSH.png" as="image" type="image/png" />
     
+    <!-- Google Fonts - Optimized loading with font-display: swap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
     <!-- Resource Hints for Performance -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
@@ -49,13 +54,25 @@
     <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176490979231754"
      crossorigin="anonymous"></script>
     
-    <!-- Google tag (gtag.js) - Defer loading -->
-    <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-JDCPS7ENJ6"></script>
+    <!-- Google tag (gtag.js) - Load after page render for better performance -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-JDCPS7ENJ6');
+      // Load analytics after page load
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JDCPS7ENJ6';
+          document.head.appendChild(script);
+          
+          script.onload = function() {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JDCPS7ENJ6');
+            window.gtag = gtag;
+          };
+        }, 2000);
+      });
     </script>
   </head>
   <body>

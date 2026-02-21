@@ -11,11 +11,28 @@ export default defineConfig({
     // Optimize chunk splitting
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'code-editor': ['@uiw/react-codemirror', '@codemirror/lang-java'],
-          'syntax-highlighter': ['react-syntax-highlighter'],
-          'icons': ['lucide-react']
+        manualChunks: (id) => {
+          // Split node_modules into separate chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('codemirror') || id.includes('@uiw')) {
+              return 'code-editor';
+            }
+            if (id.includes('syntax-highlighter')) {
+              return 'syntax-highlighter';
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons';
+            }
+            // Other node_modules
+            return 'vendor';
+          }
+          // Split data files into separate chunk
+          if (id.includes('/data/')) {
+            return 'data';
+          }
         },
         // Optimize chunk file names
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -30,7 +47,11 @@ export default defineConfig({
     // Enable CSS code splitting
     cssCodeSplit: true,
     // Target modern browsers for smaller bundle
-    target: 'es2015'
+    target: 'es2015',
+    // Enable compression
+    reportCompressedSize: true,
+    // Reduce chunk size
+    chunkSizeWarningLimit: 600
   },
   // Optimize dependencies
   optimizeDeps: {

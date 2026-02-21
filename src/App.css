@@ -3,8 +3,7 @@
    Master Java Full Stack Development
    ============================================ */
 
-/* Import Beautiful Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap');
+/* Fonts are loaded via <link> tag in index.html for better performance */
 
 :root {
   /* Fresh Color Palette - Clean & Modern */
