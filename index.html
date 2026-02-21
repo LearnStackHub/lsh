@@ -40,28 +40,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     
-    <!-- Google AdSense - Defer to improve initial load -->
-    <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176490979231754"
-      crossorigin="anonymous"></script>
-    
-    <!-- Google Analytics - Load after page render -->
+    <!-- Google AdSense - Load only after page is fully interactive -->
     <script>
-      // Defer analytics loading
+      // Load AdSense after page is fully loaded and idle
       window.addEventListener('load', function() {
         setTimeout(function() {
           var script = document.createElement('script');
           script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JDCPS7ENJ6';
+          script.defer = true;
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176490979231754';
+          script.crossOrigin = 'anonymous';
           document.head.appendChild(script);
+        }, 3000); // Delay 3 seconds
+      });
+    </script>
+    
+    <!-- Google Analytics - Load after page render and user interaction -->
+    <script>
+      // Defer analytics loading even more aggressively
+      window.addEventListener('load', function() {
+        // Wait for user interaction or 5 seconds, whichever comes first
+        var analyticsLoaded = false;
+        var loadAnalytics = function() {
+          if (analyticsLoaded) return;
+          analyticsLoaded = true;
           
-          script.onload = function() {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-JDCPS7ENJ6');
-            window.gtag = gtag;
-          };
-        }, 2000);
+          setTimeout(function() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JDCPS7ENJ6';
+            document.head.appendChild(script);
+            
+            script.onload = function() {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-JDCPS7ENJ6', {
+                page_path: window.location.pathname
+              });
+              window.gtag = gtag;
+            };
+          }, 1000);
+        };
+        
+        // Load on user interaction (scroll, click, etc.)
+        ['scroll', 'click', 'touchstart', 'mousemove'].forEach(function(event) {
+          window.addEventListener(event, loadAnalytics, { once: true, passive: true });
+        });
+        
+        // Fallback: load after 5 seconds
+        setTimeout(loadAnalytics, 5000);
       });
     </script>
   </head>

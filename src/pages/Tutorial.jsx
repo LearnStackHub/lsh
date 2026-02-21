@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import CodeMirror from '@uiw/react-codemirror';
-import { java } from '@codemirror/lang-java';
 import { 
   ChevronRight, 
   Copy, 
@@ -121,6 +119,22 @@ function Tutorial() {
       trackButtonClick('reset_code', 'tutorial');
     }
   };
+
+  const [CodeMirrorComponent, setCodeMirrorComponent] = useState(null);
+  const [javaLang, setJavaLang] = useState(null);
+
+  // Lazy load CodeMirror only when code editor is needed (saves 100KB initial load)
+  useEffect(() => {
+    if (currentTopic?.code && !CodeMirrorComponent) {
+      Promise.all([
+        import('@uiw/react-codemirror'),
+        import('@codemirror/lang-java')
+      ]).then(([codemirrorModule, javaModule]) => {
+        setCodeMirrorComponent(() => codemirrorModule.default);
+        setJavaLang(() => javaModule.java);
+      });
+    }
+  }, [currentTopic?.code, CodeMirrorComponent]);
 
   const onChange = useCallback((value) => {
     setEditorCode(value);
@@ -462,16 +476,30 @@ function Tutorial() {
           </div>
           
           <div className="try-it-editor">
-            <CodeMirror
-              value={editorCode}
-              height="350px"
-              extensions={[java()]}
-              onChange={onChange}
-              theme="dark"
-              style={{
-                fontSize: '0.9rem'
-              }}
-            />
+            {CodeMirrorComponent && javaLang ? (
+              <CodeMirrorComponent
+                value={editorCode}
+                height="350px"
+                extensions={[javaLang()]}
+                onChange={onChange}
+                theme="dark"
+                style={{
+                  fontSize: '0.9rem'
+                }}
+              />
+            ) : (
+              <div style={{ 
+                padding: '1rem', 
+                background: '#1e293b', 
+                color: '#fff', 
+                minHeight: '350px', 
+                fontFamily: 'monospace',
+                whiteSpace: 'pre-wrap',
+                overflow: 'auto'
+              }}>
+                {editorCode || 'Loading code editor...'}
+              </div>
+            )}
           </div>
           
           <div className="try-it-output">
