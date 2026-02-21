@@ -73,9 +73,18 @@ function AdSense({
     }
   }, []);
 
-  // Load ad only when container is ready and visible
+  // AdSense script is loaded from index.html after page load (2 second delay)
+  // This ensures script is available for AdSense review while still optimizing performance
+  // No need to load script here - it's handled in index.html
+
+  // Initialize ad only when container is ready, visible, and script is loaded
   useEffect(() => {
     if (!isVisible || !adRef.current || !window.adsbygoogle || !isValidAdSlot(adSlot)) return;
+    
+    // CRITICAL: Check if ad is already initialized to prevent duplicate pushes (AdSense policy violation)
+    if (adRef.current.hasAttribute('data-adsbygoogle-status')) {
+      return; // Already initialized, don't push again
+    }
     
     // Double-check container has width
     if (!checkContainerReady()) {
@@ -93,16 +102,14 @@ function AdSense({
       return () => clearTimeout(timeout);
     }
 
-    // Only push if ad hasn't been initialized
-    if (!adRef.current.hasAttribute('data-adsbygoogle-status')) {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (err) {
-        console.error('AdSense error:', err);
-        setAdFailed(true);
-      }
+    // Initialize ad - only once (critical for AdSense compliance)
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error('AdSense error:', err);
+      setAdFailed(true);
     }
-  }, [isVisible]);
+  }, [isVisible, adSlot]);
 
   // Monitor ad loading status
   useEffect(() => {
