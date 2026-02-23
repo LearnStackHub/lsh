@@ -263,7 +263,7 @@ function About() {
             Created with ❤️ by
           </p>
           <p style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--accent-primary)' }}>
-            Dattakumar
+            Dattakumar Pandi
           </p>
         </section>
       </div>
