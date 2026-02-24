@@ -354,6 +354,21 @@ function Tutorial() {
     });
   };
 
+  // Handle case when topic is not found
+  if (!currentTopic) {
+    return (
+      <div className="tutorial-page fade-in">
+        <div style={{ padding: '2rem', textAlign: 'center' }}>
+          <h1>Topic Not Found</h1>
+          <p>The tutorial topic "{topicId}" could not be found.</p>
+          <Link to="/" style={{ color: '#3b82f6', textDecoration: 'underline' }}>
+            Return to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="tutorial-page fade-in">
       <SEOHead topicId={topicId} />

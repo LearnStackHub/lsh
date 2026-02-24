@@ -802,8 +802,19 @@ export const getAllTopics = () => {
 };
 
 // Helper function to get topic by ID
+// Mapping of old topic IDs to new ones (for SEO redirects)
+const topicIdRedirects = {
+  'jdbc-transactions': 'transaction-management',
+  'multithreading-introduction': 'thread-introduction',
+  'servlet-session-management': 'session-management',
+  'try-catch': 'try-catch-finally',
+  'this-keyword': 'java-keywords' // Redirect to Java Keywords topic which covers 'this'
+};
+
 export const getTopicById = (topicId) => {
-  return getAllTopics().find(t => t.id === topicId);
+  // Check if this is an old ID that needs redirecting
+  const redirectedId = topicIdRedirects[topicId] || topicId;
+  return getAllTopics().find(t => t.id === redirectedId);
 };
 
 // Helper function to get navigation (prev/next)
