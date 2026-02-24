@@ -26,9 +26,11 @@ const newPagesToday = [
   'spring-boot-exception-handling',
   'spring-boot-validation',
   'spring-boot-security',
+  'spring-boot-smtp',
   'spring-boot-testing',
   'spring-boot-deployment',
-  'spring-boot-actuator'
+  'spring-boot-actuator',
+  'spring-boot-interview-questions'
 ];
 
 // Static pages
