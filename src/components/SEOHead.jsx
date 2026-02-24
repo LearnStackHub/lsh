@@ -10,8 +10,8 @@ function SEOHead({ title, description, keywords, topicId }) {
   useEffect(() => {
     // Get topic data if topicId is provided
     let pageTitle = title || 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub';
-    let pageDescription = description || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
-    let pageKeywords = keywords || 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
+    let pageDescription = description || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
+    let pageKeywords = keywords || 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, spring framework tutorial, spring boot tutorial, http apis tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
     let pageUrl = baseUrl + location.pathname;
     let pageImage = baseUrl + '/LSH.png';
 

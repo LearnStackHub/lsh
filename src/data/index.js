@@ -205,6 +205,21 @@ import mavenBestPractices from './maven/MavenBestPractices';
 import httpStatusCodes from './http/HttpStatusCodes';
 import globalExceptionHandlingHttp from './http/GlobalExceptionHandling';
 
+// Spring Boot
+import {
+  springBootIntroduction,
+  springBootProjectSetup,
+  springBootConfiguration,
+  springBootRestAPI,
+  springBootJPA,
+  springBootExceptionHandling,
+  springBootValidation,
+  springBootSecurity,
+  springBootTesting,
+  springBootDeployment,
+  springBootActuator
+} from './springboot';
+
 // Spring Framework
 import {
   springIntroduction,
@@ -757,6 +772,49 @@ export const courseStructure = {
           springAOPCustomAnnotations,
           springAOPAspectOrdering,
           springAOPWithSpringBoot
+        ]
+      }
+    }
+  },
+  springboot: {
+    title: "Spring Boot",
+    icon: "🚀",
+    color: "#6DB33F",
+    sections: {
+      basics: {
+        title: "Spring Boot Basics",
+        topics: [
+          springBootIntroduction,
+          springBootProjectSetup,
+          springBootConfiguration
+        ]
+      },
+      restapi: {
+        title: "REST API Development",
+        topics: [
+          springBootRestAPI
+        ]
+      },
+      database: {
+        title: "Database Integration",
+        topics: [
+          springBootJPA
+        ]
+      },
+      advanced: {
+        title: "Advanced Topics",
+        topics: [
+          springBootExceptionHandling,
+          springBootValidation,
+          springBootSecurity
+        ]
+      },
+      testing: {
+        title: "Testing & Deployment",
+        topics: [
+          springBootTesting,
+          springBootDeployment,
+          springBootActuator
         ]
       }
     }

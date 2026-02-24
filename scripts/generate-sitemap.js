@@ -17,7 +17,18 @@ const currentDate = new Date().toISOString().split('T')[0];
 const newPagesToday = [
   'http-status-codes',
   'global-exception-handling-http',
-  'java-interview-questions'
+  'java-interview-questions',
+  'spring-boot-introduction',
+  'spring-boot-project-setup',
+  'spring-boot-configuration',
+  'spring-boot-rest-api',
+  'spring-boot-jpa',
+  'spring-boot-exception-handling',
+  'spring-boot-validation',
+  'spring-boot-security',
+  'spring-boot-testing',
+  'spring-boot-deployment',
+  'spring-boot-actuator'
 ];
 
 // Static pages

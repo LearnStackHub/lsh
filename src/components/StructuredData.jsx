@@ -23,7 +23,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         '@type': 'WebSite',
         name: 'LearnStackHub',
         alternateName: 'Learn Java Full Stack Development',
-        description: 'Free Java Full Stack Development tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, and AWS. Learn Java programming step-by-step with interactive tutorials and live code execution.',
+        description: 'Free Java Full Stack Development tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, and AWS. Learn Java programming step-by-step with interactive tutorials and live code execution.',
         url: baseUrl,
         keywords: 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial',
         inLanguage: 'en-US',
@@ -48,7 +48,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
           '@type': 'EducationalOrganization',
           name: 'LearnStackHub',
           description: 'Free online Java Full Stack Development tutorials and courses',
-          teaches: ['Java Programming', 'Java Web Development', 'JDBC', 'Servlets', 'JSP', 'Hibernate', 'MySQL', 'React', 'AWS'],
+          teaches: ['Java Programming', 'Java Web Development', 'JDBC', 'Servlets', 'JSP', 'Hibernate', 'MySQL', 'Spring Framework', 'Spring Boot', 'HTTP & APIs', 'React', 'AWS'],
           educationalCredentialAwarded: 'Certificate of Completion'
         }
       };

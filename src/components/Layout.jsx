@@ -33,6 +33,10 @@ function Layout() {
         setCourseStructure(module.courseStructure);
         window.__getAllTopics = module.getAllTopics;
         setDataLoaded(true);
+      }).catch((error) => {
+        console.error('Error loading course data:', error);
+        // Still set dataLoaded to true to prevent infinite loading
+        setDataLoaded(true);
       });
     };
     
@@ -261,7 +265,11 @@ function Layout() {
                 <span className="main-topic-name">{course.title}</span>
               </Link>
             );
-          }) : null}
+          }) : (
+            <div style={{ padding: '1rem', textAlign: 'center', color: '#666' }}>
+              Loading courses...
+            </div>
+          )}
         </div>
       </nav>
 
@@ -275,7 +283,7 @@ function Layout() {
 
         {/* Topics List - Flat like W3Schools */}
         <nav className="sidebar-nav">
-          {courseTopics.map((item, index) => (
+          {courseTopics.length > 0 ? courseTopics.map((item, index) => (
             item.type === 'section' ? (
               <div key={item.key} className="sidebar-section-title">
                 {item.title}
@@ -290,7 +298,11 @@ function Layout() {
                 {item.title}
               </Link>
             )
-          ))}
+          )) : (
+            <div style={{ padding: '1rem', textAlign: 'center', color: '#666' }}>
+              {dataLoaded ? 'No topics available' : 'Loading topics...'}
+            </div>
+          )}
         </nav>
 
         {/* User Contributions */}
@@ -397,6 +409,11 @@ function Layout() {
                 <li><Link to="/tutorial/servlet-introduction">Servlets</Link></li>
                 <li><Link to="/tutorial/jsp-introduction">JSP</Link></li>
                 <li><Link to="/tutorial/hibernate-introduction">Hibernate</Link></li>
+                <li><Link to="/tutorial/spring-introduction">Spring Framework</Link></li>
+                <li><Link to="/tutorial/spring-boot-introduction">Spring Boot</Link></li>
+                <li><Link to="/tutorial/http-status-codes">HTTP & APIs</Link></li>
+              </ul>
+              <ul>
                 <li><Link to="/tutorial/git-introduction">Git & GitHub</Link></li>
                 <li><Link to="/tutorial/maven-introduction">Maven</Link></li>
               </ul>
