@@ -244,32 +244,319 @@ http://localhost:8080/api/email/test?to=dattu@gmail.com
 
 ---
 
-## How to Send Email from Your Code
+## How Email Sending Works - Complete Flow
 
-Now that everything is set up, here's how to send emails from anywhere in your application:
+Before we dive into real examples, let me show you how email sending works in Spring Boot:
 
-### Example 1: Send Email When User Registers
+**The Flow:**
+1. **Controller** receives HTTP request (user registration, password reset, etc.)
+2. **Service** processes the business logic
+3. **EmailService** creates email message
+4. **JavaMailSender** (Spring's email sender) sends email
+5. **SMTP Server** (Gmail/Outlook) delivers email to recipient
+
+**Visual Flow:**
+\`\`\`
+User Action → Controller → Service → EmailService → JavaMailSender → SMTP Server → Recipient Inbox
+\`\`\`
+
+**Example Flow:**
+- User clicks "Register" → UserController receives request
+- UserController calls UserService.registerUser()
+- UserService saves user to database
+- UserService calls EmailService.sendVerificationEmail()
+- EmailService uses JavaMailSender to send email
+- Gmail SMTP server delivers email to user's inbox
+
+---
+
+## Real Business Scenario: User Registration with Email Verification
+
+This is the most common use case in real applications. Let me show you a complete implementation.
+
+### Scenario: User Registration Flow
+
+**What happens:**
+1. User fills registration form
+2. User submits form
+3. System saves user to database (with status: UNVERIFIED)
+4. System generates verification token
+5. System sends verification email with token
+6. User clicks link in email
+7. System verifies token and activates account
+
+### Complete Implementation
+
+**Step 1: Create User Entity**
 
 \`\`\`java
+package com.learnstackhub.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "users")
+public class User {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String name;
+    private String email;
+    private String password;
+    
+    @Column(name = "verification_token")
+    private String verificationToken;
+    
+    @Column(name = "is_verified")
+    private boolean isVerified = false;
+    
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    
+    // Constructors, getters, setters
+    public User() {
+        this.createdAt = LocalDateTime.now();
+    }
+    
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    
+    public String getVerificationToken() { return verificationToken; }
+    public void setVerificationToken(String verificationToken) { 
+        this.verificationToken = verificationToken; 
+    }
+    
+    public boolean isVerified() { return isVerified; }
+    public void setVerified(boolean verified) { isVerified = verified; }
+    
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+}
+\`\`\`
+
+**Step 2: Create UserRepository**
+
+\`\`\`java
+package com.learnstackhub.repository;
+
+import com.learnstackhub.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
+    Optional<User> findByVerificationToken(String token);
+}
+\`\`\`
+
+**Step 3: Enhanced EmailService with Verification Email**
+
+\`\`\`java
+package com.learnstackhub.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+
+@Service
+public class EmailService {
+    
+    @Autowired
+    private JavaMailSender mailSender;
+    
+    private String fromEmail = "noreply@learnstackhub.com";
+    
+    public void sendVerificationEmail(String email, String name, String verificationLink) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            
+            String subject = "Verify Your Email Address";
+            String htmlContent = 
+                "<html>" +
+                "<body style='font-family: Arial, sans-serif; padding: 20px;'>" +
+                "<div style='max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 30px;'>" +
+                "<h2 style='color: #3b82f6; margin-bottom: 20px;'>Welcome to LearnStackHub!</h2>" +
+                "<p>Hi " + name + ",</p>" +
+                "<p>Thank you for registering with us. To complete your registration, please verify your email address by clicking the button below:</p>" +
+                "<div style='text-align: center; margin: 30px 0;'>" +
+                "<a href='" + verificationLink + "' " +
+                "style='background-color: #3b82f6; color: white; padding: 12px 30px; " +
+                "text-decoration: none; border-radius: 5px; display: inline-block;'>" +
+                "Verify Email Address</a>" +
+                "</div>" +
+                "<p style='color: #64748b; font-size: 14px;'>If the button doesn't work, copy and paste this link into your browser:</p>" +
+                "<p style='color: #64748b; font-size: 12px; word-break: break-all;'>" + verificationLink + "</p>" +
+                "<p style='color: #ef4444; font-size: 12px; margin-top: 30px;'>" +
+                "This link will expire in 24 hours. If you didn't create an account, please ignore this email.</p>" +
+                "</div>" +
+                "</body>" +
+                "</html>";
+            
+            helper.setTo(email);
+            helper.setSubject(subject);
+            helper.setText(htmlContent, true);
+            helper.setFrom(fromEmail);
+            
+            mailSender.send(message);
+            System.out.println("Verification email sent to: " + email);
+        } catch (MessagingException e) {
+            System.err.println("Failed to send verification email: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to send verification email", e);
+        }
+    }
+}
+\`\`\`
+
+**Step 4: Complete UserService with Registration Logic**
+
+\`\`\`java
+package com.learnstackhub.service;
+
+import com.learnstackhub.entity.User;
+import com.learnstackhub.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import java.util.UUID;
+
 @Service
 public class UserService {
     
     @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
     private EmailService emailService;
     
-    public void registerUser(String name, String email) {
-        // Save user to database
-        System.out.println("User registered: " + name);
+    @Value("\\${app.base-url}")
+    private String baseUrl = "http://localhost:8080";
+    
+    public User registerUser(String name, String email, String password) {
+        // Check if user already exists
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email already registered");
+        }
         
-        // Send welcome email
-        emailService.sendSimpleEmail(
-            email,
-            "Welcome to LearnStackHub!",
-            "Hi " + name + ",\\n\\nThank you for joining us!"
-        );
+        // Create new user
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password); // In real app, hash this password!
+        user.setVerified(false);
+        
+        // Generate verification token
+        String verificationToken = UUID.randomUUID().toString();
+        user.setVerificationToken(verificationToken);
+        
+        // Save user to database
+        user = userRepository.save(user);
+        
+        // Send verification email
+        String verificationLink = baseUrl + "/api/users/verify?token=" + verificationToken;
+        emailService.sendVerificationEmail(email, name, verificationLink);
+        
+        System.out.println("User registered: " + name + " (" + email + ")");
+        return user;
+    }
+    
+    public boolean verifyEmail(String token) {
+        User user = userRepository.findByVerificationToken(token)
+            .orElseThrow(() -> new RuntimeException("Invalid verification token"));
+        
+        if (user.isVerified()) {
+            return false; // Already verified
+        }
+        
+        user.setVerified(true);
+        user.setVerificationToken(null);
+        userRepository.save(user);
+        
+        System.out.println("Email verified for: " + user.getEmail());
+        return true;
     }
 }
 \`\`\`
+
+**Step 5: UserController**
+
+\`\`\`java
+package com.learnstackhub.controller;
+
+import com.learnstackhub.entity.User;
+import com.learnstackhub.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    
+    @Autowired
+    private UserService userService;
+    
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password) {
+        try {
+            User user = userService.registerUser(name, email, password);
+            return ResponseEntity.ok("Registration successful! Please check your email to verify your account.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
+        }
+    }
+    
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyEmail(@RequestParam String token) {
+        try {
+            boolean verified = userService.verifyEmail(token);
+            if (verified) {
+                return ResponseEntity.ok("Email verified successfully! You can now login.");
+            } else {
+                return ResponseEntity.badRequest().body("Email already verified or invalid token.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Verification failed: " + e.getMessage());
+        }
+    }
+}
+\`\`\`
+
+**How to Test:**
+
+1. Register a user:
+\`\`\`
+POST http://localhost:8080/api/users/register?name=John&email=john@gmail.com&password=password123
+\`\`\`
+
+2. Check email inbox for verification link
+
+3. Click verification link or call:
+\`\`\`
+GET http://localhost:8080/api/users/verify?token=your-verification-token
+\`\`\`
+
+This is exactly how real applications handle user registration with email verification!
 
 ### Example 2: Send Password Reset Email
 
@@ -414,32 +701,188 @@ spring-boot-smtp-project/
 
 ---
 
-## Common Problems and Solutions
+## Common Errors and How to Fix Them
 
-### Problem 1: "Authentication Failed"
+I've seen these errors many times. Let me help you fix them quickly.
 
-**Error:** \`javax.mail.AuthenticationFailedException\`
+### Error 1: Authentication Failed
+
+**Error Message:**
+\`\`\`
+javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted
+\`\`\`
+
+**What this means:** Gmail rejected your login credentials.
+
+**Solutions (try in this order):**
+
+1. **You're using regular password instead of App Password**
+   - Gmail doesn't accept regular passwords for applications
+   - You MUST use App Password (16 characters, no spaces)
+   - Go back to Step 1 and generate App Password
+
+2. **Spaces in App Password**
+   - App Password comes with spaces: "abcd efgh ijkl mnop"
+   - Remove ALL spaces: "abcdefghijklmnop"
+   - Use the version without spaces in application.properties
+
+3. **2-Step Verification not enabled**
+   - App Password only works if 2-Step Verification is ON
+   - Go to Google Account → Security → Enable 2-Step Verification
+
+4. **Wrong email address**
+   - Make sure username matches the email you used to generate App Password
+   - If App Password was generated for "john@gmail.com", use "john@gmail.com" in config
+
+**Quick Fix Checklist:**
+- [ ] 2-Step Verification enabled?
+- [ ] Using App Password (not regular password)?
+- [ ] Removed all spaces from App Password?
+- [ ] Username matches the email that generated App Password?
+
+---
+
+### Error 2: Less Secure Apps Disabled
+
+**Error Message:**
+\`\`\`
+javax.mail.AuthenticationFailedException: Please log in via your web browser
+\`\`\`
+
+**What this means:** Gmail thinks your app is not secure.
 
 **Solution:**
-1. Make sure you're using App Password, not regular password
-2. Remove all spaces from App Password
-3. Verify 2-Step Verification is enabled
+This error appears if you're using an old Gmail account. Modern Gmail accounts don't have "Less secure apps" option. Instead:
+- Use App Password (as explained in Step 1)
+- Don't try to enable "Less secure apps" - that option is deprecated
 
-### Problem 2: "Connection Timeout"
+**If you still see this error:**
+- Make sure you're using App Password
+- Try generating a new App Password
+- Wait 5-10 minutes after generating App Password before using it
 
-**Error:** \`java.net.ConnectException: Connection timed out\`
+---
+
+### Error 3: Port Issues (587 vs 465)
+
+**Error Message:**
+\`\`\`
+java.net.ConnectException: Connection refused
+\`\`\`
+
+**What this means:** Can't connect to SMTP server on the specified port.
+
+**Port 587 (TLS) - Recommended:**
+\`\`\`properties
+spring.mail.port=587
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+\`\`\`
+- Use this for most cases
+- Works with STARTTLS encryption
+- Recommended by Gmail
+
+**Port 465 (SSL) - Alternative:**
+\`\`\`properties
+spring.mail.port=465
+spring.mail.properties.mail.smtp.ssl.enable=true
+spring.mail.properties.mail.smtp.ssl.required=true
+\`\`\`
+- Use this if port 587 is blocked by firewall
+- Requires SSL instead of TLS
+
+**Which port to use?**
+- Try port 587 first (most common)
+- If 587 doesn't work, try 465
+- Check if your firewall/network blocks these ports
+
+---
+
+### Error 4: Connection Timeout
+
+**Error Message:**
+\`\`\`
+java.net.ConnectException: Connection timed out
+\`\`\`
+
+**What this means:** Can't reach Gmail's SMTP server.
+
+**Solutions:**
+
+1. **Check internet connection**
+   - Make sure your computer has internet access
+   - Try accessing gmail.com in browser
+
+2. **Verify SMTP host**
+   - Should be: \`smtp.gmail.com\`
+   - Not: \`smtp.google.com\` or \`gmail.com\`
+
+3. **Check firewall**
+   - Firewall might be blocking port 587
+   - Allow port 587 in firewall settings
+   - Or try port 465 instead
+
+4. **Corporate network restrictions**
+   - Some corporate networks block SMTP ports
+   - Contact IT department
+   - Or use company's SMTP server instead
+
+---
+
+### Error 5: Email Not Received
+
+**No error, but email doesn't arrive**
+
+**Check these:**
+
+1. **Spam/Junk folder**
+   - Gmail might mark it as spam initially
+   - Check spam folder
+   - Mark as "Not spam" if found
+
+2. **Wrong recipient email**
+   - Double-check the email address
+   - Make sure there are no typos
+   - Test with your own email first
+
+3. **Email was actually sent?**
+   - Check application logs
+   - Look for "Email sent successfully" message
+   - If no error, email was sent (might be in spam)
+
+4. **Gmail rate limits**
+   - Gmail limits emails per day
+   - If sending too many, emails might be delayed
+   - Wait a few hours and try again
+
+5. **Email provider blocking**
+   - Some email providers block automated emails
+   - Try sending to different email provider
+   - Or use professional email service (SendGrid, AWS SES)
+
+---
+
+### Error 6: "Could not convert socket to TLS"
+
+**Error Message:**
+\`\`\`
+javax.mail.MessagingException: Could not convert socket to TLS
+\`\`\`
+
+**What this means:** TLS encryption handshake failed.
 
 **Solution:**
-1. Check your internet connection
-2. Verify SMTP host: \`smtp.gmail.com\`
-3. Verify port: \`587\`
+Make sure these properties are set:
+\`\`\`properties
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+\`\`\`
 
-### Problem 3: Email Not Received
-
-**Check:**
-1. Check spam/junk folder
-2. Verify recipient email is correct
-3. Check application logs for errors
+If still not working, try port 465 with SSL:
+\`\`\`properties
+spring.mail.port=465
+spring.mail.properties.mail.smtp.ssl.enable=true
+\`\`\`
 
 ---
 
@@ -471,39 +914,315 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 ---
 
-## Security Best Practices
+## Production Tips - What I Learned from Real Projects
 
-### 1. Don't Hardcode Passwords
+After working on multiple production applications, here are the most important things to remember:
 
-**Bad:**
+### 1. Never Hardcode Passwords
+
+**Bad Practice:**
 \`\`\`properties
 spring.mail.password=abcdefghijklmnop
 \`\`\`
+- Password is visible in code
+- Anyone with code access can see it
+- Can't change password without redeploying
 
-**Good:** Use environment variables
-
+**Good Practice - Use Environment Variables:**
 \`\`\`properties
 spring.mail.password=\${MAIL_PASSWORD}
 \`\`\`
 
-Set environment variable:
+**Set in production:**
 \`\`\`bash
 export MAIL_PASSWORD=abcdefghijklmnop
 \`\`\`
 
-### 2. Handle Errors Gracefully
+**Or use Spring Profiles:**
+\`\`\`properties
+# application-prod.properties
+spring.mail.password=\${MAIL_PASSWORD}
+\`\`\`
+
+---
+
+### 2. Use Email Queue for Reliability
+
+**Problem:** If email sending fails, you lose the email.
+
+**Solution:** Use a queue system.
 
 \`\`\`java
-public void sendEmail(String to, String subject, String body) {
-    try {
-        // Send email
-        mailSender.send(message);
-    } catch (Exception e) {
-        // Log error, don't crash application
-        System.err.println("Failed to send email: " + e.getMessage());
+@Service
+public class EmailService {
+    
+    @Autowired
+    private JavaMailSender mailSender;
+    
+    public void sendEmailAsync(String to, String subject, String body) {
+        // Save email to queue/database
+        EmailQueue email = new EmailQueue();
+        email.setTo(to);
+        email.setSubject(subject);
+        email.setBody(body);
+        email.setStatus("PENDING");
+        emailQueueRepository.save(email);
+        
+        // Process queue in background
+        processEmailQueue();
+    }
+    
+    @Async
+    private void processEmailQueue() {
+        // Process emails from queue
+        // Retry failed emails
+        // Log all attempts
     }
 }
 \`\`\`
+
+**Benefits:**
+- Emails don't get lost if sending fails
+- Can retry failed emails
+- Better error tracking
+- Can handle high volume
+
+---
+
+### 3. Use Professional Email Services for Production
+
+**For small projects:** Gmail SMTP is fine.
+
+**For production applications:** Use professional services:
+
+**SendGrid:**
+- Free tier: 100 emails/day
+- Better deliverability
+- Email analytics
+- Template support
+
+**AWS SES:**
+- Very cheap (pay per email)
+- High deliverability
+- Scalable
+- Good for AWS infrastructure
+
+**Mailgun:**
+- Developer-friendly
+- Good API
+- Email validation
+
+**Why use these?**
+- Better email deliverability (less spam)
+- Email analytics and tracking
+- Higher sending limits
+- Professional support
+- Better for production scale
+
+---
+
+### 4. Handle Errors Without Crashing Application
+
+**Bad Practice:**
+\`\`\`java
+public void sendEmail(String to, String subject, String body) {
+    mailSender.send(message); // If this fails, entire application crashes
+}
+\`\`\`
+
+**Good Practice:**
+\`\`\`java
+@Service
+public class EmailService {
+    
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
+    
+    public void sendEmail(String to, String subject, String body) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(body);
+            message.setFrom("noreply@learnstackhub.com");
+            
+            mailSender.send(message);
+            logger.info("Email sent successfully to: {}", to);
+        } catch (MailException e) {
+            // Log error but don't crash
+            logger.error("Failed to send email to: {}", to, e);
+            
+            // Optionally: Save to queue for retry
+            // emailQueueService.addToQueue(to, subject, body);
+            
+            // Don't throw exception - let application continue
+        }
+    }
+}
+\`\`\`
+
+**Why this matters:**
+- User registration shouldn't fail just because email sending failed
+- Application should continue working
+- Log errors for debugging
+- Retry later if needed
+
+---
+
+### 5. Add Email Sending Limits
+
+**Problem:** Sending too many emails can trigger spam filters.
+
+**Solution:** Add rate limiting.
+
+\`\`\`java
+@Service
+public class EmailService {
+    
+    private final Map<String, Integer> emailCounts = new ConcurrentHashMap<>();
+    private static final int MAX_EMAILS_PER_HOUR = 10;
+    
+    public void sendEmail(String to, String subject, String body) {
+        String key = to + "_" + LocalDateTime.now().getHour();
+        int count = emailCounts.getOrDefault(key, 0);
+        
+        if (count >= MAX_EMAILS_PER_HOUR) {
+            logger.warn("Email limit reached for: {}", to);
+            throw new RuntimeException("Too many emails sent to this address");
+        }
+        
+        // Send email
+        mailSender.send(message);
+        
+        // Update count
+        emailCounts.put(key, count + 1);
+    }
+}
+\`\`\`
+
+---
+
+### 6. Monitor Email Delivery
+
+**Add logging:**
+\`\`\`java
+logger.info("Email sent - To: {}, Subject: {}, Time: {}", to, subject, LocalDateTime.now());
+\`\`\`
+
+**Track metrics:**
+- How many emails sent per day
+- How many failed
+- Average delivery time
+- Bounce rates
+
+**Use email service analytics:**
+- SendGrid, Mailgun provide delivery reports
+- Track opens, clicks, bounces
+- Identify spam issues early
+
+---
+
+### 7. Test Email Templates Before Production
+
+**Always test:**
+- How email looks in different email clients (Gmail, Outlook, Apple Mail)
+- Mobile vs desktop view
+- Spam score (use tools like Mail-Tester.com)
+- Links work correctly
+- Images load properly
+
+**Use email testing services:**
+- Litmus - Test email rendering
+- Email on Acid - Preview in different clients
+- Mail-Tester - Check spam score
+
+---
+
+### 8. Use Email Templates (Thymeleaf)
+
+**Instead of hardcoding HTML:**
+\`\`\`java
+String html = "<html><body>...</body></html>"; // Bad
+\`\`\`
+
+**Use templates:**
+\`\`\`java
+Context context = new Context();
+context.setVariable("userName", name);
+String html = templateEngine.process("email/welcome", context); // Good
+\`\`\`
+
+**Benefits:**
+- Easier to maintain
+- Consistent design
+- Can update without code changes
+- Better for team collaboration
+
+---
+
+### 9. Environment-Specific Configuration
+
+**Development:**
+\`\`\`properties
+# application-dev.properties
+spring.mail.host=smtp.gmail.com
+spring.mail.username=dev-email@gmail.com
+\`\`\`
+
+**Production:**
+\`\`\`properties
+# application-prod.properties
+spring.mail.host=smtp.sendgrid.net
+spring.mail.username=apikey
+spring.mail.password=\${SENDGRID_API_KEY}
+\`\`\`
+
+**Benefits:**
+- Different email service for production
+- Better deliverability in production
+- Can test with Gmail in development
+- Easy to switch services
+
+---
+
+### 10. Always Validate Email Addresses
+
+**Before sending:**
+\`\`\`java
+public boolean isValidEmail(String email) {
+    return email != null && 
+           email.matches("^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$");
+}
+
+public void sendEmail(String to, String subject, String body) {
+    if (!isValidEmail(to)) {
+        throw new IllegalArgumentException("Invalid email address: " + to);
+    }
+    // Send email
+}
+\`\`\`
+
+**Why:**
+- Prevents sending to invalid addresses
+- Better error messages
+- Saves API calls/quota
+- Improves deliverability
+
+---
+
+## Summary of Production Best Practices
+
+1. Use environment variables for passwords
+2. Implement email queue for reliability
+3. Consider professional email services for production
+4. Handle errors gracefully - don't crash application
+5. Add rate limiting to prevent spam
+6. Monitor email delivery and track metrics
+7. Test email templates before production
+8. Use email templates (Thymeleaf) instead of hardcoded HTML
+9. Use different email services for dev vs production
+10. Always validate email addresses before sending
+
+Follow these practices and your email system will be production-ready!
 
 ---
 
