@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { BookOpen, Code, Play, Zap, ArrowRight, Clock, FileText, Users, Award, Rocket, Target, CheckCircle } from 'lucide-react';
+import { 
+  BookOpen, Code, Play, Zap, ArrowRight, Clock, FileText, Users, Award, Rocket, Target, CheckCircle,
+  FileCode, Palette, Database, Server, Layers, Box, Globe, GitBranch, Package,
+  MessageSquare, Building2, Gamepad2, BarChart3, HelpCircle, Gift
+} from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 
@@ -64,6 +68,23 @@ function Home() {
     maven: 'Master Maven build automation - dependencies, plugins, multi-module projects, Spring Boot integration & more'
   };
 
+  // Map course keys to lucide-react icons (same as Layout.jsx)
+  const courseIcons = {
+    html: FileCode,
+    css: Palette,
+    corejava: Code,
+    mysql: Database,
+    jdbc: Server,
+    servlets: Server,
+    jsp: FileText,
+    hibernate: Layers,
+    spring: Box,
+    springboot: Rocket,
+    http: Globe,
+    git: GitBranch,
+    maven: Package
+  };
+
   return (
     <div className="home-page">
       <SEOHead />
@@ -72,12 +93,12 @@ function Home() {
       <section className="hero-section">
         <div className="hero-badge">
           <Zap size={16} />
-          <span>📚 Free Java Full Stack Course</span>
+          <span>Free Java Full Stack Course</span>
         </div>
         
         <h1 className="hero-title">
           Learn <span className="highlight">Java</span> Full Stack Development
-          <br />Free Java Tutorials & Courses 📚
+          <br />Free Java Tutorials & Courses
         </h1>
         
         <p className="hero-subtitle">
@@ -104,32 +125,40 @@ function Home() {
           flexWrap: 'wrap'
         }}>
           {[
-            { value: `${totalTopics}+`, label: 'Tutorials', icon: '📚' },
-            { value: '150+', label: 'Code Examples', icon: '💻' },
-            { value: '4', label: 'Courses', icon: '🎯' },
-            { value: '100%', label: 'Free', icon: '🆓' }
-          ].map((stat, index) => (
-            <div key={index} style={{ textAlign: 'center' }}>
-              <div style={{
-                fontSize: '2.25rem',
-                fontWeight: '800',
-                color: 'white',
-                textShadow: '0 2px 10px rgba(0,0,0,0.2)'
-              }}>
-                {stat.icon} {stat.value}
+            { value: `${totalTopics}+`, label: 'Tutorials', icon: BookOpen },
+            { value: '150+', label: 'Code Examples', icon: Code },
+            { value: '13', label: 'Courses', icon: Target },
+            { value: '100%', label: 'Free', icon: Gift }
+          ].map((stat, index) => {
+            const IconComponent = stat.icon;
+            return (
+              <div key={index} style={{ textAlign: 'center' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  fontSize: '2.25rem',
+                  fontWeight: '800',
+                  color: 'white',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.2)'
+                }}>
+                  <IconComponent size={32} />
+                  <span>{stat.value}</span>
+                </div>
+                <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', fontWeight: '600' }}>
+                  {stat.label}
+                </div>
               </div>
-              <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', fontWeight: '600' }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       {/* Quick Start Cards */}
       <section id="courses" className="courses-section">
         <div className="section-header">
-          <h2 className="section-title-main">📖 Choose Your Learning Path</h2>
+          <h2 className="section-title-main">Choose Your Learning Path</h2>
         </div>
 
         <div className="courses-grid">
@@ -148,7 +177,10 @@ function Home() {
                 style={{ '--card-accent': course.color }}
               >
                 <div className="course-icon">
-                  {course.icon}
+                  {(() => {
+                    const IconComponent = courseIcons[courseKey] || Code;
+                    return <IconComponent size={32} />;
+                  })()}
                 </div>
                 <h3 className="course-title">{course.title}</h3>
                 <p className="course-description">
@@ -173,13 +205,18 @@ function Home() {
       {/* Detailed Course Content */}
       <section className="courses-section">
         <div className="section-header">
-          <h2 className="section-title-main">📋 What You'll Learn</h2>
+          <h2 className="section-title-main">What You'll Learn</h2>
         </div>
 
         {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => (
           <div key={courseKey} className="course-module">
             <div className="course-module-header">
-              <span className="module-icon">{course.icon}</span>
+              <span className="module-icon">
+                {(() => {
+                  const IconComponent = courseIcons[courseKey] || Code;
+                  return <IconComponent size={24} />;
+                })()}
+              </span>
               <h3>{course.title}</h3>
             </div>
             
@@ -210,7 +247,7 @@ function Home() {
       {/* Features Section */}
       <section className="features-section">
         <div className="section-header">
-          <h2 className="section-title-main">✨ Why Students Love Us</h2>
+          <h2 className="section-title-main">Why Students Love Us</h2>
         </div>
 
         <div className="features-grid">
@@ -234,7 +271,7 @@ function Home() {
         marginBottom: '3rem'
       }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '1.75rem' }}>
-          🎯 What Makes Our Tutorials Different?
+          What Makes Our Tutorials Different?
         </h2>
         
         <div style={{
@@ -243,24 +280,29 @@ function Home() {
           gap: '1.5rem'
         }}>
           {[
-            { icon: '💬', title: 'Human-Friendly Writing', desc: 'No boring textbook language. We explain like a friend would!' },
-            { icon: '🏢', title: 'Real Project Examples', desc: 'See how concepts are used in actual E-Commerce & Banking apps' },
-            { icon: '🎮', title: 'Interactive Code Editor', desc: 'Write, edit, and run Java code right in your browser' },
-            { icon: '📊', title: 'Visual Diagrams', desc: 'Complex concepts explained with clear visual representations' },
-            { icon: '❓', title: 'Practice Questions', desc: 'Test your understanding with hands-on coding challenges' },
-            { icon: '🆓', title: 'Always Free', desc: 'Quality education should be accessible to everyone' }
-          ].map((item, index) => (
-            <div key={index} style={{
-              background: 'white',
-              padding: '1.5rem',
-              borderRadius: '16px',
-              boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
-            }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{item.icon}</div>
-              <h4 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>{item.title}</h4>
-              <p style={{ color: '#64748b', fontSize: '0.95rem', margin: 0 }}>{item.desc}</p>
-            </div>
-          ))}
+            { icon: MessageSquare, title: 'Human-Friendly Writing', desc: 'No boring textbook language. We explain like a friend would!' },
+            { icon: Building2, title: 'Real Project Examples', desc: 'See how concepts are used in actual E-Commerce & Banking apps' },
+            { icon: Gamepad2, title: 'Interactive Code Editor', desc: 'Write, edit, and run Java code right in your browser' },
+            { icon: BarChart3, title: 'Visual Diagrams', desc: 'Complex concepts explained with clear visual representations' },
+            { icon: HelpCircle, title: 'Practice Questions', desc: 'Test your understanding with hands-on coding challenges' },
+            { icon: Gift, title: 'Always Free', desc: 'Quality education should be accessible to everyone' }
+          ].map((item, index) => {
+            const IconComponent = item.icon;
+            return (
+              <div key={index} style={{
+                background: 'white',
+                padding: '1.5rem',
+                borderRadius: '16px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+              }}>
+                <div style={{ marginBottom: '0.75rem', color: 'var(--accent-primary)' }}>
+                  <IconComponent size={32} />
+                </div>
+                <h4 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>{item.title}</h4>
+                <p style={{ color: '#64748b', fontSize: '0.95rem', margin: 0 }}>{item.desc}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -274,7 +316,7 @@ function Home() {
         color: 'white'
       }}>
         <h2 style={{ marginBottom: '1rem', color: 'white', fontSize: '2rem' }}>
-          📚 Ready to Master Java Full Stack?
+          Ready to Master Java Full Stack?
         </h2>
         <p style={{ 
           color: 'rgba(255,255,255,0.9)', 

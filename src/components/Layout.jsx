@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, ChevronDown, Plus, User, LogOut, BookOpen } from 'lucide-react';
+import { 
+  Search, Menu, X, ChevronDown, Plus, User, LogOut, BookOpen,
+  FileCode, Palette, Code, Database, Server, FileText, Layers, 
+  Box, Rocket, Globe, GitBranch, Package, Wrench
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useContributions } from '../context/ContributionContext';
 import LoginModal from './LoginModal';
@@ -140,6 +144,23 @@ function Layout() {
 
   const courseTopics = getCurrentCourseTopics();
 
+  // Map course keys to lucide-react icons
+  const courseIcons = {
+    html: FileCode,
+    css: Palette,
+    corejava: Code,
+    mysql: Database,
+    jdbc: Server,
+    servlets: Server,
+    jsp: FileText,
+    hibernate: Layers,
+    spring: Box,
+    springboot: Rocket,
+    http: Globe,
+    git: GitBranch,
+    maven: Package
+  };
+
   return (
     <div className="app-layout">
       {/* Header */}
@@ -251,6 +272,7 @@ function Layout() {
         <div className="main-topics-container">
           {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => {
             const firstTopic = Object.values(course.sections)[0]?.topics[0];
+            const IconComponent = courseIcons[courseKey] || Code; // Default to Code icon if not found
             return (
               <Link
                 key={courseKey}
@@ -261,7 +283,9 @@ function Layout() {
                   setSidebarOpen(false);
                 }}
               >
-                <span className="main-topic-icon">{course.icon}</span>
+                <span className="main-topic-icon">
+                  <IconComponent size={18} />
+                </span>
                 <span className="main-topic-name">{course.title}</span>
               </Link>
             );
@@ -277,7 +301,12 @@ function Layout() {
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         {/* Course Title Header */}
         <div className="sidebar-header" style={{ '--course-color': currentCourse?.color }}>
-          <span className="sidebar-header-icon">{currentCourse?.icon}</span>
+          <span className="sidebar-header-icon">
+            {currentCourse && (() => {
+              const IconComponent = courseIcons[activeCourse] || Code;
+              return <IconComponent size={20} />;
+            })()}
+          </span>
           <span className="sidebar-header-title">{currentCourse?.title} Tutorial</span>
         </div>
 

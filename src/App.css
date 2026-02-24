@@ -73,8 +73,20 @@
   box-sizing: border-box;
 }
 
+/* Prevent horizontal overflow - apply to main containers only */
+img,
+video,
+iframe,
+table {
+  max-width: 100%;
+  height: auto;
+}
+
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -84,6 +96,10 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   font-size: 16px;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 /* Custom Scrollbar */
@@ -152,6 +168,9 @@ code {
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* ============================================
@@ -162,6 +181,8 @@ code {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  max-width: 100%;
   height: var(--header-height);
   background: var(--bg-header);
   border-bottom: 2px solid var(--border-color);
@@ -173,6 +194,7 @@ code {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   /* backdrop-filter removed - expensive and delays rendering */
   overflow: visible;
+  box-sizing: border-box;
 }
 
 .header-left {
@@ -463,6 +485,8 @@ code {
   top: var(--header-height);
   left: 0;
   right: 0;
+  width: 100%;
+  max-width: 100%;
   height: 48px;
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
@@ -474,6 +498,7 @@ code {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .main-topics-nav-bar::-webkit-scrollbar {
@@ -535,6 +560,10 @@ code {
 .main-topic-icon {
   font-size: 1.1rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
 }
 
 .main-topic-name {
@@ -577,6 +606,10 @@ code {
 
 .sidebar-header-icon {
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
 }
 
 .sidebar-header-title {
@@ -662,9 +695,12 @@ code {
   min-height: calc(100vh - var(--header-height) - 48px);
   padding: 1rem 3rem 2rem;
   max-width: calc(100% - var(--sidebar-width));
+  width: calc(100% - var(--sidebar-width));
   background: var(--bg-primary);
   position: relative;
   z-index: 1;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -672,7 +708,11 @@ code {
    ============================================ */
 .home-page {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Hero Section - Cloud Theme */
@@ -685,6 +725,9 @@ code {
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-section::before {
