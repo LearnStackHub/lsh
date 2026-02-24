@@ -193,6 +193,8 @@ export const generateSEOTitle = (topic) => {
     'Spring Boot Testing - Unit and Integration Tests': 'Spring Boot Testing Tutorial - JUnit, Mockito, Integration Tests',
     'Spring Boot Deployment - Deploy to Production': 'Spring Boot Deployment Tutorial - Deploy to Production Server',
     'Spring Boot Actuator - Monitoring and Management': 'Spring Boot Actuator Tutorial - Application Monitoring and Health Checks',
+    'Spring Boot SMTP Integration - Email Sending': 'Spring Boot SMTP Tutorial - Send Emails with Gmail, Outlook, Custom SMTP Servers',
+    'Top 30 Spring Boot Interview Questions': 'Top 30 Spring Boot Interview Questions - Most Asked Spring Boot Interview Questions with Answers',
     
     // HTTP & APIs Topics
     'HTTP Status Codes - Complete Guide': 'HTTP Status Codes Tutorial - 100, 200, 300, 400, 500 Series Explained',

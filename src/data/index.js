@@ -215,9 +215,11 @@ import {
   springBootExceptionHandling,
   springBootValidation,
   springBootSecurity,
+  springBootSMTP,
   springBootTesting,
   springBootDeployment,
-  springBootActuator
+  springBootActuator,
+  springBootInterviewQuestions
 } from './springboot';
 
 // Spring Framework
@@ -806,7 +808,8 @@ export const courseStructure = {
         topics: [
           springBootExceptionHandling,
           springBootValidation,
-          springBootSecurity
+          springBootSecurity,
+          springBootSMTP
         ]
       },
       testing: {
@@ -815,6 +818,12 @@ export const courseStructure = {
           springBootTesting,
           springBootDeployment,
           springBootActuator
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          springBootInterviewQuestions
         ]
       }
     }

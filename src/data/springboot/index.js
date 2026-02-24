@@ -7,9 +7,11 @@ import springBootJPA from './SpringBootJPA';
 import springBootExceptionHandling from './SpringBootExceptionHandling';
 import springBootValidation from './SpringBootValidation';
 import springBootSecurity from './SpringBootSecurity';
+import springBootSMTP from './SpringBootSMTP';
 import springBootTesting from './SpringBootTesting';
 import springBootDeployment from './SpringBootDeployment';
 import springBootActuator from './SpringBootActuator';
+import springBootInterviewQuestions from './SpringBootInterviewQuestions';
 
 export {
   springBootIntroduction,
@@ -20,8 +22,10 @@ export {
   springBootExceptionHandling,
   springBootValidation,
   springBootSecurity,
+  springBootSMTP,
   springBootTesting,
   springBootDeployment,
-  springBootActuator
+  springBootActuator,
+  springBootInterviewQuestions
 };
 
