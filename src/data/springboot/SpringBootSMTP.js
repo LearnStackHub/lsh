@@ -446,7 +446,7 @@ public class UserService {
     @Autowired
     private EmailService emailService;
     
-    @Value("\\${app.base-url}")
+    // Base URL for verification links - configure in application.properties as app.base-url
     private String baseUrl = "http://localhost:8080";
     
     public User registerUser(String name, String email, String password) {
