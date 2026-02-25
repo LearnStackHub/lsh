@@ -523,7 +523,7 @@ spring.application.name=Student Management
 logging.level.com.example=DEBUG
 \`\`\`
 
-Spring Boot reads this file automatically. No code needed.
+Spring Boot reads this file automatically. No code needed. For a complete guide on configuration, including YAML files and advanced settings, see our [Spring Boot Configuration](/tutorial/spring-boot-configuration) tutorial.
 
 ---
 
@@ -531,7 +531,7 @@ Spring Boot reads this file automatically. No code needed.
 
 ### Q: Do I need to know Spring Framework before Spring Boot?
 
-**A:** Not really. Spring Boot hides most of the complexity. But understanding Spring basics (IoC, DI) helps.
+**A:** Not really. Spring Boot hides most of the complexity. But understanding Spring basics (IoC, DI) helps. If you want to learn Spring Framework first, check out our [Spring Framework Introduction](/tutorial/spring-introduction) and [Spring IOC tutorial](/tutorial/spring-ioc).
 
 ### Q: What's the difference between Spring and Spring Boot?
 
@@ -539,7 +539,7 @@ Spring Boot reads this file automatically. No code needed.
 - Spring: Framework with lots of configuration
 - Spring Boot: Opinionated version of Spring with auto-configuration
 
-Think of Spring as a toolkit. Spring Boot is a pre-assembled tool that works out of the box.
+Think of Spring as a toolkit. Spring Boot is a pre-assembled tool that works out of the box. Learn more about [Spring Framework](/tutorial/spring-introduction) to understand the foundation.
 
 ### Q: Can I use Spring Boot without Maven/Gradle?
 
@@ -561,10 +561,12 @@ Think of Spring as a toolkit. Spring Boot is a pre-assembled tool that works out
 
 Now that you understand Spring Boot basics:
 
-1. **Connect to a Database**: Learn Spring Data JPA
-2. **Add Security**: Learn Spring Security
-3. **Build REST APIs**: Learn advanced REST patterns
-4. **Deploy**: Learn how to deploy to cloud
+1. **Set Up Your Project**: Learn how to create a Spring Boot project step by step in our [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) tutorial
+2. **Configure Your Application**: Master configuration with [Spring Boot Configuration](/tutorial/spring-boot-configuration) guide
+3. **Connect to a Database**: Learn how to integrate databases with [Spring Boot JPA](/tutorial/spring-boot-jpa)
+4. **Build REST APIs**: Create powerful APIs with our [Spring Boot REST API](/tutorial/spring-boot-rest-api) tutorial
+5. **Add Security**: Secure your application with [Spring Boot Security](/tutorial/spring-boot-security)
+6. **Deploy**: Learn how to deploy to production in [Spring Boot Deployment](/tutorial/spring-boot-deployment)
 
 But first, practice what you learned. Build a simple CRUD application. Make mistakes. Fix them. That's how you learn.
 

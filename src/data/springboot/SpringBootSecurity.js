@@ -450,6 +450,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 6. Follow security best practices
 
 Security is critical. Don't skip it.
+
+**Related Topics:**
+- Build secure REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
+- Add input validation with [Spring Boot Validation](/tutorial/spring-boot-validation)
+- Handle security exceptions with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
+- Test security with [Spring Boot Testing](/tutorial/spring-boot-testing)
 `,
   code: `// Complete Spring Security Example
 
@@ -605,4 +611,5 @@ public class SecurityConfig {
 };
 
 export default springBootSecurity;
+
 

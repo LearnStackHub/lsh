@@ -318,6 +318,16 @@ When you run your application, Spring Boot:
 
 ## Next Steps
 
+Now that you've set up your Spring Boot project:
+
+1. **Learn Configuration**: Master [Spring Boot Configuration](/tutorial/spring-boot-configuration) to customize your application
+2. **Build Your First API**: Create REST endpoints with [Spring Boot REST API](/tutorial/spring-boot-rest-api) tutorial
+3. **Connect to Database**: Integrate databases using [Spring Boot JPA](/tutorial/spring-boot-jpa)
+4. **Add Validation**: Learn input validation in [Spring Boot Validation](/tutorial/spring-boot-validation)
+5. **Handle Errors**: Master error handling with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
+
+If you're new to Spring Boot, make sure you understand the basics from our [Spring Boot Introduction](/tutorial/spring-boot-introduction) first.
+
 After setting up your project:
 
 1. Create a simple REST controller
@@ -438,4 +448,5 @@ public class HelloController {
 };
 
 export default springBootProjectSetup;
+
 

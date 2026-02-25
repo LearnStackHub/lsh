@@ -346,6 +346,12 @@ class StudentApplicationIntegrationTest {
 6. Keep tests simple and focused
 
 Testing gives you confidence. Write tests for everything important.
+
+**Related Topics:**
+- Test your REST APIs built with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
+- Test validation logic from [Spring Boot Validation](/tutorial/spring-boot-validation)
+- Test exception handling from [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
+- Test JPA repositories from [Spring Boot JPA](/tutorial/spring-boot-jpa)
 `,
   code: `// Complete Testing Example
 
@@ -493,4 +499,5 @@ class ProductServiceTest {
 };
 
 export default springBootTesting;
+
 

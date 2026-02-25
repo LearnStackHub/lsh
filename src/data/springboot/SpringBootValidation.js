@@ -462,6 +462,12 @@ curl -X POST http://localhost:8080/api/students \\
 6. Create custom validators for complex validation
 
 Validation protects your application from bad data. Use it everywhere.
+
+**Related Topics:**
+- Build REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api) (uses validation)
+- Handle validation errors with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
+- Work with database entities in [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Test validation logic with [Spring Boot Testing](/tutorial/spring-boot-testing)
 `,
   code: `// Complete Validation Example
 
@@ -605,4 +611,5 @@ public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product
 };
 
 export default springBootValidation;
+
 

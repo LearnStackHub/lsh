@@ -376,6 +376,12 @@ spring.datasource.url=jdbc:mysql://prod-server:3306/proddb
 5. Never commit passwords or secrets to version control
 
 Configuration is powerful. Use it wisely.
+
+**Next Steps:**
+- Set up your first project with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup)
+- Learn to send emails with [Spring Boot SMTP](/tutorial/spring-boot-smtp) (uses configuration)
+- Deploy your application with [Spring Boot Deployment](/tutorial/spring-boot-deployment) (uses profiles)
+- Monitor your app with [Spring Boot Actuator](/tutorial/spring-boot-actuator) (uses configuration)
 `,
   code: `// Spring Boot Configuration Examples
 

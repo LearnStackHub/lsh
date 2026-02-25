@@ -436,6 +436,12 @@ public class GlobalExceptionHandler {
 6. Follow REST conventions for professional APIs
 
 Build your REST API step by step. Start simple, then add complexity.
+
+**Next Steps:**
+- Learn how to handle errors properly with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
+- Add input validation with [Spring Boot Validation](/tutorial/spring-boot-validation)
+- Connect your API to a database using [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Secure your API with [Spring Boot Security](/tutorial/spring-boot-security)
 `,
   code: `// Complete REST API Example
 package com.example.controller;
@@ -545,4 +551,5 @@ public class ProductController {
 };
 
 export default springBootRestAPI;
+
 

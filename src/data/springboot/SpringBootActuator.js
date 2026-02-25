@@ -267,6 +267,12 @@ management.endpoint.health.show-details=when-authorized
 6. Expose only necessary endpoints
 
 Monitoring helps you keep your application healthy.
+
+**Related Topics:**
+- Configure actuator with [Spring Boot Configuration](/tutorial/spring-boot-configuration)
+- Deploy and monitor with [Spring Boot Deployment](/tutorial/spring-boot-deployment)
+- Secure actuator endpoints with [Spring Boot Security](/tutorial/spring-boot-security)
+- Test actuator endpoints with [Spring Boot Testing](/tutorial/spring-boot-testing)
 `,
   code: `// Spring Boot Actuator Examples
 
@@ -344,4 +350,5 @@ curl http://localhost:8080/actuator/metrics/jvm.memory.used
 };
 
 export default springBootActuator;
+
 

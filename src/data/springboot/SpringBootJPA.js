@@ -536,6 +536,12 @@ curl http://localhost:8080/api/students/1
 6. Use @Query for custom queries
 
 JPA makes database work much easier. Start simple, then add complexity as needed.
+
+**Related Topics:**
+- Learn database fundamentals with [MySQL Introduction](/tutorial/mysql-introduction) and [JDBC Tutorial](/tutorial/jdbc-introduction)
+- Understand ORM concepts with [Hibernate Introduction](/tutorial/hibernate-introduction)
+- Build REST APIs that use JPA with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
+- Configure your database connection in [Spring Boot Configuration](/tutorial/spring-boot-configuration)
 `,
   code: `// Complete Spring Boot JPA Example
 
@@ -759,4 +765,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 };
 
 export default springBootJPA;
+
 

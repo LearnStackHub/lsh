@@ -1245,6 +1245,13 @@ Let me summarize what we covered today:
 4. Add email verification - Send verification links to new users
 
 You now have all the knowledge to send emails from your Spring Boot application. Start practicing and build something real. The more you practice, the better you'll become. Good luck with your projects!
+
+**Related Topics:**
+- Configure email settings in [Spring Boot Configuration](/tutorial/spring-boot-configuration)
+- Build REST APIs that send emails with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
+- Handle email sending errors with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
+- Test email functionality with [Spring Boot Testing](/tutorial/spring-boot-testing)
+- Deploy email-enabled apps with [Spring Boot Deployment](/tutorial/spring-boot-deployment)
 `
 };
 

@@ -400,6 +400,12 @@ public class GlobalExceptionHandler {
 6. Keep error response format consistent
 
 Exception handling makes your API professional and user-friendly. Handle errors gracefully.
+
+**Related Topics:**
+- Learn to build REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
+- Add input validation with [Spring Boot Validation](/tutorial/spring-boot-validation)
+- Test your exception handling with [Spring Boot Testing](/tutorial/spring-boot-testing)
+- Understand HTTP status codes with [HTTP Status Codes](/tutorial/http-status-codes)
 `,
   code: `// Complete Exception Handling Example
 
@@ -541,4 +547,5 @@ public class StudentService {
 };
 
 export default springBootExceptionHandling;
+
 
