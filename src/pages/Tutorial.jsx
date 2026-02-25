@@ -342,6 +342,49 @@ function Tutorial() {
   };
 
   const formatInlineCode = (text) => {
+    // First, handle markdown links [text](/tutorial/topic-id)
+    const linkRegex = /\[([^\]]+)\]\((\/tutorial\/[^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+    
+    while ((match = linkRegex.exec(text)) !== null) {
+      // Add text before link
+      if (match.index > lastIndex) {
+        const beforeText = text.substring(lastIndex, match.index);
+        parts.push(...parseInlineFormatting(beforeText));
+      }
+      
+      // Add link
+      const linkText = match[1];
+      const linkPath = match[2];
+      parts.push(
+        <Link 
+          key={`link-${match.index}`}
+          to={linkPath}
+          style={{
+            color: 'var(--accent-primary)',
+            textDecoration: 'underline',
+            fontWeight: '500'
+          }}
+        >
+          {linkText}
+        </Link>
+      );
+      
+      lastIndex = match.index + match[0].length;
+    }
+    
+    // Add remaining text
+    if (lastIndex < text.length) {
+      const remainingText = text.substring(lastIndex);
+      parts.push(...parseInlineFormatting(remainingText));
+    }
+    
+    return parts.length > 0 ? parts : [text];
+  };
+  
+  const parseInlineFormatting = (text) => {
     const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith('`') && part.endsWith('`')) {

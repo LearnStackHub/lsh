@@ -15,7 +15,7 @@ function InternalLinks({ currentTopicId, courseTitle }) {
       topic.courseKey === currentTopic.courseKey && 
       topic.id !== currentTopicId
     )
-    .slice(0, 5); // Show 5 related topics
+    .slice(0, 8); // Show 8 related topics for better internal linking
   
   // Get next topic in sequence
   const allCourseTopics = allTopics
