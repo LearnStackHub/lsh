@@ -447,9 +447,11 @@ public String showStudents(Model model) {
 
 Now that you understand controllers, let's learn about:
 
-1. **ViewResolver** - How views are resolved
-2. **ModelAndView** - Another way to pass data
-3. **Building a Complete Project** - Login + Student CRUD
+1. **[Spring MVC ViewResolver](/tutorial/spring-mvc-view-resolver)** - How views are resolved
+2. **[Spring MVC ModelAndView](/tutorial/spring-mvc-model-and-view)** - Another way to pass data
+3. **[Complete Spring Project](/tutorial/spring-project-login-student-crud)** - Login + Student CRUD
+
+**Ready for Spring Boot?** Controllers in Spring Boot are even simpler! Check out [Spring Boot REST API](/tutorial/spring-boot-rest-api).
 
 > **Key Takeaway:** Controllers handle web requests. Use @Controller to mark a class, @RequestMapping to map URLs, and Model to pass data to views. It's that simple.
 `,

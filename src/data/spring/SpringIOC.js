@@ -347,11 +347,13 @@ You're giving up control of object creation, but you gain control of your busine
 
 IOC is just the beginning. Now that Spring creates objects, we need to understand:
 
-1. **Dependency Injection** - How Spring gives objects to other objects
-2. **Beans** - What Spring-managed objects are called
-3. **ApplicationContext** - The container that holds everything
+1. **[Dependency Injection](/tutorial/spring-di)** - How Spring gives objects to other objects
+2. **[Beans](/tutorial/spring-bean)** - What Spring-managed objects are called
+3. **[ApplicationContext](/tutorial/spring-application-context)** - The container that holds everything
 
 IOC and Dependency Injection work together. IOC creates objects, DI wires them together.
+
+**Ready for Spring Boot?** Once you master Spring Framework, check out [Spring Boot Introduction](/tutorial/spring-boot-introduction) to see how Spring Boot simplifies everything!
 
 > **Key Takeaway:** IOC means Spring creates objects for you. Instead of writing "new StudentService()", you use @Autowired and Spring provides it. That's the inversion - you're not in control of creation anymore, Spring is.
 `,

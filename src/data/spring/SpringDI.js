@@ -445,11 +445,16 @@ They work together:
 
 Now that you understand DI, let's learn about:
 
-1. **Beans** - What Spring-managed objects are called
-2. **ApplicationContext** - The container that holds all beans
-3. **Configuration** - How to tell Spring which classes to manage
+1. **[Beans](/tutorial/spring-bean)** - What Spring-managed objects are called
+2. **[ApplicationContext](/tutorial/spring-application-context)** - The container that holds all beans
+3. **[Configuration with Annotations](/tutorial/spring-configuration-annotation)** - How to tell Spring which classes to manage
+4. **[Configuration with XML](/tutorial/spring-configuration-xml)** - Alternative XML-based configuration
 
 > **Key Takeaway:** Dependency Injection means Spring automatically provides dependencies to your classes. Instead of writing "new StudentRepository()", you use @Autowired and Spring gives you the StudentRepository object. It's that simple.
+
+**Next Steps:**
+- Learn to build web applications with [Spring MVC DispatcherServlet](/tutorial/spring-mvc-dispatcher-servlet)
+- Master Spring Boot with [Spring Boot Introduction](/tutorial/spring-boot-introduction)
 `,
   code: `// Dependency Injection Demo
 // Understanding how Spring injects dependencies

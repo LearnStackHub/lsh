@@ -351,9 +351,11 @@ When user visits \`/products\`:
 
 Now that you understand DispatcherServlet, let's learn about:
 
-1. **Controllers** - How to handle requests
-2. **ViewResolver** - How views are resolved
-3. **ModelAndView** - How to pass data to views
+1. **[Spring MVC Controller](/tutorial/spring-mvc-controller)** - How to handle requests
+2. **[Spring MVC ViewResolver](/tutorial/spring-mvc-view-resolver)** - How views are resolved
+3. **[Spring MVC ModelAndView](/tutorial/spring-mvc-model-and-view)** - How to pass data to views
+
+**Ready for Spring Boot?** Spring Boot simplifies MVC setup. Check out [Spring Boot REST API](/tutorial/spring-boot-rest-api) to see how easy it is!
 
 > **Key Takeaway:** DispatcherServlet is the front controller of Spring MVC. It receives all requests, finds the right controller, executes it, resolves the view, and sends the response. You configure it once in web.xml, and it handles everything automatically.
 `,
