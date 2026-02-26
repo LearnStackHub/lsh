@@ -288,6 +288,12 @@ Views provide:
 
 Use views to simplify your database queries!
 
+**Related Topics:**
+- Learn [MySQL Joins](/tutorial/mysql-joins) to create complex views
+- Use [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) in views
+- Combine with [MySQL Subqueries](/tutorial/mysql-subqueries) for advanced views
+- Query views from Java using [JDBC](/tutorial/jdbc-introduction)
+
 ---
 
 ## Practice Question

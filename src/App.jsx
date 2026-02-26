@@ -39,39 +39,39 @@ function AppWithTracking() {
 
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <Routes>
-        {/* Redirect old incorrect URLs to correct ones - must be before Layout route */}
+    <Routes>
+      {/* Redirect old incorrect URLs to correct ones - must be before Layout route */}
+      <Route 
+        path="/tutorial/servlet-architecture" 
+        element={<Navigate to="/tutorial/servlet-introduction" replace />} 
+      />
+      <Route 
+        path="/tutorial/servlet-filter" 
+        element={<Navigate to="/tutorial/filters-listeners" replace />} 
+      />
+      <Route 
+        path="/tutorial/servlet-listener" 
+        element={<Navigate to="/tutorial/filters-listeners" replace />} 
+      />
+      <Route 
+        path="/tutorial/jdbc-architecture" 
+        element={<Navigate to="/tutorial/jdbc-introduction" replace />} 
+      />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        {/* Redirect index.html to home */}
         <Route 
-          path="/tutorial/servlet-architecture" 
-          element={<Navigate to="/tutorial/servlet-introduction" replace />} 
+          path="index.html" 
+          element={<Navigate to="/" replace />} 
         />
-        <Route 
-          path="/tutorial/servlet-filter" 
-          element={<Navigate to="/tutorial/filters-listeners" replace />} 
-        />
-        <Route 
-          path="/tutorial/servlet-listener" 
-          element={<Navigate to="/tutorial/filters-listeners" replace />} 
-        />
-        <Route 
-          path="/tutorial/jdbc-architecture" 
-          element={<Navigate to="/tutorial/jdbc-introduction" replace />} 
-        />
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          {/* Redirect index.html to home */}
-          <Route 
-            path="index.html" 
-            element={<Navigate to="/" replace />} 
-          />
-          <Route path="tutorial/:topicId" element={<Tutorial />} />
-          <Route path="privacy" element={<PrivacyPolicy />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="about" element={<About />} />
-          <Route path="sitemap.xml" element={<Sitemap />} />
-        </Route>
-      </Routes>
+        <Route path="tutorial/:topicId" element={<Tutorial />} />
+        <Route path="privacy" element={<PrivacyPolicy />} />
+        <Route path="terms" element={<Terms />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="about" element={<About />} />
+        <Route path="sitemap.xml" element={<Sitemap />} />
+      </Route>
+    </Routes>
     </Suspense>
   );
 }

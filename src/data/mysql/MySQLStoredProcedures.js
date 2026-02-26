@@ -388,6 +388,12 @@ Stored procedures provide:
 
 Master stored procedures, and you can build powerful database logic!
 
+**Related Topics:**
+- Learn [MySQL Triggers](/tutorial/mysql-triggers) for automated actions
+- Use [MySQL Functions](/tutorial/mysql-scalar-functions) within procedures
+- Combine with [MySQL Transactions](/tutorial/mysql-transactions) for data integrity
+- Call from Java using [JDBC PreparedStatement](/tutorial/jdbc-prepared-statement)
+
 ---
 
 ## Practice Question

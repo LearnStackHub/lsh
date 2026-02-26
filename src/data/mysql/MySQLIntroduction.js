@@ -384,9 +384,25 @@ SELECT
     o.order_date,
     o.total_amount
 FROM orders o
-JOIN customers c ON o.customer_id = c.id;`
+JOIN customers c ON o.customer_id = c.id;
+\`\`\`
+
+---
+
+## What's Next?
+
+Now that you understand MySQL basics:
+
+1. **[MySQL Installation and Setup](/tutorial/mysql-installation)** - Install MySQL on your system
+2. **[MySQL Data Types](/tutorial/mysql-data-types)** - Learn all data types
+3. **[Creating Databases and Tables](/tutorial/mysql-create-database)** - Create your first database
+4. **[SELECT Query](/tutorial/mysql-select)** - Retrieve data from tables
+5. **[MySQL Joins](/tutorial/mysql-joins)** - Combine data from multiple tables
+
+**Connect MySQL to Java:**
+- Learn [JDBC Introduction](/tutorial/jdbc-introduction) to connect Java with MySQL
+- Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
+`
 };
 
 export default mysqlIntroduction;
-
-

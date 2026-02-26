@@ -561,9 +561,25 @@ WHERE u.age > 25
 GROUP BY u.id, u.name, u.city
 HAVING COUNT(o.id) > 0
 ORDER BY total_spent DESC
-LIMIT 5;`
+LIMIT 5;
+\`\`\`
+
+---
+
+## What's Next?
+
+Master these related MySQL topics:
+
+1. **[MySQL Joins](/tutorial/mysql-joins)** - Combine data from multiple tables
+2. **[MySQL Clauses](/tutorial/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
+4. **[MySQL Subqueries](/tutorial/mysql-subqueries)** - Nested queries for complex data
+5. **[MySQL Views](/tutorial/mysql-views)** - Simplify complex SELECT queries
+
+**Connect to Java:**
+- Use SELECT in [JDBC](/tutorial/jdbc-introduction) to retrieve data
+- Spring Boot JPA simplifies queries - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
+`
 };
 
 export default mysqlSelect;
-
-

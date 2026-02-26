@@ -707,7 +707,33 @@ class JspProcessor {
     }
 }`
     }
-  ]
+  ],
+  content: `${jspIntroduction.content}
+
+---
+
+## What's Next?
+
+Master these JSP topics:
+
+1. **[JSP Scripting Elements](/tutorial/jsp-scripting-elements)** — Scriptlets, expressions, declarations
+2. **[JSP Directives](/tutorial/jsp-directives)** — Page, include, taglib directives
+3. **[JSP Implicit Objects](/tutorial/jsp-implicit-objects)** — request, response, session, application
+4. **[JSP Expression Language (EL)](/tutorial/jsp-expression-language)** — Simplify JSP code
+5. **[JSP JSTL](/tutorial/jsp-jstl)** — JSP Standard Tag Library
+6. **[JSP Action Tags](/tutorial/jsp-action-tags)** — jsp:include, jsp:forward, jsp:useBean
+7. **[JSP Custom Tags](/tutorial/jsp-custom-tags)** — Create reusable components
+8. **[JSP Architecture](/tutorial/jsp-architecture)** — How JSP works internally
+
+**Prerequisites:**
+- Learn [Servlets Introduction](/tutorial/servlet-introduction) first
+- Understand [HTTP Request and Response](/tutorial/servlet-http-request-response)
+- Master [Session Management](/tutorial/servlet-session-management)
+
+**Next Level:**
+- Use [Spring Boot](/tutorial/spring-boot-introduction) with Thymeleaf templates
+- Learn [Spring MVC](/tutorial/spring-mvc-introduction) for modern web development
+`
 };
 
 export default jspIntroduction;

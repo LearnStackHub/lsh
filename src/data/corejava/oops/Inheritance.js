@@ -633,7 +633,29 @@ class Motorcycle extends Vehicle {
     public void startEngine() {
         System.out.println(brand + " " + model + " roars to life! Vroom!");
     }
-}`
+}\`\`\`
+
+---
+
+## What's Next?
+
+Master these related OOPs concepts:
+
+1. **[Polymorphism](/tutorial/polymorphism)** — One interface, many implementations
+2. **[Encapsulation](/tutorial/encapsulation)** — Data hiding and access control
+3. **[Abstraction](/tutorial/abstraction)** — Hide complexity, show essentials
+4. **[Interfaces](/tutorial/interfaces)** — Define contracts for classes
+5. **[Classes and Objects](/tutorial/classes-objects)** — Create and use objects
+6. **[Constructors](/tutorial/constructors)** — Initialize objects properly
+
+**Prerequisites:**
+- Complete [OOPs Introduction](/tutorial/oops-introduction) first
+- Understand [Java Classes and Objects](/tutorial/classes-objects) basics
+
+**Next Level:**
+- Use inheritance in [Spring Framework](/tutorial/spring-framework-introduction)
+- Build applications with [Spring Boot](/tutorial/spring-boot-introduction)
+`
     }
   ]
 };

@@ -437,6 +437,12 @@ username VARCHAR(50) UNIQUE
 - Prevents invalid data
 - Maintains relationships
 - Enforces business rules
+
+**Related Topics:**
+- Learn [Creating Databases and Tables](/tutorial/mysql-create-database) to apply constraints
+- Use [MySQL Joins](/tutorial/mysql-joins) with FOREIGN KEY relationships
+- Understand [MySQL Indexes](/tutorial/mysql-indexes) for PRIMARY KEY performance
+- Connect from Java with [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/tutorial/spring-boot-jpa)
 - Improves data quality
 
 Use constraints wisely to build robust databases!

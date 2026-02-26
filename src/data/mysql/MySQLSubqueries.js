@@ -343,6 +343,12 @@ Subqueries enable:
 
 Master subqueries, and you can solve any query problem!
 
+**Related Topics:**
+- Combine with [MySQL Joins](/tutorial/mysql-joins) for complex queries
+- Use [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) in subqueries
+- Learn [MySQL Clauses](/tutorial/mysql-clauses) for filtering subquery results
+- Practice with [MySQL SELECT](/tutorial/mysql-select) queries
+
 ---
 
 ## Practice Question

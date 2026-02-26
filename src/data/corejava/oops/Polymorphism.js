@@ -646,7 +646,29 @@ class NotificationService {
     void send(Notification notification) {
         notification.send();  // Polymorphism in action!
     }
-}`
+}\`\`\`
+
+---
+
+## What's Next?
+
+Master these related OOPs concepts:
+
+1. **[Inheritance](/tutorial/inheritance)** — Build on existing classes
+2. **[Encapsulation](/tutorial/encapsulation)** — Data hiding and access control
+3. **[Abstraction](/tutorial/abstraction)** — Hide complexity, show essentials
+4. **[Interfaces](/tutorial/interfaces)** — Define contracts for classes
+5. **[Classes and Objects](/tutorial/classes-objects)** — Create and use objects
+6. **[Constructors](/tutorial/constructors)** — Initialize objects properly
+
+**Prerequisites:**
+- Complete [OOPs Introduction](/tutorial/oops-introduction) first
+- Understand [Inheritance](/tutorial/inheritance) for method overriding
+
+**Next Level:**
+- Use polymorphism in [Spring Framework](/tutorial/spring-framework-introduction)
+- Build applications with [Spring Boot](/tutorial/spring-boot-introduction)
+`
     }
   ]
 };

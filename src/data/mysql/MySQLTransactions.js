@@ -241,6 +241,12 @@ Transactions ensure:
 
 Use transactions for operations that must succeed together!
 
+**Related Topics:**
+- Learn [JDBC Transaction Management](/tutorial/jdbc-transaction-management) for Java
+- Use transactions in [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Understand [Hibernate Transactions](/tutorial/hibernate-session) for ORM
+- Master [MySQL DML](/tutorial/mysql-insert-update-delete) operations
+
 ---
 
 ## Practice Question

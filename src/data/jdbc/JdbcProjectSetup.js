@@ -551,10 +551,18 @@ Now you're ready to connect Java applications to MySQL databases!
 
 ## Next Steps
 
-- Learn about **PreparedStatement** for parameterized queries
-- Understand **ResultSet** for retrieving data
-- Explore **Transaction Management**
-- Build a complete **CRUD application**
+- Learn about **[PreparedStatement Interface](/tutorial/jdbc-prepared-statement)** for parameterized queries
+- Understand **[ResultSet Interface](/tutorial/jdbc-result-set-interface)** for retrieving data
+- Explore **[Transaction Management](/tutorial/jdbc-transaction-management)**
+- Build a complete **[CRUD Operations](/tutorial/jdbc-crud-operations)** application
+
+**Prerequisites:**
+- Complete [JDBC Introduction](/tutorial/jdbc-introduction) first
+- Learn [MySQL Introduction](/tutorial/mysql-introduction) to understand databases
+
+**Next Level:**
+- Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
+- Learn [Hibernate](/tutorial/hibernate-introduction) for ORM
   `,
   code: `// JDBC Project Setup Guide
 // This is a reference guide for JDBC project setup

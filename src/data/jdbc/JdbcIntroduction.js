@@ -467,10 +467,21 @@ Database operations can fail. Always have proper error handling.
 ## What's Next?
 
 This was just the introduction. In the upcoming lessons, we'll cover:
-- JDBC Drivers — Types and how to set them up
-- Connection Pooling — For better performance
-- Transactions — When you need multiple operations to succeed or fail together
-- Batch Processing — For bulk operations
+- **[JDBC Drivers](/tutorial/jdbc-drivers)** — Types and how to set them up
+- **[JDBC Connection Steps](/tutorial/jdbc-connection-steps)** — Step-by-step connection process
+- **[Statement Interface](/tutorial/jdbc-statement-interface)** — Execute SQL queries
+- **[PreparedStatement Interface](/tutorial/jdbc-prepared-statement)** — Secure and efficient queries
+- **[ResultSet Interface](/tutorial/jdbc-result-set-interface)** — Handle query results
+- **[CRUD Operations](/tutorial/jdbc-crud-operations)** — Create, Read, Update, Delete
+- **[Transaction Management](/tutorial/jdbc-transaction-management)** — When you need multiple operations to succeed or fail together
+
+**Prerequisites:**
+- Learn [MySQL Introduction](/tutorial/mysql-introduction) to understand databases
+- Master [MySQL SELECT](/tutorial/mysql-select) and [MySQL INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete)
+
+**Next Level:**
+- Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
+- Learn [Hibernate](/tutorial/hibernate-introduction) for ORM
 
 But first, make sure you understand the basics. Try connecting to a database and running some queries. That hands-on experience is invaluable.
 

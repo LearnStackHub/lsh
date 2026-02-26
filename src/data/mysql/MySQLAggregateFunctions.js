@@ -387,6 +387,12 @@ SELECT * FROM (
 
 Master aggregate functions, and you can analyze any data!
 
+**Related Topics:**
+- Learn [MySQL Clauses](/tutorial/mysql-clauses) - GROUP BY, HAVING, ORDER BY
+- Combine with [MySQL Joins](/tutorial/mysql-joins) for complex analysis
+- Use in [MySQL Subqueries](/tutorial/mysql-subqueries) for advanced queries
+- Query from Java with [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/tutorial/spring-boot-jpa)
+
 ---
 
 ## Practice Question

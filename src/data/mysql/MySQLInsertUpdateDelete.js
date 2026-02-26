@@ -331,6 +331,12 @@ WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
 - ⚠️ Always use WHERE clause
 - Consider soft deletes for important data
 
+**Related Topics:**
+- Learn [MySQL SELECT](/tutorial/mysql-select) to query the data you insert
+- Understand [MySQL Constraints](/tutorial/mysql-constraints) that affect INSERT/UPDATE/DELETE
+- Use [MySQL Transactions](/tutorial/mysql-transactions) for safe data modifications
+- Connect from Java with [JDBC CRUD Operations](/tutorial/jdbc-crud-operations)
+
 **Key Points:**
 - Always use WHERE in UPDATE/DELETE
 - Test with SELECT first

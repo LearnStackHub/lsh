@@ -541,9 +541,25 @@ INNER JOIN orders o ON c.id = o.customer_id
 INNER JOIN order_items oi ON o.id = oi.order_id
 INNER JOIN products p ON oi.product_id = p.id
 WHERE c.id = 1
-ORDER BY o.order_date DESC, p.name;`
+ORDER BY o.order_date DESC, p.name;
+\`\`\`
+
+---
+
+## What's Next?
+
+Master these related MySQL topics:
+
+1. **[MySQL Subqueries](/tutorial/mysql-subqueries)** - Nested queries for complex data retrieval
+2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
+3. **[MySQL Clauses](/tutorial/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+4. **[MySQL Constraints](/tutorial/mysql-constraints)** - PRIMARY KEY, FOREIGN KEY, UNIQUE
+5. **[MySQL Indexes](/tutorial/mysql-indexes)** - Improve query performance
+
+**Connect to Java:**
+- Use joins in [JDBC](/tutorial/jdbc-introduction) queries
+- Spring Boot JPA handles joins automatically - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
+`
 };
 
 export default mysqlJoins;
-
-

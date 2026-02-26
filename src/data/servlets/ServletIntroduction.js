@@ -492,10 +492,21 @@ For learning, Tomcat is perfect. It's free, easy to set up, and widely used in p
 
 This was just the beginning. Servlets are powerful, but there's more to learn:
 
-- **Servlet Lifecycle** — How Servlets are created and destroyed
-- **Filters** — Intercept requests before they reach Servlets
-- **Listeners** — React to events in your application
-- **JSP** — Easier way to write HTML with Java
+- **[Servlet Lifecycle](/tutorial/servlet-lifecycle)** — How Servlets are created and destroyed
+- **[Servlet API](/tutorial/servlet-api)** — Core interfaces and classes
+- **[HTTP Request and Response](/tutorial/servlet-http-request-response)** — Handle request/response objects
+- **[Session Management](/tutorial/servlet-session-management)** — Maintain user state
+- **[Filters and Listeners](/tutorial/servlet-filters-listeners)** — Intercept requests and react to events
+- **[Servlet Security](/tutorial/servlet-security)** — Secure your web applications
+- **[JSP Introduction](/tutorial/jsp-introduction)** — Easier way to write HTML with Java
+
+**Prerequisites:**
+- Learn [Core Java](/tutorial/core-java-introduction) fundamentals
+- Understand [HTTP & APIs](/tutorial/http-introduction) basics
+
+**Next Level:**
+- Use [Spring Boot REST API](/tutorial/spring-boot-rest-api) for modern web development
+- Learn [Spring MVC](/tutorial/spring-mvc-introduction) for better architecture
 
 But before moving on, try building a simple Servlet yourself. Create a form, submit it to a Servlet, process the data. That hands-on experience is invaluable.
 
