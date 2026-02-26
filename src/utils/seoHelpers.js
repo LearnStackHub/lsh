@@ -39,20 +39,25 @@ export const generateSEOTitle = (topic) => {
     
     // Core Java Topics
     'Java Introduction': 'Java Programming Tutorial for Beginners - Learn Java from Scratch',
+    'Introduction to Java': 'Java Programming Tutorial for Beginners - Learn Java from Scratch',
     'Java Features': 'Java Features Explained - Object-Oriented, Platform Independent, Secure',
     'Java Environment Setup': 'Java Environment Setup Tutorial - Install JDK and Set PATH',
     'Java Syntax': 'Java Syntax Tutorial - Basic Syntax Rules and Examples',
     'Variables in Java': 'Java Variables Tutorial - Local, Instance, Static Variables',
     'Java Data Types': 'Java Data Types Tutorial - Primitive and Reference Types',
+    'Data Types in Java': 'Java Data Types Tutorial - Primitive and Reference Types',
     'Operators in Java': 'Java Operators Tutorial - Arithmetic, Logical, Comparison Operators',
     'Methods in Java': 'Java Methods Tutorial - Method Declaration, Parameters, Return Types',
     'Java Keywords': 'Java Keywords Tutorial - Reserved Words in Java',
     'If-Else Statement': 'Java If-Else Statement Tutorial - Conditional Statements with Examples',
+    'If-Else Statements': 'Java If-Else Statement Tutorial - Conditional Statements with Examples',
     'Switch Statement': 'Java Switch Statement Tutorial - Multi-way Branching with switch-case',
     'For Loop': 'Java For Loop Tutorial - Iteration with for, for-each Loop Examples',
     'While Loop': 'Java While Loop Tutorial - Conditional Iteration with while, do-while',
+    'Do-While Loop': 'Java Do-While Loop Tutorial - Post-Test Loop with do-while Examples',
     'Break and Continue': 'Java Break and Continue Tutorial - Control Loop Execution',
     'OOPs Introduction': 'Java OOPs Concepts Tutorial - Object-Oriented Programming Fundamentals',
+    'Introduction to OOPs': 'Java OOPs Concepts Tutorial - Object-Oriented Programming Fundamentals',
     'Classes and Objects': 'Java Classes and Objects Tutorial - Create Classes and Instantiate Objects',
     'Constructors': 'Java Constructors Tutorial - Default, Parameterized, Constructor Overloading',
     'Inheritance': 'Java Inheritance Tutorial - extends, super, Method Overriding',
@@ -61,14 +66,17 @@ export const generateSEOTitle = (topic) => {
     'Encapsulation': 'Java Encapsulation Tutorial - Data Hiding with private, getters, setters',
     'Interfaces': 'Java Interfaces Tutorial - interface Keyword, Multiple Inheritance',
     'String Introduction': 'Java String Tutorial - String Class, String Literals, String Pool',
+    'Introduction to Strings': 'Java String Tutorial - String Class, String Literals, String Pool',
     'String Methods': 'Java String Methods Tutorial - length, charAt, substring, indexOf, replace',
     'StringBuffer': 'Java StringBuffer Tutorial - Mutable String with StringBuffer Class',
     'StringBuilder': 'Java StringBuilder Tutorial - Efficient String Concatenation',
     'Array Introduction': 'Java Array Tutorial - Declare, Initialize, Access Array Elements',
+    'Introduction to Arrays': 'Java Array Tutorial - Declare, Initialize, Access Array Elements',
     'Single Dimensional Array': 'Java 1D Array Tutorial - Single Dimensional Array with Examples',
     'Multi Dimensional Array': 'Java 2D Array Tutorial - Multi-Dimensional Arrays, Matrix',
     'Array Methods': 'Java Array Methods Tutorial - Arrays Class, Sorting, Searching',
     'Exception Handling Introduction': 'Java Exception Handling Tutorial - try-catch, throw, throws',
+    'Introduction to Exception Handling': 'Java Exception Handling Tutorial - try-catch, throw, throws',
     'Try-Catch-Finally': 'Java Try-Catch-Finally Tutorial - Exception Handling Blocks',
     'Throw and Throws': 'Java Throw and Throws Tutorial - Throw Exceptions, Declare Exceptions',
     'Custom Exceptions': 'Java Custom Exceptions Tutorial - Create User-Defined Exception Classes',
@@ -234,14 +242,24 @@ export const generateSEOTitle = (topic) => {
     'Git Deployment & CI/CD': 'Git Deployment Tutorial - CI/CD Pipeline with Git',
   };
   
-  // Return SEO title if exists, otherwise generate one
-  if (seoTitles[title]) {
-    return seoTitles[title];
+  // Return SEO title if exists (case-insensitive match)
+  const titleKey = Object.keys(seoTitles).find(key => key.toLowerCase() === title.toLowerCase());
+  if (titleKey) {
+    return seoTitles[titleKey];
   }
   
-  // Generate SEO-friendly title
+  // Generate SEO-friendly title with better fallback
   const courseName = courseTitle || 'Java';
-  return `${title} Tutorial - ${courseName} with Examples & Code | LearnStackHub`;
+  
+  // Remove common suffixes and create better title
+  let cleanTitle = title;
+  if (cleanTitle.endsWith(' Tutorial')) {
+    cleanTitle = cleanTitle.replace(' Tutorial', '');
+  }
+  
+  // Generate long-tail keyword title with course context
+  // This ensures every page gets a unique, SEO-friendly title
+  return `${cleanTitle} Tutorial - ${courseName} with Examples & Code | LearnStackHub`;
 };
 
 /**
