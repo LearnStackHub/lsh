@@ -203,6 +203,18 @@ export const generateSEOTitle = (topic) => {
     'Spring Boot Actuator - Monitoring and Management': 'Spring Boot Actuator Tutorial - Application Monitoring and Health Checks',
     'Spring Boot SMTP Integration - Email Sending': 'Spring Boot SMTP Tutorial - Send Emails with Gmail, Outlook, Custom SMTP Servers',
     'Postman and Swagger Integration - API Testing and Documentation': 'Postman and Swagger Tutorial - Test and Document REST APIs in Spring Boot',
+    'Spring Cloud & Microservices Architecture': 'Spring Cloud Microservices Tutorial - Complete Guide to Building Microservices with Spring Cloud',
+    'Spring Cloud Microservices Project Setup': 'Spring Cloud Microservices Project Tutorial - Complete Setup Guide with Eureka, API Gateway, User and Product Services',
+    'Microservices Architecture Fundamentals': 'Microservices Architecture Tutorial - Monolith vs Microservices, DDD, Architecture Principles',
+    'Spring Cloud Config Server - Centralized Configuration': 'Spring Cloud Config Server Tutorial - Centralized Configuration Management for Microservices',
+    'Service Discovery with Eureka': 'Spring Cloud Eureka Tutorial - Service Discovery and Registration in Microservices',
+    'API Gateway with Spring Cloud Gateway': 'Spring Cloud Gateway Tutorial - API Gateway Routing, Filters, Authentication',
+    'Load Balancing in Spring Cloud': 'Spring Cloud Load Balancing Tutorial - Client-Side Load Balancing with LoadBalancer',
+    'Inter-Service Communication with OpenFeign': 'Spring Cloud OpenFeign Tutorial - Declarative REST Clients for Microservices',
+    'Fault Tolerance with Resilience4j': 'Spring Cloud Resilience4j Tutorial - Circuit Breaker, Retry, Rate Limiter, Bulkhead',
+    'Distributed Tracing with Sleuth and Zipkin': 'Spring Cloud Distributed Tracing Tutorial - Sleuth and Zipkin for Request Tracking',
+    'Security in Microservices - JWT and OAuth2': 'Spring Cloud Security Tutorial - JWT Authentication and OAuth2 in Microservices',
+    'Centralized Logging with ELK Stack': 'Spring Cloud ELK Stack Tutorial - Elasticsearch, Logstash, Kibana for Centralized Logging',
     'Top 30 Spring Boot Interview Questions': 'Top 30 Spring Boot Interview Questions - Most Asked Spring Boot Interview Questions with Answers',
     
     // HTTP & APIs Topics

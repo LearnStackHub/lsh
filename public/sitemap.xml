@@ -694,6 +694,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://learnstackhub.com/tutorial/microservices-architecture-fundamentals</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://learnstackhub.com/tutorial/multi-dimensional-array</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1044,6 +1050,72 @@
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-validation</loc>
     <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-api-gateway</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-config-server</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-distributed-tracing</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-elk</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-eureka</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-load-balancing</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-microservices</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-microservices-project</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-openfeign</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-resilience4j</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/tutorial/spring-cloud-security</loc>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

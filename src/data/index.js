@@ -223,6 +223,21 @@ import {
   springBootInterviewQuestions
 } from './springboot';
 
+// Spring Cloud
+import {
+  springCloudMicroservicesProject,
+  microservicesArchitectureFundamentals,
+  springCloudConfigServer,
+  springCloudEureka,
+  springCloudApiGateway,
+  springCloudLoadBalancing,
+  springCloudOpenFeign,
+  springCloudResilience4j,
+  springCloudDistributedTracing,
+  springCloudSecurity,
+  springCloudELK
+} from './springcloud';
+
 // Spring Framework
 import {
   springIntroduction,
@@ -826,6 +841,79 @@ export const courseStructure = {
         title: "Interview Questions",
         topics: [
           springBootInterviewQuestions
+        ]
+      }
+    }
+  },
+  springcloud: {
+    title: "Spring Cloud",
+    icon: "☁️",
+    color: "#6DB33F",
+    sections: {
+      gettingstarted: {
+        title: "Getting Started",
+        topics: [
+          springCloudMicroservicesProject
+        ]
+      },
+      fundamentals: {
+        title: "Microservices Fundamentals",
+        topics: [
+          microservicesArchitectureFundamentals
+        ]
+      },
+      configuration: {
+        title: "Configuration Management",
+        topics: [
+          springCloudConfigServer
+        ]
+      },
+      discovery: {
+        title: "Service Discovery",
+        topics: [
+          springCloudEureka
+        ]
+      },
+      gateway: {
+        title: "API Gateway",
+        topics: [
+          springCloudApiGateway
+        ]
+      },
+      loadbalancing: {
+        title: "Load Balancing",
+        topics: [
+          springCloudLoadBalancing
+        ]
+      },
+      communication: {
+        title: "Inter-Service Communication",
+        topics: [
+          springCloudOpenFeign
+        ]
+      },
+      resilience: {
+        title: "Fault Tolerance",
+        topics: [
+          springCloudResilience4j
+        ]
+      },
+      tracing: {
+        title: "Distributed Tracing",
+        topics: [
+          springCloudDistributedTracing
+        ]
+      },
+      security: {
+        title: "Security",
+        topics: [
+          springCloudSecurity
+        ]
+      },
+      logging: {
+        title: "Centralized Logging",
+        topics: [
+          springCloudELK
         ]
       }
     }

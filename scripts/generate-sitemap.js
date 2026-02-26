@@ -28,6 +28,7 @@ const newPagesToday = [
   'spring-boot-security',
   'spring-boot-smtp',
   'spring-boot-postman-swagger',
+  'spring-cloud-microservices',
   'spring-boot-testing',
   'spring-boot-deployment',
   'spring-boot-actuator',
