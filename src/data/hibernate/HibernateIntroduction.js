@@ -385,6 +385,11 @@ Hibernate is a powerful ORM framework that:
 
 In the next tutorials, we'll dive deeper into Hibernate configuration, mapping, queries, and advanced features. Get ready to write less code and build more powerful applications!
 
+**Related Topics:**
+- Test your Hibernate APIs with [Postman and Swagger](/tutorial/spring-boot-postman-swagger) integration
+- Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
+- Learn [Spring Boot REST API](/tutorial/spring-boot-rest-api) to expose Hibernate entities as REST endpoints
+
 ---
 
 ## Practice Question
