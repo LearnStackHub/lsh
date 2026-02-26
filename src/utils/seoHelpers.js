@@ -202,6 +202,7 @@ export const generateSEOTitle = (topic) => {
     'Spring Boot Deployment - Deploy to Production': 'Spring Boot Deployment Tutorial - Deploy to Production Server',
     'Spring Boot Actuator - Monitoring and Management': 'Spring Boot Actuator Tutorial - Application Monitoring and Health Checks',
     'Spring Boot SMTP Integration - Email Sending': 'Spring Boot SMTP Tutorial - Send Emails with Gmail, Outlook, Custom SMTP Servers',
+    'Postman and Swagger Integration - API Testing and Documentation': 'Postman and Swagger Tutorial - Test and Document REST APIs in Spring Boot',
     'Top 30 Spring Boot Interview Questions': 'Top 30 Spring Boot Interview Questions - Most Asked Spring Boot Interview Questions with Answers',
     
     // HTTP & APIs Topics

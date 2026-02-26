@@ -216,6 +216,7 @@ import {
   springBootValidation,
   springBootSecurity,
   springBootSMTP,
+  springBootPostmanSwagger,
   springBootTesting,
   springBootDeployment,
   springBootActuator,
@@ -809,7 +810,8 @@ export const courseStructure = {
           springBootExceptionHandling,
           springBootValidation,
           springBootSecurity,
-          springBootSMTP
+          springBootSMTP,
+          springBootPostmanSwagger
         ]
       },
       testing: {

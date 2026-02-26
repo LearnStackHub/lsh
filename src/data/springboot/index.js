@@ -8,6 +8,7 @@ import springBootExceptionHandling from './SpringBootExceptionHandling';
 import springBootValidation from './SpringBootValidation';
 import springBootSecurity from './SpringBootSecurity';
 import springBootSMTP from './SpringBootSMTP';
+import springBootPostmanSwagger from './SpringBootPostmanSwagger';
 import springBootTesting from './SpringBootTesting';
 import springBootDeployment from './SpringBootDeployment';
 import springBootActuator from './SpringBootActuator';
@@ -23,6 +24,7 @@ export {
   springBootValidation,
   springBootSecurity,
   springBootSMTP,
+  springBootPostmanSwagger,
   springBootTesting,
   springBootDeployment,
   springBootActuator,
