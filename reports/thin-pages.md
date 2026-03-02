@@ -1,13 +1,13 @@
 # Thin Pages Audit Report
 
-Generated: 2026-03-02T18:38:28.515Z
+Generated: 2026-03-02T18:43:54.444Z
 
 ## Summary
 - Total topic files scanned: **222**
 - Topics with extracted content: **213**
 - Under 1000 non-code words: **101**
-- Under 500 non-code words: **14**
-- Under 300 non-code words: **4**
+- Under 500 non-code words: **11**
+- Under 300 non-code words: **0**
 
 > Note: **non-code words** excludes fenced code blocks (```...```). This better reflects “reading depth”.
 
@@ -15,21 +15,14 @@ Generated: 2026-03-02T18:38:28.515Z
 
 | nonCodeWords | totalWords | id | title | file |
 |---:|---:|---|---|---|
-| 80 | 80 | string-builder | StringBuilder | `src/data/corejava/strings/StringBuilder.js` |
-| 126 | 126 | string-methods | String Methods | `src/data/corejava/strings/StringMethods.js` |
-| 127 | 127 | string-buffer | StringBuffer | `src/data/corejava/strings/StringBuffer.js` |
-| 229 | 229 | do-while-loop | Do-While Loop | `src/data/corejava/controlflow/DoWhileLoop.js` |
 
 
 ## Under 500 non-code words
 
 | nonCodeWords | totalWords | id | title | file |
 |---:|---:|---|---|---|
-| 80 | 80 | string-builder | StringBuilder | `src/data/corejava/strings/StringBuilder.js` |
-| 126 | 126 | string-methods | String Methods | `src/data/corejava/strings/StringMethods.js` |
-| 127 | 127 | string-buffer | StringBuffer | `src/data/corejava/strings/StringBuffer.js` |
-| 229 | 229 | do-while-loop | Do-While Loop | `src/data/corejava/controlflow/DoWhileLoop.js` |
 | 305 | 305 | html-iframe | HTML iframe - Embedding Content | `src/data/html/HtmlIframe.js` |
+| 307 | 307 | do-while-loop | Do-While Loop | `src/data/corejava/controlflow/DoWhileLoop.js` |
 | 341 | 341 | for-loop | For Loop | `src/data/corejava/controlflow/ForLoop.js` |
 | 342 | 342 | throw-throws | Throw and Throws | `src/data/corejava/exceptions/ThrowThrows.js` |
 | 391 | 391 | jsp-directives | JSP Directives | `src/data/jsp/JspDirectives.js` |
@@ -45,11 +38,8 @@ Generated: 2026-03-02T18:38:28.515Z
 
 | nonCodeWords | totalWords | id | title | file |
 |---:|---:|---|---|---|
-| 80 | 80 | string-builder | StringBuilder | `src/data/corejava/strings/StringBuilder.js` |
-| 126 | 126 | string-methods | String Methods | `src/data/corejava/strings/StringMethods.js` |
-| 127 | 127 | string-buffer | StringBuffer | `src/data/corejava/strings/StringBuffer.js` |
-| 229 | 229 | do-while-loop | Do-While Loop | `src/data/corejava/controlflow/DoWhileLoop.js` |
 | 305 | 305 | html-iframe | HTML iframe - Embedding Content | `src/data/html/HtmlIframe.js` |
+| 307 | 307 | do-while-loop | Do-While Loop | `src/data/corejava/controlflow/DoWhileLoop.js` |
 | 341 | 341 | for-loop | For Loop | `src/data/corejava/controlflow/ForLoop.js` |
 | 342 | 342 | throw-throws | Throw and Throws | `src/data/corejava/exceptions/ThrowThrows.js` |
 | 391 | 391 | jsp-directives | JSP Directives | `src/data/jsp/JspDirectives.js` |
@@ -62,6 +52,7 @@ Generated: 2026-03-02T18:38:28.515Z
 | 501 | 501 | jsp-custom-tags | JSP Custom Tags | `src/data/jsp/JspCustomTags.js` |
 | 517 | 517 | jsp-action-tags | JSP Action Tags | `src/data/jsp/JspActionTags.js` |
 | 540 | 540 | break-continue | Break and Continue | `src/data/corejava/controlflow/BreakContinue.js` |
+| 541 | 541 | string-builder | StringBuilder | `src/data/corejava/strings/StringBuilder.js` |
 | 544 | 544 | thread-creation | Creating Threads | `src/data/corejava/multithreading/ThreadCreation.js` |
 | 544 | 544 | mysql-triggers | MySQL Triggers - Automated Actions | `src/data/mysql/MySQLTriggers.js` |
 | 548 | 548 | jsp-implicit-objects | JSP Implicit Objects | `src/data/jsp/JspImplicitObjects.js` |
@@ -71,6 +62,8 @@ Generated: 2026-03-02T18:38:28.515Z
 | 567 | 567 | spring-boot-actuator | Spring Boot Actuator - Monitoring and Management | `src/data/springboot/SpringBootActuator.js` |
 | 593 | 593 | html-best-practices | HTML Best Practices & Validation | `src/data/html/HtmlBestPractices.js` |
 | 624 | 624 | while-loop | While Loop | `src/data/corejava/controlflow/WhileLoop.js` |
+| 628 | 628 | string-buffer | StringBuffer | `src/data/corejava/strings/StringBuffer.js` |
+| 635 | 635 | string-methods | String Methods | `src/data/corejava/strings/StringMethods.js` |
 | 651 | 651 | thread-lifecycle | Thread Lifecycle | `src/data/corejava/multithreading/ThreadLifecycle.js` |
 | 652 | 652 | multi-dimensional-array | Multi-Dimensional Array | `src/data/corejava/arrays/MultiDimensionalArray.js` |
 | 654 | 654 | jdbc-drivers | JDBC Drivers | `src/data/jdbc/JdbcDrivers.js` |

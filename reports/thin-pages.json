@@ -1,40 +1,19 @@
 {
-  "generatedAt": "2026-03-02T18:38:28.494Z",
+  "generatedAt": "2026-03-02T18:43:54.442Z",
   "results": [
-    {
-      "id": "string-builder",
-      "title": "StringBuilder",
-      "file": "src/data/corejava/strings/StringBuilder.js",
-      "totalWords": 80,
-      "nonCodeWords": 80
-    },
-    {
-      "id": "string-methods",
-      "title": "String Methods",
-      "file": "src/data/corejava/strings/StringMethods.js",
-      "totalWords": 126,
-      "nonCodeWords": 126
-    },
-    {
-      "id": "string-buffer",
-      "title": "StringBuffer",
-      "file": "src/data/corejava/strings/StringBuffer.js",
-      "totalWords": 127,
-      "nonCodeWords": 127
-    },
-    {
-      "id": "do-while-loop",
-      "title": "Do-While Loop",
-      "file": "src/data/corejava/controlflow/DoWhileLoop.js",
-      "totalWords": 229,
-      "nonCodeWords": 229
-    },
     {
       "id": "html-iframe",
       "title": "HTML iframe - Embedding Content",
       "file": "src/data/html/HtmlIframe.js",
       "totalWords": 305,
       "nonCodeWords": 305
+    },
+    {
+      "id": "do-while-loop",
+      "title": "Do-While Loop",
+      "file": "src/data/corejava/controlflow/DoWhileLoop.js",
+      "totalWords": 307,
+      "nonCodeWords": 307
     },
     {
       "id": "for-loop",
@@ -121,6 +100,13 @@
       "nonCodeWords": 540
     },
     {
+      "id": "string-builder",
+      "title": "StringBuilder",
+      "file": "src/data/corejava/strings/StringBuilder.js",
+      "totalWords": 541,
+      "nonCodeWords": 541
+    },
+    {
       "id": "thread-creation",
       "title": "Creating Threads",
       "file": "src/data/corejava/multithreading/ThreadCreation.js",
@@ -182,6 +168,20 @@
       "file": "src/data/corejava/controlflow/WhileLoop.js",
       "totalWords": 624,
       "nonCodeWords": 624
+    },
+    {
+      "id": "string-buffer",
+      "title": "StringBuffer",
+      "file": "src/data/corejava/strings/StringBuffer.js",
+      "totalWords": 628,
+      "nonCodeWords": 628
+    },
+    {
+      "id": "string-methods",
+      "title": "String Methods",
+      "file": "src/data/corejava/strings/StringMethods.js",
+      "totalWords": 635,
+      "nonCodeWords": 635
     },
     {
       "id": "thread-lifecycle",

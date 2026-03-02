@@ -23,15 +23,36 @@ do {
 | May not execute at all | Executes at least once |
 | Entry-controlled | Exit-controlled |
 
-## 🏢 Real-Time Project Example: User Input Validation
+---
+
+## When to Use Do-While (Practical Scenarios)
+
+Use a do-while loop when:\n
+- the program must run the block **at least once**\n
+- the condition depends on user input or an action inside the loop\n
+- you are implementing menu systems, retry logic, or validation flows\n
+
+### Diagram: While vs Do-While
+
+\`\`\`
+While loop:
+  check condition -> if true run -> repeat
+
+Do-while loop:
+  run once -> check condition -> if true repeat
+\`\`\`
+
+---
+
+## Real-World Use Case 1: User Input Validation (Registration Form)
 
 \`\`\`java
-// Real-Time: Form Validation System
-// Used in registration forms, payment forms
+// Form Validation System (Registration Form)
+// Common in signup screens, checkout forms, profile update forms
 
 public class FormValidation {
     public static void main(String[] args) {
-        System.out.println("📝 USER REGISTRATION FORM");
+        System.out.println("USER REGISTRATION FORM");
         System.out.println("==========================");
         
         // Simulated user inputs (in real app, from Scanner)
@@ -124,15 +145,16 @@ public class FormValidation {
 }
 \`\`\`
 
-## 🎮 Real-Time Project Example: Game Menu System
+---
+
+## Real-World Use Case 2: Menu-Driven Application (Game / ATM / CLI Tool)
 
 \`\`\`java
-// Real-Time: Game Main Menu
-// Used in mobile and console games
+// Menu-driven program (common in CLI tools, ATM simulation, game menus)
 
 public class GameMainMenu {
     public static void main(String[] args) {
-        System.out.println("🎮 ADVENTURE QUEST");
+        System.out.println("ADVENTURE QUEST");
         System.out.println("==================");
         
         boolean exitGame = false;
@@ -144,10 +166,10 @@ public class GameMainMenu {
             System.out.println("\\n╔═══════════════════════╗");
             System.out.println("║     MAIN MENU         ║");
             System.out.println("╠═══════════════════════╣");
-            System.out.println("║ 1. 🎯 New Game        ║");
-            System.out.println("║ 2. 📂 Load Game       ║");
-            System.out.println("║ 3. ⚙️ Settings        ║");
-            System.out.println("║ 4. 🚪 Exit            ║");
+            System.out.println("║ 1. New Game           ║");
+            System.out.println("║ 2. Load Game          ║");
+            System.out.println("║ 3. Settings           ║");
+            System.out.println("║ 4. Exit               ║");
             System.out.println("╚═══════════════════════╝");
             
             int choice = menuSelections[selectionIndex];
@@ -157,21 +179,21 @@ public class GameMainMenu {
             
             switch (choice) {
                 case 1:
-                    System.out.println("\\n🎯 Starting New Game...");
+                    System.out.println("\\nStarting New Game...");
                     System.out.println("   Creating character...");
                     System.out.println("   Loading world...");
                     System.out.println("   [Game Started]");
                     break;
                     
                 case 2:
-                    System.out.println("\\n📂 Loading Saved Game...");
+                    System.out.println("\\nLoading Saved Game...");
                     System.out.println("   Save 1: Level 45 - 80% complete");
                     System.out.println("   Save 2: Level 23 - 45% complete");
                     System.out.println("   [Game Loaded]");
                     break;
                     
                 case 3:
-                    System.out.println("\\n⚙️ Settings");
+                    System.out.println("\\nSettings");
                     System.out.println("   Sound: ON");
                     System.out.println("   Music: ON");
                     System.out.println("   Graphics: HIGH");
@@ -179,7 +201,7 @@ public class GameMainMenu {
                     break;
                     
                 case 4:
-                    System.out.println("\\n👋 Thanks for playing!");
+                    System.out.println("\\nThanks for playing!");
                     exitGame = true;
                     break;
                     
@@ -189,15 +211,19 @@ public class GameMainMenu {
             
         } while (!exitGame && selectionIndex < menuSelections.length);
         
-        System.out.println("\\n🎮 Game Closed.");
+        System.out.println("\\nGame Closed.");
     }
 }
 \`\`\`
 
-## 🛒 Real-Time Project Example: Shopping Cart Checkout
+---
+
+## Real-World Use Case 3: Retry/Confirmation Loop (Checkout / OTP / Payment)
+
+Do-while is useful when you must attempt an operation at least once and then decide whether to retry based on result.
 
 \`\`\`java
-// Real-Time: Checkout Process
+// Checkout confirmation / retry loop (simplified)
 // Used in e-commerce checkout flows
 
 public class CheckoutProcess {
