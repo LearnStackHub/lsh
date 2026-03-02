@@ -551,8 +551,8 @@ JSP pages are compiled to servlets on first request. Subsequent requests use the
 
 \`\`\`jsp
 <%-- Good: Use JSTL instead of scriptlets --%>
-<c:forEach var="item" items="${items}">
-    <p>${item.name}</p>
+<c:forEach var="item" items="\${items}">
+    <p>\${item.name}</p>
 </c:forEach>
 
 <%-- Bad: Scriptlets are slower --%>
@@ -571,7 +571,7 @@ Always escape user input to prevent cross-site scripting:
 
 \`\`\`jsp
 <%-- Use JSTL c:out for automatic escaping --%>
-<c:out value="${userInput}" />
+<c:out value="\${userInput}" />
 
 <%-- Bad: Direct output is vulnerable --%>
 <%= userInput %>
@@ -582,8 +582,8 @@ Always escape user input to prevent cross-site scripting:
 Validate all user input before processing:
 
 \`\`\`jsp
-<c:if test="${not empty param.username}">
-    <p>Welcome, <c:out value="${param.username}" /></p>
+<c:if test="\${not empty param.username}">
+    <p>Welcome, <c:out value="\${param.username}" /></p>
 </c:if>
 \`\`\`
 
@@ -627,8 +627,8 @@ request.getRequestDispatcher("products.jsp").forward(request, response);
 
 **Solution:**
 \`\`\`jsp
-<c:if test="${not empty user}">
-    <c:out value="${user.name}" />
+<c:if test="\${not empty user}">
+    <c:out value="\${user.name}" />
 </c:if>
 \`\`\`
 
@@ -654,7 +654,7 @@ request.getRequestDispatcher("products.jsp").forward(request, response);
 
 ### Q5: How do I pass data from a Servlet to a JSP page?
 
-**A:** Use request attributes: \`request.setAttribute("key", value);\` in the servlet, then access with \`${key}\` or \`request.getAttribute("key")\` in JSP. For session data, use \`session.setAttribute()\`. For application-wide data, use \`application.setAttribute()\`. Forward the request using \`request.getRequestDispatcher("page.jsp").forward(request, response);\`.
+**A:** Use request attributes: \`request.setAttribute("key", value);\` in the servlet, then access with \`\${key}\` or \`request.getAttribute("key")\` in JSP. For session data, use \`session.setAttribute()\`. For application-wide data, use \`application.setAttribute()\`. Forward the request using \`request.getRequestDispatcher("page.jsp").forward(request, response);\`.
 
 ### Q6: What is JSTL and why should I use it?
 
@@ -662,7 +662,7 @@ request.getRequestDispatcher("products.jsp").forward(request, response);
 
 ### Q7: How do I handle errors in JSP pages?
 
-**A:** Use error pages configured in \`web.xml\` or JSP \`errorPage\` directive. Define error handling: \`<%@ page errorPage="error.jsp" %>\`. In the error page, access exception with \`${exception}\` or \`request.getAttribute("javax.servlet.error.exception")\`. Implement proper error handling to provide user-friendly error messages and log errors for debugging.
+**A:** Use error pages configured in \`web.xml\` or JSP \`errorPage\` directive. Define error handling: \`<%@ page errorPage="error.jsp" %>\`. In the error page, access exception with \`\${exception}\` or \`request.getAttribute("javax.servlet.error.exception")\`. Implement proper error handling to provide user-friendly error messages and log errors for debugging.
 
 ### Q8: Can I use JSP with modern JavaScript frameworks?
 
