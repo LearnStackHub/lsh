@@ -199,6 +199,69 @@ You compile with \`javac HelloWorld.java\`, but you run with \`java HelloWorld\`
 
 ---
 
+## Frequently Asked Questions (FAQs)
+
+### What is Java and why should I learn it?
+
+Java is a high-level, object-oriented programming language created in 1995. You should learn it because it's one of the most widely used languages in enterprise software development, Android app development, and web backend systems. Java offers excellent job opportunities, strong community support, and is used by major companies like Google, Amazon, and Netflix.
+
+### Is Java difficult to learn for beginners?
+
+Java has a moderate learning curve. It's easier than C++ (no pointers, automatic memory management) but more complex than Python. However, Java teaches good programming habits and object-oriented thinking, which are valuable skills. Start with [Java Basics](/tutorial/java-introduction) and progress gradually through [Control Flow](/tutorial/if-else), [OOPs Concepts](/tutorial/oops-introduction), and [Collections](/tutorial/collection-introduction).
+
+### What's the difference between Java and JavaScript?
+
+Despite similar names, Java and JavaScript are completely different:
+- **Java**: Compiled language, used for backend, Android apps, enterprise software
+- **JavaScript**: Interpreted language, used for web frontend, runs in browsers
+
+They serve different purposes and are used together in full-stack development.
+
+### Do I need to learn Java for web development?
+
+For backend web development, Java is excellent. It's used with frameworks like [Spring Boot](/tutorial/spring-boot-introduction) to build REST APIs and web applications. For frontend, you'd use HTML, CSS, and JavaScript. Many developers learn both: Java for backend and JavaScript for frontend.
+
+### What is JVM and why is it important?
+
+JVM (Java Virtual Machine) is what makes Java "Write Once, Run Anywhere." Your Java code compiles to bytecode, and the JVM runs that bytecode on any platform (Windows, Mac, Linux). This platform independence is one of Java's biggest advantages. You don't need to rewrite code for different operating systems.
+
+### Can I build mobile apps with Java?
+
+Yes! Java is the primary language for Android app development (along with Kotlin). Most Android apps are built using Java. If you want to build mobile apps, learning Java is essential. You'll also need to learn Android SDK and Android Studio IDE.
+
+### What should I learn after Java basics?
+
+After mastering Java fundamentals, you should learn:
+1. **Object-Oriented Programming** - [OOPs Concepts](/tutorial/oops-introduction), [Inheritance](/tutorial/inheritance), [Polymorphism](/tutorial/polymorphism)
+2. **Collections Framework** - [Collections Introduction](/tutorial/collection-introduction) for data structures
+3. **Exception Handling** - [Exception Handling](/tutorial/exception-introduction) for error management
+4. **Database Connectivity** - [JDBC](/tutorial/jdbc-introduction) to connect to databases
+5. **Web Development** - [Servlets](/tutorial/servlet-introduction) and [Spring Boot](/tutorial/spring-boot-introduction) for web applications
+
+### Is Java still relevant in 2026?
+
+Absolutely! Java remains one of the most popular programming languages. It's used by major companies, has strong community support, regular updates (Java 21 LTS released in 2023), and continues to evolve with modern features like virtual threads and pattern matching. Java is here to stay.
+
+### How long does it take to learn Java?
+
+It depends on your background and practice time:
+- **Complete beginner**: 3-6 months of consistent practice
+- **Has programming experience**: 1-3 months
+- **To become job-ready**: 6-12 months including frameworks like [Spring Boot](/tutorial/spring-boot-introduction)
+
+The key is consistent practice and building projects. Start with basics, then move to [Spring Boot](/tutorial/spring-boot-introduction) for real-world applications.
+
+### What are the best resources to learn Java?
+
+1. **This platform** - Complete Java tutorials from basics to advanced
+2. **Practice coding** - Use the code editor on each tutorial page
+3. **Build projects** - Start with simple programs, then build web applications with [Spring Boot](/tutorial/spring-boot-introduction)
+4. **Join communities** - Java forums, Reddit r/learnjava, Stack Overflow
+
+Start with [Java Environment Setup](/tutorial/java-environment-setup) and follow the tutorial sequence to build a strong foundation.
+
+---
+
 ## What's Next?
 
 Now that you understand what Java is and why it matters, it's time to set up your development environment. In the next lesson, we'll install the JDK and write our first real program.
