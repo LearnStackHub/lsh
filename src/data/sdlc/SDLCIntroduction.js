@@ -87,16 +87,16 @@ The main deliverable of this phase is the **SRS (Software Requirement Specificat
 
 If you're building a Hostel Booking App, the requirements might include:
 
-- User registration and login functionality
+- User registration and login functionality (learn [Spring Boot Security](/tutorial/spring-boot-security) for authentication)
 - Ability to browse available hostel rooms
 - Room booking system with date selection
 - Online payment integration (credit card, UPI, net banking)
 - Admin panel for managing rooms and bookings
 - Room availability tracking in real-time
-- Email notifications for booking confirmations
+- Email notifications for booking confirmations (implement with [Spring Boot SMTP](/tutorial/spring-boot-smtp))
 - Review and rating system for hostels
 
-Each of these requirements needs to be documented clearly with acceptance criteria.
+Each of these requirements needs to be documented clearly with acceptance criteria. For implementation, you'll use [Spring Boot REST API](/tutorial/spring-boot-rest-api) for backend, [Spring Boot JPA](/tutorial/spring-boot-jpa) for database operations, and [MySQL](/tutorial/mysql-introduction) for data storage.
 
 ---
 
@@ -223,12 +223,12 @@ Low Level Design focuses on detailed implementation. It includes:
 ![Hostel Booking App Architecture](/sdlc/hostel-booking-architecture.png)
 
 **Frontend**: React Native (for mobile app) or React.js (for web)
-**Backend**: Spring Boot (REST APIs)
-**Database**: MySQL (for structured data)
+**Backend**: [Spring Boot](/tutorial/spring-boot-introduction) ([REST APIs](/tutorial/spring-boot-rest-api))
+**Database**: [MySQL](/tutorial/mysql-introduction) (for structured data) with [Spring Boot JPA](/tutorial/spring-boot-jpa)
 **Payment Gateway**: Razorpay or Stripe
-**Hosting**: AWS EC2 or Azure
+**Hosting**: AWS EC2 or Azure (learn [Spring Boot Deployment](/tutorial/spring-boot-deployment))
 **File Storage**: AWS S3 (for images)
-**Email Service**: SendGrid or AWS SES
+**Email Service**: SendGrid or AWS SES (implement with [Spring Boot SMTP](/tutorial/spring-boot-smtp))
 
 ### Output
 
@@ -252,10 +252,10 @@ This is where actual coding begins. Developers write code based on the design do
 Backend developers focus on:
 
 **REST APIs**
-- Creating endpoints for different functionalities
+- Creating endpoints for different functionalities (learn [Spring Boot REST API](/tutorial/spring-boot-rest-api))
 - Implementing business logic
-- Data validation and processing
-- Error handling
+- Data validation and processing (use [Spring Boot Validation](/tutorial/spring-boot-validation))
+- Error handling (implement [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling))
 
 **Authentication**
 - JWT (JSON Web Tokens) for stateless authentication
@@ -270,10 +270,10 @@ Backend developers focus on:
 - Integration with external services
 
 **Database Integration**
-- Connecting to database
-- Writing queries and stored procedures
+- Connecting to database (learn [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/tutorial/spring-boot-jpa))
+- Writing queries and stored procedures (master [MySQL](/tutorial/mysql-introduction) and [MySQL Stored Procedures](/tutorial/mysql-stored-procedures))
 - Data access layer implementation
-- Transaction management
+- Transaction management (understand [JDBC Transaction Management](/tutorial/jdbc-transaction-management) and [MySQL Transactions](/tutorial/mysql-transactions))
 
 ### Frontend Development
 
@@ -379,13 +379,13 @@ Testing ensures the application works as expected. It's not just about finding b
 **JUnit**
 - Java unit testing framework
 - Most popular for Java projects
-- Easy to write and execute tests
+- Easy to write and execute tests (learn [Spring Boot Testing](/tutorial/spring-boot-testing) for comprehensive testing)
 
 **Postman**
 - API testing tool
 - Test REST endpoints
 - Create test collections
-- Automated API testing
+- Automated API testing (learn [Postman and Swagger Integration](/tutorial/spring-boot-postman-swagger) for API testing)
 
 **Selenium**
 - Web application testing
@@ -466,7 +466,7 @@ Modern deployment involves DevOps practices:
 - Automated workflows
 - Build, test, and deploy
 - Integrated with GitHub
-- Free for public repositories
+- Free for public repositories (learn [Git & GitHub](/tutorial/git-introduction) and [GitHub Basics](/tutorial/github-basics))
 
 **Jenkins**
 - Popular CI/CD tool
@@ -517,7 +517,7 @@ After deployment, the work doesn't stop. Software requires ongoing maintenance t
 - Fixing issues reported by users
 - Critical bug fixes (hotfixes)
 - Regular bug fixes in scheduled releases
-- Performance-related fixes
+- Performance-related fixes (use [Spring Boot Actuator](/tutorial/spring-boot-actuator) for monitoring)
 
 **Performance Improvements**
 - Optimizing slow queries
@@ -919,13 +919,70 @@ Remember, SDLC is a framework, not a rigid rule. Adapt it to your project's need
 
 Now that you understand SDLC fundamentals, you can:
 
-- Apply SDLC principles to your projects
-- Choose the right SDLC model for different scenarios
-- Understand how real companies implement SDLC
-- Prepare for interview questions on SDLC
-- Contribute effectively to software development teams
+- Apply SDLC principles to your projects using [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) and [Spring Boot REST API](/tutorial/spring-boot-rest-api)
+- Choose the right SDLC model for different scenarios - learn [Agile Model](#agile-model-most-popular-today) and [Waterfall Model](#waterfall-model)
+- Understand how real companies implement SDLC with [Spring Cloud Microservices Project Setup](/tutorial/spring-cloud-microservices-project)
+- Prepare for interview questions on SDLC and [Java Interview Questions](/tutorial/java-interview-questions)
+- Contribute effectively to software development teams using [Git & GitHub](/tutorial/git-introduction) and [Maven](/tutorial/maven-introduction)
 
 Start applying these concepts to your next project, and you'll see the difference it makes in the quality and success of your software.
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is SDLC and why is it important?
+
+SDLC (Software Development Life Cycle) is a structured process used by software teams to design, develop, test, deploy, and maintain high-quality software efficiently. It ensures proper planning, risk reduction, quality control, on-time delivery, and cost optimization. SDLC is important because it provides a systematic approach to building software systems, making the entire process more manageable and predictable.
+
+### What are the main phases of SDLC?
+
+The main phases of SDLC are:
+1. **Requirement Gathering** - Understanding what the client wants
+2. **Feasibility Study** - Checking if the project is practical and achievable
+3. **System Design** - Planning the architecture (High Level Design and Low Level Design)
+4. **Development** - Actual coding (frontend and backend development)
+5. **Testing** - Ensuring the application works as expected (unit, integration, system, UAT)
+6. **Deployment** - Releasing the application to production
+7. **Maintenance** - Ongoing bug fixes, performance improvements, and feature enhancements
+
+### Which SDLC model is best for beginners?
+
+For beginners, the **Waterfall Model** is easiest to understand as it follows a linear sequential approach. However, most modern companies use the **Agile Model** because it's iterative, allows for changes, and delivers working software frequently. Start with understanding Waterfall, then move to Agile as it's what you'll use in real-world projects.
+
+### What is the difference between Waterfall and Agile models?
+
+**Waterfall Model** is a linear sequential model where each phase must be completed before the next begins. It's best for small projects with clear, stable requirements. **Agile Model** is iterative, divides work into sprints (2-3 weeks), allows continuous client feedback, and is adaptable to changes. Agile is used by almost all modern startups and product companies.
+
+### How does SDLC relate to Spring Boot and Java development?
+
+SDLC provides the framework for building software, while [Spring Boot](/tutorial/spring-boot-introduction) and [Java](/tutorial/java-introduction) are the technologies used during the Development phase. Understanding SDLC helps you structure your [Spring Boot projects](/tutorial/spring-boot-project-setup), plan your [REST APIs](/tutorial/spring-boot-rest-api), and implement proper [testing](/tutorial/spring-boot-testing) and [deployment](/tutorial/spring-boot-deployment) strategies.
+
+### What role does testing play in SDLC?
+
+Testing is a critical phase in SDLC that ensures the application works as expected. It includes unit testing (testing individual components), integration testing (testing how modules work together), system testing (testing the complete system), and user acceptance testing (UAT). Proper testing reduces bugs, improves quality, and ensures the software meets requirements. Learn more about [Spring Boot Testing](/tutorial/spring-boot-testing) to understand testing in practice.
+
+### How do I choose the right SDLC model for my project?
+
+Choose **Waterfall** for small projects with clear, stable requirements. Choose **Agile** for projects with changing requirements, startups, or when speed is important. Choose **V-Model** for critical systems (medical, banking) where quality is paramount. Choose **Spiral Model** for large, high-risk projects requiring risk management.
+
+### What is Secure SDLC?
+
+Secure SDLC (also called DevSecOps) integrates security considerations into every phase of the development lifecycle. This includes security requirements identification, threat modeling, secure coding practices, security testing, and security patches. Modern SDLC must include security from the beginning, not as an afterthought. Learn about [Spring Boot Security](/tutorial/spring-boot-security) to see security implementation.
+
+### How does DevOps relate to SDLC?
+
+DevOps extends SDLC by automating the deployment phase through CI/CD pipelines. Modern SDLC combines Agile (iterative development), DevOps (automated deployment), and CI/CD (continuous integration and deployment) to create a continuous delivery model. This allows features to be delivered frequently (every 2-3 weeks) with fast feedback loops.
+
+### What should I learn after understanding SDLC?
+
+After understanding SDLC fundamentals, you should:
+1. Learn a programming language like [Java](/tutorial/java-introduction)
+2. Understand web development with [HTML](/tutorial/html-introduction) and [CSS](/tutorial/css-introduction)
+3. Build backend applications with [Spring Boot](/tutorial/spring-boot-introduction)
+4. Learn database integration with [MySQL](/tutorial/mysql-introduction) and [JDBC](/tutorial/jdbc-introduction)
+5. Master deployment with [Spring Boot Deployment](/tutorial/spring-boot-deployment)
+6. Understand microservices with [Spring Cloud](/tutorial/spring-cloud-microservices-project)
 `
 };
 
