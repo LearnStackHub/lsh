@@ -14,6 +14,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Contact = lazy(() => import('./pages/Contact'));
 const About = lazy(() => import('./pages/About'));
+const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
 
 // Minimal loading fallback
@@ -69,6 +70,7 @@ function AppWithTracking() {
         <Route path="terms" element={<Terms />} />
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
+        <Route path="disclaimer" element={<Disclaimer />} />
         <Route path="sitemap.xml" element={<Sitemap />} />
       </Route>
     </Routes>

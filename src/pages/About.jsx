@@ -26,22 +26,68 @@ function About() {
             textAlign: 'center',
             marginBottom: '2rem'
           }}>
-            <h2 style={{ color: 'white', marginBottom: '1rem' }}>Our Mission</h2>
-            <p style={{ fontSize: '1.2rem', lineHeight: '1.8', margin: 0 }}>
-              To make quality Java education accessible to everyone, from complete beginners to experienced developers 
-              looking to master cloud-ready full-stack development. We believe learning should be interactive, practical, 
-              and free.
+            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Our Mission</h2>
+            <p style={{ fontSize: '1.3rem', lineHeight: '1.9', margin: 0, fontWeight: '500' }}>
+              To democratize Java full-stack education by providing comprehensive, high-quality, and completely free learning 
+              resources that empower individuals from all backgrounds to master enterprise-grade software development. We are 
+              committed to making professional-level Java education accessible to everyone, regardless of their financial 
+              situation or prior experience.
             </p>
+            <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.3)' }}>
+              <h3 style={{ color: 'white', marginBottom: '1rem', fontSize: '1.4rem' }}>Our Core Values</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', textAlign: 'left' }}>
+                <div>
+                  <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Accessibility</strong>
+                  <p style={{ fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>Free education for everyone, forever</p>
+                </div>
+                <div>
+                  <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Quality</strong>
+                  <p style={{ fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>Enterprise-grade content and examples</p>
+                </div>
+                <div>
+                  <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Practicality</strong>
+                  <p style={{ fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>Real-world, hands-on learning</p>
+                </div>
+                <div>
+                  <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Community</strong>
+                  <p style={{ fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>Built by developers, for developers</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
           <h2>What is LearnStackHub?</h2>
-          <p>
+          <p style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
             LearnStackHub is a comprehensive, interactive learning platform designed to take you from Java fundamentals 
             all the way to building cloud-ready applications. Whether you're just starting your programming journey or 
             looking to expand your skills, we provide step-by-step tutorials, real-world examples, and hands-on practice.
           </p>
+          <div style={{
+            background: 'var(--bg-tertiary)',
+            borderLeft: '4px solid var(--accent-primary)',
+            padding: '1.5rem',
+            borderRadius: '10px',
+            marginTop: '1.5rem'
+          }}>
+            <h3 style={{ marginTop: 0 }}>Our Story</h3>
+            <p style={{ marginBottom: '1rem' }}>
+              LearnStackHub was founded with a simple yet powerful vision: to break down barriers in technology education. 
+              We recognized that quality Java full-stack education was often locked behind expensive courses or scattered 
+              across multiple sources, making it difficult for aspiring developers to build comprehensive skills.
+            </p>
+            <p style={{ marginBottom: '1rem' }}>
+              Our platform was built by developers who understand the challenges of learning enterprise Java development. 
+              We've experienced the frustration of incomplete tutorials, outdated examples, and courses that don't prepare 
+              you for real-world projects. LearnStackHub is our solution to these problems.
+            </p>
+            <p style={{ margin: 0 }}>
+              Today, LearnStackHub serves thousands of learners worldwide, providing free, comprehensive Java education 
+              that rivals paid platforms. We're committed to maintaining this mission as we continue to grow and expand 
+              our curriculum.
+            </p>
+          </div>
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
