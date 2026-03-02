@@ -155,10 +155,203 @@ function Home() {
         </div>
       </section>
 
+      {/* Featured Guides Section */}
+      <section style={{
+        padding: '4rem 2rem',
+        background: 'var(--bg-primary)',
+        marginBottom: '3rem'
+      }}>
+        <div className="section-header">
+          <h2 className="section-title-main" style={{ marginBottom: '0.5rem' }}>Start Here - Featured Guides</h2>
+          <p style={{ 
+            textAlign: 'center', 
+            color: 'var(--text-secondary)', 
+            fontSize: '1.1rem',
+            maxWidth: '700px',
+            margin: '0 auto 2rem'
+          }}>
+            New to Java? Start with these comprehensive guides designed for beginners. Each guide includes real-world examples, 
+            code explanations, and hands-on practice.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '2rem',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}>
+          {[
+            {
+              id: 'java-introduction',
+              title: 'Java Introduction',
+              description: 'Master the fundamentals of Java programming. Learn variables, data types, OOP concepts, and build your first Java application.',
+              icon: Code,
+              level: 'Beginner',
+              time: '2 hours',
+              topics: 'Variables, OOP, Collections'
+            },
+            {
+              id: 'spring-boot-introduction',
+              title: 'Spring Boot Introduction',
+              description: 'Build production-ready Java applications with Spring Boot. Learn auto-configuration, REST APIs, and enterprise patterns.',
+              icon: Rocket,
+              level: 'Intermediate',
+              time: '3 hours',
+              topics: 'REST APIs, JPA, Security'
+            },
+            {
+              id: 'mysql-introduction',
+              title: 'MySQL Database Guide',
+              description: 'Complete MySQL tutorial covering database design, SQL queries, joins, stored procedures, and optimization techniques.',
+              icon: Database,
+              level: 'Beginner',
+              time: '4 hours',
+              topics: 'SQL, Joins, Stored Procedures'
+            },
+            {
+              id: 'jdbc-introduction',
+              title: 'JDBC Complete Guide',
+              description: 'Connect Java applications to databases using JDBC. Learn connection management, prepared statements, and transactions.',
+              icon: Server,
+              level: 'Intermediate',
+              time: '3 hours',
+              topics: 'Connections, Transactions, CRUD'
+            },
+            {
+              id: 'sdlc-introduction',
+              title: 'SDLC Complete Guide',
+              description: 'Master Software Development Life Cycle. Learn requirement gathering, design, development, testing, and deployment phases.',
+              icon: FileText,
+              level: 'Beginner',
+              time: '2 hours',
+              topics: 'Requirements, Design, Testing'
+            }
+          ].map((guide, index) => {
+            const IconComponent = guide.icon;
+            return (
+              <Link
+                key={guide.id}
+                to={`/tutorial/${guide.id}`}
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '2px solid var(--border-color)',
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                  boxShadow: index === 0 ? '0 8px 24px rgba(102, 126, 234, 0.15)' : '0 4px 12px rgba(0,0,0,0.08)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(102, 126, 234, 0.2)';
+                  e.currentTarget.style.borderColor = 'var(--accent-primary)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = index === 0 ? '0 8px 24px rgba(102, 126, 234, 0.15)' : '0 4px 12px rgba(0,0,0,0.08)';
+                  e.currentTarget.style.borderColor = 'var(--border-color)';
+                }}
+              >
+                {index === 0 && (
+                  <div style={{
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    color: 'white',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '20px',
+                    fontSize: '0.85rem',
+                    fontWeight: '600',
+                    display: 'inline-block',
+                    marginBottom: '1rem',
+                    width: 'fit-content'
+                  }}>
+                    ⭐ Recommended First
+                  </div>
+                )}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  marginBottom: '1rem'
+                }}>
+                  <div style={{
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    borderRadius: '12px',
+                    padding: '0.75rem',
+                    color: 'white'
+                  }}>
+                    <IconComponent size={24} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ 
+                      margin: 0, 
+                      marginBottom: '0.25rem',
+                      fontSize: '1.3rem',
+                      color: 'var(--text-primary)'
+                    }}>
+                      {guide.title}
+                    </h3>
+                    <div style={{
+                      display: 'flex',
+                      gap: '1rem',
+                      fontSize: '0.85rem',
+                      color: 'var(--text-secondary)'
+                    }}>
+                      <span style={{
+                        background: 'var(--bg-tertiary)',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '12px'
+                      }}>
+                        {guide.level}
+                      </span>
+                      <span>⏱️ {guide.time}</span>
+                    </div>
+                  </div>
+                </div>
+                <p style={{
+                  color: 'var(--text-secondary)',
+                  lineHeight: '1.7',
+                  marginBottom: '1rem',
+                  flex: 1
+                }}>
+                  {guide.description}
+                </p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: 'var(--accent-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.95rem',
+                  marginTop: 'auto'
+                }}>
+                  Start Learning
+                  <ArrowRight size={18} />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
       {/* Quick Start Cards */}
       <section id="courses" className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">Choose Your Learning Path</h2>
+          <p style={{ 
+            textAlign: 'center', 
+            color: 'var(--text-secondary)', 
+            fontSize: '1rem',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
+            Explore our comprehensive curriculum organized by technology and skill level
+          </p>
         </div>
 
         <div className="courses-grid">
