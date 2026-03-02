@@ -732,27 +732,29 @@ Continue your servlet learning journey with these essential topics:
 - **Spring Boot**: Build production-ready web applications with embedded servlet containers
 
 Servlets are the foundation of Java web development. Master servlet fundamentals before advancing to modern frameworks to understand the underlying request-response model and make informed architectural decisions.
-`,
 
-- **[Servlet Lifecycle](/tutorial/servlet-lifecycle)** — How Servlets are created and destroyed
-- **[Servlet API](/tutorial/servlet-api)** — Core interfaces and classes
-- **[HTTP Request and Response](/tutorial/servlet-http-request-response)** — Handle request/response objects
-- **[Session Management](/tutorial/servlet-session-management)** — Maintain user state
-- **[Filters and Listeners](/tutorial/servlet-filters-listeners)** — Intercept requests and react to events
-- **[Servlet Security](/tutorial/servlet-security)** — Secure your web applications
-- **[JSP Introduction](/tutorial/jsp-introduction)** — Easier way to write HTML with Java
+### Recommended Learning Path:
+
+1. **Servlet Lifecycle** - Understand initialization, service, and destruction phases
+2. **Servlet API** - Master core interfaces (HttpServletRequest, HttpServletResponse, HttpSession)
+3. **HTTP Request and Response** - Handle request parameters, headers, and response generation
+4. **Session Management** - Implement user state persistence across requests
+5. **Servlet Filters** - Implement cross-cutting concerns and request preprocessing
+6. **Servlet Listeners** - React to application and session lifecycle events
+7. **JSP Introduction** - Learn JavaServer Pages for view layer development
 
 **Prerequisites:**
-- Learn [Core Java](/tutorial/core-java-introduction) fundamentals
-- Understand [HTTP & APIs](/tutorial/http-introduction) basics
+- Core Java fundamentals (variables, OOP, exceptions)
+- HTTP & APIs basics (request/response model)
+- Basic understanding of web applications
 
 **Next Level:**
-- Use [Spring Boot REST API](/tutorial/spring-boot-rest-api) for modern web development
-- Learn [Spring MVC](/tutorial/spring-mvc-introduction) for better architecture
+- Spring Boot REST API for modern web development
+- Spring MVC for better architecture and dependency injection
+- Spring Security for enterprise-grade authentication and authorization
 
-But before moving on, try building a simple Servlet yourself. Create a form, submit it to a Servlet, process the data. That hands-on experience is invaluable.
-
-> **Pro Tip:** Download Tomcat, deploy a simple Servlet, and see it work. There's no substitute for actually running code.
+**Hands-On Practice:**
+Build a simple Servlet application: create a form, submit it to a Servlet, process the data, and display results. Deploy to Apache Tomcat and test in a browser. This practical experience reinforces theoretical knowledge and prepares you for real-world development.
 `,
   code: `// Servlet Basics Demo
 // Understanding how Servlets work
