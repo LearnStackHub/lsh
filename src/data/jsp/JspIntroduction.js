@@ -3,9 +3,11 @@ const jspIntroduction = {
   title: 'Introduction to JSP',
   description: 'What is JSP and why use it?',
   content: `
-# Introduction to JSP — Dynamic Web Pages Made Easy
+# JSP — JavaServer Pages for Dynamic Web Development
 
-JavaServer Pages (JSP) is a technology that helps you create dynamic web content. Instead of writing Java code to generate HTML (like in servlets), you write HTML with embedded Java code. It's the natural way to build web pages.
+JavaServer Pages (JSP) is a server-side technology that enables developers to create dynamic web content by embedding Java code within HTML pages. Unlike servlets that generate HTML programmatically, JSP allows developers to write HTML templates with embedded Java code, providing a more intuitive approach to building dynamic web applications.
+
+JSP pages are compiled into servlets at runtime, combining the flexibility of HTML markup with the power of Java programming. This technology has been widely adopted in enterprise Java web applications for over two decades.
 
 ---
 
@@ -492,6 +494,200 @@ Page configuration:
 </body>
 </html>
 \`\`\`
+
+---
+
+## JSP vs Modern Alternatives
+
+### JSP vs Template Engines
+
+**Thymeleaf:**
+- Natural templates (HTML valid)
+- Better separation of concerns
+- Strong Spring integration
+- Modern syntax
+
+**FreeMarker:**
+- Template engine (not JSP)
+- More flexible than JSP
+- Better performance
+- Used in many enterprise applications
+
+**Mustache/Handlebars:**
+- Logic-less templates
+- Client and server-side rendering
+- Simple syntax
+- Popular in modern web development
+
+### When to Use JSP
+
+**Use JSP when:**
+- Working with legacy Java web applications
+- Team is familiar with JSP syntax
+- Integrating with existing JSP-based systems
+- Simple dynamic content requirements
+
+**Consider alternatives when:**
+- Building new applications (use Thymeleaf or modern frameworks)
+- Requiring better separation of concerns
+- Needing client-side rendering capabilities
+- Working with modern JavaScript frameworks
+
+---
+
+## Performance Optimization
+
+### JSP Compilation
+
+JSP pages are compiled to servlets on first request. Subsequent requests use the compiled servlet, improving performance.
+
+**Optimization strategies:**
+- Precompile JSPs during deployment
+- Minimize scriptlet usage (use JSTL/EL instead)
+- Cache frequently accessed data
+- Use JSP include efficiently
+
+### Best Practices for Performance
+
+\`\`\`jsp
+<%-- Good: Use JSTL instead of scriptlets --%>
+<c:forEach var="item" items="${items}">
+    <p>${item.name}</p>
+</c:forEach>
+
+<%-- Bad: Scriptlets are slower --%>
+<% for (Item item : items) { %>
+    <p><%= item.getName() %></p>
+<% } %>
+\`\`\`
+
+---
+
+## Security Considerations
+
+### XSS Prevention
+
+Always escape user input to prevent cross-site scripting:
+
+\`\`\`jsp
+<%-- Use JSTL c:out for automatic escaping --%>
+<c:out value="${userInput}" />
+
+<%-- Bad: Direct output is vulnerable --%>
+<%= userInput %>
+\`\`\`
+
+### Input Validation
+
+Validate all user input before processing:
+
+\`\`\`jsp
+<c:if test="${not empty param.username}">
+    <p>Welcome, <c:out value="${param.username}" /></p>
+</c:if>
+\`\`\`
+
+---
+
+## Common Pitfalls
+
+### 1. Mixing Business Logic with Presentation
+
+**Problem:**
+\`\`\`jsp
+<%
+    // Business logic in JSP - BAD!
+    List<Product> products = productService.getAllProducts();
+    products = products.stream()
+        .filter(p -> p.getPrice() > 100)
+        .collect(Collectors.toList());
+%>
+\`\`\`
+
+**Solution:** Move logic to servlet or service layer:
+\`\`\`java
+// In Servlet
+List<Product> products = productService.getExpensiveProducts();
+request.setAttribute("products", products);
+request.getRequestDispatcher("products.jsp").forward(request, response);
+\`\`\`
+
+### 2. Excessive Scriptlet Usage
+
+**Problem:** Too much Java code in JSP makes maintenance difficult.
+
+**Solution:** Use JSTL and Expression Language (EL).
+
+### 3. Not Handling Null Values
+
+**Problem:**
+\`\`\`jsp
+<%= user.getName() %> <%-- NullPointerException if user is null --%>
+\`\`\`
+
+**Solution:**
+\`\`\`jsp
+<c:if test="${not empty user}">
+    <c:out value="${user.name}" />
+</c:if>
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### Q1: What is the difference between JSP and Servlets?
+
+**A:** Servlets are Java classes that generate HTML programmatically using PrintWriter. JSP pages are HTML-like files with embedded Java code that compile into servlets. Servlets are better for complex business logic, while JSP simplifies view generation. Modern applications use servlets as controllers and JSP for views. Learn more about [Servlets Introduction](/tutorial/servlet-introduction) for request handling.
+
+### Q2: Are JSP pages still used in modern applications?
+
+**A:** JSP is still used in legacy enterprise applications, but many new projects prefer modern template engines like Thymeleaf, FreeMarker, or JavaScript-based solutions (React, Vue). JSP remains relevant for maintaining existing systems and teams familiar with JSP. However, new projects typically choose alternatives for better separation of concerns and modern development workflows.
+
+### Q3: What are JSP implicit objects and how do I use them?
+
+**A:** JSP provides nine implicit objects: request, response, out, session, application, pageContext, config, page, and exception. These objects are automatically available in JSP pages without declaration. For example, \`request.getParameter("name")\` accesses request parameters, and \`session.setAttribute("user", user)\` stores session data. Understanding implicit objects is essential for JSP development.
+
+### Q4: What is the difference between JSP scriptlets, expressions, and declarations?
+
+**A:** Scriptlets (\`<% code %>\`) contain Java code that executes during page processing. Expressions (\`<%= value %>\`) output values directly to the response. Declarations (\`<%! declaration %>\`) define variables or methods at the servlet class level. Modern best practice is to minimize scriptlets and use JSTL/EL instead for better maintainability.
+
+### Q5: How do I pass data from a Servlet to a JSP page?
+
+**A:** Use request attributes: \`request.setAttribute("key", value);\` in the servlet, then access with \`${key}\` or \`request.getAttribute("key")\` in JSP. For session data, use \`session.setAttribute()\`. For application-wide data, use \`application.setAttribute()\`. Forward the request using \`request.getRequestDispatcher("page.jsp").forward(request, response);\`.
+
+### Q6: What is JSTL and why should I use it?
+
+**A:** JSTL (JSP Standard Tag Library) provides standard tags for common tasks (iteration, conditionals, formatting) without writing Java code. JSTL improves code readability, reduces scriptlet usage, and separates presentation from logic. Common libraries include Core (\`<c:forEach>\`), Formatting (\`<fmt:formatDate>\`), and SQL (\`<sql:query>\`). JSTL is essential for maintainable JSP applications.
+
+### Q7: How do I handle errors in JSP pages?
+
+**A:** Use error pages configured in \`web.xml\` or JSP \`errorPage\` directive. Define error handling: \`<%@ page errorPage="error.jsp" %>\`. In the error page, access exception with \`${exception}\` or \`request.getAttribute("javax.servlet.error.exception")\`. Implement proper error handling to provide user-friendly error messages and log errors for debugging.
+
+### Q8: Can I use JSP with modern JavaScript frameworks?
+
+**A:** JSP can generate initial HTML and data, while JavaScript frameworks handle client-side interactivity. However, this approach creates mixed concerns. Modern applications typically use JSP/Thymeleaf for server-side rendering or separate frontend (React/Vue) with REST APIs. Choose based on application requirements: server-side rendering (JSP) or client-side rendering (JavaScript frameworks).
+
+### Q9: What is the JSP lifecycle?
+
+**A:** JSP lifecycle consists of: translation (JSP to servlet source), compilation (servlet source to class), loading (servlet class loaded), instantiation (servlet instance created), initialization (\`jspInit()\`), service (\`_jspService()\` for each request), and destruction (\`jspDestroy()\`). Understanding the lifecycle helps optimize JSP performance and manage resources effectively.
+
+### Q10: How do I optimize JSP performance?
+
+**A:** Performance optimization strategies include: precompiling JSPs during deployment, minimizing scriptlet usage (use JSTL/EL), caching frequently accessed data, using JSP include efficiently, avoiding excessive use of \`<%@ include %>\`, and configuring appropriate buffer sizes. Profile JSP execution to identify bottlenecks. Consider using template engines (Thymeleaf) for better performance in new applications.
+
+---
+
+## Key Takeaways
+
+- **JSP (JavaServer Pages)** enables dynamic web content by embedding Java code in HTML templates
+- **JSP compiles to servlets** at runtime, combining HTML flexibility with Java power
+- **JSTL and Expression Language** should replace scriptlets for better maintainability
+- **Separation of concerns** requires business logic in servlets/services, presentation in JSP
+- **JSP implicit objects** provide convenient access to request, response, session, and application data
+- **Security best practices** include input validation, XSS prevention, and proper error handling
+- **Modern alternatives** (Thymeleaf, FreeMarker) offer better separation of concerns for new projects
+- **JSP remains relevant** for legacy systems and teams familiar with JSP syntax
 
 ---
 

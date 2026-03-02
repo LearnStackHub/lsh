@@ -3,11 +3,11 @@ const servletIntroduction = {
   title: 'Introduction to Servlets',
   description: 'How Java powers the web — from request to response',
   content: `
-# Servlets — Java on the Web
+# Servlets — Java Enterprise Web Development
 
-You click a button on a website. A few milliseconds later, you see a response. Ever wondered what happens in between? On many websites, especially enterprise ones, there's a Java Servlet handling that request.
+Java Servlets are server-side Java programs that handle HTTP requests and generate dynamic web content. Servlets form the foundation of Java Enterprise Edition (JEE) web applications, powering enterprise systems that process millions of requests daily.
 
-**Servlets** are Java programs that run on a server and handle web requests. They're the backbone of Java web development — and understanding them is essential if you want to build web applications with Java.
+**Servlets** are Java classes that extend server capabilities by responding to client requests. They operate within a servlet container (like Apache Tomcat, Jetty, or WildFly) and provide the core mechanism for building dynamic, data-driven web applications in Java.
 
 ---
 
@@ -198,16 +198,25 @@ public class PlaceOrderServlet extends HttpServlet {
 
 ---
 
-## What Exactly is a Servlet?
+## Servlet Architecture and Components
 
-In simple terms, a Servlet is a Java class that:
-1. Receives a request from a browser
-2. Processes it (maybe talks to a database)
-3. Sends back a response
+A Servlet is a Java class that extends server capabilities by processing HTTP requests and generating dynamic responses. Servlets operate within a servlet container, which manages their lifecycle, thread allocation, and resource handling.
 
-That's it. Request in, response out.
+**Core Servlet Responsibilities:**
 
-But here's what makes Servlets special: they're managed by a **Servlet Container** (like Apache Tomcat). The container handles all the messy stuff — creating threads, managing connections, handling security. You just write the business logic.
+1. **Request Processing**: Receive and parse HTTP requests (GET, POST, PUT, DELETE)
+2. **Business Logic Execution**: Process requests, interact with databases, perform calculations
+3. **Response Generation**: Generate dynamic HTML, JSON, XML, or other content types
+4. **Session Management**: Maintain user state across multiple requests
+5. **Security Enforcement**: Implement authentication, authorization, and input validation
+
+**Servlet Container Benefits:**
+
+- **Thread Management**: Container creates and manages threads for concurrent request handling
+- **Lifecycle Management**: Container controls servlet initialization, service, and destruction
+- **Resource Pooling**: Efficient management of database connections and other resources
+- **Security**: Container provides security context and access control mechanisms
+- **Deployment**: Simplified deployment and configuration through web.xml or annotations
 
 ---
 
@@ -254,9 +263,9 @@ You just focus on what happens when a request comes in.
 
 ---
 
-## Your First Servlet
+## Enterprise Servlet Implementation Example
 
-Let's write a simple Servlet that says hello:
+The following example demonstrates a production-ready servlet implementation:
 
 \`\`\`java
 import javax.servlet.*;
@@ -282,13 +291,15 @@ public class HelloServlet extends HttpServlet {
 }
 \`\`\`
 
-Let me break this down:
+**Implementation Breakdown:**
 
-1. **extends HttpServlet** — All HTTP Servlets extend this class
-2. **doGet()** — Called when someone makes a GET request (like typing a URL)
-3. **HttpServletRequest** — Contains everything about the incoming request
-4. **HttpServletResponse** — Used to send the response back
-5. **PrintWriter** — Writes the HTML response
+1. **extends HttpServlet**: All HTTP servlets extend \`HttpServlet\`, which provides HTTP-specific functionality
+2. **doGet()**: Handles HTTP GET requests (resource retrieval, page loads)
+3. **HttpServletRequest**: Encapsulates HTTP request data (parameters, headers, session)
+4. **HttpServletResponse**: Provides methods to construct HTTP responses (status codes, headers, body)
+5. **PrintWriter**: Output stream for writing response content to the client
+
+**Best Practice**: For production applications, use JSP or templating engines (Thymeleaf, FreeMarker) instead of writing HTML directly in servlets for better separation of concerns.
 
 ---
 
@@ -488,9 +499,240 @@ For learning, Tomcat is perfect. It's free, easy to set up, and widely used in p
 
 ---
 
+## Industry Applications and Enterprise Use Cases
+
+### Enterprise Web Application Patterns
+
+**E-Commerce Platforms:**
+- Amazon, Flipkart utilize servlets for order processing, payment handling, and inventory management
+- High-concurrency request handling requires optimized servlet container configuration
+- Session management ensures shopping cart persistence across user interactions
+
+**Banking and Financial Services:**
+- Online banking applications use servlets for secure transaction processing
+- Servlet filters implement security policies and request validation
+- Session management maintains user authentication state
+
+**Content Management Systems:**
+- Enterprise CMS platforms use servlets for dynamic content generation
+- Servlet-based architectures enable scalable content delivery
+- Integration with databases and caching systems for performance
+
+**API Development:**
+- RESTful APIs built with servlets handle JSON/XML request/response processing
+- Servlet filters implement CORS, authentication, and rate limiting
+- Microservices architectures leverage lightweight servlet containers
+
+---
+
+## Performance Optimization Best Practices
+
+### Servlet Container Tuning
+
+**Thread Pool Configuration:**
+\`\`\`xml
+<!-- Tomcat server.xml -->
+<Connector port="8080" 
+           maxThreads="200" 
+           minSpareThreads="10"
+           acceptCount="100"
+           connectionTimeout="20000"/>
+\`\`\`
+
+**Connection Pooling:**
+- Configure database connection pools (HikariCP, Apache DBCP)
+- Set appropriate pool sizes based on application load
+- Monitor connection pool metrics for optimization
+
+### Response Caching
+
+\`\`\`java
+response.setHeader("Cache-Control", "max-age=3600");
+response.setHeader("ETag", generateETag(content));
+\`\`\`
+
+### Async Processing
+
+\`\`\`java
+@WebServlet(asyncSupported = true, urlPatterns = "/async")
+public class AsyncServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response) {
+        AsyncContext asyncContext = request.startAsync();
+        // Process asynchronously
+    }
+}
+\`\`\`
+
+---
+
+## Security Best Practices
+
+### Input Validation
+
+\`\`\`java
+String userInput = request.getParameter("input");
+if (userInput == null || userInput.isEmpty()) {
+    response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    return;
+}
+// Validate format, length, content
+\`\`\`
+
+### SQL Injection Prevention
+
+Always use PreparedStatement with parameterized queries:
+\`\`\`java
+PreparedStatement pstmt = conn.prepareStatement(
+    "SELECT * FROM users WHERE username = ?"
+);
+pstmt.setString(1, username);
+\`\`\`
+
+### XSS Prevention
+
+\`\`\`java
+String userContent = request.getParameter("content");
+String sanitized = escapeHtml(userContent);
+response.getWriter().print(sanitized);
+\`\`\`
+
+### Session Security
+
+\`\`\`java
+HttpSession session = request.getSession();
+session.setAttribute("user", user);
+// Set session timeout
+session.setMaxInactiveInterval(1800); // 30 minutes
+\`\`\`
+
+---
+
+## Common Pitfalls and Solutions
+
+### 1. Thread Safety Issues
+
+**Problem:**
+\`\`\`java
+public class CounterServlet extends HttpServlet {
+    private int count = 0; // Not thread-safe!
+    
+    protected void doGet(...) {
+        count++;
+    }
+}
+\`\`\`
+
+**Solution:**
+\`\`\`java
+private final AtomicInteger count = new AtomicInteger(0);
+
+protected void doGet(...) {
+    count.incrementAndGet();
+}
+\`\`\`
+
+### 2. Resource Leaks
+
+**Problem:** Not closing database connections, streams.
+
+**Solution:** Use try-with-resources:
+\`\`\`java
+try (Connection conn = dataSource.getConnection();
+     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    // Use resources
+} // Auto-closed
+\`\`\`
+
+### 3. Improper Exception Handling
+
+**Problem:** Swallowing exceptions or exposing stack traces.
+
+**Solution:**
+\`\`\`java
+try {
+    // Servlet logic
+} catch (SQLException e) {
+    logger.error("Database error", e);
+    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+}
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### Q1: What is the difference between Servlets and JSP?
+
+**A:** Servlets are Java classes that generate responses programmatically. JSP (JavaServer Pages) are HTML-like files with embedded Java code that compile into servlets. Servlets provide more control and are better for complex logic, while JSP simplifies view generation. Modern applications often use servlets for controllers and JSP/templating engines for views. Learn more about [JSP Introduction](/tutorial/jsp-introduction) for view layer development.
+
+### Q2: How do Servlets handle concurrent requests?
+
+**A:** Servlet containers create a new thread for each request, allowing concurrent processing. Servlets must be thread-safe since multiple threads may access the same servlet instance. Avoid instance variables for request-specific data. Use local variables, method parameters, or thread-safe collections. Servlet containers manage thread pools efficiently, handling thousands of concurrent requests.
+
+### Q3: What is the Servlet lifecycle?
+
+**A:** Servlet lifecycle consists of three phases: initialization (\`init()\`), service (\`service()\` → \`doGet()\`/\`doPost()\`), and destruction (\`destroy()\`). The container calls \`init()\` once when the servlet is first loaded, \`service()\` methods for each request, and \`destroy()\` when the servlet is unloaded. Understanding the lifecycle is crucial for resource management and performance optimization.
+
+### Q4: How do I handle file uploads in Servlets?
+
+**A:** Use \`multipart/form-data\` encoding and parse the request using Apache Commons FileUpload or Servlet 3.0+ \`Part\` API. Servlet 3.0+ provides built-in support: \`Part filePart = request.getPart("file");\`. Always validate file types, sizes, and sanitize filenames. Store uploaded files outside the web application directory for security.
+
+### Q5: What are Servlet filters and when should I use them?
+
+**A:** Servlet filters intercept requests before they reach servlets, enabling cross-cutting concerns like authentication, logging, compression, and encoding. Filters implement the \`Filter\` interface and are configured in \`web.xml\` or using \`@WebFilter\` annotation. Use filters for concerns that apply to multiple servlets, not business logic specific to individual servlets.
+
+### Q6: How do I implement session management in Servlets?
+
+**A:** Use \`HttpSession\` interface: \`HttpSession session = request.getSession();\` creates or retrieves a session. Store data: \`session.setAttribute("key", value);\`. Retrieve data: \`Object value = session.getAttribute("key");\`. Configure session timeout in \`web.xml\` or programmatically. Sessions use cookies (JSESSIONID) or URL rewriting for tracking. For distributed systems, use session replication or external session stores (Redis).
+
+### Q7: What is the difference between forward() and sendRedirect()?
+
+**A:** \`request.getRequestDispatcher("page.jsp").forward(request, response);\` forwards the request server-side (same request, URL unchanged). \`response.sendRedirect("page.jsp");\` sends a redirect response to the client (new request, URL changes). Use forward for internal navigation, redirect for external URLs or after POST requests (prevents duplicate submissions).
+
+### Q8: How do I handle errors and exceptions in Servlets?
+
+**A:** Use try-catch blocks for expected exceptions, send appropriate HTTP status codes (\`response.sendError()\`), and configure error pages in \`web.xml\` for unhandled exceptions. Implement \`@WebServlet\` with error handling or use \`<error-page>\` configuration. Log exceptions for debugging but don't expose sensitive information to clients.
+
+### Q9: Can Servlets be used in microservices architectures?
+
+**A:** Yes, lightweight servlet containers like Jetty and Undertow are commonly used in microservices. Spring Boot embeds Tomcat/Jetty, making servlet-based microservices easy to deploy. However, many modern microservices use reactive frameworks (Spring WebFlux) or JAX-RS (Jersey) for REST APIs. Servlets remain viable for traditional request-response patterns.
+
+### Q10: How do I optimize Servlet performance?
+
+**A:** Performance optimization strategies include: connection pooling for database access, response caching, async processing for long-running operations, proper thread pool configuration, minimizing session data, using CDN for static resources, and profiling to identify bottlenecks. Monitor servlet container metrics (response times, thread usage, memory) for continuous optimization.
+
+---
+
+## Key Takeaways
+
+- **Servlets** are the foundation of Java web development, providing server-side request processing capabilities
+- **Servlet containers** (Tomcat, Jetty) manage servlet lifecycle, threading, and resource allocation
+- **Thread safety** is critical since servlets handle concurrent requests through shared instances
+- **Session management** enables stateful web applications through HttpSession
+- **Servlet filters** provide cross-cutting concerns like authentication, logging, and encoding
+- **Security best practices** include input validation, SQL injection prevention, and proper session management
+- **Performance optimization** through connection pooling, caching, and async processing is essential for scalability
+- **Modern frameworks** (Spring MVC) build on servlet foundation, abstracting common patterns
+
+---
+
 ## What's Next?
 
-This was just the beginning. Servlets are powerful, but there's more to learn:
+Continue your servlet learning journey with these essential topics:
+
+- **Servlet Lifecycle**: Understand initialization, service, and destruction phases
+- **Servlet API**: Master core interfaces (HttpServletRequest, HttpServletResponse, HttpSession)
+- **HTTP Request and Response**: Handle request parameters, headers, and response generation
+- **Session Management**: Implement user state persistence across requests
+- **Servlet Filters**: Implement cross-cutting concerns and request preprocessing
+- **Servlet Listeners**: React to application and session lifecycle events
+- **JSP Introduction**: Learn JavaServer Pages for view layer development
+- **Spring MVC**: Explore modern servlet-based web framework
+- **Spring Boot**: Build production-ready web applications with embedded servlet containers
+
+Servlets are the foundation of Java web development. Master servlet fundamentals before advancing to modern frameworks to understand the underlying request-response model and make informed architectural decisions.
+`,
 
 - **[Servlet Lifecycle](/tutorial/servlet-lifecycle)** — How Servlets are created and destroyed
 - **[Servlet API](/tutorial/servlet-api)** — Core interfaces and classes
