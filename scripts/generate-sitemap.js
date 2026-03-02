@@ -42,6 +42,7 @@ const staticPages = [
   { url: '/contact', priority: '0.7', changefreq: 'monthly' },
   { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
   { url: '/terms', priority: '0.5', changefreq: 'yearly' },
+  { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
 ];
 
 // Function to read existing sitemap and extract old dates
