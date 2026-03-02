@@ -263,7 +263,7 @@
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/global-exception-handling-http</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -419,7 +419,7 @@
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/http-status-codes</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -461,7 +461,7 @@
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/java-interview-questions</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -856,6 +856,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://learnstackhub.com/tutorial/sdlc-introduction</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://learnstackhub.com/tutorial/serialization</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -971,85 +977,85 @@
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-actuator</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-configuration</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-deployment</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-exception-handling</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-interview-questions</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-introduction</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-jpa</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-postman-swagger</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-project-setup</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-rest-api</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-security</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-smtp</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-testing</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-boot-validation</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -1091,7 +1097,7 @@
   </url>
   <url>
     <loc>https://learnstackhub.com/tutorial/spring-cloud-microservices</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

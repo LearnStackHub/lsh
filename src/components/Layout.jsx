@@ -3,7 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Search, Menu, X, ChevronDown, Plus, User, LogOut, BookOpen,
   FileCode, Palette, Code, Database, Server, FileText, Layers, 
-  Box, Rocket, Globe, GitBranch, Package, Wrench
+  Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useContributions } from '../context/ContributionContext';
@@ -146,6 +146,7 @@ function Layout() {
 
   // Map course keys to lucide-react icons
   const courseIcons = {
+    sdlc: ClipboardList,
     html: FileCode,
     css: Palette,
     corejava: Code,
@@ -156,6 +157,7 @@ function Layout() {
     hibernate: Layers,
     spring: Box,
     springboot: Rocket,
+    springcloud: Cloud,
     http: Globe,
     git: GitBranch,
     maven: Package

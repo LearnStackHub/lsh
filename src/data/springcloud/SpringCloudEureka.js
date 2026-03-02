@@ -675,3 +675,5 @@ public class UserController {
 
 export default springCloudEureka;
 
+
+

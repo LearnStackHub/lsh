@@ -217,6 +217,9 @@ export const generateSEOTitle = (topic) => {
     'Centralized Logging with ELK Stack': 'Spring Cloud ELK Stack Tutorial - Elasticsearch, Logstash, Kibana for Centralized Logging',
     'Top 30 Spring Boot Interview Questions': 'Top 30 Spring Boot Interview Questions - Most Asked Spring Boot Interview Questions with Answers',
     
+    // SDLC Topics
+    'Software Development Life Cycle (SDLC) - Complete Guide': 'SDLC Tutorial - Software Development Life Cycle Complete Guide 2026 - Phases, Models, Best Practices',
+    
     // HTTP & APIs Topics
     'HTTP Status Codes - Complete Guide': 'HTTP Status Codes Tutorial - 100, 200, 300, 400, 500 Series Explained',
     'Global Exception Handling': 'Global Exception Handling Tutorial - @ControllerAdvice, @ExceptionHandler in Spring Boot',

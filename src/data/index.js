@@ -238,6 +238,9 @@ import {
   springCloudELK
 } from './springcloud';
 
+// SDLC
+import { sdlcIntroduction } from './sdlc';
+
 // Spring Framework
 import {
   springIntroduction,
@@ -264,6 +267,19 @@ import {
 } from './spring';
 
 export const courseStructure = {
+  sdlc: {
+    title: "SDLC",
+    icon: "📋",
+    color: "#4A90E2",
+    sections: {
+      fundamentals: {
+        title: "SDLC Fundamentals",
+        topics: [
+          sdlcIntroduction
+        ]
+      }
+    }
+  },
   html: {
     title: "HTML",
     icon: "🌐",

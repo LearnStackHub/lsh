@@ -692,3 +692,5 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
 export default springCloudApiGateway;
 
+
+

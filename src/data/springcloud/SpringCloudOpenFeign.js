@@ -646,3 +646,5 @@ public class FeignConfig {
 
 export default springCloudOpenFeign;
 
+
+

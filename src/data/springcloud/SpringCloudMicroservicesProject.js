@@ -863,3 +863,5 @@ spring.cloud.gateway.routes[0].predicates[0]=Path=/api/users/**
 
 export default springCloudMicroservicesProject;
 
+
+
