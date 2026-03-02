@@ -1,4 +1,26 @@
 {
+  "redirects": [
+    {
+      "source": "/tutorial/servlet-architecture",
+      "destination": "/tutorial/servlet-introduction",
+      "permanent": true
+    },
+    {
+      "source": "/tutorial/servlet-filter",
+      "destination": "/tutorial/filters-listeners",
+      "permanent": true
+    },
+    {
+      "source": "/tutorial/servlet-listener",
+      "destination": "/tutorial/filters-listeners",
+      "permanent": true
+    },
+    {
+      "source": "/tutorial/jdbc-architecture",
+      "destination": "/tutorial/jdbc-introduction",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
