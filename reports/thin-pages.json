@@ -1,0 +1,1496 @@
+{
+  "generatedAt": "2026-03-02T18:38:28.494Z",
+  "results": [
+    {
+      "id": "string-builder",
+      "title": "StringBuilder",
+      "file": "src/data/corejava/strings/StringBuilder.js",
+      "totalWords": 80,
+      "nonCodeWords": 80
+    },
+    {
+      "id": "string-methods",
+      "title": "String Methods",
+      "file": "src/data/corejava/strings/StringMethods.js",
+      "totalWords": 126,
+      "nonCodeWords": 126
+    },
+    {
+      "id": "string-buffer",
+      "title": "StringBuffer",
+      "file": "src/data/corejava/strings/StringBuffer.js",
+      "totalWords": 127,
+      "nonCodeWords": 127
+    },
+    {
+      "id": "do-while-loop",
+      "title": "Do-While Loop",
+      "file": "src/data/corejava/controlflow/DoWhileLoop.js",
+      "totalWords": 229,
+      "nonCodeWords": 229
+    },
+    {
+      "id": "html-iframe",
+      "title": "HTML iframe - Embedding Content",
+      "file": "src/data/html/HtmlIframe.js",
+      "totalWords": 305,
+      "nonCodeWords": 305
+    },
+    {
+      "id": "for-loop",
+      "title": "For Loop",
+      "file": "src/data/corejava/controlflow/ForLoop.js",
+      "totalWords": 341,
+      "nonCodeWords": 341
+    },
+    {
+      "id": "throw-throws",
+      "title": "Throw and Throws",
+      "file": "src/data/corejava/exceptions/ThrowThrows.js",
+      "totalWords": 342,
+      "nonCodeWords": 342
+    },
+    {
+      "id": "jsp-directives",
+      "title": "JSP Directives",
+      "file": "src/data/jsp/JspDirectives.js",
+      "totalWords": 391,
+      "nonCodeWords": 391
+    },
+    {
+      "id": "jsp-jstl",
+      "title": "JSTL (JSP Standard Tag Library)",
+      "file": "src/data/jsp/JspJSTL.js",
+      "totalWords": 400,
+      "nonCodeWords": 400
+    },
+    {
+      "id": "html-media",
+      "title": "HTML Media - Audio & Video",
+      "file": "src/data/html/HtmlMedia.js",
+      "totalWords": 404,
+      "nonCodeWords": 404
+    },
+    {
+      "id": "jsp-expression-language",
+      "title": "JSP Expression Language (EL)",
+      "file": "src/data/jsp/JspExpressionLanguage.js",
+      "totalWords": 427,
+      "nonCodeWords": 427
+    },
+    {
+      "id": "encapsulation",
+      "title": "Encapsulation",
+      "file": "src/data/corejava/oops/Encapsulation.js",
+      "totalWords": 439,
+      "nonCodeWords": 439
+    },
+    {
+      "id": "jsp-scripting-elements",
+      "title": "JSP Scripting Elements",
+      "file": "src/data/jsp/JspScriptingElements.js",
+      "totalWords": 469,
+      "nonCodeWords": 469
+    },
+    {
+      "id": "html-marquee",
+      "title": "HTML Marquee - Scrolling Text (Deprecated)",
+      "file": "src/data/html/HtmlMarquee.js",
+      "totalWords": 479,
+      "nonCodeWords": 479
+    },
+    {
+      "id": "jsp-custom-tags",
+      "title": "JSP Custom Tags",
+      "file": "src/data/jsp/JspCustomTags.js",
+      "totalWords": 501,
+      "nonCodeWords": 501
+    },
+    {
+      "id": "jsp-action-tags",
+      "title": "JSP Action Tags",
+      "file": "src/data/jsp/JspActionTags.js",
+      "totalWords": 517,
+      "nonCodeWords": 517
+    },
+    {
+      "id": "break-continue",
+      "title": "Break and Continue",
+      "file": "src/data/corejava/controlflow/BreakContinue.js",
+      "totalWords": 540,
+      "nonCodeWords": 540
+    },
+    {
+      "id": "thread-creation",
+      "title": "Creating Threads",
+      "file": "src/data/corejava/multithreading/ThreadCreation.js",
+      "totalWords": 544,
+      "nonCodeWords": 544
+    },
+    {
+      "id": "mysql-triggers",
+      "title": "MySQL Triggers - Automated Actions",
+      "file": "src/data/mysql/MySQLTriggers.js",
+      "totalWords": 544,
+      "nonCodeWords": 544
+    },
+    {
+      "id": "jsp-implicit-objects",
+      "title": "JSP Implicit Objects",
+      "file": "src/data/jsp/JspImplicitObjects.js",
+      "totalWords": 548,
+      "nonCodeWords": 548
+    },
+    {
+      "id": "prepared-statement",
+      "title": "PreparedStatement Interface",
+      "file": "src/data/jdbc/PreparedStatementInterface.js",
+      "totalWords": 555,
+      "nonCodeWords": 555
+    },
+    {
+      "id": "hibernate-configuration",
+      "title": "Hibernate Configuration",
+      "file": "src/data/hibernate/HibernateConfiguration.js",
+      "totalWords": 558,
+      "nonCodeWords": 558
+    },
+    {
+      "id": "jsp-architecture",
+      "title": "JSP Architecture & Lifecycle",
+      "file": "src/data/jsp/JspArchitecture.js",
+      "totalWords": 559,
+      "nonCodeWords": 559
+    },
+    {
+      "id": "spring-boot-actuator",
+      "title": "Spring Boot Actuator - Monitoring and Management",
+      "file": "src/data/springboot/SpringBootActuator.js",
+      "totalWords": 567,
+      "nonCodeWords": 567
+    },
+    {
+      "id": "html-best-practices",
+      "title": "HTML Best Practices & Validation",
+      "file": "src/data/html/HtmlBestPractices.js",
+      "totalWords": 593,
+      "nonCodeWords": 593
+    },
+    {
+      "id": "while-loop",
+      "title": "While Loop",
+      "file": "src/data/corejava/controlflow/WhileLoop.js",
+      "totalWords": 624,
+      "nonCodeWords": 624
+    },
+    {
+      "id": "thread-lifecycle",
+      "title": "Thread Lifecycle",
+      "file": "src/data/corejava/multithreading/ThreadLifecycle.js",
+      "totalWords": 651,
+      "nonCodeWords": 651
+    },
+    {
+      "id": "multi-dimensional-array",
+      "title": "Multi-Dimensional Array",
+      "file": "src/data/corejava/arrays/MultiDimensionalArray.js",
+      "totalWords": 652,
+      "nonCodeWords": 652
+    },
+    {
+      "id": "jdbc-drivers",
+      "title": "JDBC Drivers",
+      "file": "src/data/jdbc/JdbcDrivers.js",
+      "totalWords": 654,
+      "nonCodeWords": 654
+    },
+    {
+      "id": "maven-introduction",
+      "title": "What is Maven?",
+      "file": "src/data/maven/MavenIntroduction.js",
+      "totalWords": 661,
+      "nonCodeWords": 661
+    },
+    {
+      "id": "crud-operations",
+      "title": "CRUD Operations",
+      "file": "src/data/jdbc/CrudOperations.js",
+      "totalWords": 664,
+      "nonCodeWords": 664
+    },
+    {
+      "id": "set-interface",
+      "title": "Set Interface",
+      "file": "src/data/corejava/collections/SetInterface.js",
+      "totalWords": 673,
+      "nonCodeWords": 673
+    },
+    {
+      "id": "html-lists",
+      "title": "HTML Lists - Ordered, Unordered & Description Lists",
+      "file": "src/data/html/HtmlLists.js",
+      "totalWords": 687,
+      "nonCodeWords": 687
+    },
+    {
+      "id": "spring-configuration-xml",
+      "title": "Spring XML Configuration",
+      "file": "src/data/spring/SpringConfigurationXML.js",
+      "totalWords": 687,
+      "nonCodeWords": 687
+    },
+    {
+      "id": "if-else",
+      "title": "If-Else Statements",
+      "file": "src/data/corejava/controlflow/IfElse.js",
+      "totalWords": 688,
+      "nonCodeWords": 688
+    },
+    {
+      "id": "html-images",
+      "title": "HTML Images",
+      "file": "src/data/html/HtmlImages.js",
+      "totalWords": 697,
+      "nonCodeWords": 697
+    },
+    {
+      "id": "html-links",
+      "title": "HTML Links & Anchors",
+      "file": "src/data/html/HtmlLinks.js",
+      "totalWords": 698,
+      "nonCodeWords": 698
+    },
+    {
+      "id": "resultset-interface",
+      "title": "ResultSet Interface",
+      "file": "src/data/jdbc/ResultSetInterface.js",
+      "totalWords": 699,
+      "nonCodeWords": 699
+    },
+    {
+      "id": "session-management",
+      "title": "Session Management",
+      "file": "src/data/servlets/SessionManagement.js",
+      "totalWords": 706,
+      "nonCodeWords": 706
+    },
+    {
+      "id": "html-dom",
+      "title": "HTML DOM - Document Object Model",
+      "file": "src/data/html/HtmlDOM.js",
+      "totalWords": 724,
+      "nonCodeWords": 724
+    },
+    {
+      "id": "list-interface",
+      "title": "List Interface",
+      "file": "src/data/corejava/collections/ListInterface.js",
+      "totalWords": 726,
+      "nonCodeWords": 726
+    },
+    {
+      "id": "html-tables",
+      "title": "HTML Tables - Creating Data Tables",
+      "file": "src/data/html/HtmlTables.js",
+      "totalWords": 726,
+      "nonCodeWords": 726
+    },
+    {
+      "id": "statement-interface",
+      "title": "Statement Interface",
+      "file": "src/data/jdbc/StatementInterface.js",
+      "totalWords": 728,
+      "nonCodeWords": 728
+    },
+    {
+      "id": "servlet-api",
+      "title": "Servlet API",
+      "file": "src/data/servlets/ServletAPI.js",
+      "totalWords": 738,
+      "nonCodeWords": 738
+    },
+    {
+      "id": "maven-vs-gradle",
+      "title": "Maven vs Gradle",
+      "file": "src/data/maven/MavenVsGradle.js",
+      "totalWords": 745,
+      "nonCodeWords": 745
+    },
+    {
+      "id": "spring-mvc-viewresolver",
+      "title": "Spring MVC ViewResolver",
+      "file": "src/data/spring/SpringMVCViewResolver.js",
+      "totalWords": 748,
+      "nonCodeWords": 748
+    },
+    {
+      "id": "html-semantic-elements",
+      "title": "HTML5 Semantic Elements",
+      "file": "src/data/html/HtmlSemanticElements.js",
+      "totalWords": 749,
+      "nonCodeWords": 749
+    },
+    {
+      "id": "classes-objects",
+      "title": "Classes and Objects",
+      "file": "src/data/corejava/oops/ClassesObjects.js",
+      "totalWords": 750,
+      "nonCodeWords": 750
+    },
+    {
+      "id": "git-introduction",
+      "title": "Introduction to Git",
+      "file": "src/data/git/GitIntroduction.js",
+      "totalWords": 752,
+      "nonCodeWords": 752
+    },
+    {
+      "id": "servlet-config",
+      "title": "ServletConfig & ServletContext",
+      "file": "src/data/servlets/ServletConfig.js",
+      "totalWords": 752,
+      "nonCodeWords": 752
+    },
+    {
+      "id": "java-environment-setup",
+      "title": "Java Environment Setup",
+      "file": "src/data/corejava/basics/JavaEnvironmentSetup.js",
+      "totalWords": 753,
+      "nonCodeWords": 753
+    },
+    {
+      "id": "queue-interface",
+      "title": "Queue Interface",
+      "file": "src/data/corejava/collections/QueueInterface.js",
+      "totalWords": 760,
+      "nonCodeWords": 760
+    },
+    {
+      "id": "servlet-annotations",
+      "title": "Servlet Annotations",
+      "file": "src/data/servlets/ServletAnnotations.js",
+      "totalWords": 762,
+      "nonCodeWords": 762
+    },
+    {
+      "id": "spring-boot-testing",
+      "title": "Spring Boot Testing - Unit and Integration Tests",
+      "file": "src/data/springboot/SpringBootTesting.js",
+      "totalWords": 767,
+      "nonCodeWords": 767
+    },
+    {
+      "id": "mysql-transactions",
+      "title": "MySQL Transactions - ACID Properties",
+      "file": "src/data/mysql/MySQLTransactions.js",
+      "totalWords": 771,
+      "nonCodeWords": 771
+    },
+    {
+      "id": "maven-best-practices",
+      "title": "Best Practices",
+      "file": "src/data/maven/MavenBestPractices.js",
+      "totalWords": 779,
+      "nonCodeWords": 779
+    },
+    {
+      "id": "thread-methods",
+      "title": "Thread Methods",
+      "file": "src/data/corejava/multithreading/ThreadMethods.js",
+      "totalWords": 785,
+      "nonCodeWords": 785
+    },
+    {
+      "id": "jdbc-connection-steps",
+      "title": "JDBC Connection Steps",
+      "file": "src/data/jdbc/JdbcConnectionSteps.js",
+      "totalWords": 789,
+      "nonCodeWords": 789
+    },
+    {
+      "id": "abstraction",
+      "title": "Abstraction",
+      "file": "src/data/corejava/oops/Abstraction.js",
+      "totalWords": 790,
+      "nonCodeWords": 790
+    },
+    {
+      "id": "maven-plugins",
+      "title": "Maven Plugins",
+      "file": "src/data/maven/MavenPlugins.js",
+      "totalWords": 791,
+      "nonCodeWords": 791
+    },
+    {
+      "id": "custom-exceptions",
+      "title": "Custom Exceptions",
+      "file": "src/data/corejava/exceptions/CustomExceptions.js",
+      "totalWords": 795,
+      "nonCodeWords": 795
+    },
+    {
+      "id": "polymorphism",
+      "title": "Polymorphism",
+      "file": "src/data/corejava/oops/Polymorphism.js",
+      "totalWords": 795,
+      "nonCodeWords": 795
+    },
+    {
+      "id": "java-features",
+      "title": "Java Features",
+      "file": "src/data/corejava/basics/JavaFeatures.js",
+      "totalWords": 806,
+      "nonCodeWords": 806
+    },
+    {
+      "id": "try-catch-finally",
+      "title": "Try-Catch-Finally",
+      "file": "src/data/corejava/exceptions/TryCatchFinally.js",
+      "totalWords": 809,
+      "nonCodeWords": 809
+    },
+    {
+      "id": "html-forms",
+      "title": "HTML Forms - Input Elements & Form Handling",
+      "file": "src/data/html/HtmlForms.js",
+      "totalWords": 819,
+      "nonCodeWords": 819
+    },
+    {
+      "id": "spring-data-custom-queries",
+      "title": "Spring Data Custom Queries",
+      "file": "src/data/spring/SpringDataCustomQueries.js",
+      "totalWords": 822,
+      "nonCodeWords": 822
+    },
+    {
+      "id": "spring-boot-deployment",
+      "title": "Spring Boot Deployment - Deploy to Production",
+      "file": "src/data/springboot/SpringBootDeployment.js",
+      "totalWords": 825,
+      "nonCodeWords": 825
+    },
+    {
+      "id": "spring-mvc-dispatcherservlet",
+      "title": "Spring MVC DispatcherServlet",
+      "file": "src/data/spring/SpringMVCDispatcherServlet.js",
+      "totalWords": 829,
+      "nonCodeWords": 829
+    },
+    {
+      "id": "maven-installation",
+      "title": "Install Maven",
+      "file": "src/data/maven/MavenInstallation.js",
+      "totalWords": 836,
+      "nonCodeWords": 836
+    },
+    {
+      "id": "http-request-response",
+      "title": "HttpServletRequest & Response",
+      "file": "src/data/servlets/HttpServletRequestResponse.js",
+      "totalWords": 836,
+      "nonCodeWords": 836
+    },
+    {
+      "id": "array-methods",
+      "title": "Array Methods",
+      "file": "src/data/corejava/arrays/ArrayMethods.js",
+      "totalWords": 842,
+      "nonCodeWords": 842
+    },
+    {
+      "id": "inheritance",
+      "title": "Inheritance",
+      "file": "src/data/corejava/oops/Inheritance.js",
+      "totalWords": 851,
+      "nonCodeWords": 851
+    },
+    {
+      "id": "map-interface",
+      "title": "Map Interface",
+      "file": "src/data/corejava/collections/MapInterface.js",
+      "totalWords": 858,
+      "nonCodeWords": 858
+    },
+    {
+      "id": "interfaces",
+      "title": "Interfaces",
+      "file": "src/data/corejava/oops/Interfaces.js",
+      "totalWords": 860,
+      "nonCodeWords": 860
+    },
+    {
+      "id": "github-teams",
+      "title": "GitHub Teams & Collaboration",
+      "file": "src/data/git/GitHubTeams.js",
+      "totalWords": 860,
+      "nonCodeWords": 860
+    },
+    {
+      "id": "css-display-positioning",
+      "title": "CSS Display & Positioning",
+      "file": "src/data/css/CssDisplayPositioning.js",
+      "totalWords": 861,
+      "nonCodeWords": 861
+    },
+    {
+      "id": "array-introduction",
+      "title": "Introduction to Arrays",
+      "file": "src/data/corejava/arrays/ArrayIntroduction.js",
+      "totalWords": 868,
+      "nonCodeWords": 868
+    },
+    {
+      "id": "servlet-lifecycle",
+      "title": "Servlet Lifecycle",
+      "file": "src/data/servlets/ServletLifecycle.js",
+      "totalWords": 869,
+      "nonCodeWords": 869
+    },
+    {
+      "id": "git-installation",
+      "title": "Git Installation & Setup",
+      "file": "src/data/git/GitInstallation.js",
+      "totalWords": 872,
+      "nonCodeWords": 872
+    },
+    {
+      "id": "mysql-ddl",
+      "title": "MySQL DDL - ALTER, DROP, TRUNCATE",
+      "file": "src/data/mysql/MySQLDDL.js",
+      "totalWords": 872,
+      "nonCodeWords": 872
+    },
+    {
+      "id": "constructors",
+      "title": "Constructors",
+      "file": "src/data/corejava/oops/Constructors.js",
+      "totalWords": 884,
+      "nonCodeWords": 884
+    },
+    {
+      "id": "maven-pom-xml",
+      "title": "What is pom.xml?",
+      "file": "src/data/maven/MavenPomXml.js",
+      "totalWords": 896,
+      "nonCodeWords": 896
+    },
+    {
+      "id": "spring-mvc-modelandview",
+      "title": "Spring MVC ModelAndView",
+      "file": "src/data/spring/SpringMVCModelAndView.js",
+      "totalWords": 899,
+      "nonCodeWords": 899
+    },
+    {
+      "id": "java-methods",
+      "title": "Methods in Java",
+      "file": "src/data/corejava/basics/JavaMethods.js",
+      "totalWords": 900,
+      "nonCodeWords": 900
+    },
+    {
+      "id": "java-variables",
+      "title": "Variables in Java",
+      "file": "src/data/corejava/basics/JavaVariables.js",
+      "totalWords": 901,
+      "nonCodeWords": 901
+    },
+    {
+      "id": "maven-create-project",
+      "title": "Create Maven Project",
+      "file": "src/data/maven/MavenCreateProject.js",
+      "totalWords": 912,
+      "nonCodeWords": 912
+    },
+    {
+      "id": "mysql-dql",
+      "title": "MySQL DQL - Data Query Language (SELECT)",
+      "file": "src/data/mysql/MySQLDQL.js",
+      "totalWords": 920,
+      "nonCodeWords": 920
+    },
+    {
+      "id": "html-structure",
+      "title": "HTML Document Structure & Basic Tags",
+      "file": "src/data/html/HtmlStructure.js",
+      "totalWords": 921,
+      "nonCodeWords": 921
+    },
+    {
+      "id": "git-branch-protection",
+      "title": "Branch Protection & Private/Public Branches",
+      "file": "src/data/git/GitBranchProtection.js",
+      "totalWords": 934,
+      "nonCodeWords": 934
+    },
+    {
+      "id": "maven-dependency-management",
+      "title": "Dependency Management",
+      "file": "src/data/maven/MavenDependencyManagement.js",
+      "totalWords": 941,
+      "nonCodeWords": 941
+    },
+    {
+      "id": "transaction-management",
+      "title": "Transaction Management",
+      "file": "src/data/jdbc/TransactionManagement.js",
+      "totalWords": 947,
+      "nonCodeWords": 947
+    },
+    {
+      "id": "single-dimensional-array",
+      "title": "Single Dimensional Array",
+      "file": "src/data/corejava/arrays/SingleDimensionalArray.js",
+      "totalWords": 948,
+      "nonCodeWords": 948
+    },
+    {
+      "id": "mysql-privileges",
+      "title": "MySQL Privileges & Security - GRANT, REVOKE, DCL",
+      "file": "src/data/mysql/MySQLPrivileges.js",
+      "totalWords": 960,
+      "nonCodeWords": 960
+    },
+    {
+      "id": "java-syntax",
+      "title": "Java Syntax",
+      "file": "src/data/corejava/basics/JavaSyntax.js",
+      "totalWords": 962,
+      "nonCodeWords": 962
+    },
+    {
+      "id": "maven-multi-module",
+      "title": "Multi-Module Project",
+      "file": "src/data/maven/MavenMultiModule.js",
+      "totalWords": 965,
+      "nonCodeWords": 965
+    },
+    {
+      "id": "servlet-security",
+      "title": "Servlet Security",
+      "file": "src/data/servlets/ServletSecurity.js",
+      "totalWords": 965,
+      "nonCodeWords": 965
+    },
+    {
+      "id": "java-operators",
+      "title": "Operators in Java",
+      "file": "src/data/corejava/basics/JavaOperators.js",
+      "totalWords": 970,
+      "nonCodeWords": 970
+    },
+    {
+      "id": "java-data-types",
+      "title": "Data Types in Java",
+      "file": "src/data/corejava/basics/JavaDataTypes.js",
+      "totalWords": 971,
+      "nonCodeWords": 971
+    },
+    {
+      "id": "java-keywords",
+      "title": "Java Keywords",
+      "file": "src/data/corejava/basics/JavaKeywords.js",
+      "totalWords": 976,
+      "nonCodeWords": 976
+    },
+    {
+      "id": "mysql-introduction",
+      "title": "Introduction to MySQL",
+      "file": "src/data/mysql/MySQLIntroduction.js",
+      "totalWords": 980,
+      "nonCodeWords": 980
+    },
+    {
+      "id": "mysql-clauses",
+      "title": "MySQL Clauses - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT",
+      "file": "src/data/mysql/MySQLClauses.js",
+      "totalWords": 987,
+      "nonCodeWords": 987
+    },
+    {
+      "id": "switch-statement",
+      "title": "Switch Statement",
+      "file": "src/data/corejava/controlflow/SwitchStatement.js",
+      "totalWords": 1000,
+      "nonCodeWords": 1000
+    },
+    {
+      "id": "git-deployment",
+      "title": "Git Deployment & CI/CD",
+      "file": "src/data/git/GitDeployment.js",
+      "totalWords": 1002,
+      "nonCodeWords": 1002
+    },
+    {
+      "id": "maven-repositories",
+      "title": "Maven Repositories",
+      "file": "src/data/maven/MavenRepositories.js",
+      "totalWords": 1006,
+      "nonCodeWords": 1006
+    },
+    {
+      "id": "css-responsive",
+      "title": "CSS Responsive Design - Media Queries",
+      "file": "src/data/css/CssResponsive.js",
+      "totalWords": 1007,
+      "nonCodeWords": 1007
+    },
+    {
+      "id": "filters-listeners",
+      "title": "Filters & Listeners",
+      "file": "src/data/servlets/FiltersListeners.js",
+      "totalWords": 1007,
+      "nonCodeWords": 1007
+    },
+    {
+      "id": "spring-boot-configuration",
+      "title": "Spring Boot Configuration - application.properties and YAML",
+      "file": "src/data/springboot/SpringBootConfiguration.js",
+      "totalWords": 1014,
+      "nonCodeWords": 1014
+    },
+    {
+      "id": "spring-boot-security",
+      "title": "Spring Boot Security - Authentication and Authorization",
+      "file": "src/data/springboot/SpringBootSecurity.js",
+      "totalWords": 1014,
+      "nonCodeWords": 1014
+    },
+    {
+      "id": "hibernate-batch-processing",
+      "title": "Hibernate Batch Processing - Handling Large Data",
+      "file": "src/data/hibernate/HibernateBatchProcessing.js",
+      "totalWords": 1015,
+      "nonCodeWords": 1015
+    },
+    {
+      "id": "git-merge-config",
+      "title": "Git Merge Configuration & Strategies",
+      "file": "src/data/git/GitMergeConfig.js",
+      "totalWords": 1016,
+      "nonCodeWords": 1016
+    },
+    {
+      "id": "mysql-views",
+      "title": "MySQL Views - Virtual Tables",
+      "file": "src/data/mysql/MySQLViews.js",
+      "totalWords": 1017,
+      "nonCodeWords": 1017
+    },
+    {
+      "id": "github-security",
+      "title": "GitHub Security - 2FA, Tokens & Settings",
+      "file": "src/data/git/GitHubSecurity.js",
+      "totalWords": 1018,
+      "nonCodeWords": 1018
+    },
+    {
+      "id": "maven-project-structure",
+      "title": "Maven Project Structure",
+      "file": "src/data/maven/MavenProjectStructure.js",
+      "totalWords": 1019,
+      "nonCodeWords": 1019
+    },
+    {
+      "id": "git-branches",
+      "title": "Git Branches - Working with Branches",
+      "file": "src/data/git/GitBranches.js",
+      "totalWords": 1021,
+      "nonCodeWords": 1021
+    },
+    {
+      "id": "css-text-fonts",
+      "title": "CSS Text & Fonts",
+      "file": "src/data/css/CssTextFonts.js",
+      "totalWords": 1030,
+      "nonCodeWords": 1030
+    },
+    {
+      "id": "github-basics",
+      "title": "GitHub Basics - Remote Repositories",
+      "file": "src/data/git/GitHubBasics.js",
+      "totalWords": 1034,
+      "nonCodeWords": 1034
+    },
+    {
+      "id": "github-pull-requests",
+      "title": "GitHub Pull Requests - Collaboration",
+      "file": "src/data/git/GitHubPullRequests.js",
+      "totalWords": 1038,
+      "nonCodeWords": 1038
+    },
+    {
+      "id": "css-box-model",
+      "title": "CSS Box Model - Margin, Padding, Border",
+      "file": "src/data/css/CssBoxModel.js",
+      "totalWords": 1039,
+      "nonCodeWords": 1039
+    },
+    {
+      "id": "hibernate-mapping",
+      "title": "Hibernate Mapping with Annotations",
+      "file": "src/data/hibernate/HibernateMapping.js",
+      "totalWords": 1042,
+      "nonCodeWords": 1042
+    },
+    {
+      "id": "spring-aop-spring-boot",
+      "title": "Spring AOP with Spring Boot",
+      "file": "src/data/spring/SpringAOPWithSpringBoot.js",
+      "totalWords": 1045,
+      "nonCodeWords": 1045
+    },
+    {
+      "id": "maven-why",
+      "title": "Why Maven?",
+      "file": "src/data/maven/MavenWhy.js",
+      "totalWords": 1047,
+      "nonCodeWords": 1047
+    },
+    {
+      "id": "css-flexbox",
+      "title": "CSS Flexbox - Modern Layout System",
+      "file": "src/data/css/CssFlexbox.js",
+      "totalWords": 1049,
+      "nonCodeWords": 1049
+    },
+    {
+      "id": "synchronization",
+      "title": "Synchronization in Java",
+      "file": "src/data/corejava/advanced/Synchronization.js",
+      "totalWords": 1062,
+      "nonCodeWords": 1062
+    },
+    {
+      "id": "css-colors-backgrounds",
+      "title": "CSS Colors & Backgrounds",
+      "file": "src/data/css/CssColorsBackgrounds.js",
+      "totalWords": 1063,
+      "nonCodeWords": 1063
+    },
+    {
+      "id": "maven-build-lifecycle",
+      "title": "Maven Build Lifecycle",
+      "file": "src/data/maven/MavenBuildLifecycle.js",
+      "totalWords": 1075,
+      "nonCodeWords": 1075
+    },
+    {
+      "id": "hibernate-architecture",
+      "title": "Hibernate Architecture",
+      "file": "src/data/hibernate/HibernateArchitecture.js",
+      "totalWords": 1083,
+      "nonCodeWords": 1083
+    },
+    {
+      "id": "spring-applicationcontext",
+      "title": "Spring ApplicationContext - The Container",
+      "file": "src/data/spring/SpringApplicationContext.js",
+      "totalWords": 1089,
+      "nonCodeWords": 1089
+    },
+    {
+      "id": "git-revert",
+      "title": "Git Revert & Undo Changes",
+      "file": "src/data/git/GitRevert.js",
+      "totalWords": 1092,
+      "nonCodeWords": 1092
+    },
+    {
+      "id": "mysql-subqueries",
+      "title": "MySQL Subqueries - Nested Queries",
+      "file": "src/data/mysql/MySQLSubqueries.js",
+      "totalWords": 1101,
+      "nonCodeWords": 1101
+    },
+    {
+      "id": "mysql-insert-update-delete",
+      "title": "INSERT, UPDATE, DELETE - Modifying Data",
+      "file": "src/data/mysql/MySQLInsertUpdateDelete.js",
+      "totalWords": 1112,
+      "nonCodeWords": 1112
+    },
+    {
+      "id": "maven-spring-boot",
+      "title": "Maven with Spring Boot",
+      "file": "src/data/maven/MavenSpringBoot.js",
+      "totalWords": 1118,
+      "nonCodeWords": 1118
+    },
+    {
+      "id": "mysql-installation",
+      "title": "MySQL Installation and Setup",
+      "file": "src/data/mysql/MySQLInstallation.js",
+      "totalWords": 1120,
+      "nonCodeWords": 1120
+    },
+    {
+      "id": "git-workflow",
+      "title": "Git Workflow - Best Practices",
+      "file": "src/data/git/GitWorkflow.js",
+      "totalWords": 1127,
+      "nonCodeWords": 1127
+    },
+    {
+      "id": "spring-boot-exception-handling",
+      "title": "Spring Boot Exception Handling - Global Exception Handler",
+      "file": "src/data/springboot/SpringBootExceptionHandling.js",
+      "totalWords": 1132,
+      "nonCodeWords": 1132
+    },
+    {
+      "id": "exception-introduction",
+      "title": "Exception Handling - Complete Guide",
+      "file": "src/data/corejava/exceptions/ExceptionIntroduction.js",
+      "totalWords": 1141,
+      "nonCodeWords": 1141
+    },
+    {
+      "id": "spring-boot-project-setup",
+      "title": "Spring Boot Project Setup - Step by Step Guide",
+      "file": "src/data/springboot/SpringBootProjectSetup.js",
+      "totalWords": 1141,
+      "nonCodeWords": 1141
+    },
+    {
+      "id": "css-grid",
+      "title": "CSS Grid - Two-Dimensional Layout",
+      "file": "src/data/css/CssGrid.js",
+      "totalWords": 1144,
+      "nonCodeWords": 1144
+    },
+    {
+      "id": "maven-commands",
+      "title": "Useful Maven Commands",
+      "file": "src/data/maven/MavenCommands.js",
+      "totalWords": 1146,
+      "nonCodeWords": 1146
+    },
+    {
+      "id": "spring-aop-aspect-ordering",
+      "title": "Spring AOP - Aspect Ordering",
+      "file": "src/data/spring/SpringAOPAspectOrdering.js",
+      "totalWords": 1154,
+      "nonCodeWords": 1154
+    },
+    {
+      "id": "git-basics",
+      "title": "Git Basics - First Repository",
+      "file": "src/data/git/GitBasics.js",
+      "totalWords": 1159,
+      "nonCodeWords": 1159
+    },
+    {
+      "id": "maven-common-errors",
+      "title": "Common Errors & Fixes",
+      "file": "src/data/maven/MavenCommonErrors.js",
+      "totalWords": 1163,
+      "nonCodeWords": 1163
+    },
+    {
+      "id": "css-selectors",
+      "title": "CSS Selectors - Targeting Elements",
+      "file": "src/data/css/CssSelectors.js",
+      "totalWords": 1170,
+      "nonCodeWords": 1170
+    },
+    {
+      "id": "mysql-select",
+      "title": "SELECT Query - Retrieving Data",
+      "file": "src/data/mysql/MySQLSelect.js",
+      "totalWords": 1171,
+      "nonCodeWords": 1171
+    },
+    {
+      "id": "css-animations",
+      "title": "CSS Animations & Transitions",
+      "file": "src/data/css/CssAnimations.js",
+      "totalWords": 1176,
+      "nonCodeWords": 1176
+    },
+    {
+      "id": "spring-project-login-student-crud",
+      "title": "Spring Project - Login + Student CRUD",
+      "file": "src/data/spring/SpringProjectLoginStudentCRUD.js",
+      "totalWords": 1189,
+      "nonCodeWords": 1189
+    },
+    {
+      "id": "spring-aop-custom-annotations",
+      "title": "Spring AOP - Custom Annotations",
+      "file": "src/data/spring/SpringAOPCustomAnnotations.js",
+      "totalWords": 1193,
+      "nonCodeWords": 1193
+    },
+    {
+      "id": "string-introduction",
+      "title": "Introduction to Strings",
+      "file": "src/data/corejava/strings/StringIntroduction.js",
+      "totalWords": 1199,
+      "nonCodeWords": 1199
+    },
+    {
+      "id": "mysql-joins",
+      "title": "MySQL Joins - Combining Data from Multiple Tables",
+      "file": "src/data/mysql/MySQLJoins.js",
+      "totalWords": 1205,
+      "nonCodeWords": 1205
+    },
+    {
+      "id": "spring-mvc-controller",
+      "title": "Spring MVC Controller",
+      "file": "src/data/spring/SpringMVCController.js",
+      "totalWords": 1205,
+      "nonCodeWords": 1205
+    },
+    {
+      "id": "mysql-indexes",
+      "title": "MySQL Indexes - Performance Optimization",
+      "file": "src/data/mysql/MySQLIndexes.js",
+      "totalWords": 1223,
+      "nonCodeWords": 1223
+    },
+    {
+      "id": "serialization",
+      "title": "Serialization in Java",
+      "file": "src/data/corejava/advanced/Serialization.js",
+      "totalWords": 1226,
+      "nonCodeWords": 1226
+    },
+    {
+      "id": "spring-data-introduction",
+      "title": "Spring Data - Introduction",
+      "file": "src/data/spring/SpringDataIntroduction.js",
+      "totalWords": 1240,
+      "nonCodeWords": 1240
+    },
+    {
+      "id": "spring-ioc",
+      "title": "Spring IOC - Inversion of Control",
+      "file": "src/data/spring/SpringIOC.js",
+      "totalWords": 1247,
+      "nonCodeWords": 1247
+    },
+    {
+      "id": "mysql-stored-procedures",
+      "title": "MySQL Stored Procedures",
+      "file": "src/data/mysql/MySQLStoredProcedures.js",
+      "totalWords": 1276,
+      "nonCodeWords": 1276
+    },
+    {
+      "id": "spring-configuration-annotation",
+      "title": "Spring Annotation Configuration",
+      "file": "src/data/spring/SpringConfigurationAnnotation.js",
+      "totalWords": 1280,
+      "nonCodeWords": 1280
+    },
+    {
+      "id": "spring-cloud-openfeign",
+      "title": "Inter-Service Communication with OpenFeign",
+      "file": "src/data/springcloud/SpringCloudOpenFeign.js",
+      "totalWords": 1281,
+      "nonCodeWords": 1281
+    },
+    {
+      "id": "spring-data-repository-architecture",
+      "title": "Spring Data Repository Architecture",
+      "file": "src/data/spring/SpringDataRepositoryArchitecture.js",
+      "totalWords": 1295,
+      "nonCodeWords": 1295
+    },
+    {
+      "id": "spring-boot-rest-api",
+      "title": "Spring Boot REST API - Building RESTful Web Services",
+      "file": "src/data/springboot/SpringBootRestAPI.js",
+      "totalWords": 1315,
+      "nonCodeWords": 1315
+    },
+    {
+      "id": "spring-aop-advanced-pointcuts",
+      "title": "Spring AOP - Advanced Pointcut Expressions",
+      "file": "src/data/spring/SpringAOPAdvancedPointcuts.js",
+      "totalWords": 1321,
+      "nonCodeWords": 1321
+    },
+    {
+      "id": "mysql-aggregate-functions",
+      "title": "MySQL Aggregate Functions",
+      "file": "src/data/mysql/MySQLAggregateFunctions.js",
+      "totalWords": 1344,
+      "nonCodeWords": 1344
+    },
+    {
+      "id": "mysql-data-types",
+      "title": "MySQL Data Types",
+      "file": "src/data/mysql/MySQLDataTypes.js",
+      "totalWords": 1350,
+      "nonCodeWords": 1350
+    },
+    {
+      "id": "spring-bean",
+      "title": "Spring Bean - Understanding Spring-Managed Objects",
+      "file": "src/data/spring/SpringBean.js",
+      "totalWords": 1354,
+      "nonCodeWords": 1354
+    },
+    {
+      "id": "spring-cloud-load-balancing",
+      "title": "Load Balancing in Spring Cloud",
+      "file": "src/data/springcloud/SpringCloudLoadBalancing.js",
+      "totalWords": 1371,
+      "nonCodeWords": 1371
+    },
+    {
+      "id": "hibernate-relationships",
+      "title": "Hibernate Relationships - Real-World Examples",
+      "file": "src/data/hibernate/HibernateRelationships.js",
+      "totalWords": 1389,
+      "nonCodeWords": 1389
+    },
+    {
+      "id": "spring-jdbc-template",
+      "title": "Spring JDBC Template",
+      "file": "src/data/spring/SpringJDBCTemplate.js",
+      "totalWords": 1407,
+      "nonCodeWords": 1407
+    },
+    {
+      "id": "spring-di",
+      "title": "Spring DI - Dependency Injection",
+      "file": "src/data/spring/SpringDI.js",
+      "totalWords": 1416,
+      "nonCodeWords": 1416
+    },
+    {
+      "id": "spring-cloud-resilience4j",
+      "title": "Fault Tolerance with Resilience4j",
+      "file": "src/data/springcloud/SpringCloudResilience4j.js",
+      "totalWords": 1416,
+      "nonCodeWords": 1416
+    },
+    {
+      "id": "spring-cloud-security",
+      "title": "Security in Microservices - JWT and OAuth2",
+      "file": "src/data/springcloud/SpringCloudSecurity.js",
+      "totalWords": 1420,
+      "nonCodeWords": 1420
+    },
+    {
+      "id": "spring-boot-validation",
+      "title": "Spring Boot Validation - Input Validation and Error Handling",
+      "file": "src/data/springboot/SpringBootValidation.js",
+      "totalWords": 1422,
+      "nonCodeWords": 1422
+    },
+    {
+      "id": "spring-boot-jpa",
+      "title": "Spring Boot with JPA - Database Integration",
+      "file": "src/data/springboot/SpringBootJPA.js",
+      "totalWords": 1429,
+      "nonCodeWords": 1429
+    },
+    {
+      "id": "spring-cloud-distributed-tracing",
+      "title": "Distributed Tracing with Sleuth and Zipkin",
+      "file": "src/data/springcloud/SpringCloudDistributedTracing.js",
+      "totalWords": 1431,
+      "nonCodeWords": 1431
+    },
+    {
+      "id": "hibernate-hql",
+      "title": "Hibernate Query Language (HQL)",
+      "file": "src/data/hibernate/HibernateHQL.js",
+      "totalWords": 1434,
+      "nonCodeWords": 1434
+    },
+    {
+      "id": "spring-cloud-elk",
+      "title": "Centralized Logging with ELK Stack",
+      "file": "src/data/springcloud/SpringCloudELK.js",
+      "totalWords": 1446,
+      "nonCodeWords": 1446
+    },
+    {
+      "id": "spring-aop-introduction",
+      "title": "Spring AOP - Introduction",
+      "file": "src/data/spring/SpringAOPIntroduction.js",
+      "totalWords": 1471,
+      "nonCodeWords": 1471
+    },
+    {
+      "id": "hibernate-project-setup",
+      "title": "Hibernate Project Setup - Maven Project",
+      "file": "src/data/hibernate/HibernateProjectSetup.js",
+      "totalWords": 1506,
+      "nonCodeWords": 1506
+    },
+    {
+      "id": "tomcat-server",
+      "title": "Apache Tomcat Server - Installation & Configuration",
+      "file": "src/data/servlets/TomcatServer.js",
+      "totalWords": 1507,
+      "nonCodeWords": 1507
+    },
+    {
+      "id": "mysql-scalar-functions",
+      "title": "MySQL Scalar Functions - String, Date, Math",
+      "file": "src/data/mysql/MySQLScalarFunctions.js",
+      "totalWords": 1509,
+      "nonCodeWords": 1509
+    },
+    {
+      "id": "mysql-constraints",
+      "title": "MySQL Constraints and Keys",
+      "file": "src/data/mysql/MySQLConstraints.js",
+      "totalWords": 1543,
+      "nonCodeWords": 1543
+    },
+    {
+      "id": "mysql-create-database",
+      "title": "Creating Databases and Tables",
+      "file": "src/data/mysql/MySQLCreateDatabase.js",
+      "totalWords": 1568,
+      "nonCodeWords": 1568
+    },
+    {
+      "id": "hibernate-caching",
+      "title": "Hibernate Caching - Performance Optimization",
+      "file": "src/data/hibernate/HibernateCaching.js",
+      "totalWords": 1593,
+      "nonCodeWords": 1593
+    },
+    {
+      "id": "hibernate-introduction",
+      "title": "Introduction to Hibernate",
+      "file": "src/data/hibernate/HibernateIntroduction.js",
+      "totalWords": 1603,
+      "nonCodeWords": 1603
+    },
+    {
+      "id": "spring-introduction",
+      "title": "Why Spring? Problems in Traditional Java",
+      "file": "src/data/spring/SpringIntroduction.js",
+      "totalWords": 1614,
+      "nonCodeWords": 1614
+    },
+    {
+      "id": "spring-cloud-api-gateway",
+      "title": "API Gateway with Spring Cloud Gateway",
+      "file": "src/data/springcloud/SpringCloudApiGateway.js",
+      "totalWords": 1625,
+      "nonCodeWords": 1625
+    },
+    {
+      "id": "spring-cloud-config-server",
+      "title": "Spring Cloud Config Server - Centralized Configuration",
+      "file": "src/data/springcloud/SpringCloudConfigServer.js",
+      "totalWords": 1689,
+      "nonCodeWords": 1689
+    },
+    {
+      "id": "jdbc-project-setup",
+      "title": "JDBC Project Setup - MySQL Connection",
+      "file": "src/data/jdbc/JdbcProjectSetup.js",
+      "totalWords": 1701,
+      "nonCodeWords": 1701
+    },
+    {
+      "id": "spring-cloud-microservices-project",
+      "title": "Spring Cloud Microservices Project Setup",
+      "file": "src/data/springcloud/SpringCloudMicroservicesProject.js",
+      "totalWords": 1704,
+      "nonCodeWords": 1704
+    },
+    {
+      "id": "hibernate-session",
+      "title": "Hibernate Session",
+      "file": "src/data/hibernate/HibernateSession.js",
+      "totalWords": 1778,
+      "nonCodeWords": 1778
+    },
+    {
+      "id": "java-introduction",
+      "title": "Introduction to Java",
+      "file": "src/data/corejava/basics/JavaIntroduction.js",
+      "totalWords": 1783,
+      "nonCodeWords": 1783
+    },
+    {
+      "id": "spring-boot-introduction",
+      "title": "Spring Boot - Your First Step into Enterprise Java",
+      "file": "src/data/spring/SpringBootIntroduction.js",
+      "totalWords": 1815,
+      "nonCodeWords": 1815
+    },
+    {
+      "id": "servlet-frontend-integration",
+      "title": "HTML/CSS Frontend with Servlets - Complete Project",
+      "file": "src/data/servlets/ServletFrontendIntegration.js",
+      "totalWords": 1823,
+      "nonCodeWords": 1823
+    },
+    {
+      "id": "spring-cloud-eureka",
+      "title": "Service Discovery with Eureka",
+      "file": "src/data/springcloud/SpringCloudEureka.js",
+      "totalWords": 1825,
+      "nonCodeWords": 1825
+    },
+    {
+      "id": "thread-introduction",
+      "title": "Multithreading in Java - Complete Guide",
+      "file": "src/data/corejava/multithreading/ThreadIntroduction.js",
+      "totalWords": 1860,
+      "nonCodeWords": 1860
+    },
+    {
+      "id": "spring-boot-introduction",
+      "title": "Spring Boot - Your First Step into Enterprise Java",
+      "file": "src/data/springboot/SpringBootIntroduction.js",
+      "totalWords": 1934,
+      "nonCodeWords": 1934
+    },
+    {
+      "id": "collection-introduction",
+      "title": "Java Collections Framework - Complete Guide",
+      "file": "src/data/corejava/collections/CollectionIntroduction.js",
+      "totalWords": 1938,
+      "nonCodeWords": 1938
+    },
+    {
+      "id": "hibernate-locking",
+      "title": "Hibernate Locking Mechanisms",
+      "file": "src/data/hibernate/HibernateLocking.js",
+      "totalWords": 1997,
+      "nonCodeWords": 1997
+    },
+    {
+      "id": "jsp-introduction",
+      "title": "Introduction to JSP",
+      "file": "src/data/jsp/JspIntroduction.js",
+      "totalWords": 2044,
+      "nonCodeWords": 2044
+    },
+    {
+      "id": "spring-boot-postman-swagger",
+      "title": "Postman and Swagger Integration - API Testing and Documentation",
+      "file": "src/data/springboot/SpringBootPostmanSwagger.js",
+      "totalWords": 2059,
+      "nonCodeWords": 2059
+    },
+    {
+      "id": "global-exception-handling",
+      "title": "Global Exception Handling",
+      "file": "src/data/corejava/exceptions/GlobalExceptionHandling.js",
+      "totalWords": 2110,
+      "nonCodeWords": 2110
+    },
+    {
+      "id": "global-exception-handling-http",
+      "title": "Global Exception Handling",
+      "file": "src/data/http/GlobalExceptionHandling.js",
+      "totalWords": 2110,
+      "nonCodeWords": 2110
+    },
+    {
+      "id": "oops-introduction",
+      "title": "Introduction to OOPs",
+      "file": "src/data/corejava/oops/OopsIntroduction.js",
+      "totalWords": 2111,
+      "nonCodeWords": 2111
+    },
+    {
+      "id": "microservices-architecture-fundamentals",
+      "title": "Microservices Architecture Fundamentals",
+      "file": "src/data/springcloud/MicroservicesArchitectureFundamentals.js",
+      "totalWords": 2263,
+      "nonCodeWords": 2263
+    },
+    {
+      "id": "jsp-project-setup",
+      "title": "JSP Project Setup - Create & Run",
+      "file": "src/data/jsp/JspProjectSetup.js",
+      "totalWords": 2530,
+      "nonCodeWords": 2530
+    },
+    {
+      "id": "jdbc-introduction",
+      "title": "Introduction to JDBC",
+      "file": "src/data/jdbc/JdbcIntroduction.js",
+      "totalWords": 2563,
+      "nonCodeWords": 2563
+    },
+    {
+      "id": "servlet-project-setup",
+      "title": "Servlet Project Setup - Create & Run",
+      "file": "src/data/servlets/ServletProjectSetup.js",
+      "totalWords": 2574,
+      "nonCodeWords": 2574
+    },
+    {
+      "id": "java-interview-questions",
+      "title": "Top 30 Java Interview Questions ",
+      "file": "src/data/corejava/interview/JavaInterviewQuestions.js",
+      "totalWords": 3224,
+      "nonCodeWords": 3224
+    },
+    {
+      "id": "servlet-introduction",
+      "title": "Introduction to Servlets",
+      "file": "src/data/servlets/ServletIntroduction.js",
+      "totalWords": 3292,
+      "nonCodeWords": 3292
+    },
+    {
+      "id": "css-introduction",
+      "title": "CSS Introduction - What is CSS?",
+      "file": "src/data/css/CssIntroduction.js",
+      "totalWords": 3298,
+      "nonCodeWords": 3298
+    },
+    {
+      "id": "spring-boot-interview-questions",
+      "title": "Top 30 Spring Boot Interview Questions",
+      "file": "src/data/springboot/SpringBootInterviewQuestions.js",
+      "totalWords": 3967,
+      "nonCodeWords": 3967
+    },
+    {
+      "id": "http-status-codes",
+      "title": "HTTP Status Codes - Complete Guide",
+      "file": "src/data/http/HttpStatusCodes.js",
+      "totalWords": 4017,
+      "nonCodeWords": 4017
+    },
+    {
+      "id": "spring-boot-smtp",
+      "title": "Spring Boot SMTP Integration - Email Sending",
+      "file": "src/data/springboot/SpringBootSMTP.js",
+      "totalWords": 4081,
+      "nonCodeWords": 4081
+    },
+    {
+      "id": "sdlc-introduction",
+      "title": "Software Development Life Cycle (SDLC) - Complete Guide",
+      "file": "src/data/sdlc/SDLCIntroduction.js",
+      "totalWords": 4129,
+      "nonCodeWords": 4129
+    },
+    {
+      "id": "html-introduction",
+      "title": "HTML Introduction - What is HTML?",
+      "file": "src/data/html/HtmlIntroduction.js",
+      "totalWords": 4496,
+      "nonCodeWords": 4496
+    },
+    {
+      "id": "spring-cloud-microservices",
+      "title": "Spring Cloud & Microservices Architecture",
+      "file": "src/data/springcloud/SpringCloudMicroservices.js",
+      "totalWords": 5305,
+      "nonCodeWords": 5305
+    }
+  ]
+}

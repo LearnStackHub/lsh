@@ -2,24 +2,200 @@ const threadLifecycle = {
   id: "thread-lifecycle",
   title: "Thread Lifecycle",
   description: "Learn about thread states and lifecycle",
-  content: `# Thread Lifecycle
+  content: `# Thread Lifecycle in Java (Thread States Explained)
 
-## Thread States
+In Java, a **Thread** goes through a well-defined set of states from creation to completion. Understanding the **thread lifecycle** is critical for writing reliable concurrent code, debugging production issues (deadlocks, stalls), and improving application performance.
 
-1. **NEW**: Thread created but not started
-2. **RUNNABLE**: Ready to run or running
-3. **BLOCKED**: Waiting for monitor lock
-4. **WAITING**: Waiting indefinitely
-5. **TIMED_WAITING**: Waiting for specified time
+---
+
+## Thread States (High-Level)
+
+Java defines thread states in \`java.lang.Thread.State\`:
+
+1. **NEW**: Thread object created but \`start()\` not called
+2. **RUNNABLE**: Eligible to run (may be running or waiting for CPU time)
+3. **BLOCKED**: Waiting to acquire a monitor lock (synchronized block/method)
+4. **WAITING**: Waiting indefinitely for another thread to perform an action
+5. **TIMED_WAITING**: Waiting for a specific time (sleep, timed join, timed wait)
 6. **TERMINATED**: Execution completed
 
-## State Transitions
+---
+
+## Lifecycle Diagram (State Transition Map)
 
 \`\`\`
-NEW → RUNNABLE → TERMINATED
-         ↓↑
-    BLOCKED/WAITING/TIMED_WAITING
+             +-------------------+
+             |       NEW         |
+             | (Thread created)  |
+             +---------+---------+
+                       |
+                       | start()
+                       v
+             +-------------------+
+             |     RUNNABLE      | <-------------------------------+
+             | (Running/Ready)   |                                 |
+             +----+----+----+----+                                 |
+                  |    |    |                                      |
+      synchronized|    |sleep/join(wait timeout)                    |
+      lock busy   |    |    |                                      |
+                  v    v    v                                      |
+            +----------+  +-------------------+                     |
+            | BLOCKED  |  |  TIMED_WAITING    |                     |
+            +----------+  +-------------------+                     |
+                  |                |                                |
+                  | lock acquired  | timeout / notify / interrupt   |
+                  +----------------+--------------------------------+
+                                   |
+                                   | wait() / join() (no timeout)
+                                   v
+                             +-----------+
+                             |  WAITING  |
+                             +-----------+
+                                   |
+                                   | notify/notifyAll/interruption
+                                   v
+                             +-----------+
+                             | RUNNABLE  |
+                             +-----------+
+                                   |
+                                   | run() finishes
+                                   v
+                            +----------------+
+                            |  TERMINATED    |
+                            +----------------+
 \`\`\`
+
+---
+
+## Real-World Use Cases (Where States Matter)
+
+### Use Case 1: Web Server Handling Requests
+
+A servlet container or Spring Boot app uses thread pools. Threads can become **BLOCKED** on locks, or **WAITING** on queues (e.g., task queue).
+
+### Use Case 2: Database Connection Pool
+
+If the pool is exhausted, threads can become **WAITING** until a connection is returned.
+
+### Use Case 3: Background Jobs / Schedulers
+
+Scheduled jobs often spend time in **TIMED_WAITING** between runs.
+
+---
+
+## Deep Explanation of Each State
+
+### 1) NEW
+
+\`\`\`java
+Thread t = new Thread(() -> System.out.println("Hello"));
+System.out.println(t.getState()); // NEW
+\`\`\`
+
+The thread exists as an object, but it is not scheduled yet.
+
+### 2) RUNNABLE
+
+After calling \`start()\`, the thread becomes RUNNABLE.
+
+\`\`\`java
+t.start();
+System.out.println(t.getState()); // RUNNABLE (usually)
+\`\`\`
+
+Note: RUNNABLE includes “ready-to-run” and “running” at the OS level.
+
+### 3) BLOCKED
+
+BLOCKED happens when the thread tries to enter a synchronized block/method, but another thread already holds that lock.
+
+\`\`\`java
+final Object lock = new Object();
+
+Thread t1 = new Thread(() -> {
+  synchronized (lock) {
+    try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+  }
+});
+
+Thread t2 = new Thread(() -> {
+  synchronized (lock) { /* t2 blocks until lock is free */ }
+});
+\`\`\`
+
+### 4) WAITING
+
+WAITING happens when a thread calls \`wait()\` without timeout, or \`join()\` without timeout.
+
+\`\`\`java
+lock.wait();   // WAITING until notify/notifyAll
+t1.join();     // WAITING until t1 completes
+\`\`\`
+
+### 5) TIMED_WAITING
+
+Common methods that cause TIMED_WAITING:
+- \`Thread.sleep(ms)\`
+- \`Object.wait(ms)\`
+- \`Thread.join(ms)\`
+
+### 6) TERMINATED
+
+When the \`run()\` method completes, the thread becomes TERMINATED permanently.
+
+---
+
+## Comparison Table: WAITING vs TIMED_WAITING vs BLOCKED
+
+| State | Why it happens | Example | Ends when |
+|---|---|---|---|
+| BLOCKED | waiting for monitor lock | \`synchronized(lock)\` | lock becomes available |
+| WAITING | waiting indefinitely | \`wait()\`, \`join()\` | notify/interrupt/target thread finishes |
+| TIMED_WAITING | waiting for time | \`sleep(1000)\` | timeout or interrupt |
+
+---
+
+## Debugging Tip: How to Identify Stuck Threads
+
+In real production debugging, thread dumps show states:
+- Many **BLOCKED** threads usually indicate lock contention
+- Many **WAITING** threads often indicate threads waiting on queues or joins
+- Many **TIMED_WAITING** threads are often sleeping (schedulers / backoff)
+
+---
+
+## FAQs (Thread Lifecycle)
+
+### Q1: What is the difference between \`start()\` and \`run()\`?
+
+**A:** \`start()\` creates a new thread and calls \`run()\` on that new thread. Calling \`run()\` directly does not create a new thread; it runs on the current thread.
+
+### Q2: Why does RUNNABLE sometimes show even when the thread is “not running”?
+
+**A:** RUNNABLE in Java includes threads ready to run and those currently running. The OS scheduler decides CPU time.
+
+### Q3: When does a thread become BLOCKED?
+
+**A:** When it tries to enter a synchronized block/method but cannot acquire the lock immediately.
+
+### Q4: Can a TERMINATED thread restart?
+
+**A:** No. Once terminated, a thread cannot be restarted. Create a new Thread object.
+
+### Q5: What causes WAITING state commonly?
+
+**A:** \`Object.wait()\`, \`Thread.join()\`, or parking mechanisms in concurrent libraries (executors/queues).
+
+---
+
+## Conclusion
+
+The thread lifecycle is the foundation for understanding concurrency. If you can clearly identify why a thread is RUNNABLE, BLOCKED, WAITING, or TIMED_WAITING, you can debug most multithreading problems much faster.
+
+### Next steps
+- Learn [Thread Methods](/tutorial/thread-methods) (\`sleep\`, \`join\`, \`interrupt\`)
+- Continue with [Multithreading Introduction](/tutorial/thread-introduction)
+- Study [Synchronization](/tutorial/synchronization) to understand locks and thread safety
   `,
   code: `public class ThreadLifecycleDemo {
     public static void main(String[] args) throws InterruptedException {

@@ -2,20 +2,226 @@ const arrayMethods = {
   id: "array-methods",
   title: "Array Methods",
   description: "Learn useful array methods from Arrays class",
-  content: `# Arrays Class Methods
+  content: `# Arrays Class Methods in Java (java.util.Arrays)
 
-The java.util.Arrays class provides useful methods for array manipulation.
+The \`java.util.Arrays\` class provides a set of highly optimized utility methods for working with arrays. In real projects, you rarely write sorting or copying loops manually—these methods are faster, safer, and easier to read.
 
-## Common Methods
+This guide covers the most important \`Arrays\` methods, real-world use cases, time complexity, and common mistakes.
 
-| Method | Description |
-|--------|-------------|
-| sort() | Sorts array |
-| binarySearch() | Searches sorted array |
-| fill() | Fills array with value |
-| copyOf() | Copies array |
-| equals() | Compares arrays |
-| toString() | Converts to string |
+---
+
+## Why Arrays Utility Methods Matter
+
+Arrays are fixed-size, but they are widely used in:\n
+- performance-sensitive systems\n
+- data pipelines\n
+- competitive programming\n
+- interview problems\n
+- internal data processing (buffers, caches)\n
+
+When you use \`Arrays\`, you get battle-tested implementations that are often significantly faster than naive loops.
+
+---
+
+## Most Used Arrays Methods (Quick Table)
+
+| Method | What it does | Common use |
+|---|---|---|
+| \`sort()\` | sorts array | ranking, ordering |
+| \`binarySearch()\` | search in sorted array | fast lookup |
+| \`fill()\` | fill with a value | initialization |
+| \`copyOf()\` | copy/resize | resize-like behavior |
+| \`copyOfRange()\` | slice a range | subarray extraction |
+| \`equals()\` | compare arrays | validation |
+| \`deepEquals()\` | compare 2D arrays | matrix comparisons |
+| \`toString()\` | pretty print 1D arrays | logging |
+| \`deepToString()\` | pretty print 2D arrays | logging |
+| \`asList()\` | array → list view (objects only) | interoperability |
+| \`setAll()\` | compute values for each index | generated data |
+| \`parallelSort()\` | parallel sorting | big datasets |
+
+---
+
+## 1) Arrays.toString() and Arrays.deepToString()
+
+### toString() (1D)
+
+\`\`\`java
+int[] a = {3, 1, 9};
+System.out.println(Arrays.toString(a)); // [3, 1, 9]
+\`\`\`
+
+### deepToString() (2D)
+
+\`\`\`java
+int[][] m = {{1,2}, {3,4}};
+System.out.println(Arrays.deepToString(m)); // [[1, 2], [3, 4]]
+\`\`\`
+
+**Use case:** logging and debugging without writing manual loops.
+
+---
+
+## 2) Arrays.sort() and Arrays.parallelSort()
+
+\`\`\`java
+int[] scores = {90, 12, 45, 70};
+Arrays.sort(scores);
+\`\`\`
+
+**Time complexity:** typically $O(n log n)$.\n
+For primitives, Java uses highly optimized algorithms.
+
+### parallelSort()
+
+\`\`\`java
+int[] big = new int[1_000_000];
+Arrays.parallelSort(big);
+\`\`\`
+
+**When to use:** large arrays on multi-core machines. For small arrays, \`sort()\` is often faster due to overhead.
+
+---
+
+## 3) Arrays.binarySearch()
+
+Binary search works only on a **sorted** array.
+
+\`\`\`java
+int[] a = {10, 20, 30, 40};
+int idx = Arrays.binarySearch(a, 30); // 2
+\`\`\`
+
+**If not found**, it returns a negative insertion point:\n
+\`-(insertionPoint) - 1\`
+
+---
+
+## 4) Arrays.copyOf() and copyOfRange()
+
+### copyOf() (copy + resize)
+
+\`\`\`java
+int[] a = {1,2,3};
+int[] b = Arrays.copyOf(a, 5); // [1,2,3,0,0]
+\`\`\`
+
+### copyOfRange() (slice)
+
+\`\`\`java
+int[] a = {10,20,30,40,50};
+int[] mid = Arrays.copyOfRange(a, 1, 4); // [20,30,40]
+\`\`\`
+
+---
+
+## 5) Arrays.fill()
+
+\`\`\`java
+int[] flags = new int[5];
+Arrays.fill(flags, 1); // [1,1,1,1,1]
+\`\`\`
+
+Use case: initialization (DP arrays, visited arrays, default values).
+
+---
+
+## 6) Arrays.equals() and deepEquals()
+
+\`\`\`java
+int[] a = {1,2};
+int[] b = {1,2};
+System.out.println(Arrays.equals(a, b)); // true
+\`\`\`
+
+For 2D arrays, use \`deepEquals\`:
+
+\`\`\`java
+int[][] x = {{1,2},{3,4}};
+int[][] y = {{1,2},{3,4}};
+System.out.println(Arrays.deepEquals(x, y)); // true
+\`\`\`
+
+---
+
+## Real-World Use Cases
+
+### Use Case 1: Ranking Students by Score
+
+- Sort scores\n
+- Pick top N\n
+
+### Use Case 2: Fast Search in Product IDs
+
+- Sort product IDs once\n
+- Binary search for lookups\n
+
+### Use Case 3: Data Preprocessing
+
+- Fill arrays to default values\n
+- Copy ranges for batching\n
+
+---
+
+## Comparison Table: Manual Loop vs Arrays Utility
+
+| Task | Manual loop | Arrays method |
+|---|---|---|
+| Sort | easy to write wrong | \`Arrays.sort()\` |
+| Copy | verbose | \`copyOf()\` / \`copyOfRange()\` |
+| Print | loop required | \`toString()\` |
+| Compare | tricky for 2D | \`equals()\` / \`deepEquals()\` |
+
+---
+
+## Common Mistakes
+
+### Mistake 1: Using binarySearch on unsorted array
+
+**Fix:** always sort first.
+
+### Mistake 2: Printing a 2D array with toString
+
+\`\`\`java
+System.out.println(Arrays.toString(matrix)); // prints references
+\`\`\`
+
+**Fix:** use \`deepToString\`.
+
+---
+
+## FAQs (Arrays Methods)
+
+### Q1: Does Arrays.sort() work for objects?
+
+**A:** Yes. For objects, you can provide a comparator: \`Arrays.sort(arr, comparator)\`.
+
+### Q2: Why does binarySearch return negative values sometimes?
+
+**A:** It returns insertion point information when the key is not present.
+
+### Q3: What is the best way to copy arrays?
+
+**A:** \`Arrays.copyOf\` and \`System.arraycopy\` are standard. Prefer \`Arrays.copyOf\` for readability.
+
+### Q4: Which is better: sort or parallelSort?
+
+**A:** \`parallelSort\` can be faster for very large arrays; for small/medium arrays, \`sort\` is usually better.
+
+### Q5: How do I convert an int[] to a List?
+
+**A:** Primitive arrays don’t work with \`Arrays.asList\` like you expect. Convert manually or use streams.
+
+---
+
+## Conclusion
+
+The \`java.util.Arrays\` class is a must-know utility for writing clean and efficient Java code. Mastering these methods reduces bugs and improves performance in everyday development.
+
+### Next steps
+- Practice [Single Dimensional Array](/tutorial/single-dimensional-array)
+- Learn [Multi-Dimensional Array](/tutorial/multi-dimensional-array)
+- Learn [Collections](/tutorial/collection-introduction) for dynamic structures
   `,
   code: `import java.util.Arrays;
 
