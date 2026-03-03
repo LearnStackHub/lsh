@@ -202,8 +202,28 @@ import mavenVsGradle from './maven/MavenVsGradle';
 import mavenBestPractices from './maven/MavenBestPractices';
 
 // HTTP & APIs
+import httpIntroduction from './http/HttpIntroduction';
+import httpRequestStructure from './http/HttpRequestStructure';
+import httpMethods from './http/HttpMethods';
+import httpResponseStructure from './http/HttpResponseStructure';
+import httpHeaders from './http/HttpHeaders';
+import httpsSecurity from './http/HttpsSecurity';
+import cookiesSessions from './http/CookiesSessions';
+import httpCaching from './http/HttpCaching';
+import cors from './http/Cors';
 import httpStatusCodes from './http/HttpStatusCodes';
 import globalExceptionHandlingHttp from './http/GlobalExceptionHandling';
+import apiIntroduction from './http/ApiIntroduction';
+import restApiFundamentals from './http/RestApiFundamentals';
+import restfulApiDesign from './http/RestfulApiDesign';
+import requestResponseFormats from './http/RequestResponseFormats';
+import authenticationAuthorization from './http/AuthenticationAuthorization';
+import apiTestingTools from './http/ApiTestingTools';
+import apiDocumentation from './http/ApiDocumentation';
+import rateLimiting from './http/RateLimiting';
+import apiSecurityBestPractices from './http/ApiSecurityBestPractices';
+import microservicesApis from './http/MicroservicesApis';
+import advancedApiConcepts from './http/AdvancedApiConcepts';
 
 // Spring Boot
 import {
@@ -939,10 +959,55 @@ export const courseStructure = {
     icon: "🌐",
     color: "#0052CC",
     sections: {
-      basics: {
+      httpFundamentals: {
         title: "HTTP Fundamentals",
         topics: [
+          httpIntroduction,
+          httpRequestStructure,
+          httpResponseStructure,
+          httpMethods,
+          httpHeaders,
+          httpsSecurity,
+          cookiesSessions,
+          httpCaching,
+          cors,
           httpStatusCodes
+        ]
+      },
+      apiFundamentals: {
+        title: "API Fundamentals",
+        topics: [
+          apiIntroduction,
+          restApiFundamentals,
+          restfulApiDesign
+        ]
+      },
+      apiFormats: {
+        title: "Request & Response Formats",
+        topics: [
+          requestResponseFormats
+        ]
+      },
+      apiSecurity: {
+        title: "API Security",
+        topics: [
+          authenticationAuthorization,
+          apiSecurityBestPractices,
+          rateLimiting
+        ]
+      },
+      apiDevelopment: {
+        title: "API Development",
+        topics: [
+          apiTestingTools,
+          apiDocumentation
+        ]
+      },
+      advancedTopics: {
+        title: "Advanced Topics",
+        topics: [
+          microservicesApis,
+          advancedApiConcepts
         ]
       },
       exceptionHandling: {

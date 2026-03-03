@@ -221,7 +221,27 @@ export const generateSEOTitle = (topic) => {
     'Software Development Life Cycle (SDLC) - Complete Guide': 'SDLC Tutorial - Software Development Life Cycle Complete Guide 2026 - Phases, Models, Best Practices',
     
     // HTTP & APIs Topics
+    'HTTP Introduction - What is HTTP?': 'HTTP Tutorial for Beginners - Learn HTTP Protocol from Scratch with Examples',
+    'HTTP Request Structure - Request Line, Methods, Headers, Body': 'HTTP Request Structure Tutorial - Request Line, Methods, Headers, Body Explained',
+    'HTTP Methods - GET, POST, PUT, PATCH, DELETE': 'HTTP Methods Tutorial - GET, POST, PUT, PATCH, DELETE Complete Guide',
+    'HTTP Response Structure - Status Line, Headers, Body': 'HTTP Response Structure Tutorial - Status Line, Headers, Body Explained',
     'HTTP Status Codes - Complete Guide': 'HTTP Status Codes Tutorial - 100, 200, 300, 400, 500 Series Explained',
+    'HTTP Headers - Complete Guide': 'HTTP Headers Tutorial - Request Headers, Response Headers, Common Headers Explained',
+    'HTTPS & Security - SSL/TLS, Encryption, Certificates': 'HTTPS Security Tutorial - SSL/TLS, Encryption, Certificates Explained',
+    'Cookies & Sessions - State Management in HTTP': 'HTTP Cookies and Sessions Tutorial - State Management in Web Applications',
+    'HTTP Caching - Browser Caching, Cache-Control, ETag': 'HTTP Caching Tutorial - Browser Caching, Cache-Control, ETag Explained',
+    'CORS - Cross-Origin Resource Sharing': 'CORS Tutorial - Cross-Origin Resource Sharing Complete Guide with Examples',
+    'API Introduction - What is an API?': 'API Tutorial for Beginners - Learn What is API with Examples',
+    'REST API Fundamentals - Architecture and Principles': 'REST API Fundamentals Tutorial - REST Architecture and Principles Explained',
+    'RESTful API Design - Best Practices and Patterns': 'RESTful API Design Tutorial - Best Practices, Patterns, and Examples',
+    'Request & Response Formats - JSON, XML, Form Data': 'API Request Response Formats Tutorial - JSON, XML, Form Data Explained',
+    'Authentication & Authorization - API Security': 'API Authentication Authorization Tutorial - Basic Auth, JWT, OAuth 2.0 Explained',
+    'API Testing Tools - Postman, cURL, Swagger': 'API Testing Tools Tutorial - Postman, cURL, Swagger UI Complete Guide',
+    'API Documentation - OpenAPI, Swagger, Best Practices': 'API Documentation Tutorial - OpenAPI, Swagger UI, Documentation Best Practices',
+    'Rate Limiting - Throttling and Quotas': 'API Rate Limiting Tutorial - Throttling, Quotas, Rate Limit Headers Explained',
+    'API Security Best Practices - Input Validation, SQL Injection, XSS': 'API Security Best Practices Tutorial - Input Validation, SQL Injection Prevention, XSS Protection',
+    'Microservices & APIs - API Gateway, Service Communication': 'Microservices APIs Tutorial - API Gateway, Service Communication, Load Balancing',
+    'Advanced API Concepts - HATEOAS, GraphQL, WebSockets, gRPC': 'Advanced API Concepts Tutorial - HATEOAS, GraphQL, WebSockets, gRPC Explained',
     'Global Exception Handling': 'Global Exception Handling Tutorial - @ControllerAdvice, @ExceptionHandler in Spring Boot',
     
     // Maven Topics

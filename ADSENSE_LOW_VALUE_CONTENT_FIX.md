@@ -115,3 +115,4 @@ After fixes:
 3. Monitor page quality signals
 4. Reapply to AdSense only after improvements are indexed
 
+
