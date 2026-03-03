@@ -82,11 +82,31 @@ table {
   height: auto;
 }
 
+/* Ensure all media elements are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  max-width: 100%;
+  width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -98,6 +118,10 @@ body {
   font-size: 16px;
   overflow-x: hidden;
   width: 100%;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   max-width: 100%;
   position: relative;
 }
@@ -2542,6 +2566,20 @@ code {
     --header-height: 56px;
   }
   
+  /* Prevent horizontal scrolling */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+  
+  .app-layout {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
   .sidebar {
     width: var(--sidebar-width);
     top: calc(var(--header-height) + 46px);
@@ -2573,26 +2611,36 @@ code {
   .main-content {
     margin-left: 0;
     max-width: 100%;
-    padding: 1rem 0.5rem;
+    width: 100%;
+    padding: 1rem 0.75rem;
     margin-top: calc(var(--header-height) + 46px);
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .top-banner-ad {
     margin-left: 0;
     width: 100%;
+    max-width: 100%;
     margin-top: calc(var(--header-height) + 46px);
     padding: 0.5rem;
+    box-sizing: border-box;
   }
   
   .bottom-banner-ad {
     margin-left: 0;
     width: 100%;
+    max-width: 100%;
     padding: 0.75rem 0.5rem;
+    box-sizing: border-box;
   }
   
   .header {
     height: var(--header-height);
     padding: 0 0.5rem;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
   }
   
   .header-left {
@@ -2615,6 +2663,7 @@ code {
   .course-nav-btn {
     padding: 0.35rem 0.5rem;
     font-size: 0.8rem;
+    min-height: 36px; /* Touch-friendly */
   }
   
   .header-search {
@@ -2633,44 +2682,199 @@ code {
   
   .nav-add-btn {
     padding: 0.35rem;
+    min-height: 36px; /* Touch-friendly */
+    min-width: 36px;
   }
   
   .hero-section {
     padding: 2rem 1rem;
     margin-left: 0;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .hero-title {
     font-size: 1.75rem;
+    word-wrap: break-word;
   }
   
   .hero-subtitle {
     font-size: 1rem;
+    word-wrap: break-word;
   }
   
   .tutorial-title {
     font-size: 1.5rem;
+    word-wrap: break-word;
+    line-height: 1.3;
   }
   
   .tutorial-content {
     font-size: 0.95rem;
     line-height: 1.7;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    word-wrap: break-word;
   }
   
   .tutorial-content h1 {
     font-size: 1.5rem;
     margin: 1.5rem 0 1rem;
+    word-wrap: break-word;
+    line-height: 1.3;
   }
   
   .tutorial-content h2 {
     font-size: 1.25rem;
     margin: 1.25rem 0 0.75rem;
+    word-wrap: break-word;
+    line-height: 1.3;
   }
   
   .tutorial-content h3 {
     font-size: 1.1rem;
     margin: 1rem 0 0.5rem;
+    word-wrap: break-word;
+    line-height: 1.3;
+  }
+  
+  .tutorial-content p {
+    font-size: 0.95rem;
+    word-wrap: break-word;
+  }
+  
+  /* Tables - Make scrollable on mobile */
+  .tutorial-content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0;
+  }
+  
+  .tutorial-content table thead,
+  .tutorial-content table tbody,
+  .tutorial-content table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .tutorial-content th,
+  .tutorial-content td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+    word-wrap: break-word;
+    min-width: 80px;
+  }
+  
+  /* Code blocks - Make scrollable */
+  .code-block {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0;
+  }
+  
+  .code-block pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 1rem 0.75rem;
+  }
+  
+  .code-block code {
+    font-size: 0.85rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  
+  /* Images - Responsive */
+  .tutorial-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+  }
+  
+  /* Blockquotes */
+  .tutorial-content blockquote {
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  
+  /* Lists */
+  .tutorial-content ul,
+  .tutorial-content ol {
+    margin-left: 1rem;
+    padding-left: 1rem;
+  }
+  
+  /* Code inline */
+  .tutorial-content code:not(.code-block code) {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.4rem;
+    word-wrap: break-word;
+  }
+  
+  /* Buttons - Touch-friendly */
+  button, .btn, .nav-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Navigation buttons */
+  .tutorial-navigation {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+  }
+  
+  /* Main topics nav - Horizontal scroll */
+  .main-topics-nav-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  
+  .main-topics-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .main-topic-link {
+    flex-shrink: 0;
+    white-space: nowrap;
+    min-height: 44px;
+  }
+  
+  /* Footer */
+  .site-footer {
+    padding: 2rem 1rem;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .footer-topics-grid {
+    grid-template-columns: 1fr;
   }
 }
 
