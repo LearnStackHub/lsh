@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { 
   GraduationCap, Briefcase, Users, Target, CheckCircle, Mail, ArrowRight, Code, Rocket, Award,
-  Star, Clock, DollarSign, BookOpen, TrendingUp, Zap, Gift, Shield, Calendar, Phone
+  Clock, DollarSign, BookOpen, TrendingUp, Zap, Gift, Shield, Calendar, Phone
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
@@ -793,122 +793,6 @@ function Careers() {
                 <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
                   Even after placement, we continue to support your career growth with mentorship and skill updates.
                 </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section style={{ marginBottom: '3rem' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>What Our Students Say</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '16px',
-              padding: '2rem',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
-            }}>
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={20} style={{ fill: '#fbbf24', color: '#fbbf24' }} />
-                ))}
-              </div>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontStyle: 'italic', lineHeight: '1.8' }}>
-                "The training program was comprehensive and practical. I got placed in a top MNC within 2 months of completing 
-                the course. The placement team was incredibly supportive throughout the process."
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: 'var(--accent-primary)',
-                  color: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 'bold'
-                }}>
-                  R
-                </div>
-                <div>
-                  <strong style={{ display: 'block' }}>Rajesh Kumar</strong>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Software Developer at TCS</span>
-                </div>
-              </div>
-            </div>
-
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '16px',
-              padding: '2rem',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
-            }}>
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={20} style={{ fill: '#fbbf24', color: '#fbbf24' }} />
-                ))}
-              </div>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontStyle: 'italic', lineHeight: '1.8' }}>
-                "The live projects helped me build a strong portfolio. The instructors were patient and always available for 
-                doubts. I'm now working as a Full Stack Developer at a startup."
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: 'var(--accent-primary)',
-                  color: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 'bold'
-                }}>
-                  P
-                </div>
-                <div>
-                  <strong style={{ display: 'block' }}>Priya Sharma</strong>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Full Stack Developer</span>
-                </div>
-              </div>
-            </div>
-
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '16px',
-              padding: '2rem',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
-            }}>
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={20} style={{ fill: '#fbbf24', color: '#fbbf24' }} />
-                ))}
-              </div>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontStyle: 'italic', lineHeight: '1.8' }}>
-                "The internship opportunity I got through LearnStackHub was a game-changer. I learned so much and got a 
-                full-time offer from the same company. Highly recommended!"
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: 'var(--accent-primary)',
-                  color: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 'bold'
-                }}>
-                  A
-                </div>
-                <div>
-                  <strong style={{ display: 'block' }}>Amit Patel</strong>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Backend Developer at Infosys</span>
-                </div>
               </div>
             </div>
           </div>
