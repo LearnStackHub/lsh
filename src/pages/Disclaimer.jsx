@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { AlertTriangle, Shield, FileText, Code, ExternalLink, BookOpen } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 
 function Disclaimer() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead 

@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, MessageSquare, Send, Github, Linkedin, Twitter } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 
 function Contact() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -57,9 +60,14 @@ function Contact() {
               <Mail size={20} />
               Email
             </h3>
-            <p>
+            <p style={{ marginBottom: '0.5rem' }}>
               <a href="mailto:dattudattakumar369@gmail.com" style={{ color: 'var(--accent-primary)' }}>
                 dattudattakumar369@gmail.com
+              </a>
+            </p>
+            <p style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>
+               <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--accent-primary)' }}>
+                careers@learnstackhub.com
               </a>
             </p>
           </div>

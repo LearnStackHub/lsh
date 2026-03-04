@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Target, Users, BookOpen, Code, Rocket, Heart, Award } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 
 function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead 
@@ -284,6 +289,12 @@ function About() {
             <Link to="/contact" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
               Get in Touch
             </Link>
+          </p>
+          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>
+            For career opportunities, email us at:{' '}
+            <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--accent-primary)' }}>
+              careers@learnstackhub.com
+            </a>
           </p>
         </section>
 

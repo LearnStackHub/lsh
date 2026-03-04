@@ -456,6 +456,18 @@ function Layout() {
             <ul>
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
+            </ul>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Contact</h4>
+            <ul>
+              <li>
+                <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
+                  careers@learnstackhub.com
+                </a>
+              </li>
             </ul>
           </div>
           

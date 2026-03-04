@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Scale, AlertTriangle, Book, Code, Shield } from 'lucide-react';
 
 function Terms() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <h1 className="tutorial-title">Terms of Service & Disclaimer</h1>
