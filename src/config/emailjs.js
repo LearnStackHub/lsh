@@ -46,13 +46,15 @@ export const sendEmail = async (templateParams) => {
  */
 export const sendContactEmail = async (formData) => {
   const templateParams = {
-    from_name: formData.name,
-    from_email: formData.email,
-    subject: formData.subject,
-    message: formData.message,
+    from_name: formData.name || 'Not provided',
+    from_email: formData.email || 'Not provided',
+    subject: formData.subject || 'No subject',
+    message: formData.message || 'No message',
+    phone: 'N/A', // Not applicable for contact form
+    course: 'N/A', // Not applicable for contact form
     to_email: 'dattudattakumar369@gmail.com',
     form_type: 'Contact Form',
-    reply_to: formData.email
+    reply_to: formData.email || 'dattudattakumar369@gmail.com'
   };
 
   return await sendEmail(templateParams);
@@ -65,15 +67,15 @@ export const sendContactEmail = async (formData) => {
  */
 export const sendRegistrationEmail = async (formData) => {
   const templateParams = {
-    from_name: formData.name,
-    from_email: formData.email,
+    from_name: formData.name || 'Not provided',
+    from_email: formData.email || 'Not provided',
     phone: formData.phone || 'Not provided',
     course: formData.course || 'Not specified',
     message: formData.message || 'No additional message',
+    subject: `Training Registration - ${formData.course || 'General Inquiry'}`,
     to_email: 'dattudattakumar369@gmail.com',
     form_type: 'Training Registration',
-    subject: `Training Registration - ${formData.course || 'General Inquiry'}`,
-    reply_to: formData.email
+    reply_to: formData.email || 'dattudattakumar369@gmail.com'
   };
 
   return await sendEmail(templateParams);
