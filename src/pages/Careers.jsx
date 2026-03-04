@@ -23,7 +23,6 @@ function Careers() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Registration submitted:', formData);
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
