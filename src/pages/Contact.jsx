@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, MessageSquare, Send, Github, Linkedin, Twitter } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import { sendContactEmail } from '../config/emailjs';
 
 function Contact() {
   useEffect(() => {
@@ -14,16 +15,27 @@ function Contact() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real application, you would send this to a backend
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setLoading(true);
+    setError('');
+
+    const result = await sendContactEmail(formData);
+
+    if (result.success) {
+      setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } else {
+      setError(result.error || 'Failed to send message. Please try again or email us directly.');
+    }
+    
+    setLoading(false);
   };
 
   const handleChange = (e) => {
@@ -116,11 +128,23 @@ function Contact() {
               <Send size={48} style={{ color: '#22c55e', marginBottom: '1rem' }} />
               <h3 style={{ color: '#166534', marginBottom: '0.5rem' }}>Message Sent!</h3>
               <p style={{ color: '#166534' }}>
-                Thank you for contacting us. We'll get back to you soon.
+                Thank you for contacting us. We'll get back to you within 24-48 hours.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="contact-form">
+              {error && (
+                <div style={{
+                  background: '#fee2e2',
+                  border: '2px solid #ef4444',
+                  borderRadius: '12px',
+                  padding: '1rem',
+                  marginBottom: '1.5rem',
+                  color: '#991b1b'
+                }}>
+                  {error}
+                </div>
+              )}
               <div className="form-group">
                 <label htmlFor="name">Name *</label>
                 <input
@@ -173,9 +197,23 @@ function Contact() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                <Send size={18} />
-                Send Message
+              <button 
+                type="submit" 
+                className="btn btn-primary" 
+                style={{ width: '100%' }}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span style={{ marginRight: '0.5rem' }}>⏳</span>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={18} />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           )}

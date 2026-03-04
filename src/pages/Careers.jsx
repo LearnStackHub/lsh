@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
+import { sendRegistrationEmail } from '../config/emailjs';
 
 function Careers() {
   const [formData, setFormData] = useState({
@@ -16,18 +17,31 @@ function Careers() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setLoading(true);
+    setError('');
+
+    const result = await sendRegistrationEmail(formData);
+
+    if (result.success) {
+      setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', course: '', message: '' });
-    }, 5000);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } else {
+      setError(result.error || 'Failed to send registration. Please try again or email us directly.');
+    }
+    
+    setLoading(false);
   };
 
   const handleChange = (e) => {
@@ -434,6 +448,18 @@ function Careers() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="contact-form">
+                {error && (
+                  <div style={{
+                    background: '#fee2e2',
+                    border: '2px solid #ef4444',
+                    borderRadius: '12px',
+                    padding: '1rem',
+                    marginBottom: '1.5rem',
+                    color: '#991b1b'
+                  }}>
+                    {error}
+                  </div>
+                )}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
                   <div className="form-group">
                     <label htmlFor="name">
@@ -525,6 +551,7 @@ function Careers() {
                 <button 
                   type="submit" 
                   className="btn btn-primary" 
+                  disabled={loading}
                   style={{ 
                     width: '100%',
                     padding: '1rem 2rem',
@@ -534,11 +561,22 @@ function Careers() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '0.75rem'
+                    gap: '0.75rem',
+                    opacity: loading ? 0.7 : 1,
+                    cursor: loading ? 'not-allowed' : 'pointer'
                   }}
                 >
-                  <Rocket size={24} />
-                  Register Now - Get Free Consultation
+                  {loading ? (
+                    <>
+                      <Clock size={24} />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Rocket size={24} />
+                      Register Now - Get Free Consultation
+                    </>
+                  )}
                 </button>
 
                 <p style={{ 
