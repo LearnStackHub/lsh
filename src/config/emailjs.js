@@ -17,10 +17,12 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
  */
 export const sendEmail = async (templateParams) => {
   try {
+    // Pass public key directly in send function (works if init fails)
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
-      templateParams
+      templateParams,
+      EMAILJS_PUBLIC_KEY // Pass public key as 4th parameter
     );
     
     return {
