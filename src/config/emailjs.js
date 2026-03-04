@@ -2,14 +2,13 @@ import emailjs from '@emailjs/browser';
 
 // EmailJS Configuration
 // Replace these with your actual EmailJS credentials
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'service_9jly8v6';
+const EMAILJS_TEMPLATE_ID = 'template_9ql8g2i';
+const EMAILJS_PUBLIC_KEY = 'oW1iKw8tP4_VthDYL';
 
 // Initialize EmailJS with public key
-if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-  emailjs.init(EMAILJS_PUBLIC_KEY);
-}
+// EmailJS requires initialization before sending emails
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
 /**
  * Send email using EmailJS
@@ -69,7 +68,7 @@ export const sendRegistrationEmail = async (formData) => {
     phone: formData.phone || 'Not provided',
     course: formData.course || 'Not specified',
     message: formData.message || 'No additional message',
-    to_email: 'careers@learnstackhub.com',
+    to_email: 'dattudattakumar369@gmail.com',
     form_type: 'Training Registration',
     subject: `Training Registration - ${formData.course || 'General Inquiry'}`,
     reply_to: formData.email
