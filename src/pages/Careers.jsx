@@ -23,7 +23,6 @@ function Careers() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real application, you would send this to a backend
     console.log('Registration submitted:', formData);
     setSubmitted(true);
     setTimeout(() => {
@@ -47,7 +46,6 @@ function Careers() {
       />
       <StructuredData type="Organization" />
       
-      {/* Hero Section with Registration CTA */}
       <section style={{ marginBottom: '3rem' }}>
         <div style={{
           background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)',
@@ -144,7 +142,7 @@ function Careers() {
                 Register Now - Free Consultation
               </a>
               <a 
-                href="mailto:careers@learnstackhub.com" 
+                href="tel:8466932302" 
                 className="btn"
                 style={{ 
                   display: 'inline-flex', 
@@ -161,7 +159,7 @@ function Careers() {
                 }}
               >
                 <Phone size={20} />
-                Call Us
+                Call Us: 8466932302
               </a>
             </div>
             <div style={{
@@ -190,7 +188,6 @@ function Careers() {
       </section>
 
       <div className="tutorial-content">
-        {/* Why Register Now - Benefits */}
         <section style={{ marginBottom: '3rem' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem' }}>
             Why Students Choose Our Training Program
@@ -285,7 +282,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Course Highlights */}
         <section style={{ marginBottom: '3rem' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>What You'll Master in Our Training</h2>
           <div style={{
@@ -357,7 +353,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Success Stats */}
         <section style={{ marginBottom: '3rem' }}>
           <div style={{
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -395,7 +390,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Registration Form */}
         <section id="register-form" style={{ marginBottom: '3rem' }}>
           <div style={{
             background: 'var(--bg-card)',
@@ -432,6 +426,10 @@ function Careers() {
                   Check your email for confirmation. You can also reach us at{' '}
                   <a href="mailto:careers@learnstackhub.com" style={{ color: '#166534', fontWeight: '600' }}>
                     careers@learnstackhub.com
+                  </a>
+                  {' '}or call us at{' '}
+                  <a href="tel:8466932302" style={{ color: '#166534', fontWeight: '600' }}>
+                    8466932302
                   </a>
                 </p>
               </div>
@@ -557,7 +555,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Training Program Details */}
         <section style={{ marginBottom: '3rem' }}>
           <h2>Complete Training Program Details</h2>
           <div style={{ display: 'grid', gap: '1.5rem', marginTop: '1.5rem' }}>
@@ -669,7 +666,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Placement Process */}
         <section style={{ marginBottom: '3rem' }}>
           <h2>Our Placement Process</h2>
           <p style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
@@ -803,7 +799,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Student Testimonials */}
         <section style={{ marginBottom: '3rem' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>What Our Students Say</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
@@ -920,7 +915,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Final CTA */}
         <section style={{ 
           marginTop: '3rem', 
           paddingTop: '2rem', 
@@ -1020,7 +1014,6 @@ function Careers() {
           </div>
         </section>
 
-        {/* Contact Information */}
         <section style={{ marginBottom: '3rem' }}>
           <div style={{
             background: 'var(--bg-tertiary)',
@@ -1049,7 +1042,17 @@ function Careers() {
               <div>
                 <Phone size={32} style={{ color: 'var(--accent-primary)', marginBottom: '0.75rem' }} />
                 <h4 style={{ marginBottom: '0.5rem' }}>Call Us</h4>
-                <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
+                <a href="tel:8466932302" style={{ 
+                  color: 'var(--accent-primary)', 
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  fontSize: '1.1rem',
+                  display: 'block',
+                  marginBottom: '0.5rem'
+                }}>
+                  8466932302
+                </a>
+                <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.9rem' }}>
                   Available Mon-Sat, 9 AM - 6 PM
                 </p>
               </div>
