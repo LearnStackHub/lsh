@@ -330,7 +330,7 @@ export const generateSEODescription = (topic) => {
  */
 export const generateSEOKeywords = (topic) => {
   if (!topic) {
-    return 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices';
+    return 'learn, learnstack, learnstack hub, learnstackhub, learn hub, learn stack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices, java tutorial hyderabad, java training hyderabad, top tutorial company hyderabad, best tutorial hyderabad, top company hyderabad, spring tutorial hyderabad, learn stack hub hyderabad, top tutorial hyderabad';
   }
   
   const { title, courseTitle } = topic;
@@ -391,6 +391,39 @@ export const generateSEOKeywords = (topic) => {
     'java tutorial online',
     'java step by step',
     'java complete guide'
+  );
+  
+  // Add brand and location-based keywords
+  baseKeywords.push(
+    'learn',
+    'learnstack',
+    'learnstack hub',
+    'learnstackhub',
+    'learn hub',
+    'learn stack hub',
+    'learnstack hub tutorial',
+    'learnstack hub java',
+    'learnstack hub spring',
+    'learn hub java',
+    'learn hub tutorial',
+    'learn stack hub java',
+    'learn stack hub tutorial',
+    'java tutorial hyderabad',
+    'java training hyderabad',
+    'java course hyderabad',
+    'learn java hyderabad',
+    'java programming hyderabad',
+    'top java tutorial hyderabad',
+    'best java tutorial hyderabad',
+    'top tutorial company hyderabad',
+    'best tutorial company hyderabad',
+    'top company hyderabad',
+    'java full stack hyderabad',
+    'spring tutorial hyderabad',
+    'spring boot hyderabad',
+    'learn stack hub hyderabad',
+    'top tutorial hyderabad',
+    'best tutorial hyderabad'
   );
   
   return baseKeywords.join(', ');

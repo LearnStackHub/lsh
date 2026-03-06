@@ -102,7 +102,7 @@ function Home() {
         </h1>
         
         <p className="hero-subtitle">
-          Master Java Full Stack Development with free interactive tutorials. Learn Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, and AWS step-by-step. Perfect for beginners and advanced developers. Start learning Java programming today!
+          Master Java Full Stack Development with free interactive tutorials. Learn Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, React, and AWS step-by-step. Perfect for beginners and advanced developers. Start learning Java programming today! LearnStackHub - Your Learn Hub for Java, Spring, and Full Stack Development.
         </p>
         
         <div className="hero-buttons">

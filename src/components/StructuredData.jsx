@@ -25,7 +25,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         alternateName: 'Learn Java Full Stack Development',
         description: 'Free Java Full Stack Development tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, and AWS. Learn Java programming step-by-step with interactive tutorials and live code execution.',
         url: baseUrl,
-        keywords: 'learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial',
+        keywords: 'learn, learnstack, learnstack hub, learnstackhub, learn hub, learn stack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java tutorial hyderabad, java training hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad',
         inLanguage: 'en-US',
         potentialAction: {
           '@type': 'SearchAction',
@@ -45,11 +45,22 @@ function StructuredData({ topicId, type = 'WebSite' }) {
           }
         },
         mainEntity: {
-          '@type': 'EducationalOrganization',
+          '@type': ['EducationalOrganization', 'LocalBusiness'],
           name: 'LearnStackHub',
-          description: 'Free online Java Full Stack Development tutorials and courses',
+          alternateName: ['Learn Stack Hub', 'Learn Hub', 'LearnStack Hub'],
+          description: 'Free online Java Full Stack Development tutorials and courses. Learn Java, Spring Boot, and Full Stack development with interactive tutorials.',
           teaches: ['Java Programming', 'Java Web Development', 'JDBC', 'Servlets', 'JSP', 'Hibernate', 'MySQL', 'Spring Framework', 'Spring Boot', 'HTTP & APIs', 'React', 'AWS'],
-          educationalCredentialAwarded: 'Certificate of Completion'
+          educationalCredentialAwarded: 'Certificate of Completion',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Hyderabad',
+            addressRegion: 'Telangana',
+            addressCountry: 'IN'
+          },
+          areaServed: {
+            '@type': 'City',
+            name: 'Hyderabad'
+          }
         }
       };
     } else if (type === 'Article' && topicId) {
@@ -152,17 +163,52 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         };
       }
     } else if (type === 'Organization' || location.pathname === '/about') {
-      // About page - Organization schema
+      // About page - Organization schema with LocalBusiness
       structuredData = {
         '@context': 'https://schema.org',
-        '@type': 'Organization',
+        '@type': ['Organization', 'LocalBusiness', 'EducationalOrganization'],
         name: 'LearnStackHub',
+        alternateName: ['Learn Stack Hub', 'Learn Hub', 'LearnStack Hub'],
         url: baseUrl,
-        description: 'Free Java Full Stack Development Tutorials',
-        logo: `${baseUrl}/logo.png`,
+        description: 'Free Java Full Stack Development Tutorials. Comprehensive Java, Spring Boot, and Full Stack training with interactive tutorials.',
+        logo: {
+          '@type': 'ImageObject',
+          url: `${baseUrl}/LSH.png`
+        },
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Hyderabad',
+          addressRegion: 'Telangana',
+          addressCountry: 'IN',
+          addressArea: 'Hyderabad'
+        },
+        areaServed: {
+          '@type': 'City',
+          name: 'Hyderabad'
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: '17.3850',
+          longitude: '78.4867'
+        },
+        telephone: '+91-8466932302',
+        email: 'careers@learnstackhub.com',
+        priceRange: 'Free',
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '5',
+          reviewCount: '1000'
+        },
         sameAs: [
           'https://github.com/Dattakumar369/learnstackhub'
-        ]
+        ],
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'INR',
+          availability: 'https://schema.org/InStock',
+          description: 'Free Java Full Stack Development Tutorials'
+        }
       };
     }
 
