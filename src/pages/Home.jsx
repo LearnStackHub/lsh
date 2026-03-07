@@ -595,6 +595,29 @@ function Home() {
           >
             Contact
           </Link>
+          <Link to="/career-guidance" style={{
+            padding: '1rem',
+            background: 'var(--bg-tertiary)',
+            borderRadius: '12px',
+            textAlign: 'center',
+            textDecoration: 'none',
+            color: 'var(--text-primary)',
+            fontWeight: '600',
+            transition: 'all 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--accent-primary)';
+            e.currentTarget.style.color = 'white';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'var(--bg-tertiary)';
+            e.currentTarget.style.color = 'var(--text-primary)';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+          >
+            Career Guidance
+          </Link>
           <Link to="/privacy" style={{
             padding: '1rem',
             background: 'var(--bg-tertiary)',

@@ -10,6 +10,7 @@ export const generateSitemap = () => {
     { url: '/', priority: '1.0', changefreq: 'daily' },
     { url: '/about', priority: '0.8', changefreq: 'monthly' },
     { url: '/contact', priority: '0.7', changefreq: 'monthly' },
+    { url: '/career-guidance', priority: '0.9', changefreq: 'monthly' },
     { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
     { url: '/terms', priority: '0.5', changefreq: 'yearly' },
   ];

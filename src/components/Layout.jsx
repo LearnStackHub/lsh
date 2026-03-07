@@ -457,6 +457,7 @@ function Layout() {
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/contact">Contact</Link></li>
               <li><Link to="/careers">Careers</Link></li>
+              <li><Link to="/career-guidance">Career Guidance</Link></li>
             </ul>
           </div>
           
