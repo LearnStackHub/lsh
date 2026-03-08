@@ -3,9 +3,17 @@ const htmlImages = {
   title: 'HTML Images',
   description: 'Learn how to add images to web pages, optimize them, and make them accessible',
   content: `
-# HTML Images — Adding Visual Content
+# HTML Images - Adding Visual Content
 
-Images make web pages engaging and informative. Learning to properly add and optimize images is crucial for web development.
+HTML images are essential elements for adding visual content to web pages, enhancing user engagement, conveying information, and improving overall user experience. Images are embedded using the \`<img>\` element, which displays graphical content from various sources. Understanding image implementation, optimization, and accessibility is crucial for building modern, performant web applications.
+
+Enterprise web applications extensively use images for product displays, user avatars, infographics, icons, and visual branding. Proper image implementation includes optimization for performance, accessibility through alt text, responsive sizing, and appropriate format selection. Images significantly impact page load times and user experience, making optimization essential for production applications.
+
+**Image Considerations:**
+- **Performance**: Image optimization and format selection
+- **Accessibility**: Alt text for screen readers
+- **Responsiveness**: Adapting to different screen sizes
+- **Format Selection**: Choosing appropriate image formats (JPEG, PNG, WebP, SVG)
 
 ---
 

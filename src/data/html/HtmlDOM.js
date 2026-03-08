@@ -3,9 +3,17 @@ const htmlDOM = {
   title: 'HTML DOM - Document Object Model',
   description: 'Learn about the Document Object Model (DOM) and how HTML elements become objects that can be manipulated',
   content: `
-# HTML DOM — Document Object Model
+# HTML DOM - Document Object Model
 
-The DOM (Document Object Model) is a programming interface that represents HTML documents as a tree of objects. Understanding DOM is crucial for JavaScript and dynamic web pages.
+The DOM (Document Object Model) is a programming interface that represents HTML documents as a hierarchical tree of objects that can be accessed and manipulated programmatically. The DOM enables JavaScript to interact with HTML elements, modify content, change styles, handle events, and create dynamic web experiences. Understanding the DOM is fundamental to JavaScript programming and building interactive web applications.
+
+Enterprise web applications rely heavily on DOM manipulation for dynamic content updates, user interactions, form validation, and single-page application (SPA) functionality. The DOM serves as the bridge between HTML structure and JavaScript functionality, enabling developers to create responsive, interactive user interfaces. Mastery of the DOM is essential for modern frontend development.
+
+**DOM Concepts:**
+- **Tree Structure**: Hierarchical representation of HTML elements
+- **Node Types**: Elements, text, attributes, comments
+- **DOM Methods**: Access and manipulate elements
+- **Event Handling**: Respond to user interactions
 
 ---
 

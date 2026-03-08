@@ -3,9 +3,17 @@ const htmlMedia = {
   title: 'HTML Media - Audio & Video',
   description: 'Learn how to embed audio and video content in HTML pages',
   content: `
-# HTML Media — Audio & Video
+# HTML Media - Audio & Video
 
-HTML5 provides native support for audio and video without plugins. Learn how to embed media content in your web pages.
+HTML5 provides native support for embedding audio and video content directly in web pages without requiring browser plugins. The \`<video>\` and \`<audio>\` elements enable rich media experiences, supporting multiple formats, playback controls, and responsive design. Understanding HTML media elements is essential for building modern web applications that include multimedia content.
+
+Enterprise web applications extensively use media elements for product demonstrations, tutorials, marketing content, user-generated content, and interactive experiences. Media elements support multiple source formats for cross-browser compatibility, provide customizable controls, and enable programmatic control through JavaScript. Proper media implementation includes format selection, accessibility considerations, and performance optimization.
+
+**Media Element Features:**
+- **Multiple Formats**: Support for various audio/video codecs
+- **Playback Controls**: Built-in or custom controls
+- **Responsive Design**: Adapting to different screen sizes
+- **Accessibility**: Captions, subtitles, and transcripts
 
 ---
 

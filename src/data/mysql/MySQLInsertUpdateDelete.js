@@ -3,9 +3,17 @@ const mysqlInsertUpdateDelete = {
   title: 'INSERT, UPDATE, DELETE - Modifying Data',
   description: 'Learn how to insert, update, and delete data in MySQL tables',
   content: `
-# INSERT, UPDATE, DELETE — Modifying Data
+# INSERT, UPDATE, DELETE - Modifying Data in MySQL
 
-These three commands are essential for managing data in your database. They allow you to add, modify, and remove records.
+INSERT, UPDATE, and DELETE are the three fundamental Data Manipulation Language (DML) commands in MySQL that enable you to add, modify, and remove data from database tables. These commands are essential for maintaining database content, supporting all CRUD (Create, Read, Update, Delete) operations that applications require. Understanding these commands is crucial for database administration and application development.
+
+Enterprise applications extensively use INSERT for data creation, UPDATE for data modification, and DELETE for data removal. These operations are typically executed within transactions to ensure data consistency and atomicity. Mastery of INSERT, UPDATE, and DELETE, combined with proper transaction management, is essential for building reliable database applications.
+
+**DML Commands Overview:**
+- **INSERT**: Adds new rows to tables
+- **UPDATE**: Modifies existing row data
+- **DELETE**: Removes rows from tables
+- **All three** work within transactions for data consistency
 
 ---
 
@@ -572,7 +580,226 @@ WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
 
 -- Delete archived orders
 DELETE FROM orders 
-WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);`
+WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
+
+---
+
+## Real-World Applications
+
+### E-Commerce Order Processing
+E-commerce platforms use INSERT to create orders, UPDATE to modify order status and inventory, and DELETE (or soft delete) to remove cancelled orders. These operations are executed within transactions to ensure data consistency.
+
+**Implementation Example:**
+- INSERT new orders when customers place orders
+- UPDATE product stock when items are purchased
+- UPDATE order status as orders are processed
+- Soft DELETE (mark as deleted) for cancelled orders
+- Transaction ensures all operations succeed or fail together
+
+### User Account Management
+User management systems use INSERT for registration, UPDATE for profile modifications, and DELETE (or deactivation) for account removal. These operations maintain user data integrity and support account lifecycle management.
+
+**Implementation Example:**
+- INSERT new users during registration
+- UPDATE user profiles when information changes
+- UPDATE account status for activation/deactivation
+- Soft DELETE for account deletion (maintains audit trail)
+- Foreign key constraints maintain data relationships
+
+### Inventory Management
+Inventory systems use INSERT to add new products, UPDATE to adjust stock levels and prices, and DELETE to remove discontinued items. These operations support real-time inventory tracking and management.
+
+**Implementation Example:**
+- INSERT new products into catalog
+- UPDATE stock quantities after sales and restocking
+- UPDATE product prices during sales and promotions
+- DELETE discontinued products (or mark as inactive)
+- Transactions ensure inventory accuracy
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Not Using WHERE in UPDATE/DELETE
+**Problem:** Forgetting WHERE clause updates or deletes all rows.
+
+**Solution:** Always use WHERE clause unless intentionally updating all rows:
+
+\`\`\`sql
+-- WRONG - Updates all rows!
+UPDATE products SET price = 99.99;
+
+-- CORRECT - Updates specific rows
+UPDATE products SET price = 99.99 WHERE id = 1;
+\`\`\`
+
+### Mistake 2: Not Using Transactions
+**Problem:** Performing related operations without transactions can leave data inconsistent.
+
+**Solution:** Use transactions for related operations:
+
+\`\`\`sql
+-- GOOD - Transaction ensures consistency
+START TRANSACTION;
+UPDATE products SET stock = stock - 1 WHERE id = 1;
+INSERT INTO orders (product_id, quantity) VALUES (1, 1);
+COMMIT;
+
+-- BAD - No transaction, can leave inconsistent state
+UPDATE products SET stock = stock - 1 WHERE id = 1;
+INSERT INTO orders (product_id, quantity) VALUES (1, 1);
+-- If INSERT fails, stock is already updated!
+\`\`\`
+
+### Mistake 3: Hard Delete Instead of Soft Delete
+**Problem:** Using DELETE removes data permanently, losing audit trail.
+
+**Solution:** Use soft delete (UPDATE with is_deleted flag):
+
+\`\`\`sql
+-- PREFER - Soft delete
+UPDATE users SET is_deleted = 1, deleted_at = NOW() WHERE id = 1;
+
+-- AVOID - Hard delete (unless necessary)
+DELETE FROM users WHERE id = 1;  -- Data lost forever
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is the difference between INSERT, UPDATE, and DELETE?
+
+INSERT adds new rows to a table, UPDATE modifies existing row data, and DELETE removes rows from a table. INSERT creates new records, UPDATE changes existing records, and DELETE removes records. All three are DML (Data Manipulation Language) commands that modify table data. Learn about [MySQL Select](/tutorial/mysql-select) for reading data.
+
+### Can I insert multiple rows in a single INSERT statement?
+
+Yes, you can insert multiple rows in a single INSERT statement by providing multiple value sets:
+
+\`\`\`sql
+INSERT INTO users (name, email) VALUES
+('John', 'john@example.com'),
+('Jane', 'jane@example.com'),
+('Bob', 'bob@example.com');
+\`\`\`
+
+This is more efficient than multiple separate INSERT statements.
+
+### What happens if I UPDATE without a WHERE clause?
+
+UPDATE without WHERE clause updates ALL rows in the table, which is usually unintended and dangerous. Always include a WHERE clause unless you intentionally want to update all rows. Test UPDATE statements carefully, especially in production databases.
+
+### How do I update multiple columns at once?
+
+You can update multiple columns in a single UPDATE statement by separating column assignments with commas:
+
+\`\`\`sql
+UPDATE users 
+SET name = 'John Doe', 
+    email = 'john.doe@example.com',
+    age = 30
+WHERE id = 1;
+\`\`\`
+
+### What is the difference between DELETE and TRUNCATE?
+
+DELETE removes rows one by one, can use WHERE clause, can be rolled back, and triggers are fired. TRUNCATE removes all rows at once, cannot use WHERE, is faster, and cannot be rolled back. Use DELETE for selective removal, TRUNCATE for removing all data quickly.
+
+### Can I use INSERT to copy data from another table?
+
+Yes, you can use INSERT with SELECT to copy data from another table:
+
+\`\`\`sql
+INSERT INTO users_backup (name, email)
+SELECT name, email FROM users WHERE age > 18;
+\`\`\`
+
+This is useful for archiving, backup, and data migration.
+
+### What is ON DUPLICATE KEY UPDATE?
+
+ON DUPLICATE KEY UPDATE (MySQL's UPSERT) inserts a row, or updates it if a duplicate key exists:
+
+\`\`\`sql
+INSERT INTO users (id, name, email)
+VALUES (1, 'John', 'john@example.com')
+ON DUPLICATE KEY UPDATE name = 'John', email = 'john@example.com';
+\`\`\`
+
+This is useful for insert-or-update operations.
+
+### How do I safely delete data?
+
+Safely delete data by: (1) using WHERE clause to target specific rows, (2) using transactions so you can rollback, (3) backing up data before deletion, (4) using soft delete (UPDATE with flag) instead of hard delete when possible, and (5) testing DELETE statements on non-production data first.
+
+### Can I update data based on values from another table?
+
+Yes, you can use JOIN in UPDATE statements:
+
+\`\`\`sql
+UPDATE orders o
+JOIN users u ON o.user_id = u.id
+SET o.status = 'processed'
+WHERE u.email = 'admin@example.com';
+\`\`\`
+
+This allows updating based on related table data.
+
+### What is the LIMIT clause in UPDATE/DELETE?
+
+LIMIT restricts the number of rows affected by UPDATE or DELETE:
+
+\`\`\`sql
+DELETE FROM logs WHERE created_at < '2020-01-01' LIMIT 1000;
+\`\`\`
+
+This is useful for batch operations and preventing accidental mass updates/deletes. However, LIMIT in UPDATE/DELETE with ORDER BY is recommended for predictable results.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these DML command fundamentals:
+
+- **INSERT adds new rows** to tables with specified values
+- **UPDATE modifies existing rows** based on WHERE conditions
+- **DELETE removes rows** from tables based on WHERE conditions
+- **Always use WHERE clause** in UPDATE/DELETE unless updating all rows
+- **Use transactions** for related operations to ensure consistency
+- **Soft delete** (UPDATE with flag) is often better than hard delete
+- **Multiple rows** can be inserted in a single INSERT statement
+- **ON DUPLICATE KEY UPDATE** provides insert-or-update functionality
+- **Test DML statements** carefully, especially in production
+
+---
+
+## What's Next?
+
+Now that you understand INSERT, UPDATE, and DELETE, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Transactions](/tutorial/mysql-transactions)**: Learn to group DML operations for consistency
+2. **[MySQL Select](/tutorial/mysql-select)**: Master data retrieval to complement data modification
+3. **[MySQL Constraints](/tutorial/mysql-constraints)**: Understand how constraints affect DML operations
+4. **[MySQL Joins](/tutorial/mysql-joins)**: Use joins in UPDATE and DELETE statements
+
+### Advanced Topics
+
+- **Bulk Operations**: Optimize large-scale INSERT/UPDATE/DELETE
+- **UPSERT Patterns**: Master insert-or-update scenarios
+- **Cascade Operations**: Understand foreign key cascade behavior
+- **Performance Tuning**: Optimize DML operation performance
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables for DML operations
+- **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute DML from Java applications
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles DML operations
+
+INSERT, UPDATE, and DELETE are essential for data management. Continue learning about [MySQL Transactions](/tutorial/mysql-transactions) to ensure data consistency across multiple operations.
+`
 };
 
 export default mysqlInsertUpdateDelete;

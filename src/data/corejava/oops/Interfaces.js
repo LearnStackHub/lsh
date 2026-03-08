@@ -3,11 +3,18 @@ const interfaces = {
   title: 'Interfaces',
   description: 'Defining contracts for classes to follow',
   content: `
-# Interfaces — Contracts for Your Code
+# Interfaces - Defining Contracts for Classes
 
-An interface is like a contract. It says "if you want to be considered a [something], you must be able to do these things." It doesn't care HOW you do them, just that you CAN.
+Interfaces in Java define contracts that classes must implement, specifying what methods a class must provide without dictating how those methods are implemented. Interfaces enable polymorphism, allow multiple inheritance-like behavior, and promote loose coupling between components. An interface acts as a blueprint that guarantees certain capabilities, enabling code to work with any class that implements the interface.
 
-Think of a power outlet — any device with the right plug can use it. The outlet doesn't care if it's a lamp, TV, or phone charger. It just provides the interface.
+Enterprise applications extensively use interfaces for dependency injection, plugin architectures, API design, and creating flexible, testable code. Spring Framework uses interfaces extensively for dependency injection, database frameworks define interfaces for data access, and API libraries use interfaces for client implementations. Understanding interfaces is essential for building extensible, maintainable software systems.
+
+**Interface Benefits:**
+- **Multiple Inheritance**: Classes can implement multiple interfaces
+- **Polymorphism**: Enables treating different implementations uniformly
+- **Loose Coupling**: Code depends on interfaces, not concrete classes
+- **Testability**: Easy to create mock implementations for testing
+- **Extensibility**: New implementations can be added without modifying existing code
 
 ---
 

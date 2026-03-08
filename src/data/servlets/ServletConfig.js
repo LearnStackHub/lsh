@@ -328,6 +328,242 @@ public void init() throws ServletException {
     String dbUrl = props.getProperty("db.url");
 }
 \`\`\`
+
+---
+
+## Real-World Applications
+
+### Application Configuration Management
+Enterprise applications use ServletConfig and ServletContext for managing configuration settings. ServletConfig handles servlet-specific settings, while ServletContext manages application-wide configuration shared across all servlets.
+
+**Implementation Example:**
+- Database connection strings via ServletContext
+- Feature flags and application settings
+- External service endpoints and API keys
+- Environment-specific configuration (dev, test, prod)
+
+### Resource Sharing
+Applications use ServletContext to share expensive resources like connection pools, cache managers, and service clients across all servlets. This ensures efficient resource usage and consistent application state.
+
+**Implementation Example:**
+- Shared database connection pools
+- Application-wide cache managers
+- Shared configuration objects
+- Global service clients
+
+### Multi-Tenant Applications
+Multi-tenant applications use ServletContext to store tenant-specific configuration and resources. Context attributes enable servlets to access tenant information and resources efficiently.
+
+**Implementation Example:**
+- Tenant-specific database connections
+- Per-tenant configuration settings
+- Shared tenant resources
+- Tenant isolation and management
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using ServletConfig for Application-Wide Settings
+**Problem:** ServletConfig is servlet-specific, not accessible to other servlets.
+
+**Solution:** Use ServletContext for shared settings:
+
+\`\`\`java
+// GOOD - Application-wide via ServletContext
+ServletContext context = getServletContext();
+context.setAttribute("dbUrl", "jdbc:mysql://localhost/mydb");
+
+// BAD - Servlet-specific via ServletConfig
+// Other servlets can't access this!
+String dbUrl = getServletConfig().getInitParameter("dbUrl");
+\`\`\`
+
+### Mistake 2: Not Initializing Context in Listeners
+**Problem:** Initializing context in servlet init() may be too late or inefficient.
+
+**Solution:** Initialize in ServletContextListener:
+
+\`\`\`java
+// GOOD - Initialize in listener
+@WebListener
+public class AppInitializer implements ServletContextListener {
+    public void contextInitialized(ServletContextEvent sce) {
+        ServletContext context = sce.getServletContext();
+        // Initialize shared resources
+    }
+}
+
+// BAD - Initialize in servlet
+public void init() {
+    getServletContext().setAttribute("pool", pool);  // May be too late
+}
+\`\`\`
+
+### Mistake 3: Not Externalizing Configuration
+**Problem:** Hardcoding configuration in code makes deployment difficult.
+
+**Solution:** Use external configuration files:
+
+\`\`\`java
+// GOOD - External configuration
+String configPath = context.getRealPath("/WEB-INF/config.properties");
+Properties props = new Properties();
+props.load(new FileInputStream(configPath));
+
+// BAD - Hardcoded
+String dbUrl = "jdbc:mysql://localhost/mydb";  // Hard to change!
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is the difference between ServletConfig and ServletContext?
+
+ServletConfig provides servlet-specific configuration accessible only to that servlet, while ServletContext provides application-wide configuration accessible to all servlets. Use ServletConfig for servlet-specific settings, ServletContext for shared application settings. ServletConfig is defined in \`<servlet>\` tags, ServletContext in \`<context-param>\` tags.
+
+### How do I access ServletConfig in a servlet?
+
+Access ServletConfig using \`getServletConfig()\` method:
+
+\`\`\`java
+String value = getServletConfig().getInitParameter("paramName");
+\`\`\`
+
+Or directly using \`getInitParameter()\` (which calls getServletConfig() internally).
+
+### How do I access ServletContext in a servlet?
+
+Access ServletContext using \`getServletContext()\` method:
+
+\`\`\`java
+String value = getServletContext().getInitParameter("paramName");
+Object attr = getServletContext().getAttribute("attrName");
+\`\`\`
+
+ServletContext is available throughout the application.
+
+### How do I set context parameters in web.xml?
+
+Define context parameters in \`<context-param>\` tags:
+
+\`\`\`xml
+<context-param>
+    <param-name>dbUrl</param-name>
+    <param-value>jdbc:mysql://localhost/mydb</param-value>
+</context-param>
+\`\`\`
+
+Access via \`getServletContext().getInitParameter("dbUrl")\`.
+
+### How do I set servlet init parameters?
+
+Set init parameters in \`<init-param>\` tags within \`<servlet>\`:
+
+\`\`\`xml
+<servlet>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>com.example.MyServlet</servlet-class>
+    <init-param>
+        <param-name>maxResults</param-name>
+        <param-value>100</param-value>
+    </init-param>
+</servlet>
+\`\`\`
+
+Or use \`@WebInitParam\` annotation.
+
+### What is the difference between getInitParameter() and getAttribute()?
+
+\`getInitParameter()\` reads configuration values (strings) defined in web.xml or annotations, while \`getAttribute()\` reads/sets runtime objects (any type) stored in context. Parameters are read-only configuration, attributes are mutable runtime data.
+
+### How do I share data between servlets?
+
+Share data using ServletContext attributes:
+
+\`\`\`java
+// In one servlet
+getServletContext().setAttribute("sharedData", data);
+
+// In another servlet
+Object data = getServletContext().getAttribute("sharedData");
+\`\`\`
+
+Context attributes are accessible to all servlets.
+
+### When should I use ServletContextListener?
+
+Use ServletContextListener for: (1) initializing shared resources on application startup, (2) loading configuration, (3) starting background services, and (4) cleanup on application shutdown. Listeners run before servlets initialize, making them ideal for application-wide setup.
+
+### How do I get the real file path from ServletContext?
+
+Use \`getRealPath()\` to convert web-relative paths to file system paths:
+
+\`\`\`java
+String realPath = getServletContext().getRealPath("/WEB-INF/config.properties");
+File file = new File(realPath);
+\`\`\`
+
+This is useful for reading configuration files.
+
+### Can I modify ServletContext attributes?
+
+Yes, ServletContext attributes are mutable. You can set, get, and remove attributes at runtime:
+
+\`\`\`java
+context.setAttribute("counter", 0);
+int count = (Integer) context.getAttribute("counter");
+context.setAttribute("counter", count + 1);
+context.removeAttribute("counter");
+\`\`\`
+
+However, ensure thread safety when modifying shared attributes.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced servlet topics, ensure you understand these configuration fundamentals:
+
+- **ServletConfig** is for servlet-specific configuration
+- **ServletContext** is for application-wide configuration
+- **Use ServletContext** for shared resources and settings
+- **Initialize context** in ServletContextListener for efficiency
+- **Externalize configuration** using properties files or context parameters
+- **getInitParameter()** reads configuration, **getAttribute()** reads/sets runtime data
+- **Context attributes** enable data sharing between servlets
+- **getRealPath()** converts web paths to file system paths
+- **Thread safety** is important when modifying shared context attributes
+
+---
+
+## What's Next?
+
+Now that you understand ServletConfig and ServletContext, you're ready to explore advanced servlet topics:
+
+### Immediate Next Steps
+
+1. **[Servlet Annotations](/tutorial/servlet-annotations)**: Modern annotation-based configuration
+2. **[Servlet Lifecycle](/tutorial/servlet-lifecycle)**: Understand servlet initialization
+3. **[Session Management](/tutorial/session-management)**: Learn user session handling
+4. **[Filters & Listeners](/tutorial/filters-listeners)**: Intercept requests and handle events
+
+### Advanced Topics
+
+- **Configuration Management**: Advanced configuration patterns
+- **Resource Management**: Efficient resource sharing strategies
+- **Multi-Tenancy**: Context-based tenant management
+- **Application Initialization**: Advanced startup patterns
+
+### Related Tutorials
+
+- **[Servlet Introduction](/tutorial/servlet-introduction)**: Review servlet fundamentals
+- **[Servlet API](/tutorial/servlet-api)**: Review core servlet interfaces
+- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Modern servlet-based framework
+- **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
+
+Configuration management is essential for maintainable servlet applications. Continue learning about [Servlet Annotations](/tutorial/servlet-annotations) to master modern servlet configuration.
 `,
   code: `// ServletConfig & ServletContext Demo
 // Demonstrates configuration management in servlets

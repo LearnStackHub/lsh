@@ -19,7 +19,7 @@ APIs (Application Programming Interfaces) are the foundation of modern software 
 
 An API is a set of rules and protocols that allows different software applications to communicate with each other. 
 
-Here's a simple way to understand it: When you use a mobile app to check the weather, the app doesn't have weather data stored inside it. Instead, it makes a request to a weather service's API, which returns the current weather data. The API acts as a bridge between the app and the weather service.
+**Practical Example:** Mobile applications often retrieve data from external services rather than storing it locally. For instance, a weather application doesn't contain weather data within the app itself. Instead, it sends a request to a weather service's API, which processes the request and returns current weather data. The API serves as an intermediary layer that enables communication between the mobile app and the weather service backend.
 
 **How it works:**
 - Your application (client) sends a request to the API

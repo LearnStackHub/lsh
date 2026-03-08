@@ -231,7 +231,7 @@ System.out.println(a == b);  // false! Use Math.abs(a-b) < 0.0001
 
 ## Real-World Application
 
-Here's how data types work together in a real scenario:
+The following example demonstrates how different data types work together in a practical application scenario:
 
 \`\`\`java
 public class Product {

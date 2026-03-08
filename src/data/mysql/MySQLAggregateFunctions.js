@@ -3,9 +3,19 @@ const mysqlAggregateFunctions = {
   title: 'MySQL Aggregate Functions',
   description: 'Master aggregate functions: COUNT, SUM, AVG, MIN, MAX, GROUP_CONCAT for data analysis',
   content: `
-# MySQL Aggregate Functions — Analyzing Data
+# MySQL Aggregate Functions - Analyzing Data
 
-Aggregate functions perform calculations on a set of rows and return a single value. They're essential for data analysis and reporting.
+MySQL aggregate functions perform calculations on groups of rows and return a single summary value. These functions are essential for data analysis, reporting, and generating statistics from database tables. Aggregate functions enable you to calculate totals, averages, counts, and other summary metrics that are fundamental to business intelligence and data analysis.
+
+Enterprise applications extensively use aggregate functions for generating reports, calculating statistics, analyzing trends, and providing data insights. Financial systems calculate totals and averages, e-commerce platforms analyze sales data, and analytics applications generate metrics using aggregate functions. Understanding aggregate functions is crucial for building data-driven applications.
+
+**Common Aggregate Functions:**
+- **COUNT**: Counts rows or non-NULL values
+- **SUM**: Calculates sum of numeric values
+- **AVG**: Calculates average of numeric values
+- **MIN**: Finds minimum value
+- **MAX**: Finds maximum value
+- **GROUP_CONCAT**: Concatenates values into a string
 
 ---
 
@@ -593,7 +603,207 @@ SELECT
     SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed,
     SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending,
     SUM(CASE WHEN status = 'completed' THEN total_amount ELSE 0 END) AS revenue
-FROM orders;`
+FROM orders;
+
+---
+
+## Real-World Applications
+
+### Business Intelligence and Reporting
+Business intelligence systems use aggregate functions extensively for generating reports, calculating KPIs, and analyzing business metrics. Aggregate functions enable data summarization, trend analysis, and performance measurement.
+
+**Implementation Example:**
+- Sales reports with total revenue, average order value, order counts
+- Customer analytics with total spending, average purchase, frequency
+- Product performance with sales totals, quantities sold, revenue per product
+- Time-based analysis with monthly/yearly aggregations
+
+### Financial Analysis
+Financial applications use aggregate functions for calculating totals, averages, and statistical measures. Banking systems calculate account balances, transaction totals, and financial summaries using aggregate functions.
+
+**Implementation Example:**
+- Account balance calculations using SUM
+- Transaction totals and averages
+- Monthly/yearly financial summaries
+- Statistical analysis (min, max, average) of financial data
+- Revenue and expense reporting
+
+### E-Commerce Analytics
+E-commerce platforms use aggregate functions for sales analysis, inventory management, and customer insights. Aggregate functions enable product performance analysis, sales trends, and customer behavior metrics.
+
+**Implementation Example:**
+- Product sales totals and averages
+- Category performance analysis
+- Customer purchase patterns
+- Inventory value calculations
+- Sales trend analysis over time
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using Aggregate Functions with Non-Grouped Columns
+**Problem:** Selecting non-aggregated columns without GROUP BY causes errors.
+
+**Solution:** Use GROUP BY for all non-aggregated columns:
+
+\`\`\`sql
+-- WRONG - Missing GROUP BY
+SELECT category, COUNT(*) FROM products;  -- Error!
+
+-- CORRECT - With GROUP BY
+SELECT category, COUNT(*) FROM products GROUP BY category;
+\`\`\`
+
+### Mistake 2: Using WHERE Instead of HAVING
+**Problem:** Using WHERE to filter aggregated results doesn't work.
+
+**Solution:** Use HAVING to filter groups, WHERE to filter rows:
+
+\`\`\`sql
+-- WRONG - WHERE with aggregate
+SELECT category, COUNT(*) FROM products WHERE COUNT(*) > 5;  -- Error!
+
+-- CORRECT - HAVING for aggregates
+SELECT category, COUNT(*) FROM products 
+GROUP BY category 
+HAVING COUNT(*) > 5;
+\`\`\`
+
+### Mistake 3: Not Handling NULL Values
+**Problem:** Aggregate functions ignore NULL, which can cause unexpected results.
+
+**Solution:** Understand NULL handling and use COALESCE when needed:
+
+\`\`\`sql
+-- COUNT(*) counts all rows, COUNT(column) ignores NULL
+SELECT COUNT(*) AS total, COUNT(email) AS with_email FROM users;
+
+-- Use COALESCE for NULL handling
+SELECT AVG(COALESCE(price, 0)) FROM products;
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What are aggregate functions and why are they important?
+
+Aggregate functions perform calculations on groups of rows and return a single summary value. They're important because they enable data analysis, reporting, and statistical calculations. Aggregate functions are essential for generating summaries, calculating totals, averages, and counts that are fundamental to business intelligence and data analysis.
+
+### What's the difference between COUNT(*) and COUNT(column)?
+
+COUNT(*) counts all rows including those with NULL values, while COUNT(column) counts only non-NULL values in that specific column. Use COUNT(*) when you want the total number of rows, COUNT(column) when you want to count only rows with values in that column. COUNT(*) is generally faster as it doesn't need to check for NULL.
+
+### When should I use GROUP BY with aggregate functions?
+
+Use GROUP BY when you want to calculate aggregates for different groups. GROUP BY divides rows into groups, and aggregate functions calculate values for each group. For example, use GROUP BY category to calculate totals for each product category. Without GROUP BY, aggregates calculate across all rows.
+
+### What's the difference between WHERE and HAVING?
+
+WHERE filters rows before grouping, while HAVING filters groups after aggregation. Use WHERE for row-level conditions (e.g., \`WHERE price > 100\`). Use HAVING for group-level conditions with aggregate functions (e.g., \`HAVING COUNT(*) > 10\`). WHERE is more efficient as it filters data earlier.
+
+### Can I use multiple aggregate functions in one query?
+
+Yes, you can use multiple aggregate functions in a single SELECT statement:
+
+\`\`\`sql
+SELECT 
+    COUNT(*) AS total,
+    SUM(price) AS total_value,
+    AVG(price) AS avg_price,
+    MIN(price) AS min_price,
+    MAX(price) AS max_price
+FROM products;
+\`\`\`
+
+This is common in reporting and analysis queries.
+
+### What is GROUP_CONCAT and when should I use it?
+
+GROUP_CONCAT concatenates values from multiple rows into a single string, separated by a delimiter. Use it when you need to combine multiple values into one result, such as listing all products in a category or all tags for an article. GROUP_CONCAT is useful for creating comma-separated lists from grouped data.
+
+### How do aggregate functions handle NULL values?
+
+Most aggregate functions ignore NULL values: COUNT(column) doesn't count NULLs, SUM/AVG ignore NULLs, MIN/MAX ignore NULLs. COUNT(*) counts all rows including NULLs. Use COALESCE to provide default values when NULL handling is important. Understanding NULL handling is crucial for accurate calculations.
+
+### Can I use aggregate functions in WHERE clause?
+
+No, you cannot use aggregate functions directly in WHERE clause. Use HAVING clause instead for filtering based on aggregate results. WHERE filters rows before aggregation, HAVING filters groups after aggregation. This is a common source of SQL errors.
+
+### What is conditional aggregation?
+
+Conditional aggregation uses CASE statements within aggregate functions to calculate conditional sums, counts, or averages:
+
+\`\`\`sql
+SELECT 
+    SUM(CASE WHEN status = 'completed' THEN total_amount ELSE 0 END) AS revenue
+FROM orders;
+\`\`\`
+
+This enables complex analytical calculations based on conditions.
+
+### How do I calculate percentages with aggregate functions?
+
+Calculate percentages by dividing one aggregate by another and multiplying by 100:
+
+\`\`\`sql
+SELECT 
+    category,
+    COUNT(*) AS total,
+    SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) AS active,
+    (SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS active_percentage
+FROM products
+GROUP BY category;
+\`\`\`
+
+Use decimal multiplication (100.0) to ensure decimal result.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these aggregate function fundamentals:
+
+- **Aggregate functions calculate summaries** from multiple rows
+- **COUNT counts rows**, SUM adds values, AVG calculates average
+- **MIN and MAX** find minimum and maximum values
+- **GROUP BY** divides data into groups for aggregation
+- **HAVING filters groups** after aggregation, WHERE filters rows before
+- **Multiple aggregates** can be used in a single query
+- **NULL values** are ignored by most aggregate functions
+- **GROUP_CONCAT** concatenates values into strings
+- **Conditional aggregation** uses CASE statements within aggregates
+
+---
+
+## What's Next?
+
+Now that you understand aggregate functions, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Group By](/tutorial/mysql-group-by)**: Master grouping data for aggregation
+2. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Use aggregates in subqueries
+3. **[MySQL Select](/tutorial/mysql-select)**: Combine aggregates with SELECT
+4. **[MySQL Joins](/tutorial/mysql-joins)**: Aggregate data from multiple tables
+
+### Advanced Topics
+
+- **Window Functions**: Advanced analytical functions (MySQL 8.0+)
+- **Conditional Aggregation**: Complex CASE-based aggregations
+- **Statistical Functions**: Advanced statistical calculations
+- **Performance Optimization**: Optimize aggregate queries
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Clauses](/tutorial/mysql-clauses)**: Understand WHERE, GROUP BY, HAVING
+- **[JDBC Introduction](/tutorial/jdbc-introduction)**: Use aggregates in Java
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles aggregation
+
+Aggregate functions are essential for data analysis. Continue learning about [MySQL Subqueries](/tutorial/mysql-subqueries) to use aggregates in complex queries.
+`
 };
 
 export default mysqlAggregateFunctions;

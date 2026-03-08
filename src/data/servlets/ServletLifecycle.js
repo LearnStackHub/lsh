@@ -305,6 +305,189 @@ public class DatabaseServlet extends HttpServlet {
     }
 }
 \`\`\`
+
+---
+
+## Real-World Applications
+
+### Database Connection Management
+Enterprise applications use servlet lifecycle methods to manage database connection pools. Initialization in \`init()\` ensures connections are ready before handling requests, and cleanup in \`destroy()\` properly closes resources.
+
+**Implementation Example:**
+- Initialize connection pool in init()
+- Get connections from pool in service methods
+- Close pool in destroy()
+- Handle connection errors gracefully
+
+### Resource Initialization
+Applications use servlet lifecycle for initializing expensive resources like cache managers, configuration loaders, and external service clients. Lifecycle methods ensure resources are ready when needed and cleaned up properly.
+
+**Implementation Example:**
+- Initialize configuration in init()
+- Load application settings
+- Initialize third-party service clients
+- Cleanup resources in destroy()
+
+### Application Startup Tasks
+Servlet lifecycle enables performing startup tasks like loading data, initializing caches, and starting background services. \`load-on-startup\` configuration ensures servlets initialize when the application starts.
+
+**Implementation Example:**
+- Pre-load frequently accessed data
+- Initialize application-wide caches
+- Start background monitoring services
+- Validate configuration on startup
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Initializing Resources in doGet/doPost
+**Problem:** Creating expensive resources in request methods causes performance issues.
+
+**Solution:** Initialize in init() method:
+
+\`\`\`java
+// GOOD - Initialize in init()
+private DataSource dataSource;
+
+@Override
+public void init() throws ServletException {
+    dataSource = createDataSource();
+}
+
+// BAD - Initialize in doGet
+protected void doGet(...) {
+    DataSource ds = createDataSource();  // Created every request!
+}
+\`\`\`
+
+### Mistake 2: Not Handling Thread Safety
+**Problem:** Instance variables shared across requests can cause race conditions.
+
+**Solution:** Use local variables or synchronize access:
+
+\`\`\`java
+// GOOD - Local variable
+protected void doGet(...) {
+    int count = 0;  // Thread-safe
+    count++;
+}
+
+// BAD - Shared instance variable
+private int count = 0;  // Not thread-safe!
+protected void doGet(...) {
+    count++;  // Race condition!
+}
+\`\`\`
+
+### Mistake 3: Not Cleaning Up Resources
+**Problem:** Resources not closed in destroy() cause memory leaks.
+
+**Solution:** Always cleanup in destroy():
+
+\`\`\`java
+// GOOD - Cleanup in destroy()
+private ConnectionPool pool;
+
+@Override
+public void destroy() {
+    if (pool != null) {
+        pool.close();
+    }
+}
+
+// BAD - No cleanup
+// Resources leak when servlet is destroyed
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is the servlet lifecycle?
+
+The servlet lifecycle consists of four phases: (1) Loading and instantiation (container loads servlet class), (2) Initialization (\`init()\` called once), (3) Request handling (\`service()\` → \`doGet()\`/\`doPost()\` called for each request), and (4) Destruction (\`destroy()\` called once). Understanding the lifecycle helps write efficient servlets.
+
+### When is init() called?
+
+\`init()\` is called once when the servlet is first loaded. This happens either on the first request (lazy loading) or when the application starts if \`load-on-startup\` is configured. Use \`init()\` for one-time initialization tasks like setting up database connections or loading configuration.
+
+### How many times is service() called?
+
+\`service()\` is called once for each HTTP request. The container calls \`service()\`, which then routes to the appropriate \`doGet()\`, \`doPost()\`, etc. based on the HTTP method. This method handles the actual request processing.
+
+### When is destroy() called?
+
+\`destroy()\` is called once when the servlet is being removed from service, typically when the application is being shut down or the servlet is being reloaded. Use \`destroy()\` for cleanup tasks like closing database connections or saving state.
+
+### What is load-on-startup?
+
+\`load-on-startup\` is a configuration that makes the servlet initialize when the application starts, rather than on the first request. Use it for servlets that need to be ready immediately or perform startup tasks. Lower numbers initialize first.
+
+### How do I ensure thread safety in servlets?
+
+Ensure thread safety by: (1) using local variables instead of instance variables for request-specific data, (2) synchronizing access to shared resources, (3) using thread-safe collections, and (4) avoiding mutable instance variables. Servlets are shared across requests, so instance variables must be thread-safe.
+
+### Can I have multiple instances of a servlet?
+
+No, the servlet container creates only one instance of each servlet class. This single instance handles all requests, which is why thread safety is critical. The container manages the servlet lifecycle and ensures efficient resource usage.
+
+### What happens if init() throws an exception?
+
+If \`init()\` throws a ServletException, the servlet is not initialized and will not handle requests. The container logs the error and the servlet remains unavailable. Always handle initialization errors gracefully and provide meaningful error messages.
+
+### How do I initialize servlets in a specific order?
+
+Use \`load-on-startup\` with different values to control initialization order. Lower values initialize first. For example, \`load-on-startup="1"\` initializes before \`load-on-startup="2"\`. This is useful when servlets depend on each other.
+
+### What's the difference between init() and init(ServletConfig)?
+
+\`init(ServletConfig)\` is the original method that receives ServletConfig. \`init()\` is a convenience method that calls \`init(getServletConfig())\`. Override \`init()\` for simpler code, or \`init(ServletConfig)\` if you need to store the config. Always call \`super.init(config)\` if overriding the config version.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced servlet topics, ensure you understand these lifecycle fundamentals:
+
+- **Servlet lifecycle has four phases**: Loading, initialization, request handling, destruction
+- **init() is called once** for initialization tasks
+- **service()/doGet()/doPost() are called** for each request
+- **destroy() is called once** for cleanup
+- **Servlets are singletons** - one instance handles all requests
+- **Thread safety is critical** - use local variables or synchronize
+- **Initialize expensive resources in init()**, not in request methods
+- **Cleanup resources in destroy()** to prevent memory leaks
+- **load-on-startup** controls when servlets initialize
+
+---
+
+## What's Next?
+
+Now that you understand the servlet lifecycle, you're ready to explore advanced servlet topics:
+
+### Immediate Next Steps
+
+1. **[ServletConfig & ServletContext](/tutorial/servlet-config)**: Configure servlets and applications
+2. **[HttpServletRequest & Response](/tutorial/http-request-response)**: Master request/response handling
+3. **[Session Management](/tutorial/session-management)**: Learn user session handling
+4. **[Servlet API](/tutorial/servlet-api)**: Review core servlet interfaces
+
+### Advanced Topics
+
+- **Thread Safety**: Deep dive into concurrent servlet programming
+- **Resource Management**: Advanced resource initialization and cleanup
+- **Performance Optimization**: Optimize servlet lifecycle for performance
+- **Container Configuration**: Advanced servlet container setup
+
+### Related Tutorials
+
+- **[Servlet Introduction](/tutorial/servlet-introduction)**: Review servlet fundamentals
+- **[JSP Introduction](/tutorial/jsp-introduction)**: Combine servlets with JSP
+- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Modern servlet-based framework
+- **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
+
+The servlet lifecycle is fundamental to understanding how servlets work. Continue learning about [ServletConfig & ServletContext](/tutorial/servlet-config) to master servlet configuration.
 `,
   code: `// Servlet Lifecycle Demo
 // Note: This is a simulation - actual servlets run in a container like Tomcat

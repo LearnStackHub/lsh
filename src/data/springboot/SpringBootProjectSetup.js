@@ -304,7 +304,7 @@ server.port=9090
 
 ---
 
-## What Happens When You Run Spring Boot?
+## Spring Boot Application Startup Process
 
 When you run your application, Spring Boot:
 

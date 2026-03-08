@@ -28,7 +28,7 @@ double price = 99.99;
 boolean isLoggedIn = true;
 \`\`\`
 
-Let me break this down:
+**Variable Declaration Components:**
 - **int** — the data type (integer number)
 - **age** — the variable name (you choose this)
 - **25** — the initial value

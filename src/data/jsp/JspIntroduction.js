@@ -1,19 +1,21 @@
 const jspIntroduction = {
   id: 'jsp-introduction',
-  title: 'Introduction to JSP',
-  description: 'What is JSP and why use it?',
+  title: 'JSP Introduction - JavaServer Pages for Dynamic Web Development',
+  description: 'Complete guide to JSP - embedding Java in HTML, JSP lifecycle, JSTL, EL expressions, and building dynamic web applications with JavaServer Pages',
   content: `
-# JSP — JavaServer Pages for Dynamic Web Development
+# JSP Introduction - JavaServer Pages for Dynamic Web Development
 
-JavaServer Pages (JSP) is a server-side technology that enables developers to create dynamic web content by embedding Java code within HTML pages. Unlike servlets that generate HTML programmatically, JSP allows developers to write HTML templates with embedded Java code, providing a more intuitive approach to building dynamic web applications.
+JavaServer Pages (JSP) is a server-side technology that enables developers to create dynamic web content by embedding Java code within HTML pages. Unlike [servlets](/tutorial/servlet-introduction) that generate HTML programmatically, JSP allows developers to write HTML templates with embedded Java code, providing a more intuitive approach to building dynamic web applications.
 
-JSP pages are compiled into servlets at runtime, combining the flexibility of HTML markup with the power of Java programming. This technology has been widely adopted in enterprise Java web applications for over two decades.
+JSP pages are compiled into servlets at runtime, combining the flexibility of HTML markup with the power of Java programming. This technology has been widely adopted in enterprise Java web applications for over two decades and serves as the foundation for modern Java web frameworks.
 
 ---
 
 ## What is JSP?
 
-JSP is a server-side technology that lets you embed Java code directly in HTML pages. When a user requests a JSP page, the server processes the Java code and sends back pure HTML to the browser.
+JSP is a server-side technology that enables embedding Java code directly within HTML pages. When a user requests a JSP page, the server processes the embedded Java code and generates pure HTML to send to the browser. This approach separates presentation logic from business logic, making web applications more maintainable.
+
+**Basic JSP Example:**
 
 \`\`\`jsp
 <!DOCTYPE html>
@@ -28,13 +30,17 @@ JSP is a server-side technology that lets you embed Java code directly in HTML p
 </html>
 \`\`\`
 
+In this example, JSP expressions (\`<%= %>\`) embed Java code that executes on the server before the HTML is sent to the client.
+
 ---
 
-## Real-Time Scenarios: JSP in Daily Web Applications
+## Real-World Applications of JSP
 
-### Scenario 1: E-Commerce Product Display Page
+JSP is extensively used in enterprise web applications for dynamic content generation. Understanding these use cases demonstrates JSP's role in modern web development.
 
-**Daily Life:** When you view a product on Amazon/Flipkart, JSP displays it:
+### Application Example 1: E-Commerce Product Display
+
+E-commerce platforms use JSP to dynamically render product information:
 
 \`\`\`jsp
 <!-- Real-world: Product page on Amazon -->
@@ -66,16 +72,20 @@ JSP is a server-side technology that lets you embed Java code directly in HTML p
 </html>
 \`\`\`
 
-**What Happens:**
-- Servlet loads product data from database
-- Servlet forwards to JSP with product object
-- JSP displays product details dynamically
-- Related products shown in loop
-- Current time displayed
+**Process Flow:**
+1. [Servlet](/tutorial/servlet-introduction) retrieves product data from database using [JDBC](/tutorial/jdbc-introduction) or [Hibernate](/tutorial/hibernate-introduction)
+2. Servlet stores product object in request attributes
+3. Servlet forwards request to JSP page using RequestDispatcher
+4. JSP accesses product data from request attributes
+5. JSP dynamically renders product details using JSP expressions and scriptlets
+6. JSP iterates through related products using JSP loops
+7. Server sends rendered HTML to browser
 
-### Scenario 2: Social Media News Feed
+This demonstrates JSP's capability in presenting dynamic data retrieved from servlets and databases.
 
-**Daily Life:** When you view your Facebook/Instagram feed, JSP renders it:
+### Application Example 2: Social Media Content Feeds
+
+Social media platforms use JSP to render dynamic news feeds and user-generated content:
 
 \`\`\`jsp
 <!-- Real-world: News feed page -->
@@ -111,16 +121,20 @@ JSP is a server-side technology that lets you embed Java code directly in HTML p
 </html>
 \`\`\`
 
-**What Happens:**
-- Servlet loads posts from database
-- Servlet forwards to JSP
-- JSP displays each post with author, content, likes
-- Comments displayed for each post
-- User name from session displayed
+**Process Flow:**
+1. [Servlet](/tutorial/servlet-introduction) retrieves posts from database based on user's feed algorithm
+2. Servlet loads user information from HTTP session
+3. Servlet forwards request to JSP with posts and user data
+4. JSP iterates through posts using JSP loops
+5. JSP displays post content, author information, and engagement metrics
+6. JSP renders nested comments for each post
+7. JSP displays authenticated user's name from session
 
-### Scenario 3: Banking Account Statement
+This demonstrates JSP's ability to handle complex nested data structures and session-based user information.
 
-**Daily Life:** When you view your bank statement, JSP displays it:
+### Application Example 3: Financial Account Statements
+
+Banking applications use JSP to display transaction history and account information:
 
 \`\`\`jsp
 <!-- Real-world: Bank statement page -->
@@ -160,16 +174,20 @@ JSP is a server-side technology that lets you embed Java code directly in HTML p
 </html>
 \`\`\`
 
-**What Happens:**
-- Servlet loads transactions from database
-- Servlet forwards to JSP
-- JSP displays account details
-- JSP loops through transactions and displays in table
-- Each transaction shows debit/credit based on type
+**Process Flow:**
+1. [Servlet](/tutorial/servlet-introduction) retrieves account information and transaction history from database
+2. Servlet stores data in request attributes
+3. Servlet forwards request to JSP page
+4. JSP accesses account and transaction data from request
+5. JSP iterates through transactions using JSP loops
+6. JSP renders transaction table with debit/credit columns
+7. Server sends complete HTML page to browser
+
+This demonstrates JSP's capability in rendering complex tabular data with dynamic calculations.
 
 ### Scenario 4: Online Shopping Cart
 
-**Daily Life:** When you view your cart on Amazon/Flipkart, JSP shows it:
+**Application Example 4:** Shopping cart pages use JSP to display cart contents:
 
 \`\`\`jsp
 <!-- Real-world: Shopping cart page -->
@@ -213,16 +231,20 @@ JSP is a server-side technology that lets you embed Java code directly in HTML p
 </html>
 \`\`\`
 
-**What Happens:**
-- Cart items stored in session
-- JSP reads cart from session
-- JSP displays each item with details
-- JSP calculates total dynamically
-- Shows checkout button if cart not empty
+**Process Flow:**
+1. Cart items are stored in HTTP session by [servlet](/tutorial/servlet-introduction) during shopping
+2. JSP retrieves cart from session using \`session.getAttribute()\`
+3. JSP checks if cart is empty using conditional logic
+4. JSP iterates through cart items using JSP loops
+5. JSP calculates item totals and grand total dynamically
+6. JSP conditionally displays checkout button based on cart state
+7. Server sends rendered cart page to browser
+
+This demonstrates JSP's ability to work with session data and perform dynamic calculations for e-commerce applications.
 
 ### Scenario 5: Hospital Appointment Booking
 
-**Daily Life:** When you book a doctor appointment, JSP shows available slots:
+**Application Example 5:** Healthcare appointment systems use JSP for scheduling interfaces:
 
 \`\`\`jsp
 <!-- Real-world: Appointment booking page -->
@@ -260,12 +282,17 @@ JSP is a server-side technology that lets you embed Java code directly in HTML p
 </html>
 \`\`\`
 
-**What Happens:**
-- Servlet loads doctor details and available slots
-- Servlet forwards to JSP
-- JSP displays doctor information
-- JSP shows available time slots in dropdown
-- User selects date and time, submits form
+**Process Flow:**
+1. [Servlet](/tutorial/servlet-introduction) retrieves doctor information from database
+2. Servlet queries available appointment slots for selected date
+3. Servlet stores doctor and time slots in request attributes
+4. Servlet forwards request to JSP booking page
+5. JSP displays doctor details using JSP expressions
+6. JSP populates time slot dropdown using JSP loops
+7. JSP renders appointment booking form with validation
+8. User submits form, which is processed by servlet
+
+This demonstrates JSP's role in creating interactive forms with dynamic data population.
 
 ---
 

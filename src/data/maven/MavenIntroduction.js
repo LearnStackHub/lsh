@@ -159,7 +159,7 @@ Maven is a build automation tool that:
 - Works consistently across different environments
 - Saves you time and reduces errors
 
-Think of Maven as your project's manager - it takes care of all the boring, repetitive tasks so you can focus on writing great code.
+Maven serves as a comprehensive project management tool that automates build processes, dependency management, and project lifecycle tasks, enabling developers to focus on application logic rather than build configuration.
 
 Ready to install Maven? Let's move to the next tutorial!
 `

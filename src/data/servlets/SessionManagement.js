@@ -281,6 +281,213 @@ public class CartServlet extends HttpServlet {
 4. **Use HTTPS** — Protect session cookies
 5. **Regenerate session ID after login** — Prevent session fixation
 6. **Store minimal data** — User ID, not entire user object
+
+---
+
+## Real-World Applications
+
+### E-Commerce Shopping Carts
+E-commerce platforms use session management to maintain shopping cart state across page requests. Sessions store cart items, user preferences, and checkout information until the user completes the purchase or abandons the cart.
+
+**Implementation Example:**
+- Shopping cart items stored in session
+- User preferences and settings
+- Checkout process state
+- Recently viewed products
+
+### User Authentication Systems
+Authentication systems use sessions to maintain user login state. After successful login, user information is stored in the session, allowing the application to identify the user across requests without requiring re-authentication.
+
+**Implementation Example:**
+- User login state and credentials
+- User roles and permissions
+- Session timeout management
+- Multi-factor authentication state
+
+### Content Personalization
+Web applications use sessions to personalize content based on user behavior and preferences. Session data enables applications to remember user choices and provide customized experiences.
+
+**Implementation Example:**
+- User preferences and settings
+- Content recommendations
+- Language and locale settings
+- Theme and display preferences
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Storing Large Objects in Session
+**Problem:** Large objects consume server memory and reduce performance.
+
+**Solution:** Store only essential data:
+
+\`\`\`java
+// GOOD - Store minimal data
+session.setAttribute("userId", user.getId());
+session.setAttribute("username", user.getUsername());
+
+// BAD - Store entire object
+session.setAttribute("user", user);  // Large object!
+\`\`\`
+
+### Mistake 2: Not Invalidating Session on Logout
+**Problem:** Sessions remain active after logout, creating security risks.
+
+**Solution:** Always invalidate session on logout:
+
+\`\`\`java
+// GOOD - Invalidate on logout
+public void logout(HttpSession session) {
+    session.invalidate();
+}
+
+// BAD - Just remove attributes
+session.removeAttribute("user");  // Session still active!
+\`\`\`
+
+### Mistake 3: Not Setting Appropriate Timeout
+**Problem:** Too long timeout creates security risks, too short creates poor UX.
+
+**Solution:** Set appropriate timeout based on use case:
+
+\`\`\`java
+// GOOD - Appropriate timeout
+session.setMaxInactiveInterval(30 * 60);  // 30 minutes for e-commerce
+
+// BAD - Too long or too short
+session.setMaxInactiveInterval(24 * 60 * 60);  // 24 hours - too long!
+session.setMaxInactiveInterval(60);  // 1 minute - too short!
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is session management and why is it needed?
+
+Session management maintains user state across multiple HTTP requests. HTTP is stateless, so sessions enable applications to remember users, their data, and their preferences. Sessions are essential for user authentication, shopping carts, and personalized experiences.
+
+### How does session tracking work?
+
+Session tracking works by: (1) server creates a unique session ID, (2) session ID is sent to client (usually via cookie), (3) client sends session ID with each request, (4) server uses session ID to retrieve session data. The session ID links requests to user state.
+
+### What is the difference between session and cookies?
+
+Sessions store data on the server (session ID sent to client), while cookies store data on the client. Sessions are more secure for sensitive data, cookies are limited in size. Use sessions for server-side state, cookies for client-side preferences.
+
+### How do I create a session in a servlet?
+
+Create a session using \`request.getSession()\`:
+
+\`\`\`java
+HttpSession session = request.getSession();  // Creates if doesn't exist
+HttpSession session = request.getSession(true);  // Explicit creation
+\`\`\`
+
+This creates a new session or returns existing one.
+
+### How do I check if a session exists?
+
+Check for existing session using \`getSession(false)\`:
+
+\`\`\`java
+HttpSession session = request.getSession(false);
+if (session != null) {
+    // Session exists
+} else {
+    // No session
+}
+\`\`\`
+
+\`getSession(false)\` returns null if no session exists.
+
+### How do I set session timeout?
+
+Set session timeout using \`setMaxInactiveInterval()\`:
+
+\`\`\`java
+session.setMaxInactiveInterval(30 * 60);  // 30 minutes in seconds
+\`\`\`
+
+Or configure in web.xml using \`<session-config><session-timeout>\`.
+
+### What happens when a session expires?
+
+When a session expires: (1) session is invalidated, (2) all session data is lost, (3) subsequent requests with expired session ID create a new session, (4) users may need to log in again. Applications should handle expired sessions gracefully.
+
+### How do I invalidate a session?
+
+Invalidate a session using \`session.invalidate()\`:
+
+\`\`\`java
+session.invalidate();  // Session is destroyed
+\`\`\`
+
+Always call this on logout to prevent session hijacking.
+
+### Can I share session data between servlets?
+
+Yes, session data is accessible to all servlets in the same application:
+
+\`\`\`java
+// In Servlet1
+session.setAttribute("user", user);
+
+// In Servlet2
+User user = (User) session.getAttribute("user");  // Same session
+\`\`\`
+
+Sessions are application-wide but user-specific.
+
+### How do I prevent session fixation attacks?
+
+Prevent session fixation by: (1) regenerating session ID after login (\`request.changeSessionId()\` in Servlet 3.1+), (2) invalidating old session on login, (3) using secure cookies, (4) setting appropriate timeouts. Session fixation occurs when attackers use a known session ID.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced servlet topics, ensure you understand these session management fundamentals:
+
+- **Sessions maintain user state** across HTTP requests
+- **Session ID links requests** to user state
+- **Sessions are server-side**, cookies are client-side
+- **Store minimal data** in sessions to conserve memory
+- **Always invalidate sessions** on logout
+- **Set appropriate timeouts** for security and UX
+- **Sessions are application-wide** but user-specific
+- **Regenerate session ID** after login to prevent fixation
+- **Handle expired sessions** gracefully in applications
+
+---
+
+## What's Next?
+
+Now that you understand session management, you're ready to explore advanced servlet topics:
+
+### Immediate Next Steps
+
+1. **[Servlet Security](/tutorial/servlet-security)**: Implement authentication and authorization
+2. **[HttpServletRequest & Response](/tutorial/http-request-response)**: Review request/response handling
+3. **[Filters & Listeners](/tutorial/filters-listeners)**: Learn session event handling
+4. **[Servlet API](/tutorial/servlet-api)**: Review core servlet interfaces
+
+### Advanced Topics
+
+- **Session Clustering**: Distributed session management
+- **Session Security**: Advanced security patterns
+- **Performance Optimization**: Optimize session usage
+- **Session Storage**: Custom session storage strategies
+
+### Related Tutorials
+
+- **[Servlet Introduction](/tutorial/servlet-introduction)**: Review servlet fundamentals
+- **[Servlet Config](/tutorial/servlet-config)**: Review configuration management
+- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Modern servlet-based framework
+- **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
+
+Session management is essential for stateful web applications. Continue learning about [Servlet Security](/tutorial/servlet-security) to secure your sessions.
 `,
   code: `// Session Management Demo
 // Simulates servlet session behavior

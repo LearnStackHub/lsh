@@ -5,7 +5,7 @@ const javaEnvironmentSetup = {
   content: `
 # Setting Up Java — Getting Your Machine Ready
 
-Before you can write Java code, you need to set up your development environment. Don't worry — it's straightforward, and I'll walk you through every step.
+Before you can write Java code, you need to set up your development environment. This guide provides step-by-step instructions for installing and configuring Java on your system.
 
 ---
 
@@ -135,7 +135,7 @@ Output:
 javac 17.0.1
 \`\`\`
 
-**If you see version numbers, you're all set!**
+**If version numbers are displayed, your Java installation is successful.**
 
 ---
 

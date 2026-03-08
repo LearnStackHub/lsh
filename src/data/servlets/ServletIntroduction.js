@@ -1,21 +1,23 @@
 const servletIntroduction = {
   id: 'servlet-introduction',
-  title: 'Introduction to Servlets',
-  description: 'How Java powers the web — from request to response',
+  title: 'Servlets Introduction - Java Enterprise Web Development',
+  description: 'Complete guide to Java Servlets - HTTP request handling, dynamic web content generation, servlet lifecycle, session management, and building enterprise web applications',
   content: `
-# Servlets — Java Enterprise Web Development
+# Servlets Introduction - Java Enterprise Web Development
 
 Java Servlets are server-side Java programs that handle HTTP requests and generate dynamic web content. Servlets form the foundation of Java Enterprise Edition (JEE) web applications, powering enterprise systems that process millions of requests daily.
 
-**Servlets** are Java classes that extend server capabilities by responding to client requests. They operate within a servlet container (like Apache Tomcat, Jetty, or WildFly) and provide the core mechanism for building dynamic, data-driven web applications in Java.
+**Servlets** are Java classes that extend server capabilities by responding to client requests. They operate within a servlet container (like Apache Tomcat, Jetty, or WildFly) and provide the core mechanism for building dynamic, data-driven web applications in Java. Understanding servlets is essential for Java web developers, as they serve as the foundation for frameworks like [Spring MVC](/tutorial/spring-mvc-introduction) and [Spring Boot](/tutorial/spring-boot-introduction).
 
 ---
 
-## Real-Time Scenarios: Servlets in Daily Web Applications
+## Real-World Applications of Servlets
 
-### Scenario 1: User Login (E-Commerce, Banking, Social Media)
+Servlets are used extensively in enterprise web applications across various industries. Understanding these use cases demonstrates servlets' critical role in modern web development.
 
-**Daily Life:** When you login to any website, a Servlet handles it:
+### Application Example 1: User Authentication and Session Management
+
+E-commerce platforms, banking applications, and social media sites use servlets for user authentication:
 
 \`\`\`java
 // Real-world: Login on Amazon/Flipkart/Banking
@@ -44,17 +46,21 @@ public class LoginServlet extends HttpServlet {
 }
 \`\`\`
 
-**What Happens:**
-1. You enter username/password and click "Login"
-2. Browser sends POST request to \`/login\`
-3. Servlet receives request
-4. Servlet validates credentials with database
-5. If valid, creates session and redirects to home
-6. If invalid, shows error message
+**Process Flow:**
+1. User submits login credentials through web form
+2. Browser sends HTTP POST request to \`/login\` endpoint
+3. Servlet container routes request to LoginServlet
+4. Servlet extracts credentials from request parameters
+5. Servlet validates credentials against database using [JDBC](/tutorial/jdbc-introduction)
+6. If authentication succeeds, servlet creates HTTP session and stores user object
+7. Servlet redirects to home page or dashboard
+8. If authentication fails, servlet forwards request to login page with error message
 
-### Scenario 2: Product Search (E-Commerce)
+This demonstrates servlets' role in handling form submissions, session management, and request routing in web applications.
 
-**Daily Life:** When you search for products, a Servlet processes it:
+### Application Example 2: Product Search and Catalog Management
+
+E-commerce platforms use servlets to process search queries and filter product catalogs:
 
 \`\`\`java
 // Real-world: Search products on Amazon
@@ -78,17 +84,21 @@ public class SearchServlet extends HttpServlet {
 }
 \`\`\`
 
-**What Happens:**
-1. You type "laptop" in search box and click "Search"
-2. Browser sends GET request: \`/search?q=laptop&category=electronics&maxPrice=50000\`
-3. Servlet extracts search parameters
-4. Servlet queries database for matching products
-5. Servlet forwards results to JSP page
-6. JSP displays products on your screen
+**Process Flow:**
+1. User enters search query and filters in web interface
+2. Browser sends HTTP GET request with query parameters: \`/search?q=laptop&category=electronics&maxPrice=50000\`
+3. Servlet extracts search parameters using \`request.getParameter()\`
+4. Servlet constructs database query using [JDBC](/tutorial/jdbc-introduction) or [Hibernate](/tutorial/hibernate-introduction)
+5. Servlet retrieves matching products from database
+6. Servlet stores results in request attributes
+7. Servlet forwards request to [JSP page](/tutorial/jsp-introduction) for presentation
+8. JSP renders product list with dynamic content
 
-### Scenario 3: Online Shopping Cart (E-Commerce)
+This demonstrates servlets' capability in processing GET requests, parameter extraction, and request forwarding to view components.
 
-**Daily Life:** When you add items to cart, a Servlet manages it:
+### Application Example 3: Shopping Cart Management
+
+E-commerce applications use servlets to manage shopping cart operations:
 
 \`\`\`java
 // Real-world: Add to cart on Amazon
@@ -114,17 +124,20 @@ public class AddToCartServlet extends HttpServlet {
 }
 \`\`\`
 
-**What Happens:**
-1. You click "Add to Cart" button
-2. Browser sends POST request with product ID and quantity
-3. Servlet gets user from session
-4. Servlet saves item to cart in database
-5. Servlet updates cart count in session
-6. Servlet redirects to cart page with success message
+**Process Flow:**
+1. User clicks "Add to Cart" button for a product
+2. Browser sends HTTP POST request with product ID and quantity parameters
+3. Servlet retrieves authenticated user from HTTP session
+4. Servlet validates product availability and user authentication
+5. Servlet persists cart item to database using [JDBC](/tutorial/jdbc-introduction)
+6. Servlet updates cart count in session for UI display
+7. Servlet sends redirect response to cart page with success message
 
-### Scenario 4: Online Banking Money Transfer
+This demonstrates servlets' role in state management through sessions and database persistence operations.
 
-**Daily Life:** When you transfer money online, a Servlet handles it:
+### Application Example 4: Financial Transaction Processing
+
+Banking applications rely on servlets for secure transaction processing:
 
 \`\`\`java
 // Real-world: Transfer money in banking app
@@ -152,17 +165,20 @@ public class TransferServlet extends HttpServlet {
 }
 \`\`\`
 
-**What Happens:**
-1. You enter recipient account and amount, click "Transfer"
-2. Browser sends POST request
-3. Servlet validates user session
-4. Servlet processes transfer (updates both accounts)
-5. Servlet shows success or error message
-6. Transaction recorded in database
+**Process Flow:**
+1. User submits transfer form with recipient account and amount
+2. Browser sends HTTP POST request to transfer endpoint
+3. Servlet validates user authentication from session
+4. Servlet executes transfer business logic (updates both account balances)
+5. Servlet handles exceptions and sets appropriate success/error messages
+6. Servlet records transaction in database for audit trail
+7. Servlet forwards to confirmation page or displays error
+
+This demonstrates servlets' role in secure transaction processing and exception handling for financial operations.
 
 ### Scenario 5: Online Food Ordering (Swiggy, Zomato)
 
-**Daily Life:** When you place a food order, a Servlet processes it:
+**Application Example 5:** Food delivery platforms use servlets for order processing:
 
 \`\`\`java
 // Real-world: Place order on Swiggy/Zomato
@@ -188,13 +204,16 @@ public class PlaceOrderServlet extends HttpServlet {
 }
 \`\`\`
 
-**What Happens:**
-1. You click "Place Order" after adding items
-2. Browser sends POST request with address and payment info
-3. Servlet creates order in database
-4. Servlet clears cart from session
-5. Servlet redirects to order confirmation page
-6. You see order details and tracking info
+**Process Flow:**
+1. User completes checkout process and clicks "Place Order"
+2. Browser sends HTTP POST request with delivery address and payment method
+3. Servlet retrieves cart from session and user information
+4. Servlet creates order record in database using [JDBC](/tutorial/jdbc-introduction) or [Hibernate](/tutorial/hibernate-introduction)
+5. Servlet clears cart from session after successful order creation
+6. Servlet redirects to order confirmation page with order ID
+7. User views order details and receives tracking information
+
+This demonstrates servlets' capability in managing complex workflows involving session state, database operations, and request redirection.
 
 ---
 
@@ -220,13 +239,27 @@ A Servlet is a Java class that extends server capabilities by processing HTTP re
 
 ---
 
-## The Old Way: CGI
+## Servlets vs. CGI (Common Gateway Interface)
 
-Before Servlets, we had **CGI (Common Gateway Interface)**. Here's why it was problematic:
+Before Java Servlets, web applications used **CGI (Common Gateway Interface)** for server-side processing. CGI had significant performance and scalability limitations:
 
-With CGI, every request created a new **process**. Imagine 1000 users hitting your site simultaneously — that's 1000 processes. Your server would melt.
+**CGI Limitations:**
+- Each HTTP request spawned a new operating system process
+- Process creation overhead was substantial
+- Memory consumption was high (each process required separate memory space)
+- Limited scalability under high concurrent load
+- Platform-dependent implementation
 
-Servlets fixed this. Instead of processes, they use **threads**. One Servlet instance handles multiple requests, each in its own thread. Much more efficient.
+**Servlet Advantages:**
+- Servlets use threads instead of processes (much lighter weight)
+- Single servlet instance handles multiple concurrent requests
+- Thread creation overhead is minimal compared to process creation
+- Efficient memory utilization through shared servlet instances
+- Platform-independent Java implementation
+- Better performance and scalability for enterprise applications
+
+**Performance Comparison:**
+With 1000 concurrent users, CGI would create 1000 separate processes, consuming significant system resources. Servlets handle the same load with a single servlet instance and 1000 lightweight threads, dramatically improving resource efficiency and response times.
 
 | CGI | Servlets |
 |-----|----------|

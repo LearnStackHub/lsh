@@ -1,37 +1,37 @@
 const springBootIntroduction = {
   id: 'spring-boot-introduction',
-  title: 'Spring Boot - Your First Step into Enterprise Java',
-  description: 'Complete beginner guide to Spring Boot - understand what it is, why it exists, and build your first application',
+  title: 'Spring Boot Introduction - Enterprise Java Application Framework',
+  description: 'Complete guide to Spring Boot framework - auto-configuration, starter dependencies, embedded servers, REST APIs, and building production-ready Java applications',
   content: `
-# Spring Boot - Your First Step into Enterprise Java
+# Spring Boot Introduction - Enterprise Java Application Framework
 
-Let me tell you something straight. If you're learning Java and want to build real applications that companies actually use, you need to know Spring Boot. Not "maybe" or "someday". You need it now.
+Spring Boot is an open-source Java framework built on top of the [Spring Framework](/tutorial/spring-introduction) that simplifies the development of production-ready, enterprise-grade Java applications. It eliminates the need for extensive XML configuration and boilerplate code, allowing developers to focus on business logic rather than infrastructure setup.
 
-But here's the thing - most tutorials throw a bunch of technical jargon at you. "Auto-configuration", "starter dependencies", "embedded server". What does that even mean? Let me explain it like I'm sitting next to you, showing you how it works.
-
----
-
-## What is Spring Boot? The Simple Answer
-
-Think of Spring Boot as a helper that makes building Java applications way easier. 
-
-Remember when you learned Servlets? You had to:
-- Create web.xml
-- Configure Tomcat
-- Set up deployment descriptors
-- Write tons of boilerplate code
-
-Spring Boot says: "Forget all that. Just write your code. I'll handle the rest."
-
-That's it. That's Spring Boot in one sentence.
+Spring Boot was created by Pivotal Software (now part of VMware) to address the complexity and configuration overhead associated with traditional Spring Framework applications. It provides opinionated defaults and auto-configuration capabilities that significantly reduce development time and configuration complexity.
 
 ---
 
-## Why Spring Boot Exists - The Real Story
+## What is Spring Boot?
 
-Before Spring Boot, building a Spring application was painful. Let me show you what developers had to do:
+Spring Boot is a convention-over-configuration framework that provides:
 
-### The Old Way (Before Spring Boot)
+- **Auto-Configuration**: Automatically configures Spring and third-party libraries based on classpath dependencies
+- **Starter Dependencies**: Pre-configured dependency sets for common use cases
+- **Embedded Servers**: Built-in Tomcat, Jetty, or Undertow servers for standalone applications
+- **Production-Ready Features**: Built-in metrics, health checks, and externalized configuration
+- **No Code Generation**: No XML configuration required; uses Java-based configuration
+
+Spring Boot extends the [Spring Framework](/tutorial/spring-introduction) by providing a streamlined development experience. While Spring Framework offers dependency injection and aspect-oriented programming through [Spring IOC](/tutorial/spring-ioc) and [Spring DI](/tutorial/spring-di), Spring Boot adds convenience layers that eliminate traditional configuration requirements.
+
+---
+
+## Why Spring Boot Was Created
+
+Traditional Spring Framework applications required extensive configuration through XML files, deployment descriptors, and manual bean definitions. This configuration overhead slowed development and increased the learning curve for new developers. Spring Boot was created to address these challenges by providing sensible defaults and automatic configuration.
+
+### Traditional Spring Framework Approach
+
+Before Spring Boot, developers had to manually configure every aspect of a Spring application:
 
 \`\`\`java
 // Step 1: Create web.xml
@@ -70,9 +70,16 @@ Before Spring Boot, building a Spring application was painful. Let me show you w
 // Step 6: Hope it works
 \`\`\`
 
-That's a lot of work just to get started, right? And I haven't even shown you the Java code yet.
+This traditional approach required:
+- XML configuration files for bean definitions
+- Manual servlet configuration in web.xml
+- Explicit dependency management
+- Server deployment configuration
+- Extensive boilerplate code
 
-### The Spring Boot Way
+### Spring Boot Approach
+
+Spring Boot eliminates this complexity through convention-over-configuration:
 
 \`\`\`java
 @SpringBootApplication
@@ -91,24 +98,33 @@ public class HelloController {
 }
 \`\`\`
 
-That's it. Two classes. No XML. No configuration files. No server setup. Just run it and it works.
+This Spring Boot approach provides:
+- Zero XML configuration
+- Automatic component scanning
+- Embedded server startup
+- Default configuration based on classpath
+- Production-ready defaults
+
+The same functionality is achieved with minimal code, demonstrating Spring Boot's power in simplifying enterprise Java development.
 
 ---
 
-## What Makes Spring Boot Special?
+## Core Features of Spring Boot
 
-Spring Boot does three things that change everything:
+Spring Boot provides several key features that differentiate it from traditional Spring Framework development:
 
-### 1. Auto-Configuration - It Guesses What You Need
+### 1. Auto-Configuration
 
-You know how your phone automatically connects to WiFi when you're at home? Spring Boot does something similar.
+Auto-configuration is Spring Boot's mechanism for automatically configuring Spring applications based on detected dependencies. When Spring Boot detects specific libraries on the classpath, it automatically configures beans and properties needed for those libraries.
 
-When you add a database dependency, Spring Boot automatically:
-- Creates a database connection
-- Sets up connection pooling
-- Configures everything for you
+**How Auto-Configuration Works:**
 
-You don't tell it to do this. It just knows.
+When you add a database dependency (like MySQL connector), Spring Boot's auto-configuration:
+- Detects the database driver on the classpath
+- Automatically creates a DataSource bean
+- Configures connection pooling
+- Sets up transaction management
+- Provides default connection properties
 
 **Real Example:**
 
@@ -126,11 +142,18 @@ You don't tell it to do this. It just knows.
 // - You just use it!
 \`\`\`
 
-### 2. Starter Dependencies - Get Everything You Need
+### 2. Starter Dependencies
 
-Instead of adding 20 different dependencies one by one, Spring Boot gives you "starters" - pre-packaged sets of dependencies.
+Starter dependencies are curated sets of dependencies that provide everything needed for specific functionality. Instead of manually adding multiple dependencies and managing version compatibility, developers add a single starter dependency.
 
-Want to build a web application? Add one dependency:
+**Common Spring Boot Starters:**
+
+- **spring-boot-starter-web**: Includes Spring MVC, embedded Tomcat, Jackson for JSON, and validation libraries
+- **spring-boot-starter-data-jpa**: Includes JPA, Hibernate, and database connectivity for [MySQL](/tutorial/mysql-introduction) and other databases
+- **spring-boot-starter-security**: Includes Spring Security for authentication and authorization
+- **spring-boot-starter-test**: Includes JUnit, Mockito, and testing utilities
+
+**Example: Web Application Starter**
 
 \`\`\`xml
 <dependency>
@@ -139,38 +162,58 @@ Want to build a web application? Add one dependency:
 </dependency>
 \`\`\`
 
-This one dependency includes:
-- Spring MVC (for web)
-- Embedded Tomcat (server)
-- Jackson (JSON handling)
-- Validation
-- And more...
+This single dependency automatically includes:
+- Spring Web MVC framework
+- Embedded Tomcat server
+- Jackson library for JSON processing
+- Validation API
+- Spring Boot auto-configuration
 
-All in one line. That's the power of starters.
+Starter dependencies ensure version compatibility and reduce dependency conflicts, significantly simplifying project setup.
 
-### 3. Embedded Server - No More Server Setup
+### 3. Embedded Servers
 
-Remember deploying to Tomcat? Creating WAR files? Configuring ports?
+Spring Boot includes embedded application servers (Tomcat by default, with options for Jetty or Undertow) within the application JAR. This eliminates the need for:
 
-Spring Boot includes a server inside your application. When you run your Java program, it starts a web server automatically.
+- Separate server installation and configuration
+- WAR file creation and deployment
+- Server-specific configuration files
+- Manual port and context path configuration
+
+**Embedded Server Benefits:**
 
 \`\`\`java
 @SpringBootApplication
-public class MyApp {
+public class MyApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MyApp.class, args);
-        // Server starts automatically on port 8080
+        SpringApplication.run(MyApplication.class, args);
+        // Embedded Tomcat server starts automatically on port 8080
     }
 }
 \`\`\`
 
-No Tomcat installation. No deployment. Just run and it works.
+When you run this application, Spring Boot:
+1. Starts an embedded Tomcat server
+2. Configures it with sensible defaults
+3. Deploys your application automatically
+4. Makes it accessible at http://localhost:8080
+
+This approach is ideal for microservices, cloud deployments, and containerized applications where standalone executables are preferred over traditional server deployments.
 
 ---
 
-## Your First Spring Boot Application
+## Building Your First Spring Boot Application
 
-Let's build something real. A simple REST API that returns student information.
+This section demonstrates how to create a complete Spring Boot REST API application. We'll build a student management API that handles HTTP requests and returns JSON responses, showcasing Spring Boot's core features in action.
+
+### Application Overview
+
+We'll create a REST API with the following endpoints:
+- \`GET /api/students\` - Retrieve all students
+- \`GET /api/students/{id}\` - Retrieve a specific student by ID
+- \`POST /api/students\` - Create a new student
+
+This example demonstrates Spring Boot's auto-configuration, dependency injection, and REST API capabilities.
 
 ### Step 1: Create the Project Structure
 
@@ -260,11 +303,13 @@ public class StudentController {
 }
 \`\`\`
 
-Let me explain what's happening:
+**Understanding the Controller:**
 
-- \`@RestController\`: This class handles HTTP requests
-- \`@GetMapping("/students")\`: When someone visits /students, this method runs
-- The method returns a String, which Spring Boot converts to JSON automatically
+- **@RestController**: Combines \`@Controller\` and \`@ResponseBody\`, indicating this class handles HTTP requests and returns data (not views)
+- **@GetMapping("/students")**: Maps HTTP GET requests to the \`/students\` URL path to this method
+- **Return Type**: Methods return data that Spring Boot automatically converts to JSON format using Jackson
+
+This demonstrates Spring Boot's convention-over-configuration approach - minimal code achieves maximum functionality.
 
 ### Step 5: Run It
 
@@ -434,13 +479,15 @@ public class StudentController {
 }
 \`\`\`
 
-Let me explain the new parts:
+**Advanced Controller Features:**
 
-- \`@Autowired\`: Spring Boot automatically injects StudentService here. You don't create it yourself.
-- \`@RequestMapping("/api/students")\`: All methods in this controller start with /api/students
-- \`@PathVariable\`: Gets the ID from the URL (e.g., /api/students/1)
-- \`@RequestBody\`: Converts JSON from request body to Student object
-- \`@PostMapping\`: Handles POST requests
+- **@Autowired**: Spring Boot's dependency injection automatically provides a StudentService instance. This demonstrates [Spring's Dependency Injection](/tutorial/spring-di) in action
+- **@RequestMapping("/api/students")**: Sets a base path for all methods in this controller, following REST API best practices
+- **@PathVariable**: Extracts path variables from the URL (e.g., \`/api/students/1\` extracts ID as 1)
+- **@RequestBody**: Automatically deserializes JSON request body into Java objects using Jackson
+- **@PostMapping**: Handles HTTP POST requests for creating new resources
+
+These annotations demonstrate Spring Boot's powerful request mapping and data binding capabilities.
 
 ### Test It
 
@@ -461,48 +508,67 @@ curl -X POST http://localhost:8080/api/students \\
 
 ## How Spring Boot Works Internally
 
-When you run a Spring Boot application, here's what happens:
+Understanding Spring Boot's internal mechanisms helps developers troubleshoot issues and customize behavior when needed. The framework follows a well-defined startup and execution process.
 
-### Step 1: Application Starts
+### Application Startup Process
 
-\`\`\`java
-SpringApplication.run(MyApplication.class, args);
-\`\`\`
+When you execute \`SpringApplication.run(MyApplication.class, args)\`, Spring Boot performs the following steps:
 
-This line:
-1. Creates an ApplicationContext (container for all your beans)
-2. Scans for components (@Controller, @Service, etc.)
-3. Auto-configures everything
-4. Starts the embedded server
+**Step 1: Application Context Creation**
+- Creates a Spring ApplicationContext (IoC container) that manages all beans
+- Loads configuration from application.properties, YAML files, and environment variables
+- Initializes the Spring environment
 
-### Step 2: Component Scanning
+**Step 2: Component Scanning**
+Spring Boot scans the package containing \`@SpringBootApplication\` and sub-packages to discover:
+- \`@RestController\` classes → Creates controller beans
+- \`@Service\` classes → Creates service beans  
+- \`@Repository\` classes → Creates data access beans
+- \`@Component\` classes → Creates general component beans
 
-Spring Boot scans your package and finds:
-- @RestController → Creates StudentController
-- @Service → Creates StudentService
-- @SpringBootApplication → Your main class
+This scanning is enabled by the \`@ComponentScan\` annotation included in \`@SpringBootApplication\`.
 
-### Step 3: Dependency Injection
+**Step 3: Auto-Configuration**
+Spring Boot's auto-configuration mechanism:
+- Analyzes the classpath for available libraries
+- Applies conditional configurations based on detected dependencies
+- Creates default beans for common scenarios (DataSource, EntityManager, etc.)
+- Configures properties with sensible defaults
 
-When Spring Boot creates StudentController, it sees:
+**Step 4: Dependency Injection**
+Using [Spring's Dependency Injection](/tutorial/spring-di) mechanism:
+- Spring Boot creates bean instances for discovered components
+- Resolves dependencies between beans
+- Injects dependencies using \`@Autowired\` or constructor injection
+- Manages bean lifecycle and scopes
 
-\`\`\`java
-@Autowired
-private StudentService studentService;
-\`\`\`
+**Step 5: Embedded Server Startup**
+- Starts the embedded Tomcat (or configured server)
+- Registers servlets and filters
+- Configures port, context path, and server settings
+- Makes the application accessible via HTTP
 
-It automatically finds StudentService (which it already created) and injects it here.
+### Request Handling Flow
 
-### Step 4: Request Handling
+When an HTTP request arrives at a Spring Boot application:
 
-When a request comes in:
-1. DispatcherServlet receives it
-2. Finds the right controller method
-3. Executes the method
-4. Converts return value to JSON
-5. Sends response
+1. **DispatcherServlet Reception**: The embedded server forwards requests to Spring's DispatcherServlet
+2. **Handler Mapping**: DispatcherServlet uses handler mappers to find the appropriate controller method
+3. **Method Execution**: The mapped controller method executes with resolved parameters
+4. **Response Processing**: Return values are processed through message converters (JSON, XML, etc.)
+5. **HTTP Response**: The converted response is sent back to the client
 
-All of this happens automatically. You just write the business logic.
+This entire process is handled automatically by Spring Boot's web infrastructure, allowing developers to focus on business logic implementation.
+
+### Configuration Management
+
+Spring Boot uses a hierarchical configuration system:
+- **application.properties** or **application.yml**: Default configuration
+- **Profile-specific files**: application-dev.properties, application-prod.properties
+- **Environment variables**: Override configuration at runtime
+- **Command-line arguments**: Highest priority configuration
+
+Configuration properties are automatically bound to \`@ConfigurationProperties\` classes, eliminating manual property reading and parsing.
 
 ---
 
@@ -527,62 +593,152 @@ Spring Boot reads this file automatically. No code needed. For a complete guide 
 
 ---
 
-## Common Questions from Freshers
+## Frequently Asked Questions (FAQs)
 
-### Q: Do I need to know Spring Framework before Spring Boot?
+### What is Spring Boot and why should I learn it?
 
-**A:** Not really. Spring Boot hides most of the complexity. But understanding Spring basics (IoC, DI) helps. If you want to learn Spring Framework first, check out our [Spring Framework Introduction](/tutorial/spring-introduction) and [Spring IOC tutorial](/tutorial/spring-ioc).
+Spring Boot is a framework that simplifies Java enterprise application development by providing auto-configuration, starter dependencies, and embedded servers. You should learn Spring Boot because it's the industry standard for building production-ready Java applications, REST APIs, and microservices. Major companies use Spring Boot for backend development, making it essential for Java developers seeking enterprise opportunities.
 
-### Q: What's the difference between Spring and Spring Boot?
+### Do I need to know Spring Framework before learning Spring Boot?
 
-**A:** 
-- Spring: Framework with lots of configuration
-- Spring Boot: Opinionated version of Spring with auto-configuration
+While not strictly required, understanding [Spring Framework](/tutorial/spring-introduction) fundamentals significantly helps. Spring Boot builds on Spring Framework concepts like [Inversion of Control (IoC)](/tutorial/spring-ioc) and [Dependency Injection (DI)](/tutorial/spring-di). Spring Boot hides much of the configuration complexity, but understanding the underlying Spring concepts helps when you need to customize behavior or troubleshoot issues. We recommend learning [Spring Framework basics](/tutorial/spring-introduction) before diving deep into Spring Boot.
 
-Think of Spring as a toolkit. Spring Boot is a pre-assembled tool that works out of the box. Learn more about [Spring Framework](/tutorial/spring-introduction) to understand the foundation.
+### What's the difference between Spring Framework and Spring Boot?
 
-### Q: Can I use Spring Boot without Maven/Gradle?
+**Spring Framework** is a comprehensive framework providing dependency injection, aspect-oriented programming, and various modules for enterprise development. It requires extensive XML or Java-based configuration.
 
-**A:** Technically yes, but you'll lose all the benefits. Maven/Gradle handle dependencies for you.
+**Spring Boot** is an opinionated extension of Spring Framework that:
+- Provides auto-configuration to reduce setup time
+- Includes starter dependencies for common use cases
+- Embeds servers (Tomcat, Jetty) for standalone applications
+- Offers production-ready features out of the box
 
-### Q: Do I need to install Tomcat?
+Think of Spring Framework as a toolkit and Spring Boot as a pre-configured, ready-to-use solution built on that toolkit. Learn more about the [Spring Framework](/tutorial/spring-introduction) to understand the foundation.
 
-**A:** No. Spring Boot includes an embedded server. Just run your application.
+### Can I use Spring Boot without Maven or Gradle?
 
-### Q: How do I deploy a Spring Boot application?
+Technically possible but not recommended. Maven and Gradle handle dependency management, which is essential for Spring Boot applications. Starter dependencies, version management, and build processes all rely on build tools. Without Maven or Gradle, you'd need to manually manage JAR files and dependencies, losing Spring Boot's primary benefits. Learn [Maven basics](/tutorial/maven-introduction) to effectively use Spring Boot.
 
-**A:** Two ways:
-1. Run as JAR: \`java -jar myapp.jar\`
-2. Create WAR and deploy to server (optional)
+### Do I need to install Tomcat or other application servers?
 
----
+No. Spring Boot includes embedded servers (Tomcat by default, with options for Jetty or Undertow). When you run a Spring Boot application, it starts its own web server automatically. This eliminates the need for separate server installation and configuration, making development and deployment significantly simpler. For production, you can still deploy Spring Boot applications as WAR files to traditional servers if needed.
 
-## What's Next?
+### How do I deploy a Spring Boot application?
 
-Now that you understand Spring Boot basics:
+Spring Boot applications can be deployed in multiple ways:
 
-1. **Set Up Your Project**: Learn how to create a Spring Boot project step by step in our [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) tutorial
-2. **Configure Your Application**: Master configuration with [Spring Boot Configuration](/tutorial/spring-boot-configuration) guide
-3. **Connect to a Database**: Learn how to integrate databases with [Spring Boot JPA](/tutorial/spring-boot-jpa)
-4. **Build REST APIs**: Create powerful APIs with our [Spring Boot REST API](/tutorial/spring-boot-rest-api) tutorial
-5. **Add Security**: Secure your application with [Spring Boot Security](/tutorial/spring-boot-security)
-6. **Deploy**: Learn how to deploy to production in [Spring Boot Deployment](/tutorial/spring-boot-deployment)
+1. **Standalone JAR**: Package as executable JAR and run with \`java -jar application.jar\`. This is the most common approach for microservices and cloud deployments.
 
-But first, practice what you learned. Build a simple CRUD application. Make mistakes. Fix them. That's how you learn.
+2. **WAR File**: Deploy to traditional application servers like Tomcat or WebSphere by packaging as WAR and configuring for external server deployment.
+
+3. **Docker Containers**: Containerize Spring Boot applications for consistent deployment across environments.
+
+4. **Cloud Platforms**: Deploy directly to cloud platforms like AWS, Azure, or Google Cloud, which provide managed services for Spring Boot applications.
+
+The embedded server approach (JAR deployment) is preferred for modern microservices architectures.
+
+### What databases can I use with Spring Boot?
+
+Spring Boot supports all major relational and NoSQL databases through auto-configuration:
+
+- **Relational Databases**: MySQL (learn [MySQL Introduction](/tutorial/mysql-introduction)), PostgreSQL, Oracle, SQL Server, H2 (for testing)
+- **NoSQL Databases**: MongoDB, Redis, Cassandra, Elasticsearch
+- **Database Access**: Use [JDBC](/tutorial/jdbc-introduction) for direct database access or [Spring Boot JPA](/tutorial/spring-boot-jpa) for object-relational mapping
+
+Spring Boot automatically configures data sources when it detects database drivers on the classpath.
+
+### Is Spring Boot suitable for microservices architecture?
+
+Yes. Spring Boot is one of the most popular frameworks for building microservices. It provides:
+- Standalone executable JARs perfect for containerization
+- Built-in health checks and metrics
+- Easy integration with service discovery and configuration servers
+- Support for distributed tracing and monitoring
+
+Many organizations use Spring Boot with Spring Cloud for complete microservices solutions.
+
+### What are Spring Boot starter dependencies?
+
+Starter dependencies are pre-configured sets of dependencies that provide everything needed for specific functionality. For example:
+- \`spring-boot-starter-web\`: Includes Spring MVC, embedded Tomcat, and JSON support
+- \`spring-boot-starter-data-jpa\`: Includes JPA, Hibernate, and database connectivity
+- \`spring-boot-starter-security\`: Includes Spring Security for authentication and authorization
+
+Instead of manually adding multiple dependencies, you add one starter that includes all necessary libraries with compatible versions.
+
+### How does Spring Boot auto-configuration work?
+
+Auto-configuration uses conditional bean creation based on:
+1. **Classpath Detection**: Checks which libraries are present
+2. **Conditional Annotations**: Uses \`@ConditionalOnClass\`, \`@ConditionalOnProperty\` to determine what to configure
+3. **Default Configuration**: Applies sensible defaults when conditions are met
+4. **Override Capability**: Developers can override auto-configuration with explicit configuration
+
+For example, if Spring Boot detects MySQL driver on the classpath, it automatically configures a DataSource bean with default connection properties.
+
+### What should I learn after Spring Boot basics?
+
+After mastering Spring Boot fundamentals:
+1. **Database Integration**: Learn [Spring Boot JPA](/tutorial/spring-boot-jpa) for database operations
+2. **REST API Development**: Build RESTful services with Spring Boot
+3. **Security**: Implement authentication and authorization with Spring Security
+4. **Testing**: Learn unit and integration testing for Spring Boot applications
+5. **Advanced Topics**: Microservices with Spring Cloud, reactive programming with WebFlux, and production deployment strategies
+
+Start with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) to begin building applications.
 
 ---
 
 ## Key Takeaways
 
-1. Spring Boot makes Java development faster and easier
-2. Auto-configuration handles setup for you
-3. Starter dependencies give you everything you need
-4. Embedded server means no deployment configuration
-5. Just focus on your business logic, Spring Boot handles the rest
+Before proceeding to hands-on development, ensure you understand these fundamental Spring Boot concepts:
 
-Remember: Spring Boot isn't magic. It's just smart defaults and automation. Once you understand what it's doing, you'll see it's all just Spring Framework with less configuration.
+- **Auto-Configuration**: Spring Boot automatically configures applications based on classpath dependencies
+- **Starter Dependencies**: Pre-configured dependency sets eliminate manual dependency management
+- **Embedded Servers**: Built-in servers enable standalone application deployment without external server setup
+- **Convention over Configuration**: Sensible defaults reduce configuration requirements
+- **Production-Ready**: Built-in features for monitoring, health checks, and externalized configuration
+- **Framework Extension**: Spring Boot extends [Spring Framework](/tutorial/spring-introduction) with convenience layers
 
-Now go build something.
+## What's Next?
+
+Now that you understand Spring Boot's architecture, features, and benefits, you're ready to begin hands-on development:
+
+### Immediate Next Steps
+
+1. **[Spring Boot Project Setup](/tutorial/spring-boot-project-setup)**: Learn to create Spring Boot projects using Spring Initializr, Maven, or IDE wizards
+2. **[Spring Boot Configuration](/tutorial/spring-boot-configuration)**: Master application.properties, YAML configuration, and profile management
+3. **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Integrate databases using Spring Data JPA for object-relational mapping
+
+### Building REST APIs
+
+4. **REST API Development**: Create RESTful web services with Spring Boot controllers
+5. **Request Handling**: Learn to handle GET, POST, PUT, DELETE requests
+6. **Response Management**: Return JSON responses and handle HTTP status codes
+
+### Advanced Topics
+
+7. **Database Integration**: Connect to [MySQL](/tutorial/mysql-introduction) or other databases using [JDBC](/tutorial/jdbc-introduction) or JPA
+8. **Security Implementation**: Add authentication and authorization to protect your APIs
+9. **Testing**: Write unit and integration tests for Spring Boot applications
+10. **Production Deployment**: Learn deployment strategies for cloud platforms and containers
+
+### Prerequisites Review
+
+Before diving into Spring Boot development, ensure you have:
+- Strong [Java fundamentals](/tutorial/java-introduction) including [OOPs concepts](/tutorial/oops-introduction)
+- Understanding of [Spring Framework](/tutorial/spring-introduction) basics ([Spring IOC](/tutorial/spring-ioc), [Spring DI](/tutorial/spring-di))
+- Knowledge of [Maven](/tutorial/maven-introduction) or Gradle for dependency management
+- Familiarity with [REST API concepts](/tutorial/http-request-response) and HTTP methods
+
+### Learning Path Recommendation
+
+1. **Foundation**: Master [Java basics](/tutorial/java-introduction) and [Spring Framework](/tutorial/spring-introduction)
+2. **Database Skills**: Learn [MySQL](/tutorial/mysql-introduction) and [JDBC](/tutorial/jdbc-introduction) for data persistence
+3. **Spring Boot**: Start with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) and build progressively complex applications
+4. **Practice**: Build real projects like a student management system, e-commerce API, or blog application
+
+Spring Boot simplifies enterprise Java development, but understanding the underlying concepts from [Spring Framework](/tutorial/spring-introduction) and [Java fundamentals](/tutorial/java-introduction) ensures you can effectively use and customize Spring Boot applications. Begin with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) to create your first Spring Boot application.
 `,
   code: `// Complete Spring Boot Application Example
 // This is a working example you can run

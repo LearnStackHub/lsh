@@ -3,9 +3,18 @@ const mysqlIndexes = {
   title: 'MySQL Indexes - Performance Optimization',
   description: 'Learn about indexes: types, creation, optimization, and best practices for query performance',
   content: `
-# MySQL Indexes — Performance Optimization
+# MySQL Indexes - Performance Optimization
 
-**Indexes** are data structures that improve the speed of data retrieval operations. They're essential for optimizing database performance.
+MySQL indexes are data structures that improve the speed of data retrieval operations by providing fast access paths to table data. Indexes work like book indexes, allowing the database to quickly locate rows without scanning entire tables. Understanding indexes is essential for optimizing database performance, especially as data volumes grow. Proper index design significantly improves query performance while balancing the overhead of index maintenance.
+
+Enterprise applications rely heavily on indexes for performance optimization. Large-scale applications with millions of rows require strategic index design to maintain acceptable query performance. Indexes are critical for WHERE clauses, JOIN operations, ORDER BY, and GROUP BY operations. However, indexes also add overhead to INSERT, UPDATE, and DELETE operations, requiring careful design and maintenance.
+
+**Index Types:**
+- **Primary Key Index**: Automatically created for PRIMARY KEY columns
+- **Unique Index**: Ensures uniqueness and speeds up lookups
+- **Regular Index**: Most common type for general query optimization
+- **Composite Index**: Index on multiple columns
+- **Full-Text Index**: For text search operations (MyISAM/InnoDB)
 
 ---
 
@@ -565,7 +574,195 @@ CREATE TABLE order_items (
     INDEX idx_product_id (product_id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
-);`
+);
+
+---
+
+## Real-World Applications
+
+### High-Traffic E-Commerce
+E-commerce platforms with millions of products require strategic indexing for search, filtering, and sorting operations. Indexes on product names, categories, prices, and SKUs enable fast product searches and catalog browsing.
+
+**Implementation Example:**
+- Index on product name for search functionality
+- Composite index on (category, price) for filtered sorting
+- Index on SKU for product lookup
+- Index on created_at for new product listings
+
+### User Management Systems
+User management systems use indexes extensively for authentication and user lookup operations. Indexes on email, username, and user IDs enable fast login and user retrieval operations.
+
+**Implementation Example:**
+- Unique index on email for login and duplicate prevention
+- Index on username for user lookup
+- Index on user_id for foreign key relationships
+- Composite index on (status, created_at) for user queries
+
+### Financial Transaction Systems
+Banking and financial systems require indexes for transaction queries, account lookups, and reporting. Indexes enable fast transaction history retrieval and account balance calculations.
+
+**Implementation Example:**
+- Index on account_number for account lookup
+- Index on transaction_date for time-based queries
+- Composite index on (account_id, transaction_date) for account history
+- Index on transaction_type for filtering
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Over-Indexing
+**Problem:** Too many indexes slow down INSERT/UPDATE/DELETE operations.
+
+**Solution:** Create indexes only for frequently queried columns:
+
+\`\`\`sql
+-- AVOID - Too many indexes
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(200),
+    INDEX idx_name (name),
+    INDEX idx_name2 (name),  -- Duplicate!
+    INDEX idx_created (created_at),
+    INDEX idx_updated (updated_at),
+    INDEX idx_status (status)
+    -- Too many indexes!
+);
+
+-- PREFER - Strategic indexing
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(200),
+    INDEX idx_name (name),  -- For search
+    INDEX idx_status_created (status, created_at)  -- Composite for common queries
+);
+\`\`\`
+
+### Mistake 2: Not Indexing Foreign Keys
+**Problem:** Foreign key columns without indexes cause slow JOINs.
+
+**Solution:** Always index foreign key columns:
+
+\`\`\`sql
+-- GOOD - Indexed foreign key
+CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    INDEX idx_customer_id (customer_id),  -- Index for JOIN
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+\`\`\`
+
+### Mistake 3: Wrong Composite Index Order
+**Problem:** Composite index column order affects usability.
+
+**Solution:** Order columns by selectivity (most selective first):
+
+\`\`\`sql
+-- GOOD - Most selective first
+CREATE INDEX idx_category_price ON products(category, price);
+-- Works for: category, category+price
+-- Doesn't work efficiently for: price alone
+
+-- BETTER - If price queries are common
+CREATE INDEX idx_price_category ON products(price, category);
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is an index and why is it important?
+
+An index is a data structure that improves query performance by providing fast access paths to table data. It's important because it dramatically speeds up SELECT queries, especially on large tables. Without indexes, databases must scan entire tables (full table scan), which becomes slow as data grows. Indexes are essential for production database performance.
+
+### How do indexes improve query performance?
+
+Indexes improve performance by allowing the database to quickly locate rows without scanning entire tables. Instead of checking every row, the database uses the index to jump directly to relevant rows. This is similar to using a book's index to find a topic instead of reading the entire book.
+
+### What's the difference between PRIMARY KEY and UNIQUE index?
+
+A PRIMARY KEY is a special unique index that cannot be NULL and a table can have only one. A UNIQUE index ensures uniqueness but allows NULL values and a table can have multiple. Both create indexes automatically. Use PRIMARY KEY for the main identifier, UNIQUE for other unique columns like email.
+
+### Do indexes slow down INSERT/UPDATE/DELETE?
+
+Yes, indexes add overhead to INSERT, UPDATE, and DELETE operations because the database must maintain the index when data changes. However, the performance benefit for SELECT queries usually outweighs this cost. Balance index creation based on query patterns - more SELECTs benefit from more indexes, more writes benefit from fewer indexes.
+
+### What is a composite index and when should I use it?
+
+A composite index is an index on multiple columns. Use it when queries filter or sort by multiple columns together. The column order matters - put the most selective column first. Composite indexes can be used for queries on the leftmost columns, but not efficiently for queries on only rightmost columns.
+
+### How many indexes should I create?
+
+Create indexes strategically based on query patterns. Index columns used in WHERE clauses, JOIN conditions, ORDER BY, and GROUP BY. Avoid over-indexing as it slows down writes. A good starting point is: primary key (automatic), foreign keys, frequently queried columns, and composite indexes for common query patterns.
+
+### Can I see if my query uses an index?
+
+Yes, use EXPLAIN before your SELECT statement to see the query execution plan:
+
+\`\`\`sql
+EXPLAIN SELECT * FROM products WHERE name = 'Laptop';
+\`\`\`
+
+The output shows whether indexes are used and how the query is executed.
+
+### What happens if I don't index a column used in WHERE?
+
+Without an index, the database performs a full table scan, checking every row. This is slow for large tables and gets slower as data grows. Always index columns used frequently in WHERE clauses for acceptable performance.
+
+### Should I index every column?
+
+No, don't index every column. Index only columns used in WHERE, JOIN, ORDER BY, or GROUP BY clauses. Over-indexing wastes storage and slows down INSERT/UPDATE/DELETE operations. Create indexes strategically based on actual query patterns, not "just in case."
+
+### How do I maintain indexes?
+
+Indexes are automatically maintained by MySQL when data changes. However, you should periodically analyze table statistics (ANALYZE TABLE) to help the optimizer choose the best indexes. Monitor index usage and remove unused indexes. Use OPTIMIZE TABLE to rebuild indexes and reclaim space.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these index fundamentals:
+
+- **Indexes improve SELECT performance** by providing fast data access
+- **Indexes slow down INSERT/UPDATE/DELETE** due to maintenance overhead
+- **Primary keys automatically create indexes** for fast lookups
+- **Always index foreign keys** for efficient JOINs
+- **Composite indexes** enable efficient multi-column queries
+- **Index column order matters** in composite indexes
+- **Use EXPLAIN** to verify index usage
+- **Create indexes strategically** based on query patterns
+- **Balance index benefits** with write performance costs
+
+---
+
+## What's Next?
+
+Now that you understand indexes, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Select](/tutorial/mysql-select)**: See how indexes improve SELECT queries
+2. **[MySQL Joins](/tutorial/mysql-joins)**: Understand index usage in JOINs
+3. **[MySQL Constraints](/tutorial/mysql-constraints)**: See how constraints create indexes
+4. **[MySQL Performance Tuning](/tutorial/mysql-performance)**: Master query optimization
+
+### Advanced Topics
+
+- **Index Types**: Deep dive into different index implementations
+- **Query Optimization**: Master EXPLAIN and query tuning
+- **Index Maintenance**: Learn index monitoring and maintenance
+- **Full-Text Search**: Understand full-text indexes for text search
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables with indexes
+- **[Database Design](/tutorial/database-design)**: Design databases with performance in mind
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles indexing
+
+Indexes are essential for database performance. Continue learning about [MySQL Performance Tuning](/tutorial/mysql-performance) to master query optimization techniques.
+`
 };
 
 export default mysqlIndexes;

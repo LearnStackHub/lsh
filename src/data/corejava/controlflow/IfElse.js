@@ -3,9 +3,11 @@ const ifElse = {
   title: 'If-Else Statements',
   description: 'Making decisions in your code',
   content: `
-# If-Else — Making Decisions in Code
+# If-Else Statements - Making Decisions in Code
 
-Programs need to make decisions. Should we show the login page or the dashboard? Is the user old enough? Is the password correct? The if-else statement is how your code makes these choices.
+If-else statements are fundamental control flow constructs in Java that enable programs to execute different code blocks based on conditional logic. Conditional statements are essential for implementing business logic, validating input, controlling program flow, and handling different scenarios in applications. Understanding if-else statements is crucial for building functional, responsive software.
+
+Enterprise applications extensively use conditional statements for access control, data validation, business rule enforcement, and user interface logic. Banking systems use conditionals for transaction validation, e-commerce platforms use them for pricing and discount logic, and authentication systems rely on conditionals for access decisions. Mastery of if-else statements is fundamental for all Java developers.
 
 ---
 
@@ -454,7 +456,173 @@ class LoginSystem {
         
         return "Success: Welcome, " + username + "!";
     }
-}`,
+}
+
+---
+
+## Real-World Applications
+
+### Authentication Systems
+Authentication systems use if-else statements extensively for login validation, password verification, and access control decisions. Conditional logic determines whether users can access resources based on credentials and permissions.
+
+**Implementation Example:**
+- Username and password validation
+- Role-based access control decisions
+- Session management based on authentication status
+- Multi-factor authentication flow control
+
+### E-Commerce Pricing Logic
+E-commerce platforms use conditional statements for dynamic pricing, discount calculations, and tax computation. Business rules determine prices based on user type, product category, quantity, and promotional conditions.
+
+**Implementation Example:**
+- Customer type pricing (regular, premium, VIP)
+- Quantity-based discounts
+- Seasonal pricing adjustments
+- Tax calculation based on location
+
+### Data Validation
+Applications use if-else statements for input validation, ensuring data integrity and preventing invalid operations. Validation checks data format, range, and business rules before processing.
+
+**Implementation Example:**
+- Email format validation
+- Age verification for age-restricted content
+- Credit limit checks before transactions
+- Inventory availability checks
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using Assignment (=) Instead of Comparison (==)
+**Problem:** Using = instead of == always evaluates to true and assigns value.
+
+**Solution:** Always use == for comparison:
+
+\`\`\`java
+// WRONG
+if (age = 18) { }  // Assigns 18 to age, always true!
+
+// CORRECT
+if (age == 18) { }  // Compares age with 18
+\`\`\`
+
+### Mistake 2: Missing Braces for Single Statements
+**Problem:** Omitting braces can lead to bugs when adding code later.
+
+**Solution:** Always use braces:
+
+\`\`\`java
+// GOOD - Always use braces
+if (condition) {
+    doSomething();
+}
+
+// AVOID - Can cause bugs
+if (condition)
+    doSomething();
+\`\`\`
+
+### Mistake 3: Deeply Nested If-Else Statements
+**Problem:** Too many nested conditions make code hard to read and maintain.
+
+**Solution:** Use early returns or switch statements:
+
+\`\`\`java
+// PREFER - Early return
+if (condition1) return result1;
+if (condition2) return result2;
+return defaultResult;
+
+// AVOID - Deep nesting
+if (condition1) {
+    if (condition2) {
+        if (condition3) {
+            // Hard to read
+        }
+    }
+}
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is an if-else statement and when should I use it?
+
+An if-else statement is a control flow construct that executes different code blocks based on boolean conditions. Use if-else when you need to make decisions in your code, validate input, implement business logic, or control program flow based on conditions. If-else statements are fundamental for building interactive, responsive applications.
+
+### What's the difference between if, if-else, and if-else-if?
+
+An \`if\` statement executes code only when the condition is true. An \`if-else\` statement provides an alternative path when the condition is false. An \`if-else-if\` chain allows multiple conditions to be checked sequentially, executing the first matching condition's code block.
+
+### Can I nest if-else statements?
+
+Yes, you can nest if-else statements (if inside if), but deep nesting should be avoided as it makes code hard to read and maintain. Consider using early returns, switch statements, or refactoring complex nested conditions into separate methods.
+
+### What is the ternary operator and when should I use it?
+
+The ternary operator (\`condition ? valueIfTrue : valueIfFalse\`) is a shorthand for simple if-else assignments. Use it for simple, readable assignments, but avoid it for complex logic. Ternary operators improve readability for simple conditional assignments.
+
+### How do I check multiple conditions?
+
+Use logical operators: \`&&\` (AND) requires both conditions true, \`||\` (OR) requires at least one true, \`!\` (NOT) negates a condition. Combine conditions appropriately based on your logic requirements.
+
+### What's the difference between == and === in Java?
+
+Java doesn't have === operator. Use == for primitive comparison and object reference comparison. For object content comparison, use \`.equals()\` method. String comparison should use \`.equals()\`, not ==.
+
+### Can I use if-else without else?
+
+Yes, if statements can exist without else blocks. Use standalone if when you only need to execute code when a condition is true, without an alternative action.
+
+### How do I handle multiple conditions efficiently?
+
+For multiple discrete values, use switch statements instead of long if-else-if chains. For complex boolean logic, use logical operators (&&, ||) or extract conditions into well-named boolean variables for readability.
+
+---
+
+## Key Takeaways
+
+Before proceeding to other control flow statements, ensure you understand these if-else fundamentals:
+
+- **If-else statements enable decision-making** in programs based on conditions
+- **Comparison operators** (==, !=, <, >, <=, >=) evaluate conditions
+- **Logical operators** (&&, ||, !) combine multiple conditions
+- **Ternary operator** provides shorthand for simple conditional assignments
+- **Always use braces** even for single statements to prevent bugs
+- **Avoid deep nesting** by using early returns or refactoring
+- **Use == for comparison**, not = (assignment)
+- **String comparison** requires .equals(), not ==
+
+---
+
+## What's Next?
+
+Now that you understand if-else statements, you're ready to explore other control flow constructs:
+
+### Immediate Next Steps
+
+1. **[Switch Statement](/tutorial/switch-statement)**: Learn multi-way branching for discrete values
+2. **[For Loop](/tutorial/for-loop)**: Understand iteration with known count
+3. **[While Loop](/tutorial/while-loop)**: Learn conditional iteration
+4. **[Break Continue](/tutorial/break-continue)**: Master loop control statements
+
+### Advanced Topics
+
+- **Pattern Matching**: Modern Java pattern matching with if
+- **Guard Clauses**: Early return patterns for cleaner code
+- **Strategy Pattern**: Using conditionals in design patterns
+- **Complex Business Logic**: Implementing sophisticated conditional logic
+
+### Related Tutorials
+
+- **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
+- **[Java Operators](/tutorial/java-operators)**: Understand comparison and logical operators
+- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
+- **[Exception Handling](/tutorial/exception-introduction)**: Learn conditional error handling
+
+If-else statements are essential for building interactive, decision-making applications. Continue learning about [Switch Statement](/tutorial/switch-statement) for handling multiple discrete values efficiently.
+`,
   practiceQuestions: [
     {
       question: 'Create a ticket pricing system based on age and day',

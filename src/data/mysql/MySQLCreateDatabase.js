@@ -451,7 +451,7 @@ FOREIGN KEY (customer_id) REFERENCES customers(id)
 - **DEFAULT** - Default value
 - **FOREIGN KEY** - Relationship constraint
 
-Master database and table creation, and you're ready to store data!
+After mastering database and table creation, you can proceed to store and manage data in your MySQL databases.
 
 ---
 

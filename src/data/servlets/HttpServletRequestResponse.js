@@ -358,6 +358,229 @@ response.setHeader("X-Frame-Options", "DENY");
 response.setHeader("X-XSS-Protection", "1; mode=block");
 response.setHeader("Content-Security-Policy", "default-src 'self'");
 \`\`\`
+
+---
+
+## Real-World Applications
+
+### RESTful API Development
+REST APIs extensively use HttpServletRequest and HttpServletResponse for handling HTTP methods, headers, request bodies, and response formatting. Understanding request/response handling is essential for building robust APIs.
+
+**Implementation Example:**
+- Processing JSON request bodies
+- Setting appropriate HTTP status codes
+- Handling different content types (JSON, XML, form data)
+- Implementing CORS headers for cross-origin requests
+
+### Form Processing Applications
+Web applications use HttpServletRequest to extract form data, validate input, and process submissions. HttpServletResponse is used to generate appropriate responses, redirects, and error messages.
+
+**Implementation Example:**
+- User registration forms
+- Contact forms with validation
+- Search forms with query parameters
+- File upload forms with multipart data
+
+### Content Delivery Systems
+Content management and delivery systems use request/response objects for content negotiation, caching headers, and conditional requests. Proper header handling enables efficient content delivery.
+
+**Implementation Example:**
+- Dynamic content generation based on Accept headers
+- Cache control for static and dynamic content
+- Content compression and encoding
+- Security headers for protection
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Not Setting Content Type Before Writing
+**Problem:** Writing to response before setting content type may cause incorrect rendering.
+
+**Solution:** Always set content type first:
+
+\`\`\`java
+// GOOD - Set content type first
+response.setContentType("application/json;charset=UTF-8");
+response.getWriter().write(jsonData);
+
+// BAD - Writing before setting type
+response.getWriter().write(jsonData);
+response.setContentType("application/json");  // Too late!
+\`\`\`
+
+### Mistake 2: Not Handling Null Parameters
+**Problem:** getParameter() returns null if parameter doesn't exist, causing NullPointerException.
+
+**Solution:** Always check for null:
+
+\`\`\`java
+// GOOD - Null check
+String id = request.getParameter("id");
+if (id != null && !id.isEmpty()) {
+    // Process id
+}
+
+// BAD - No null check
+String id = request.getParameter("id");
+int userId = Integer.parseInt(id);  // NullPointerException if id is null!
+\`\`\`
+
+### Mistake 3: Committing Response Before Forward/Redirect
+**Problem:** Cannot forward or redirect after response is committed.
+
+**Solution:** Don't write to response before forwarding/redirecting:
+
+\`\`\`java
+// GOOD - No output before redirect
+if (success) {
+    response.sendRedirect("success.jsp");
+} else {
+    request.getRequestDispatcher("error.jsp").forward(request, response);
+}
+
+// BAD - Output before redirect
+response.getWriter().println("Processing...");
+response.sendRedirect("success.jsp");  // Error! Response already committed
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is HttpServletRequest and how do I use it?
+
+HttpServletRequest represents the HTTP request from the client. It provides access to request parameters, headers, cookies, session, URL information, and request body. Use it to extract all information sent by the client. Common methods include \`getParameter()\`, \`getHeader()\`, \`getSession()\`, and \`getRequestURI()\`.
+
+### What is HttpServletResponse and how do I use it?
+
+HttpServletResponse represents the HTTP response to be sent to the client. It's used to set status codes, headers, content type, cookies, and write response body. Use it to build and send responses. Common methods include \`setContentType()\`, \`setStatus()\`, \`getWriter()\`, and \`sendRedirect()\`.
+
+### How do I read request body in a servlet?
+
+Read request body using \`request.getInputStream()\` or \`request.getReader()\`:
+
+\`\`\`java
+BufferedReader reader = request.getReader();
+StringBuilder body = new StringBuilder();
+String line;
+while ((line = reader.readLine()) != null) {
+    body.append(line);
+}
+String jsonData = body.toString();
+\`\`\`
+
+For JSON, use libraries like Gson or Jackson for parsing.
+
+### How do I send JSON response from a servlet?
+
+Set content type to application/json and write JSON string:
+
+\`\`\`java
+response.setContentType("application/json;charset=UTF-8");
+response.getWriter().write("{\\"name\\":\\"John\\",\\"age\\":30}");
+\`\`\`
+
+Use JSON libraries (Gson, Jackson) for object serialization.
+
+### What's the difference between getParameter() and getAttribute()?
+
+\`getParameter()\` reads data from the request (query string, form data), while \`getAttribute()\` reads data set by servlets/JSPs for forwarding. Parameters come from the client, attributes are set server-side. Use parameters for user input, attributes for server-side data sharing.
+
+### How do I handle file uploads in servlets?
+
+Handle file uploads using \`@MultipartConfig\` annotation and \`request.getPart()\`:
+
+\`\`\`java
+@MultipartConfig
+@WebServlet("/upload")
+public class UploadServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        Part filePart = request.getPart("file");
+        // Process file
+    }
+}
+\`\`\`
+
+### How do I set response headers?
+
+Set headers using \`setHeader()\`, \`addHeader()\`, or convenience methods:
+
+\`\`\`java
+response.setHeader("Cache-Control", "no-cache");
+response.addHeader("X-Custom-Header", "value");
+response.setContentType("text/html");  // Convenience method
+\`\`\`
+
+### How do I handle different HTTP methods?
+
+Override appropriate methods in HttpServlet: \`doGet()\` for GET, \`doPost()\` for POST, \`doPut()\` for PUT, \`doDelete()\` for DELETE. The \`service()\` method automatically routes requests to the correct doXxx() method based on HTTP method.
+
+### How do I get client IP address?
+
+Get client IP using \`request.getRemoteAddr()\`:
+
+\`\`\`java
+String clientIp = request.getRemoteAddr();
+\`\`\`
+
+Note: Behind proxies, check \`X-Forwarded-For\` header for real IP.
+
+### How do I set cookies in response?
+
+Create Cookie object and add to response:
+
+\`\`\`java
+Cookie cookie = new Cookie("username", "john");
+cookie.setMaxAge(3600);  // 1 hour
+cookie.setPath("/");
+response.addCookie(cookie);
+\`\`\`
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced servlet topics, ensure you understand these request/response fundamentals:
+
+- **HttpServletRequest** provides access to all request information
+- **HttpServletResponse** is used to build and send responses
+- **Always set content type** before writing to response
+- **Check for null parameters** to avoid NullPointerException
+- **getParameter()** reads client data, **getAttribute()** reads server-set data
+- **Don't commit response** before forwarding or redirecting
+- **Use appropriate HTTP methods** (doGet, doPost, etc.)
+- **Set proper headers** for security, caching, and CORS
+- **Handle request body** correctly for JSON, form data, etc.
+
+---
+
+## What's Next?
+
+Now that you understand HttpServletRequest and HttpServletResponse, you're ready to explore advanced servlet topics:
+
+### Immediate Next Steps
+
+1. **[Servlet Lifecycle](/tutorial/servlet-lifecycle)**: Understand servlet initialization and lifecycle
+2. **[Session Management](/tutorial/session-management)**: Learn user session handling
+3. **[Servlet API](/tutorial/servlet-api)**: Review core servlet interfaces
+4. **[Servlet Annotations](/tutorial/servlet-annotations)**: Modern servlet configuration
+
+### Advanced Topics
+
+- **File Upload**: Handle multipart file uploads
+- **RESTful Services**: Build REST APIs with servlets
+- **Security**: Implement authentication and authorization
+- **Filters**: Intercept and modify requests/responses
+
+### Related Tutorials
+
+- **[Servlet Introduction](/tutorial/servlet-introduction)**: Review servlet fundamentals
+- **[JSP Introduction](/tutorial/jsp-introduction)**: Combine servlets with JSP
+- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Modern servlet-based framework
+- **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
+
+Request and response handling is the core of servlet development. Continue learning about [Session Management](/tutorial/session-management) to maintain user state.
 `,
   code: `// HttpServletRequest & Response Demo
 // Simulates HTTP request/response handling

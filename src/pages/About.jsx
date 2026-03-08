@@ -313,15 +313,84 @@ function About() {
         <section style={{ 
           marginTop: '3rem', 
           paddingTop: '2rem', 
-          borderTop: '2px solid var(--border-color)',
-          textAlign: 'center'
+          borderTop: '2px solid var(--border-color)'
         }}>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-            Created with ❤️ by
-          </p>
-          <p style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--accent-primary)' }}>
-            Dattakumar Pandi
-          </p>
+          <h2>About the Author</h2>
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '2rem',
+            marginTop: '1.5rem'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h3 style={{ 
+                fontSize: '1.8rem', 
+                fontWeight: '600', 
+                color: 'var(--accent-primary)',
+                marginBottom: '0.5rem'
+              }}>
+                Dattakumar Pandi
+              </h3>
+              <p style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.1rem',
+                margin: 0
+              }}>
+                Software Developer & Founder of LearnStackHub
+              </p>
+            </div>
+            
+            <div style={{ 
+              lineHeight: '1.8',
+              fontSize: '1.05rem',
+              color: 'var(--text-primary)'
+            }}>
+              <p style={{ marginBottom: '1.5rem' }}>
+                Dattakumar Pandi is a software developer and the founder of LearnStackHub, an online learning platform 
+                focused on modern backend development and real-world programming skills.
+              </p>
+              
+              <p style={{ marginBottom: '1.5rem' }}>
+                With hands-on experience in technologies such as Java, Spring Boot, REST APIs, Microservices, and System 
+                Design, he is passionate about simplifying complex technical concepts and helping students transition from 
+                theoretical learning to practical software development.
+              </p>
+              
+              <p style={{ marginBottom: '1.5rem' }}>
+                Through LearnStackHub, Dattakumar creates in-depth tutorials, technical guides, and structured learning 
+                resources covering topics like HTTP, APIs, backend architecture, database design, and scalable system 
+                development.
+              </p>
+              
+              <p style={{ 
+                margin: 0,
+                padding: '1.5rem',
+                background: 'var(--bg-tertiary)',
+                borderRadius: '10px',
+                borderLeft: '4px solid var(--accent-primary)',
+                fontStyle: 'italic',
+                color: 'var(--text-secondary)'
+              }}>
+                His mission is to help aspiring developers, students, and early-career engineers build strong technical 
+                foundations and gain the practical knowledge needed to succeed in the software industry.
+              </p>
+            </div>
+          </div>
+          
+          <div style={{ 
+            textAlign: 'center', 
+            marginTop: '2rem',
+            paddingTop: '2rem',
+            borderTop: '1px solid var(--border-color)'
+          }}>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+              Created with ❤️ by
+            </p>
+            <p style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--accent-primary)' }}>
+              Dattakumar Pandi
+            </p>
+          </div>
         </section>
       </div>
 

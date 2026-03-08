@@ -3,9 +3,18 @@ const mysqlDQL = {
   title: 'MySQL DQL - Data Query Language (SELECT)',
   description: 'Complete guide to SELECT statement: DQL operations, filtering, sorting, and querying data',
   content: `
-# MySQL DQL — Data Query Language
+# MySQL DQL - Data Query Language (SELECT)
 
-**DQL (Data Query Language)** is used to retrieve data from databases. The primary DQL command is **SELECT**.
+MySQL DQL (Data Query Language) encompasses all operations for retrieving and querying data from databases. The primary DQL command is SELECT, which enables retrieving data from one or more tables with filtering, sorting, grouping, and aggregation capabilities. Understanding DQL is fundamental to working with databases, as data retrieval is the most common database operation in applications.
+
+Enterprise applications extensively use DQL for data retrieval, reporting, analytics, and business intelligence. SELECT statements power user interfaces, generate reports, provide data for APIs, and enable data analysis. Mastery of DQL, particularly the SELECT statement and its various clauses, is essential for building data-driven applications.
+
+**DQL Operations:**
+- **SELECT**: Retrieve data from tables
+- **Query Filtering**: WHERE clause for row filtering
+- **Data Grouping**: GROUP BY for aggregation
+- **Result Sorting**: ORDER BY for ordering
+- **Result Limiting**: LIMIT for pagination
 
 ---
 
@@ -536,7 +545,216 @@ WHERE price > (SELECT AVG(price) FROM products);
 SELECT category, COUNT(*) AS product_count
 FROM products
 GROUP BY category
-HAVING COUNT(*) > 1;`
+HAVING COUNT(*) > 1;
+
+---
+
+## Real-World Applications
+
+### Data Retrieval for Applications
+Applications use DQL extensively to retrieve data for user interfaces, APIs, and business logic. SELECT statements power data display, search functionality, and data-driven features across all application types.
+
+**Implementation Example:**
+- User profile retrieval for account pages
+- Product listings for e-commerce catalogs
+- Search results for search functionality
+- Dashboard data for analytics interfaces
+
+### Business Intelligence and Reporting
+BI systems rely heavily on DQL for generating reports and analytics. Complex SELECT statements with aggregations, groupings, and filtering enable comprehensive business reporting and data analysis.
+
+**Implementation Example:**
+- Sales reports with aggregations and groupings
+- Financial summaries with calculations
+- Performance metrics with time-based analysis
+- Comparative analysis across dimensions
+
+### API Data Provision
+REST APIs and data services use DQL to provide data to clients. SELECT statements retrieve and format data for API responses, enabling data access for mobile apps, web applications, and third-party integrations.
+
+**Implementation Example:**
+- API endpoints querying database tables
+- Data formatting for JSON responses
+- Filtered data based on API parameters
+- Paginated results for large datasets
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using SELECT * in Production
+**Problem:** SELECT * retrieves all columns, wasting bandwidth and resources.
+
+**Solution:** Select only needed columns:
+
+\`\`\`sql
+-- AVOID - Selects all columns
+SELECT * FROM products;
+
+-- PREFER - Select only needed columns
+SELECT id, name, price FROM products;
+\`\`\`
+
+### Mistake 2: Not Using WHERE to Filter
+**Problem:** Retrieving all rows when only specific data is needed.
+
+**Solution:** Always use WHERE to filter data:
+
+\`\`\`sql
+-- AVOID - Gets all products
+SELECT * FROM products;
+
+-- PREFER - Filtered query
+SELECT * FROM products WHERE category = 'Electronics';
+\`\`\`
+
+### Mistake 3: Missing Indexes for WHERE/ORDER BY
+**Problem:** Queries without indexes on filtered/sorted columns are slow.
+
+**Solution:** Create indexes on frequently queried columns:
+
+\`\`\`sql
+CREATE INDEX idx_category ON products(category);
+CREATE INDEX idx_price ON products(price);
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is DQL and what does it include?
+
+DQL (Data Query Language) is the subset of SQL used for retrieving and querying data from databases. The primary DQL command is SELECT, which includes various clauses for filtering (WHERE), grouping (GROUP BY), sorting (ORDER BY), and limiting (LIMIT) results. DQL is read-only and doesn't modify data.
+
+### What's the difference between DQL and DML?
+
+DQL (Data Query Language) is for retrieving data (SELECT statements). DML (Data Manipulation Language) is for modifying data (INSERT, UPDATE, DELETE). DQL is read-only, while DML changes database content. Both are essential SQL subsets for different purposes.
+
+### Can I retrieve data from multiple tables?
+
+Yes, you can retrieve data from multiple tables using JOINs:
+
+\`\`\`sql
+SELECT p.name, c.name AS category
+FROM products p
+JOIN categories c ON p.category_id = c.id;
+\`\`\`
+
+JOINs enable combining data from related tables. Learn about [MySQL Joins](/tutorial/mysql-joins) for details.
+
+### How do I filter data in SELECT queries?
+
+Use the WHERE clause to filter rows:
+
+\`\`\`sql
+SELECT * FROM products WHERE price > 100;
+SELECT * FROM users WHERE email = 'user@example.com';
+\`\`\`
+
+WHERE supports various operators (>, <, =, LIKE, IN, etc.) for flexible filtering.
+
+### What is the difference between SELECT and SELECT DISTINCT?
+
+SELECT returns all rows including duplicates. SELECT DISTINCT returns only unique rows, eliminating duplicates. Use DISTINCT when you need unique values:
+
+\`\`\`sql
+SELECT DISTINCT category FROM products;
+\`\`\`
+
+### Can I calculate values in SELECT statements?
+
+Yes, you can use expressions and functions in SELECT:
+
+\`\`\`sql
+SELECT name, price, stock, price * stock AS total_value FROM products;
+SELECT name, UPPER(name) AS name_upper FROM products;
+\`\`\`
+
+This enables calculated columns and data transformation.
+
+### How do I sort query results?
+
+Use ORDER BY to sort results:
+
+\`\`\`sql
+SELECT * FROM products ORDER BY price DESC;
+SELECT * FROM products ORDER BY category, price;
+\`\`\`
+
+Specify ASC (ascending, default) or DESC (descending) for each column.
+
+### What is the LIMIT clause used for?
+
+LIMIT restricts the number of rows returned, useful for pagination and top-N queries:
+
+\`\`\`sql
+SELECT * FROM products LIMIT 10;
+SELECT * FROM products ORDER BY price DESC LIMIT 5;  -- Top 5
+\`\`\`
+
+LIMIT with OFFSET enables pagination.
+
+### Can I use aggregate functions in SELECT?
+
+Yes, aggregate functions (COUNT, SUM, AVG, etc.) can be used in SELECT, typically with GROUP BY:
+
+\`\`\`sql
+SELECT category, COUNT(*) AS count, AVG(price) AS avg_price
+FROM products
+GROUP BY category;
+\`\`\`
+
+Learn about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) for details.
+
+### How do I optimize SELECT query performance?
+
+Optimize SELECT queries by: (1) selecting only needed columns, (2) using WHERE to filter early, (3) creating indexes on filtered/sorted columns, (4) using LIMIT to restrict results, (5) avoiding SELECT * in production, and (6) using EXPLAIN to analyze query plans. Learn about [MySQL Indexes](/tutorial/mysql-indexes) for performance optimization.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these DQL fundamentals:
+
+- **DQL is for data retrieval** using SELECT statements
+- **SELECT retrieves data** from one or more tables
+- **WHERE filters rows** before processing
+- **GROUP BY creates groups** for aggregation
+- **ORDER BY sorts results** in specified order
+- **LIMIT restricts** the number of rows returned
+- **Select only needed columns** for better performance
+- **Use indexes** on filtered and sorted columns
+- **Combine clauses** for powerful, flexible queries
+
+---
+
+## What's Next?
+
+Now that you understand DQL, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Clauses](/tutorial/mysql-clauses)**: Master WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+2. **[MySQL Joins](/tutorial/mysql-joins)**: Retrieve data from multiple tables
+3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Calculate summaries and statistics
+4. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Use nested queries for complex logic
+
+### Advanced Topics
+
+- **Query Optimization**: Master performance tuning techniques
+- **Complex Queries**: Build sophisticated SELECT statements
+- **Window Functions**: Advanced analytical functions (MySQL 8.0+)
+- **Full-Text Search**: Text search capabilities
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Indexes](/tutorial/mysql-indexes)**: Optimize query performance
+- **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute SELECT queries from Java
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates SELECT queries
+
+DQL is essential for data retrieval. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to retrieve data from multiple related tables.
+`
 };
 
 export default mysqlDQL;

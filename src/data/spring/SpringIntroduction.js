@@ -13,9 +13,9 @@ Spring provides dependency injection, aspect-oriented programming, and comprehen
 
 ---
 
-## The Traditional Java Way - What We Used to Do
+## Traditional Java Development Challenges
 
-Let's say you're building a Student Management System. Here's how you'd do it in traditional Java:
+Traditional Java application development involves manual object creation and tight coupling between components. The following example demonstrates a typical Student Management System implementation:
 
 \`\`\`java
 public class StudentService {
@@ -31,7 +31,7 @@ public class StudentService {
 }
 \`\`\`
 
-And your repository:
+**Repository Implementation:**
 
 \`\`\`java
 public class StudentRepository {
@@ -54,7 +54,7 @@ While this approach appears straightforward initially, several architectural pro
 
 ## Problem 1: Tight Coupling - Classes Are Too Dependent
 
-Look at this code:
+Tight coupling occurs when classes directly instantiate their dependencies, creating rigid relationships that are difficult to modify:
 
 \`\`\`java
 public class StudentService {
@@ -62,14 +62,13 @@ public class StudentService {
 }
 \`\`\`
 
-The problem? StudentService is tightly coupled to StudentRepository. It directly creates the repository. 
+**The Problem:** StudentService is tightly coupled to StudentRepository through direct instantiation. This creates several challenges:
 
-What if tomorrow you want to:
-- Use a different database (Oracle instead of MySQL)?
-- Use a mock repository for testing?
-- Switch to a NoSQL database?
-
-You'd have to modify StudentService. And if StudentService is used in 50 places? You're in trouble.
+**Change Management Issues:**
+- **Database Migration**: Switching from [MySQL](/tutorial/mysql-introduction) to Oracle requires modifying StudentService
+- **Testing Limitations**: Cannot easily replace StudentRepository with mock objects for unit testing
+- **Technology Changes**: Switching to NoSQL databases requires extensive code modifications
+- **Scalability**: If StudentService is used in 50+ locations, changes require updates across the entire codebase
 
 **Enterprise Scenario:**
 Consider an e-commerce application initially built with MySQL. After deployment, enterprise clients require Oracle database support for compliance reasons.
@@ -122,7 +121,7 @@ You have 20 services, each creating its own repository. Tomorrow you need to add
 
 ## Problem 3: Hard to Test - Can't Mock Dependencies
 
-Testing becomes a nightmare:
+Traditional Java applications with tight coupling present significant testing challenges:
 
 \`\`\`java
 public class StudentService {
@@ -134,10 +133,14 @@ public class StudentService {
 }
 \`\`\`
 
-How do you test this without actually connecting to a database? You can't easily replace StudentRepository with a mock. You're stuck.
+**Testing Limitations:**
+- **Database Dependency**: Unit tests require actual database connections, making tests slow and unreliable
+- **Mock Replacement**: Cannot easily replace StudentRepository with mock objects for isolated testing
+- **Test Isolation**: Tests cannot run independently; database state affects test results
+- **Test Data Management**: Tests leave data in database, requiring cleanup procedures
 
-**Real Example:**
-You want to test your service logic, but it always hits the real database. Your tests are slow. They fail if the database is down. They leave test data in your database. Not ideal.
+**Real-World Impact:**
+Service logic testing becomes dependent on database availability. Tests fail when databases are unavailable, execute slowly due to database operations, and require complex setup/teardown procedures. This approach is not suitable for continuous integration and automated testing environments.
 
 ---
 
@@ -279,13 +282,13 @@ Spring Framework solves all these problems by providing:
 4. **Lifecycle Management** - Spring handles object creation and destruction
 5. **Testing Support** - Easy to inject mocks for testing
 
-Think of Spring as a smart factory. You tell it what objects you need, and it creates them, wires them together, and manages their lifecycle. You just focus on your business logic.
+Spring Framework acts as an Inversion of Control (IoC) container that manages object creation, dependency wiring, and lifecycle management. Developers define object requirements through configuration, and Spring handles instantiation, dependency injection, and resource management, allowing developers to focus on business logic implementation.
 
 ---
 
-## Real-Time Example: Login System
+## Practical Example: Authentication System Implementation
 
-Let's see a practical example. You're building a login system.
+The following example demonstrates Spring Framework's benefits through a login system implementation:
 
 ### Without Spring:
 

@@ -3,9 +3,18 @@ const mysqlStoredProcedures = {
   title: 'MySQL Stored Procedures',
   description: 'Learn to create and use stored procedures for reusable database logic',
   content: `
-# MySQL Stored Procedures — Reusable Database Logic
+# MySQL Stored Procedures - Reusable Database Logic
 
-Stored procedures are precompiled SQL statements stored in the database. They allow you to encapsulate complex logic and execute it efficiently.
+MySQL stored procedures are precompiled SQL code blocks stored in the database that can be executed by name. Stored procedures encapsulate complex database logic, accept parameters, return results, and can be called from applications or other procedures. They improve performance through precompilation, enhance security by controlling database access, and promote code reusability across multiple applications.
+
+Enterprise applications extensively use stored procedures for complex business logic, data validation, transaction management, and performance-critical operations. Stored procedures enable moving logic from application code to the database, reducing network traffic and centralizing business rules. Understanding stored procedures is essential for building scalable, maintainable database applications.
+
+**Stored Procedure Benefits:**
+- **Performance**: Precompiled and optimized for faster execution
+- **Security**: Controlled database access through procedures
+- **Reusability**: Logic shared across multiple applications
+- **Maintainability**: Centralized business logic in database
+- **Transaction Management**: Complex multi-step operations
 
 ---
 
@@ -666,7 +675,175 @@ SELECT @order_id;
 
 -- View procedures
 SHOW PROCEDURE STATUS WHERE Db = 'procedures_demo';
-SHOW CREATE PROCEDURE GetUserById;`
+SHOW CREATE PROCEDURE GetUserById;
+
+---
+
+## Real-World Applications
+
+### Order Processing Systems
+E-commerce platforms use stored procedures for complex order processing logic. Procedures handle order creation, inventory updates, payment processing, and email notifications in a single atomic operation, ensuring data consistency.
+
+**Implementation Example:**
+- CreateOrder procedure with inventory validation
+- ProcessPayment procedure with transaction handling
+- CancelOrder procedure with inventory restoration
+- GenerateInvoice procedure with tax calculations
+
+### Data Migration and ETL
+Data migration and ETL (Extract, Transform, Load) processes use stored procedures to encapsulate complex transformation logic. Procedures handle data validation, transformation, and loading operations efficiently.
+
+**Implementation Example:**
+- ImportData procedure for bulk data loading
+- TransformData procedure for data conversion
+- ValidateData procedure for data quality checks
+- ArchiveData procedure for data archival
+
+### Business Logic Implementation
+Enterprise applications move business logic to stored procedures for centralization and performance. Procedures implement complex calculations, validations, and workflows that are shared across multiple applications.
+
+**Implementation Example:**
+- CalculateTax procedure for tax computation
+- ValidateBusinessRules procedure for rule enforcement
+- GenerateReports procedure for report generation
+- ProcessWorkflow procedure for workflow automation
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Not Using Transactions in Procedures
+**Problem:** Procedures performing multiple operations without transactions can leave data inconsistent.
+
+**Solution:** Always use transactions for multi-step operations:
+
+\`\`\`sql
+CREATE PROCEDURE ProcessOrder(...)
+BEGIN
+    START TRANSACTION;
+    -- Multiple operations
+    COMMIT;
+END
+\`\`\`
+
+### Mistake 2: Not Handling Errors
+**Problem:** Procedures without error handling fail silently or cause unexpected behavior.
+
+**Solution:** Always include error handlers:
+
+\`\`\`sql
+DECLARE EXIT HANDLER FOR SQLEXCEPTION
+BEGIN
+    ROLLBACK;
+    SELECT 'Error occurred' AS message;
+END;
+\`\`\`
+
+### Mistake 3: Using Procedures for Simple Queries
+**Problem:** Creating procedures for simple queries adds unnecessary complexity.
+
+**Solution:** Use procedures for complex logic, not simple queries:
+
+\`\`\`sql
+-- AVOID - Simple query doesn't need procedure
+CREATE PROCEDURE GetUsers()
+BEGIN
+    SELECT * FROM users;
+END
+
+-- PREFER - Direct query
+SELECT * FROM users;
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is a stored procedure and why should I use it?
+
+A stored procedure is precompiled SQL code stored in the database that can be executed by name. Use stored procedures for: (1) complex business logic, (2) performance-critical operations, (3) security control, (4) code reusability, and (5) transaction management. Procedures improve performance through precompilation and reduce network traffic by executing logic on the database server.
+
+### What's the difference between stored procedures and functions?
+
+Stored procedures can return multiple result sets, perform DML operations, and don't have to return values. Functions must return a single value, can be used in SQL expressions, and are typically used for calculations. Use procedures for operations, functions for calculations. Learn about [MySQL Functions](/tutorial/mysql-scalar-functions) for function details.
+
+### Can stored procedures call other stored procedures?
+
+Yes, stored procedures can call other stored procedures, enabling modular code organization. This allows you to build complex procedures from simpler ones, promoting code reuse and maintainability. However, avoid deep nesting and circular dependencies.
+
+### How do I pass parameters to stored procedures?
+
+Stored procedures accept three types of parameters: IN (input, default), OUT (output), and INOUT (both input and output). Define parameters in the procedure signature and use them in the procedure body. Parameters enable procedures to work with different data values.
+
+### Can stored procedures return result sets?
+
+Yes, stored procedures can return one or more result sets using SELECT statements. Applications can retrieve these result sets just like regular query results. Multiple result sets enable returning different types of data in a single procedure call.
+
+### What is a cursor and when should I use it?
+
+A cursor is a database object used to iterate through result sets row by row within a stored procedure. Use cursors when you need to process each row individually, but be aware they can be slow. Prefer set-based operations when possible, use cursors only when row-by-row processing is necessary.
+
+### How do I handle errors in stored procedures?
+
+Use DECLARE HANDLER statements to handle errors in stored procedures. EXIT handlers stop execution, CONTINUE handlers allow execution to continue. Handle specific error codes or use SQLEXCEPTION for all errors. Always include error handling for robust procedures.
+
+### Can I use transactions in stored procedures?
+
+Yes, stored procedures can use transactions with START TRANSACTION, COMMIT, and ROLLBACK. Procedures are ideal for complex multi-step operations that require atomicity. Use transactions to ensure all operations succeed or all fail together.
+
+### How do I debug stored procedures?
+
+Debug stored procedures by: (1) using SELECT statements to output variable values, (2) testing procedures with sample data, (3) checking error messages, (4) using SHOW PROCEDURE STATUS to verify procedure exists, and (5) reviewing procedure code with SHOW CREATE PROCEDURE. Consider using MySQL debugging tools for complex procedures.
+
+### Should I use stored procedures or application code?
+
+Use stored procedures for: database-intensive operations, complex business logic shared across applications, performance-critical operations, and security-sensitive operations. Use application code for: user interface logic, external API calls, complex application workflows, and logic that changes frequently. Balance based on your architecture and requirements.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these stored procedure fundamentals:
+
+- **Stored procedures are precompiled** SQL code stored in the database
+- **Procedures improve performance** through precompilation and reduced network traffic
+- **Parameters enable reusability** with IN, OUT, and INOUT types
+- **Error handling is essential** using DECLARE HANDLER statements
+- **Transactions ensure atomicity** for multi-step operations
+- **Cursors enable row-by-row** processing when needed
+- **Procedures can call other procedures** for modular design
+- **Use procedures for complex logic**, not simple queries
+- **Document procedures clearly** for maintainability
+
+---
+
+## What's Next?
+
+Now that you understand stored procedures, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Triggers](/tutorial/mysql-triggers)**: Learn automated database actions
+2. **[MySQL Transactions](/tutorial/mysql-transactions)**: Understand transaction management in procedures
+3. **[MySQL Functions](/tutorial/mysql-scalar-functions)**: Compare procedures with functions
+4. **[JDBC Introduction](/tutorial/jdbc-introduction)**: Call procedures from Java applications
+
+### Advanced Topics
+
+- **Procedure Optimization**: Master performance tuning techniques
+- **Complex Procedures**: Build sophisticated business logic
+- **Error Handling**: Advanced error handling patterns
+- **Security**: Implement security through procedures
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Views](/tutorial/mysql-views)**: Compare views with procedures
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA works with procedures
+- **[Database Design](/tutorial/database-design)**: Design databases with procedures in mind
+
+Stored procedures are essential for complex database logic. Continue learning about [MySQL Triggers](/tutorial/mysql-triggers) to understand automated database actions.
+`
 };
 
 export default mysqlStoredProcedures;

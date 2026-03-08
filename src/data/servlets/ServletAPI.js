@@ -316,6 +316,179 @@ public class UserServlet extends HttpServlet {
     }
 }
 \`\`\`
+
+---
+
+## Real-World Applications
+
+### Enterprise Web Applications
+Enterprise applications extensively use Servlet API components for request handling, session management, and application configuration. Servlet API provides the foundation for building scalable, maintainable web applications.
+
+**Implementation Example:**
+- User management systems using HttpServletRequest/Response
+- E-commerce platforms with session management
+- Content management systems with ServletContext
+- API services using request/response handling
+
+### Content Management Systems
+CMS platforms use Servlet API for content delivery, user authentication, and configuration management. ServletConfig and ServletContext enable flexible configuration and resource management.
+
+**Implementation Example:**
+- Content delivery with RequestDispatcher
+- User session management for authentication
+- Application-wide configuration via ServletContext
+- Resource management and file handling
+
+### RESTful Web Services
+REST APIs built with Servlets use HttpServletRequest and HttpServletResponse for handling HTTP methods, headers, and response formatting. Servlet API provides the foundation for building RESTful services.
+
+**Implementation Example:**
+- REST endpoints using doGet, doPost, doPut, doDelete
+- JSON response formatting via HttpServletResponse
+- Request parameter and header processing
+- Content negotiation and response status codes
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Not Handling Null Parameters
+**Problem:** getParameter() returns null if parameter doesn't exist, causing NullPointerException.
+
+**Solution:** Always check for null:
+
+\`\`\`java
+// GOOD - Null check
+String username = request.getParameter("username");
+if (username != null && !username.isEmpty()) {
+    // Process username
+}
+
+// BAD - No null check
+String username = request.getParameter("username");
+int length = username.length();  // NullPointerException!
+\`\`\`
+
+### Mistake 2: Forgetting to Set Content Type
+**Problem:** Response without content type may display incorrectly.
+
+**Solution:** Always set content type before writing:
+
+\`\`\`java
+// GOOD - Set content type first
+response.setContentType("text/html;charset=UTF-8");
+response.getWriter().println("<h1>Hello</h1>");
+
+// BAD - Content type not set
+response.getWriter().println("<h1>Hello</h1>");  // May not render correctly
+\`\`\`
+
+### Mistake 3: Using Forward After Redirect
+**Problem:** Cannot forward after response is committed.
+
+**Solution:** Use either forward OR redirect, not both:
+
+\`\`\`java
+// GOOD - Choose one
+if (success) {
+    response.sendRedirect("success.jsp");
+} else {
+    request.getRequestDispatcher("error.jsp").forward(request, response);
+}
+
+// BAD - Both operations
+response.sendRedirect("success.jsp");
+request.getRequestDispatcher("error.jsp").forward(request, response);  // Error!
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is the Servlet API and why is it important?
+
+The Servlet API is a Java specification that provides interfaces and classes for building web applications. It's important because it standardizes how Java web applications handle HTTP requests and responses, enabling portability across different servlet containers (Tomcat, Jetty, etc.). Understanding the Servlet API is essential for Java web development.
+
+### What's the difference between ServletConfig and ServletContext?
+
+ServletConfig provides servlet-specific configuration accessible only to that servlet, while ServletContext provides application-wide configuration accessible to all servlets. Use ServletConfig for servlet-specific settings (database URLs for a specific servlet), ServletContext for shared application settings (application name, shared resources).
+
+### How do I access request parameters in a servlet?
+
+Use \`request.getParameter("paramName")\` for single values, \`request.getParameterValues("paramName")\` for multiple values (checkboxes, multi-select), and \`request.getParameterMap()\` for all parameters. Always check for null values before using parameters.
+
+### What is the difference between forward and redirect?
+
+Forward is server-side (same request, URL doesn't change, can share request attributes), while redirect is client-side (new request, URL changes, cannot share attributes). Use forward for internal navigation, redirect for external URLs or after POST operations (to prevent duplicate submissions).
+
+### How do I share data between servlets?
+
+Share data using: (1) ServletContext attributes for application-wide data, (2) Session attributes for user-specific data across requests, (3) Request attributes for data within a single request (forwarding), and (4) Application-level singletons or services. Choose based on data scope and lifetime.
+
+### What is RequestDispatcher used for?
+
+RequestDispatcher enables forwarding requests to other resources (servlets, JSPs) or including their output. Use \`forward()\` to transfer control completely, \`include()\` to include another resource's output. RequestDispatcher enables the Model-View-Controller (MVC) pattern in servlet applications.
+
+### How do I handle different HTTP methods in a servlet?
+
+Override the appropriate methods in HttpServlet: \`doGet()\` for GET requests, \`doPost()\` for POST requests, \`doPut()\` for PUT, \`doDelete()\` for DELETE. The \`service()\` method routes requests to the appropriate doXxx() method. Always override the correct method for your use case.
+
+### What is the servlet lifecycle?
+
+The servlet lifecycle consists of: (1) Loading and instantiation (container loads servlet class), (2) Initialization (\`init()\` called once), (3) Request handling (\`service()\` → \`doGet()\`/\`doPost()\` called for each request), and (4) Destruction (\`destroy()\` called once for cleanup). Understanding the lifecycle helps write efficient servlets.
+
+### How do I configure a servlet?
+
+Configure servlets using: (1) Annotations (\`@WebServlet\`) for Servlet 3.0+, (2) web.xml deployment descriptor for traditional configuration, or (3) programmatic configuration for dynamic registration. Annotations are preferred for modern development as they keep configuration close to code.
+
+### What is the difference between GenericServlet and HttpServlet?
+
+GenericServlet is protocol-independent and requires implementing \`service()\` method, while HttpServlet is HTTP-specific and provides convenience methods (\`doGet()\`, \`doPost()\`, etc.). Always extend HttpServlet for web applications as it provides HTTP-specific functionality and is easier to use.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced servlet topics, ensure you understand these Servlet API fundamentals:
+
+- **Servlet API provides** interfaces and classes for web applications
+- **HttpServletRequest** contains all request information
+- **HttpServletResponse** is used to build responses
+- **ServletConfig** is for servlet-specific configuration
+- **ServletContext** is for application-wide configuration
+- **RequestDispatcher** enables forwarding and including
+- **Forward vs Redirect**: Forward is server-side, redirect is client-side
+- **Scope objects**: Request (single request), Session (user session), Application (all users)
+- **Always extend HttpServlet** for web applications
+
+---
+
+## What's Next?
+
+Now that you understand the Servlet API, you're ready to explore advanced servlet topics:
+
+### Immediate Next Steps
+
+1. **[HttpServletRequest & Response](/tutorial/http-request-response)**: Deep dive into request and response handling
+2. **[Servlet Lifecycle](/tutorial/servlet-lifecycle)**: Master servlet initialization and lifecycle
+3. **[ServletConfig & ServletContext](/tutorial/servlet-config)**: Advanced configuration management
+4. **[Session Management](/tutorial/session-management)**: Learn user session handling
+
+### Advanced Topics
+
+- **Servlet Annotations**: Modern annotation-based configuration
+- **Filters and Listeners**: Request interception and event handling
+- **Servlet Security**: Authentication and authorization
+- **Async Servlets**: Asynchronous request processing
+
+### Related Tutorials
+
+- **[Servlet Introduction](/tutorial/servlet-introduction)**: Review servlet fundamentals
+- **[JSP Introduction](/tutorial/jsp-introduction)**: Combine servlets with JSP
+- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Modern servlet-based framework
+- **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
+
+The Servlet API is the foundation of Java web development. Continue learning about [HttpServletRequest & Response](/tutorial/http-request-response) to master request handling.
 `,
   code: `// Servlet API Demo
 // Simulates core Servlet API components

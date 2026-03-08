@@ -3,9 +3,18 @@ const mysqlDataTypes = {
   title: 'MySQL Data Types',
   description: 'Complete guide to MySQL data types: numeric, string, date, and JSON types',
   content: `
-# MySQL Data Types — Choosing the Right Type
+# MySQL Data Types - Choosing the Right Type for Your Data
 
-Choosing the correct data type is crucial for database design. It affects storage, performance, and data integrity. MySQL provides various data types for different purposes.
+MySQL data types define the kind of data that can be stored in table columns, determining storage requirements, value ranges, and operations that can be performed. Choosing the correct data type is crucial for database design, affecting storage efficiency, query performance, data integrity, and application functionality. MySQL provides comprehensive data type options for numeric, string, date/time, JSON, and binary data.
+
+Enterprise applications require careful data type selection to optimize storage, ensure data accuracy, and maintain performance at scale. Understanding data types enables developers to design efficient schemas, prevent data overflow, and leverage MySQL's type-specific features. Proper data type selection is fundamental to building robust, performant database applications.
+
+**Data Type Categories:**
+- **Numeric Types**: Integers (TINYINT, INT, BIGINT) and decimals (DECIMAL, FLOAT, DOUBLE)
+- **String Types**: Variable-length (VARCHAR) and fixed-length (CHAR) text, large text (TEXT)
+- **Date/Time Types**: DATE, TIME, DATETIME, TIMESTAMP for temporal data
+- **JSON Type**: Native JSON storage and querying (MySQL 5.7+)
+- **Binary Types**: BLOB for binary large objects
 
 ---
 
@@ -539,7 +548,188 @@ INSERT INTO products (category_id, name, sku, price, stock_quantity, description
 (1, 'Laptop', 'LAP-001', 999.99, 50, 'High-performance laptop', '{"cpu": "Intel i7", "ram": "16GB", "storage": "512GB SSD"}'),
 (1, 'Mouse', 'MOU-001', 29.99, 100, 'Wireless mouse', '{"connectivity": "Bluetooth", "battery": "Rechargeable"}');
 
-SELECT * FROM products;`
+SELECT * FROM products;
+
+---
+
+## Real-World Applications
+
+### E-Commerce Product Catalog
+E-commerce platforms carefully select data types for product information. Prices use DECIMAL for precise currency values, product names use VARCHAR with appropriate lengths, descriptions use TEXT for longer content, and specifications use JSON for flexible attribute storage.
+
+**Implementation Example:**
+- Product prices: DECIMAL(10,2) for currency precision
+- Product names: VARCHAR(200) for variable-length names
+- Descriptions: TEXT for long product descriptions
+- Specifications: JSON for flexible product attributes
+- Stock quantities: INT UNSIGNED for non-negative integers
+
+### Financial Transaction Systems
+Banking applications require precise numeric types for financial calculations. Account balances use DECIMAL for exact precision, transaction amounts use DECIMAL, timestamps use TIMESTAMP for automatic tracking, and account numbers use appropriate integer or string types.
+
+**Implementation Example:**
+- Account balances: DECIMAL(15,2) for precise currency
+- Transaction amounts: DECIMAL(10,2) for transaction values
+- Transaction dates: TIMESTAMP for automatic date tracking
+- Account numbers: VARCHAR(20) or BIGINT depending on format
+- Interest rates: DECIMAL(5,4) for precise percentage values
+
+### User Management Systems
+User management requires appropriate types for personal information. Names use VARCHAR, emails use VARCHAR with length constraints, birth dates use DATE, registration timestamps use TIMESTAMP, and user preferences use JSON for flexible data.
+
+**Implementation Example:**
+- User names: VARCHAR(100) for variable-length names
+- Email addresses: VARCHAR(255) for standard email length
+- Birth dates: DATE for date-only values
+- Registration time: TIMESTAMP for automatic timestamp
+- User preferences: JSON for flexible preference storage
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using Wrong Numeric Type
+**Problem:** Using INT for currency or DECIMAL for counts causes precision issues.
+
+**Solution:** Use DECIMAL for currency, INT for counts:
+
+\`\`\`sql
+-- GOOD - DECIMAL for currency
+CREATE TABLE products (
+    price DECIMAL(10, 2)  -- Precise currency
+);
+
+-- BAD - INT for currency
+CREATE TABLE products (
+    price INT  -- Loses decimal precision!
+);
+\`\`\`
+
+### Mistake 2: Oversizing VARCHAR
+**Problem:** Using unnecessarily large VARCHAR sizes wastes storage and impacts performance.
+
+**Solution:** Choose appropriate VARCHAR length:
+
+\`\`\`sql
+-- GOOD - Appropriate size
+CREATE TABLE users (
+    email VARCHAR(255),  -- Standard email length
+    name VARCHAR(100)    -- Reasonable name length
+);
+
+-- BAD - Oversized
+CREATE TABLE users (
+    email VARCHAR(1000),  -- Wasteful
+    name VARCHAR(500)     -- Unnecessary
+);
+\`\`\`
+
+### Mistake 3: Using CHAR Instead of VARCHAR
+**Problem:** Using CHAR for variable-length data wastes storage space.
+
+**Solution:** Use VARCHAR for variable-length, CHAR only for fixed-length:
+
+\`\`\`sql
+-- GOOD - VARCHAR for variable
+CREATE TABLE users (
+    name VARCHAR(100)  -- Variable length
+);
+
+-- BAD - CHAR for variable
+CREATE TABLE users (
+    name CHAR(100)  -- Wastes space for shorter names
+);
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is a data type and why does it matter?
+
+A data type defines the kind of data that can be stored in a column, including the value range, storage requirements, and operations that can be performed. It matters because correct data types ensure data integrity, optimize storage, improve performance, and enable proper validation. Wrong data types can lead to data loss, wasted storage, and performance issues.
+
+### What's the difference between INT and DECIMAL?
+
+INT stores whole numbers (integers) with fixed storage (4 bytes), while DECIMAL stores exact decimal numbers with specified precision and scale. Use INT for counts and IDs, DECIMAL for currency and precise calculations. DECIMAL is slower but provides exact precision, while INT is faster but only handles whole numbers.
+
+### When should I use VARCHAR vs CHAR?
+
+Use VARCHAR for variable-length strings (names, addresses, descriptions) as it only uses storage for actual data. Use CHAR for fixed-length strings (country codes, status codes) where the length is always the same. VARCHAR is more flexible but slightly slower, CHAR is faster for fixed-length data.
+
+### What's the difference between DATETIME and TIMESTAMP?
+
+DATETIME stores date and time without timezone, has a range from 1000-01-01 to 9999-12-31, and uses 8 bytes. TIMESTAMP stores date and time with timezone conversion, has a range from 1970-01-01 to 2038-01-19, uses 4 bytes, and automatically updates. Use DATETIME for application-controlled dates, TIMESTAMP for automatic tracking.
+
+### Can I store JSON data in MySQL?
+
+Yes, MySQL 5.7+ supports native JSON data type that stores JSON documents and provides JSON functions for querying and manipulation. JSON type is useful for flexible schemas, storing configuration data, and handling semi-structured data. Use JSON when you need schema flexibility within a column.
+
+### What is the difference between TEXT and VARCHAR?
+
+TEXT is for large text data (up to 65,535 bytes) and cannot have a default value or be used in indexes (except prefix indexes). VARCHAR is for smaller text (up to 65,535 characters) and can have defaults and full indexes. Use VARCHAR for shorter text, TEXT for longer content like descriptions or articles.
+
+### How do I choose the right integer type?
+
+Choose based on the value range you need: TINYINT for small numbers (-128 to 127), SMALLINT for medium (-32K to 32K), INT for most cases (-2B to 2B), BIGINT for very large numbers. Use UNSIGNED when you only need positive numbers to double the positive range. Most commonly, use INT for IDs and counts.
+
+### What happens if I store data larger than the column type allows?
+
+MySQL will truncate the data (for strings) or cause an error (for numeric overflow). String data exceeding VARCHAR/TEXT length is truncated with a warning. Numeric data exceeding the type range causes an error. Always choose appropriate sizes to prevent data loss.
+
+### Should I use FLOAT or DECIMAL for currency?
+
+Always use DECIMAL for currency. FLOAT and DOUBLE are approximate types that can have rounding errors, which is unacceptable for financial data. DECIMAL provides exact precision, ensuring currency calculations are accurate. Use DECIMAL(10,2) or DECIMAL(15,2) for currency values.
+
+### Can I change a column's data type after creating the table?
+
+Yes, you can change a column's data type using ALTER TABLE, but you must ensure existing data is compatible with the new type. Changing types can be slow for large tables and may cause data loss if the new type cannot accommodate existing values. Always backup data before changing types.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these data type fundamentals:
+
+- **Data types determine storage** requirements and value ranges
+- **DECIMAL is essential for currency** to maintain precision
+- **VARCHAR is for variable-length** strings, CHAR for fixed-length
+- **INT is most common** for IDs and counts
+- **TIMESTAMP provides automatic** date/time tracking
+- **JSON enables flexible** schema within columns (MySQL 5.7+)
+- **Choose appropriate sizes** to optimize storage and performance
+- **Consider value ranges** when selecting numeric types
+- **TEXT is for large content**, VARCHAR for shorter text
+
+---
+
+## What's Next?
+
+Now that you understand MySQL data types, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Constraints](/tutorial/mysql-constraints)**: Combine data types with constraints
+2. **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables with proper types
+3. **[MySQL Insert Update Delete](/tutorial/mysql-insert-update-delete)**: Work with different data types
+4. **[MySQL Select](/tutorial/mysql-select)**: Query data of various types
+
+### Advanced Topics
+
+- **Type Conversion**: Learn implicit and explicit type conversion
+- **Storage Optimization**: Optimize storage with appropriate types
+- **JSON Functions**: Master JSON data type operations
+- **Performance Tuning**: Understand type impact on performance
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[JDBC Introduction](/tutorial/jdbc-introduction)**: Work with data types in Java
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA maps Java types to MySQL types
+- **[Java Data Types](/tutorial/java-data-types)**: Understand Java type system
+
+Data types are fundamental to database design. Continue learning about [MySQL Constraints](/tutorial/mysql-constraints) to combine types with data integrity rules.
+`
 };
 
 export default mysqlDataTypes;

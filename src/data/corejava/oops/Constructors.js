@@ -3,11 +3,17 @@ const constructors = {
   title: 'Constructors',
   description: 'Initializing objects the right way',
   content: `
-# Constructors — Giving Birth to Objects
+# Constructors - Initializing Objects Properly
 
-When you create an object with \`new\`, something has to set it up. That's the constructor's job. It's a special method that runs automatically when an object is created.
+Constructors are special methods in Java that initialize objects when they are created. Unlike regular methods, constructors are automatically invoked when you use the \`new\` keyword to create an object instance. Constructors ensure that objects are properly initialized with valid initial state before they can be used, preventing objects from existing in an undefined or invalid condition.
 
-Think of a constructor as the "birth certificate" process — it gives the object its initial identity.
+Constructors are essential for object-oriented programming, providing a controlled way to set initial values, validate input, and perform setup operations. Enterprise applications rely on constructors for dependency injection, resource initialization, and ensuring objects start in a consistent, valid state. Understanding constructors is fundamental for creating robust, maintainable Java applications.
+
+**Constructor Characteristics:**
+- **Same name as class** - Must match the class name exactly
+- **No return type** - Not even void (unlike regular methods)
+- **Automatic invocation** - Called automatically when object is created
+- **Initialization purpose** - Sets up object's initial state
 
 ---
 

@@ -74,9 +74,16 @@ function StructuredData({ topicId, type = 'WebSite' }) {
           description: topic.description || `Learn ${topic.title} with step-by-step tutorials, code examples, and real-world scenarios. Complete ${topic.courseTitle || 'Java'} tutorial for beginners and advanced developers.`,
           url: `${baseUrl}/tutorial/${topic.id}`,
           author: {
-            '@type': 'Organization',
-            name: 'LearnStackHub',
-            url: baseUrl
+            '@type': 'Person',
+            name: 'Dattakumar Pandi',
+            description: 'Backend developer and founder of LearnStackHub, specializing in Java, Spring Boot, APIs, system design, and backend architecture.',
+            url: `${baseUrl}/about`,
+            jobTitle: 'Software Developer & Founder',
+            worksFor: {
+              '@type': 'Organization',
+              name: 'LearnStackHub',
+              url: baseUrl
+            }
           },
           publisher: {
             '@type': 'Organization',

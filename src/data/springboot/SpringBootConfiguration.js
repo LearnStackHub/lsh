@@ -7,7 +7,7 @@ const springBootConfiguration = {
 
 Configuration is how you tell Spring Boot how to behave. What port to use, which database to connect to, what logging level to use. Without configuration, your application uses defaults. But real applications need customization.
 
-Let me show you all the ways to configure a Spring Boot application.
+This guide covers all methods for configuring Spring Boot applications, including properties files, YAML configuration, environment variables, and programmatic configuration.
 
 ---
 
@@ -129,8 +129,8 @@ logging:
 
 ### When to Use YAML vs Properties
 
-- **Use Properties:** Simple configurations, you're comfortable with it
-- **Use YAML:** Complex nested configurations, better readability
+- **Use Properties:** Suitable for simple configurations and developers familiar with key-value syntax
+- **Use YAML:** Ideal for complex nested configurations with improved readability
 
 Both work the same. Choose what you prefer.
 
@@ -267,7 +267,7 @@ public void someMethod() {
 
 ## Real-World Configuration Example
 
-Here's a complete configuration for a production-ready application:
+The following example demonstrates a complete configuration for a production-ready Spring Boot application:
 
 \`\`\`yaml
 # application.yml

@@ -5,7 +5,15 @@ const htmlStructure = {
   content: `
 # HTML Document Structure & Basic Tags
 
-Every HTML document follows a specific structure. Understanding this structure is the first step to creating web pages.
+HTML (HyperText Markup Language) documents follow a standardized structure that defines the document type, metadata, and content organization. Understanding HTML document structure is fundamental to web development, as it provides the foundation for all web pages. Every valid HTML document must include essential elements that browsers use to interpret and render content correctly.
+
+Enterprise web applications rely on proper HTML structure for SEO optimization, accessibility compliance, cross-browser compatibility, and maintainability. The HTML document structure includes the DOCTYPE declaration, root element, head section for metadata, and body section for visible content. Mastering HTML structure is essential for building professional, standards-compliant web applications.
+
+**HTML Document Components:**
+- **DOCTYPE Declaration**: Defines HTML version and document type
+- **HTML Root Element**: Container for entire document
+- **Head Section**: Metadata, title, stylesheets, scripts
+- **Body Section**: Visible content and structure
 
 ---
 

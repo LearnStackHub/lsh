@@ -3,9 +3,11 @@ const doWhileLoop = {
   title: 'Do-While Loop',
   description: 'Learn about do-while loops that execute at least once',
   content: `
-# Do-While Loop
+# Do-While Loop - Guaranteed Execution Loop
 
-Do-while loop is similar to while loop, but it guarantees that the code block executes at least once before checking the condition.
+The do-while loop is a control flow statement that executes a block of code at least once, then repeatedly executes it as long as a condition remains true. Unlike the while loop that checks the condition before execution, the do-while loop checks the condition after execution, ensuring the loop body runs at least once regardless of the initial condition value.
+
+Do-while loops are essential for scenarios where you need guaranteed execution before condition evaluation, such as menu systems, user input validation with retry logic, and initialization sequences. Understanding do-while loops complements your knowledge of while and for loops, providing the right tool for specific iteration requirements.
 
 ## Syntax
 
@@ -451,7 +453,188 @@ public class UserRegistration {
         System.out.println("\\n📧 Verification email sent to: " + validEmail);
         System.out.println("🎉 Welcome to our platform!");
     }
-}`,
+}
+
+---
+
+## Real-World Applications
+
+### Menu Systems
+Menu-driven applications use do-while loops to display menus and process user selections until the user chooses to exit. The menu must display at least once, making do-while ideal for this scenario.
+
+**Implementation Example:**
+- ATM menu systems that show options until user exits
+- Game menus that display until user quits
+- Configuration wizards that guide users through setup
+- Interactive command-line tools
+
+### Input Validation with Retry
+Applications use do-while loops for input validation where the user must provide valid input. The validation prompt appears at least once, and continues until valid input is received.
+
+**Implementation Example:**
+- PIN entry systems with retry limits
+- Form validation that re-prompts until valid
+- File selection that continues until valid file chosen
+- Configuration that validates until correct
+
+### Initialization Sequences
+Systems use do-while loops for initialization processes that must run at least once, then continue based on conditions. This ensures initialization always occurs before condition checking.
+
+**Implementation Example:**
+- System startup sequences
+- Database connection retry logic
+- Service initialization with health checks
+- Resource allocation that must attempt at least once
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using Do-While When While is Better
+**Problem:** Using do-while when the loop might not need to execute at all.
+
+**Solution:** Use while when execution might not be needed:
+
+\`\`\`java
+// PREFER - While when might not execute
+while (hasData()) {
+    processData();
+}
+
+// AVOID - Do-while forces execution
+do {
+    processData();
+} while (hasData());  // Executes even if hasData() is false initially
+\`\`\`
+
+### Mistake 2: Forgetting Semicolon After While
+**Problem:** Missing semicolon after while condition causes compilation error.
+
+**Solution:** Always include semicolon:
+
+\`\`\`java
+// CORRECT
+do {
+    // code
+} while (condition);  // Semicolon required!
+
+// WRONG
+do {
+    // code
+} while (condition)  // Missing semicolon!
+\`\`\`
+
+### Mistake 3: Infinite Loops
+**Problem:** Condition that never becomes false causes infinite loop.
+
+**Solution:** Ensure condition will eventually become false:
+
+\`\`\`java
+// WRONG - Infinite if user never enters "exit"
+String input;
+do {
+    input = readInput();
+    process(input);
+} while (!input.equals("exit"));  // What if input is null?
+
+// CORRECT - Handle null and provide exit mechanism
+String input;
+do {
+    input = readInput();
+    if (input != null) {
+        process(input);
+    }
+} while (input == null || !input.equals("exit"));
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is a do-while loop and when should I use it?
+
+A do-while loop executes a block of code at least once, then repeatedly executes it as long as a condition is true. Use do-while when you need guaranteed execution before condition checking, such as menu systems, input validation with retry, and initialization sequences that must run at least once.
+
+### What's the difference between while and do-while?
+
+A while loop checks the condition before execution, so it may not execute at all. A do-while loop executes at least once and checks the condition after execution. Use while when execution might not be needed, do-while when you need guaranteed execution. Learn about [While Loop](/tutorial/while-loop) for comparison.
+
+### Can I use break and continue in do-while loops?
+
+Yes, both \`break\` and \`continue\` work in do-while loops. \`break\` exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to check the condition again. These are useful for early termination and skipping iterations. Learn about [Break Continue](/tutorial/break-continue) for detailed usage.
+
+### Why do I need a semicolon after while in do-while?
+
+The semicolon after the while condition in do-while is required by Java syntax. It distinguishes the do-while statement from a regular while statement. Without the semicolon, the code will not compile.
+
+### When should I use do-while instead of while?
+
+Use do-while when: (1) the loop must execute at least once, (2) the condition depends on actions inside the loop, (3) you're implementing menu systems, (4) you need input validation with retry logic. Use while when execution might not be needed.
+
+### Can I nest do-while loops?
+
+Yes, you can nest do-while loops (do-while inside do-while), but be careful with readability and performance. Nested loops can be complex to understand and may have performance implications. Consider refactoring if nesting becomes too deep.
+
+### How do I avoid infinite loops in do-while?
+
+Avoid infinite loops by: (1) ensuring the condition will eventually become false, (2) updating variables that affect the condition inside the loop, (3) using break statements for early termination, (4) handling edge cases like null values, and (5) testing with known termination conditions.
+
+### What happens if the condition is false initially in do-while?
+
+In a do-while loop, even if the condition is false initially, the loop body executes once before checking the condition. This is the key difference from while loops - do-while guarantees at least one execution.
+
+### Can I use do-while for file processing?
+
+Yes, do-while can be used for file processing, but it's typically better to use while loops with proper condition checking. Do-while is useful when you need to read at least one line or process at least one record before checking for end-of-file conditions.
+
+### How do do-while loops relate to user input validation?
+
+Do-while loops are ideal for user input validation because they ensure the validation prompt appears at least once and continues until valid input is received. This provides a better user experience than while loops that might not prompt at all.
+
+---
+
+## Key Takeaways
+
+Before proceeding to other control flow statements, ensure you understand these do-while loop fundamentals:
+
+- **Do-while loops guarantee execution** at least once before condition checking
+- **Use do-while** when loop must execute at least once
+- **Semicolon is required** after while condition in do-while
+- **Condition is checked after** execution, not before
+- **break and continue** work in do-while loops
+- **Avoid infinite loops** by ensuring condition becomes false
+- **Do-while is ideal** for menu systems and input validation
+- **While vs do-while** choice depends on whether execution is required
+
+---
+
+## What's Next?
+
+Now that you understand do-while loops, you're ready to explore related control flow statements:
+
+### Immediate Next Steps
+
+1. **[While Loop](/tutorial/while-loop)**: Learn condition-checked loops
+2. **[For Loop](/tutorial/for-loop)**: Understand iteration with known count
+3. **[If-Else Statements](/tutorial/if-else)**: Master conditional execution
+4. **[Switch Statement](/tutorial/switch-statement)**: Learn multi-way branching
+
+### Advanced Topics
+
+- **Loop Optimization**: Learn techniques for improving loop performance
+- **Nested Loops**: Master complex loop structures
+- **Loop Patterns**: Common patterns in loop usage
+- **Performance Considerations**: Optimizing loop performance
+
+### Related Tutorials
+
+- **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
+- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
+- **[Exception Handling](/tutorial/exception-introduction)**: Handle errors in loops
+- **[User Input](/tutorial/user-input)**: Process user input with loops
+
+Do-while loops are essential for scenarios requiring guaranteed execution. Continue learning about [Switch Statement](/tutorial/switch-statement) for handling multiple discrete values efficiently.
+`,
   practiceQuestions: [
     {
       question: 'Create a PIN Change System that validates old PIN and confirms new PIN',

@@ -301,6 +301,202 @@ public class AppInitializer implements ServletContextListener {
     }
 }
 \`\`\`
+
+---
+
+## Real-World Applications
+
+### Modern Web Application Development
+Modern Java web applications extensively use servlet annotations for configuration. Annotations eliminate the need for web.xml configuration, making code more maintainable and keeping configuration close to the code it configures.
+
+**Implementation Example:**
+- RESTful API endpoints using @WebServlet
+- Authentication filters using @WebFilter
+- Application lifecycle listeners using @WebListener
+- File upload servlets using @MultipartConfig
+
+### Microservices Architecture
+Microservices built with Java Servlets use annotations for rapid development and deployment. Annotation-based configuration enables faster development cycles and easier maintenance compared to XML-based configuration.
+
+**Implementation Example:**
+- Service endpoints with @WebServlet
+- Cross-cutting concerns with @WebFilter
+- Health check endpoints
+- Service discovery integration
+
+### Rapid Prototyping
+Development teams use servlet annotations for rapid prototyping and development. Annotations reduce boilerplate configuration and enable faster iteration cycles.
+
+**Implementation Example:**
+- Quick API endpoint creation
+- Rapid filter implementation
+- Fast listener setup
+- Quick configuration changes
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Mixing Annotations and web.xml
+**Problem:** Duplicate configuration in both annotations and web.xml causes confusion.
+
+**Solution:** Choose one approach consistently:
+
+\`\`\`java
+// GOOD - Use annotations OR web.xml, not both
+@WebServlet("/users")
+public class UserServlet extends HttpServlet {
+    // Configuration in annotation
+}
+
+// BAD - Also defined in web.xml
+// Causes duplicate configuration!
+\`\`\`
+
+### Mistake 2: Not Specifying URL Patterns Correctly
+**Problem:** Incorrect URL patterns cause 404 errors.
+
+**Solution:** Use correct URL pattern syntax:
+
+\`\`\`java
+// GOOD - Correct patterns
+@WebServlet("/users")           // Exact match
+@WebServlet("/users/*")         // Path prefix
+@WebServlet({"/users", "/api/users"})  // Multiple patterns
+
+// BAD - Incorrect patterns
+@WebServlet("users")            // Missing leading slash
+@WebServlet("/*users")          // Invalid pattern
+\`\`\`
+
+### Mistake 3: Forgetting @MultipartConfig for File Uploads
+**Problem:** File uploads fail without @MultipartConfig.
+
+**Solution:** Always add @MultipartConfig for file uploads:
+
+\`\`\`java
+// GOOD - With @MultipartConfig
+@MultipartConfig
+@WebServlet("/upload")
+public class UploadServlet extends HttpServlet {
+    // Can handle file uploads
+}
+
+// BAD - Without @MultipartConfig
+@WebServlet("/upload")
+public class UploadServlet extends HttpServlet {
+    // File uploads will fail!
+}
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What are servlet annotations and why use them?
+
+Servlet annotations (like \`@WebServlet\`, \`@WebFilter\`, \`@WebListener\`) provide a way to configure servlets, filters, and listeners directly in Java code without needing web.xml. They're easier to maintain, keep configuration close to code, and reduce boilerplate. Annotations were introduced in Servlet 3.0.
+
+### What is @WebServlet annotation?
+
+\`@WebServlet\` configures a servlet class, specifying URL patterns, initialization parameters, load-on-startup, and other settings. It replaces \`<servlet>\` and \`<servlet-mapping>\` in web.xml. Use it to declare servlets directly in the servlet class.
+
+### How do I specify multiple URL patterns?
+
+Specify multiple URL patterns using the \`urlPatterns\` attribute:
+
+\`\`\`java
+@WebServlet(urlPatterns = {"/users", "/api/users", "/user/*"})
+\`\`\`
+
+Or use the \`value\` attribute for a single pattern.
+
+### What is @WebFilter annotation?
+
+\`@WebFilter\` configures a filter class, specifying URL patterns, servlet names, or dispatcher types to filter. It replaces \`<filter>\` and \`<filter-mapping>\` in web.xml. Use it to declare filters directly in the filter class.
+
+### What is @WebListener annotation?
+
+\`@WebListener\` marks a class as a servlet listener, eliminating the need to declare it in web.xml. It works with ServletContextListener, HttpSessionListener, and other listener interfaces. Use it to declare listeners directly in the listener class.
+
+### What is @MultipartConfig annotation?
+
+\`@MultipartConfig\` enables a servlet to handle multipart/form-data requests (file uploads). It specifies file size limits, location, and threshold. Without this annotation, servlets cannot handle file uploads. Always use it for file upload servlets.
+
+### Can I use annotations with web.xml?
+
+Yes, you can mix annotations and web.xml, but it's not recommended. Annotations take precedence for servlet/filter/listener declarations, but web.xml can still be used for other configuration. For consistency, choose one approach.
+
+### How do I set init parameters with annotations?
+
+Set init parameters using \`@WebInitParam\`:
+
+\`\`\`java
+@WebServlet(
+    urlPatterns = "/users",
+    initParams = {
+        @WebInitParam(name = "maxResults", value = "100"),
+        @WebInitParam(name = "cacheEnabled", value = "true")
+    }
+)
+\`\`\`
+
+### What is load-on-startup in annotations?
+
+\`loadOnStartup\` specifies when the servlet should be initialized. Lower numbers initialize first. Use it to ensure servlets are ready when the application starts:
+
+\`\`\`java
+@WebServlet(urlPatterns = "/init", loadOnStartup = 1)
+\`\`\`
+
+### Do annotations work in all servlet containers?
+
+Annotations work in Servlet 3.0+ containers (Tomcat 7+, Jetty 8+, etc.). Older containers (Servlet 2.5 and earlier) don't support annotations and require web.xml configuration. Always check your container's Servlet API version.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced servlet topics, ensure you understand these annotation fundamentals:
+
+- **Annotations replace web.xml** for servlet/filter/listener configuration
+- **@WebServlet** configures servlets with URL patterns and settings
+- **@WebFilter** configures filters for request interception
+- **@WebListener** marks classes as servlet listeners
+- **@MultipartConfig** is required for file upload handling
+- **@WebInitParam** sets initialization parameters
+- **loadOnStartup** controls servlet initialization order
+- **Choose one approach** - annotations OR web.xml, not both
+- **Annotations require Servlet 3.0+** containers
+
+---
+
+## What's Next?
+
+Now that you understand servlet annotations, you're ready to explore advanced servlet topics:
+
+### Immediate Next Steps
+
+1. **[ServletConfig & ServletContext](/tutorial/servlet-config)**: Review configuration management
+2. **[Filters & Listeners](/tutorial/filters-listeners)**: Master request interception and events
+3. **[Servlet Security](/tutorial/servlet-security)**: Implement authentication and authorization
+4. **[Servlet Project Setup](/tutorial/servlet-project-setup)**: Set up servlet development environment
+
+### Advanced Topics
+
+- **Annotation Processing**: Advanced annotation usage patterns
+- **Dynamic Registration**: Programmatic servlet registration
+- **Servlet 4.0 Features**: HTTP/2 and server push
+- **Modern Frameworks**: Spring Boot and servlet annotations
+
+### Related Tutorials
+
+- **[Servlet Introduction](/tutorial/servlet-introduction)**: Review servlet fundamentals
+- **[Servlet API](/tutorial/servlet-api)**: Review core servlet interfaces
+- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Modern servlet-based framework
+- **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
+
+Servlet annotations modernize servlet development. Continue learning about [Filters & Listeners](/tutorial/filters-listeners) to master request interception.
 `,
   code: `// Servlet Annotations Demo
 // Demonstrates annotation-based configuration

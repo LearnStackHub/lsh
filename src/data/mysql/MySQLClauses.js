@@ -3,9 +3,20 @@ const mysqlClauses = {
   title: 'MySQL Clauses - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT',
   description: 'Master all SQL clauses: WHERE, GROUP BY, HAVING, ORDER BY, LIMIT for powerful data querying',
   content: `
-# MySQL Clauses — Powerful Query Building Blocks
+# MySQL Clauses - Powerful Query Building Blocks
 
-SQL clauses are components of SELECT statements that control how data is filtered, grouped, sorted, and limited.
+MySQL clauses are essential components of SELECT statements that control data filtering, grouping, sorting, and limiting. Understanding SQL clauses (WHERE, GROUP BY, HAVING, ORDER BY, LIMIT) is fundamental to building effective database queries. Each clause serves a specific purpose in the query execution pipeline, enabling developers to retrieve exactly the data they need in the desired format.
+
+Enterprise applications extensively use SQL clauses for data retrieval, reporting, analytics, and business intelligence. Clauses enable filtering large datasets, grouping related data, calculating aggregates, sorting results, and limiting output. Mastery of SQL clauses is essential for building efficient, maintainable database queries that power modern applications.
+
+**SQL Clause Execution Order:**
+1. **FROM**: Specifies source tables
+2. **WHERE**: Filters rows before grouping
+3. **GROUP BY**: Groups rows for aggregation
+4. **HAVING**: Filters groups after aggregation
+5. **SELECT**: Selects columns and calculates expressions
+6. **ORDER BY**: Sorts results
+7. **LIMIT**: Limits number of rows returned
 
 ---
 
@@ -618,7 +629,199 @@ SELECT
 FROM products
 GROUP BY category
 HAVING AVG(price) > 100
-ORDER BY avg_price DESC;`
+ORDER BY avg_price DESC;
+
+---
+
+## Real-World Applications
+
+### Business Reporting
+Reporting systems use SQL clauses extensively to generate business reports. WHERE filters relevant data, GROUP BY creates report sections, HAVING filters report groups, ORDER BY organizes results, and LIMIT controls report size.
+
+**Implementation Example:**
+- Sales reports grouped by month with HAVING for high-performing months
+- Product analysis with WHERE filtering and ORDER BY for top products
+- Customer reports with GROUP BY for customer segments
+- Financial summaries with multiple clauses for comprehensive reporting
+
+### Data Analytics
+Analytics applications use clauses for data analysis and insights. WHERE filters data sets, GROUP BY creates analytical dimensions, aggregate functions calculate metrics, HAVING filters significant results, and ORDER BY ranks findings.
+
+**Implementation Example:**
+- User behavior analysis with grouping and filtering
+- Product performance metrics with aggregation and sorting
+- Time-series analysis with date grouping and ordering
+- Comparative analysis with multiple clause combinations
+
+### Search and Filtering
+Search functionality uses WHERE clauses for filtering, ORDER BY for relevance sorting, and LIMIT for pagination. E-commerce platforms, content management systems, and data applications rely heavily on clause combinations for search.
+
+**Implementation Example:**
+- Product search with WHERE filters and ORDER BY relevance
+- User search with multiple WHERE conditions
+- Paginated results with LIMIT and OFFSET
+- Sorted listings with ORDER BY and LIMIT
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Using WHERE with Aggregate Functions
+**Problem:** WHERE cannot filter on aggregate function results.
+
+**Solution:** Use HAVING to filter groups after aggregation:
+
+\`\`\`sql
+-- WRONG - WHERE with aggregate
+SELECT category, COUNT(*) FROM products WHERE COUNT(*) > 5;  -- Error!
+
+-- CORRECT - HAVING for aggregates
+SELECT category, COUNT(*) FROM products 
+GROUP BY category 
+HAVING COUNT(*) > 5;
+\`\`\`
+
+### Mistake 2: Wrong Clause Order
+**Problem:** Incorrect clause order causes syntax errors.
+
+**Solution:** Follow correct SQL clause order:
+
+\`\`\`sql
+-- CORRECT ORDER
+SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ... LIMIT
+\`\`\`
+
+### Mistake 3: Not Using Indexes with WHERE/ORDER BY
+**Problem:** WHERE and ORDER BY without indexes cause slow queries.
+
+**Solution:** Create indexes on columns used in WHERE and ORDER BY:
+
+\`\`\`sql
+-- Create index for WHERE clause
+CREATE INDEX idx_category ON products(category);
+
+-- Create index for ORDER BY
+CREATE INDEX idx_price ON products(price);
+\`\`\`
+
+---
+
+## Frequently Asked Questions (FAQs)
+
+### What is the correct order of SQL clauses?
+
+The correct order is: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT. This order reflects the logical execution sequence: first specify tables (FROM), filter rows (WHERE), group data (GROUP BY), filter groups (HAVING), select columns (SELECT), sort results (ORDER BY), and limit output (LIMIT). Understanding this order is essential for writing correct SQL.
+
+### What's the difference between WHERE and HAVING?
+
+WHERE filters rows before grouping and aggregation, while HAVING filters groups after aggregation. Use WHERE for row-level conditions (e.g., \`WHERE price > 100\`). Use HAVING for group-level conditions with aggregate functions (e.g., \`HAVING COUNT(*) > 10\`). WHERE is more efficient as it filters data earlier in the query execution.
+
+### When should I use GROUP BY?
+
+Use GROUP BY when you need to aggregate data by groups, such as calculating totals, averages, or counts for each category. GROUP BY divides rows into groups, and aggregate functions calculate values for each group. Common use cases include: sales by region, products by category, orders by customer, and data by time period.
+
+### Can I use multiple columns in ORDER BY?
+
+Yes, you can order by multiple columns. The query sorts by the first column, then by the second column for rows with the same first column value, and so on. Specify ASC (ascending) or DESC (descending) for each column:
+
+\`\`\`sql
+ORDER BY category ASC, price DESC
+\`\`\`
+
+### What is the difference between LIMIT and TOP?
+
+LIMIT is MySQL syntax that limits the number of rows returned. TOP is SQL Server syntax. MySQL uses LIMIT with optional OFFSET for pagination. Use LIMIT for restricting result sets and implementing pagination in MySQL applications.
+
+### Can I use expressions in ORDER BY?
+
+Yes, you can use expressions, column aliases, and even aggregate functions in ORDER BY:
+
+\`\`\`sql
+ORDER BY price * stock DESC
+ORDER BY total_value DESC  -- Using alias
+ORDER BY COUNT(*) DESC  -- With GROUP BY
+\`\`\`
+
+### How do I implement pagination with LIMIT?
+
+Use LIMIT with OFFSET for pagination:
+
+\`\`\`sql
+-- Page 1 (rows 1-10)
+SELECT * FROM products LIMIT 10 OFFSET 0;
+
+-- Page 2 (rows 11-20)
+SELECT * FROM products LIMIT 10 OFFSET 10;
+
+-- Page N (rows (N-1)*10+1 to N*10)
+SELECT * FROM products LIMIT 10 OFFSET (page_number - 1) * 10;
+\`\`\`
+
+### Can I use WHERE with JOINs?
+
+Yes, WHERE works with JOINs. You can filter joined tables using WHERE:
+
+\`\`\`sql
+SELECT * FROM products p
+JOIN categories c ON p.category_id = c.id
+WHERE p.price > 100 AND c.name = 'Electronics';
+\`\`\`
+
+WHERE filters after the JOIN is performed.
+
+### What happens if I use GROUP BY without aggregate functions?
+
+GROUP BY without aggregates effectively creates distinct groups, similar to DISTINCT but with more control. However, it's more common to use GROUP BY with aggregate functions. Without aggregates, you might want to use DISTINCT instead for simpler queries.
+
+### How do clauses affect query performance?
+
+Clauses affect performance differently: WHERE and HAVING filter data (can improve performance by reducing data processed), ORDER BY requires sorting (can be slow without indexes), GROUP BY requires grouping (can be expensive for large datasets), and LIMIT can improve performance by reducing result set size. Use indexes on columns in WHERE and ORDER BY for best performance.
+
+---
+
+## Key Takeaways
+
+Before proceeding to advanced MySQL topics, ensure you understand these clause fundamentals:
+
+- **SQL clauses execute in specific order**: FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT
+- **WHERE filters rows** before grouping and aggregation
+- **HAVING filters groups** after aggregation
+- **GROUP BY creates groups** for aggregate calculations
+- **ORDER BY sorts results** in ascending or descending order
+- **LIMIT restricts** the number of rows returned
+- **Use WHERE for row filtering**, HAVING for group filtering
+- **Index columns** used in WHERE and ORDER BY for performance
+- **Combine clauses** for powerful, flexible queries
+
+---
+
+## What's Next?
+
+Now that you understand SQL clauses, you're ready to explore advanced MySQL topics:
+
+### Immediate Next Steps
+
+1. **[MySQL Select](/tutorial/mysql-select)**: Master the complete SELECT statement
+2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Use aggregates with GROUP BY and HAVING
+3. **[MySQL Joins](/tutorial/mysql-joins)**: Combine clauses with table joins
+4. **[MySQL Indexes](/tutorial/mysql-indexes)**: Optimize clause performance with indexes
+
+### Advanced Topics
+
+- **Query Optimization**: Master clause performance tuning
+- **Complex Queries**: Build sophisticated multi-clause queries
+- **Window Functions**: Advanced analytical functions (MySQL 8.0+)
+- **Query Patterns**: Common clause combination patterns
+
+### Related Tutorials
+
+- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Clauses](/tutorial/mysql-clauses)**: Deep dive into each clause
+- **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute queries with clauses from Java
+- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates clause-based queries
+
+SQL clauses are essential for building effective queries. Continue learning about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) to master data aggregation.
+`
 };
 
 export default mysqlClauses;

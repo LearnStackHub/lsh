@@ -420,7 +420,7 @@ MySQL installation is straightforward:
 4. Create database and user
 5. Verify installation
 
-You're now ready to start working with MySQL!
+Your MySQL installation is complete and ready for database development.
 
 ---
 
