@@ -290,17 +290,10 @@ function Tutorial() {
             const beforeLink = line.substring(0, line.indexOf('['));
             const afterLink = line.substring(line.indexOf(')') + 1);
             if (beforeLink.trim()) {
-              elements.push(<span key={`text-before-${index}`}>{beforeLink}</span>);
+              elements.push(<span key={`text-before-${index}`}>{formatInlineCode(beforeLink)}</span>);
             }
             if (afterLink.trim()) {
-              // Process remaining text recursively
-              const remainingLines = afterLink.split('\n');
-              remainingLines.forEach((remainingLine, remIndex) => {
-                if (remainingLine.trim()) {
-                  // Process as regular line
-                  processLine(remainingLine, index + remIndex);
-                }
-              });
+              elements.push(<span key={`text-after-${index}`}>{formatInlineCode(afterLink)}</span>);
             }
             return;
           } else {
