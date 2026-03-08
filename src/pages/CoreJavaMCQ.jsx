@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { getRandomQuestions } from '../data/corejava/questions';
 import SEOHead from '../components/SEOHead';
+import { trackEvent } from '../config/analytics';
 import './CoreJavaMCQ.css';
 
 // Exam configuration
@@ -74,6 +75,14 @@ function CoreJavaMCQ() {
   const navigate = useNavigate();
   const startTimeRef = useRef(null);
   const warningTimeoutRef = useRef(null);
+
+  // Track exam page view
+  useEffect(() => {
+    trackEvent('exam_page_view', {
+      exam_type: 'core_java_mcq',
+      exam_name: 'Core Java MCQ Exam'
+    });
+  }, []);
 
   // Initialize exam with random questions
   useEffect(() => {
@@ -192,8 +201,26 @@ function CoreJavaMCQ() {
 
   const handleAutoSubmit = (reason = 'Time limit reached') => {
     if (!showResult) {
+      const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
+      const score = calculateScore();
+      
       setShowResult(true);
       setExamStarted(false);
+      
+      // Track exam completion (auto-submit) in Google Analytics
+      trackEvent('exam_completed', {
+        exam_type: 'core_java_mcq',
+        exam_name: 'Core Java MCQ Exam',
+        completion_type: 'auto_submit',
+        reason: reason,
+        score: score.percentage,
+        correct_answers: score.correct,
+        total_questions: score.total,
+        time_taken: timeTaken,
+        security_warnings: securityWarnings,
+        tab_switches: tabSwitchCount
+      });
+      
       if (reason) {
         alert(`Exam Auto-Submitted: ${reason}`);
       }
@@ -209,6 +236,14 @@ function CoreJavaMCQ() {
     setTabSwitchCount(0);
     setWindowBlurCount(0);
     startTimeRef.current = Date.now();
+    
+    // Track exam start in Google Analytics
+    trackEvent('exam_start', {
+      exam_type: 'core_java_mcq',
+      exam_name: 'Core Java MCQ Exam',
+      total_questions: TOTAL_QUESTIONS,
+      time_limit: EXAM_TIME_LIMIT
+    });
   };
 
   // Calculate score function
@@ -284,8 +319,26 @@ function CoreJavaMCQ() {
         return;
       }
     }
+    
+    const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
+    const score = calculateScore();
+    
     setShowResult(true);
     setExamStarted(false);
+    
+    // Track exam completion (manual submit) in Google Analytics
+    trackEvent('exam_completed', {
+      exam_type: 'core_java_mcq',
+      exam_name: 'Core Java MCQ Exam',
+      completion_type: 'manual_submit',
+      score: score.percentage,
+      correct_answers: score.correct,
+      total_questions: score.total,
+      time_taken: timeTaken,
+      security_warnings: securityWarnings,
+      tab_switches: tabSwitchCount,
+      questions_answered: Object.keys(selectedAnswers).length
+    });
   };
 
   const handleRestart = () => {
