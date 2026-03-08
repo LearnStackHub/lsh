@@ -176,7 +176,7 @@ function CoreJavaMCQ() {
         setSecurityWarnings(prev => {
           const newWarnings = prev + 1;
           if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
-            handleAutoSubmit('Window focus lost multiple times. Exam auto-submitted.');
+            setTimeout(() => handleAutoSubmit('Window focus lost multiple times. Exam auto-submitted.'), 0);
             return newWarnings;
           }
           showSecurityAlert('Warning: Window focus lost!');
@@ -229,7 +229,7 @@ function CoreJavaMCQ() {
       document.removeEventListener('paste', handlePaste);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [examStarted, showResult, securityWarnings]);
+  }, [examStarted, showResult, securityWarnings, handleAutoSubmit, showSecurityAlert]);
 
   const showSecurityAlert = (message) => {
     setShowSecurityWarning(true);
@@ -241,7 +241,67 @@ function CoreJavaMCQ() {
     }, 3000);
   };
 
-  const handleAutoSubmit = (reason = 'Time limit reached') => {
+  // Calculate score function (must be defined before handleAutoSubmit)
+  const calculateScore = useCallback(() => {
+    if (!questions || questions.length === 0) {
+      return { correct: 0, total: 0, percentage: 0 };
+    }
+    let correct = 0;
+    questions.forEach((q, index) => {
+      if (selectedAnswers[index] === q.correctAnswer) {
+        correct++;
+      }
+    });
+    return {
+      correct,
+      total: questions.length,
+      percentage: Math.round((correct / questions.length) * 100)
+    };
+  }, [selectedAnswers, questions]);
+
+  // Request fullscreen (must be defined before handleAutoSubmit)
+  const requestFullscreen = useCallback(async () => {
+    const element = containerRef.current || document.documentElement;
+    
+    try {
+      if (element.requestFullscreen) {
+        await element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) {
+        // Safari
+        await element.webkitRequestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        // Firefox
+        await element.mozRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+        // IE/Edge
+        await element.msRequestFullscreen();
+      } else {
+        console.warn('Fullscreen API not supported');
+      }
+    } catch (error) {
+      console.warn('Fullscreen request failed:', error);
+      // Don't block exam start if fullscreen fails
+    }
+  }, []);
+
+  // Exit fullscreen (must be defined before handleAutoSubmit)
+  const exitFullscreen = useCallback(() => {
+    try {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    } catch (error) {
+      console.warn('Exit fullscreen failed:', error);
+    }
+  }, []);
+
+  const handleAutoSubmit = useCallback((reason = 'Time limit reached') => {
     if (!showResult) {
       const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
       const score = calculateScore();
@@ -271,49 +331,7 @@ function CoreJavaMCQ() {
         alert(`Exam Auto-Submitted: ${reason}`);
       }
     }
-  };
-
-  // Request fullscreen
-  const requestFullscreen = useCallback(async () => {
-    const element = containerRef.current || document.documentElement;
-    
-    try {
-      if (element.requestFullscreen) {
-        await element.requestFullscreen();
-      } else if (element.webkitRequestFullscreen) {
-        // Safari
-        await element.webkitRequestFullscreen();
-      } else if (element.mozRequestFullScreen) {
-        // Firefox
-        await element.mozRequestFullScreen();
-      } else if (element.msRequestFullscreen) {
-        // IE/Edge
-        await element.msRequestFullscreen();
-      } else {
-        console.warn('Fullscreen API not supported');
-      }
-    } catch (error) {
-      console.warn('Fullscreen request failed:', error);
-      // Don't block exam start if fullscreen fails
-    }
-  }, []);
-
-  // Exit fullscreen
-  const exitFullscreen = useCallback(() => {
-    try {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    } catch (error) {
-      console.warn('Exit fullscreen failed:', error);
-    }
-  }, []);
+  }, [showResult, timeRemaining, calculateScore, exitFullscreen, securityWarnings, tabSwitchCount]);
 
   const handleStartExam = async () => {
     // Request fullscreen before starting exam
@@ -340,21 +358,6 @@ function CoreJavaMCQ() {
       });
     }, 500);
   };
-
-  // Calculate score function
-  const calculateScore = useCallback(() => {
-    let correct = 0;
-    questions.forEach((q, index) => {
-      if (selectedAnswers[index] === q.correctAnswer) {
-        correct++;
-      }
-    });
-    return {
-      correct,
-      total: questions.length,
-      percentage: Math.round((correct / questions.length) * 100)
-    };
-  }, [selectedAnswers]);
 
   // Celebration on good answers
   useEffect(() => {
