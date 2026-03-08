@@ -76,6 +76,7 @@ function CoreJavaMCQ() {
   const startTimeRef = useRef(null);
   const warningTimeoutRef = useRef(null);
   const containerRef = useRef(null);
+  const questionsRef = useRef([]); // Store questions permanently to prevent regeneration
 
   // Helper functions - MUST be defined before useEffect hooks that use them
   const showSecurityAlert = useCallback((message) => {
@@ -90,21 +91,22 @@ function CoreJavaMCQ() {
 
   // Calculate score function (must be defined before handleAutoSubmit)
   const calculateScore = useCallback(() => {
-    if (!questions || questions.length === 0) {
+    const examQuestions = questionsRef.current; // Use ref to ensure same questions
+    if (!examQuestions || examQuestions.length === 0) {
       return { correct: 0, total: 0, percentage: 0 };
     }
     let correct = 0;
-    questions.forEach((q, index) => {
+    examQuestions.forEach((q, index) => {
       if (selectedAnswers[index] === q.correctAnswer) {
         correct++;
       }
     });
     return {
       correct,
-      total: questions.length,
-      percentage: Math.round((correct / questions.length) * 100)
+      total: examQuestions.length,
+      percentage: Math.round((correct / examQuestions.length) * 100)
     };
-  }, [selectedAnswers, questions]);
+  }, [selectedAnswers]);
 
   // Request fullscreen (must be defined before handleAutoSubmit)
   const requestFullscreen = useCallback(async () => {
@@ -194,13 +196,8 @@ function CoreJavaMCQ() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Initialize exam with random questions
-  useEffect(() => {
-    if (!examStarted) {
-      const randomQuestions = getRandomQuestions();
-      setQuestions(randomQuestions);
-    }
-  }, [examStarted]);
+  // Don't pre-generate questions - generate them only when exam starts
+  // This ensures the same questions are used throughout the exam and in results
 
   // Countdown timer (10 minutes)
   useEffect(() => {
@@ -338,6 +335,11 @@ function CoreJavaMCQ() {
     // Request fullscreen before starting exam
     await requestFullscreen();
     
+    // Generate questions once when exam starts - this ensures same questions throughout
+    const randomQuestions = getRandomQuestions();
+    questionsRef.current = randomQuestions; // Store in ref to prevent regeneration
+    setQuestions(randomQuestions);
+    
     setExamStarted(true);
     setTimeRemaining(EXAM_TIME_LIMIT);
     setCurrentQuestion(0);
@@ -362,8 +364,9 @@ function CoreJavaMCQ() {
 
   // Celebration on good answers
   useEffect(() => {
-    if (questions.length > 0 && selectedAnswers[currentQuestion] !== undefined) {
-      const isCorrect = selectedAnswers[currentQuestion] === questions[currentQuestion].correctAnswer;
+    const examQuestions = questionsRef.current;
+    if (examQuestions.length > 0 && selectedAnswers[currentQuestion] !== undefined) {
+      const isCorrect = selectedAnswers[currentQuestion] === examQuestions[currentQuestion].correctAnswer;
       if (isCorrect) {
         setShowCelebration(true);
         setCelebrationMessage(['Great! 🎉', 'Perfect! ⭐', 'Excellent! 🚀', 'Awesome! 💪', 'Brilliant! ✨'][Math.floor(Math.random() * 5)]);
@@ -372,7 +375,7 @@ function CoreJavaMCQ() {
         }, 2000);
       }
     }
-  }, [selectedAnswers, currentQuestion, questions]);
+  }, [selectedAnswers, currentQuestion]);
 
   // Confetti on result
   useEffect(() => {
@@ -401,7 +404,8 @@ function CoreJavaMCQ() {
   }, [currentQuestion, isAnimating, selectedAnswers]);
 
   const handleNext = () => {
-    if (currentQuestion < questions.length - 1) {
+    const examQuestions = questionsRef.current;
+    if (currentQuestion < examQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     }
   };
@@ -413,8 +417,9 @@ function CoreJavaMCQ() {
   };
 
   const handleSubmit = () => {
-    if (Object.keys(selectedAnswers).length < questions.length) {
-      if (!window.confirm(`You have answered ${Object.keys(selectedAnswers).length} out of ${questions.length} questions. Are you sure you want to submit?`)) {
+    const examQuestions = questionsRef.current;
+    if (Object.keys(selectedAnswers).length < examQuestions.length) {
+      if (!window.confirm(`You have answered ${Object.keys(selectedAnswers).length} out of ${examQuestions.length} questions. Are you sure you want to submit?`)) {
         return;
       }
     }
@@ -454,12 +459,16 @@ function CoreJavaMCQ() {
     setTabSwitchCount(0);
     setWindowBlurCount(0);
     const randomQuestions = getRandomQuestions();
+    questionsRef.current = randomQuestions; // Store in ref
     setQuestions(randomQuestions);
   };
 
   const score = useMemo(() => showResult ? calculateScore() : null, [showResult, calculateScore]);
   const answeredCount = useMemo(() => Object.keys(selectedAnswers).length, [selectedAnswers]);
-  const progress = useMemo(() => Math.round((answeredCount / questions.length) * 100), [answeredCount]);
+  const progress = useMemo(() => {
+    const examQuestions = questionsRef.current;
+    return examQuestions.length > 0 ? Math.round((answeredCount / examQuestions.length) * 100) : 0;
+  }, [answeredCount]);
 
   const formatTime = useCallback((seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -467,7 +476,10 @@ function CoreJavaMCQ() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }, []);
 
-  const currentQ = useMemo(() => questions[currentQuestion], [currentQuestion, questions]);
+  // Get exam questions from ref to ensure consistency
+  const examQuestions = questionsRef.current;
+  const totalQuestions = examQuestions.length;
+  const currentQ = examQuestions[currentQuestion] || null;
   const selectedAnswer = selectedAnswers[currentQuestion];
   const isTimeUp = timeRemaining <= 0;
   const timeWarning = timeRemaining <= 60; // Warning when less than 1 minute
@@ -587,7 +599,7 @@ function CoreJavaMCQ() {
             <div className="questions-review">
               <h3>Question Review</h3>
               <div className="review-list">
-                {questions.map((q, index) => {
+                {questionsRef.current.map((q, index) => {
                   const userAnswer = selectedAnswers[index];
                   const isCorrect = userAnswer === q.correctAnswer;
                   
@@ -636,7 +648,7 @@ function CoreJavaMCQ() {
     );
   }
 
-  if (!examStarted || questions.length === 0) {
+  if (!examStarted || questionsRef.current.length === 0) {
     return null;
   }
 
@@ -702,13 +714,13 @@ function CoreJavaMCQ() {
           </div>
           <div className="stat-item">
             <CheckCircle className="stat-icon" />
-            <span>Answered: <strong>{answeredCount}/{questions.length}</strong></span>
+            <span>Answered: <strong>{answeredCount}/{totalQuestions}</strong></span>
           </div>
         </div>
         <div className="progress-bar">
           <div 
             className="progress-fill" 
-            style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+            style={{ width: `${totalQuestions > 0 ? ((currentQuestion + 1) / totalQuestions) * 100 : 0}%` }}
           >
             <div className="progress-shine" />
           </div>
@@ -719,17 +731,17 @@ function CoreJavaMCQ() {
         <div className="question-card">
           <div className="question-header">
             <span className="question-number">
-              Question {currentQuestion + 1} of {questions.length}
+              Question {currentQuestion + 1} of {totalQuestions}
             </span>
             <span className="question-points">1 point</span>
           </div>
 
-          <h2 className="question-text">{currentQ.question}</h2>
+          <h2 className="question-text">{currentQ?.question || ''}</h2>
 
           <div className="options-container">
-            {currentQ.options.map((option, index) => {
+            {currentQ?.options?.map((option, index) => {
               const isSelected = selectedAnswer === index;
-              const isCorrect = index === currentQ.correctAnswer;
+              const isCorrect = index === currentQ?.correctAnswer;
               let optionClass = 'option';
               
               if (isSelected) {
@@ -773,7 +785,7 @@ function CoreJavaMCQ() {
             </button>
 
             <div className="question-indicators">
-              {questions.map((_, index) => (
+              {examQuestions.map((_, index) => (
                 <button
                   key={index}
                   className={`indicator ${index === currentQuestion ? 'active' : ''} ${
@@ -787,7 +799,7 @@ function CoreJavaMCQ() {
               ))}
             </div>
 
-            {currentQuestion === questions.length - 1 ? (
+            {currentQuestion === totalQuestions - 1 ? (
               <button
                 onClick={handleSubmit}
                 className="btn btn-primary btn-submit"
@@ -800,7 +812,7 @@ function CoreJavaMCQ() {
             ) : (
               <button
                 onClick={handleNext}
-                disabled={currentQuestion === questions.length - 1 || isTimeUp}
+                disabled={currentQuestion === totalQuestions - 1 || isTimeUp}
                 className="btn btn-primary"
               >
                 Next
@@ -809,12 +821,12 @@ function CoreJavaMCQ() {
             )}
           </div>
           
-          {answeredCount > 0 && answeredCount < questions.length && (
+          {answeredCount > 0 && answeredCount < totalQuestions && (
             <div className="motivation-banner">
               <Zap className="motivation-icon" />
               <div>
                 <strong>Great Progress! Keep Going! 🚀</strong>
-                <p>You've answered {answeredCount} out of {questions.length} questions. You're doing amazing!</p>
+                <p>You've answered {answeredCount} out of {totalQuestions} questions. You're doing amazing!</p>
               </div>
             </div>
           )}
