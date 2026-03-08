@@ -79,10 +79,16 @@ function CoreJavaMCQ() {
 
   // Track exam page view
   useEffect(() => {
-    trackEvent('exam_page_view', {
-      exam_type: 'core_java_mcq',
-      exam_name: 'Core Java MCQ Exam'
-    });
+    // Small delay to ensure gtag is loaded
+    const timer = setTimeout(() => {
+      trackEvent('exam_page_view', {
+        exam_type: 'core_java_mcq',
+        exam_name: 'Core Java MCQ Exam',
+        page_path: window.location.pathname
+      });
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   // Initialize exam with random questions
@@ -257,7 +263,8 @@ function CoreJavaMCQ() {
         total_questions: score.total,
         time_taken: timeTaken,
         security_warnings: securityWarnings,
-        tab_switches: tabSwitchCount
+        tab_switches: tabSwitchCount,
+        page_path: window.location.pathname
       });
       
       if (reason) {
@@ -322,12 +329,16 @@ function CoreJavaMCQ() {
     startTimeRef.current = Date.now();
     
     // Track exam start in Google Analytics
-    trackEvent('exam_start', {
-      exam_type: 'core_java_mcq',
-      exam_name: 'Core Java MCQ Exam',
-      total_questions: TOTAL_QUESTIONS,
-      time_limit: EXAM_TIME_LIMIT
-    });
+    // Small delay to ensure fullscreen request completes first and gtag is loaded
+    setTimeout(() => {
+      trackEvent('exam_start', {
+        exam_type: 'core_java_mcq',
+        exam_name: 'Core Java MCQ Exam',
+        total_questions: TOTAL_QUESTIONS,
+        time_limit: EXAM_TIME_LIMIT,
+        page_path: window.location.pathname
+      });
+    }, 500);
   };
 
   // Calculate score function
@@ -424,7 +435,8 @@ function CoreJavaMCQ() {
       time_taken: timeTaken,
       security_warnings: securityWarnings,
       tab_switches: tabSwitchCount,
-      questions_answered: Object.keys(selectedAnswers).length
+      questions_answered: Object.keys(selectedAnswers).length,
+      page_path: window.location.pathname
     });
   };
 

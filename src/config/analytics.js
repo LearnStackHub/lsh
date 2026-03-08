@@ -11,7 +11,7 @@ export const GA_CONFIG = {
   enabled: true,
   
   // Enable debug mode (for development)
-  debug: false
+  debug: true  // Temporarily enabled to debug exam events
 };
 
 // Initialize Google Analytics
@@ -84,12 +84,41 @@ export const trackPageView = (path) => {
 
 // Track custom events
 export const trackEvent = (eventName, eventParams = {}) => {
-  if (!GA_CONFIG.enabled || !window.gtag) return;
-  
-  window.gtag('event', eventName, eventParams);
+  if (!GA_CONFIG.enabled) {
+    if (GA_CONFIG.debug) {
+      console.warn('Google Analytics: Tracking disabled', eventName);
+    }
+    return;
+  }
 
-  if (GA_CONFIG.debug) {
-    console.log('Google Analytics: Event tracked', eventName, eventParams);
+  // Wait for gtag to be available (with timeout)
+  if (!window.gtag) {
+    if (GA_CONFIG.debug) {
+      console.warn('Google Analytics: gtag not available yet, retrying...', eventName);
+    }
+    
+    // Retry after a short delay
+    setTimeout(() => {
+      if (window.gtag) {
+        window.gtag('event', eventName, eventParams);
+        if (GA_CONFIG.debug) {
+          console.log('Google Analytics: Event tracked (retry)', eventName, eventParams);
+        }
+      } else {
+        console.error('Google Analytics: gtag still not available after retry', eventName);
+      }
+    }, 500);
+    return;
+  }
+  
+  try {
+    window.gtag('event', eventName, eventParams);
+    
+    if (GA_CONFIG.debug) {
+      console.log('✅ Google Analytics: Event tracked', eventName, eventParams);
+    }
+  } catch (error) {
+    console.error('❌ Google Analytics: Error tracking event', eventName, error);
   }
 };
 
