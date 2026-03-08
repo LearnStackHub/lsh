@@ -75,6 +75,7 @@ function CoreJavaMCQ() {
   const navigate = useNavigate();
   const startTimeRef = useRef(null);
   const warningTimeoutRef = useRef(null);
+  const containerRef = useRef(null);
 
   // Track exam page view
   useEffect(() => {
@@ -107,6 +108,41 @@ function CoreJavaMCQ() {
       return () => clearInterval(timer);
     }
   }, [examStarted, showResult, timeRemaining]);
+
+  // Monitor fullscreen changes
+  useEffect(() => {
+    if (!examStarted || showResult) return;
+
+    const handleFullscreenChange = () => {
+      const isFullscreen = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+
+      if (!isFullscreen && examStarted && !showResult) {
+        // User exited fullscreen during exam - warn them
+        showSecurityAlert('Warning: Fullscreen mode exited! Please return to fullscreen to continue the exam.');
+        // Optionally, try to re-enter fullscreen
+        setTimeout(() => {
+          requestFullscreen();
+        }, 1000);
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, [examStarted, showResult, requestFullscreen]);
 
   // Web Security: Detect tab switching and window blur
   useEffect(() => {
@@ -207,6 +243,9 @@ function CoreJavaMCQ() {
       setShowResult(true);
       setExamStarted(false);
       
+      // Exit fullscreen when exam ends
+      exitFullscreen();
+      
       // Track exam completion (auto-submit) in Google Analytics
       trackEvent('exam_completed', {
         exam_type: 'core_java_mcq',
@@ -227,7 +266,52 @@ function CoreJavaMCQ() {
     }
   };
 
-  const handleStartExam = () => {
+  // Request fullscreen
+  const requestFullscreen = useCallback(async () => {
+    const element = containerRef.current || document.documentElement;
+    
+    try {
+      if (element.requestFullscreen) {
+        await element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) {
+        // Safari
+        await element.webkitRequestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        // Firefox
+        await element.mozRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+        // IE/Edge
+        await element.msRequestFullscreen();
+      } else {
+        console.warn('Fullscreen API not supported');
+      }
+    } catch (error) {
+      console.warn('Fullscreen request failed:', error);
+      // Don't block exam start if fullscreen fails
+    }
+  }, []);
+
+  // Exit fullscreen
+  const exitFullscreen = useCallback(() => {
+    try {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    } catch (error) {
+      console.warn('Exit fullscreen failed:', error);
+    }
+  }, []);
+
+  const handleStartExam = async () => {
+    // Request fullscreen before starting exam
+    await requestFullscreen();
+    
     setExamStarted(true);
     setTimeRemaining(EXAM_TIME_LIMIT);
     setCurrentQuestion(0);
@@ -326,6 +410,9 @@ function CoreJavaMCQ() {
     setShowResult(true);
     setExamStarted(false);
     
+    // Exit fullscreen when exam ends
+    exitFullscreen();
+    
     // Track exam completion (manual submit) in Google Analytics
     trackEvent('exam_completed', {
       exam_type: 'core_java_mcq',
@@ -372,7 +459,7 @@ function CoreJavaMCQ() {
   // Start screen
   if (!examStarted && !showResult) {
     return (
-      <div className="mcq-container">
+      <div className="mcq-container" ref={containerRef}>
         <FloatingParticles />
         <div className="start-screen">
           <div className="start-card">
@@ -432,7 +519,7 @@ function CoreJavaMCQ() {
   if (showResult) {
     const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
     return (
-      <div className="mcq-container">
+      <div className="mcq-container" ref={containerRef}>
         <SEOHead 
           title="Core Java MCQ Exam Results - LearnStackHub"
           description="View your Core Java MCQ exam results with detailed question review, explanations, and performance analysis."
@@ -538,7 +625,7 @@ function CoreJavaMCQ() {
   }
 
   return (
-    <div className="mcq-container">
+    <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="Core Java MCQ Exam - Test Your Java Knowledge | LearnStackHub"
         description="Take our comprehensive Core Java MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your Java programming knowledge with real-time feedback and detailed explanations."
