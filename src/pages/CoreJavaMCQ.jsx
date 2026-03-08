@@ -77,161 +77,8 @@ function CoreJavaMCQ() {
   const warningTimeoutRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Track exam page view
-  useEffect(() => {
-    // Small delay to ensure gtag is loaded
-    const timer = setTimeout(() => {
-      trackEvent('exam_page_view', {
-        exam_type: 'core_java_mcq',
-        exam_name: 'Core Java MCQ Exam',
-        page_path: window.location.pathname
-      });
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Initialize exam with random questions
-  useEffect(() => {
-    if (!examStarted) {
-      const randomQuestions = getRandomQuestions();
-      setQuestions(randomQuestions);
-    }
-  }, [examStarted]);
-
-  // Countdown timer (10 minutes)
-  useEffect(() => {
-    if (examStarted && !showResult && timeRemaining > 0) {
-      const timer = setInterval(() => {
-        setTimeRemaining(prev => {
-          if (prev <= 1) {
-            handleAutoSubmit();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [examStarted, showResult, timeRemaining]);
-
-  // Monitor fullscreen changes
-  useEffect(() => {
-    if (!examStarted || showResult) return;
-
-    const handleFullscreenChange = () => {
-      const isFullscreen = !!(
-        document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement ||
-        document.msFullscreenElement
-      );
-
-      if (!isFullscreen && examStarted && !showResult) {
-        // User exited fullscreen during exam - warn them
-        showSecurityAlert('Warning: Fullscreen mode exited! Please return to fullscreen to continue the exam.');
-        // Optionally, try to re-enter fullscreen
-        setTimeout(() => {
-          requestFullscreen();
-        }, 1000);
-      }
-    };
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
-    };
-  }, [examStarted, showResult, requestFullscreen]);
-
-  // Web Security: Detect tab switching and window blur
-  useEffect(() => {
-    if (!examStarted || showResult) return;
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        setTabSwitchCount(prev => prev + 1);
-        setWindowBlurCount(prev => prev + 1);
-        setSecurityWarnings(prev => {
-          const newWarnings = prev + 1;
-          if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
-            handleAutoSubmit('Multiple tab switches detected. Exam auto-submitted.');
-            return newWarnings;
-          }
-          showSecurityAlert('Warning: Tab switching detected!');
-          return newWarnings;
-        });
-      }
-    };
-
-    const handleBlur = () => {
-      if (document.hasFocus() === false) {
-        setWindowBlurCount(prev => prev + 1);
-        setSecurityWarnings(prev => {
-          const newWarnings = prev + 1;
-          if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
-            setTimeout(() => handleAutoSubmit('Window focus lost multiple times. Exam auto-submitted.'), 0);
-            return newWarnings;
-          }
-          showSecurityAlert('Warning: Window focus lost!');
-          return newWarnings;
-        });
-      }
-    };
-
-    const handleContextMenu = (e) => {
-      e.preventDefault();
-      showSecurityAlert('Right-click disabled during exam.');
-    };
-
-    const handleCopy = (e) => {
-      e.preventDefault();
-      showSecurityAlert('Copying is disabled during exam.');
-    };
-
-    const handlePaste = (e) => {
-      e.preventDefault();
-      showSecurityAlert('Pasting is disabled during exam.');
-    };
-
-    const handleKeyDown = (e) => {
-      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U (common dev tools shortcuts)
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-        (e.ctrlKey && e.key === 'U') ||
-        (e.ctrlKey && e.key === 'S') ||
-        (e.ctrlKey && e.key === 'P')
-      ) {
-        e.preventDefault();
-        showSecurityAlert('This action is disabled during exam.');
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', handleBlur);
-    document.addEventListener('contextmenu', handleContextMenu);
-    document.addEventListener('copy', handleCopy);
-    document.addEventListener('paste', handlePaste);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', handleBlur);
-      document.removeEventListener('contextmenu', handleContextMenu);
-      document.removeEventListener('copy', handleCopy);
-      document.removeEventListener('paste', handlePaste);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [examStarted, showResult, securityWarnings, handleAutoSubmit, showSecurityAlert]);
-
-  const showSecurityAlert = (message) => {
+  // Helper functions - MUST be defined before useEffect hooks that use them
+  const showSecurityAlert = useCallback((message) => {
     setShowSecurityWarning(true);
     if (warningTimeoutRef.current) {
       clearTimeout(warningTimeoutRef.current);
@@ -239,7 +86,7 @@ function CoreJavaMCQ() {
     warningTimeoutRef.current = setTimeout(() => {
       setShowSecurityWarning(false);
     }, 3000);
-  };
+  }, []);
 
   // Calculate score function (must be defined before handleAutoSubmit)
   const calculateScore = useCallback(() => {
@@ -332,6 +179,160 @@ function CoreJavaMCQ() {
       }
     }
   }, [showResult, timeRemaining, calculateScore, exitFullscreen, securityWarnings, tabSwitchCount]);
+
+  // Track exam page view
+  useEffect(() => {
+    // Small delay to ensure gtag is loaded
+    const timer = setTimeout(() => {
+      trackEvent('exam_page_view', {
+        exam_type: 'core_java_mcq',
+        exam_name: 'Core Java MCQ Exam',
+        page_path: window.location.pathname
+      });
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Initialize exam with random questions
+  useEffect(() => {
+    if (!examStarted) {
+      const randomQuestions = getRandomQuestions();
+      setQuestions(randomQuestions);
+    }
+  }, [examStarted]);
+
+  // Countdown timer (10 minutes)
+  useEffect(() => {
+    if (examStarted && !showResult && timeRemaining > 0) {
+      const timer = setInterval(() => {
+        setTimeRemaining(prev => {
+          if (prev <= 1) {
+            handleAutoSubmit();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [examStarted, showResult, timeRemaining, handleAutoSubmit]);
+
+  // Monitor fullscreen changes
+  useEffect(() => {
+    if (!examStarted || showResult) return;
+
+    const handleFullscreenChange = () => {
+      const isFullscreen = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+
+      if (!isFullscreen && examStarted && !showResult) {
+        // User exited fullscreen during exam - warn them
+        showSecurityAlert('Warning: Fullscreen mode exited! Please return to fullscreen to continue the exam.');
+        // Optionally, try to re-enter fullscreen
+        setTimeout(() => {
+          requestFullscreen();
+        }, 1000);
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, [examStarted, showResult, requestFullscreen, showSecurityAlert]);
+
+  // Web Security: Detect tab switching and window blur
+  useEffect(() => {
+    if (!examStarted || showResult) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setTabSwitchCount(prev => prev + 1);
+        setWindowBlurCount(prev => prev + 1);
+        setSecurityWarnings(prev => {
+          const newWarnings = prev + 1;
+          if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
+            handleAutoSubmit('Multiple tab switches detected. Exam auto-submitted.');
+            return newWarnings;
+          }
+          showSecurityAlert('Warning: Tab switching detected!');
+          return newWarnings;
+        });
+      }
+    };
+
+    const handleBlur = () => {
+      if (document.hasFocus() === false) {
+        setWindowBlurCount(prev => prev + 1);
+        setSecurityWarnings(prev => {
+          const newWarnings = prev + 1;
+          if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
+            setTimeout(() => handleAutoSubmit('Window focus lost multiple times. Exam auto-submitted.'), 0);
+            return newWarnings;
+          }
+          showSecurityAlert('Warning: Window focus lost!');
+          return newWarnings;
+        });
+      }
+    };
+
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      showSecurityAlert('Right-click disabled during exam.');
+    };
+
+    const handleCopy = (e) => {
+      e.preventDefault();
+      showSecurityAlert('Copying is disabled during exam.');
+    };
+
+    const handlePaste = (e) => {
+      e.preventDefault();
+      showSecurityAlert('Pasting is disabled during exam.');
+    };
+
+    const handleKeyDown = (e) => {
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U (common dev tools shortcuts)
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'U') ||
+        (e.ctrlKey && e.key === 'S') ||
+        (e.ctrlKey && e.key === 'P')
+      ) {
+        e.preventDefault();
+        showSecurityAlert('This action is disabled during exam.');
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('copy', handleCopy);
+    document.addEventListener('paste', handlePaste);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('copy', handleCopy);
+      document.removeEventListener('paste', handlePaste);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [examStarted, showResult, handleAutoSubmit, showSecurityAlert]);
 
   const handleStartExam = async () => {
     // Request fullscreen before starting exam
