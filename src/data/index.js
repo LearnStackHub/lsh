@@ -95,6 +95,7 @@ import threadMethods from './corejava/multithreading/ThreadMethods';
 
 // Core Java - Interview Questions
 import javaInterviewQuestions from './corejava/interview/JavaInterviewQuestions';
+import coreJavaMCQ from './corejava/basics/CoreJavaMCQ';
 
 // MySQL
 import mysqlIntroduction from './mysql/MySQLIntroduction';
@@ -463,6 +464,12 @@ export const courseStructure = {
         title: "Interview Questions",
         topics: [
           javaInterviewQuestions
+        ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          coreJavaMCQ
         ]
       }
     }

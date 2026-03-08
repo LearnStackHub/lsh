@@ -231,6 +231,107 @@ function Tutorial() {
         return;
       }
       
+      // Check for markdown links: [text](url) - but not images
+      if (!line.trim().startsWith('!')) {
+        const linkMatch = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
+        if (linkMatch) {
+          const [, text, url] = linkMatch;
+          // Check if it's an internal route
+          if (url.startsWith('/')) {
+            // Special handling for exam start link
+            if (url === '/core-java-mcq' || url.includes('mcq')) {
+              elements.push(
+                <div key={`link-container-${index}`} style={{ margin: '2rem 0', textAlign: 'center' }}>
+                  <Link
+                    to={url}
+                    style={{
+                      display: 'inline-block',
+                      padding: '1rem 2.5rem',
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      color: 'white',
+                      textDecoration: 'none',
+                      borderRadius: '12px',
+                      fontWeight: '700',
+                      fontSize: '1.1rem',
+                      transition: 'all 0.3s ease',
+                      boxShadow: '0 8px 25px rgba(102, 126, 234, 0.4)',
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(102, 126, 234, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.4)';
+                    }}
+                  >
+                    🚀 {text}
+                  </Link>
+                </div>
+              );
+            } else {
+              elements.push(
+                <Link
+                  key={`link-${index}`}
+                  to={url}
+                  style={{
+                    color: '#3b82f6',
+                    textDecoration: 'underline',
+                    fontWeight: '500'
+                  }}
+                >
+                  {text}
+                </Link>
+              );
+            }
+            // Remove the link from the line and continue processing remaining text
+            const beforeLink = line.substring(0, line.indexOf('['));
+            const afterLink = line.substring(line.indexOf(')') + 1);
+            if (beforeLink.trim()) {
+              elements.push(<span key={`text-before-${index}`}>{beforeLink}</span>);
+            }
+            if (afterLink.trim()) {
+              // Process remaining text recursively
+              const remainingLines = afterLink.split('\n');
+              remainingLines.forEach((remainingLine, remIndex) => {
+                if (remainingLine.trim()) {
+                  // Process as regular line
+                  processLine(remainingLine, index + remIndex);
+                }
+              });
+            }
+            return;
+          } else {
+            // External link
+            const beforeLink = line.substring(0, line.indexOf('['));
+            const afterLink = line.substring(line.indexOf(')') + 1);
+            if (beforeLink.trim()) {
+              elements.push(<span key={`text-before-${index}`}>{beforeLink}</span>);
+            }
+            elements.push(
+              <a
+                key={`link-${index}`}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#3b82f6',
+                  textDecoration: 'underline'
+                }}
+              >
+                {text}
+              </a>
+            );
+            if (afterLink.trim()) {
+              elements.push(<span key={`text-after-${index}`}>{afterLink}</span>);
+            }
+            return;
+          }
+        }
+      }
+      
       // Check for image/GIF syntax: ![alt](url) or !gif[alt](url)
       const imageMatch = line.match(/!gif\[([^\]]*)\]\(([^)]+)\)/);
       if (imageMatch) {
@@ -342,8 +443,8 @@ function Tutorial() {
   };
 
   const formatInlineCode = (text) => {
-    // First, handle markdown links [text](/tutorial/topic-id)
-    const linkRegex = /\[([^\]]+)\]\((\/tutorial\/[^)]+)\)/g;
+    // First, handle markdown links [text](/path) - supports both /tutorial/ and other routes
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     const parts = [];
     let lastIndex = 0;
     let match;
@@ -358,19 +459,73 @@ function Tutorial() {
       // Add link
       const linkText = match[1];
       const linkPath = match[2];
-      parts.push(
-        <Link 
-          key={`link-${match.index}`}
-          to={linkPath}
-          style={{
-            color: 'var(--accent-primary)',
-            textDecoration: 'underline',
-            fontWeight: '500'
-          }}
-        >
-          {linkText}
-        </Link>
-      );
+      
+      // Special styling for exam start link
+      if (linkPath === '/core-java-mcq' || linkPath.includes('mcq')) {
+        parts.push(
+          <div key={`link-container-${match.index}`} style={{ margin: '1.5rem 0', textAlign: 'center' }}>
+            <Link
+              to={linkPath}
+              style={{
+                display: 'inline-block',
+                padding: '1rem 2.5rem',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '12px',
+                fontWeight: '700',
+                fontSize: '1.1rem',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 8px 25px rgba(102, 126, 234, 0.4)',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 12px 35px rgba(102, 126, 234, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.4)';
+              }}
+            >
+              🚀 {linkText}
+            </Link>
+          </div>
+        );
+      } else if (linkPath.startsWith('/')) {
+        // Internal route
+        parts.push(
+          <Link 
+            key={`link-${match.index}`}
+            to={linkPath}
+            style={{
+              color: 'var(--accent-primary)',
+              textDecoration: 'underline',
+              fontWeight: '500'
+            }}
+          >
+            {linkText}
+          </Link>
+        );
+      } else {
+        // External link
+        parts.push(
+          <a
+            key={`link-${match.index}`}
+            href={linkPath}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--accent-primary)',
+              textDecoration: 'underline',
+              fontWeight: '500'
+            }}
+          >
+            {linkText}
+          </a>
+        );
+      }
       
       lastIndex = match.index + match[0].length;
     }

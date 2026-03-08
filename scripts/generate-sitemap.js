@@ -44,6 +44,7 @@ const staticPages = [
   { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
   { url: '/terms', priority: '0.5', changefreq: 'yearly' },
   { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
+  { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
 ];
 
 // Function to read existing sitemap and extract old dates

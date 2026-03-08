@@ -19,6 +19,7 @@ const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const Careers = lazy(() => import('./pages/Careers'));
 const CareerGuidance = lazy(() => import('./pages/CareerGuidance'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
+const CoreJavaMCQ = lazy(() => import('./pages/CoreJavaMCQ'));
 
 // Minimal loading fallback
 const LoadingFallback = () => null;
@@ -78,6 +79,7 @@ function AppWithTracking() {
         <Route path="career-guidance" element={<CareerGuidance />} />
         <Route path="disclaimer" element={<Disclaimer />} />
         <Route path="sitemap.xml" element={<Sitemap />} />
+        <Route path="core-java-mcq" element={<CoreJavaMCQ />} />
       </Route>
     </Routes>
     </Suspense>
