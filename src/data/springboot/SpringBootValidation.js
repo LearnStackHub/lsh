@@ -428,7 +428,7 @@ curl -X POST http://localhost:8080/api/students \\
 # Invalid email format
 curl -X POST http://localhost:8080/api/students \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"John","email":"invalid-email"}'
+  -d '{"name":" Dattu","email":"invalid-email"}'
 
 # Response:
 {

@@ -5,7 +5,7 @@ const mysqlTriggers = {
   content: `
 # MySQL Triggers - Automated Database Actions
 
-MySQL triggers are stored database programs that automatically execute in response to specific data modification events (INSERT, UPDATE, DELETE) on tables. Triggers enable automatic enforcement of business rules, data validation, audit logging, and maintaining derived data without requiring application code changes. Understanding triggers is essential for implementing automated database behaviors and maintaining data integrity.
+MySQL triggers are stored database programs that automatically execute in response to specific data modification events ([INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete)) on tables. Triggers enable automatic enforcement of business rules, data validation, audit logging, and maintaining derived data without requiring application code changes. Understanding triggers is essential for implementing automated database behaviors and maintaining data integrity.
 
 Enterprise applications use triggers extensively for audit logging, data validation, maintaining calculated fields, enforcing business rules, and synchronizing related data. Triggers execute automatically at the database level, ensuring consistent behavior regardless of which application modifies data. Mastery of triggers enables building robust, self-maintaining database systems.
 
@@ -99,7 +99,7 @@ DELIMITER ;
 
 ## AFTER INSERT Trigger
 
-Executes after a row is inserted.
+Executes after a row is inserted. Learn about [INSERT operations](/tutorial/mysql-insert-update-delete) to understand how triggers work with data insertion.
 
 ### Example: Update Statistics
 
@@ -149,7 +149,7 @@ DELIMITER ;
 
 ## BEFORE UPDATE Trigger
 
-Executes before a row is updated.
+Executes before a row is updated. Learn about [UPDATE operations](/tutorial/mysql-insert-update-delete) to understand how triggers work with data updates.
 
 ### Example: Prevent Price Decrease
 
@@ -260,7 +260,7 @@ DELIMITER ;
 
 ## AFTER DELETE Trigger
 
-Executes after a row is deleted.
+Executes after a row is deleted. Learn about [DELETE operations](/tutorial/mysql-insert-update-delete) to understand how triggers work with data deletion.
 
 ### Example: Update Statistics
 
@@ -926,6 +926,12 @@ Now that you understand triggers, you're ready to explore advanced MySQL topics:
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA works with triggers
 
 Triggers are essential for automated database behaviors. Continue learning about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) to understand reusable database logic.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL triggers? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering triggers, stored procedures, transactions, and all MySQL topics!
 `
 };
 

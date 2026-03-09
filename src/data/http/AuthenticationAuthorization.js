@@ -413,7 +413,7 @@ API calls: 100 per hour
 \`\`\`http
 POST /api/login
 {
-  "username": "john",
+  "username": " Dattu",
   "password": "secret123"
 }
 

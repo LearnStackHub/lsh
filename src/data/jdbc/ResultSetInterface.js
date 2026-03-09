@@ -314,6 +314,12 @@ public class ResultSetExample {
     }
 }
 \`\`\`
+
+---
+
+## Test Your Knowledge
+
+Mastered ResultSet interface? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering ResultSet, data retrieval, and all JDBC topics!
 `,
   code: `// ResultSet Interface Demo
 // Demonstrates reading and navigating query results
@@ -326,7 +332,7 @@ public class ResultSetDemo {
         
         // Create simulated data
         SimulatedStatement stmt = new SimulatedStatement();
-        stmt.addData(1, "John Doe", "john@email.com", 25, 50000.0, true, "2024-01-15");
+        stmt.addData(1, "Dattu p", " Dattu@email.com", 25, 50000.0, true, "2024-01-15");
         stmt.addData(2, "Jane Smith", "jane@email.com", 30, 65000.0, true, "2024-02-20");
         stmt.addData(3, "Bob Wilson", "bob@email.com", 35, 75000.0, false, "2024-03-10");
         stmt.addData(4, "Alice Brown", "alice@email.com", 28, 55000.0, true, "2024-04-05");
@@ -665,7 +671,7 @@ public class ResultSetExporterDemo {
         
         // Create sample data
         List<Map<String, Object>> data = new ArrayList<>();
-        data.add(createRow(1, "John Doe", "john@email.com", 25));
+        data.add(createRow(1, "Dattu p", " Dattu@email.com", 25));
         data.add(createRow(2, "Jane Smith", "jane@email.com", 30));
         data.add(createRow(3, "Bob Wilson", "bob@email.com", 35));
         

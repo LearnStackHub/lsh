@@ -343,7 +343,7 @@ You'll mostly deal with two HTTP methods:
 **GET** — Used to retrieve data
 - When you type a URL and hit enter
 - When you click a link
-- Parameters visible in URL (\`?name=John&age=25\`)
+- Parameters visible in URL (\`?name= Dattu&age=25\`)
 
 **POST** — Used to submit data
 - When you submit a form
@@ -480,7 +480,7 @@ HTTP is stateless. Each request is independent. But you need to remember that a 
 HttpSession session = request.getSession();
 
 // Store data in session
-session.setAttribute("user", "john");
+session.setAttribute("user", " Dattu");
 session.setAttribute("role", "admin");
 
 // Retrieve data later
@@ -849,7 +849,7 @@ public class ServletBasicsDemo {
         System.out.println("SESSIONS (Remembering Users):");
         System.out.println("-----------------------------");
         System.out.println("HttpSession session = request.getSession();");
-        System.out.println("session.setAttribute(\\"user\\", \\"john\\");");
+        System.out.println("session.setAttribute(\\"user\\", \\" Dattu\\");");
         System.out.println("String user = (String) session.getAttribute(\\"user\\");");
         System.out.println();
         

@@ -205,7 +205,7 @@ WHERE is_active = 1;
 UPDATE active_users SET name = 'New Name' WHERE id = 1;
 
 -- Insert through view
-INSERT INTO active_users (name, email) VALUES ('John', 'john@example.com');
+INSERT INTO active_users (name, email) VALUES (' Dattu', ' Dattu@example.com');
 \`\`\`
 
 ---
@@ -372,9 +372,9 @@ CREATE TABLE order_items (
 
 -- Insert sample data
 INSERT INTO customers (name, email) VALUES
-('John Doe', 'john@example.com'),
+('Dattu p', ' Dattu@example.com'),
 ('Jane Smith', 'jane@example.com'),
-('Bob Johnson', 'bob@example.com');
+('Bob  Dattuson', 'bob@example.com');
 
 INSERT INTO products (name, price, stock, category) VALUES
 ('Laptop', 999.99, 50, 'Electronics'),
@@ -646,6 +646,12 @@ Now that you understand MySQL views, you're ready to explore advanced MySQL topi
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA works with views
 
 Views are essential for simplifying complex queries and improving security. Continue learning about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) to implement procedural database logic.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL views? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering views, stored procedures, triggers, and all MySQL topics!
 `
 };
 

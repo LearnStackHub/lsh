@@ -843,6 +843,12 @@ Now that you understand stored procedures, you're ready to explore advanced MySQ
 - **[Database Design](/tutorial/database-design)**: Design databases with procedures in mind
 
 Stored procedures are essential for complex database logic. Continue learning about [MySQL Triggers](/tutorial/mysql-triggers) to understand automated database actions.
+
+---
+
+## Test Your Knowledge
+
+Mastered stored procedures? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering stored procedures, triggers, views, and all MySQL topics!
 `
 };
 

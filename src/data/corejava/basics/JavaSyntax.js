@@ -79,7 +79,7 @@ Every statement must end with \`;\`
 \`\`\`java
 int x = 5;
 System.out.println(x);
-String name = "John";
+String name = " Dattu";
 \`\`\`
 
 **Common mistake:** Forgetting the semicolon!
@@ -103,7 +103,7 @@ public void myMethod() {
 ### 3. Java is Case-Sensitive
 
 \`\`\`java
-String name = "John";
+String name = " Dattu";
 String Name = "Jane";  // Different variable!
 String NAME = "Bob";   // Also different!
 
@@ -225,7 +225,7 @@ public class MyClass {
     
     // 7. Main method (entry point)
     public static void main(String[] args) {
-        MyClass obj = new MyClass("John", 25);
+        MyClass obj = new MyClass(" Dattu", 25);
         obj.display();
     }
 }
@@ -254,7 +254,7 @@ system.out.println("Hi");  // ERROR: 'system' should be 'System'
 
 ### String with Single Quotes
 \`\`\`java
-String name = 'John';  // ERROR: Use double quotes for strings
+String name = ' Dattu';  // ERROR: Use double quotes for strings
 char letter = "A";     // ERROR: Use single quotes for char
 \`\`\`
 
@@ -278,12 +278,12 @@ System.out.printf("Age: %d", 25);  // Formatted output
 - \`%.2f\` — Float with 2 decimal places
 
 \`\`\`java
-String name = "John";
+String name = " Dattu";
 int age = 25;
 double salary = 50000.50;
 
 System.out.printf("Name: %s, Age: %d, Salary: $%.2f%n", name, age, salary);
-// Output: Name: John, Age: 25, Salary: $50000.50
+// Output: Name:  Dattu, Age: 25, Salary: $50000.50
 \`\`\`
 
 ---
@@ -411,7 +411,7 @@ public class JavaSyntaxDemo {
         System.out.println("7. CASE SENSITIVITY");
         System.out.println("   -----------------");
         
-        String Name = "John";
+        String Name = " Dattu";
         String name2 = "Jane";
         String NAME = "Bob";
         
@@ -420,7 +420,14 @@ public class JavaSyntaxDemo {
         System.out.println("   NAME = " + NAME);
         System.out.println("   (All different variables!)");
     }
-}`,
+}
+
+---
+
+## Test Your Knowledge
+
+Mastered Java syntax? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering syntax, OOPs, and all Core Java topics!
+`,
   practiceQuestions: [
     {
       question: 'Fix the syntax errors in this code',

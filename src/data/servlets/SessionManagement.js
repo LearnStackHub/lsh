@@ -13,14 +13,14 @@ HTTP is stateless — each request is independent. But web apps need to remember
 
 Without sessions:
 \`\`\`
-Request 1: "I'm John, show my profile"
-Request 2: "Who are you? I don't know any John!"
+Request 1: "I'm  Dattu, show my profile"
+Request 2: "Who are you? I don't know any  Dattu!"
 \`\`\`
 
 With sessions:
 \`\`\`
-Request 1: "I'm John" → Server: "Here's session ID: ABC123"
-Request 2: "I'm ABC123" → Server: "Ah, you're John! Here's your profile"
+Request 1: "I'm  Dattu" → Server: "Here's session ID: ABC123"
+Request 2: "I'm ABC123" → Server: "Ah, you're  Dattu! Here's your profile"
 \`\`\`
 
 ---
@@ -72,12 +72,12 @@ HttpSession session = request.getSession(false);
 
 \`\`\`java
 // Store user info
-session.setAttribute("username", "john");
+session.setAttribute("username", " Dattu");
 session.setAttribute("userId", 123);
 session.setAttribute("cart", new ShoppingCart());
 
 // Store any object
-User user = new User("John", "john@email.com");
+User user = new User(" Dattu", " Dattu@email.com");
 session.setAttribute("user", user);
 \`\`\`
 
@@ -505,7 +505,7 @@ public class SessionManagementDemo {
         System.out.println("1. USER LOGIN");
         System.out.println("   -----------");
         
-        String sessionId = server.login("john", "password123");
+        String sessionId = server.login(" Dattu", "password123");
         System.out.println("   Login successful!");
         System.out.println("   Session ID: " + sessionId);
         System.out.println();
@@ -514,8 +514,8 @@ public class SessionManagementDemo {
         System.out.println("2. STORING SESSION DATA");
         System.out.println("   ---------------------");
         
-        server.setAttribute(sessionId, "username", "john");
-        server.setAttribute(sessionId, "email", "john@email.com");
+        server.setAttribute(sessionId, "username", " Dattu");
+        server.setAttribute(sessionId, "email", " Dattu@email.com");
         server.setAttribute(sessionId, "role", "admin");
         server.setAttribute(sessionId, "loginTime", new Date());
         System.out.println();
@@ -563,7 +563,7 @@ public class SessionManagementDemo {
         server.setAttribute(session2, "role", "user");
         
         System.out.println("   Active sessions: " + server.getActiveSessionCount());
-        System.out.println("   John's role: " + server.getAttribute(sessionId, "role"));
+        System.out.println("    Dattu's role: " + server.getAttribute(sessionId, "role"));
         System.out.println("   Jane's role: " + server.getAttribute(session2, "role"));
         System.out.println();
         
@@ -572,7 +572,7 @@ public class SessionManagementDemo {
         System.out.println("   ------------------------------");
         
         server.logout(sessionId);
-        System.out.println("   John logged out");
+        System.out.println("    Dattu logged out");
         System.out.println("   Active sessions: " + server.getActiveSessionCount());
         
         // Try to access invalidated session

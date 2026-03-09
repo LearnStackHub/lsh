@@ -68,7 +68,7 @@ public static void greet(String name) {
 }
 
 // Calling it:
-greet("John");  // Output: Hello, John!
+greet(" Dattu");  // Output: Hello,  Dattu!
 \`\`\`
 
 ### 3. No Parameters, With Return
@@ -404,7 +404,14 @@ public class MethodsDemo {
     public static double fahrenheitToCelsius(double fahrenheit) {
         return (fahrenheit - 32) * 5.0 / 9.0;
     }
-}`
+}
+
+---
+
+## Test Your Knowledge
+
+Mastered Java methods? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering methods, OOPs, and all Core Java topics!
+`
     }
   ]
 };

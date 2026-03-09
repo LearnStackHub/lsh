@@ -25,8 +25,8 @@ APIs need to exchange data in formats that both client and server understand. Un
 \`\`\`json
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "age": 30,
   "active": true,
   "tags": ["developer", "java"],
@@ -69,8 +69,8 @@ Content-Type: application/json
 <?xml version="1.0" encoding="UTF-8"?>
 <user>
   <id>123</id>
-  <name>John Doe</name>
-  <email>john@example.com</email>
+  <name>Dattu p</name>
+  <email> Dattu@example.com</email>
   <age>30</age>
   <active>true</active>
   <tags>
@@ -113,7 +113,7 @@ Content-Type: application/xml
 
 **Example:**
 \`\`\`
-username=john&password=secret123&email=john@example.com
+username= Dattu&password=secret123&email= Dattu@example.com
 \`\`\`
 
 **Content-Type:**
@@ -155,7 +155,7 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
 ------WebKitFormBoundary
 Content-Disposition: form-data; name="username"
 
-john
+ Dattu
 ------WebKitFormBoundary
 Content-Disposition: form-data; name="file"; filename="photo.jpg"
 Content-Type: image/jpeg
@@ -265,7 +265,7 @@ public ResponseEntity<?> getUser(
 {
   "data": {
     "id": 123,
-    "name": "John"
+    "name": " Dattu"
   }
 }
 \`\`\`
@@ -274,7 +274,7 @@ public ResponseEntity<?> getUser(
 \`\`\`json
 {
   "id": 123,
-  "name": "John"
+  "name": " Dattu"
 }
 \`\`\`
 (Inconsistent with list responses)
@@ -312,7 +312,7 @@ public ResponseEntity<?> getUser(
 **Or omit:**
 \`\`\`json
 {
-  "name": "John"
+  "name": " Dattu"
 }
 \`\`\`
 
@@ -342,7 +342,7 @@ public ResponseEntity<?> getUser(
 \`\`\`xml
 <user>
   <id>123</id>
-  <name>John Doe</name>
+  <name>Dattu p</name>
 </user>
 \`\`\`
 
@@ -350,7 +350,7 @@ public ResponseEntity<?> getUser(
 \`\`\`xml
 <u>
   <i>123</i>
-  <n>John Doe</n>
+  <n>Dattu p</n>
 </u>
 \`\`\`
 
@@ -359,7 +359,7 @@ public ResponseEntity<?> getUser(
 **Good:**
 \`\`\`xml
 <user id="123">
-  <name>John Doe</name>
+  <name>Dattu p</name>
 </user>
 \`\`\`
 
@@ -367,7 +367,7 @@ public ResponseEntity<?> getUser(
 \`\`\`xml
 <user>
   <id>123</id>
-  <name>John Doe</name>
+  <name>Dattu p</name>
 </user>
 \`\`\`
 
@@ -388,7 +388,7 @@ public ResponseEntity<?> getUser(
 **Client (JavaScript):**
 \`\`\`javascript
 const formData = new FormData();
-formData.append('username', 'john');
+formData.append('username', ' Dattu');
 formData.append('file', fileInput.files[0]);
 
 fetch('/api/upload', {
@@ -446,8 +446,8 @@ Content-Type: application/json; charset=utf-8
 
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -467,8 +467,8 @@ Content-Type: application/xml; charset=utf-8
 <?xml version="1.0" encoding="UTF-8"?>
 <user>
   <id>123</id>
-  <name>John Doe</name>
-  <email>john@example.com</email>
+  <name>Dattu p</name>
+  <email> Dattu@example.com</email>
 </user>
 \`\`\`
 
@@ -479,7 +479,7 @@ Content-Type: application/xml; charset=utf-8
 POST /api/login HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-username=john&password=secret123
+username= Dattu&password=secret123
 \`\`\`
 
 **Response:**

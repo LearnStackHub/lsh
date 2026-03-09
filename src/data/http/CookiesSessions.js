@@ -331,7 +331,7 @@ POST /api/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "john",
+  "username": " Dattu",
   "password": "secret123"
 }
 \`\`\`

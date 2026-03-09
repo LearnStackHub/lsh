@@ -280,13 +280,13 @@ public String saveStudent(@ModelAttribute Student student) {
 If your form has:
 \`\`\`html
 <form action="/student/save" method="post">
-    <input name="name" value="John"/>
+    <input name="name" value=" Dattu"/>
     <input name="age" value="20"/>
     <button type="submit">Save</button>
 </form>
 \`\`\`
 
-Spring automatically creates a Student object with name="John" and age=20.
+Spring automatically creates a Student object with name=" Dattu" and age=20.
 
 ---
 

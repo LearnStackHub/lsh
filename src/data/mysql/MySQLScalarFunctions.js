@@ -526,9 +526,9 @@ CREATE TABLE products (
 
 -- Insert sample data
 INSERT INTO users (first_name, last_name, email, birth_date, phone) VALUES
-('john', 'doe', 'john@example.com', '1990-01-15', '123-456-7890'),
+(' Dattu', 'doe', ' Dattu@example.com', '1990-01-15', '123-456-7890'),
 ('JANE', 'SMITH', 'jane@gmail.com', '1985-05-22', NULL),
-('bob', 'JOHNSON', 'bob@yahoo.com', '1992-08-10', '098-765-4321');
+('bob', ' DattuSON', 'bob@yahoo.com', '1992-08-10', '098-765-4321');
 
 INSERT INTO products (name, price, stock, category, description) VALUES
 ('Laptop Computer', 999.99, 50, 'Electronics', 'High-performance laptop'),
@@ -893,6 +893,12 @@ Now that you understand scalar functions, you're ready to explore advanced MySQL
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles function expressions
 
 Scalar functions are essential for data transformation. Continue learning about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) to master group-level calculations.
+
+---
+
+## Test Your Knowledge
+
+Mastered scalar functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering string, date, numeric functions, and all MySQL topics!
 `
 };
 

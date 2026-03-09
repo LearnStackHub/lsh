@@ -455,7 +455,7 @@ public class PlaylistDemo {
         playlist.addSong("Bohemian Rhapsody - Queen");
         playlist.addSong("Hotel California - Eagles");
         playlist.addSong("Stairway to Heaven - Led Zeppelin");
-        playlist.addSong("Imagine - John Lennon");
+        playlist.addSong("Imagine -  Dattu Lennon");
         playlist.addSong("Sweet Child O Mine - Guns N Roses");
         
         playlist.display();
@@ -466,8 +466,8 @@ public class PlaylistDemo {
         playlist.display();
         
         // Remove a song
-        System.out.println("\\nRemoving 'Imagine - John Lennon'...");
-        playlist.removeSong("Imagine - John Lennon");
+        System.out.println("\\nRemoving 'Imagine -  Dattu Lennon'...");
+        playlist.removeSong("Imagine -  Dattu Lennon");
         playlist.display();
         
         // Play next

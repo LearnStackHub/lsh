@@ -316,7 +316,7 @@ class LoggingAspectTest {
     @Test
     void testAspectApplied() {
         // When service method is called, aspect should execute
-        studentService.saveStudent(new Student("John", 20));
+        studentService.saveStudent(new Student(" Dattu", 20));
         
         // Verify aspect executed (check logs or use mock)
     }

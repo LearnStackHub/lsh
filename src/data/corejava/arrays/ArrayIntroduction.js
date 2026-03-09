@@ -182,7 +182,7 @@ public class GradeManagement {
         int[] marks = {85, 92, 78, 88, 95};
         int[] maxMarks = {100, 100, 100, 100, 100};
         
-        System.out.println("\\n👤 Student: John Doe");
+        System.out.println("\\n👤 Student: Dattu p");
         System.out.println("📋 Class: 10th Grade");
         System.out.println("─".repeat(50));
         
@@ -240,6 +240,12 @@ public class GradeManagement {
 | Iteration | O(n) |
 
 > **Industry Insight**: Arrays are used extensively in data processing. Netflix uses arrays for storing user watch history. Amazon uses arrays for product recommendations. Financial systems use arrays for storing stock prices and calculating moving averages.
+
+---
+
+## Test Your Knowledge
+
+Mastered Arrays? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering Arrays, single-dimensional, multi-dimensional, and all Core Java topics!
 `,
   code: `// Real-Time: Complete Array Operations Demo
 // E-Commerce inventory management

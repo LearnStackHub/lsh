@@ -531,7 +531,7 @@ public class JspLifecycleSimulator {
         
         // Second request - only service
         System.out.println("--- Second Request ---");
-        page.handleRequest("GET /welcome.jsp?name=John");
+        page.handleRequest("GET /welcome.jsp?name= Dattu");
         System.out.println();
         
         // Third request

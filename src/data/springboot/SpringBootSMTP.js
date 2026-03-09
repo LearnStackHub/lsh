@@ -546,7 +546,7 @@ public class UserController {
 
 1. Register a user:
 \`\`\`
-POST http://localhost:8080/api/users/register?name=John&email=john@gmail.com&password=password123
+POST http://localhost:8080/api/users/register?name= Dattu&email= Dattu@gmail.com&password=password123
 \`\`\`
 
 2. Check email inbox for verification link
@@ -732,7 +732,7 @@ javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not ac
 
 4. **Wrong email address**
    - Make sure username matches the email you used to generate App Password
-   - If App Password was generated for "john@gmail.com", use "john@gmail.com" in config
+   - If App Password was generated for " Dattu@gmail.com", use " Dattu@gmail.com" in config
 
 **Quick Fix Checklist:**
 - [ ] 2-Step Verification enabled?

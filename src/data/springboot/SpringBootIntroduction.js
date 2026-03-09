@@ -418,7 +418,7 @@ public class StudentService {
     
     public StudentService() {
         // Add some sample data
-        students.add(new Student(1, "John Doe", "john@example.com"));
+        students.add(new Student(1, "Dattu p", " Dattu@example.com"));
         students.add(new Student(2, "Jane Smith", "jane@example.com"));
     }
     
@@ -798,9 +798,9 @@ class StudentService {
     
     public StudentService() {
         // Initialize with sample data
-        students.add(new Student(1, "John Doe", "john@example.com"));
+        students.add(new Student(1, "Dattu p", " Dattu@example.com"));
         students.add(new Student(2, "Jane Smith", "jane@example.com"));
-        students.add(new Student(3, "Bob Johnson", "bob@example.com"));
+        students.add(new Student(3, "Bob  Dattuson", "bob@example.com"));
     }
     
     public List<Student> getAllStudents() {

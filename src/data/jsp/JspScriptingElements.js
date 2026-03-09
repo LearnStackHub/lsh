@@ -307,7 +307,7 @@ public class JspScriptingDemo {
         
         // Simulate scriptlet execution
         Map<String, String> request = new HashMap<>();
-        request.put("name", "John");
+        request.put("name", " Dattu");
         
         String name = request.get("name");
         if (name == null) {
@@ -379,8 +379,8 @@ public class JspScriptingDemo {
         System.out.println();
         
         // Simulate with user
-        String user = "John";
-        System.out.println("   Output (user = \\"John\\"):");
+        String user = " Dattu";
+        System.out.println("   Output (user = \\" Dattu\\"):");
         if (user != null) {
             System.out.println("       <p>Welcome, " + user + "!</p>");
         } else {
@@ -473,7 +473,7 @@ public class JspTemplateEngine {
         TemplateEngine engine = new TemplateEngine();
         
         // Add some variables
-        engine.setVariable("name", "John");
+        engine.setVariable("name", " Dattu");
         engine.setVariable("items", Arrays.asList("Apple", "Banana", "Orange"));
         
         // Template with all scripting elements

@@ -843,7 +843,7 @@ public class JspIntroDemo {
         
         // Process the template
         Map<String, Object> data = new HashMap<>();
-        data.put("name", "John");
+        data.put("name", " Dattu");
         data.put("date", new Date().toString());
         data.put("items", Arrays.asList("Apple", "Banana", "Orange"));
         
@@ -928,7 +928,7 @@ public class JspProcessorDemo {
         // Data to inject
         Map<String, String> data = new HashMap<>();
         data.put("title", "Dashboard");
-        data.put("username", "John Doe");
+        data.put("username", "Dattu p");
         data.put("messageCount", "5");
         data.put("lastLogin", "2024-01-15 10:30 AM");
         

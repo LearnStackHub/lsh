@@ -67,8 +67,8 @@ Contains claims (user information):
 \`\`\`json
 {
   "sub": "user123",
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "roles": ["USER", "ADMIN"],
   "iat": 1642234567,
   "exp": 1642320967

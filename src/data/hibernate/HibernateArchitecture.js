@@ -173,7 +173,7 @@ Hibernate manages objects in different states:
 Object is not associated with any session and has no database representation.
 
 \`\`\`java
-User user = new User("John", "john@example.com");
+User user = new User(" Dattu", " Dattu@example.com");
 // user is in transient state
 \`\`\`
 

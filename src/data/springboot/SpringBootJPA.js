@@ -493,7 +493,7 @@ When you run Spring Boot:
 # Create a student
 curl -X POST http://localhost:8080/api/students \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"John","email":"john@example.com","course":"CS"}'
+  -d '{"name":" Dattu","email":" Dattu@example.com","course":"CS"}'
 
 # Get all students
 curl http://localhost:8080/api/students

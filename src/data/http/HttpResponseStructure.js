@@ -185,8 +185,8 @@ Content-Length: 89
 
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -203,8 +203,8 @@ Content-Length: 156
 <?xml version="1.0"?>
 <user>
   <id>123</id>
-  <name>John Doe</name>
-  <email>john@example.com</email>
+  <name>Dattu p</name>
+  <email> Dattu@example.com</email>
 </user>
 \`\`\`
 
@@ -258,8 +258,8 @@ Date: Wed, 21 Feb 2026 10:00:00 GMT
 
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -368,8 +368,8 @@ Complete HTTP Response Structure:
 │                    RESPONSE BODY                        │
 │  {                                                      │
 │    "id": 123,                                           │
-│    "name": "John Doe",                                  │
-│    "email": "john@example.com"                          │
+│    "name": "Dattu p",                                  │
+│    "email": " Dattu@example.com"                          │
 │  }                                                      │
 └─────────────────────────────────────────────────────────┘
 \`\`\`
@@ -403,7 +403,7 @@ Content-Type: application/json
 
 {
   "id": 123,
-  "name": "John Doe"
+  "name": "Dattu p"
 }
 \`\`\`
 
@@ -567,8 +567,8 @@ X-Request-ID: req-123456
 
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "createdAt": "2026-02-21T10:00:00Z"
 }
 \`\`\`

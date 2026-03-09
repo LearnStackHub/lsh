@@ -88,7 +88,7 @@ Knowing String methods helps you write clean, efficient code without reinventing
 ### Example 1: Email Validation (Basic)
 
 \`\`\`java
-String email = "john@example.com";
+String email = " Dattu@example.com";
 boolean valid = email.contains("@") && email.contains(".") && !email.startsWith("@");
 \`\`\`
 
@@ -97,9 +97,9 @@ boolean valid = email.contains("@") && email.contains(".") && !email.startsWith(
 ### Example 2: Extract Username from Email
 
 \`\`\`java
-String email = "john@example.com";
+String email = " Dattu@example.com";
 int atIndex = email.indexOf("@");
-String username = email.substring(0, atIndex); // "john"
+String username = email.substring(0, atIndex); // " Dattu"
 \`\`\`
 
 ### Example 3: Case-Insensitive Search

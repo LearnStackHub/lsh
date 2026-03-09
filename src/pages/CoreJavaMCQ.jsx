@@ -72,6 +72,9 @@ function CoreJavaMCQ() {
   const [showSecurityWarning, setShowSecurityWarning] = useState(false);
   const [tabSwitchCount, setTabSwitchCount] = useState(0);
   const [windowBlurCount, setWindowBlurCount] = useState(0);
+  const [username, setUsername] = useState('');
+  const [examStartTime, setExamStartTime] = useState(null);
+  const [examCompletionTime, setExamCompletionTime] = useState(null);
   const navigate = useNavigate();
   const startTimeRef = useRef(null);
   const warningTimeoutRef = useRef(null);
@@ -157,6 +160,7 @@ function CoreJavaMCQ() {
       
       setShowResult(true);
       setExamStarted(false);
+      setExamCompletionTime(new Date());
       
       // Exit fullscreen when exam ends
       exitFullscreen();
@@ -332,6 +336,12 @@ function CoreJavaMCQ() {
   }, [examStarted, showResult, handleAutoSubmit, showSecurityAlert]);
 
   const handleStartExam = async () => {
+    // Validate username
+    if (!username || username.trim() === '') {
+      alert('Please enter your name to start the exam.');
+      return;
+    }
+    
     // Request fullscreen before starting exam
     await requestFullscreen();
     
@@ -340,6 +350,7 @@ function CoreJavaMCQ() {
     questionsRef.current = randomQuestions; // Store in ref to prevent regeneration
     setQuestions(randomQuestions);
     
+    const startTime = new Date();
     setExamStarted(true);
     setTimeRemaining(EXAM_TIME_LIMIT);
     setCurrentQuestion(0);
@@ -347,6 +358,7 @@ function CoreJavaMCQ() {
     setSecurityWarnings(0);
     setTabSwitchCount(0);
     setWindowBlurCount(0);
+    setExamStartTime(startTime);
     startTimeRef.current = Date.now();
     
     // Track exam start in Google Analytics
@@ -429,6 +441,7 @@ function CoreJavaMCQ() {
     
     setShowResult(true);
     setExamStarted(false);
+    setExamCompletionTime(new Date());
     
     // Exit fullscreen when exam ends
     exitFullscreen();
@@ -458,6 +471,9 @@ function CoreJavaMCQ() {
     setSecurityWarnings(0);
     setTabSwitchCount(0);
     setWindowBlurCount(0);
+    setUsername('');
+    setExamStartTime(null);
+    setExamCompletionTime(null);
     const randomQuestions = getRandomQuestions();
     questionsRef.current = randomQuestions; // Store in ref
     setQuestions(randomQuestions);
@@ -534,7 +550,30 @@ function CoreJavaMCQ() {
                 <li>Time will auto-submit when it reaches 0</li>
               </ul>
             </div>
-            <button onClick={handleStartExam} className="btn btn-primary btn-start">
+            <div className="username-input-container">
+              <label htmlFor="username-input" className="username-label">
+                Enter Your Name <span className="required">*</span>
+              </label>
+              <input
+                id="username-input"
+                type="text"
+                className="username-input"
+                placeholder="Your name"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && username.trim()) {
+                    handleStartExam();
+                  }
+                }}
+                autoFocus
+              />
+            </div>
+            <button 
+              onClick={handleStartExam} 
+              className="btn btn-primary btn-start"
+              disabled={!username || username.trim() === ''}
+            >
               <Rocket className="btn-icon" />
               Start Exam
             </button>
@@ -574,6 +613,26 @@ function CoreJavaMCQ() {
                 ? "Good Job! 👍" 
                 : "Keep Practicing! 💪"}
             </h1>
+            
+            <div className="exam-info-header">
+              <div className="exam-info-item">
+                <strong>Candidate Name:</strong> {username || 'Not provided'}
+              </div>
+              <div className="exam-info-item">
+                <strong>Exam Name:</strong> Core Java MCQ Exam
+              </div>
+              <div className="exam-info-item">
+                <strong>Completed On:</strong> {examCompletionTime ? examCompletionTime.toLocaleString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric', 
+                  hour: '2-digit', 
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: true 
+                }) : 'N/A'}
+              </div>
+            </div>
             
             <div className="score-display">
               <div className="score-circle">

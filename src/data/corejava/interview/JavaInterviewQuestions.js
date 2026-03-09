@@ -133,9 +133,9 @@ HashMap uses an array of buckets (buckets). Each bucket can contain a linked lis
 
 \`\`\`java
 HashMap<String, Integer> map = new HashMap<>();
-map.put("John", 25);  // Hash("John") % bucket_size = bucket_index
+map.put(" Dattu", 25);  // Hash(" Dattu") % bucket_size = bucket_index
 map.put("Jane", 30);
-map.get("John");     // Hash("John") -> find bucket -> search list/tree
+map.get(" Dattu");     // Hash(" Dattu") -> find bucket -> search list/tree
 \`\`\`
 
 **Real-time scenario:** HashMap is used for caching user sessions, storing configuration key-value pairs, and implementing lookup tables.
@@ -643,7 +643,7 @@ class Student implements Serializable {
 }
 
 // Serialization
-Student student = new Student("John", 25);
+Student student = new Student(" Dattu", 25);
 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("student.ser"));
 oos.writeObject(student);
 oos.close();
@@ -1044,9 +1044,9 @@ treeSet.add(8);
 
 // 5. HashMap internal working
 HashMap<String, Integer> map = new HashMap<>();
-map.put("John", 25);
+map.put(" Dattu", 25);
 map.put("Jane", 30);
-map.get("John");  // O(1) average case
+map.get(" Dattu");  // O(1) average case
 
 // 6. HashMap vs Hashtable
 HashMap<String, String> hashMap = new HashMap<>();

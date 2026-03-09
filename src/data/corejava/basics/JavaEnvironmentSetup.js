@@ -329,7 +329,14 @@ public class EnvironmentCheck {
         System.out.println("2. Create your first project");
         System.out.println("3. Start coding!");
     }
-}`,
+}
+
+---
+
+## Test Your Knowledge
+
+Java environment set up? Test your Core Java knowledge with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering all Core Java topics!
+`,
   practiceQuestions: [
     {
       question: 'Create a program that displays system properties',

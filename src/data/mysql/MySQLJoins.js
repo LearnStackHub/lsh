@@ -5,7 +5,7 @@ const mysqlJoins = {
   content: `
 # MySQL Joins - Combining Data from Multiple Tables
 
-MySQL joins are fundamental SQL operations that enable retrieval of data from multiple related tables in a single query. Joins combine rows from different tables based on relationships defined by foreign keys, allowing developers to query normalized databases efficiently. Understanding joins is essential for working with relational databases and building complex data retrieval queries.
+MySQL joins are fundamental SQL operations that enable retrieval of data from multiple related tables in a single query. Joins combine rows from different tables based on relationships defined by [foreign keys](/tutorial/mysql-constraints), allowing developers to query normalized databases efficiently. Understanding joins is essential for working with relational databases and building complex data retrieval queries. Master [SELECT queries](/tutorial/mysql-select) before learning JOINs.
 
 Enterprise applications extensively use joins to combine data from normalized database tables. E-commerce platforms join products with categories and inventory, financial systems join accounts with transactions, and content management systems join articles with authors and categories. Mastery of joins is critical for database developers and backend engineers working with relational data.
 
@@ -398,9 +398,9 @@ CREATE TABLE order_items (
 
 -- Insert sample data
 INSERT INTO customers (name, email, city) VALUES
-('John Doe', 'john@example.com', 'New York'),
+('Dattu p', ' Dattu@example.com', 'New York'),
 ('Jane Smith', 'jane@example.com', 'Los Angeles'),
-('Bob Johnson', 'bob@example.com', 'Chicago'),
+('Bob  Dattuson', 'bob@example.com', 'Chicago'),
 ('Alice Brown', 'alice@example.com', 'New York');
 
 INSERT INTO products (name, price, category) VALUES
@@ -751,6 +751,12 @@ Master these related MySQL topics:
 **Connect to Java:**
 - Use joins in [JDBC](/tutorial/jdbc-introduction) queries
 - Spring Boot JPA handles joins automatically - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL Joins? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering INNER JOIN, LEFT JOIN, RIGHT JOIN, and more!
 `
 };
 

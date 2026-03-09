@@ -164,7 +164,7 @@ response.setHeader("X-Custom-Header", "value");
 
 // Add header (allows multiple values)
 response.addHeader("Set-Cookie", "session=abc123");
-response.addHeader("Set-Cookie", "user=john");
+response.addHeader("Set-Cookie", "user= Dattu");
 
 // Date headers
 response.setDateHeader("Expires", System.currentTimeMillis() + 3600000);
@@ -478,7 +478,7 @@ Set content type to application/json and write JSON string:
 
 \`\`\`java
 response.setContentType("application/json;charset=UTF-8");
-response.getWriter().write("{\\"name\\":\\"John\\",\\"age\\":30}");
+response.getWriter().write("{\\"name\\":\\" Dattu\\",\\"age\\":30}");
 \`\`\`
 
 Use JSON libraries (Gson, Jackson) for object serialization.
@@ -531,7 +531,7 @@ Note: Behind proxies, check \`X-Forwarded-For\` header for real IP.
 Create Cookie object and add to response:
 
 \`\`\`java
-Cookie cookie = new Cookie("username", "john");
+Cookie cookie = new Cookie("username", " Dattu");
 cookie.setMaxAge(3600);  // 1 hour
 cookie.setPath("/");
 response.addCookie(cookie);
@@ -615,8 +615,8 @@ public class HttpRequestResponseDemo {
         request.setHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIs...");
         
         // Set parameters (form data)
-        request.setParameter("username", "john_doe");
-        request.setParameter("email", "john@email.com");
+        request.setParameter("username", " Dattu_doe");
+        request.setParameter("email", " Dattu@email.com");
         request.setParameter("password", "secret123");
         request.setParameterValues("interests", new String[]{"coding", "gaming", "music"});
         
@@ -831,7 +831,7 @@ public class ContentTypeDemo {
         System.out.println("1. Processing Form Data:");
         Map<String, String> formHeaders = new HashMap<>();
         formHeaders.put("Content-Type", "application/x-www-form-urlencoded");
-        String formBody = "username=john&email=john@email.com";
+        String formBody = "username= Dattu&email= Dattu@email.com";
         handler.processRequest(formHeaders, formBody);
         System.out.println();
         
@@ -839,7 +839,7 @@ public class ContentTypeDemo {
         System.out.println("2. Processing JSON Data:");
         Map<String, String> jsonHeaders = new HashMap<>();
         jsonHeaders.put("Content-Type", "application/json");
-        String jsonBody = "{\\"name\\": \\"John\\", \\"age\\": 25}";
+        String jsonBody = "{\\"name\\": \\" Dattu\\", \\"age\\": 25}";
         handler.processRequest(jsonHeaders, jsonBody);
         System.out.println();
         

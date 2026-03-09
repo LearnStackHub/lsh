@@ -23,8 +23,8 @@ E-commerce platforms, social media applications, and web services use JDBC to st
 // Real-world: User registration on Amazon/Flipkart
 String sql = "INSERT INTO users (username, email, password, created_date) VALUES (?, ?, ?, ?)";
 PreparedStatement pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, "john_doe");
-pstmt.setString(2, "john@example.com");
+pstmt.setString(1, " Dattu_doe");
+pstmt.setString(2, " Dattu@example.com");
 pstmt.setString(3, encryptedPassword);
 pstmt.setDate(4, new Date());
 pstmt.executeUpdate();
@@ -355,13 +355,13 @@ JDBC provides two interfaces for executing SQL queries, each with distinct chara
 
 **Statement** — Simple, but dangerous
 \`\`\`java
-String name = "John";
+String name = " Dattu";
 stmt.executeQuery("SELECT * FROM users WHERE name = '" + name + "'");
 \`\`\`
 
 **PreparedStatement** — Safe and efficient
 \`\`\`java
-String name = "John";
+String name = " Dattu";
 PreparedStatement pstmt = conn.prepareStatement(
     "SELECT * FROM users WHERE name = ?"
 );
@@ -409,8 +409,8 @@ JDBC supports all the basic database operations:
 \`\`\`java
 String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
 PreparedStatement pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, "John");
-pstmt.setString(2, "john@email.com");
+pstmt.setString(1, " Dattu");
+pstmt.setString(2, " Dattu@email.com");
 int rowsAffected = pstmt.executeUpdate();
 \`\`\`
 
@@ -510,6 +510,12 @@ This was just the introduction. In the upcoming lessons, we'll cover:
 **Next Level:**
 - Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
 - Learn [Hibernate](/tutorial/hibernate-introduction) for ORM
+
+---
+
+## Test Your Knowledge
+
+Ready to test your JDBC understanding? Take our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) with 20 randomly selected questions covering all JDBC topics. Perfect for practice and assessment!
 
 ---
 
@@ -813,6 +819,12 @@ Continue your JDBC learning journey with these essential topics:
 - **Hibernate Introduction**: Explore Object-Relational Mapping for simplified database operations
 
 JDBC is the foundation of database connectivity in Java. Master JDBC fundamentals before advancing to ORM frameworks to understand the underlying mechanisms and make informed architectural decisions.
+
+---
+
+## Test Your Knowledge
+
+Ready to test your JDBC understanding? Take our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) with 20 randomly selected questions covering all JDBC topics. Perfect for practice and assessment!
 `,
   code: `// JDBC Basics Demo
 // This shows the fundamental concepts without needing a real database

@@ -404,7 +404,14 @@ public class KeywordsDemo {
     public String getName() {
         return this.name;
     }
-}`,
+}
+
+---
+
+## Test Your Knowledge
+
+Mastered Java keywords? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering keywords, modifiers, and all Core Java topics!
+`,
   practiceQuestions: [
     {
       question: 'Demonstrate the use of static, final, and this keywords',

@@ -33,8 +33,8 @@ CREATE TABLE users (
 String sql = "INSERT INTO users (name, email, age) VALUES (?, ?, ?)";
 
 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    pstmt.setString(1, "John Doe");
-    pstmt.setString(2, "john@email.com");
+    pstmt.setString(1, "Dattu p");
+    pstmt.setString(2, " Dattu@email.com");
     pstmt.setInt(3, 25);
     
     int rowsAffected = pstmt.executeUpdate();
@@ -184,8 +184,8 @@ try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 String sql = "UPDATE users SET name = ?, email = ?, age = ? WHERE id = ?";
 
 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    pstmt.setString(1, "John Smith");
-    pstmt.setString(2, "john.smith@email.com");
+    pstmt.setString(1, " Dattu Smith");
+    pstmt.setString(2, " Dattu.smith@email.com");
     pstmt.setInt(3, 27);
     pstmt.setInt(4, 1);
     
@@ -333,6 +333,12 @@ public class UserDAO {
 3. **Use transactions for multiple operations** — Ensures data consistency
 4. **Validate input before database operations** — Fail fast
 5. **Handle null values properly** — Use \`wasNull()\` method
+
+---
+
+## Test Your Knowledge
+
+Mastered CRUD operations? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering all JDBC topics including CRUD operations!
 `,
   code: `// CRUD Operations Demo
 
@@ -350,7 +356,7 @@ public class CrudDemo {
         System.out.println("1. CREATE - Adding Users");
         System.out.println("   ----------------------");
         
-        User user1 = new User(0, "John Doe", "john@email.com", 25);
+        User user1 = new User(0, "Dattu p", " Dattu@email.com", 25);
         User user2 = new User(0, "Jane Smith", "jane@email.com", 28);
         User user3 = new User(0, "Bob Wilson", "bob@email.com", 35);
         
@@ -389,7 +395,7 @@ public class CrudDemo {
         User toUpdate = repo.findById(1);
         if (toUpdate != null) {
             System.out.println("   Before: " + toUpdate);
-            toUpdate.setName("John Updated");
+            toUpdate.setName(" Dattu Updated");
             toUpdate.setAge(26);
             repo.update(toUpdate);
             System.out.println("   After:  " + repo.findById(1));

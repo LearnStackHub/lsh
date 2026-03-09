@@ -5,7 +5,7 @@ const mysqlInsertUpdateDelete = {
   content: `
 # INSERT, UPDATE, DELETE - Modifying Data in MySQL
 
-INSERT, UPDATE, and DELETE are the three fundamental Data Manipulation Language (DML) commands in MySQL that enable you to add, modify, and remove data from database tables. These commands are essential for maintaining database content, supporting all CRUD (Create, Read, Update, Delete) operations that applications require. Understanding these commands is crucial for database administration and application development.
+INSERT, UPDATE, and DELETE are the three fundamental Data Manipulation Language (DML) commands in MySQL that enable you to add, modify, and remove data from database tables. These commands are essential for maintaining database content, supporting all CRUD (Create, Read, Update, Delete) operations that applications require. Understanding these commands is crucial for database administration and application development. Learn about [MySQL Data Types](/tutorial/mysql-data-types), [Creating Tables](/tutorial/mysql-create-database), and [MySQL Constraints](/tutorial/mysql-constraints) before using DML.
 
 Enterprise applications extensively use INSERT for data creation, UPDATE for data modification, and DELETE for data removal. These operations are typically executed within transactions to ensure data consistency and atomicity. Mastery of INSERT, UPDATE, and DELETE, combined with proper transaction management, is essential for building reliable database applications.
 
@@ -19,6 +19,8 @@ Enterprise applications extensively use INSERT for data creation, UPDATE for dat
 
 ## INSERT - Adding Data
 
+Learn about [Creating Tables](/tutorial/mysql-create-database) and [MySQL DDL](/tutorial/mysql-ddl) to understand table structure before inserting data.
+
 ### Basic INSERT Syntax
 
 \`\`\`sql
@@ -31,13 +33,13 @@ VALUES (value1, value2, ...);
 \`\`\`sql
 -- Insert single row
 INSERT INTO users (name, email, age)
-VALUES ('John Doe', 'john@example.com', 25);
+VALUES ('Dattu p', ' Dattu@example.com', 25);
 
 -- Insert multiple rows
 INSERT INTO users (name, email, age)
 VALUES 
     ('Jane Smith', 'jane@example.com', 30),
-    ('Bob Johnson', 'bob@example.com', 28),
+    ('Bob  Dattuson', 'bob@example.com', 28),
     ('Alice Brown', 'alice@example.com', 35);
 \`\`\`
 
@@ -59,7 +61,7 @@ VALUES ('Mouse', 29.99);
 \`\`\`sql
 -- ID is auto-generated
 INSERT INTO users (name, email)
-VALUES ('John Doe', 'john@example.com');
+VALUES ('Dattu p', ' Dattu@example.com');
 -- id is automatically assigned
 \`\`\`
 
@@ -76,6 +78,8 @@ WHERE age > 25;
 ---
 
 ## UPDATE - Modifying Data
+
+Use [SELECT queries](/tutorial/mysql-select) to verify updates and [WHERE clause](/tutorial/mysql-clauses) for filtering rows to update.
 
 ### Basic UPDATE Syntax
 
@@ -95,7 +99,7 @@ WHERE id = 1;
 
 -- Update multiple columns
 UPDATE users 
-SET name = 'John Smith', email = 'johnsmith@example.com'
+SET name = ' Dattu Smith', email = ' Dattusmith@example.com'
 WHERE id = 1;
 
 -- Update multiple rows
@@ -126,12 +130,14 @@ UPDATE users SET age = 25 WHERE id = 1;
 UPDATE orders o
 JOIN customers c ON o.customer_id = c.id
 SET o.status = 'completed'
-WHERE c.email = 'john@example.com';
+WHERE c.email = ' Dattu@example.com';
 \`\`\`
 
 ---
 
 ## DELETE - Removing Data
+
+Learn about [MySQL Transactions](/tutorial/mysql-transactions) to safely delete data with rollback capability. Use [SELECT](/tutorial/mysql-select) to preview data before deleting.
 
 ### Basic DELETE Syntax
 
@@ -169,7 +175,7 @@ DELETE FROM users WHERE id = 5;
 -- Delete orders for specific customer
 DELETE o FROM orders o
 JOIN customers c ON o.customer_id = c.id
-WHERE c.email = 'john@example.com';
+WHERE c.email = ' Dattu@example.com';
 \`\`\`
 
 ### TRUNCATE vs DELETE
@@ -292,7 +298,7 @@ INSERT INTO users (name, email) VALUES ('New User', 'new@example.com');
 \`\`\`sql
 -- MySQL 8.0+ - ON DUPLICATE KEY UPDATE
 INSERT INTO users (id, name, email)
-VALUES (1, 'John Doe', 'john@example.com')
+VALUES (1, 'Dattu p', ' Dattu@example.com')
 ON DUPLICATE KEY UPDATE
     name = VALUES(name),
     email = VALUES(email);
@@ -430,12 +436,12 @@ CREATE TABLE orders (
 
 -- Insert single row
 INSERT INTO users (name, email, age, city)
-VALUES ('John Doe', 'john@example.com', 25, 'New York');
+VALUES ('Dattu p', ' Dattu@example.com', 25, 'New York');
 
 -- Insert multiple rows
 INSERT INTO users (name, email, age, city) VALUES
 ('Jane Smith', 'jane@example.com', 30, 'Los Angeles'),
-('Bob Johnson', 'bob@example.com', 28, 'Chicago'),
+('Bob  Dattuson', 'bob@example.com', 28, 'Chicago'),
 ('Alice Brown', 'alice@example.com', 35, 'New York');
 
 -- Insert with default values
@@ -462,7 +468,7 @@ UPDATE users SET age = 26 WHERE id = 1;
 
 -- Update multiple columns
 UPDATE users 
-SET name = 'John Smith', city = 'Boston'
+SET name = ' Dattu Smith', city = 'Boston'
 WHERE id = 1;
 
 -- Update multiple rows
@@ -489,7 +495,7 @@ WHERE age < 18;
 UPDATE orders o
 JOIN users u ON o.user_id = u.id
 SET o.status = 'completed'
-WHERE u.email = 'john@example.com';
+WHERE u.email = ' Dattu@example.com';
 
 -- ========== DELETE Examples ==========
 
@@ -505,7 +511,7 @@ DELETE FROM orders WHERE status = 'cancelled';
 -- Delete with JOIN
 DELETE o FROM orders o
 JOIN users u ON o.user_id = u.id
-WHERE u.email = 'john@example.com';
+WHERE u.email = ' Dattu@example.com';
 
 -- Soft delete (recommended)
 ALTER TABLE users ADD COLUMN is_deleted TINYINT(1) DEFAULT 0;
@@ -552,7 +558,7 @@ AND order_date < DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR);
 
 -- MySQL 8.0+ ON DUPLICATE KEY UPDATE
 INSERT INTO users (id, name, email, age)
-VALUES (1, 'John Updated', 'john@example.com', 27)
+VALUES (1, ' Dattu Updated', ' Dattu@example.com', 27)
 ON DUPLICATE KEY UPDATE
     name = VALUES(name),
     age = VALUES(age);
@@ -678,7 +684,7 @@ Yes, you can insert multiple rows in a single INSERT statement by providing mult
 
 \`\`\`sql
 INSERT INTO users (name, email) VALUES
-('John', 'john@example.com'),
+(' Dattu', ' Dattu@example.com'),
 ('Jane', 'jane@example.com'),
 ('Bob', 'bob@example.com');
 \`\`\`
@@ -695,8 +701,8 @@ You can update multiple columns in a single UPDATE statement by separating colum
 
 \`\`\`sql
 UPDATE users 
-SET name = 'John Doe', 
-    email = 'john.doe@example.com',
+SET name = 'Dattu p', 
+    email = ' Dattu.doe@example.com',
     age = 30
 WHERE id = 1;
 \`\`\`
@@ -722,8 +728,8 @@ ON DUPLICATE KEY UPDATE (MySQL's UPSERT) inserts a row, or updates it if a dupli
 
 \`\`\`sql
 INSERT INTO users (id, name, email)
-VALUES (1, 'John', 'john@example.com')
-ON DUPLICATE KEY UPDATE name = 'John', email = 'john@example.com';
+VALUES (1, ' Dattu', ' Dattu@example.com')
+ON DUPLICATE KEY UPDATE name = ' Dattu', email = ' Dattu@example.com';
 \`\`\`
 
 This is useful for insert-or-update operations.
@@ -799,6 +805,12 @@ Now that you understand INSERT, UPDATE, and DELETE, you're ready to explore adva
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles DML operations
 
 INSERT, UPDATE, and DELETE are essential for data management. Continue learning about [MySQL Transactions](/tutorial/mysql-transactions) to ensure data consistency across multiple operations.
+
+---
+
+## Test Your Knowledge
+
+Mastered DML operations? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering INSERT, UPDATE, DELETE, and all MySQL topics!
 `
 };
 

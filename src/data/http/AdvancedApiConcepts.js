@@ -19,7 +19,7 @@ Beyond REST, there are advanced API concepts (HATEOAS, GraphQL, WebSockets, gRPC
 \`\`\`json
 {
   "id": 123,
-  "name": "John Doe",
+  "name": "Dattu p",
   "_links": {
     "self": {"href": "/api/users/123"},
     "posts": {"href": "/api/users/123/posts"},

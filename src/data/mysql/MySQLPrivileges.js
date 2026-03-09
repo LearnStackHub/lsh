@@ -667,6 +667,12 @@ Now that you understand DCL and privileges, you're ready to explore advanced MyS
 - **[System Administration](/tutorial/system-administration)**: Master server-level security
 
 DCL and privileges are essential for database security. Continue learning about [MySQL Security Best Practices](/tutorial/mysql-security) to implement comprehensive database security.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL privileges? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering privileges, security, and all MySQL topics!
 `
 };
 

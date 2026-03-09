@@ -32,7 +32,7 @@ Connection conn = DriverManager.getConnection(url, user, password);
 System.out.println(conn.getAutoCommit());  // true
 
 // Each statement is its own transaction
-stmt.executeUpdate("INSERT INTO users (name) VALUES ('John')");  // Committed!
+stmt.executeUpdate("INSERT INTO users (name) VALUES (' Dattu')");  // Committed!
 stmt.executeUpdate("INSERT INTO users (name) VALUES ('Jane')");  // Committed!
 \`\`\`
 
@@ -303,6 +303,12 @@ public class OrderService {
 3. **Always handle rollback** — Never leave transactions hanging
 4. **Use savepoints sparingly** — They add complexity
 5. **Test failure scenarios** — Ensure rollback works correctly
+
+---
+
+## Test Your Knowledge
+
+Ready to test your transaction management skills? Take our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering ACID properties, commit, rollback, and isolation levels!
 `,
   code: `// Transaction Management Demo
 // Demonstrates commit, rollback, and savepoints
@@ -315,7 +321,7 @@ public class TransactionDemo {
         
         // Create simulated bank
         SimulatedBank bank = new SimulatedBank();
-        bank.createAccount(1, "John", 1000.00);
+        bank.createAccount(1, " Dattu", 1000.00);
         bank.createAccount(2, "Jane", 500.00);
         bank.createAccount(3, "Bob", 750.00);
         
@@ -337,7 +343,7 @@ public class TransactionDemo {
         // 3. SUCCESSFUL TRANSACTION
         System.out.println("3. SUCCESSFUL TRANSACTION");
         System.out.println("   -----------------------");
-        System.out.println("   Transferring $200 from John to Jane...");
+        System.out.println("   Transferring $200 from  Dattu to Jane...");
         System.out.println();
         
         SimulatedConnection conn = bank.getConnection();
@@ -346,7 +352,7 @@ public class TransactionDemo {
         
         try {
             bank.debit(1, 200.00);
-            System.out.println("   Debited $200 from John");
+            System.out.println("   Debited $200 from  Dattu");
             
             bank.credit(2, 200.00);
             System.out.println("   Credited $200 to Jane");
@@ -367,7 +373,7 @@ public class TransactionDemo {
         // 4. FAILED TRANSACTION (ROLLBACK)
         System.out.println("4. FAILED TRANSACTION (ROLLBACK)");
         System.out.println("   ------------------------------");
-        System.out.println("   Attempting to transfer $5000 from John (insufficient funds)...");
+        System.out.println("   Attempting to transfer $5000 from  Dattu (insufficient funds)...");
         System.out.println();
         
         conn.setAutoCommit(false);
@@ -400,7 +406,7 @@ public class TransactionDemo {
         try {
             // First operation
             bank.debit(1, 100.00);
-            System.out.println("   Debited $100 from John");
+            System.out.println("   Debited $100 from  Dattu");
             
             // Create savepoint
             String savepoint = conn.setSavepoint("afterDebit");

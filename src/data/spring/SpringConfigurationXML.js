@@ -143,7 +143,7 @@ public class Main {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         
         StudentController controller = context.getBean("studentController", StudentController.class);
-        controller.handleRequest(new Student("John", 20));
+        controller.handleRequest(new Student(" Dattu", 20));
     }
 }
 \`\`\`

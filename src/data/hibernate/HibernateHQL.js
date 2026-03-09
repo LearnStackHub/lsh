@@ -200,7 +200,7 @@ Use \`?\` for positional parameters.
 \`\`\`java
 String hql = "FROM User WHERE name = ? AND age > ?";
 Query<User> query = session.createQuery(hql, User.class);
-query.setParameter(0, "John");
+query.setParameter(0, " Dattu");
 query.setParameter(1, 25);
 List<User> users = query.list();
 \`\`\`
@@ -246,7 +246,7 @@ HQL automatically joins based on relationships.
 \`\`\`java
 String hql = "FROM Order o WHERE o.customer.name = :name";
 Query<Order> query = session.createQuery(hql, Order.class);
-query.setParameter("name", "John");
+query.setParameter("name", " Dattu");
 List<Order> orders = query.list();
 \`\`\`
 
@@ -255,7 +255,7 @@ List<Order> orders = query.list();
 \`\`\`java
 String hql = "SELECT o FROM Order o JOIN o.customer c WHERE c.name = :name";
 Query<Order> query = session.createQuery(hql, Order.class);
-query.setParameter("name", "John");
+query.setParameter("name", " Dattu");
 List<Order> orders = query.list();
 \`\`\`
 

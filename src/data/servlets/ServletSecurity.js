@@ -406,7 +406,7 @@ public class ServletSecurityDemo {
         
         // Register users
         userService.register("admin", "Admin@123", "ADMIN");
-        userService.register("john", "User@123", "USER");
+        userService.register(" Dattu", "User@123", "USER");
         
         // Test login
         System.out.println("   Login 'admin' with correct password:");
@@ -423,7 +423,7 @@ public class ServletSecurityDemo {
         System.out.println("   ---------------------------");
         
         User adminUser = userService.authenticate("admin", "Admin@123");
-        User normalUser = userService.authenticate("john", "User@123");
+        User normalUser = userService.authenticate(" Dattu", "User@123");
         
         System.out.println("   Admin accessing /admin/dashboard:");
         System.out.println("     " + securityFilter.checkAccess("/admin/dashboard", adminUser));
@@ -478,11 +478,11 @@ public class ServletSecurityDemo {
         System.out.println("   -----------------");
         
         System.out.println("   Email validation:");
-        System.out.println("     'john@email.com': " + InputValidator.isValidEmail("john@email.com"));
+        System.out.println("     ' Dattu@email.com': " + InputValidator.isValidEmail(" Dattu@email.com"));
         System.out.println("     'invalid-email': " + InputValidator.isValidEmail("invalid-email"));
         
         System.out.println("   Username validation:");
-        System.out.println("     'john_doe': " + InputValidator.isValidUsername("john_doe"));
+        System.out.println("     ' Dattu_doe': " + InputValidator.isValidUsername(" Dattu_doe"));
         System.out.println("     'a': " + InputValidator.isValidUsername("a"));
         
         System.out.println("   Password validation:");
@@ -641,7 +641,7 @@ public class LoginTrackerDemo {
         
         LoginTracker tracker = new LoginTracker(3, 30000);  // 3 attempts, 30 sec lockout
         
-        String username = "john";
+        String username = " Dattu";
         
         // Simulate failed login attempts
         System.out.println("Simulating login attempts for user: " + username);

@@ -199,8 +199,8 @@ JSTL provides a set of standard tags for common tasks like loops, conditionals, 
 
 \`\`\`jsp
 Dollar{fn:length(items)}                    <%-- Collection/string length --%>
-Dollar{fn:toUpperCase(name)}                <%-- JOHN --%>
-Dollar{fn:toLowerCase(name)}                <%-- john --%>
+Dollar{fn:toUpperCase(name)}                <%--  Dattu --%>
+Dollar{fn:toLowerCase(name)}                <%--  Dattu --%>
 Dollar{fn:substring(text, 0, 10)}           <%-- First 10 chars --%>
 Dollar{fn:substringAfter(email, '@')}       <%-- Domain part --%>
 Dollar{fn:substringBefore(email, '@')}      <%-- Username part --%>
@@ -396,7 +396,7 @@ public class JSTLDemo {
         System.out.println("   fn:replace('World','JSTL'): " + text.replace("World", "JSTL"));
         System.out.println();
         
-        String email = "john@example.com";
+        String email = " Dattu@example.com";
         System.out.println("   Email: " + email);
         System.out.println("   fn:substringBefore('@'): " + email.substring(0, email.indexOf('@')));
         System.out.println("   fn:substringAfter('@'): " + email.substring(email.indexOf('@') + 1));

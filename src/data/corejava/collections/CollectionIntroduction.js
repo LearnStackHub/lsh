@@ -378,7 +378,7 @@ public class ECommerceCollections {
         System.out.println("─".repeat(50));
         
         Queue<String> orderQueue = new LinkedList<>();
-        orderQueue.offer("Order #1001 - John");
+        orderQueue.offer("Order #1001 -  Dattu");
         orderQueue.offer("Order #1002 - Jane");
         orderQueue.offer("Order #1003 - Bob");
         
@@ -442,7 +442,7 @@ public class BankingCollections {
         System.out.println("─".repeat(50));
         
         Set<String> beneficiaries = new TreeSet<>();
-        beneficiaries.add("John Doe - ACC-2001");
+        beneficiaries.add("Dattu p - ACC-2001");
         beneficiaries.add("Alice Smith - ACC-2002");
         beneficiaries.add("Bob Wilson - ACC-2003");
         
@@ -524,6 +524,12 @@ for(int i = 0; i < list.size(); i++) {
 | **LinkedHashMap** | Keys: No | Insertion | 1 key | No | Ordered key-value |
 
 > **Industry Insight**: Collections are used everywhere in enterprise applications. E-commerce uses HashMap for product lookup, ArrayList for search results, and Queue for order processing. Banks use TreeMap for sorted transactions and ConcurrentHashMap for thread-safe operations.
+
+---
+
+## Test Your Knowledge
+
+Mastered Collections framework? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering Collections, List, Set, Map, Queue, and all Core Java topics!
 `,
   code: `// Complete Collections Framework Demo
 // Understanding all collection types
@@ -728,7 +734,7 @@ public class StudentManagement {
     public static void main(String[] args) {
         // 1. HashMap - Student lookup by ID
         Map<String, String> students = new HashMap<>();
-        students.put("STU-001", "John Doe");
+        students.put("STU-001", "Dattu p");
         students.put("STU-002", "Jane Smith");
         // Add more students
         

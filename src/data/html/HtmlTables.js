@@ -51,7 +51,7 @@ Enterprise applications extensively use tables for data presentation, reports, d
         <th>City</th>
     </tr>
     <tr>
-        <td>John</td>
+        <td> Dattu</td>
         <td>25</td>
         <td>Mumbai</td>
     </tr>
@@ -67,7 +67,7 @@ Enterprise applications extensively use tables for data presentation, reports, d
 
 | Name | Age | City |
 |------|-----|------|
-| John | 25  | Mumbai |
+|  Dattu | 25  | Mumbai |
 | Jane | 30  | Delhi |
 
 ---
@@ -150,8 +150,8 @@ Enterprise applications extensively use tables for data presentation, reports, d
         <th>Email</th>
     </tr>
     <tr>
-        <td>John</td>
-        <td>john@example.com</td>
+        <td> Dattu</td>
+        <td> Dattu@example.com</td>
     </tr>
 </table>
 \`\`\`
@@ -169,7 +169,7 @@ Enterprise applications extensively use tables for data presentation, reports, d
         <th>First Name</th>
     </tr>
     <tr>
-        <td>John</td>
+        <td> Dattu</td>
     </tr>
     <tr>
         <td>Jane</td>
@@ -199,7 +199,7 @@ Enterprise applications extensively use tables for data presentation, reports, d
     </thead>
     <tbody>
         <tr>
-            <td>John</td>
+            <td> Dattu</td>
             <td>85</td>
             <td>90</td>
             <td>88</td>
@@ -260,7 +260,7 @@ Enterprise applications extensively use tables for data presentation, reports, d
         <th>Age</th>
     </tr>
     <tr>
-        <td>John</td>
+        <td> Dattu</td>
         <td>25</td>
     </tr>
 </table>
@@ -471,7 +471,7 @@ Enterprise applications extensively use tables for data presentation, reports, d
         <th scope="col">Age</th>
     </tr>
     <tr>
-        <th scope="row">John</th>
+        <th scope="row"> Dattu</th>
         <td>25</td>
     </tr>
 </table>
@@ -579,7 +579,7 @@ Tables are perfect for displaying structured data!
     </thead>
     <tbody>
         <tr>
-            <td>John</td>
+            <td> Dattu</td>
             <td>25</td>
         </tr>
     </tbody>
@@ -622,7 +622,7 @@ Components:
         <th>First</th>
     </tr>
     <tr>
-        <td>John</td>
+        <td> Dattu</td>
     </tr>
 </table>
 */
@@ -674,7 +674,7 @@ tr:nth-child(even) {
         <th scope="col">Age</th>
     </tr>
     <tr>
-        <th scope="row">John</th>
+        <th scope="row"> Dattu</th>
         <td>25</td>
     </tr>
 </table>

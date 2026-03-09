@@ -200,7 +200,7 @@ fetch('http://localhost:8080/api/users', {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer token123'
     },
-    body: JSON.stringify({ name: 'John' })
+    body: JSON.stringify({ name: ' Dattu' })
 })
 \`\`\`
 
@@ -258,7 +258,7 @@ Content-Type: application/json
 Authorization: Bearer token123
 
 {
-  "name": "John"
+  "name": " Dattu"
 }
 \`\`\`
 
@@ -271,7 +271,7 @@ Content-Type: application/json
 
 {
   "id": 123,
-  "name": "John"
+  "name": " Dattu"
 }
 \`\`\`
 
@@ -975,7 +975,7 @@ fetch('http://localhost:8080/api/users', {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer token123'
     },
-    body: JSON.stringify({ name: 'John' })
+    body: JSON.stringify({ name: ' Dattu' })
 })
 \`\`\`
 
@@ -1259,7 +1259,7 @@ fetch('http://localhost:8080/api/users', {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer token123'
     },
-    body: JSON.stringify({ name: 'John' }),
+    body: JSON.stringify({ name: ' Dattu' }),
     credentials: 'include'  // Include cookies
 })
 .then(response => response.json())

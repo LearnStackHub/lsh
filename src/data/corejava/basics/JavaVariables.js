@@ -23,7 +23,7 @@ Some examples:
 
 \`\`\`java
 int age = 25;
-String name = "John";
+String name = " Dattu";
 double price = 99.99;
 boolean isLoggedIn = true;
 \`\`\`
@@ -277,7 +277,7 @@ public class VariablesDemo {
         System.out.println("   Declared inside methods");
         
         int age = 25;
-        String name = "John";
+        String name = " Dattu";
         double salary = 50000.50;
         boolean isEmployed = true;
         
@@ -351,7 +351,7 @@ public class VariablesDemo {
       starterCode: `public class StudentInfo {
     public static void main(String[] args) {
         // Declare variables for a student
-        String studentName = "Alice Johnson";
+        String studentName = "Alice  Dattuson";
         int studentAge = 20;
         double gpa = 3.75;
         boolean isEnrolled = true;
@@ -367,7 +367,14 @@ public class VariablesDemo {
         
         // Try adding more variables!
     }
-}`
+}
+
+---
+
+## Test Your Knowledge
+
+Mastered Java variables? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering variables, data types, and all Core Java topics!
+`
     }
   ]
 };

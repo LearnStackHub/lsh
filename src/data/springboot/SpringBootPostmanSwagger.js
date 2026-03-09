@@ -242,8 +242,8 @@ If you haven't created any students yet, you'll get an empty array: \`[]\`
 
 \`\`\`json
 {
-    "name": "John Doe",
-    "email": "john@example.com",
+    "name": "Dattu p",
+    "email": " Dattu@example.com",
     "age": 25
 }
 \`\`\`
@@ -267,8 +267,8 @@ If you haven't created any students yet, you'll get an empty array: \`[]\`
 
 \`\`\`json
 {
-    "name": "John Smith",
-    "email": "johnsmith@example.com",
+    "name": " Dattu Smith",
+    "email": " Dattusmith@example.com",
     "age": 26
 }
 \`\`\`

@@ -11,10 +11,10 @@ A String in Java is an object that represents a sequence of characters. Strings 
 
 \`\`\`java
 // Using string literal (recommended)
-String name = "John";
+String name = " Dattu";
 
 // Using new keyword
-String name = new String("John");
+String name = new String(" Dattu");
 \`\`\`
 
 ## String Pool
@@ -136,7 +136,7 @@ public class DataMasking {
         // Sensitive data
         String accountNumber = "1234567890123456";
         String cardNumber = "4532015112830366";
-        String email = "john.doe@company.com";
+        String email = "datuu@gmail.com";
         String phone = "+1-555-123-4567";
         String ssn = "123-45-6789";
         
@@ -216,7 +216,7 @@ public class EmailValidation {
         System.out.println("===========================");
         
         String[] emails = {
-            "john.doe@company.com",
+            "datuu@gmail.com",
             "invalid-email",
             "user@domain",
             "test@test.co.uk",
@@ -297,6 +297,12 @@ public class EmailValidation {
 | split() | Split by delimiter | "a,b,c".split(",") → ["a","b","c"] |
 
 > **Industry Insight**: String manipulation is crucial in web development. Amazon uses string operations for product search and filtering. Banks use string masking for security compliance (PCI-DSS). Email services use string validation for spam filtering.
+
+---
+
+## Test Your Knowledge
+
+Mastered String operations? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering String, StringBuffer, StringBuilder, and all Core Java topics!
 `,
   code: `// Real-Time: Complete String Operations Demo
 // User registration and data processing
@@ -332,8 +338,8 @@ public class StringOperationsDemo {
         System.out.println("═".repeat(50));
         
         // Raw input (simulating form data)
-        String rawName = "  John DOE  ";
-        String rawEmail = "JOHN.DOE@COMPANY.COM";
+        String rawName = "  Dattu p  ";
+        String rawEmail = "datuu@gmail.com";
         String rawPhone = "  +1-555-123-4567  ";
         String rawPassword = "MyP@ssw0rd123";
         

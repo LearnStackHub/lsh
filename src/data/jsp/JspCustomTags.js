@@ -336,10 +336,10 @@ public class CustomTagsDemo {
         PanelTag panelTag = new PanelTag();
         panelTag.setTitle("User Info");
         panelTag.setType("info");
-        panelTag.setBody("<p>Name: John</p><p>Email: john@email.com</p>");
+        panelTag.setBody("<p>Name:  Dattu</p><p>Email:  Dattu@email.com</p>");
         
         System.out.println("   <my:panel title=\\"User Info\\" type=\\"info\\">");
-        System.out.println("       <p>Name: John</p>");
+        System.out.println("       <p>Name:  Dattu</p>");
         System.out.println("   </my:panel>");
         System.out.println();
         System.out.println("   Output:");

@@ -497,7 +497,7 @@ If you're not using \`@WebServlet\` annotation, configure in web.xml:
 ### 3. **HTTP Methods**
 
 - **GET**: Data in URL (visible in address bar)
-  - \`form.html?username=john&email=john@example.com\`
+  - \`form.html?username= Dattu&email= Dattu@example.com\`
 - **POST**: Data in request body (hidden, more secure)
   - Better for forms with passwords
 

@@ -25,7 +25,7 @@ Java was designed to be easy to learn. If you know C or C++, Java feels familiar
 
 \`\`\`java
 // Java is straightforward
-String name = "John";
+String name = " Dattu";
 int age = 25;
 System.out.println(name + " is " + age);
 \`\`\`
@@ -347,7 +347,14 @@ class Car {
     public void displayInfo() {
         System.out.println("   " + brand + " " + model + " - Speed: " + speed + " km/h");
     }
-}`,
+}
+
+---
+
+## Test Your Knowledge
+
+Mastered Java features? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering Java features, OOPs, and all Core Java topics!
+`,
   practiceQuestions: [
     {
       question: 'Demonstrate Java features with a practical example',
@@ -362,7 +369,7 @@ class Car {
         System.out.println();
         
         // Object-Oriented
-        BankAccount account = new BankAccount("John Doe", 1000.0);
+        BankAccount account = new BankAccount("Dattu p", 1000.0);
         account.display();
         
         // Robust - Exception Handling

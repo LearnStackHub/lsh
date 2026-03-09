@@ -81,8 +81,8 @@ public class Person {
     }
 }
 
-Person p = new Person("John", 25);
-// p.name = "John", p.age = 25
+Person p = new Person(" Dattu", 25);
+// p.name = " Dattu", p.age = 25
 \`\`\`
 
 ### 3. Copy Constructor
@@ -101,7 +101,7 @@ public class Person {
     }
 }
 
-Person original = new Person("John", 25);
+Person original = new Person(" Dattu", 25);
 Person copy = new Person(original);  // Copy of original
 \`\`\`
 
@@ -368,7 +368,7 @@ public class ConstructorsDemo {
         System.out.println("5. CONSTRUCTOR CHAINING");
         System.out.println("   ---------------------");
         
-        Employee emp1 = new Employee("John", "Engineering", 75000);
+        Employee emp1 = new Employee(" Dattu", "Engineering", 75000);
         Employee emp2 = new Employee("Jane", "Marketing");
         Employee emp3 = new Employee("Jim");
         

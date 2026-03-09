@@ -1336,7 +1336,7 @@ header.payload.signature
 \`\`\`json
 {
   "sub": "user123",
-  "name": "John Doe",
+  "name": "Dattu p",
   "roles": ["USER", "ADMIN"],
   "exp": 1642234567
 }

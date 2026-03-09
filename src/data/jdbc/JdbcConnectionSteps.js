@@ -141,7 +141,7 @@ while (rs.next()) {
 
 \`\`\`java
 int rowsAffected = stmt.executeUpdate(
-    "INSERT INTO users (name, email) VALUES ('John', 'john@email.com')");
+    "INSERT INTO users (name, email) VALUES (' Dattu', ' Dattu@email.com')");
 System.out.println("Rows inserted: " + rowsAffected);
 \`\`\`
 
@@ -226,8 +226,8 @@ public class JdbcExample {
             // Insert data
             String insertSql = "INSERT INTO users (name, email) VALUES (?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
-                pstmt.setString(1, "John Doe");
-                pstmt.setString(2, "john@email.com");
+                pstmt.setString(1, "Dattu p");
+                pstmt.setString(2, " Dattu@email.com");
                 pstmt.executeUpdate();
             }
             
@@ -271,6 +271,12 @@ public class DatabaseUtil {
     }
 }
 \`\`\`
+
+---
+
+## Test Your Knowledge
+
+Mastered JDBC connection steps? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering connection establishment, statements, and all JDBC topics!
 `,
   code: `// JDBC Connection Steps Demo
 // Demonstrates the 5 steps to connect to a database
@@ -339,7 +345,7 @@ public class JdbcConnectionDemo {
         
         // Insert data
         System.out.println("Inserting data...");
-        stmt.executeUpdate("INSERT INTO users VALUES (1, 'John Doe', 'john@email.com')");
+        stmt.executeUpdate("INSERT INTO users VALUES (1, 'Dattu p', ' Dattu@email.com')");
         stmt.executeUpdate("INSERT INTO users VALUES (2, 'Jane Smith', 'jane@email.com')");
         stmt.executeUpdate("INSERT INTO users VALUES (3, 'Bob Wilson', 'bob@email.com')");
         System.out.println("3 rows inserted!");

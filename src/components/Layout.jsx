@@ -323,10 +323,13 @@ function Layout() {
               <Link
                 key={item.id}
                 to={`/tutorial/${item.id}`}
-                className={`sidebar-link ${isTopicActive(item.id) ? 'active' : ''}`}
+                className={`sidebar-link ${isTopicActive(item.id) ? 'active' : ''} ${item.id?.includes('mcq') || item.id?.includes('exam') ? 'exam-link' : ''}`}
                 onClick={() => setSidebarOpen(false)}
               >
-                {item.title}
+                <span>{item.title}</span>
+                {(item.id?.includes('mcq') || item.id?.includes('exam')) && (
+                  <span className="exam-badge">Exam</span>
+                )}
               </Link>
             )
           )) : (

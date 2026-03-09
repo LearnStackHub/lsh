@@ -271,7 +271,7 @@ Use @RequestParam for:
 public List<User> getUsers(
     @RequestParam(required = false) String name,
     @RequestParam(required = false) String email) {
-    // URL: /users?name=John&email=john@example.com
+    // URL: /users?name= Dattu&email= Dattu@example.com
 }
 \`\`\`
 

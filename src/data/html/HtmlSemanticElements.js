@@ -107,7 +107,7 @@ Semantic elements clearly describe their purpose:
     </header>
     <p>Article content...</p>
     <footer>
-        <p>Author: John Doe</p>
+        <p>Author: Dattu p</p>
     </footer>
 </article>
 \`\`\`
@@ -226,7 +226,7 @@ Semantic elements clearly describe their purpose:
             </section>
             
             <footer>
-                <p>Author: John Doe</p>
+                <p>Author: Dattu p</p>
             </footer>
         </article>
         
@@ -297,7 +297,7 @@ Semantic elements clearly describe their purpose:
 
 \`\`\`html
 <address>
-    Written by <a href="mailto:john@example.com">John Doe</a>.<br>
+    Written by <a href="mailto: Dattu@example.com">Dattu p</a>.<br>
     Visit us at:<br>
     123 Main St<br>
     City, State 12345
@@ -380,7 +380,7 @@ Semantic elements clearly describe their purpose:
     
     <footer>
         <address>
-            Author: <a href="mailto:author@example.com">John Doe</a>
+            Author: <a href="mailto:author@example.com">Dattu p</a>
         </address>
     </footer>
 </article>

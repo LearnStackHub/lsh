@@ -52,7 +52,7 @@ for (int i = 0; i < 1000; i++) {
 \`\`\`java
 // Automatic type handling
 pstmt.setInt(1, 42);
-pstmt.setString(2, "John");
+pstmt.setString(2, " Dattu");
 pstmt.setDouble(3, 99.99);
 pstmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
 pstmt.setBoolean(5, true);
@@ -80,7 +80,7 @@ pstmt.setInt(1, 42);                    // Integer
 pstmt.setLong(2, 123456789L);           // Long
 pstmt.setDouble(3, 99.99);              // Double
 pstmt.setFloat(4, 3.14f);               // Float
-pstmt.setString(5, "John");             // String
+pstmt.setString(5, " Dattu");             // String
 pstmt.setBoolean(6, true);              // Boolean
 pstmt.setDate(7, sqlDate);              // java.sql.Date
 pstmt.setTimestamp(8, timestamp);       // java.sql.Timestamp
@@ -111,8 +111,8 @@ if (email != null) {
 String sql = "INSERT INTO users (name, email, age) VALUES (?, ?, ?)";
 
 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    pstmt.setString(1, "John Doe");
-    pstmt.setString(2, "john@email.com");
+    pstmt.setString(1, "Dattu p");
+    pstmt.setString(2, " Dattu@email.com");
     pstmt.setInt(3, 25);
     
     int rowsInserted = pstmt.executeUpdate();
@@ -128,8 +128,8 @@ String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
 try (PreparedStatement pstmt = conn.prepareStatement(sql, 
         Statement.RETURN_GENERATED_KEYS)) {
     
-    pstmt.setString(1, "John");
-    pstmt.setString(2, "john@email.com");
+    pstmt.setString(1, " Dattu");
+    pstmt.setString(2, " Dattu@email.com");
     pstmt.executeUpdate();
     
     // Get the auto-generated ID
@@ -197,7 +197,7 @@ try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     
     // Add multiple sets of parameters
     String[][] users = {
-        {"John", "john@email.com"},
+        {" Dattu", " Dattu@email.com"},
         {"Jane", "jane@email.com"},
         {"Bob", "bob@email.com"}
     };
@@ -315,6 +315,12 @@ public class UserService {
     }
 }
 \`\`\`
+
+---
+
+## Test Your Knowledge
+
+Mastered PreparedStatement? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering PreparedStatement, parameterized queries, and all JDBC topics!
 `,
   code: `// PreparedStatement Demo
 // Demonstrates safe, parameterized queries
@@ -363,11 +369,11 @@ public class PreparedStatementDemo {
         System.out.println("3. SETTING PARAMETERS");
         System.out.println("   -------------------");
         
-        System.out.println("   pstmt.setString(1, \\"John Doe\\")");
-        pstmt.setString(1, "John Doe");
+        System.out.println("   pstmt.setString(1, \\"Dattu p\\")");
+        pstmt.setString(1, "Dattu p");
         
-        System.out.println("   pstmt.setString(2, \\"john@email.com\\")");
-        pstmt.setString(2, "john@email.com");
+        System.out.println("   pstmt.setString(2, \\" Dattu@email.com\\")");
+        pstmt.setString(2, " Dattu@email.com");
         
         System.out.println("   pstmt.setInt(3, 25)");
         pstmt.setInt(3, 25);
@@ -582,7 +588,7 @@ public class UserRepositoryDemo {
         
         // Create users
         System.out.println("Creating users...");
-        int id1 = repo.create(new User("John Doe", "john@email.com"));
+        int id1 = repo.create(new User("Dattu p", " Dattu@email.com"));
         int id2 = repo.create(new User("Jane Smith", "jane@email.com"));
         int id3 = repo.create(new User("Bob Wilson", "bob@email.com"));
         System.out.println("Created users with IDs: " + id1 + ", " + id2 + ", " + id3);
@@ -603,7 +609,7 @@ public class UserRepositoryDemo {
         
         // Update
         System.out.println("Updating user " + id1 + "...");
-        found.setEmail("john.updated@email.com");
+        found.setEmail(" Dattu.updated@email.com");
         repo.update(found);
         System.out.println("Updated: " + repo.findById(id1));
         System.out.println();

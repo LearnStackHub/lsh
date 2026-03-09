@@ -134,7 +134,7 @@ int myInt = (int) myDouble;  // Manual cast: 9.78 → 9 (truncated!)
 Everything that's not a primitive is a reference type:
 
 \`\`\`java
-String name = "John";           // String class
+String name = " Dattu";           // String class
 int[] numbers = {1, 2, 3};      // Array
 ArrayList<String> list = new ArrayList<>();  // Class
 \`\`\`
@@ -244,6 +244,12 @@ public class Product {
     long barcode;              // Large number for barcode
 }
 \`\`\`
+
+---
+
+## Test Your Knowledge
+
+Mastered Java data types? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering data types, variables, and all Core Java topics!
 `,
   code: `// Data Types Demo - Understanding all Java data types
 
@@ -360,7 +366,7 @@ public class DataTypesDemo {
     public static void main(String[] args) {
         // Bank Account Information
         long accountNumber = 1234567890123456L;
-        String accountHolder = "John Smith";
+        String accountHolder = " Dattu Smith";
         double balance = 15750.50;
         boolean isActive = true;
         char accountType = 'S';  // S = Savings, C = Checking

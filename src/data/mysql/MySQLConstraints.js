@@ -5,7 +5,7 @@ const mysqlConstraints = {
   content: `
 # MySQL Constraints and Keys - Ensuring Data Integrity
 
-MySQL constraints are rules enforced on table columns that ensure data integrity, validity, and consistency in relational databases. Constraints prevent invalid data from being inserted, maintain relationships between tables through foreign keys, and enforce business rules at the database level. Understanding constraints is essential for designing robust, reliable database schemas.
+MySQL constraints are rules enforced on table columns that ensure data integrity, validity, and consistency in relational databases. Constraints prevent invalid data from being inserted, maintain relationships between tables through foreign keys, and enforce business rules at the database level. Understanding constraints is essential for designing robust, reliable database schemas. Learn about [MySQL Data Types](/tutorial/mysql-data-types) to understand how constraints work with different data types.
 
 Enterprise applications rely heavily on database constraints to maintain data quality, prevent data corruption, and ensure referential integrity across related tables. Constraints act as a safety net, catching invalid data before it enters the database, reducing application-level validation complexity and ensuring data consistency even when multiple applications access the same database.
 
@@ -74,6 +74,8 @@ CREATE TABLE order_items (
 
 ### Add Primary Key to Existing Table
 
+Learn about [MySQL DDL](/tutorial/mysql-ddl) for more ALTER TABLE operations.
+
 \`\`\`sql
 ALTER TABLE users ADD PRIMARY KEY (id);
 \`\`\`
@@ -82,7 +84,7 @@ ALTER TABLE users ADD PRIMARY KEY (id);
 
 ## 2. FOREIGN KEY
 
-Maintains referential integrity between tables. Ensures that values in one table exist in another.
+Maintains referential integrity between tables. Learn about [MySQL Joins](/tutorial/mysql-joins) to see how foreign keys enable table relationships. Ensures that values in one table exist in another.
 
 ### Basic Foreign Key
 
@@ -848,6 +850,12 @@ Now that you understand MySQL constraints, you're ready to explore advanced MySQ
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles constraints
 
 Constraints are essential for maintaining data integrity. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to see how foreign keys enable table relationships.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL constraints? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, and all MySQL topics!
 `
 };
 

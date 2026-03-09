@@ -427,8 +427,8 @@ Content-Type: application/json
 Authorization: Bearer token123
 
 {
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -451,8 +451,8 @@ Cache-Control: max-age=3600
 
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -664,8 +664,8 @@ app.get('/users/:id', (req, res) => {
     // Simulate database lookup
     const user = {
         id: userId,
-        name: 'John Doe',
-        email: 'john@example.com'
+        name: 'Dattu p',
+        email: ' Dattu@example.com'
     };
     
     // Send HTTP response

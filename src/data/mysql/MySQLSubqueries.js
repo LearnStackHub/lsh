@@ -417,9 +417,9 @@ CREATE TABLE order_items (
 
 -- Insert sample data
 INSERT INTO customers (name, email) VALUES
-('John Doe', 'john@example.com'),
+('Dattu p', ' Dattu@example.com'),
 ('Jane Smith', 'jane@example.com'),
-('Bob Johnson', 'bob@example.com');
+('Bob  Dattuson', 'bob@example.com');
 
 INSERT INTO products (name, price, category, stock) VALUES
 ('Laptop', 999.99, 'Electronics', 50),
@@ -761,6 +761,12 @@ Now that you understand subqueries, you're ready to explore advanced MySQL topic
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles complex queries
 
 Subqueries are essential for complex data retrieval. Continue learning about [MySQL Views](/tutorial/mysql-views) to simplify complex subquery logic.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL subqueries? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering subqueries, JOINs, and all MySQL topics!
 `
 };
 

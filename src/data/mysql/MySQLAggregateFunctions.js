@@ -803,6 +803,12 @@ Now that you understand aggregate functions, you're ready to explore advanced My
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles aggregation
 
 Aggregate functions are essential for data analysis. Continue learning about [MySQL Subqueries](/tutorial/mysql-subqueries) to use aggregates in complex queries.
+
+---
+
+## Test Your Knowledge
+
+Mastered aggregate functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering COUNT, SUM, AVG, MAX, MIN, and all MySQL topics!
 `
 };
 

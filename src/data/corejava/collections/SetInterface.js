@@ -200,8 +200,8 @@ class User {
 }
 
 Set<User> users = new HashSet<>();
-users.add(new User("john@email.com", "John"));
-users.add(new User("john@email.com", "Johnny"));  // Duplicate! Same email
+users.add(new User(" Dattu@email.com", " Dattu"));
+users.add(new User(" Dattu@email.com", " Dattuny"));  // Duplicate! Same email
 // Set size: 1
 \`\`\`
 

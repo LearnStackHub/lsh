@@ -264,8 +264,8 @@ Content-Type: application/json
 
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -340,7 +340,7 @@ query {
      │  3. HTTP Response            │
      │  {                            │
      │    "id": 123,                 │
-     │    "name": "John"             │
+     │    "name": " Dattu"             │
      │  }                            │
      │<─────────────────────────────│
      │                              │
@@ -878,7 +878,7 @@ class ApiClient {
 // Usage
 const client = new ApiClient('https://api.example.com', 'your-api-key');
 const users = await client.get('/users');
-const newUser = await client.post('/users', { name: 'John', email: 'john@example.com' });
+const newUser = await client.post('/users', { name: ' Dattu', email: ' Dattu@example.com' });
 
 // Example 9: API Error Handling (Java)
 @RestControllerAdvice

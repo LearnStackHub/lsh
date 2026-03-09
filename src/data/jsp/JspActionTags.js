@@ -141,8 +141,8 @@ if (user == null) {
 
 \`\`\`jsp
 <jsp:useBean id="user" class="com.example.User" scope="session" />
-<jsp:setProperty name="user" property="name" value="John" />
-<jsp:setProperty name="user" property="email" value="john@email.com" />
+<jsp:setProperty name="user" property="name" value=" Dattu" />
+<jsp:setProperty name="user" property="email" value=" Dattu@email.com" />
 \`\`\`
 
 ### Set from Request Parameter
@@ -356,7 +356,7 @@ public class JspActionTagsDemo {
         System.out.println("4. <jsp:setProperty> - Setting Bean Properties");
         System.out.println("   --------------------------------------------");
         System.out.println("   Individual property:");
-        System.out.println("   <jsp:setProperty name=\\"user\\" property=\\"name\\" value=\\"John\\" />");
+        System.out.println("   <jsp:setProperty name=\\"user\\" property=\\"name\\" value=\\" Dattu\\" />");
         System.out.println();
         System.out.println("   From request parameter:");
         System.out.println("   <jsp:setProperty name=\\"user\\" property=\\"name\\" param=\\"name\\" />");
@@ -366,8 +366,8 @@ public class JspActionTagsDemo {
         System.out.println();
         
         // Simulate setProperty
-        simulateSetProperty(user, "name", "John Doe");
-        simulateSetProperty(user, "email", "john@email.com");
+        simulateSetProperty(user, "name", "Dattu p");
+        simulateSetProperty(user, "email", " Dattu@email.com");
         simulateSetProperty(user, "age", 25);
         System.out.println("   After setting properties: " + user);
         System.out.println();

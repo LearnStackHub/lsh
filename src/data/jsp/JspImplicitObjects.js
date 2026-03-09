@@ -93,7 +93,7 @@ Control the response sent to the client.
 
 \`\`\`jsp
 <%
-    Cookie cookie = new Cookie("username", "john");
+    Cookie cookie = new Cookie("username", " Dattu");
     cookie.setMaxAge(3600);  // 1 hour
     response.addCookie(cookie);
 %>
@@ -343,7 +343,7 @@ public class JspImplicitObjectsDemo {
         SimulatedPageContext pageContext = new SimulatedPageContext();
         
         // Setup request
-        request.setParameter("username", "john");
+        request.setParameter("username", " Dattu");
         request.setParameter("action", "login");
         request.setHeader("User-Agent", "Mozilla/5.0");
         request.setMethod("POST");
@@ -383,7 +383,7 @@ public class JspImplicitObjectsDemo {
         // 4. SESSION OBJECT
         System.out.println("4. SESSION OBJECT (HttpSession)");
         System.out.println("   -----------------------------");
-        session.setAttribute("user", "John Doe");
+        session.setAttribute("user", "Dattu p");
         session.setAttribute("cart", "ShoppingCart[3 items]");
         System.out.println("   Session ID: " + session.getId());
         System.out.println("   Attributes:");

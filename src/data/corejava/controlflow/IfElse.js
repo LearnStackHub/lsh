@@ -426,10 +426,10 @@ public class IfElseDemo {
         LoginSystem login = new LoginSystem();
         
         System.out.println("   " + login.authenticate("", "pass123"));
-        System.out.println("   " + login.authenticate("john", ""));
+        System.out.println("   " + login.authenticate(" Dattu", ""));
         System.out.println("   " + login.authenticate("unknown", "pass123"));
-        System.out.println("   " + login.authenticate("john", "wrong"));
-        System.out.println("   " + login.authenticate("john", "password123"));
+        System.out.println("   " + login.authenticate(" Dattu", "wrong"));
+        System.out.println("   " + login.authenticate(" Dattu", "password123"));
     }
 }
 
@@ -445,7 +445,7 @@ class LoginSystem {
         }
         
         // Check user exists (simulated)
-        if (!username.equals("john") && !username.equals("jane")) {
+        if (!username.equals(" Dattu") && !username.equals("jane")) {
             return "Error: User not found";
         }
         

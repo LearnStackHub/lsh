@@ -609,6 +609,12 @@ Now that you understand transactions, you're ready to explore advanced MySQL top
 - **[Database Design](/tutorial/database-design)**: Design databases with transactions in mind
 
 Transactions are essential for data integrity. Continue learning about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) to implement transaction logic in database procedures.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL transactions? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering transactions, ACID properties, isolation levels, and all MySQL topics!
 `
 };
 

@@ -602,7 +602,7 @@ SHOW INDEXES FROM users;
 
 -- Insert sample data
 INSERT INTO customers (name, email, phone) VALUES
-('John Doe', 'john@example.com', '123-456-7890'),
+('Dattu p', ' Dattu@example.com', '123-456-7890'),
 ('Jane Smith', 'jane@example.com', '098-765-4321');
 
 INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
@@ -617,7 +617,13 @@ SELECT
     o.total_amount,
     o.status
 FROM orders o
-JOIN customers c ON o.customer_id = c.id;`
+JOIN customers c ON o.customer_id = c.id;
+
+---
+
+## Test Your Knowledge
+
+Mastered creating databases and tables? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering CREATE, ALTER, DROP, and all MySQL topics!`
 };
 
 export default mysqlCreateDatabase;

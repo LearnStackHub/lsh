@@ -457,7 +457,7 @@ public class HibernateDemo {
             .buildSessionFactory();
         
         // Create a user
-        User user = new User("John Doe", "john@example.com");
+        User user = new User("Dattu p", " Dattu@example.com");
         
         // Save user using Hibernate
         Session session = sessionFactory.openSession();

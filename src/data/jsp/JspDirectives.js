@@ -206,7 +206,7 @@ Imports custom tag libraries.
 \`\`\`jsp
 <%@ taglib uri="/WEB-INF/mytags.tld" prefix="my" %>
 
-<my:greeting name="John" />
+<my:greeting name=" Dattu" />
 <my:formatPhone number="1234567890" />
 \`\`\`
 

@@ -79,9 +79,9 @@ public class UserProfile {
 
 \`\`\`java
 // Create user with profile
-User user = new User("john_doe", "john@example.com");
+User user = new User(" Dattu_doe", " Dattu@example.com");
 UserProfile profile = new UserProfile();
-profile.setFirstName("John");
+profile.setFirstName(" Dattu");
 profile.setLastName("Doe");
 profile.setPhone("123-456-7890");
 

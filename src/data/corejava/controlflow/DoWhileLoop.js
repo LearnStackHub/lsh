@@ -58,8 +58,8 @@ public class FormValidation {
         System.out.println("==========================");
         
         // Simulated user inputs (in real app, from Scanner)
-        String[] usernameAttempts = {"ab", "user@123", "john_doe"};
-        String[] emailAttempts = {"invalid", "test@", "john@email.com"};
+        String[] usernameAttempts = {"ab", "user@123", " Dattu_doe"};
+        String[] emailAttempts = {"invalid", "test@", " Dattu@email.com"};
         String[] passwordAttempts = {"123", "weak", "SecurePass@123"};
         
         int attemptIndex = 0;
@@ -255,7 +255,7 @@ public class CheckoutProcess {
                     
                 case 2: // Shipping Address
                     System.out.println("\\n📍 SHIPPING ADDRESS");
-                    System.out.println("   John Smith");
+                    System.out.println("    Dattu Smith");
                     System.out.println("   123 Main Street");
                     System.out.println("   New York, NY 10001");
                     System.out.println("   Address verified");
@@ -298,8 +298,8 @@ public class UserRegistration {
         System.out.println("╚════════════════════════════════════════╝");
         
         // Simulated user inputs for each field
-        String[] usernameInputs = {"ab", "user@name", "john_doe123"};
-        String[] emailInputs = {"invalid", "test@", "john.doe@email.com"};
+        String[] usernameInputs = {"ab", "user@name", " Dattu_doe123"};
+        String[] emailInputs = {"invalid", "test@", " Dattu.doe@email.com"};
         String[] passwordInputs = {"123", "password", "SecureP@ss123"};
         String[] phoneInputs = {"123", "12345", "1234567890"};
         

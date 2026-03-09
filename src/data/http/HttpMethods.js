@@ -167,8 +167,8 @@ Host: api.example.com
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -267,8 +267,8 @@ Content-Type: application/json
 
 {
   "id": 123,
-  "name": "John Updated",
-  "email": "john.updated@example.com",
+  "name": " Dattu Updated",
+  "email": " Dattu.updated@example.com",
   "age": 31
 }
 \`\`\`

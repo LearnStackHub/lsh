@@ -821,6 +821,12 @@ Now that you understand SQL clauses, you're ready to explore advanced MySQL topi
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates clause-based queries
 
 SQL clauses are essential for building effective queries. Continue learning about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) to master data aggregation.
+
+---
+
+## Test Your Knowledge
+
+Mastered SQL clauses? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and all MySQL topics!
 `
 };
 

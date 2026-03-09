@@ -413,7 +413,7 @@ public class HibernateMain {
             
             // CREATE - Insert a new employee
             System.out.println("\\n=== Creating Employee ===");
-            Employee emp1 = new Employee("John Doe", "john@example.com", 50000.0);
+            Employee emp1 = new Employee("Dattu p", " Dattu@example.com", 50000.0);
             session.persist(emp1);
             System.out.println("Employee saved: " + emp1);
             

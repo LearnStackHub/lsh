@@ -45,7 +45,7 @@ Forms are essential for collecting user data - login, registration, search, cont
 
 \`\`\`html
 <form method="GET">
-<!-- Data in URL: page.html?name=John -->
+<!-- Data in URL: page.html?name= Dattu -->
 </form>
 
 <form method="POST">

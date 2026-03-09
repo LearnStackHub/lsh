@@ -290,7 +290,7 @@ public class ExpressionLanguageDemo {
         ELContext context = new ELContext();
         
         // Setup data
-        User user = new User("John Doe", "john@email.com", "admin");
+        User user = new User("Dattu p", " Dattu@email.com", "admin");
         context.setSessionAttribute("user", user);
         
         List<Product> products = Arrays.asList(
@@ -505,12 +505,12 @@ public class ELEvaluatorDemo {
         ELEvaluator evaluator = new ELEvaluator();
         
         // Setup context
-        evaluator.setVariable("name", "John");
+        evaluator.setVariable("name", " Dattu");
         evaluator.setVariable("age", 25);
         evaluator.setVariable("active", true);
         
         Map<String, Object> user = new HashMap<>();
-        user.put("email", "john@email.com");
+        user.put("email", " Dattu@email.com");
         user.put("role", "admin");
         evaluator.setVariable("user", user);
         

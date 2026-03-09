@@ -53,12 +53,12 @@ Session session = sessionFactory.openSession();
 Transaction tx = session.beginTransaction();
 
 // Create new user account
-User newUser = new User("john_doe", "john@example.com", "password123");
+User newUser = new User(" Dattu_doe", " Dattu@example.com", "password123");
 session.persist(newUser); // User saved to database
 
 // Create user profile
 UserProfile profile = new UserProfile();
-profile.setFirstName("John");
+profile.setFirstName(" Dattu");
 profile.setLastName("Doe");
 profile.setPhone("123-456-7890");
 newUser.setProfile(profile);
@@ -221,7 +221,7 @@ Saves a new entity to the database.
 
 \`\`\`java
 // Real-world: User registration
-User user = new User("John", "john@example.com");
+User user = new User(" Dattu", " Dattu@example.com");
 session.persist(user);
 // User is now persisted and has an ID
 System.out.println("User ID: " + user.getId());
@@ -361,7 +361,7 @@ Objects in Hibernate can be in different states:
 - No ID assigned
 
 \`\`\`java
-User user = new User("John", "john@example.com");
+User user = new User(" Dattu", " Dattu@example.com");
 // user is in transient state
 \`\`\`
 
@@ -373,7 +373,7 @@ User user = new User("John", "john@example.com");
 \`\`\`java
 session.save(user);
 // user is now in persistent state
-user.setName("John Updated"); // Change is tracked
+user.setName(" Dattu Updated"); // Change is tracked
 \`\`\`
 
 ### 3. **Detached**
@@ -706,7 +706,7 @@ public class SessionDemo {
     
     public static void main(String[] args) {
         SessionDemo demo = new SessionDemo();
-        demo.createCustomer("John Doe", "john@example.com");
+        demo.createCustomer("Dattu p", " Dattu@example.com");
         demo.demonstrateGetVsLoad();
         demo.demonstrateDirtyChecking();
         demo.demonstrateCache();

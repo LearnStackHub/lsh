@@ -71,7 +71,7 @@ Host: api.example.com
 Content-Type: application/json
 Content-Length: 45
 
-{"name":"John Doe","email":"john@example.com"}
+{"name":"Dattu p","email":" Dattu@example.com"}
 \`\`\`
 
 **Example 3: DELETE Request**
@@ -175,8 +175,8 @@ Content-Type: application/json
 
 {
   "id": 123,
-  "name": "John Updated",
-  "email": "john.updated@example.com"
+  "name": " Dattu Updated",
+  "email": " Dattu.updated@example.com"
 }
 \`\`\`
 
@@ -419,8 +419,8 @@ POST /api/users HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "age": 30
 }
 \`\`\`
@@ -434,7 +434,7 @@ Content-Type: application/json
 POST /api/login HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-username=john&password=secret123
+username= Dattu&password=secret123
 \`\`\`
 
 #### Multipart (File Upload)
@@ -465,8 +465,8 @@ Content-Type: application/xml
 
 <?xml version="1.0"?>
 <user>
-  <name>John Doe</name>
-  <email>john@example.com</email>
+  <name>Dattu p</name>
+  <email> Dattu@example.com</email>
 </user>
 \`\`\`
 
@@ -594,8 +594,8 @@ Authorization: Bearer token123
 Accept: application/json
 
 {
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "password": "secure123"
 }
 \`\`\`
@@ -611,8 +611,8 @@ Authorization: Bearer token123
 
 <?xml version="1.0"?>
 <user>
-  <name>John Updated</name>
-  <email>john.updated@example.com</email>
+  <name> Dattu Updated</name>
+  <email> Dattu.updated@example.com</email>
 </user>
 \`\`\`
 
@@ -663,8 +663,8 @@ Complete HTTP Request Structure:
 ├─────────────────────────────────────────────────────────┤
 │                    REQUEST BODY                         │
 │  {                                                      │
-│    "name": "John Doe",                                  │
-│    "email": "john@example.com"                          │
+│    "name": "Dattu p",                                  │
+│    "email": " Dattu@example.com"                          │
 │  }                                                      │
 └─────────────────────────────────────────────────────────┘
 \`\`\`

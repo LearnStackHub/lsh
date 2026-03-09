@@ -157,7 +157,7 @@ public class StudentService {
     
     public StudentService() {
         // Initialize with sample data
-        students.add(new Student(1, "John Doe", "john@example.com", "Computer Science"));
+        students.add(new Student(1, "Dattu p", " Dattu@example.com", "Computer Science"));
         students.add(new Student(2, "Jane Smith", "jane@example.com", "Mathematics"));
     }
     
@@ -330,7 +330,7 @@ curl -X POST http://localhost:8080/api/students \\
 # PUT - Update student
 curl -X PUT http://localhost:8080/api/students/1 \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"John Updated","email":"john.updated@example.com","course":"CS"}'
+  -d '{"name":" Dattu Updated","email":" Dattu.updated@example.com","course":"CS"}'
 
 # DELETE - Delete student
 curl -X DELETE http://localhost:8080/api/students/1

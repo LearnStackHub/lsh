@@ -688,7 +688,14 @@ public class JavaIntro {
         
         // Try subtraction, multiplication, and division too!
     }
-}`
+}
+
+---
+
+## Test Your Knowledge
+
+Ready to test your Java understanding? Take our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) with 20 randomly selected questions covering all Core Java topics. Perfect for practice and assessment!
+`
     }
   ]
 };

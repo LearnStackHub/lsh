@@ -371,7 +371,14 @@ public class OperatorsDemo {
         System.out.println("   Tax (8%): $" + tax);
         System.out.println("   Total: $" + String.format("%.2f", total));
     }
-}`,
+}
+
+---
+
+## Test Your Knowledge
+
+Mastered Java operators? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering operators, expressions, and all Core Java topics!
+`,
   practiceQuestions: [
     {
       question: 'Build a grade calculator using operators',

@@ -294,7 +294,7 @@ public class UserController {
     private List<User> users = new ArrayList<>();
 
     public UserController() {
-        users.add(new User(1L, "John Doe", "john@example.com"));
+        users.add(new User(1L, "Dattu p", " Dattu@example.com"));
         users.add(new User(2L, "Jane Smith", "jane@example.com"));
     }
 

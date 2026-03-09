@@ -71,7 +71,7 @@ Data is stored in **tables** (like spreadsheets).
 
 | id | name | email | age |
 |----|------|-------|-----|
-| 1 | John | john@example.com | 25 |
+| 1 |  Dattu |  Dattu@example.com | 25 |
 | 2 | Jane | jane@example.com | 30 |
 | 3 | Bob | bob@example.com | 28 |
 
@@ -90,7 +90,7 @@ Tables can be related to each other:
 **Users Table**
 | id | name | email |
 |----|------|-------|
-| 1 | John | john@example.com |
+| 1 |  Dattu |  Dattu@example.com |
 
 **Orders Table**
 | id | user_id | total |
@@ -366,7 +366,7 @@ INSERT INTO products (name, price, stock) VALUES
 ('Keyboard', 79.99, 75);
 
 INSERT INTO customers (name, email, phone) VALUES
-('John Doe', 'john@example.com', '123-456-7890'),
+('Dattu p', ' Dattu@example.com', '123-456-7890'),
 ('Jane Smith', 'jane@example.com', '098-765-4321');
 
 INSERT INTO orders (customer_id, order_date, total_amount) VALUES
@@ -482,6 +482,12 @@ Now that you understand MySQL basics:
 **Connect MySQL to Java:**
 - Learn [JDBC Introduction](/tutorial/jdbc-introduction) to connect Java with MySQL
 - Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
+
+---
+
+## Test Your Knowledge
+
+Ready to test your MySQL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering all MySQL topics. Perfect for practice and assessment!
 `
 };
 

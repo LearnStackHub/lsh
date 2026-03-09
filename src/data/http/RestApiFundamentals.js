@@ -174,15 +174,15 @@ Resources are manipulated through their **representations** (JSON, XML):
 \`\`\`json
 // Request representation
 {
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 
 // Response representation
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "createdAt": "2026-02-21T10:00:00Z"
 }
 \`\`\`
@@ -210,8 +210,8 @@ Resources include links to related resources:
 \`\`\`json
 {
   "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Dattu p",
+  "email": " Dattu@example.com",
   "_links": {
     "self": { "href": "/api/users/123" },
     "posts": { "href": "/api/users/123/posts" },
@@ -271,7 +271,7 @@ Last-Modified: Wed, 21 Feb 2026 10:00:00 GMT
 
 {
   "id": 123,
-  "name": "John Doe"
+  "name": "Dattu p"
 }
 \`\`\`
 
@@ -887,14 +887,14 @@ const user = await api.get('/users/123');
 
 // POST /api/users
 const newUser = await api.post('/users', {
-    name: 'John Doe',
-    email: 'john@example.com'
+    name: 'Dattu p',
+    email: ' Dattu@example.com'
 });
 
 // PUT /api/users/123
 const updatedUser = await api.put('/users/123', {
-    name: 'John Updated',
-    email: 'john.updated@example.com'
+    name: ' Dattu Updated',
+    email: ' Dattu.updated@example.com'
 });
 
 // PATCH /api/users/123

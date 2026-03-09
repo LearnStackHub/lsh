@@ -181,7 +181,7 @@ map.compute("count", (key, val) -> val == null ? 1 : val + 1);
 
 \`\`\`java
 // Initialize list if not exists
-map.computeIfAbsent("users", k -> new ArrayList<>()).add("John");
+map.computeIfAbsent("users", k -> new ArrayList<>()).add(" Dattu");
 \`\`\`
 
 ### merge — Combine values

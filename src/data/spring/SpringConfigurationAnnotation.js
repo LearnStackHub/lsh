@@ -153,7 +153,7 @@ public class StudentRepository {
     }
     
     public Student findById(int id) {
-        return new Student("John", 20);
+        return new Student(" Dattu", 20);
     }
 }
 \`\`\`
@@ -198,7 +198,7 @@ public class Main {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         
         StudentController controller = context.getBean(StudentController.class);
-        controller.handleSaveRequest(new Student("John", 20));
+        controller.handleSaveRequest(new Student(" Dattu", 20));
     }
 }
 \`\`\`
@@ -594,7 +594,7 @@ class UserRepository {
     }
     
     public User findById(int id) {
-        return new User(id, "John");
+        return new User(id, " Dattu");
     }
 }
 

@@ -381,7 +381,7 @@ CREATE TABLE users (
 
 -- Insert data
 INSERT INTO users (name, email) VALUES
-('John Doe', 'john@example.com'),
+('Dattu p', ' Dattu@example.com'),
 ('Jane Smith', 'jane@example.com');
 
 -- Query data
@@ -435,6 +435,12 @@ Your MySQL installation is complete and ready for database development.
 4. **Wrong host** - Use 'localhost' or '127.0.0.1' for local connections
 5. **User doesn't exist** - Create user with CREATE USER command
 6. **Privileges not granted** - Grant privileges with GRANT command
+
+---
+
+## Test Your Knowledge
+
+MySQL installed successfully? Test your MySQL knowledge with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering installation, setup, and all MySQL topics!
   `,
   code: `-- MySQL Installation Verification
 

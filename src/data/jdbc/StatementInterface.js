@@ -38,7 +38,7 @@ Returns the number of rows affected.
 \`\`\`java
 // INSERT
 int inserted = stmt.executeUpdate(
-    "INSERT INTO users (name, email) VALUES ('John', 'john@email.com')");
+    "INSERT INTO users (name, email) VALUES (' Dattu', ' Dattu@email.com')");
 System.out.println("Rows inserted: " + inserted);
 
 // UPDATE
@@ -80,7 +80,7 @@ Execute multiple SQL statements in one round trip to the database.
 Statement stmt = conn.createStatement();
 
 // Add statements to batch
-stmt.addBatch("INSERT INTO users (name) VALUES ('John')");
+stmt.addBatch("INSERT INTO users (name) VALUES (' Dattu')");
 stmt.addBatch("INSERT INTO users (name) VALUES ('Jane')");
 stmt.addBatch("INSERT INTO users (name) VALUES ('Bob')");
 
@@ -152,8 +152,8 @@ Statement stmt = conn.createStatement(
 ResultSet rs = stmt.executeQuery("SELECT * FROM users");
 
 while (rs.next()) {
-    if (rs.getString("name").equals("John")) {
-        rs.updateString("email", "john.updated@email.com");
+    if (rs.getString("name").equals(" Dattu")) {
+        rs.updateString("email", " Dattu.updated@email.com");
         rs.updateRow();  // Save changes
     }
 }
@@ -248,6 +248,12 @@ public class StatementExample {
     }
 }
 \`\`\`
+
+---
+
+## Test Your Knowledge
+
+Mastered Statement interface? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering Statement, PreparedStatement, and all JDBC topics!
 `,
   code: `// Statement Interface Demo
 // Demonstrates different execution methods and batch processing
@@ -523,7 +529,7 @@ public class SqlExecutorDemo {
         // Test different SQL types
         String[] queries = {
             "CREATE TABLE users (id INT, name VARCHAR(100))",
-            "INSERT INTO users VALUES (1, 'John')",
+            "INSERT INTO users VALUES (1, ' Dattu')",
             "SELECT * FROM users",
             "UPDATE users SET name = 'Jane' WHERE id = 1",
             "DELETE FROM users WHERE id = 1",

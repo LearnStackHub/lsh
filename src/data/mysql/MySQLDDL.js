@@ -660,6 +660,12 @@ Now that you understand DDL, you're ready to explore advanced MySQL topics:
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates DDL
 
 DDL is essential for database structure management. Continue learning about [MySQL Constraints](/tutorial/mysql-constraints) to understand how to add constraints using ALTER statements.
+
+---
+
+## Test Your Knowledge
+
+Ready to test your MySQL DDL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering DDL, DML, DQL, and all MySQL topics!
 `
 };
 

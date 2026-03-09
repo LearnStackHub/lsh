@@ -302,7 +302,7 @@ public class AbstractionDemo {
         System.out.println("   ------------------------------------");
         
         PaymentMethod[] payments = {
-            new CreditCard("John Doe", "1234567890123456"),
+            new CreditCard("Dattu p", "1234567890123456"),
             new BankTransfer("Jane Doe", "ACC123456"),
             new DigitalWallet("Bob", "bob@wallet.com")
         };

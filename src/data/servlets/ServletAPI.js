@@ -119,7 +119,7 @@ String contentType = request.getContentType();
 // URL information
 String uri = request.getRequestURI();      // /app/users
 String url = request.getRequestURL().toString(); // http://localhost:8080/app/users
-String queryString = request.getQueryString();   // id=123&name=john
+String queryString = request.getQueryString();   // id=123&name= Dattu
 String contextPath = request.getContextPath();   // /app
 String servletPath = request.getServletPath();   // /users
 
@@ -158,7 +158,7 @@ PrintWriter out = response.getWriter();  // For text
 OutputStream os = response.getOutputStream();  // For binary
 
 // Cookies
-Cookie cookie = new Cookie("username", "john");
+Cookie cookie = new Cookie("username", " Dattu");
 cookie.setMaxAge(3600);  // 1 hour
 response.addCookie(cookie);
 \`\`\`
@@ -537,7 +537,7 @@ public class ServletAPIDemo {
         request.setMethod("GET");
         request.setRequestURI("/app/users");
         request.setParameter("id", "123");
-        request.setParameter("name", "John");
+        request.setParameter("name", " Dattu");
         request.setHeader("User-Agent", "Mozilla/5.0");
         request.setHeader("Accept", "text/html");
         
@@ -569,7 +569,7 @@ public class ServletAPIDemo {
         System.out.println("5. REQUEST ATTRIBUTES");
         System.out.println("   -------------------");
         
-        User user = new User(123, "John Doe", "john@email.com");
+        User user = new User(123, "Dattu p", " Dattu@email.com");
         request.setAttribute("user", user);
         request.setAttribute("message", "User found successfully");
         
@@ -741,8 +741,8 @@ public class FormHandlerDemo {
         
         // Simulate form submission
         Map<String, String> formData = new HashMap<>();
-        formData.put("username", "john_doe");
-        formData.put("email", "john@email.com");
+        formData.put("username", " Dattu_doe");
+        formData.put("email", " Dattu@email.com");
         formData.put("age", "25");
         formData.put("country", "USA");
         

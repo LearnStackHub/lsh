@@ -5,7 +5,7 @@ const mysqlDataTypes = {
   content: `
 # MySQL Data Types - Choosing the Right Type for Your Data
 
-MySQL data types define the kind of data that can be stored in table columns, determining storage requirements, value ranges, and operations that can be performed. Choosing the correct data type is crucial for database design, affecting storage efficiency, query performance, data integrity, and application functionality. MySQL provides comprehensive data type options for numeric, string, date/time, JSON, and binary data.
+MySQL data types define the kind of data that can be stored in table columns, determining storage requirements, value ranges, and operations that can be performed. Choosing the correct data type is crucial for database design, affecting storage efficiency, query performance, data integrity, and application functionality. MySQL provides comprehensive data type options for numeric, string, date/time, JSON, and binary data. After learning data types, explore [MySQL Constraints](/tutorial/mysql-constraints) to add data validation rules.
 
 Enterprise applications require careful data type selection to optimize storage, ensure data accuracy, and maintain performance at scale. Understanding data types enables developers to design efficient schemas, prevent data overflow, and leverage MySQL's type-specific features. Proper data type selection is fundamental to building robust, performant database applications.
 
@@ -45,6 +45,8 @@ Enterprise applications require careful data type selection to optimize storage,
 ---
 
 ## 1. Numeric Types
+
+Understanding numeric types is essential before creating tables. Learn about [Creating Databases and Tables](/tutorial/mysql-create-database) to apply these data types.
 
 ### Integer Types
 
@@ -230,7 +232,7 @@ metadata JSON
 \`\`\`sql
 -- Insert JSON
 INSERT INTO users (name, preferences) VALUES
-('John', '{"theme": "dark", "language": "en"}');
+(' Dattu', '{"theme": "dark", "language": "en"}');
 
 -- Query JSON
 SELECT name, preferences->'$.theme' AS theme FROM users;
@@ -509,7 +511,7 @@ INSERT INTO numeric_examples (age, price, weight, temperature) VALUES
 (30, 149.50, 2.250, 25.8);
 
 INSERT INTO string_examples (name, email, country_code, status, description) VALUES
-('John Doe', 'john@example.com', 'US', 'A', 'This is a description'),
+('Dattu p', ' Dattu@example.com', 'US', 'A', 'This is a description'),
 ('Jane Smith', 'jane@example.com', 'UK', 'I', 'Another description');
 
 INSERT INTO datetime_examples (birth_date, order_date, created_at) VALUES
@@ -517,7 +519,7 @@ INSERT INTO datetime_examples (birth_date, order_date, created_at) VALUES
 ('1985-05-22', '2024-01-21', '2024-01-21 14:45:00');
 
 INSERT INTO json_examples (name, preferences, metadata) VALUES
-('John', '{"theme": "dark", "language": "en"}', '{"version": 1, "features": ["feature1", "feature2"]}'),
+(' Dattu', '{"theme": "dark", "language": "en"}', '{"version": 1, "features": ["feature1", "feature2"]}'),
 ('Jane', '{"theme": "light", "language": "fr"}', '{"version": 2, "features": ["feature1"]}');
 
 -- Query examples
@@ -729,6 +731,12 @@ Now that you understand MySQL data types, you're ready to explore advanced MySQL
 - **[Java Data Types](/tutorial/java-data-types)**: Understand Java type system
 
 Data types are fundamental to database design. Continue learning about [MySQL Constraints](/tutorial/mysql-constraints) to combine types with data integrity rules.
+
+---
+
+## Test Your Knowledge
+
+Ready to test your MySQL data types knowledge? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering data types, DDL, DML, and all MySQL topics!
 `
 };
 

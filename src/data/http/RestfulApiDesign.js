@@ -404,7 +404,7 @@ public ResponseEntity<List<User>> getUsers(
 \`\`\`
 GET /api/users?age[gte]=18&age[lte]=65
 GET /api/products?price[gt]=100&price[lt]=1000
-GET /api/users?name[like]=john
+GET /api/users?name[like]= Dattu
 \`\`\`
 
 **Example:**
@@ -431,7 +431,7 @@ public ResponseEntity<List<User>> getUsers(
 {
   "data": {
     "id": 123,
-    "name": "John Doe"
+    "name": "Dattu p"
   }
 }
 \`\`\`

@@ -862,7 +862,7 @@ Understanding the hierarchical structure of HTML documents:
             
             <div class="comments">
                 <article>
-                    <h3>John Doe</h3>
+                    <h3>Dattu p</h3>
                     <time datetime="2026-01-14">January 14, 2026</time>
                     <p>Great article! Very helpful.</p>
                 </article>

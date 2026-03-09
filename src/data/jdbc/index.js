@@ -8,6 +8,7 @@ import preparedStatementInterface from './PreparedStatementInterface';
 import resultSetInterface from './ResultSetInterface';
 import crudOperations from './CrudOperations';
 import transactionManagement from './TransactionManagement';
+import jdbcMCQ from './JDBCMCQ';
 
 export const jdbcTopics = {
   id: 'jdbc',
@@ -23,7 +24,8 @@ export const jdbcTopics = {
     preparedStatementInterface,
     resultSetInterface,
     crudOperations,
-    transactionManagement
+    transactionManagement,
+    jdbcMCQ
   ]
 };
 
@@ -36,7 +38,8 @@ export {
   preparedStatementInterface,
   resultSetInterface,
   crudOperations,
-  transactionManagement
+  transactionManagement,
+  jdbcMCQ
 };
 
 

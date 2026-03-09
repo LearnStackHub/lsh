@@ -399,7 +399,7 @@ INSERT INTO products (name, price, category, stock) VALUES
 ('Desk', 199.99, 'Furniture', 30);
 
 INSERT INTO customers (name, email) VALUES
-('John Doe', 'john@example.com'),
+('Dattu p', ' Dattu@example.com'),
 ('Jane Smith', 'jane@example.com');
 
 INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
@@ -754,6 +754,12 @@ Now that you understand DQL, you're ready to explore advanced MySQL topics:
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates SELECT queries
 
 DQL is essential for data retrieval. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to retrieve data from multiple related tables.
+
+---
+
+## Test Your Knowledge
+
+Ready to test your MySQL DQL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering DQL, DDL, DML, and all MySQL topics!
 `
 };
 

@@ -94,8 +94,8 @@ class StudentServiceTest {
     void setUp() {
         student = new Student();
         student.setId(1L);
-        student.setName("John Doe");
-        student.setEmail("john@example.com");
+        student.setName("Dattu p");
+        student.setEmail(" Dattu@example.com");
         student.setCourse("Computer Science");
     }
     
@@ -109,7 +109,7 @@ class StudentServiceTest {
         
         // Assert
         assertTrue(result.isPresent());
-        assertEquals("John Doe", result.get().getName());
+        assertEquals("Dattu p", result.get().getName());
         verify(studentRepository, times(1)).findById(1L);
     }
     
@@ -136,7 +136,7 @@ class StudentServiceTest {
         
         // Assert
         assertNotNull(result);
-        assertEquals("John Doe", result.getName());
+        assertEquals("Dattu p", result.getName());
         verify(studentRepository, times(1)).save(student);
     }
     
@@ -206,8 +206,8 @@ class StudentControllerTest {
     void setUp() {
         student = new Student();
         student.setId(1L);
-        student.setName("John Doe");
-        student.setEmail("john@example.com");
+        student.setName("Dattu p");
+        student.setEmail(" Dattu@example.com");
         student.setCourse("Computer Science");
     }
     
@@ -220,8 +220,8 @@ class StudentControllerTest {
         mockMvc.perform(get("/api/students/1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(1))
-            .andExpect(jsonPath("$.name").value("John Doe"))
-            .andExpect(jsonPath("$.email").value("john@example.com"));
+            .andExpect(jsonPath("$.name").value("Dattu p"))
+            .andExpect(jsonPath("$.email").value(" Dattu@example.com"));
     }
     
     @Test
@@ -245,7 +245,7 @@ class StudentControllerTest {
                 .content(objectMapper.writeValueAsString(student)))
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1))
-            .andExpect(jsonPath("$.name").value("John Doe"));
+            .andExpect(jsonPath("$.name").value("Dattu p"));
     }
     
     @Test
@@ -298,8 +298,8 @@ class StudentApplicationIntegrationTest {
         // Create student
         String studentJson = """
             {
-                "name": "John Doe",
-                "email": "john@example.com",
+                "name": "Dattu p",
+                "email": " Dattu@example.com",
                 "course": "Computer Science"
             }
             """;
@@ -308,12 +308,12 @@ class StudentApplicationIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(studentJson))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.name").value("John Doe"));
+            .andExpect(jsonPath("$.name").value("Dattu p"));
         
         // Verify in database
-        Student student = studentRepository.findByEmail("john@example.com").orElse(null);
+        Student student = studentRepository.findByEmail(" Dattu@example.com").orElse(null);
         assertNotNull(student);
-        assertEquals("John Doe", student.getName());
+        assertEquals("Dattu p", student.getName());
     }
 }
 \`\`\`
@@ -387,8 +387,8 @@ class StudentServiceTest {
     void setUp() {
         student = new Student();
         student.setId(1L);
-        student.setName("John");
-        student.setEmail("john@example.com");
+        student.setName(" Dattu");
+        student.setEmail(" Dattu@example.com");
     }
     
     @Test
@@ -398,7 +398,7 @@ class StudentServiceTest {
         Optional<Student> result = service.getStudentById(1L);
         
         assertTrue(result.isPresent());
-        assertEquals("John", result.get().getName());
+        assertEquals(" Dattu", result.get().getName());
         verify(repository).findById(1L);
     }
     
@@ -447,13 +447,13 @@ class StudentControllerTest {
     void testGetStudentById() throws Exception {
         Student student = new Student();
         student.setId(1L);
-        student.setName("John");
+        student.setName(" Dattu");
         
         when(service.getStudentById(1L)).thenReturn(Optional.of(student));
         
         mockMvc.perform(get("/api/students/1"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name").value("John"));
+            .andExpect(jsonPath("$.name").value(" Dattu"));
     }
 }
 

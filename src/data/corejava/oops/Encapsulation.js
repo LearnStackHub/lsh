@@ -364,9 +364,9 @@ public class EncapsulationDemo {
         Person person = new Person();
         
         // Valid values
-        person.setName("John Doe");
+        person.setName("Dattu p");
         person.setAge(25);
-        person.setEmail("john@example.com");
+        person.setEmail(" Dattu@example.com");
         System.out.println("   " + person);
         
         // Invalid values (rejected)
@@ -602,12 +602,12 @@ class UserAccount {
     public static void main(String[] args) {
         System.out.println("=== Employee Management ===\\n");
         
-        Employee emp = new Employee("E001", "John Doe");
+        Employee emp = new Employee("E001", "Dattu p");
         
         // Set valid values
         emp.setDepartment("Engineering");
         emp.setSalary(75000);
-        emp.setEmail("john.doe@company.com");
+        emp.setEmail("datuu@gmail.com");
         
         emp.display();
         

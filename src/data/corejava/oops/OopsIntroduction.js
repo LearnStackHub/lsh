@@ -75,8 +75,8 @@ class Post {
 }
 
 // Usage
-User john = new User("john_doe", "john@example.com");
-Post myPost = john.createPost("Hello World!");
+User  Dattu = new User(" Dattu_doe", " Dattu@example.com");
+Post myPost =  Dattu.createPost("Hello World!");
 myPost.addLike(); // Someone liked the post
 \`\`\`
 
@@ -115,7 +115,7 @@ class BankAccount {
 }
 
 // Usage: ATM transaction
-BankAccount myAccount = new BankAccount("123456", 10000, "John Doe");
+BankAccount myAccount = new BankAccount("123456", 10000, "Dattu p");
 myAccount.withdraw(500); // ATM withdrawal
 myAccount.deposit(2000); // Deposit check
 \`\`\`
@@ -148,7 +148,7 @@ class Doctor {
 }
 
 // Usage
-Patient patient = new Patient("P001", "John", 35);
+Patient patient = new Patient("P001", " Dattu", 35);
 Doctor doctor = new Doctor("D001", "Cardiologist");
 patient.bookAppointment(doctor, new Date());
 \`\`\`
@@ -446,6 +446,12 @@ Now that you understand the concepts, it's time to dive deeper into each one. In
 But before you move on, try to identify OOP concepts in apps you use daily. That Instagram post? It's probably an object with properties like image, caption, likes. The like button? Polymorphism — same button, different behavior for posts vs stories.
 
 Once you start seeing OOP everywhere, you'll truly understand it.
+
+---
+
+## Test Your Knowledge
+
+Mastered OOPs concepts? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering OOPs, classes, objects, inheritance, polymorphism, and all Core Java topics!
 `,
   code: `// Let's see OOP in action with a simple example
 // We'll build a basic e-commerce product system
@@ -545,7 +551,7 @@ public class OOPDemo {
     // Add a method to display student info
     
     public static void main(String[] args) {
-        Student student = new Student("John", 20);
+        Student student = new Student(" Dattu", 20);
         student.setGpa(3.5);
         System.out.println("Student: " + student.getName());
     }

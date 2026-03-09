@@ -379,8 +379,8 @@ public class ThrowThrowsDemo {
         
         UserValidator validator = new UserValidator();
         
-        String[] testNames = {"John", "", null};
-        String[] testEmails = {"john@email.com", "invalid", null};
+        String[] testNames = {" Dattu", "", null};
+        String[] testEmails = {" Dattu@email.com", "invalid", null};
         int[] testAges = {25, -5, 200};
         
         for (int i = 0; i < 3; i++) {
@@ -404,7 +404,7 @@ public class ThrowThrowsDemo {
         }
         
         try {
-            setUsername("john_doe");
+            setUsername(" Dattu_doe");
             System.out.println("   Username set successfully");
         } catch (NullPointerException e) {
             System.out.println("   Caught: " + e.getMessage());

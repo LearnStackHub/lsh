@@ -153,7 +153,7 @@ public class Main {
         StudentService service = context.getBean(StudentService.class);
         
         // Use the bean
-        service.saveStudent(new Student("John", 20));
+        service.saveStudent(new Student(" Dattu", 20));
     }
 }
 \`\`\`
@@ -501,7 +501,7 @@ public class ApplicationContextExample {
         // Get UserService bean from context
         
         // Use the service
-        // service.processUser("John");
+        // service.processUser(" Dattu");
         
         // Close the context when done
     }

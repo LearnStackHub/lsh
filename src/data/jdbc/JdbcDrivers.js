@@ -258,6 +258,12 @@ try (Connection conn = DatabaseConfig.getConnection()) {
     System.err.println("Connection failed: " + e.getMessage());
 }
 \`\`\`
+
+---
+
+## Test Your Knowledge
+
+Mastered JDBC drivers? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering driver types, connections, and all JDBC topics!
 `,
   code: `// JDBC Drivers Demo
 

@@ -5,7 +5,7 @@ const mysqlSelect = {
   content: `
 # SELECT Query — Retrieving Data from Database
 
-The SELECT statement is the most frequently used SQL command. It retrieves data from one or more tables. Mastering SELECT is essential for working with databases.
+The SELECT statement is the most frequently used SQL command. It retrieves data from one or more tables. Mastering SELECT is essential for working with databases. Before learning SELECT, understand [MySQL Data Types](/tutorial/mysql-data-types) and [Creating Databases](/tutorial/mysql-create-database).
 
 ---
 
@@ -47,7 +47,7 @@ WHERE age > 25;
 
 ## WHERE Clause
 
-Filters rows based on conditions.
+Filters rows based on conditions. Learn more about [MySQL Clauses](/tutorial/mysql-clauses) for advanced filtering techniques including GROUP BY, HAVING, and ORDER BY.
 
 ### Comparison Operators
 
@@ -104,8 +104,8 @@ WHERE id IN (1, 5, 10, 15);
 ### LIKE Operator (Pattern Matching)
 
 \`\`\`sql
--- Starts with 'John'
-SELECT * FROM users WHERE name LIKE 'John%';
+-- Starts with ' Dattu'
+SELECT * FROM users WHERE name LIKE ' Dattu%';
 
 -- Ends with 'com'
 SELECT * FROM users WHERE email LIKE '%@gmail.com';
@@ -586,7 +586,7 @@ SELECT * FROM products LIMIT 10 OFFSET 20;
 
 ### Can I use SELECT with multiple tables?
 
-Yes, you can retrieve data from multiple tables using JOINs. JOINs combine rows from different tables based on related columns. Learn about [MySQL Joins](/tutorial/mysql-joins) to understand how to combine data from multiple tables effectively.
+Yes, you can retrieve data from multiple tables using JOINs. JOINs combine rows from different tables based on related columns. Learn about [MySQL Joins](/tutorial/mysql-joins) to understand how to combine data from multiple tables effectively. JOINs work with [foreign keys](/tutorial/mysql-constraints) to establish table relationships.
 
 ---
 
@@ -632,6 +632,12 @@ Now that you understand SELECT queries, you're ready to explore advanced MySQL t
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Simplify queries with JPA
 
 SELECT is the foundation of data retrieval. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to combine data from multiple tables and build more powerful queries.
+
+---
+
+## Test Your Knowledge
+
+Mastered SELECT queries? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering all MySQL topics including SELECT, WHERE, JOINs, and more!
 
 ---
 
@@ -689,9 +695,9 @@ CREATE TABLE orders (
 
 -- Insert sample data
 INSERT INTO users (name, email, age, city) VALUES
-('John Doe', 'john@example.com', 25, 'New York'),
+('Dattu p', ' Dattu@example.com', 25, 'New York'),
 ('Jane Smith', 'jane@example.com', 30, 'Los Angeles'),
-('Bob Johnson', 'bob@example.com', 28, 'New York'),
+('Bob  Dattuson', 'bob@example.com', 28, 'New York'),
 ('Alice Brown', 'alice@example.com', 35, 'Chicago'),
 ('Charlie Wilson', 'charlie@example.com', 22, 'Los Angeles');
 

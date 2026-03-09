@@ -796,7 +796,7 @@ Create \`calculator.jsp\`:
 
 \`\`\`bash
 # With query parameters
-http://localhost:8080/MyFirstJSP/hello.jsp?name=John
+http://localhost:8080/MyFirstJSP/hello.jsp?name= Dattu
 \`\`\`
 
 ---

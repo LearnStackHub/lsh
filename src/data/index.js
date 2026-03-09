@@ -118,6 +118,7 @@ import mysqlTriggers from './mysql/MySQLTriggers';
 import mysqlTransactions from './mysql/MySQLTransactions';
 import mysqlSubqueries from './mysql/MySQLSubqueries';
 import mysqlPrivileges from './mysql/MySQLPrivileges';
+import mysqlMCQ from './mysql/MySQLMCQ';
 
 // JDBC
 import jdbcProjectSetup from './jdbc/JdbcProjectSetup';
@@ -129,6 +130,7 @@ import preparedStatementInterface from './jdbc/PreparedStatementInterface';
 import resultSetInterface from './jdbc/ResultSetInterface';
 import crudOperations from './jdbc/CrudOperations';
 import transactionManagement from './jdbc/TransactionManagement';
+import jdbcMCQ from './jdbc/JDBCMCQ';
 
 // Servlets
 import servletProjectSetup from './servlets/ServletProjectSetup';
@@ -538,6 +540,12 @@ export const courseStructure = {
           mysqlTransactions,
           mysqlSubqueries
         ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          mysqlMCQ
+        ]
       }
     }
   },
@@ -573,6 +581,12 @@ export const courseStructure = {
         topics: [
           crudOperations,
           transactionManagement
+        ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          jdbcMCQ
         ]
       }
     }

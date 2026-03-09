@@ -100,8 +100,8 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Dattu p",
+  "email": " Dattu@example.com"
 }
 \`\`\`
 
@@ -1322,8 +1322,8 @@ class ErrorResponse {
 // Content-Type: application/json
 // {
 //   "id": 1,
-//   "name": "John Doe",
-//   "email": "john@example.com"
+//   "name": "Dattu p",
+//   "email": " Dattu@example.com"
 // }
 
 // Created Response (201 Created)

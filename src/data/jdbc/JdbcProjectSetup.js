@@ -563,6 +563,12 @@ Now you're ready to connect Java applications to MySQL databases!
 **Next Level:**
 - Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
 - Learn [Hibernate](/tutorial/hibernate-introduction) for ORM
+
+---
+
+## Test Your Knowledge
+
+JDBC project set up? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering project setup, drivers, connections, and all JDBC topics!
   `,
   code: `// JDBC Project Setup Guide
 // This is a reference guide for JDBC project setup

@@ -340,7 +340,7 @@ public class ATMMachine {
         
         // Account data
         String accountNumber = "****-****-1234";
-        String accountHolder = "John Smith";
+        String accountHolder = " Dattu Smith";
         double balance = 7500.00;
         double dailyLimit = 2000.00;
         double withdrawnToday = 0;

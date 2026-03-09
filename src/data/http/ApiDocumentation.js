@@ -184,8 +184,8 @@ requestBody:
       schema:
         $ref: '#/components/schemas/UserRequest'
       example:
-        name: "John Doe"
-        email: "john@example.com"
+        name: "Dattu p"
+        email: " Dattu@example.com"
 \`\`\`
 
 ### 3. Error Documentation
@@ -443,10 +443,10 @@ public class User {
     @Schema(description = "User ID", example = "123")
     private Long id;
     
-    @Schema(description = "User name", example = "John Doe")
+    @Schema(description = "User name", example = "Dattu p")
     private String name;
     
-    @Schema(description = "User email", example = "john@example.com")
+    @Schema(description = "User email", example = " Dattu@example.com")
     private String email;
 }
 

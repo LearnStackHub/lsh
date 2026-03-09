@@ -203,7 +203,7 @@ curl https://api.example.com/users
 \`\`\`bash
 curl -X POST https://api.example.com/users \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"John","email":"john@example.com"}'
+  -d '{"name":" Dattu","email":" Dattu@example.com"}'
 \`\`\`
 
 #### With Headers
@@ -247,7 +247,7 @@ curl -L https://api.example.com/data
 \`\`\`bash
 curl -X PUT https://api.example.com/users/123 \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"John Updated"}'
+  -d '{"name":" Dattu Updated"}'
 \`\`\`
 
 **File Upload:**
@@ -350,9 +350,9 @@ class UserApiIntegrationTest {
     void testCreateUser() throws Exception {
         mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"John\",\"email\":\"john@example.com\"}"))
+                .content("{\"name\":\" Dattu\",\"email\":\" Dattu@example.com\"}"))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.name").value("John"));
+            .andExpect(jsonPath("$.name").value(" Dattu"));
     }
 }
 \`\`\`
@@ -599,7 +599,7 @@ Understanding testing tools is essential for:
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\\n  \\"name\\": \\"John\\",\\n  \\"email\\": \\"john@example.com\\"\\n}"
+          "raw": "{\\n  \\"name\\": \\" Dattu\\",\\n  \\"email\\": \\" Dattu@example.com\\"\\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/api/users",
@@ -617,7 +617,7 @@ curl https://api.example.com/users
 // Example 3: cURL - POST Request
 curl -X POST https://api.example.com/users \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"John","email":"john@example.com"}'
+  -d '{"name":" Dattu","email":" Dattu@example.com"}'
 
 // Example 4: cURL - With Authentication
 curl -H "Authorization: Bearer token123" \\

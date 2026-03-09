@@ -398,7 +398,7 @@ Authorization: Bearer token123
 
 **Without HTTPS:**
 \`\`\`
-Username: john@example.com
+Username:  Dattu@example.com
 Password: secret123
 → Sent in plain text
 → Credentials exposed
@@ -407,7 +407,7 @@ Password: secret123
 
 **With HTTPS:**
 \`\`\`
-Username: john@example.com
+Username:  Dattu@example.com
 Password: secret123
 → Encrypted in transit
 → Credentials protected

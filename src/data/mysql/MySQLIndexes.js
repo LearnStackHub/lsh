@@ -762,6 +762,12 @@ Now that you understand indexes, you're ready to explore advanced MySQL topics:
 - **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles indexing
 
 Indexes are essential for database performance. Continue learning about [MySQL Performance Tuning](/tutorial/mysql-performance) to master query optimization techniques.
+
+---
+
+## Test Your Knowledge
+
+Mastered MySQL indexes? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering indexes, performance optimization, and all MySQL topics!
 `
 };
 

@@ -379,9 +379,9 @@ public class CustomExceptionsDemo {
         // Test various invalid inputs
         String[][] testCases = {
             {"", "test@email.com", "password123"},
-            {"John", "invalid-email", "password123"},
-            {"John", "john@email.com", "123"},
-            {"John", "john@email.com", "password123"}
+            {" Dattu", "invalid-email", "password123"},
+            {" Dattu", " Dattu@email.com", "123"},
+            {" Dattu", " Dattu@email.com", "password123"}
         };
         
         for (String[] testCase : testCases) {
@@ -637,7 +637,7 @@ public class LibraryDemo {
         Library library = new Library();
         
         // Add some books
-        library.addBook(new Book("B001", "Java Programming", "John Doe"));
+        library.addBook(new Book("B001", "Java Programming", "Dattu p"));
         library.addBook(new Book("B002", "Python Basics", "Jane Smith"));
         
         // Test scenarios
