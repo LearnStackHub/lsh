@@ -11,6 +11,7 @@ import springCloudDistributedTracing from './SpringCloudDistributedTracing';
 import springCloudSecurity from './SpringCloudSecurity';
 import springCloudELK from './SpringCloudELK';
 import microservicesMCQ from './MicroservicesMCQ';
+import microservicesInterviewQuestions from './MicroservicesInterviewQuestions';
 
 export {
   springCloudMicroservicesProject,
@@ -24,7 +25,8 @@ export {
   springCloudDistributedTracing,
   springCloudSecurity,
   springCloudELK,
-  microservicesMCQ
+  microservicesMCQ,
+  microservicesInterviewQuestions
 };
 
 export default {
@@ -39,6 +41,7 @@ export default {
   springCloudDistributedTracing,
   springCloudSecurity,
   springCloudELK,
-  microservicesMCQ
+  microservicesMCQ,
+  microservicesInterviewQuestions
 };
 

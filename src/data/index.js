@@ -15,6 +15,7 @@ import htmlIframe from './html/HtmlIframe';
 import htmlMarquee from './html/HtmlMarquee';
 import htmlDOM from './html/HtmlDOM';
 import htmlBestPractices from './html/HtmlBestPractices';
+import htmlInterviewQuestions from './html/HtmlInterviewQuestions';
 
 // CSS
 import cssIntroduction from './css/CssIntroduction';
@@ -119,6 +120,7 @@ import mysqlTransactions from './mysql/MySQLTransactions';
 import mysqlSubqueries from './mysql/MySQLSubqueries';
 import mysqlPrivileges from './mysql/MySQLPrivileges';
 import mysqlMCQ from './mysql/MySQLMCQ';
+import mysqlInterviewQuestions from './mysql/MySQLInterviewQuestions';
 
 // JDBC
 import jdbcProjectSetup from './jdbc/JdbcProjectSetup';
@@ -171,6 +173,7 @@ import hibernateCaching from './hibernate/HibernateCaching';
 import hibernateRelationships from './hibernate/HibernateRelationships';
 import hibernateBatchProcessing from './hibernate/HibernateBatchProcessing';
 import hibernateMCQ from './hibernate/HibernateMCQ';
+import hibernateInterviewQuestions from './hibernate/HibernateInterviewQuestions';
 
 // Git & GitHub
 import gitIntroduction from './git/GitIntroduction';
@@ -261,7 +264,8 @@ import {
   springCloudDistributedTracing,
   springCloudSecurity,
   springCloudELK,
-  microservicesMCQ
+  microservicesMCQ,
+  microservicesInterviewQuestions
 } from './springcloud';
 
 // SDLC
@@ -290,7 +294,8 @@ import {
   springAOPCustomAnnotations,
   springAOPAspectOrdering,
   springAOPWithSpringBoot,
-  springMCQ
+  springMCQ,
+  springInterviewQuestions
 } from './spring';
 
 export const courseStructure = {
@@ -333,6 +338,12 @@ export const courseStructure = {
           htmlMarquee,
           htmlDOM,
           htmlBestPractices
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          htmlInterviewQuestions
         ]
       }
     }
@@ -550,6 +561,12 @@ export const courseStructure = {
         topics: [
           mysqlMCQ
         ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          mysqlInterviewQuestions
+        ]
       }
     }
   },
@@ -732,6 +749,12 @@ export const courseStructure = {
         topics: [
           hibernateMCQ
         ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          hibernateInterviewQuestions
+        ]
       }
     }
   },
@@ -863,6 +886,12 @@ export const courseStructure = {
         title: "Practice Exam",
         topics: [
           springMCQ
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          springInterviewQuestions
         ]
       }
     }
@@ -999,6 +1028,12 @@ export const courseStructure = {
         title: "Practice Exam",
         topics: [
           microservicesMCQ
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          microservicesInterviewQuestions
         ]
       }
     }

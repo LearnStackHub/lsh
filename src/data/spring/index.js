@@ -21,6 +21,7 @@ import springAOPCustomAnnotations from './SpringAOPCustomAnnotations';
 import springAOPAspectOrdering from './SpringAOPAspectOrdering';
 import springAOPWithSpringBoot from './SpringAOPWithSpringBoot';
 import springMCQ from './SpringMCQ';
+import springInterviewQuestions from './SpringInterviewQuestions';
 
 export {
   springIntroduction,
@@ -44,6 +45,7 @@ export {
   springAOPCustomAnnotations,
   springAOPAspectOrdering,
   springAOPWithSpringBoot,
-  springMCQ
+  springMCQ,
+  springInterviewQuestions
 };
 
