@@ -4,7 +4,7 @@
  * Generate SEO-friendly title with long-tail keywords
  */
 export const generateSEOTitle = (topic) => {
-  if (!topic) return 'LearnStackHub - Master Java Full Stack Development';
+  if (!topic) return 'LSH - LearnStackHub | Master Java Full Stack Development';
   
   const { title, courseTitle } = topic;
   
@@ -295,7 +295,7 @@ export const generateSEOTitle = (topic) => {
   
   // Generate long-tail keyword title with course context
   // This ensures every page gets a unique, SEO-friendly title
-  return `${cleanTitle} Tutorial - ${courseName} with Examples & Code | LearnStackHub`;
+  return `${cleanTitle} Tutorial - ${courseName} with Examples & Code | LSH - LearnStackHub`;
 };
 
 /**
@@ -303,7 +303,7 @@ export const generateSEOTitle = (topic) => {
  */
 export const generateSEODescription = (topic) => {
   if (!topic) {
-    return 'LearnStackHub: Your complete journey from Core Java fundamentals to cloud-ready full-stack development. Learn Java, Servlets, JSP, JDBC, Hibernate, MySQL with interactive tutorials and live code execution.';
+    return 'LSH (LearnStackHub): Your complete journey from Core Java fundamentals to cloud-ready full-stack development. Learn Java, Servlets, JSP, JDBC, Hibernate, MySQL with interactive tutorials and live code execution.';
   }
   
   const { title, description, courseTitle } = topic;

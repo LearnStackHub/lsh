@@ -13,6 +13,15 @@ export const generateSitemap = () => {
     { url: '/career-guidance', priority: '0.9', changefreq: 'monthly' },
     { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
     { url: '/terms', priority: '0.5', changefreq: 'yearly' },
+    { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
+    { url: '/careers', priority: '0.8', changefreq: 'monthly' },
+  ];
+
+  // Exam pages
+  const examPages = [
+    { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/mysql-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/jdbc-mcq', priority: '0.8', changefreq: 'weekly' },
   ];
 
   // New pages added today - update with today's date
@@ -37,7 +46,7 @@ export const generateSitemap = () => {
   });
 
   // Combine all pages
-  const allPages = [...staticPages, ...tutorialPages];
+  const allPages = [...staticPages, ...examPages, ...tutorialPages];
 
   // Generate XML
   let xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -589,8 +589,8 @@ function CoreJavaMCQ() {
       <div className="mcq-container" ref={containerRef}>
         <SEOHead 
           title="Core Java MCQ Exam Results - LearnStackHub"
-          description="View your Core Java MCQ exam results with detailed question review, explanations, and performance analysis."
-          keywords="core java mcq results, java exam results, java quiz results, java test scores"
+          description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - View your Core Java MCQ exam results with detailed question review, explanations, and performance analysis. Get instant feedback on your Java knowledge test."
+          keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, core java mcq results, java exam results, java quiz results, java test scores, java test results"
         />
         <Confetti show={showConfetti} />
         <FloatingParticles />
@@ -715,8 +715,8 @@ function CoreJavaMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="Core Java MCQ Exam - Test Your Java Knowledge | LearnStackHub"
-        description="Take our comprehensive Core Java MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your Java programming knowledge with real-time feedback and detailed explanations."
-        keywords="core java mcq, java exam, java quiz, java test, java multiple choice questions, java practice exam, java assessment, learn java, java programming test"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Core Java MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your Java programming knowledge with real-time feedback and detailed explanations. Free Java practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, core java mcq, java exam, java quiz, java test, java multiple choice questions, java practice exam, java assessment, learn java, java programming test, java mcq online, free java exam, java practice test, java certification exam"
       />
       <FloatingParticles />
       {showSecurityWarning && (

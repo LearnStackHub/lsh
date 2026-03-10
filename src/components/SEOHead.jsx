@@ -10,9 +10,9 @@ function SEOHead({ title, description, keywords, topicId }) {
   
   useEffect(() => {
     // Get topic data if topicId is provided
-    let pageTitle = title || 'Learn Java Full Stack Development - Free Java Tutorials | LearnStackHub';
-    let pageDescription = description || 'Learn Java Full Stack Development for free. Complete Java tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, AWS. Step-by-step guides with code examples and live code execution. Perfect for beginners and advanced developers.';
-    let pageKeywords = keywords || 'learn, learnstack, learnstack hub, learnstackhub, learn hub, learn stack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, spring framework tutorial, spring boot tutorial, http apis tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices, java tutorial hyderabad, java training hyderabad, java course hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad';
+    let pageTitle = title || 'LSH - Learn Java Full Stack Development | Free Java Tutorials | LearnStackHub';
+    let pageDescription = description || 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform for Java Full Stack Development. Learn Java, Spring, React, AWS and more for free. Complete tutorials with code examples and live execution. Perfect for beginners and advanced developers. Learn, Stack, Hub - Your complete learning destination.';
+    let pageKeywords = keywords || 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, LearnStackHub, learnstackhub, LSH tutorial, LSH java, learn stack hub tutorial, learnstack hub, learn hub java, stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, spring framework tutorial, spring boot tutorial, http apis tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices, java tutorial hyderabad, java training hyderabad, java course hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad';
     // Always use non-www version for canonical URL
     let pageUrl = baseUrl + location.pathname;
     let pageImage = baseUrl + '/LSH.png';
@@ -44,7 +44,10 @@ function SEOHead({ title, description, keywords, topicId }) {
 
     // Standard meta tags
     updateMetaTag('description', pageDescription);
-    // Note: Meta keywords removed - not used by Google and visible in source code
+    // Add keywords meta tag for better SEO coverage (used by some search engines)
+    if (pageKeywords) {
+      updateMetaTag('keywords', pageKeywords);
+    }
     
     // Open Graph tags
     updateMetaTag('og:title', pageTitle, true);

@@ -586,8 +586,8 @@ function MySQLMCQ() {
       <div className="mcq-container" ref={containerRef}>
         <SEOHead 
           title="MySQL MCQ Exam Results - LearnStackHub"
-          description="View your MySQL MCQ exam results with detailed question review, explanations, and performance analysis."
-          keywords="mysql mcq results, mysql exam results, mysql quiz results, mysql test scores, mysql database exam"
+          description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - View your MySQL MCQ exam results with detailed question review, explanations, and performance analysis. Get instant feedback on your MySQL knowledge test."
+          keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, mysql mcq results, mysql exam results, mysql quiz results, mysql test scores, mysql database exam, mysql test results"
         />
         <Confetti show={showConfetti} />
         <FloatingParticles />
@@ -712,8 +712,8 @@ function MySQLMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="MySQL MCQ Exam - Test Your MySQL Knowledge | LearnStackHub"
-        description="Take our comprehensive MySQL MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your MySQL database knowledge with real-time feedback and detailed explanations."
-        keywords="mysql mcq, mysql exam, mysql quiz, mysql test, mysql multiple choice questions, mysql practice exam, mysql assessment, learn mysql, mysql database test"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive MySQL MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your MySQL database knowledge with real-time feedback and detailed explanations. Free MySQL practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, mysql mcq, mysql exam, mysql quiz, mysql test, mysql multiple choice questions, mysql practice exam, mysql assessment, learn mysql, mysql database test, mysql mcq online, free mysql exam, mysql practice test, mysql certification exam"
       />
       <FloatingParticles />
       {showSecurityWarning && (

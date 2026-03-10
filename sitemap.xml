@@ -52,6 +52,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://learnstackhub.com/mysql-mcq</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/jdbc-mcq</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://learnstackhub.com/tutorial/abstraction</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>

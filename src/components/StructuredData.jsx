@@ -22,10 +22,10 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         name: 'LearnStackHub',
-        alternateName: 'Learn Java Full Stack Development',
-        description: 'Free Java Full Stack Development tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, and AWS. Learn Java programming step-by-step with interactive tutorials and live code execution.',
+        alternateName: ['LSH', 'Learn Stack Hub', 'LearnStack', 'Learn Hub', 'Stack Hub', 'Learn Java Full Stack Development'],
+        description: 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Free Java Full Stack Development tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, and AWS. Learn Java programming step-by-step with interactive tutorials and live code execution.',
         url: baseUrl,
-        keywords: 'learn, learnstack, learnstack hub, learnstackhub, learn hub, learn stack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java tutorial hyderabad, java training hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad',
+        keywords: 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, learnstackhub, learnstack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java tutorial hyderabad, java training hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad',
         inLanguage: 'en-US',
         potentialAction: {
           '@type': 'SearchAction',
@@ -47,8 +47,8 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         mainEntity: {
           '@type': ['EducationalOrganization', 'LocalBusiness'],
           name: 'LearnStackHub',
-          alternateName: ['Learn Stack Hub', 'Learn Hub', 'LearnStack Hub'],
-          description: 'Free online Java Full Stack Development tutorials and courses. Learn Java, Spring Boot, and Full Stack development with interactive tutorials.',
+          alternateName: ['LSH', 'Learn Stack Hub', 'LearnStack', 'Learn Hub', 'Stack Hub'],
+          description: 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Free online Java Full Stack Development tutorials and courses. Learn Java, Spring Boot, and Full Stack development with interactive tutorials.',
           teaches: ['Java Programming', 'Java Web Development', 'JDBC', 'Servlets', 'JSP', 'Hibernate', 'MySQL', 'Spring Framework', 'Spring Boot', 'HTTP & APIs', 'React', 'AWS'],
           educationalCredentialAwarded: 'Certificate of Completion',
           address: {
@@ -175,9 +175,9 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         '@context': 'https://schema.org',
         '@type': ['Organization', 'LocalBusiness', 'EducationalOrganization'],
         name: 'LearnStackHub',
-        alternateName: ['Learn Stack Hub', 'Learn Hub', 'LearnStack Hub'],
+        alternateName: ['LSH', 'Learn Stack Hub', 'LearnStack', 'Learn Hub', 'Stack Hub'],
         url: baseUrl,
-        description: 'Free Java Full Stack Development Tutorials. Comprehensive Java, Spring Boot, and Full Stack training with interactive tutorials.',
+        description: 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Free Java Full Stack Development Tutorials. Comprehensive Java, Spring Boot, and Full Stack training with interactive tutorials.',
         logo: {
           '@type': 'ImageObject',
           url: `${baseUrl}/LSH.png`
