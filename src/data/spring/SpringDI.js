@@ -455,6 +455,12 @@ Now that you understand DI, let's learn about:
 **Next Steps:**
 - Learn to build web applications with [Spring MVC DispatcherServlet](/tutorial/spring-mvc-dispatcher-servlet)
 - Master Spring Boot with [Spring Boot Introduction](/tutorial/spring-boot-introduction)
+
+---
+
+## Test Your Knowledge
+
+Mastered Spring Dependency Injection? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) covering DI, IOC, @Autowired, and all Spring topics!
 `,
   code: `// Dependency Injection Demo
 // Understanding how Spring injects dependencies

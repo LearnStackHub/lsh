@@ -697,6 +697,14 @@ Before proceeding to advanced JPA topics, ensure you understand these fundamenta
 
 ---
 
+---
+
+## Test Your Knowledge
+
+Mastered Spring Boot JPA? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) covering JPA, Spring Data, repositories, and all Spring Boot topics!
+
+---
+
 ## What's Next?
 
 Now that you understand Spring Boot JPA fundamentals, you're ready to explore advanced topics and build complete applications:

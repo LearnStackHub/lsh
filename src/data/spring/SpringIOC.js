@@ -355,6 +355,12 @@ IOC and Dependency Injection work together. IOC creates objects, DI wires them t
 
 **Ready for Spring Boot?** Once you master Spring Framework, check out [Spring Boot Introduction](/tutorial/spring-boot-introduction) to see how Spring Boot simplifies everything!
 
+---
+
+## Test Your Knowledge
+
+Mastered Spring IOC? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) covering IOC, DI, Beans, and all Spring topics!
+
 > **Key Takeaway:** IOC means Spring creates objects for you. Instead of writing "new StudentService()", you use @Autowired and Spring provides it. That's the inversion - you're not in control of creation anymore, Spring is.
 `,
   code: `// IOC - Inversion of Control Demo

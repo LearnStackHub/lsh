@@ -507,6 +507,14 @@ public void addItem(OrderItem item) {
 
 ---
 
+---
+
+## Test Your Knowledge
+
+Mastered Hibernate Relationships? Test your skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering @OneToMany, @ManyToOne, @ManyToMany, cascade, fetch types, and all Hibernate topics!
+
+---
+
 ## Summary
 
 Hibernate relationships enable:

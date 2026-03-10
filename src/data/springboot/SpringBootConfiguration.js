@@ -481,7 +481,12 @@ spring.datasource.url=jdbc:mysql://localhost:3306/mydb
 spring.datasource.username=root
 spring.datasource.password=\\$\\{DB_PASSWORD:password\\}
 */
-`,
+---
+
+## Test Your Knowledge
+
+Mastered Spring Boot Configuration? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) covering application.properties, YAML, profiles, @ConfigurationProperties, and all Spring Boot topics!
+  `,
   practiceQuestions: [
     {
       question: 'Create a configuration class that reads custom properties for email settings (host, port, username) from application.properties',

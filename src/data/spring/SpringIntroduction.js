@@ -428,6 +428,12 @@ These are the building blocks. Master these, and Spring will make sense.
 
 **Ready for Spring Boot?** Once you understand Spring Framework, check out [Spring Boot Introduction](/tutorial/spring-boot-introduction) to see how Spring Boot makes everything even easier!
 
+---
+
+## Test Your Knowledge
+
+Ready to test your Spring Framework understanding? Take our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) with 20 randomly selected questions covering IOC, DI, MVC, AOP, and all Spring topics. Perfect for practice and assessment!
+
 > **Remember:** Spring doesn't change what Java can do. It changes how you write Java code. It makes your code cleaner, more testable, and easier to maintain. That's the real value.
 `,
   code: `// Traditional Java vs Spring - Understanding the Problem

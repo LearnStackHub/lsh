@@ -453,6 +453,12 @@ Now that you understand controllers, let's learn about:
 
 **Ready for Spring Boot?** Controllers in Spring Boot are even simpler! Check out [Spring Boot REST API](/tutorial/spring-boot-rest-api).
 
+---
+
+## Test Your Knowledge
+
+Mastered Spring MVC Controllers? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) covering MVC, Controllers, @RequestMapping, and all Spring topics!
+
 > **Key Takeaway:** Controllers handle web requests. Use @Controller to mark a class, @RequestMapping to map URLs, and Model to pass data to views. It's that simple.
 `,
   code: `// Spring MVC Controller Demo

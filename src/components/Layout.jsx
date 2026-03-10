@@ -3,7 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Search, Menu, X, ChevronDown, Plus, User, LogOut, BookOpen,
   FileCode, Palette, Code, Database, Server, FileText, Layers, 
-  Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud
+  Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useContributions } from '../context/ContributionContext';
@@ -93,6 +93,10 @@ function Layout() {
   }, [searchQuery, dataLoaded]);
 
   const isTopicActive = (topicId) => {
+    // For MCQ topics, check exact path match
+    if (topicId?.includes('mcq') || topicId?.includes('exam')) {
+      return location.pathname === `/${topicId}` || location.pathname === `/tutorial/${topicId}`;
+    }
     return location.pathname.includes(topicId);
   };
 
@@ -322,7 +326,7 @@ function Layout() {
             ) : (
               <Link
                 key={item.id}
-                to={`/tutorial/${item.id}`}
+                to={item.id?.includes('mcq') || item.id?.includes('exam') ? `/${item.id}` : `/tutorial/${item.id}`}
                 className={`sidebar-link ${isTopicActive(item.id) ? 'active' : ''} ${item.id?.includes('mcq') || item.id?.includes('exam') ? 'exam-link' : ''}`}
                 onClick={() => setSidebarOpen(false)}
               >

@@ -597,6 +597,12 @@ Now that you understand service discovery:
 1. Set up [API Gateway](/tutorial/spring-cloud-api-gateway) as single entry point
 2. Learn [Load Balancing](/tutorial/spring-cloud-load-balancing) for distributing requests
 3. Use [OpenFeign](/tutorial/spring-cloud-openfeign) for inter-service communication
+
+---
+
+## Test Your Knowledge
+
+Mastered Spring Cloud Eureka? Test your Microservices skills with our comprehensive [Microservices MCQ Exam](/tutorial/microservices-mcq) covering Eureka, Service Discovery, and all microservices topics!
 4. Master [Config Server](/tutorial/spring-cloud-config-server) for centralized configuration
 `,
   code: `// Eureka Server

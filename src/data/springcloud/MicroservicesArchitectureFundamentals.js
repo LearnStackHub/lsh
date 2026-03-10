@@ -607,6 +607,12 @@ Now that you understand microservices fundamentals:
 3. Set up [API Gateway](/tutorial/spring-cloud-api-gateway) as single entry point
 4. Master [Load Balancing](/tutorial/spring-cloud-load-balancing) for distributing requests
 5. Use [OpenFeign](/tutorial/spring-cloud-openfeign) for inter-service communication
+
+---
+
+## Test Your Knowledge
+
+Ready to test your Microservices understanding? Take our comprehensive [Microservices MCQ Exam](/tutorial/microservices-mcq) with 20 randomly selected questions covering Microservices architecture, Spring Cloud, Eureka, API Gateway, Circuit Breaker, and all microservices topics. Perfect for practice and assessment!
 `,
   code: `// Example: Monolith vs Microservices Structure
 

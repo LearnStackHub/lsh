@@ -485,6 +485,14 @@ Test your fallback methods and circuit breaker behavior.
 
 ---
 
+---
+
+## Test Your Knowledge
+
+Mastered Spring Cloud Resilience4j? Test your Microservices skills with our comprehensive [Microservices MCQ Exam](/tutorial/microservices-mcq) covering Circuit Breaker, Retry, Rate Limiter, and all microservices topics!
+
+---
+
 ## Summary
 
 Resilience4j provides fault tolerance patterns:

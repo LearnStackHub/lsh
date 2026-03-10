@@ -13,6 +13,7 @@ import springBootTesting from './SpringBootTesting';
 import springBootDeployment from './SpringBootDeployment';
 import springBootActuator from './SpringBootActuator';
 import springBootInterviewQuestions from './SpringBootInterviewQuestions';
+import springBootMCQ from './SpringBootMCQ';
 
 export {
   springBootIntroduction,
@@ -28,6 +29,7 @@ export {
   springBootTesting,
   springBootDeployment,
   springBootActuator,
-  springBootInterviewQuestions
+  springBootInterviewQuestions,
+  springBootMCQ
 };
 

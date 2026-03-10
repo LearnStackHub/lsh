@@ -433,6 +433,12 @@ Master HQL, and you can query your database in an object-oriented way!
 
 ---
 
+## Test Your Knowledge
+
+Mastered Hibernate HQL? Test your skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering HQL, Criteria API, named queries, and all Hibernate topics!
+
+---
+
 ## Practice Question
 
 **Q:** Write an HQL query to find all users who have placed more than 5 orders, ordered by the number of orders descending.

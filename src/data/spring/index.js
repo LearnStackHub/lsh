@@ -20,6 +20,7 @@ import springAOPAdvancedPointcuts from './SpringAOPAdvancedPointcuts';
 import springAOPCustomAnnotations from './SpringAOPCustomAnnotations';
 import springAOPAspectOrdering from './SpringAOPAspectOrdering';
 import springAOPWithSpringBoot from './SpringAOPWithSpringBoot';
+import springMCQ from './SpringMCQ';
 
 export {
   springIntroduction,
@@ -42,6 +43,7 @@ export {
   springAOPAdvancedPointcuts,
   springAOPCustomAnnotations,
   springAOPAspectOrdering,
-  springAOPWithSpringBoot
+  springAOPWithSpringBoot,
+  springMCQ
 };
 

@@ -22,6 +22,10 @@ const Sitemap = lazy(() => import('./pages/Sitemap'));
 const CoreJavaMCQ = lazy(() => import('./pages/CoreJavaMCQ'));
 const JDBCMCQ = lazy(() => import('./pages/JDBCMCQ'));
 const MySQLMCQ = lazy(() => import('./pages/MySQLMCQ'));
+const SpringMCQ = lazy(() => import('./pages/SpringMCQ'));
+const SpringBootMCQ = lazy(() => import('./pages/SpringBootMCQ'));
+const HibernateMCQ = lazy(() => import('./pages/HibernateMCQ'));
+const MicroservicesMCQ = lazy(() => import('./pages/MicroservicesMCQ'));
 
 // Minimal loading fallback
 const LoadingFallback = () => null;
@@ -84,6 +88,10 @@ function AppWithTracking() {
         <Route path="core-java-mcq" element={<CoreJavaMCQ />} />
         <Route path="jdbc-mcq" element={<JDBCMCQ />} />
         <Route path="mysql-mcq" element={<MySQLMCQ />} />
+        <Route path="spring-mcq" element={<SpringMCQ />} />
+        <Route path="spring-boot-mcq" element={<SpringBootMCQ />} />
+        <Route path="hibernate-mcq" element={<HibernateMCQ />} />
+        <Route path="microservices-mcq" element={<MicroservicesMCQ />} />
       </Route>
     </Routes>
     </Suspense>

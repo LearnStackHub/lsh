@@ -607,6 +607,12 @@ Spring Cloud Gateway provides API Gateway functionality:
 Now that you understand API Gateway:
 
 1. Learn [Load Balancing](/tutorial/spring-cloud-load-balancing) for distributing requests
+
+---
+
+## Test Your Knowledge
+
+Mastered Spring Cloud API Gateway? Test your Microservices skills with our comprehensive [Microservices MCQ Exam](/tutorial/microservices-mcq) covering API Gateway, routing, filters, and all microservices topics!
 2. Use [OpenFeign](/tutorial/spring-cloud-openfeign) for inter-service communication
 3. Master [Resilience4j](/tutorial/spring-cloud-resilience4j) for fault tolerance
 4. Set up [Service Discovery](/tutorial/spring-cloud-eureka) to find services

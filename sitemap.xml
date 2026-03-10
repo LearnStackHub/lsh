@@ -64,6 +64,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://learnstackhub.com/spring-mcq</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/spring-boot-mcq</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/hibernate-mcq</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://learnstackhub.com/microservices-mcq</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://learnstackhub.com/tutorial/abstraction</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>

@@ -564,6 +564,14 @@ public class UserDAO {
 
 ---
 
+---
+
+## Test Your Knowledge
+
+Mastered Hibernate Session? Test your Hibernate skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering Session, SessionFactory, lifecycle, and all Hibernate topics!
+
+---
+
 ## Summary
 
 Session is the core interface for Hibernate operations:

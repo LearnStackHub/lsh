@@ -607,6 +607,14 @@ Before proceeding to advanced REST API topics, ensure you understand these funda
 
 ---
 
+---
+
+## Test Your Knowledge
+
+Mastered Spring Boot REST API? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) covering REST APIs, @RestController, @RequestBody, and all Spring Boot topics!
+
+---
+
 ## What's Next?
 
 Now that you understand Spring Boot REST API fundamentals, you're ready to build complete backend services:

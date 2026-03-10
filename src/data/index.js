@@ -170,6 +170,7 @@ import hibernateLocking from './hibernate/HibernateLocking';
 import hibernateCaching from './hibernate/HibernateCaching';
 import hibernateRelationships from './hibernate/HibernateRelationships';
 import hibernateBatchProcessing from './hibernate/HibernateBatchProcessing';
+import hibernateMCQ from './hibernate/HibernateMCQ';
 
 // Git & GitHub
 import gitIntroduction from './git/GitIntroduction';
@@ -243,7 +244,8 @@ import {
   springBootTesting,
   springBootDeployment,
   springBootActuator,
-  springBootInterviewQuestions
+  springBootInterviewQuestions,
+  springBootMCQ
 } from './springboot';
 
 // Spring Cloud
@@ -258,7 +260,8 @@ import {
   springCloudResilience4j,
   springCloudDistributedTracing,
   springCloudSecurity,
-  springCloudELK
+  springCloudELK,
+  microservicesMCQ
 } from './springcloud';
 
 // SDLC
@@ -286,7 +289,8 @@ import {
   springAOPAdvancedPointcuts,
   springAOPCustomAnnotations,
   springAOPAspectOrdering,
-  springAOPWithSpringBoot
+  springAOPWithSpringBoot,
+  springMCQ
 } from './spring';
 
 export const courseStructure = {
@@ -722,6 +726,12 @@ export const courseStructure = {
           hibernateRelationships,
           hibernateBatchProcessing
         ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          hibernateMCQ
+        ]
       }
     }
   },
@@ -848,6 +858,12 @@ export const courseStructure = {
           springAOPAspectOrdering,
           springAOPWithSpringBoot
         ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          springMCQ
+        ]
       }
     }
   },
@@ -898,6 +914,12 @@ export const courseStructure = {
         title: "Interview Questions",
         topics: [
           springBootInterviewQuestions
+        ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          springBootMCQ
         ]
       }
     }
@@ -971,6 +993,12 @@ export const courseStructure = {
         title: "Centralized Logging",
         topics: [
           springCloudELK
+        ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          microservicesMCQ
         ]
       }
     }

@@ -426,6 +426,12 @@ Master these annotations, and you can map any Java object to any database table!
 
 ---
 
+## Test Your Knowledge
+
+Mastered Hibernate Mapping? Test your skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering Entity mapping, relationships, annotations, and all Hibernate topics!
+
+---
+
 ## Practice Question
 
 **Q:** What's the difference between \`FetchType.EAGER\` and \`FetchType.LAZY\`? When would you use each?

@@ -739,6 +739,12 @@ Before diving into Spring Boot development, ensure you have:
 4. **Practice**: Build real projects like a student management system, e-commerce API, or blog application
 
 Spring Boot simplifies enterprise Java development, but understanding the underlying concepts from [Spring Framework](/tutorial/spring-introduction) and [Java fundamentals](/tutorial/java-introduction) ensures you can effectively use and customize Spring Boot applications. Begin with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) to create your first Spring Boot application.
+
+---
+
+## Test Your Knowledge
+
+Ready to test your Spring Boot understanding? Take our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) with 20 randomly selected questions covering Auto-configuration, Starters, Actuator, JPA, Security, and all Spring Boot topics. Perfect for practice and assessment!
 `,
   code: `// Complete Spring Boot Application Example
 // This is a working example you can run

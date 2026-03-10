@@ -616,6 +616,12 @@ Now that you understand Config Server:
 2. Set up [API Gateway](/tutorial/spring-cloud-api-gateway) as single entry point
 3. Master [Load Balancing](/tutorial/spring-cloud-load-balancing) for distributing requests
 4. Use [OpenFeign](/tutorial/spring-cloud-openfeign) for inter-service communication
+
+---
+
+## Test Your Knowledge
+
+Mastered Spring Cloud Config Server? Test your Microservices skills with our comprehensive [Microservices MCQ Exam](/tutorial/microservices-mcq) covering Config Server, @RefreshScope, and all microservices topics!
 `,
   code: `// Config Server Application
 package com.example.configserver;

@@ -10,6 +10,7 @@ import springCloudResilience4j from './SpringCloudResilience4j';
 import springCloudDistributedTracing from './SpringCloudDistributedTracing';
 import springCloudSecurity from './SpringCloudSecurity';
 import springCloudELK from './SpringCloudELK';
+import microservicesMCQ from './MicroservicesMCQ';
 
 export {
   springCloudMicroservicesProject,
@@ -22,7 +23,8 @@ export {
   springCloudResilience4j,
   springCloudDistributedTracing,
   springCloudSecurity,
-  springCloudELK
+  springCloudELK,
+  microservicesMCQ
 };
 
 export default {
@@ -36,6 +38,7 @@ export default {
   springCloudResilience4j,
   springCloudDistributedTracing,
   springCloudSecurity,
-  springCloudELK
+  springCloudELK,
+  microservicesMCQ
 };
 

@@ -22,6 +22,10 @@ export const generateSitemap = () => {
     { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
     { url: '/mysql-mcq', priority: '0.8', changefreq: 'weekly' },
     { url: '/jdbc-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/spring-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/spring-boot-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/hibernate-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/microservices-mcq', priority: '0.8', changefreq: 'weekly' },
   ];
 
   // New pages added today - update with today's date

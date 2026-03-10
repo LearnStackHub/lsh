@@ -9,6 +9,7 @@ import hibernateLocking from './HibernateLocking';
 import hibernateCaching from './HibernateCaching';
 import hibernateRelationships from './HibernateRelationships';
 import hibernateBatchProcessing from './HibernateBatchProcessing';
+import hibernateMCQ from './HibernateMCQ';
 
 export {
   hibernateIntroduction,
@@ -20,7 +21,8 @@ export {
   hibernateLocking,
   hibernateCaching,
   hibernateRelationships,
-  hibernateBatchProcessing
+  hibernateBatchProcessing,
+  hibernateMCQ
 };
 
 export default {
@@ -33,6 +35,7 @@ export default {
   hibernateLocking,
   hibernateCaching,
   hibernateRelationships,
-  hibernateBatchProcessing
+  hibernateBatchProcessing,
+  hibernateMCQ
 };
 

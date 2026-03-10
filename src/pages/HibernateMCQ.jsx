@@ -1,0 +1,896 @@
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  CheckCircle, XCircle, ArrowRight, ArrowLeft, Trophy, 
+  Clock, RotateCcw, Home, Award, TrendingUp,
+  Sparkles, Star, Zap, Target, Rocket, AlertTriangle, Shield
+} from 'lucide-react';
+import { getRandomQuestions } from '../data/hibernate/questions';
+import SEOHead from '../components/SEOHead';
+import { trackEvent } from '../config/analytics';
+import './HibernateMCQ.css';
+
+// Exam configuration
+const EXAM_TIME_LIMIT = 10 * 60; // 10 minutes in seconds
+const TOTAL_QUESTIONS = 20;
+const SECURITY_WARNINGS_LIMIT = 3; // Auto-submit after 3 warnings
+
+// Confetti component for celebrations
+const Confetti = ({ show }) => {
+  if (!show) return null;
+  
+  return (
+    <div className="confetti-container">
+      {Array.from({ length: 50 }).map((_, i) => (
+        <div
+          key={i}
+          className="confetti-piece"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            animationDuration: `${1.5 + Math.random() * 1}s`,
+            backgroundColor: ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#ef4444'][Math.floor(Math.random() * 6)],
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Floating particles background
+const FloatingParticles = () => {
+  return (
+    <div className="floating-particles">
+      {Array.from({ length: 20 }).map((_, i) => (
+        <div
+          key={i}
+          className="particle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+            animationDuration: `${8 + Math.random() * 4}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+function HibernateMCQ() {
+  const [examStarted, setExamStarted] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [showResult, setShowResult] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(EXAM_TIME_LIMIT);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [celebrationMessage, setCelebrationMessage] = useState('');
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [securityWarnings, setSecurityWarnings] = useState(0);
+  const [showSecurityWarning, setShowSecurityWarning] = useState(false);
+  const [tabSwitchCount, setTabSwitchCount] = useState(0);
+  const [windowBlurCount, setWindowBlurCount] = useState(0);
+  const [username, setUsername] = useState('');
+  const [examStartTime, setExamStartTime] = useState(null);
+  const [examCompletionTime, setExamCompletionTime] = useState(null);
+  const navigate = useNavigate();
+  const startTimeRef = useRef(null);
+  const warningTimeoutRef = useRef(null);
+  const containerRef = useRef(null);
+  const questionsRef = useRef([]); // Store questions permanently to prevent regeneration
+
+  // Helper functions - MUST be defined before useEffect hooks that use them
+  const showSecurityAlert = useCallback((message) => {
+    setShowSecurityWarning(true);
+    if (warningTimeoutRef.current) {
+      clearTimeout(warningTimeoutRef.current);
+    }
+    warningTimeoutRef.current = setTimeout(() => {
+      setShowSecurityWarning(false);
+    }, 3000);
+  }, []);
+
+  // Calculate score function (must be defined before handleAutoSubmit)
+  const calculateScore = useCallback(() => {
+    const examQuestions = questionsRef.current; // Use ref to ensure same questions
+    if (!examQuestions || examQuestions.length === 0) {
+      return { correct: 0, total: 0, percentage: 0 };
+    }
+    let correct = 0;
+    examQuestions.forEach((q, index) => {
+      if (selectedAnswers[index] === q.correctAnswer) {
+        correct++;
+      }
+    });
+    return {
+      correct,
+      total: examQuestions.length,
+      percentage: Math.round((correct / examQuestions.length) * 100)
+    };
+  }, [selectedAnswers]);
+
+  // Request fullscreen (must be defined before handleAutoSubmit)
+  const requestFullscreen = useCallback(async () => {
+    const element = containerRef.current || document.documentElement;
+    
+    try {
+      if (element.requestFullscreen) {
+        await element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) {
+        // Safari
+        await element.webkitRequestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        // Firefox
+        await element.mozRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+        // IE/Edge
+        await element.msRequestFullscreen();
+      } else {
+        console.warn('Fullscreen API not supported');
+      }
+    } catch (error) {
+      console.warn('Fullscreen request failed:', error);
+      // Don't block exam start if fullscreen fails
+    }
+  }, []);
+
+  // Exit fullscreen (must be defined before handleAutoSubmit)
+  const exitFullscreen = useCallback(() => {
+    try {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    } catch (error) {
+      console.warn('Exit fullscreen failed:', error);
+    }
+  }, []);
+
+  const handleAutoSubmit = useCallback((reason = 'Time limit reached') => {
+    if (!showResult) {
+      const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
+      const score = calculateScore();
+      
+      setShowResult(true);
+      setExamStarted(false);
+      setExamCompletionTime(new Date());
+      
+      // Exit fullscreen when exam ends
+      exitFullscreen();
+      
+      // Track exam completion (auto-submit) in Google Analytics
+      trackEvent('exam_completed', {
+        exam_type: 'hibernate_mcq',
+        exam_name: 'Hibernate MCQ Exam',
+        completion_type: 'auto_submit',
+        reason: reason,
+        score: score.percentage,
+        correct_answers: score.correct,
+        total_questions: score.total,
+        time_taken: timeTaken,
+        security_warnings: securityWarnings,
+        tab_switches: tabSwitchCount,
+        page_path: window.location.pathname
+      });
+      
+      if (reason) {
+        alert(`Exam Auto-Submitted: ${reason}`);
+      }
+    }
+  }, [showResult, timeRemaining, calculateScore, exitFullscreen, securityWarnings, tabSwitchCount]);
+
+  // Track exam page view
+  useEffect(() => {
+    // Small delay to ensure gtag is loaded
+    const timer = setTimeout(() => {
+      trackEvent('exam_page_view', {
+        exam_type: 'hibernate_mcq',
+        exam_name: 'Hibernate MCQ Exam',
+        page_path: window.location.pathname
+      });
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Countdown timer (10 minutes)
+  useEffect(() => {
+    if (examStarted && !showResult && timeRemaining > 0) {
+      const timer = setInterval(() => {
+        setTimeRemaining(prev => {
+          if (prev <= 1) {
+            handleAutoSubmit();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [examStarted, showResult, timeRemaining, handleAutoSubmit]);
+
+  // Monitor fullscreen changes
+  useEffect(() => {
+    if (!examStarted || showResult) return;
+
+    const handleFullscreenChange = () => {
+      const isFullscreen = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+
+      if (!isFullscreen && examStarted && !showResult) {
+        // User exited fullscreen during exam - warn them
+        showSecurityAlert('Warning: Fullscreen mode exited! Please return to fullscreen to continue the exam.');
+        // Optionally, try to re-enter fullscreen
+        setTimeout(() => {
+          requestFullscreen();
+        }, 1000);
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, [examStarted, showResult, requestFullscreen, showSecurityAlert]);
+
+  // Web Security: Detect tab switching and window blur
+  useEffect(() => {
+    if (!examStarted || showResult) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setTabSwitchCount(prev => prev + 1);
+        setWindowBlurCount(prev => prev + 1);
+        setSecurityWarnings(prev => {
+          const newWarnings = prev + 1;
+          if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
+            handleAutoSubmit('Multiple tab switches detected. Exam auto-submitted.');
+            return newWarnings;
+          }
+          showSecurityAlert('Warning: Tab switching detected!');
+          return newWarnings;
+        });
+      }
+    };
+
+    const handleBlur = () => {
+      if (document.hasFocus() === false) {
+        setWindowBlurCount(prev => prev + 1);
+        setSecurityWarnings(prev => {
+          const newWarnings = prev + 1;
+          if (newWarnings >= SECURITY_WARNINGS_LIMIT) {
+            setTimeout(() => handleAutoSubmit('Window focus lost multiple times. Exam auto-submitted.'), 0);
+            return newWarnings;
+          }
+          showSecurityAlert('Warning: Window focus lost!');
+          return newWarnings;
+        });
+      }
+    };
+
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      showSecurityAlert('Right-click disabled during exam.');
+    };
+
+    const handleCopy = (e) => {
+      e.preventDefault();
+      showSecurityAlert('Copying is disabled during exam.');
+    };
+
+    const handlePaste = (e) => {
+      e.preventDefault();
+      showSecurityAlert('Pasting is disabled during exam.');
+    };
+
+    const handleKeyDown = (e) => {
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U (common dev tools shortcuts)
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'U') ||
+        (e.ctrlKey && e.key === 'S') ||
+        (e.ctrlKey && e.key === 'P')
+      ) {
+        e.preventDefault();
+        showSecurityAlert('This action is disabled during exam.');
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('copy', handleCopy);
+    document.addEventListener('paste', handlePaste);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('copy', handleCopy);
+      document.removeEventListener('paste', handlePaste);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [examStarted, showResult, handleAutoSubmit, showSecurityAlert]);
+
+  const handleStartExam = async () => {
+    // Validate username
+    if (!username || username.trim() === '') {
+      alert('Please enter your name to start the exam.');
+      return;
+    }
+    
+    // Request fullscreen before starting exam
+    await requestFullscreen();
+    
+    // Generate questions once when exam starts - this ensures same questions throughout
+    const randomQuestions = getRandomQuestions();
+    questionsRef.current = randomQuestions; // Store in ref to prevent regeneration
+    setQuestions(randomQuestions);
+    
+    const startTime = new Date();
+    setExamStarted(true);
+    setTimeRemaining(EXAM_TIME_LIMIT);
+    setCurrentQuestion(0);
+    setSelectedAnswers({});
+    setSecurityWarnings(0);
+    setTabSwitchCount(0);
+    setWindowBlurCount(0);
+    setExamStartTime(startTime);
+    startTimeRef.current = Date.now();
+    
+    // Track exam start in Google Analytics
+    // Small delay to ensure fullscreen request completes first and gtag is loaded
+    setTimeout(() => {
+      trackEvent('exam_start', {
+        exam_type: 'hibernate_mcq',
+        exam_name: 'Hibernate MCQ Exam',
+        total_questions: TOTAL_QUESTIONS,
+        time_limit: EXAM_TIME_LIMIT,
+        page_path: window.location.pathname
+      });
+    }, 500);
+  };
+
+  // Celebration on good answers
+  useEffect(() => {
+    const examQuestions = questionsRef.current;
+    if (examQuestions.length > 0 && selectedAnswers[currentQuestion] !== undefined) {
+      const isCorrect = selectedAnswers[currentQuestion] === examQuestions[currentQuestion].correctAnswer;
+      if (isCorrect) {
+        setShowCelebration(true);
+        setCelebrationMessage(['Great! 🎉', 'Perfect! ⭐', 'Excellent! 🚀', 'Awesome! 💪', 'Brilliant! ✨'][Math.floor(Math.random() * 5)]);
+        setTimeout(() => {
+          setShowCelebration(false);
+        }, 2000);
+      }
+    }
+  }, [selectedAnswers, currentQuestion]);
+
+  // Confetti on result
+  useEffect(() => {
+    if (showResult) {
+      const score = calculateScore();
+      if (score.percentage >= 70) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 4000);
+      }
+    }
+  }, [showResult, calculateScore]);
+
+  const handleAnswerSelect = useCallback((answerIndex) => {
+    if (isAnimating || selectedAnswers[currentQuestion] !== undefined) return;
+    
+    setIsAnimating(true);
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [currentQuestion]: answerIndex
+    }));
+
+    // Animation delay
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 400);
+  }, [currentQuestion, isAnimating, selectedAnswers]);
+
+  const handleNext = () => {
+    const examQuestions = questionsRef.current;
+    if (currentQuestion < examQuestions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+    }
+  };
+
+  const handleSubmit = () => {
+    const examQuestions = questionsRef.current;
+    if (Object.keys(selectedAnswers).length < examQuestions.length) {
+      if (!window.confirm(`You have answered ${Object.keys(selectedAnswers).length} out of ${examQuestions.length} questions. Are you sure you want to submit?`)) {
+        return;
+      }
+    }
+    
+    const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
+    const score = calculateScore();
+    
+    setShowResult(true);
+    setExamStarted(false);
+    setExamCompletionTime(new Date());
+    
+    // Exit fullscreen when exam ends
+    exitFullscreen();
+    
+    // Track exam completion (manual submit) in Google Analytics
+    trackEvent('exam_completed', {
+      exam_type: 'mysql_mcq',
+      exam_name: 'MySQL MCQ Exam',
+      completion_type: 'manual_submit',
+      score: score.percentage,
+      correct_answers: score.correct,
+      total_questions: score.total,
+      time_taken: timeTaken,
+      security_warnings: securityWarnings,
+      tab_switches: tabSwitchCount,
+      questions_answered: Object.keys(selectedAnswers).length,
+      page_path: window.location.pathname
+    });
+  };
+
+  const handleRestart = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswers({});
+    setShowResult(false);
+    setTimeRemaining(EXAM_TIME_LIMIT);
+    setExamStarted(false);
+    setSecurityWarnings(0);
+    setTabSwitchCount(0);
+    setWindowBlurCount(0);
+    setUsername('');
+    setExamStartTime(null);
+    setExamCompletionTime(null);
+    const randomQuestions = getRandomQuestions();
+    questionsRef.current = randomQuestions; // Store in ref
+    setQuestions(randomQuestions);
+  };
+
+  const score = useMemo(() => showResult ? calculateScore() : null, [showResult, calculateScore]);
+  const answeredCount = useMemo(() => Object.keys(selectedAnswers).length, [selectedAnswers]);
+  const progress = useMemo(() => {
+    const examQuestions = questionsRef.current;
+    return examQuestions.length > 0 ? Math.round((answeredCount / examQuestions.length) * 100) : 0;
+  }, [answeredCount]);
+
+  const formatTime = useCallback((seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }, []);
+
+  // Get exam questions from ref to ensure consistency
+  const examQuestions = questionsRef.current || [];
+  const totalQuestions = examQuestions.length;
+  const currentQ = examQuestions[currentQuestion] || null;
+  const selectedAnswer = selectedAnswers[currentQuestion];
+  const isTimeUp = timeRemaining <= 0;
+  const timeWarning = timeRemaining <= 60; // Warning when less than 1 minute
+
+  // Start screen
+  if (!examStarted && !showResult) {
+    return (
+      <div className="mcq-container" ref={containerRef}>
+        <FloatingParticles />
+        <div className="start-screen">
+          <div className="start-card">
+            <div className="start-icon">
+              <img 
+                src="/LSH.png" 
+                alt="LearnStackHub Logo" 
+                className="icon-large logo-icon"
+              />
+            </div>
+            <h1>Hibernate MCQ Exam</h1>
+            <div className="exam-info">
+              <div className="info-item">
+                <Target className="info-icon" />
+                <div>
+                  <strong>20 Questions</strong>
+                  <p>Randomly selected from 150+ questions</p>
+                </div>
+              </div>
+              <div className="info-item">
+                <Clock className="info-icon" />
+                <div>
+                  <strong>10 Minutes</strong>
+                  <p>Time limit for the exam</p>
+                </div>
+              </div>
+              <div className="info-item">
+                <Shield className="info-icon" />
+                <div>
+                  <strong>Secure Exam</strong>
+                  <p>Tab switching and window focus monitored</p>
+                </div>
+              </div>
+            </div>
+            <div className="exam-rules">
+              <h3>Exam Rules</h3>
+              <ul>
+                <li>You have exactly 10 minutes to complete the exam</li>
+                <li>20 questions will be randomly selected from 150+ questions</li>
+                <li>Results will be shown only after submission</li>
+                <li>Tab switching and window blur will be monitored</li>
+                <li>Exam will auto-submit after 3 security warnings</li>
+                <li>Right-click, copy, and paste are disabled</li>
+                <li>Time will auto-submit when it reaches 0</li>
+              </ul>
+            </div>
+            <div className="username-input-container">
+              <label htmlFor="username-input" className="username-label">
+                Enter Your Name <span className="required">*</span>
+              </label>
+              <input
+                id="username-input"
+                type="text"
+                className="username-input"
+                placeholder="Your name"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && username.trim()) {
+                    handleStartExam();
+                  }
+                }}
+                autoFocus
+              />
+            </div>
+            <button 
+              onClick={handleStartExam} 
+              className="btn btn-primary btn-start"
+              disabled={!username || username.trim() === ''}
+            >
+              <Rocket className="btn-icon" />
+              Start Exam
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showResult) {
+    const timeTaken = EXAM_TIME_LIMIT - timeRemaining;
+    return (
+      <div className="mcq-container" ref={containerRef}>
+        <SEOHead 
+          title="Hibernate MCQ Exam Results - LearnStackHub"
+          description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - View your Hibernate MCQ exam results with detailed question review, explanations, and performance analysis. Get instant feedback on your Hibernate ORM knowledge test."
+          keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, hibernate mcq results, hibernate exam results, hibernate quiz results, hibernate test scores, hibernate orm exam, hibernate test results"
+        />
+        <Confetti show={showConfetti} />
+        <FloatingParticles />
+        <div className="result-container">
+          <div className="result-card">
+            <div className={`result-icon ${score.percentage >= 70 ? 'success' : score.percentage >= 50 ? 'warning' : 'error'}`}>
+              {score.percentage >= 70 ? (
+                <Trophy className="trophy-icon" />
+              ) : score.percentage >= 50 ? (
+                <Award className="award-icon" />
+              ) : (
+                <TrendingUp className="trending-icon" />
+              )}
+            </div>
+            
+            <h1 className="result-title">
+              {score.percentage >= 70 
+                ? "Excellent Work! 🎉" 
+                : score.percentage >= 50 
+                ? "Good Job! 👍" 
+                : "Keep Practicing! 💪"}
+            </h1>
+            
+            <div className="exam-info-header">
+              <div className="exam-info-item">
+                <strong>Candidate Name:</strong> {username || 'Not provided'}
+              </div>
+              <div className="exam-info-item">
+                <strong>Exam Name:</strong> Hibernate MCQ Exam
+              </div>
+              <div className="exam-info-item">
+                <strong>Completed On:</strong> {examCompletionTime ? examCompletionTime.toLocaleString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric', 
+                  hour: '2-digit', 
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: true 
+                }) : 'N/A'}
+              </div>
+            </div>
+            
+            <div className="score-display">
+              <div className="score-circle">
+                <div className="score-value">{score.percentage}%</div>
+                <div className="score-label">Score</div>
+              </div>
+              <div className="score-details">
+                <div className="score-item correct">
+                  <CheckCircle className="score-icon" />
+                  <span>{score.correct} Correct</span>
+                </div>
+                <div className="score-item incorrect">
+                  <XCircle className="score-icon" />
+                  <span>{score.total - score.correct} Incorrect</span>
+                </div>
+                <div className="score-item time">
+                  <Clock className="score-icon" />
+                  <span>Time Taken: {formatTime(timeTaken)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="questions-review">
+              <h3>Question Review</h3>
+              <div className="review-list">
+                {questionsRef.current.map((q, index) => {
+                  const userAnswer = selectedAnswers[index];
+                  const isCorrect = userAnswer === q.correctAnswer;
+                  
+                  return (
+                    <div key={q.id} className={`review-item ${isCorrect ? 'correct' : 'incorrect'}`}>
+                      <div className="review-question">
+                        <span className="review-number">Q{index + 1}:</span>
+                        {q.question}
+                      </div>
+                      <div className="review-answers">
+                        <div className="review-answer">
+                          <span className="review-label">Your Answer:</span>
+                          <span className={isCorrect ? 'correct-text' : 'incorrect-text'}>
+                            {userAnswer !== undefined ? q.options[userAnswer] : 'Not answered'}
+                          </span>
+                        </div>
+                        {!isCorrect && (
+                          <div className="review-answer">
+                            <span className="review-label">Correct Answer:</span>
+                            <span className="correct-text">{q.options[q.correctAnswer]}</span>
+                          </div>
+                        )}
+                        <div className="review-explanation">
+                          <strong>Explanation:</strong> {q.explanation}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="result-actions">
+              <button onClick={handleRestart} className="btn btn-primary">
+                <RotateCcw className="btn-icon" />
+                Retake Exam
+              </button>
+              <button onClick={() => navigate('/')} className="btn btn-secondary">
+                <Home className="btn-icon" />
+                Go Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!examStarted || questionsRef.current.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="mcq-container" ref={containerRef}>
+      <SEOHead 
+        title="Hibernate MCQ Exam - Test Your Hibernate Knowledge | LearnStackHub"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Hibernate MCQ exam with 20 randomly selected questions from 110+ questions. 10-minute time limit. Test your Hibernate ORM knowledge (Session, Mapping, Relationships, HQL, Caching) with real-time feedback and detailed explanations. Free Hibernate practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, hibernate mcq, hibernate exam, hibernate quiz, hibernate test, hibernate orm mcq, hibernate multiple choice questions, hibernate practice exam, hibernate assessment, learn hibernate, hibernate orm test, hibernate mcq online, free hibernate exam, hibernate practice test, hibernate certification exam, hibernate session, hibernate mapping, hibernate hql"
+      />
+      <FloatingParticles />
+      {showSecurityWarning && (
+        <div className="security-warning">
+          <AlertTriangle className="warning-icon" />
+          <div>
+            <strong>Security Warning!</strong>
+            <p>Tab switching or window blur detected. {SECURITY_WARNINGS_LIMIT - securityWarnings} warning(s) remaining before auto-submit.</p>
+          </div>
+        </div>
+      )}
+      {showCelebration && (
+        <div className="celebration-toast">
+          <Sparkles className="celebration-icon" />
+          <span>{celebrationMessage}</span>
+        </div>
+      )}
+      <div className="mcq-header">
+        <div className="header-content">
+          <div className="header-left">
+            <img 
+              src="/LSH.png" 
+              alt="LearnStackHub Logo" 
+              className="header-icon logo-icon"
+            />
+            <div>
+              <h1>Hibernate MCQ Exam</h1>
+              <p>Test your Hibernate ORM knowledge</p>
+            </div>
+          </div>
+          <div className="header-right">
+            <div className={`timer ${timeWarning ? 'timer-warning' : ''} ${isTimeUp ? 'timer-danger' : ''}`}>
+              <Clock className="timer-icon" />
+              <span>{formatTime(timeRemaining)}</span>
+              {timeWarning && !isTimeUp && (
+                <span className="timer-alert">⚠️ Less than 1 minute!</span>
+              )}
+            </div>
+            {securityWarnings > 0 && (
+              <div className="security-badge">
+                <Shield className="security-icon" />
+                <span>Warnings: {securityWarnings}/{SECURITY_WARNINGS_LIMIT}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="progress-section">
+        <div className="progress-stats">
+          <div className="stat-item">
+            <Target className="stat-icon" />
+            <span>Progress: <strong>{progress}%</strong></span>
+          </div>
+          <div className="stat-item">
+            <CheckCircle className="stat-icon" />
+            <span>Answered: <strong>{answeredCount}/{totalQuestions}</strong></span>
+          </div>
+        </div>
+        <div className="progress-bar">
+          <div 
+            className="progress-fill" 
+            style={{ width: `${totalQuestions > 0 ? ((currentQuestion + 1) / totalQuestions) * 100 : 0}%` }}
+          >
+            <div className="progress-shine" />
+          </div>
+        </div>
+      </div>
+
+      <div className="question-container">
+        <div className="question-card">
+          <div className="question-header">
+            <span className="question-number">
+              Question {currentQuestion + 1} of {totalQuestions}
+            </span>
+            <span className="question-points">1 point</span>
+          </div>
+
+          <h2 className="question-text">{currentQ?.question || ''}</h2>
+
+          <div className="options-container">
+            {currentQ?.options?.map((option, index) => {
+              const isSelected = selectedAnswer === index;
+              const isCorrect = index === currentQ?.correctAnswer;
+              let optionClass = 'option';
+              
+              if (isSelected) {
+                optionClass += isCorrect ? ' selected correct-answer' : ' selected wrong-answer';
+              }
+
+              return (
+                <button
+                  key={index}
+                  className={optionClass}
+                  onClick={() => !isTimeUp && handleAnswerSelect(index)}
+                  disabled={isAnimating || selectedAnswer !== undefined || isTimeUp}
+                >
+                  <span className="option-letter">
+                    {String.fromCharCode(65 + index)}
+                  </span>
+                  <span className="option-text">{option}</span>
+                  {isSelected && (
+                    <>
+                      {isCorrect ? (
+                        <CheckCircle className="option-check correct-icon" />
+                      ) : (
+                        <XCircle className="option-check wrong-icon" />
+                      )}
+                    </>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          
+
+          <div className="question-navigation">
+            <button
+              onClick={handlePrevious}
+              disabled={currentQuestion === 0 || isTimeUp}
+              className="btn btn-outline"
+            >
+              <ArrowLeft className="btn-icon" />
+              Previous
+            </button>
+
+            <div className="question-indicators">
+              {examQuestions.map((_, index) => (
+                <button
+                  key={index}
+                  className={`indicator ${index === currentQuestion ? 'active' : ''} ${
+                    selectedAnswers[index] !== undefined ? 'answered' : ''
+                  }`}
+                  onClick={() => !isTimeUp && setCurrentQuestion(index)}
+                  disabled={isTimeUp}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+
+            {currentQuestion === totalQuestions - 1 ? (
+              <button
+                onClick={handleSubmit}
+                className="btn btn-primary btn-submit"
+                disabled={isTimeUp}
+              >
+                <Rocket className="btn-icon" />
+                Submit Exam
+                <Trophy className="btn-icon" />
+              </button>
+            ) : (
+              <button
+                onClick={handleNext}
+                disabled={currentQuestion === totalQuestions - 1 || isTimeUp}
+                className="btn btn-primary"
+              >
+                Next
+                <ArrowRight className="btn-icon" />
+              </button>
+            )}
+          </div>
+          
+          {answeredCount > 0 && answeredCount < totalQuestions && (
+            <div className="motivation-banner">
+              <Zap className="motivation-icon" />
+              <div>
+                <strong>Great Progress! Keep Going! 🚀</strong>
+                <p>You've answered {answeredCount} out of {totalQuestions} questions. You're doing amazing!</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default HibernateMCQ;
+
