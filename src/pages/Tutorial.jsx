@@ -153,7 +153,7 @@ function Tutorial() {
   if (!currentTopic) {
     return (
       <div className="tutorial-page">
-        <SEOHead title="Topic Not Found - LearnStackHub" />
+        <SEOHead title="Topic Not Found - LearnStackHub" noindex />
         <h1>Topic not found</h1>
         <p>The requested tutorial topic could not be found.</p>
         <Link to="/" className="btn btn-primary">Go Home</Link>

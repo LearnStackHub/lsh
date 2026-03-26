@@ -5,13 +5,13 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createRequire } from 'module';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const baseUrl = 'https://learnstackhub.com';
 const currentDate = new Date().toISOString().split('T')[0];
+const QUALITY_TOPIC_LIMIT = 120;
 
 // New pages added today - only these should have today's date
 const newPagesToday = [
@@ -39,12 +39,19 @@ const newPagesToday = [
 const staticPages = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
   { url: '/about', priority: '0.8', changefreq: 'monthly' },
+  { url: '/career-guidance', priority: '0.8', changefreq: 'monthly' },
   { url: '/careers', priority: '0.8', changefreq: 'monthly' },
   { url: '/contact', priority: '0.7', changefreq: 'monthly' },
   { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
   { url: '/terms', priority: '0.5', changefreq: 'yearly' },
   { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
-  { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/core-java-mcq', priority: '0.7', changefreq: 'weekly' },
+  { url: '/jdbc-mcq', priority: '0.7', changefreq: 'weekly' },
+  { url: '/mysql-mcq', priority: '0.7', changefreq: 'weekly' },
+  { url: '/spring-mcq', priority: '0.7', changefreq: 'weekly' },
+  { url: '/spring-boot-mcq', priority: '0.7', changefreq: 'weekly' },
+  { url: '/hibernate-mcq', priority: '0.7', changefreq: 'weekly' },
+  { url: '/microservices-mcq', priority: '0.7', changefreq: 'weekly' },
 ];
 
 // Function to read existing sitemap and extract old dates
@@ -70,8 +77,43 @@ function readExistingSitemap(sitemapPath) {
   return existingDates;
 }
 
-// Import getAllTopics from the data index
-// We need to use dynamic import since we're in a Node.js script
+function scoreTopicId(topicId) {
+  let score = 0;
+
+  // Prioritize foundational and high-intent learning pages.
+  if (topicId.includes('introduction')) score += 12;
+  if (topicId.includes('architecture')) score += 10;
+  if (topicId.includes('project-setup')) score += 10;
+  if (topicId.includes('rest-api') || topicId.includes('api-')) score += 9;
+  if (topicId.includes('security')) score += 8;
+  if (topicId.includes('validation')) score += 7;
+  if (topicId.includes('exception')) score += 6;
+  if (topicId.includes('session') || topicId.includes('transaction')) score += 6;
+  if (topicId.includes('spring-boot')) score += 5;
+  if (topicId.includes('mysql-')) score += 5;
+  if (topicId.includes('jdbc-')) score += 5;
+
+  // De-prioritize pages that often get low-value treatment.
+  if (topicId.includes('mcq')) score -= 20;
+  if (topicId.includes('interview-questions')) score -= 16;
+
+  return score;
+}
+
+function selectQualityTopicIds(allTopicIds) {
+  return allTopicIds
+    .filter((topicId) => !topicId.includes('mcq') && !topicId.includes('interview-questions'))
+    .map((topicId) => ({ topicId, score: scoreTopicId(topicId) }))
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return a.topicId.localeCompare(b.topicId);
+    })
+    .slice(0, QUALITY_TOPIC_LIMIT)
+    .map((entry) => entry.topicId);
+}
+
 async function generateSitemap() {
   try {
     const dataDir = path.join(__dirname, '..', 'src', 'data');
@@ -110,6 +152,11 @@ async function generateSitemap() {
     
     // Convert Set to Array and create tutorial pages
     const allTopicIds = Array.from(foundTopicIds).sort();
+    const cliModeArg = process.argv.find((arg) => arg.startsWith('--mode='));
+    const cliMode = cliModeArg ? cliModeArg.split('=')[1] : '';
+    const envMode = process.env.SITEMAP_MODE || '';
+    const mode = cliMode === 'quality' || envMode === 'quality' ? 'quality' : 'full';
+    const selectedTopicIds = mode === 'quality' ? selectQualityTopicIds(allTopicIds) : allTopicIds;
     
     // Read existing sitemap to preserve old dates
     const projectRoot = path.join(__dirname, '..');
@@ -117,7 +164,7 @@ async function generateSitemap() {
     const existingDates = readExistingSitemap(existingSitemapPath);
     
     // Create tutorial pages - preserve old dates, only update new pages
-    allTopicIds.forEach(topicId => {
+    selectedTopicIds.forEach(topicId => {
       const url = `/tutorial/${topicId}`;
       let lastmod;
       
@@ -194,6 +241,7 @@ async function generateSitemap() {
     console.log(`📄 Root location: ${rootSitemapPath}`);
     console.log(`📄 Public location: ${publicSitemapPath}`);
     console.log(`🌐 URL: ${baseUrl}/sitemap.xml`);
+    console.log(`🧭 Mode: ${mode}`);
     console.log(`📊 Total URLs: ${allPages.length}`);
     console.log(`   - Static pages: ${staticPages.length}`);
     console.log(`   - Tutorial pages: ${tutorialPages.length}`);
