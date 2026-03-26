@@ -18,6 +18,7 @@ const About = lazy(() => import('./pages/About'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const Careers = lazy(() => import('./pages/Careers'));
 const CareerGuidance = lazy(() => import('./pages/CareerGuidance'));
+const Sitemap = lazy(() => import('./pages/Sitemap'));
 const CoreJavaMCQ = lazy(() => import('./pages/CoreJavaMCQ'));
 const JDBCMCQ = lazy(() => import('./pages/JDBCMCQ'));
 const MySQLMCQ = lazy(() => import('./pages/MySQLMCQ'));
@@ -25,7 +26,6 @@ const SpringMCQ = lazy(() => import('./pages/SpringMCQ'));
 const SpringBootMCQ = lazy(() => import('./pages/SpringBootMCQ'));
 const HibernateMCQ = lazy(() => import('./pages/HibernateMCQ'));
 const MicroservicesMCQ = lazy(() => import('./pages/MicroservicesMCQ'));
-const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Minimal loading fallback
 const LoadingFallback = () => null;
@@ -84,6 +84,7 @@ function AppWithTracking() {
         <Route path="careers" element={<Careers />} />
         <Route path="career-guidance" element={<CareerGuidance />} />
         <Route path="disclaimer" element={<Disclaimer />} />
+        <Route path="sitemap.xml" element={<Sitemap />} />
         <Route path="core-java-mcq" element={<CoreJavaMCQ />} />
         <Route path="jdbc-mcq" element={<JDBCMCQ />} />
         <Route path="mysql-mcq" element={<MySQLMCQ />} />
@@ -91,7 +92,6 @@ function AppWithTracking() {
         <Route path="spring-boot-mcq" element={<SpringBootMCQ />} />
         <Route path="hibernate-mcq" element={<HibernateMCQ />} />
         <Route path="microservices-mcq" element={<MicroservicesMCQ />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
     </Suspense>
