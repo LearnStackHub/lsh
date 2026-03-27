@@ -10,7 +10,7 @@ import { createRequire } from 'module';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseUrl = 'https://learnstackhub.com';
+const baseUrl = 'https://www.learnstackhub.com';
 const currentDate = new Date().toISOString().split('T')[0];
 
 // New pages added today - only these should have today's date
@@ -40,11 +40,18 @@ const staticPages = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
   { url: '/about', priority: '0.8', changefreq: 'monthly' },
   { url: '/careers', priority: '0.8', changefreq: 'monthly' },
+  { url: '/career-guidance', priority: '0.8', changefreq: 'monthly' },
   { url: '/contact', priority: '0.7', changefreq: 'monthly' },
   { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
   { url: '/terms', priority: '0.5', changefreq: 'yearly' },
   { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
   { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/mysql-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/jdbc-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/spring-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/spring-boot-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/hibernate-mcq', priority: '0.8', changefreq: 'weekly' },
+  { url: '/microservices-mcq', priority: '0.8', changefreq: 'weekly' },
 ];
 
 // Function to read existing sitemap and extract old dates

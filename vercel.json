@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/tutorial/servlet-architecture",
       "destination": "/tutorial/servlet-introduction",
       "permanent": true
@@ -19,17 +24,6 @@
       "source": "/tutorial/jdbc-architecture",
       "destination": "/tutorial/jdbc-introduction",
       "permanent": true
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
     }
   ],
   "rewrites": [

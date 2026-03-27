@@ -3,17 +3,17 @@ import { useLocation } from 'react-router-dom';
 import { getAllTopics, getTopicById } from '../data';
 import { generateSEOTitle, generateSEODescription, generateSEOKeywords } from '../utils/seoHelpers';
 
-function SEOHead({ title, description, keywords, topicId }) {
+function SEOHead({ title, description, keywords, topicId, noindex = false }) {
   const location = useLocation();
-  // Always use non-www version as canonical (preferred domain)
-  const baseUrl = 'https://learnstackhub.com';
+  // Use www domain as canonical to match Vercel primary redirect target.
+  const baseUrl = 'https://www.learnstackhub.com';
   
   useEffect(() => {
     // Get topic data if topicId is provided
     let pageTitle = title || 'LSH - Learn Java Full Stack Development | Free Java Tutorials | LearnStackHub';
     let pageDescription = description || 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform for Java Full Stack Development. Learn Java, Spring, React, AWS and more for free. Complete tutorials with code examples and live execution. Perfect for beginners and advanced developers. Learn, Stack, Hub - Your complete learning destination.';
     let pageKeywords = keywords || 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, LearnStackHub, learnstackhub, LSH tutorial, LSH java, learn stack hub tutorial, learnstack hub, learn hub java, stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, spring framework tutorial, spring boot tutorial, http apis tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices, java tutorial hyderabad, java training hyderabad, java course hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad';
-    // Always use non-www version for canonical URL
+    // Keep canonical URLs on the same www host used by production redirects.
     let pageUrl = baseUrl + location.pathname;
     let pageImage = baseUrl + '/LSH.png';
 
@@ -48,6 +48,7 @@ function SEOHead({ title, description, keywords, topicId }) {
     if (pageKeywords) {
       updateMetaTag('keywords', pageKeywords);
     }
+    updateMetaTag('robots', noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
     
     // Open Graph tags
     updateMetaTag('og:title', pageTitle, true);
@@ -72,7 +73,7 @@ function SEOHead({ title, description, keywords, topicId }) {
     }
     canonical.setAttribute('href', pageUrl);
 
-  }, [location.pathname, title, description, keywords, topicId]);
+  }, [location.pathname, title, description, keywords, topicId, noindex]);
 
   return null; // This component doesn't render anything
 }

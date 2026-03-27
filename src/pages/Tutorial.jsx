@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+import { atomOneDark as oneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { 
   ChevronRight, 
   Copy, 
@@ -34,6 +35,8 @@ import FAQSection from '../components/FAQSection';
 import InternalLinks from '../components/InternalLinks';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
+
+SyntaxHighlighter.registerLanguage('java', java);
 
 function Tutorial() {
   const { topicId } = useParams();
@@ -153,7 +156,7 @@ function Tutorial() {
   if (!currentTopic) {
     return (
       <div className="tutorial-page">
-        <SEOHead title="Topic Not Found - LearnStackHub" />
+        <SEOHead title="Topic Not Found - LearnStackHub" noindex />
         <h1>Topic not found</h1>
         <p>The requested tutorial topic could not be found.</p>
         <Link to="/" className="btn btn-primary">Go Home</Link>
@@ -550,6 +553,7 @@ function Tutorial() {
     return (
       <div className="tutorial-page fade-in">
         <div style={{ padding: '2rem', textAlign: 'center' }}>
+          <SEOHead title="Topic Not Found - LearnStackHub" noindex />
           <h1>Topic Not Found</h1>
           <p>The tutorial topic "{topicId}" could not be found.</p>
           <Link to="/" style={{ color: '#3b82f6', textDecoration: 'underline' }}>

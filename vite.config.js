@@ -19,15 +19,54 @@ export default defineConfig({
             if (id.includes('codemirror') || id.includes('@uiw')) {
               return 'code-editor';
             }
-            if (id.includes('syntax-highlighter')) {
+            if (
+              id.includes('react-syntax-highlighter') ||
+              id.includes('syntax-highlighter') ||
+              id.includes('highlight.js') ||
+              id.includes('refractor') ||
+              id.includes('prismjs')
+            ) {
               return 'syntax-highlighter';
             }
             if (id.includes('lucide-react')) {
               return 'icons';
             }
+            if (id.includes('@emailjs')) {
+              return 'emailjs';
+            }
             return 'vendor';
           }
           // Split data files by course - CRITICAL for performance
+          if (id.includes('/data/corejava/basics/')) {
+            return 'data-corejava-basics';
+          }
+          if (id.includes('/data/corejava/controlflow/')) {
+            return 'data-corejava-controlflow';
+          }
+          if (id.includes('/data/corejava/oops/')) {
+            return 'data-corejava-oops';
+          }
+          if (id.includes('/data/corejava/strings/')) {
+            return 'data-corejava-strings';
+          }
+          if (id.includes('/data/corejava/arrays/')) {
+            return 'data-corejava-arrays';
+          }
+          if (id.includes('/data/corejava/exceptions/')) {
+            return 'data-corejava-exceptions';
+          }
+          if (id.includes('/data/corejava/collections/')) {
+            return 'data-corejava-collections';
+          }
+          if (id.includes('/data/corejava/advanced/')) {
+            return 'data-corejava-advanced';
+          }
+          if (id.includes('/data/corejava/multithreading/')) {
+            return 'data-corejava-multithreading';
+          }
+          if (id.includes('/data/corejava/interview/')) {
+            return 'data-corejava-interview';
+          }
           if (id.includes('/data/corejava/')) {
             return 'data-corejava';
           }
@@ -36,6 +75,9 @@ export default defineConfig({
           }
           if (id.includes('/data/css/')) {
             return 'data-css';
+          }
+          if (id.includes('/data/http/')) {
+            return 'data-http';
           }
           if (id.includes('/data/jdbc/')) {
             return 'data-jdbc';
@@ -57,6 +99,15 @@ export default defineConfig({
           }
           if (id.includes('/data/maven/')) {
             return 'data-maven';
+          }
+          if (id.includes('/data/springboot/')) {
+            return 'data-springboot';
+          }
+          if (id.includes('/data/springcloud/')) {
+            return 'data-springcloud';
+          }
+          if (id.includes('/data/sdlc/')) {
+            return 'data-sdlc';
           }
           if (id.includes('/data/spring/')) {
             return 'data-spring';

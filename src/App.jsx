@@ -18,7 +18,6 @@ const About = lazy(() => import('./pages/About'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const Careers = lazy(() => import('./pages/Careers'));
 const CareerGuidance = lazy(() => import('./pages/CareerGuidance'));
-const Sitemap = lazy(() => import('./pages/Sitemap'));
 const CoreJavaMCQ = lazy(() => import('./pages/CoreJavaMCQ'));
 const JDBCMCQ = lazy(() => import('./pages/JDBCMCQ'));
 const MySQLMCQ = lazy(() => import('./pages/MySQLMCQ'));
@@ -84,7 +83,6 @@ function AppWithTracking() {
         <Route path="careers" element={<Careers />} />
         <Route path="career-guidance" element={<CareerGuidance />} />
         <Route path="disclaimer" element={<Disclaimer />} />
-        <Route path="sitemap.xml" element={<Sitemap />} />
         <Route path="core-java-mcq" element={<CoreJavaMCQ />} />
         <Route path="jdbc-mcq" element={<JDBCMCQ />} />
         <Route path="mysql-mcq" element={<MySQLMCQ />} />
