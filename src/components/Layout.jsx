@@ -1,31 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
-  Search, Menu, X, ChevronDown, Plus, User, LogOut, BookOpen,
+  Search, Menu, X, BookOpen,
   FileCode, Palette, Code, Database, Server, FileText, Layers, 
   Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud,
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 import { useContributions } from '../context/ContributionContext';
-import LoginModal from './LoginModal';
-import ContributeModal from './ContributeModal';
 import ConsentBanner from './ConsentBanner';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
-import { trackSearch, trackCourseSelect, trackButtonClick } from '../config/analytics';
+import { trackSearch } from '../config/analytics';
 import logoImage from '../assets/LSH.png';
 
 function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCourse, setActiveCourse] = useState('corejava');
   const [searchQuery, setSearchQuery] = useState('');
-  const [showContributeModal, setShowContributeModal] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const [filteredTopics, setFilteredTopics] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { user, isLoggedIn, openLoginModal, logout } = useAuth();
   const { getAllContributions } = useContributions();
   const [courseStructure, setCourseStructure] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -98,16 +92,6 @@ function Layout() {
       return location.pathname === `/${topicId}` || location.pathname === `/tutorial/${topicId}`;
     }
     return location.pathname.includes(topicId);
-  };
-
-  const handleAddClick = () => {
-    if (isLoggedIn()) {
-      setShowContributeModal(true);
-      trackButtonClick('add_tutorial', 'header');
-    } else {
-      openLoginModal();
-      trackButtonClick('add_tutorial_login_required', 'header');
-    }
   };
 
   const handleCourseSelect = (courseKey) => {
@@ -224,52 +208,7 @@ function Layout() {
             )}
           </div>
 
-          <button 
-            className="nav-add-btn" 
-            onClick={handleAddClick}
-          >
-            <Plus size={16} />
-            <span>Add Tutorial</span>
-          </button>
-
-          {/* User Menu */}
-          {isLoggedIn() ? (
-            <div className="user-menu-container">
-              <button 
-                className="user-menu-btn"
-                onClick={() => setShowUserMenu(!showUserMenu)}
-              >
-                <div className="user-avatar">
-                  {user?.name?.charAt(0).toUpperCase()}
-                </div>
-                <span className="user-name">{user?.name}</span>
-                <ChevronDown size={14} />
-              </button>
-
-              {showUserMenu && (
-                <div className="user-dropdown">
-                  <div className="user-dropdown-header">
-                    <strong>{user?.name}</strong>
-                    <span>{user?.email}</span>
-                  </div>
-                  <div className="user-dropdown-divider" />
-                  <button onClick={handleAddClick}>
-                    <Plus size={16} />
-                    Add Tutorial
-                  </button>
-                  <button onClick={() => { logout(); setShowUserMenu(false); }}>
-                    <LogOut size={16} />
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <button className="login-btn" onClick={openLoginModal}>
-              <User size={18} />
-              <span>Sign In</span>
-            </button>
-          )}
+          
         </div>
       </header>
 
@@ -400,14 +339,6 @@ function Layout() {
       </div>
 
 
-      {/* Click outside to close user menu */}
-      {showUserMenu && (
-        <div 
-          className="menu-overlay"
-          onClick={() => setShowUserMenu(false)}
-        />
-      )}
-
       {/* Click outside to close search */}
       {filteredTopics.length > 0 && (
         <div 
@@ -496,14 +427,6 @@ function Layout() {
         </div>
       </footer>
 
-      {/* Modals */}
-      <LoginModal />
-      <ContributeModal 
-        isOpen={showContributeModal}
-        onClose={() => setShowContributeModal(false)}
-        mode="add"
-      />
-      
       {/* Consent Banner */}
       <ConsentBanner />
     </div>

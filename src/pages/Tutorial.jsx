@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
-import { atomOneDark as oneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { github as codeTheme } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { 
   ChevronRight, 
   Copy, 
@@ -16,14 +16,13 @@ import {
   Code,
   RotateCcw,
   Loader2,
-  Edit3,
-  User
+  User,
+  Calendar,
+  ShieldCheck
 } from 'lucide-react';
 import { getTopicById, getNavigation, getAllTopics } from '../data';
 import { executeWithPiston } from '../services/codeExecutor';
-import { useAuth } from '../context/AuthContext';
 import { useContributions } from '../context/ContributionContext';
-import ContributeModal from '../components/ContributeModal';
 import ContributorBadge from '../components/ContributorBadge';
 import AdSense from '../components/AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
@@ -44,10 +43,7 @@ function Tutorial() {
   const [editorCode, setEditorCode] = useState('');
   const [output, setOutput] = useState('Click "Run Code" to execute your code');
   const [isRunning, setIsRunning] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-
-  const { user, isLoggedIn, openLoginModal } = useAuth();
-  const { getContribution, getAllContributions } = useContributions();
+  const { getContribution } = useContributions();
 
   // Get current topic data - check user contributions first
   const contribution = getContribution(topicId);
@@ -63,6 +59,40 @@ function Tutorial() {
   } : originalTopic;
 
   const navigation = getNavigation(topicId);
+  const fallbackLastUpdated = '2026-03-27';
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return fallbackLastUpdated;
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const getEstimatedReadTime = (content) => {
+    if (!content) return 5;
+    const plainText = content
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+      .replace(/\[[^\]]*\]\([^)]+\)/g, ' ')
+      .replace(/[#>*`|_-]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const words = plainText.split(' ').filter(Boolean).length;
+    return Math.max(3, Math.ceil(words / 220));
+  };
+
+  const estimatedReadTime = getEstimatedReadTime(currentTopic?.content);
+  const authorName = contribution?.editedBy?.name
+    || contribution?.contributedBy?.name
+    || 'LearnStackHub Editorial Team';
+  const lastUpdatedRaw = contribution?.editedBy?.date
+    || contribution?.contributedBy?.date
+    || currentTopic?.lastUpdated
+    || fallbackLastUpdated;
+  const lastUpdatedDisplay = formatDate(lastUpdatedRaw);
 
   useEffect(() => {
     if (currentTopic?.code) {
@@ -142,16 +172,6 @@ function Tutorial() {
   const onChange = useCallback((value) => {
     setEditorCode(value);
   }, []);
-
-  const handleEditClick = () => {
-    if (isLoggedIn()) {
-      setShowEditModal(true);
-      trackButtonClick('edit_tutorial', 'tutorial');
-    } else {
-      openLoginModal();
-      trackButtonClick('edit_tutorial_login_required', 'tutorial');
-    }
-  };
 
   if (!currentTopic) {
     return (
@@ -363,7 +383,7 @@ function Tutorial() {
             <SyntaxHighlighter 
               key={`code-${index}`}
               language="java" 
-              style={oneDark}
+              style={codeTheme}
               showLineNumbers={false}
               customStyle={{
                 borderRadius: '8px',
@@ -583,10 +603,6 @@ function Tutorial() {
       <div className="tutorial-header">
         <div className="tutorial-header-top">
           <h1 className="tutorial-title">{generateSEOTitle(currentTopic)}</h1>
-          <button className="edit-tutorial-btn" onClick={handleEditClick}>
-            <Edit3 size={16} />
-            Edit Tutorial
-          </button>
         </div>
         <div className="tutorial-meta">
           <span>
@@ -595,7 +611,11 @@ function Tutorial() {
           </span>
           <span>
             <Clock size={16} />
-            ~10 min read
+            ~{estimatedReadTime} min read
+          </span>
+          <span>
+            <Calendar size={16} />
+            Updated {lastUpdatedDisplay}
           </span>
         </div>
       </div>
@@ -604,6 +624,23 @@ function Tutorial() {
       {contribution && (
         <ContributorBadge contribution={contribution} />
       )}
+
+      <div className="content-trust-panel">
+        <div className="trust-item">
+          <User size={16} />
+          <span><strong>Author:</strong> {authorName}</span>
+        </div>
+        <div className="trust-item">
+          <Calendar size={16} />
+          <span><strong>Last Updated:</strong> {lastUpdatedDisplay}</span>
+        </div>
+        <div className="trust-item trust-editorial">
+          <ShieldCheck size={16} />
+          <span>
+            <strong>Editorial Quality:</strong> This tutorial is reviewed for technical accuracy, clarity, and practical relevance before publication.
+          </span>
+        </div>
+      </div>
 
       {/* In-Content Ad - Top */}
       <div className="in-content-ad-top">
@@ -650,7 +687,7 @@ function Tutorial() {
           <div className="code-content">
             <SyntaxHighlighter 
               language="java" 
-              style={oneDark}
+              style={codeTheme}
               showLineNumbers={false}
               customStyle={{
                 margin: 0,
@@ -736,7 +773,7 @@ function Tutorial() {
                 <div className="starter-code">
                   <SyntaxHighlighter 
                     language="java" 
-                    style={oneDark}
+                    style={codeTheme}
                     showLineNumbers={false}
                     customStyle={{
                       borderRadius: '8px',
@@ -792,16 +829,6 @@ function Tutorial() {
         ) : <div />}
       </div>
 
-      {/* Edit Modal */}
-      <ContributeModal 
-        isOpen={showEditModal}
-        onClose={() => setShowEditModal(false)}
-        mode="edit"
-        existingTopic={{
-          id: topicId,
-          ...currentTopic
-        }}
-      />
     </div>
   );
 }
