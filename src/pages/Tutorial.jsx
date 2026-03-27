@@ -16,9 +16,7 @@ import {
   Code,
   RotateCcw,
   Loader2,
-  User,
-  Calendar,
-  ShieldCheck
+  Calendar
 } from 'lucide-react';
 import { getTopicById, getNavigation, getAllTopics } from '../data';
 import { executeWithPiston } from '../services/codeExecutor';
@@ -85,9 +83,6 @@ function Tutorial() {
   };
 
   const estimatedReadTime = getEstimatedReadTime(currentTopic?.content);
-  const authorName = contribution?.editedBy?.name
-    || contribution?.contributedBy?.name
-    || 'LearnStackHub Editorial Team';
   const lastUpdatedRaw = contribution?.editedBy?.date
     || contribution?.contributedBy?.date
     || currentTopic?.lastUpdated
@@ -624,23 +619,6 @@ function Tutorial() {
       {contribution && (
         <ContributorBadge contribution={contribution} />
       )}
-
-      <div className="content-trust-panel">
-        <div className="trust-item">
-          <User size={16} />
-          <span><strong>Author:</strong> {authorName}</span>
-        </div>
-        <div className="trust-item">
-          <Calendar size={16} />
-          <span><strong>Last Updated:</strong> {lastUpdatedDisplay}</span>
-        </div>
-        <div className="trust-item trust-editorial">
-          <ShieldCheck size={16} />
-          <span>
-            <strong>Editorial Quality:</strong> This tutorial is reviewed for technical accuracy, clarity, and practical relevance before publication.
-          </span>
-        </div>
-      </div>
 
       {/* In-Content Ad - Top */}
       <div className="in-content-ad-top">

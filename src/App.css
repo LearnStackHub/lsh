@@ -1496,38 +1496,6 @@ code {
   font-weight: 500;
 }
 
-.content-trust-panel {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
-  margin: 0 0 1.75rem;
-}
-
-.trust-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.trust-item:not(:last-child) {
-  margin-bottom: 0.6rem;
-}
-
-.trust-item svg {
-  color: var(--accent-primary);
-  margin-top: 0.15rem;
-  flex-shrink: 0;
-}
-
-.trust-editorial {
-  border-top: 1px dashed var(--border-color);
-  padding-top: 0.6rem;
-}
-
 /* Tutorial Content - Beautiful Typography */
 .tutorial-content {
   font-size: 1.1rem;
