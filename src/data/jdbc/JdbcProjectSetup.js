@@ -1,11 +1,13 @@
 const jdbcProjectSetup = {
   id: 'jdbc-project-setup',
   title: 'JDBC Project Setup - MySQL Connection',
-  description: 'Complete guide to create JDBC project, download MySQL Connector/J, add JAR file, and connect to MySQL database',
+  description: 'Complete guide to create a JDBC project, add MySQL Connector/J, connect to MySQL, and a full banking menu example (create account, deposit, withdraw, transfer with transactions).',
   content: `
 # JDBC Project Setup — MySQL Database Connection
 
-This guide will walk you through creating a JDBC project, downloading MySQL Connector/J, adding the JAR file, and connecting to MySQL database.
+This guide walks you through creating a JDBC project, adding MySQL Connector/J, and running a **menu-driven banking example** (\`BankApp\`) against MySQL.
+
+> **Download this tutorial’s JDBC sample code:** Open [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub to clone the repo or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
 
 ---
 
@@ -97,96 +99,24 @@ Before starting, ensure you have:
    - \`Referenced Libraries\` → \`mysql-connector-j-8.0.xx.jar\`
    - Or \`lib/\` folder → \`mysql-connector-j-8.0.xx.jar\`
 
-### Step 4: Create Database Connection Class
+### Step 4: Add the banking application class
 
-Create a new Java class:
+Create **\`src/com/example/BankApp.java\`** using the full **\`BankApp\`** source code in the **Complete Example: Banking Application** section below (same file contains driver load, connection, \`PreparedStatement\`, and a transfer transaction).
 
-**File:** \`src/com/example/DatabaseConnection.java\`
+### Step 5: Create the database
 
-\`\`\`java
-package com.example;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-public class DatabaseConnection {
-    
-    // Database connection parameters
-    private static final String URL = "jdbc:mysql://localhost:3306/testdb";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "your_password";
-    
-    public static Connection getConnection() {
-        Connection connection = null;
-        
-        try {
-            // Load MySQL JDBC Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Establish connection
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            
-            if (connection != null) {
-                System.out.println("Successfully connected to MySQL database!");
-            }
-            
-        } catch (ClassNotFoundException e) {
-            System.err.println("MySQL JDBC Driver not found!");
-            System.err.println("Make sure mysql-connector-j-8.0.xx.jar is in your classpath");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Connection failed!");
-            e.printStackTrace();
-        }
-        
-        return connection;
-    }
-    
-    public static void main(String[] args) {
-        Connection conn = getConnection();
-        
-        if (conn != null) {
-            try {
-                conn.close();
-                System.out.println("Connection closed.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-\`\`\`
-
-### Step 5: Create Database (If Not Exists)
-
-Before running, create a database in MySQL:
+Before running, ensure MySQL has the **\`bankdb\`** database (the program creates the \`accounts\` table on first run if needed):
 
 \`\`\`sql
--- Connect to MySQL
 mysql -u root -p
-
--- Create database
-CREATE DATABASE testdb;
-
--- Use the database
-USE testdb;
-
--- Create a sample table
-CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL
-);
+CREATE DATABASE IF NOT EXISTS bankdb;
 \`\`\`
 
-### Step 6: Run the Project
+### Step 6: Run the project
 
-1. **Right-click on \`DatabaseConnection.java\`**
+1. **Right-click \`BankApp.java\`**
 2. **Run As → Java Application**
-3. **Check console output:**
-   - "Successfully connected to MySQL database!" = Success!
-   - Error messages = Check configuration
+3. Use the **Banking System Menu** in the console (create account, deposit, withdraw, transfer, exit)
 
 ---
 
@@ -228,15 +158,15 @@ CREATE TABLE users (
 1. **Expand project** → **External Libraries**
 2. You should see: \`mysql-connector-j-8.0.xx.jar\`
 
-### Step 4: Create Database Connection Class
+### Step 4: Add \`BankApp.java\`
 
-Same as Eclipse (create \`DatabaseConnection.java\`)
+Same as Eclipse: add **\`src/com/example/BankApp.java\`** using the code from **Complete Example: Banking Application** below.
 
-### Step 5: Run the Project
+### Step 5: Run the project
 
-1. **Right-click on \`DatabaseConnection.java\`**
-2. **Run 'DatabaseConnection.main()'**
-3. Check console output
+1. **Right-click \`BankApp.java\`**
+2. **Run 'BankApp.main()'**
+3. Use the console menu
 
 ---
 
@@ -298,7 +228,7 @@ Edit \`pom.xml\`:
 mvn clean compile
 
 # Run the project
-mvn exec:java -Dexec.mainClass="com.example.DatabaseConnection"
+mvn exec:java -Dexec.mainClass="com.example.BankApp"
 \`\`\`
 
 **Note:** With Maven, you don't need to manually download or add JAR files. Maven downloads them from Maven Central Repository.
@@ -313,7 +243,7 @@ mvn exec:java -Dexec.mainClass="com.example.DatabaseConnection"
 JDBCExample/
 ├── src/
 │   └── com/example/
-│       └── DatabaseConnection.java
+│       └── BankApp.java
 └── lib/
     └── mysql-connector-j-8.0.xx.jar
 \`\`\`
@@ -321,118 +251,327 @@ JDBCExample/
 ### Step 2: Compile with Classpath
 
 \`\`\`bash
-# Compile Java file with MySQL JAR in classpath
-javac -cp "lib/mysql-connector-j-8.0.xx.jar" src/com/example/DatabaseConnection.java -d out/
+# Compile with MySQL JAR in classpath
+javac -cp "lib/mysql-connector-j-8.0.xx.jar" src/com/example/BankApp.java -d out/
 
-# Run with classpath
-java -cp "out:lib/mysql-connector-j-8.0.xx.jar" com.example.DatabaseConnection
+# Run (create bankdb in MySQL first — see banking section)
+java -cp "out:lib/mysql-connector-j-8.0.xx.jar" com.example.BankApp
 
 # Windows:
-java -cp "out;lib/mysql-connector-j-8.0.xx.jar" com.example.DatabaseConnection
+java -cp "out;lib/mysql-connector-j-8.0.xx.jar" com.example.BankApp
 \`\`\`
 
 ---
 
-## Complete Example: CRUD Operations
+## Complete Example: Banking Application (Console Menu)
 
-Create \`UserDAO.java\`:
+This puts together **driver loading**, **\`Connection\`**, **\`PreparedStatement\`**, and a **transaction** (transfer) on one project—similar to a typical JDBC lab assignment.
+
+### 1. Create the database
+
+\`\`\`sql
+CREATE DATABASE IF NOT EXISTS bankdb;
+USE bankdb;
+\`\`\`
+
+The program below also creates the \`accounts\` table if it does not exist (same columns as in the lab: \`id\`, \`cus_name\`, \`balance\`).
+
+**Important:** Replace \`your_password\` with your MySQL password. Do not commit real passwords to source control.
+
+### 2. Single class: \`BankApp.java\`
+
+Create **\`src/com/example/BankApp.java\`** (add the MySQL JAR to the classpath as in the steps above).
 
 \`\`\`java
 package com.example;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
-public class UserDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/testdb";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "your_password";
-    
-    // Get connection
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-    }
-    
-    // Create (Insert)
-    public void createUser(String name, String email) {
-        String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
-        
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.executeUpdate();
-            
-            System.out.println("User created successfully!");
-            
+public class BankApp {
+
+    private static final String URL =
+            "jdbc:mysql://localhost:3306/bankdb?characterEncoding=utf8&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASS = "your_password";
+
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.err.println("MySQL JDBC Driver not found. Add mysql-connector-j to classpath.");
+            return;
+        }
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
+             Scanner scanner = new Scanner(System.in)) {
+
+            initializeDatabase(connection);
+
+            int choice;
+            do {
+                displayMenu();
+                choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        createAccount(connection, scanner);
+                        break;
+                    case 2:
+                        deposit(connection, scanner);
+                        break;
+                    case 3:
+                        withdraw(connection, scanner);
+                        break;
+                    case 4:
+                        transfer(connection, scanner);
+                        break;
+                    case 5:
+                        System.out.println("Goodbye!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } while (choice != 5);
+
         } catch (SQLException e) {
-            System.err.println("Error creating user: " + e.getMessage());
+            e.printStackTrace();
         }
     }
-    
-    // Read (Select)
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM users";
-        
-        try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                users.add(user);
+
+    private static void initializeDatabase(Connection connection) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(
+                    "CREATE TABLE IF NOT EXISTS accounts ("
+                            + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                            + " cus_name VARCHAR(255) NOT NULL,"
+                            + " balance DOUBLE NOT NULL)");
+        }
+    }
+
+    private static void displayMenu() {
+        System.out.println("\\n--- Banking System Menu ---");
+        System.out.println("1. Create Account");
+        System.out.println("2. Deposit");
+        System.out.println("3. Withdraw");
+        System.out.println("4. Transfer (transaction)");
+        System.out.println("5. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private static void createAccount(Connection connection, Scanner scanner) throws SQLException {
+        System.out.print("Enter Account Holder Name: ");
+        String accountHolder = scanner.next();
+        System.out.print("Enter Initial Balance: ");
+        double initialBalance = scanner.nextDouble();
+
+        String sql = "INSERT INTO accounts (cus_name, balance) VALUES (?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, accountHolder);
+            pstmt.setDouble(2, initialBalance);
+            pstmt.executeUpdate();
+            try (ResultSet keys = pstmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    System.out.println("Account created successfully. Account ID: " + keys.getInt(1));
+                } else {
+                    System.out.println("Failed to create account.");
+                }
             }
-            
-        } catch (SQLException e) {
-            System.err.println("Error reading users: " + e.getMessage());
-        }
-        
-        return users;
-    }
-    
-    // Update
-    public void updateUser(int id, String name, String email) {
-        String sql = "UPDATE users SET name = ?, email = ? WHERE id = ?";
-        
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.setInt(3, id);
-            pstmt.executeUpdate();
-            
-            System.out.println("User updated successfully!");
-            
-        } catch (SQLException e) {
-            System.err.println("Error updating user: " + e.getMessage());
         }
     }
-    
-    // Delete
-    public void deleteUser(int id) {
-        String sql = "DELETE FROM users WHERE id = ?";
-        
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, id);
+
+    private static void deposit(Connection connection, Scanner scanner) throws SQLException {
+        System.out.print("Enter Account ID for Deposit: ");
+        int accountId = scanner.nextInt();
+        System.out.print("Enter Deposit Amount: ");
+        double depositAmount = scanner.nextDouble();
+
+        String sql = "UPDATE accounts SET balance = balance + ? WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setDouble(1, depositAmount);
+            pstmt.setInt(2, accountId);
+            int rows = pstmt.executeUpdate();
+            System.out.println(rows > 0 ? "Deposit successful." : "Account ID not found.");
+        }
+    }
+
+    private static void withdraw(Connection connection, Scanner scanner) throws SQLException {
+        System.out.print("Enter Account ID for Withdrawal: ");
+        int accountId = scanner.nextInt();
+        System.out.print("Enter Withdrawal Amount: ");
+        double withdrawalAmount = scanner.nextDouble();
+
+        String checkSql = "SELECT balance FROM accounts WHERE id = ?";
+        try (PreparedStatement check = connection.prepareStatement(checkSql)) {
+            check.setInt(1, accountId);
+            try (ResultSet rs = check.executeQuery()) {
+                if (!rs.next()) {
+                    System.out.println("Account ID not found.");
+                    return;
+                }
+                if (rs.getDouble("balance") < withdrawalAmount) {
+                    System.out.println("Insufficient balance.");
+                    return;
+                }
+            }
+        }
+
+        String sql = "UPDATE accounts SET balance = balance - ? WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setDouble(1, withdrawalAmount);
+            pstmt.setInt(2, accountId);
             pstmt.executeUpdate();
-            
-            System.out.println("User deleted successfully!");
-            
+            System.out.println("Withdrawal successful.");
+        }
+    }
+
+    /**
+     * Transfer money from one account to another using one Connection and commit/rollback.
+     * Uses a single amount (debit sender, credit receiver)—not separate debit/credit amounts.
+     */
+    private static void transfer(Connection connection, Scanner scanner) throws SQLException {
+        System.out.print("Enter sender account ID: ");
+        int senderId = scanner.nextInt();
+        System.out.print("Enter receiver account ID: ");
+        int receiverId = scanner.nextInt();
+        System.out.print("Enter amount to transfer: ");
+        double amount = scanner.nextDouble();
+
+        if (senderId == receiverId || amount <= 0) {
+            System.out.println("Invalid sender, receiver, or amount.");
+            return;
+        }
+
+        connection.setAutoCommit(false);
+        try {
+            if (!updateBalance(connection, senderId, -amount)) {
+                connection.rollback();
+                System.out.println("Transfer failed: sender not found or insufficient balance.");
+                return;
+            }
+            if (!updateBalance(connection, receiverId, amount)) {
+                connection.rollback();
+                System.out.println("Transfer failed: receiver not found.");
+                return;
+            }
+            connection.commit();
+            System.out.println("Transfer successful.");
         } catch (SQLException e) {
-            System.err.println("Error deleting user: " + e.getMessage());
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
+    /** Apply delta to balance if row exists and balance would not go negative. */
+    private static boolean updateBalance(Connection connection, int accountId, double delta)
+            throws SQLException {
+        String read = "SELECT balance FROM accounts WHERE id = ? FOR UPDATE";
+        try (PreparedStatement ps = connection.prepareStatement(read)) {
+            ps.setInt(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) {
+                    return false;
+                }
+                double bal = rs.getDouble("balance");
+                if (bal + delta < 0) {
+                    return false;
+                }
+            }
+        }
+        String write = "UPDATE accounts SET balance = balance + ? WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(write)) {
+            ps.setDouble(1, delta);
+            ps.setInt(2, accountId);
+            return ps.executeUpdate() == 1;
         }
     }
 }
 \`\`\`
+
+### 3. Step-by-step code walkthrough
+
+Read this **top to bottom** while looking at \`BankApp.java\` above.
+
+#### A. Imports, package, and constants
+
+1. **\`package com.example;\`** — Your class lives in the \`com.example\` folder so the JVM can find it (must match the directory \`com/example/\`).
+2. **\`import java.sql.*;\`** — Brings in JDBC types: \`Connection\`, \`DriverManager\`, \`Statement\`, \`PreparedStatement\`, \`ResultSet\`, \`SQLException\`, etc.
+3. **\`import java.util.Scanner;\`** — Reads numbers and text from the keyboard in the console.
+4. **\`URL\`, \`USER\`, \`PASS\`** — The JDBC URL points at **host** (\`localhost\`), **port** (\`3306\`), **database** (\`bankdb\`), plus \`characterEncoding\` and \`serverTimezone\` so MySQL 8 connects reliably. Username and password must match your MySQL user.
+
+#### B. \`main\` — load driver and open one session
+
+5. **\`Class.forName("com.mysql.cj.jdbc.Driver")\`** — Loads the MySQL JDBC driver class into the JVM. If the connector JAR is missing from the classpath, this throws **\`ClassNotFoundException\`** and the program exits early with a clear message.
+6. **\`DriverManager.getConnection(URL, USER, PASS)\`** — Asks MySQL for a live **\`Connection\`** (a session). All SQL for this run goes through this object.
+7. **\`try (Connection ...; Scanner ...)\`** — *Try-with-resources* closes the connection and scanner automatically when the block ends, even if an error occurs. That avoids connection leaks.
+8. **\`initializeDatabase(connection)\`** — Runs once at startup so the \`accounts\` table exists before any menu option uses it.
+
+#### C. Menu loop
+
+9. **\`do { ... } while (choice != 5);\`** — Shows the menu, reads an **\`int\`**, runs the matching branch, and repeats until the user chooses **5 (Exit)**.
+10. **\`switch (choice)\`** — **1** create account, **2** deposit, **3** withdraw, **4** transfer, **5** goodbye, **default** invalid option. Each case calls a **\`static\`** helper and passes the **same** \`connection\` and \`scanner\` so you do not open new connections or scanners per action.
+
+#### D. \`initializeDatabase\`
+
+11. **\`createStatement()\`** — A simple \`Statement\` is enough here because the SQL is fixed (no user input in this string).
+12. **\`CREATE TABLE IF NOT EXISTS accounts (...)\`** — Creates \`accounts\` only if it is missing. Columns: **\`id\`** (auto-increment primary key), **\`cus_name\`**, **\`balance\`**. Every later query targets this table and **\`id\`** as the account number.
+
+#### E. \`displayMenu\`
+
+13. Prints options and **\`Enter your choice:\`** without a newline after the last print, so the user types on the same line.
+
+#### F. \`createAccount\`
+
+14. **\`scanner.next()\` / \`nextDouble()\`** — Reads name and starting balance from the console.
+15. **\`INSERT INTO accounts (cus_name, balance) VALUES (?, ?)\`** — **\`?\`** are *placeholders*; values are bound with \`setString\` / \`setDouble\`. That avoids SQL injection and handles special characters safely.
+16. **\`prepareStatement(..., Statement.RETURN_GENERATED_KEYS)\`** — After \`executeUpdate()\`, **\`getGeneratedKeys()\`** returns a \`ResultSet\` containing the new **\`id\`** MySQL assigned (the new account number).
+
+#### G. \`deposit\`
+
+17. **\`UPDATE accounts SET balance = balance + ? WHERE id = ?\`** — Adds the deposit to the current balance for the given \`id\`.
+18. **\`executeUpdate()\`** returns how many rows changed; **0** means no row had that \`id\` (unknown account).
+
+#### H. \`withdraw\`
+
+19. **First query:** \`SELECT balance FROM accounts WHERE id = ?\` — Confirms the account exists and reads **current** balance.
+20. If **no row** → print not found and **\`return\`**. If **balance < amount** → insufficient funds and **\`return\`** (no update).
+21. **Second query:** same \`UPDATE ... balance - ?\` pattern as deposit, but subtracts. This is two round-trips; a stricter design could use a transaction and \`FOR UPDATE\` here too, but this is clear for learning.
+
+#### I. \`transfer\` — transaction (all-or-nothing)
+
+22. Reads **sender id**, **receiver id**, and **one** **\`amount\`** (money moved from sender to receiver).
+23. **Guards:** same account or non-positive amount → error and exit (no DB change).
+24. **\`setAutoCommit(false)\`** — After this, each statement does **not** auto-save. You either **\`commit()\`** both updates together or **\`rollback()\`** so neither half applies.
+25. **\`updateBalance(connection, senderId, -amount)\`** — Debits the sender (negative delta).
+26. If that returns **false** (no account or would go negative) → **\`rollback()\`**, message, **\`return\`**.
+27. **\`updateBalance(connection, receiverId, amount)\`** — Credits the receiver. If **false** (e.g. receiver id invalid) → **\`rollback()\`** so the debit is undone too.
+28. If both succeed → **\`commit()\`**. **\`finally\`** sets **\`setAutoCommit(true)\`** so later menu options behave normally (each statement commits on its own again).
+29. **\`catch\`** — On any \`SQLException\` during the transfer, **\`rollback()\`** then rethrow so the outer **\`main\`** catch can print the stack trace.
+
+#### J. \`updateBalance\` — used only inside a transfer transaction
+
+30. **\`SELECT ... FOR UPDATE\`** — Under InnoDB, this **locks** the row for this transaction until commit/rollback, so two programs do not corrupt the same balance at once.
+31. If no row → **false**. If **\`bal + delta < 0\`** (withdrawing more than balance) → **false** without updating.
+32. **\`UPDATE accounts SET balance = balance + ? WHERE id = ?\`** — \`delta\` is negative for sender, positive for receiver. Returns **true** only if exactly one row was updated.
+
+---
+
+### 4. Run
+
+- **Eclipse / IntelliJ:** Right-click \`BankApp.java\` → Run as Java application.  
+- Ensure **MySQL is running** and the **database \`bankdb\`** exists.
+
+### Fixes applied vs. a common student version
+
+| Issue | What we changed |
+|--------|-----------------|
+| Table name mismatch (\`accounts\` vs \`bank\`) | Use **\`accounts\`** for \`CREATE TABLE\`, \`INSERT\`, and \`UPDATE\`. |
+| Wrong column (\`account_id\` vs \`id\`) | Primary key is \`id\`; use \`WHERE id = ?\`. |
+| Second \`Connection\` in transfer | Reuse the same \`Connection\` with \`setAutoCommit(false)\`, \`commit\`, \`rollback\`. |
+| Two amounts for transfer | Use **one** transfer amount: debit sender, credit receiver. |
+| Extra \`Scanner\` in transfer | Single \`Scanner\` created in \`main\` (try-with-resources). |
+| Password in source | Use \`your_password\`; never commit real DB passwords. |
 
 ---
 
@@ -471,7 +610,7 @@ public class UserDAO {
   \`\`\`
 - **Grant permissions:**
   \`\`\`sql
-  GRANT ALL PRIVILEGES ON testdb.* TO 'root'@'localhost';
+  GRANT ALL PRIVILEGES ON bankdb.* TO 'root'@'localhost';
   FLUSH PRIVILEGES;
   \`\`\`
 
@@ -498,7 +637,7 @@ public class UserDAO {
 **Solution:**
 - **Add timezone to URL:**
   \`\`\`java
-  String URL = "jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC";
+  String URL = "jdbc:mysql://localhost:3306/bankdb?serverTimezone=UTC";
   \`\`\`
 - **Or set MySQL timezone:**
   \`\`\`sql
@@ -513,11 +652,8 @@ public class UserDAO {
 JDBCExample/
 ├── src/
 │   └── com/example/
-│       ├── DatabaseConnection.java    # Connection utility
-│       ├── UserDAO.java               # Data Access Object
-│       ├── User.java                  # Entity class
-│       └── Main.java                  # Main class
-├── lib/                                # JAR files
+│       └── BankApp.java               # JDBC banking menu (this tutorial)
+├── lib/
 │   └── mysql-connector-j-8.0.xx.jar
 └── README.md
 \`\`\`
@@ -526,26 +662,19 @@ JDBCExample/
 
 ## Summary
 
-**Steps to Create JDBC Project:**
+**Steps to create this JDBC project:**
 1. Download MySQL Connector/J from https://dev.mysql.com/downloads/connector/j/
-2. Create Java project in IDE
-3. Add JAR file to project (lib folder or Build Path)
-4. Create database connection class
-5. Test connection
-6. Implement CRUD operations
+2. Create a Java project in your IDE (or use Maven / command line as above)
+3. Add the JAR to the classpath (or add the \`mysql-connector-j\` Maven dependency)
+4. Add **\`BankApp.java\`** from the banking section and create the **\`bankdb\`** database
+5. Run **\`BankApp\`** and use the console menu
 
-**Key Points:**
-- **JAR file location:** \`lib/\` folder or Build Path
-- **Download from:** https://dev.mysql.com/downloads/connector/j/
-- **Driver class:** \`com.mysql.cj.jdbc.Driver\` (MySQL 8.0+)
-- **Connection URL:** \`jdbc:mysql://localhost:3306/dbname\`
+**Key points:**
+- **JAR:** \`lib/\` or Build Path (or Maven)
+- **Driver:** \`com.mysql.cj.jdbc.Driver\` (MySQL 8.0+)
+- **URL:** \`jdbc:mysql://localhost:3306/bankdb?...\` (match \`BankApp\` constants)
 
-**With Maven:**
-- Add dependency in \`pom.xml\`
-- Maven downloads JAR automatically
-- No manual download needed!
-
-Now you're ready to connect Java applications to MySQL databases!
+For more JDBC patterns (CRUD, DAOs), see **[JDBC CRUD Operations](/tutorial/jdbc-crud-operations)** after this project runs.
 
 ---
 
@@ -554,7 +683,7 @@ Now you're ready to connect Java applications to MySQL databases!
 - Learn about **[PreparedStatement Interface](/tutorial/jdbc-prepared-statement)** for parameterized queries
 - Understand **[ResultSet Interface](/tutorial/jdbc-result-set-interface)** for retrieving data
 - Explore **[Transaction Management](/tutorial/jdbc-transaction-management)**
-- Build a complete **[CRUD Operations](/tutorial/jdbc-crud-operations)** application
+- Practice **[CRUD Operations](/tutorial/jdbc-crud-operations)** with a separate DAO-style example
 
 **Prerequisites:**
 - Complete [JDBC Introduction](/tutorial/jdbc-introduction) first
@@ -593,9 +722,9 @@ https://repo1.maven.org/maven2/mysql/mysql-connector-java/
 JDBCExample/
 ├── src/
 │   └── com/example/
-│       └── DatabaseConnection.java
+│       └── BankApp.java
 └── lib/
-    └── mysql-connector-j-8.0.xx.jar  ⭐ JAR file here
+    └── mysql-connector-j-8.0.xx.jar
 */
 
 // 3. ADD JAR FILE TO PROJECT
@@ -616,38 +745,20 @@ Maven:
   - Maven downloads automatically
 */
 
-// 4. DATABASE CONNECTION CODE
+// 4. MAIN CLASS (see tutorial body for full BankApp.java)
 /*
-import java.sql.*;
-
-public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/testdb";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "your_password";
-    
-    public static Connection getConnection() {
-        try {
-            // Load driver (MySQL 8.0+)
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Establish connection
-            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            return conn;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-}
-*/
+ * Use BankApp.java from the page: driver load, Connection,
+ * PreparedStatement, menu, and transfer with commit/rollback.
+ * Database: bankdb, table: accounts (created if missing).
+ */
 
 // 5. MYSQL CONNECTION URL FORMAT
 /*
 jdbc:mysql://host:port/database?parameters
 
 Examples:
-  jdbc:mysql://localhost:3306/testdb
-  jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC
+  jdbc:mysql://localhost:3306/bankdb
+  jdbc:mysql://localhost:3306/bankdb?serverTimezone=UTC
   jdbc:mysql://192.168.1.100:3306/mydb
 */
 
@@ -693,23 +804,17 @@ Connection refused:
 
 // 9. COMPILE AND RUN (Command Line)
 /*
-# Compile
-javac -cp "lib/mysql-connector-j-8.0.xx.jar" src/com/example/*.java
-
-# Run
-java -cp ".:lib/mysql-connector-j-8.0.xx.jar" com.example.DatabaseConnection
-
-# Windows:
-java -cp ".;lib/mysql-connector-j-8.0.xx.jar" com.example.DatabaseConnection
+javac -cp "lib/mysql-connector-j-8.0.xx.jar" src/com/example/BankApp.java -d out/
+java -cp "out:lib/mysql-connector-j-8.0.xx.jar" com.example.BankApp
+# Windows: use ; instead of : in classpath
 */
 
-// 10. VERIFY CONNECTION
+// 10. VERIFY
 /*
-1. MySQL server running
-2. Database created
-3. JAR file in classpath
-4. Correct URL, username, password
-5. Run connection test
+1. MySQL running
+2. CREATE DATABASE bankdb;
+3. JAR on classpath
+4. Run BankApp — menu should appear
 */`
 };
 

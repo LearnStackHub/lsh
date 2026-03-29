@@ -9,6 +9,8 @@ Java Database Connectivity (JDBC) is the industry-standard API for connecting Ja
 
 **JDBC** stands for **Java Database Connectivity** and serves as the foundation for database operations in Java enterprise applications. It enables Java programs to execute SQL statements, retrieve results, and manage database transactions programmatically. JDBC is essential for building applications that interact with databases, making it a critical skill for Java backend developers.
 
+> **Practice with sample JDBC projects:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## Real-World Applications of JDBC

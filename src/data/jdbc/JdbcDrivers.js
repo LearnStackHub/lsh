@@ -7,6 +7,8 @@ const jdbcDrivers = {
 
 A JDBC driver is like a translator. Your Java code speaks Java, your database speaks SQL. The driver translates between them. Understanding driver types helps you choose the right one for your project.
 
+> **Driver and connection samples:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## The Four Types of JDBC Drivers

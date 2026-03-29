@@ -1579,8 +1579,37 @@
 .start-card h1 {
   font-size: 2.5rem;
   color: #1a202c;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-weight: 700;
+}
+
+.jdbc-exam-repo-note {
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #4a5568;
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.1rem;
+  background: rgba(102, 126, 234, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.22);
+}
+
+.jdbc-exam-repo-note a {
+  color: #5a67d8;
+  font-weight: 600;
+}
+
+.jdbc-exam-repo-clone {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.78rem;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .exam-info {

@@ -7,6 +7,8 @@ const crudOperations = {
 
 Every database application does four basic things: **C**reate, **R**ead, **U**pdate, and **D**elete. Master these, and you can build any data-driven application.
 
+> **CRUD sample JDBC code:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## Setting Up

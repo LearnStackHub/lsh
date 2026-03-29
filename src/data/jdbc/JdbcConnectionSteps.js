@@ -7,6 +7,8 @@ const jdbcConnectionSteps = {
 
 Connecting to a database in Java follows a predictable pattern. Once you learn these 5 steps, you can connect to any database — MySQL, PostgreSQL, Oracle, or SQL Server. Let's walk through each step.
 
+> **Working connection examples:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## The 5 Steps

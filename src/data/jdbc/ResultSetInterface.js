@@ -7,6 +7,8 @@ const resultSetInterface = {
 
 When you execute a SELECT query, the database returns a ResultSet. Think of it as a cursor that moves through your data row by row. Understanding ResultSet is essential for retrieving data from your database.
 
+> **ResultSet walkthrough code:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## Basic ResultSet Usage

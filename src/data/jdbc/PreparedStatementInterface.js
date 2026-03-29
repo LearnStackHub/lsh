@@ -7,6 +7,8 @@ const preparedStatementInterface = {
 
 PreparedStatement is the preferred way to execute SQL in Java. It prevents SQL injection, improves performance through query caching, and makes your code cleaner. If you're writing JDBC code, you should be using PreparedStatement.
 
+> **PreparedStatement examples in the repo:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## Why PreparedStatement?

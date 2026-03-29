@@ -7,6 +7,8 @@ const statementInterface = {
 
 The Statement interface is your tool for sending SQL commands to the database. While PreparedStatement is preferred for most cases, understanding Statement helps you grasp the fundamentals.
 
+> **Sample programs using Statement:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## Creating a Statement

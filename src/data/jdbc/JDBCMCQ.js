@@ -7,6 +7,8 @@ const jdbcMCQ = {
 
 Welcome to the JDBC MCQ Examination! This is a comprehensive test designed to evaluate your understanding of Java Database Connectivity (JDBC) concepts.
 
+> **Download JDBC sample code:** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ## Exam Details
 
 - **Total Questions**: 20 (randomly selected from 130+ questions)

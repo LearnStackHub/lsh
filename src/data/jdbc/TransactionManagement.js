@@ -7,6 +7,8 @@ const transactionManagement = {
 
 A transaction is a group of operations that must all succeed or all fail together. Think of transferring money between bank accounts: you can't debit one account without crediting another. Transactions ensure data integrity.
 
+> **Transaction examples (commit / rollback):** [LearnStackHub/Jdbc](https://github.com/LearnStackHub/Jdbc) on GitHub — clone or download a ZIP (**Code**). \`git clone https://github.com/LearnStackHub/Jdbc.git\`
+
 ---
 
 ## ACID Properties
