@@ -1583,33 +1583,74 @@
   font-weight: 700;
 }
 
-.jdbc-exam-repo-note {
+.jdbc-exam-repo-cta {
   text-align: left;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: #4a5568;
   margin: 0 0 1.5rem;
-  padding: 1rem 1.1rem;
-  background: rgba(102, 126, 234, 0.08);
+  padding: 1.25rem 1.35rem;
   border-radius: 12px;
-  border: 1px solid rgba(102, 126, 234, 0.22);
+  border: 2px solid rgba(68, 121, 161, 0.45);
+  border-left: 6px solid #4479a1;
+  background: linear-gradient(
+    145deg,
+    rgba(68, 121, 161, 0.16) 0%,
+    rgba(68, 121, 161, 0.05) 50%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+  box-shadow: 0 10px 28px rgba(68, 121, 161, 0.12);
 }
 
-.jdbc-exam-repo-note a {
-  color: #5a67d8;
-  font-weight: 600;
+.jdbc-exam-repo-cta::before {
+  content: 'GitHub — sample code';
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2c5f82;
+  margin-bottom: 0.6rem;
+}
+
+.jdbc-exam-repo-note {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+.jdbc-exam-repo-note strong {
+  color: #1a202c;
+}
+
+.jdbc-exam-repo-btn {
+  display: inline-block;
+  margin-top: 0.65rem;
+  padding: 0.55rem 1.15rem;
+  background: #4479a1;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none !important;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(68, 121, 161, 0.35);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.jdbc-exam-repo-btn:hover {
+  background: #356488;
+  transform: translateY(-1px);
 }
 
 .jdbc-exam-repo-clone {
   display: block;
-  margin-top: 0.5rem;
-  padding: 0.45rem 0.65rem;
-  font-size: 0.78rem;
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.8rem;
   background: #fff;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(68, 121, 161, 0.28);
   overflow-x: auto;
   white-space: nowrap;
+  color: #1a202c;
 }
 
 .exam-info {

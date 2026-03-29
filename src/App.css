@@ -1601,6 +1601,76 @@ code {
   font-size: 1.05rem;
 }
 
+/* JDBC / highlighted GitHub sample-repo callouts in tutorial body */
+.tutorial-content blockquote.tutorial-github-repo-cta {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(68, 121, 161, 0.18) 0%,
+    rgba(68, 121, 161, 0.06) 55%,
+    var(--bg-secondary) 100%
+  );
+  border: 2px solid rgba(68, 121, 161, 0.5);
+  border-left: 6px solid #4479a1;
+  padding: 1.35rem 1.5rem 1.35rem 1.35rem;
+  margin: 2rem 0;
+  border-radius: 12px;
+  font-style: normal;
+  box-shadow: 0 10px 28px rgba(68, 121, 161, 0.14);
+}
+
+.tutorial-content blockquote.tutorial-github-repo-cta::before {
+  content: 'GitHub — sample code';
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2c5f82;
+  margin-bottom: 0.65rem;
+}
+
+.tutorial-content blockquote.tutorial-github-repo-cta p {
+  line-height: 1.65;
+  font-size: 1.06rem;
+}
+
+.tutorial-content blockquote.tutorial-github-repo-cta p a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0 0.15rem;
+  padding: 0.35rem 0.85rem;
+  background: #4479a1;
+  color: #fff !important;
+  text-decoration: none !important;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  vertical-align: baseline;
+  box-shadow: 0 2px 8px rgba(68, 121, 161, 0.35);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.tutorial-content blockquote.tutorial-github-repo-cta p a:hover {
+  background: #356488;
+  transform: translateY(-1px);
+}
+
+.tutorial-content blockquote.tutorial-github-repo-cta code {
+  display: block;
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.88rem;
+  font-style: normal;
+  background: var(--bg-primary);
+  border: 1px solid rgba(68, 121, 161, 0.25);
+  border-radius: 8px;
+  color: var(--text-primary);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
 /* ============================================
    CODE BLOCKS - Beautiful & Readable
    ============================================ */
@@ -3214,6 +3284,18 @@ code {
     padding: 1rem;
     margin: 1.5rem 0;
     font-size: 0.9rem;
+  }
+
+  .tutorial-content blockquote.tutorial-github-repo-cta {
+    padding: 1.1rem 1rem;
+  }
+
+  .tutorial-content blockquote.tutorial-github-repo-cta p a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
   }
   
   /* Lists */

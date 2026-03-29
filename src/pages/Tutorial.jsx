@@ -431,9 +431,16 @@ function Tutorial() {
       }
 
       if (line.startsWith('> ')) {
+        const quoteBody = line.slice(2);
+        const isGithubRepoCta =
+          quoteBody.includes('github.com/LearnStackHub/Jdbc') ||
+          quoteBody.includes('github.com/learnstackhub/jdbc');
         elements.push(
-          <blockquote key={index}>
-            <p>{line.slice(2)}</p>
+          <blockquote
+            key={index}
+            className={isGithubRepoCta ? 'tutorial-github-repo-cta' : undefined}
+          >
+            <p>{formatInlineCode(quoteBody)}</p>
           </blockquote>
         );
         return;

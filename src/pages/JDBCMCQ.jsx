@@ -512,18 +512,21 @@ function JDBCMCQ() {
               />
             </div>
             <h1>JDBC MCQ Exam</h1>
-            <p className="jdbc-exam-repo-note">
-              <strong>Download JDBC sample code:</strong>{' '}
-              <a
-                href="https://github.com/LearnStackHub/Jdbc"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LearnStackHub/Jdbc
-              </a>{' '}
-              on GitHub — clone or download a ZIP (<strong>Code</strong>).{' '}
+            <div className="jdbc-exam-repo-cta" role="note">
+              <p className="jdbc-exam-repo-note">
+                <strong>Download JDBC sample code</strong> — open the repository on GitHub to clone or use{' '}
+                <strong>Code → Download ZIP</strong>.{' '}
+                <a
+                  className="jdbc-exam-repo-btn"
+                  href="https://github.com/LearnStackHub/Jdbc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open LearnStackHub/Jdbc
+                </a>
+              </p>
               <code className="jdbc-exam-repo-clone">git clone https://github.com/LearnStackHub/Jdbc.git</code>
-            </p>
+            </div>
             <div className="exam-info">
               <div className="info-item">
                 <Target className="info-icon" />
