@@ -30,10 +30,70 @@ import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import FAQSection from '../components/FAQSection';
 import InternalLinks from '../components/InternalLinks';
+import JavaDataTypesShowcase from '../components/JavaDataTypesShowcase';
+import JavaEnvironmentSetupShowcase from '../components/JavaEnvironmentSetupShowcase';
+import JavaIntroductionShowcase from '../components/JavaIntroductionShowcase';
+import JavaFeaturesShowcase from '../components/JavaFeaturesShowcase';
+import JavaSyntaxShowcase from '../components/JavaSyntaxShowcase';
+import JavaVariablesShowcase from '../components/JavaVariablesShowcase';
+import JavaOperatorsShowcase from '../components/JavaOperatorsShowcase';
+import JavaMethodsShowcase from '../components/JavaMethodsShowcase';
+import JavaKeywordsShowcase from '../components/JavaKeywordsShowcase';
+import IfElseShowcase from '../components/IfElseShowcase';
+import SwitchStatementShowcase from '../components/SwitchStatementShowcase';
+import ForLoopShowcase from '../components/ForLoopShowcase';
+import WhileLoopShowcase from '../components/WhileLoopShowcase';
+import DoWhileLoopShowcase from '../components/DoWhileLoopShowcase';
+import BreakContinueShowcase from '../components/BreakContinueShowcase';
+import OopsIntroductionShowcase from '../components/OopsIntroductionShowcase';
+import ClassesObjectsShowcase from '../components/ClassesObjectsShowcase';
+import ConstructorsShowcase from '../components/ConstructorsShowcase';
+import InheritanceShowcase from '../components/InheritanceShowcase';
+import PolymorphismShowcase from '../components/PolymorphismShowcase';
+import AbstractionShowcase from '../components/AbstractionShowcase';
+import EncapsulationShowcase from '../components/EncapsulationShowcase';
+import InterfacesShowcase from '../components/InterfacesShowcase';
+import StringIntroductionShowcase from '../components/StringIntroductionShowcase';
+import StringMethodsShowcase from '../components/StringMethodsShowcase';
+import StringBufferShowcase from '../components/StringBufferShowcase';
+import StringBuilderShowcase from '../components/StringBuilderShowcase';
+import ArrayIntroductionShowcase from '../components/ArrayIntroductionShowcase';
+import SingleDimensionalArrayShowcase from '../components/SingleDimensionalArrayShowcase';
+import MultiDimensionalArrayShowcase from '../components/MultiDimensionalArrayShowcase';
+import ArrayMethodsShowcase from '../components/ArrayMethodsShowcase';
+import {
+  ExceptionIntroductionShowcase,
+  TryCatchFinallyShowcase,
+  ThrowThrowsShowcase,
+  CustomExceptionsShowcase,
+  GlobalExceptionHandlingShowcase
+} from '../components/exceptions/showcases';
+import {
+  CollectionIntroductionShowcase,
+  ListInterfaceShowcase,
+  SetInterfaceShowcase,
+  MapInterfaceShowcase,
+  QueueInterfaceShowcase
+} from '../components/collections/showcases';
+import { SynchronizationShowcase } from '../components/sync/showcases';
+import { SerializationShowcase } from '../components/serialization/showcases';
+import {
+  ThreadIntroductionShowcase,
+  ThreadCreationShowcase,
+  ThreadLifecycleShowcase,
+  ThreadMethodsShowcase
+} from '../components/multithreading/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
 
 SyntaxHighlighter.registerLanguage('java', java);
+
+/** Markdown body must be a string; user contributions may store other shapes by mistake */
+function topicContentToString(content) {
+  if (content == null) return '';
+  if (typeof content === 'string') return content;
+  return '';
+}
 
 function Tutorial() {
   const { topicId } = useParams();
@@ -48,13 +108,20 @@ function Tutorial() {
   const originalTopic = getTopicById(topicId);
   
   // Use contribution data if available, otherwise use original topic
-  const currentTopic = contribution ? {
-    ...originalTopic,
-    ...contribution,
-    title: contribution.title || originalTopic?.title,
-    content: contribution.content || originalTopic?.content,
-    code: contribution.code || originalTopic?.code
-  } : originalTopic;
+  const currentTopic = contribution
+    ? {
+        ...originalTopic,
+        ...contribution,
+        title: contribution.title || originalTopic?.title,
+        content:
+          typeof contribution.content === 'string'
+            ? contribution.content
+            : typeof originalTopic?.content === 'string'
+              ? originalTopic.content
+              : topicContentToString(originalTopic?.content),
+        code: contribution.code || originalTopic?.code
+      }
+    : originalTopic;
 
   const navigation = getNavigation(topicId);
   const fallbackLastUpdated = '2026-03-27';
@@ -70,7 +137,7 @@ function Tutorial() {
   };
 
   const getEstimatedReadTime = (content) => {
-    if (!content) return 5;
+    if (typeof content !== 'string' || !content) return 5;
     const plainText = content
       .replace(/```[\s\S]*?```/g, ' ')
       .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
@@ -181,7 +248,7 @@ function Tutorial() {
 
   // Parse markdown-like content
   const renderContent = (content) => {
-    const lines = content.split('\n');
+    const lines = topicContentToString(content).split('\n');
     const elements = [];
     let inCodeBlock = false;
     let codeContent = '';
@@ -639,6 +706,53 @@ function Tutorial() {
 
       {/* Content */}
       <div className="tutorial-content">
+        {topicId === 'java-introduction' && <JavaIntroductionShowcase />}
+        {topicId === 'java-features' && <JavaFeaturesShowcase />}
+        {topicId === 'java-syntax' && <JavaSyntaxShowcase />}
+        {topicId === 'java-variables' && <JavaVariablesShowcase />}
+        {topicId === 'java-operators' && <JavaOperatorsShowcase />}
+        {topicId === 'java-methods' && <JavaMethodsShowcase />}
+        {topicId === 'java-keywords' && <JavaKeywordsShowcase />}
+        {topicId === 'if-else' && <IfElseShowcase />}
+        {topicId === 'switch-statement' && <SwitchStatementShowcase />}
+        {topicId === 'for-loop' && <ForLoopShowcase />}
+        {topicId === 'while-loop' && <WhileLoopShowcase />}
+        {topicId === 'do-while-loop' && <DoWhileLoopShowcase />}
+        {topicId === 'break-continue' && <BreakContinueShowcase />}
+        {topicId === 'oops-introduction' && <OopsIntroductionShowcase />}
+        {topicId === 'classes-objects' && <ClassesObjectsShowcase />}
+        {topicId === 'constructors' && <ConstructorsShowcase />}
+        {topicId === 'inheritance' && <InheritanceShowcase />}
+        {topicId === 'polymorphism' && <PolymorphismShowcase />}
+        {topicId === 'abstraction' && <AbstractionShowcase />}
+        {topicId === 'encapsulation' && <EncapsulationShowcase />}
+        {topicId === 'interfaces' && <InterfacesShowcase />}
+        {topicId === 'string-introduction' && <StringIntroductionShowcase />}
+        {topicId === 'string-methods' && <StringMethodsShowcase />}
+        {topicId === 'string-buffer' && <StringBufferShowcase />}
+        {topicId === 'string-builder' && <StringBuilderShowcase />}
+        {topicId === 'array-introduction' && <ArrayIntroductionShowcase />}
+        {topicId === 'single-dimensional-array' && <SingleDimensionalArrayShowcase />}
+        {topicId === 'multi-dimensional-array' && <MultiDimensionalArrayShowcase />}
+        {topicId === 'array-methods' && <ArrayMethodsShowcase />}
+        {topicId === 'java-data-types' && <JavaDataTypesShowcase />}
+        {topicId === 'java-environment-setup' && <JavaEnvironmentSetupShowcase />}
+        {topicId === 'exception-introduction' && <ExceptionIntroductionShowcase />}
+        {topicId === 'try-catch-finally' && <TryCatchFinallyShowcase />}
+        {topicId === 'throw-throws' && <ThrowThrowsShowcase />}
+        {topicId === 'custom-exceptions' && <CustomExceptionsShowcase />}
+        {topicId === 'global-exception-handling' && <GlobalExceptionHandlingShowcase />}
+        {topicId === 'collection-introduction' && <CollectionIntroductionShowcase />}
+        {topicId === 'list-interface' && <ListInterfaceShowcase />}
+        {topicId === 'set-interface' && <SetInterfaceShowcase />}
+        {topicId === 'map-interface' && <MapInterfaceShowcase />}
+        {topicId === 'queue-interface' && <QueueInterfaceShowcase />}
+        {topicId === 'synchronization' && <SynchronizationShowcase />}
+        {topicId === 'serialization' && <SerializationShowcase />}
+        {topicId === 'thread-introduction' && <ThreadIntroductionShowcase />}
+        {topicId === 'thread-creation' && <ThreadCreationShowcase />}
+        {topicId === 'thread-lifecycle' && <ThreadLifecycleShowcase />}
+        {topicId === 'thread-methods' && <ThreadMethodsShowcase />}
         {renderContent(currentTopic.content)}
         
         {/* Internal Links Section */}
