@@ -4230,7 +4230,7 @@ export function SpringBootK8sProbeScenarioDiagram() {
         </text>
         <rect x="160" y="30" width="200" height="48" rx="8" fill="#ecfdf5" stroke="#16a34a" />
         <text x="260" y="50" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
-          /actuator/health/{liveness,readiness}
+          {'/actuator/health/{liveness,readiness}'}
         </text>
         <text x="260" y="64" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
           Actuator + HealthIndicator beans
@@ -7097,6 +7097,1434 @@ export function ThreadMethodsDiagram() {
         <text x="310" y="208" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
           setName() helps logs; priority/yield are scheduler hints and usually less important in modern apps.
         </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Servlet container path — browser to response */
+export function ServletRequestLifecycleDiagram() {
+  const p = useSvgPrefix();
+  const steps = [
+    { x: 24, t: 'Browser', s: 'GET /products' },
+    { x: 156, t: 'Tomcat', s: 'accepts request' },
+    { x: 288, t: 'Filter chain', s: 'auth / logging / CORS' },
+    { x: 420, t: 'HttpServlet', s: 'doGet / doPost' },
+    { x: 552, t: 'Response', s: 'HTML / JSON' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet request lifecycle">
+      <FlowchartFigcaption
+        title="Servlet request lifecycle — one HTTP call"
+        fresher="The container routes each request through filters, then into your servlet method. Your code reads request data, calls services/DAO, and writes a response back to the client."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {steps.map((n, i) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="124" height="58" rx="10" fill="#ecfeff" stroke="#0891b2" strokeWidth="1.2" filter={`url(#${p}-shadow)`} />
+            <text x={n.x + 62} y="106" textAnchor="middle" fontSize="8.7" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 62} y="124" textAnchor="middle" fontSize="6.9" fill="#155e75" fontFamily="system-ui">
+              {n.s}
+            </text>
+            {i < steps.length - 1 && (
+              <line x1={n.x + 124} y1="111" x2={steps[i + 1].x - 6} y2="111" stroke="#0e7490" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+        <text x="350" y="34" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f172a" fontFamily="system-ui">
+          Request is handled on a container worker thread
+        </text>
+        <text x="350" y="198" textAnchor="middle" fontSize="7.4" fill="#64748b" fontFamily="system-ui">
+          One servlet instance serves many requests concurrently, so avoid mutable shared state in fields.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Servlet lifecycle under container control */
+export function ServletContainerLifecycleDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet lifecycle under container">
+      <FlowchartFigcaption
+        title="Servlet lifecycle — init(), service(), destroy()"
+        fresher="Container creates one servlet instance, calls init() once, invokes service() for each request, and calls destroy() during shutdown/redeploy."
+      />
+      <svg viewBox="0 0 620 250" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="20" y="16" width="580" height="218" rx="14" fill="#f8fafc" stroke="#67e8f9" />
+        <rect x="236" y="34" width="148" height="34" rx="8" fill="#cffafe" stroke="#0891b2" />
+        <text x="310" y="56" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+          new Servlet()
+        </text>
+        <line x1="310" y1="68" x2="310" y2="86" stroke="#0e7490" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="228" y="90" width="164" height="34" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="310" y="112" textAnchor="middle" fontSize="8.8" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">
+          init(ServletConfig)
+        </text>
+        <line x1="310" y1="124" x2="310" y2="142" stroke="#0e7490" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="136" y="146" width="348" height="48" rx="10" fill="#f0fdfa" stroke="#14b8a6" />
+        <text x="310" y="166" textAnchor="middle" fontSize="8.8" fontWeight="800" fill="#115e59" fontFamily="ui-monospace">
+          service(req, res) → doGet / doPost / doPut ...
+        </text>
+        <text x="310" y="182" textAnchor="middle" fontSize="7.1" fill="#0f766e" fontFamily="system-ui">
+          called once per request on different threads
+        </text>
+        <line x1="310" y1="194" x2="310" y2="208" stroke="#0e7490" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="242" y="210" width="136" height="22" rx="7" fill="#e2e8f0" stroke="#94a3b8" />
+        <text x="310" y="225" textAnchor="middle" fontSize="7.8" fontWeight="700" fill="#334155" fontFamily="ui-monospace">
+          destroy()
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** URL mapping and dispatch */
+export function ServletUrlMappingDiagram() {
+  const p = useSvgPrefix();
+  const rows = [
+    { url: '/login', map: 'LoginServlet' },
+    { url: '/products/*', map: 'ProductServlet' },
+    { url: '/api/orders/*', map: 'OrderApiServlet' },
+    { url: '*.jsp', map: 'JspServlet (container)' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet URL mapping">
+      <FlowchartFigcaption
+        title="URL mapping — how requests reach servlets"
+        fresher="Mappings come from @WebServlet or web.xml. The container matches request paths and dispatches to the target servlet."
+      />
+      <svg viewBox="0 0 640 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="40" y="22" width="560" height="174" rx="12" fill="#f8fafc" stroke="#22d3ee" />
+        <text x="320" y="42" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0e7490" fontFamily="system-ui">
+          Tomcat mapping table (conceptual)
+        </text>
+        {rows.map((r, i) => (
+          <g key={r.url}>
+            <rect x="68" y={56 + i * 34} width="220" height="24" rx="6" fill="#ecfeff" stroke="#67e8f9" />
+            <text x="80" y={72 + i * 34} fontSize="7.8" fontWeight="700" fill="#155e75" fontFamily="ui-monospace">
+              {r.url}
+            </text>
+            <line x1="296" y1={68 + i * 34} x2="356" y2={68 + i * 34} stroke="#06b6d4" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+            <rect x="364" y={56 + i * 34} width="208" height="24" rx="6" fill="#f0fdfa" stroke="#2dd4bf" />
+            <text x="468" y={72 + i * 34} textAnchor="middle" fontSize="7.6" fontWeight="700" fill="#115e59" fontFamily="ui-monospace">
+              {r.map}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Session and cookie state flow */
+export function ServletSessionCookieFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet session and cookie flow">
+      <FlowchartFigcaption
+        title="Session management — JSESSIONID and HttpSession"
+        fresher="After login, the container typically creates HttpSession and sends a JSESSIONID cookie (or URL rewriting fallback). Later requests use that session key to recover the same server-side state."
+      />
+      <svg viewBox="0 0 680 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="34" y="58" width="176" height="110" rx="12" fill="#ecfeff" stroke="#0891b2" />
+        <text x="122" y="86" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+          Browser
+        </text>
+        <text x="122" y="104" textAnchor="middle" fontSize="7.2" fill="#155e75" fontFamily="system-ui">
+          Cookie jar
+        </text>
+        <rect x="78" y="116" width="88" height="28" rx="6" fill="#cffafe" stroke="#22d3ee" />
+        <text x="122" y="133" textAnchor="middle" fontSize="7.2" fontWeight="700" fill="#164e63" fontFamily="ui-monospace">
+          JSESSIONID=abc
+        </text>
+
+        <rect x="278" y="36" width="370" height="164" rx="12" fill="#f0fdfa" stroke="#14b8a6" />
+        <text x="463" y="62" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f766e" fontFamily="system-ui">
+          Servlet container
+        </text>
+        <rect x="304" y="80" width="318" height="38" rx="8" fill="#ccfbf1" stroke="#2dd4bf" />
+        <text x="463" y="103" textAnchor="middle" fontSize="8.1" fontWeight="800" fill="#115e59" fontFamily="ui-monospace">
+          Session store: id → {`{user, cart, ...}`}
+        </text>
+        <rect x="304" y="130" width="318" height="42" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="463" y="150" textAnchor="middle" fontSize="8" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+          request.getSession()
+        </text>
+        <text x="463" y="164" textAnchor="middle" fontSize="7" fill="#155e75" fontFamily="system-ui">
+          loads same session by cookie id
+        </text>
+
+        <line x1="210" y1="94" x2="278" y2="94" stroke="#0891b2" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="244" y="86" textAnchor="middle" fontSize="6.7" fill="#334155" fontFamily="system-ui">
+          login request
+        </text>
+        <line x1="278" y1="138" x2="210" y2="138" stroke="#0f766e" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="244" y="154" textAnchor="middle" fontSize="6.7" fill="#334155" fontFamily="system-ui">
+          Set-Cookie + response
+        </text>
+        <text x="340" y="216" fontSize="7.3" fill="#64748b" fontFamily="system-ui">
+          For stateless APIs, use tokens instead of server-side session state.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** WAR deployment inside Tomcat */
+export function ServletTomcatDeploymentDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Tomcat servlet deployment">
+      <FlowchartFigcaption
+        title="Tomcat deployment flow — WAR to running app"
+        fresher="Build creates a WAR, Tomcat expands it, reads mappings, initializes servlets, then starts serving requests at your context path."
+      />
+      <svg viewBox="0 0 680 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, t: 'mvn package', s: 'app.war' },
+          { x: 152, t: 'webapps/', s: 'drop WAR' },
+          { x: 280, t: 'Expand + scan', s: 'annotations/web.xml' },
+          { x: 408, t: 'init()', s: 'servlets + filters' },
+          { x: 536, t: 'Ready', s: '/myapp/*' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="86" width="120" height="56" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.2" filter={`url(#${p}-shadow)`} />
+            <text x={n.x + 60} y="107" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 60} y="124" textAnchor="middle" fontSize="6.8" fill="#7c2d12" fontFamily="system-ui">
+              {n.s}
+            </text>
+            {i < arr.length - 1 && (
+              <line x1={n.x + 120} y1="114" x2={arr[i + 1].x - 6} y2="114" stroke="#c2410c" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+        <text x="340" y="42" textAnchor="middle" fontSize="9" fontWeight="800" fill="#7c2d12" fontFamily="system-ui">
+          Deployment pipeline (local or CI/CD)
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Servlet API object map */
+export function ServletApiObjectMapDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet API object map">
+      <FlowchartFigcaption
+        title="Servlet API object map"
+        fresher="Your servlet method receives HttpServletRequest and HttpServletResponse; ServletContext is app-wide and HttpSession is per user session."
+      />
+      <svg viewBox="0 0 640 250" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="230" y="24" width="180" height="34" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="320" y="45" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          HttpServlet#doGet/doPost
+        </text>
+        {[
+          { x: 40, y: 96, t: 'HttpServletRequest', s: 'params, headers, body' },
+          { x: 250, y: 96, t: 'HttpServletResponse', s: 'status, headers, body' },
+          { x: 460, y: 96, t: 'HttpSession', s: 'user state' },
+          { x: 250, y: 170, t: 'ServletContext', s: 'application scope' }
+        ].map((n) => (
+          <g key={n.t}>
+            <rect x={n.x} y={n.y} width="140" height="48" rx="8" fill="#eff6ff" stroke="#60a5fa" filter={`url(#${p}-shadow)`} />
+            <text x={n.x + 70} y={n.y + 20} textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a8a" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 70} y={n.y + 34} textAnchor="middle" fontSize="6.5" fill="#475569" fontFamily="system-ui">
+              {n.s}
+            </text>
+          </g>
+        ))}
+        <line x1="320" y1="58" x2="110" y2="92" stroke="#2563eb" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="320" y1="58" x2="320" y2="92" stroke="#2563eb" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="320" y1="58" x2="530" y2="92" stroke="#2563eb" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="320" y1="58" x2="320" y2="166" stroke="#2563eb" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** Config precedence for servlet app */
+export function ServletConfigScopeDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet config scopes">
+      <FlowchartFigcaption
+        title="Configuration scopes — ServletConfig vs ServletContext"
+        fresher="ServletConfig is per servlet, ServletContext is shared across the whole web application."
+      />
+      <svg viewBox="0 0 620 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="40" y="32" width="540" height="164" rx="12" fill="#f8fafc" stroke="#22d3ee" />
+        <rect x="66" y="56" width="488" height="44" rx="8" fill="#ccfbf1" stroke="#14b8a6" />
+        <text x="310" y="82" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#115e59" fontFamily="ui-monospace">
+          ServletContext (app-wide): dbUrl, appName, shared caches
+        </text>
+        <rect x="88" y="116" width="200" height="56" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="188" y="140" textAnchor="middle" fontSize="7.8" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+          LoginServlet config
+        </text>
+        <text x="188" y="156" textAnchor="middle" fontSize="6.5" fill="#155e75" fontFamily="system-ui">
+          maxAttempts=5
+        </text>
+        <rect x="332" y="116" width="200" height="56" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="432" y="140" textAnchor="middle" fontSize="7.8" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+          UploadServlet config
+        </text>
+        <text x="432" y="156" textAnchor="middle" fontSize="6.5" fill="#155e75" fontFamily="system-ui">
+          maxFileSize=10MB
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Frontend integration in servlet MVC style */
+export function ServletFrontendMvcFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet frontend integration flow">
+      <FlowchartFigcaption
+        title="Frontend integration — form submit, forward, redirect"
+        fresher="Browser submits form to servlet; servlet validates, then either forwards with errors or redirects after success (PRG)."
+      />
+      <svg viewBox="0 0 700 250" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="44" y="34" width="120" height="42" rx="8" fill="#fef9c3" stroke="#f59e0b" />
+        <text x="104" y="59" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          HTML/JSP form
+        </text>
+        <rect x="290" y="28" width="120" height="50" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="350" y="50" textAnchor="middle" fontSize="8" fontWeight="800" fill="#0e7490" fontFamily="ui-monospace">
+          FrontController
+        </text>
+        <text x="350" y="63" textAnchor="middle" fontSize="6.2" fill="#155e75" fontFamily="system-ui">
+          Servlet
+        </text>
+        <path d="M 350 90 L 420 128 L 350 166 L 280 128 Z" fill="#fef3c7" stroke="#ca8a04" strokeWidth="1.3" />
+        <text x="350" y="130" textAnchor="middle" fontSize="7.3" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Valid?
+        </text>
+        <rect x="494" y="108" width="160" height="40" rx="8" fill="#ecfdf5" stroke="#22c55e" />
+        <text x="574" y="132" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          redirect:/success (GET)
+        </text>
+        <rect x="40" y="190" width="190" height="40" rx="8" fill="#fef2f2" stroke="#ef4444" />
+        <text x="135" y="214" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#991b1b" fontFamily="system-ui">
+          forward:/form.jsp with errors
+        </text>
+        <line x1="164" y1="54" x2="284" y2="54" stroke="#0e7490" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="350" y1="78" x2="350" y2="90" stroke="#0e7490" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="412" y1="128" x2="488" y2="128" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="288" y1="132" x2="230" y2="188" stroke="#dc2626" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** Filter and listener runtime map */
+export function ServletFiltersListenersRuntimeDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Filters and listeners runtime">
+      <FlowchartFigcaption
+        title="Filters and listeners — runtime view"
+        fresher="Filters typically wrap each request/response path based on mapping rules; listeners receive lifecycle events from app, session, or request scopes."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 40, t: 'AuthFilter', c: '#ecfeff', s: '#06b6d4' },
+          { x: 170, t: 'AuditFilter', c: '#ecfeff', s: '#06b6d4' },
+          { x: 300, t: 'CorsFilter', c: '#ecfeff', s: '#06b6d4' },
+          { x: 430, t: 'CompressionFilter', c: '#ecfeff', s: '#06b6d4' },
+          { x: 560, t: 'Servlet', c: '#f0fdfa', s: '#14b8a6' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="72" width="108" height="44" rx="8" fill={n.c} stroke={n.s} />
+            <text x={n.x + 54} y="98" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            {i < arr.length - 1 && (
+              <line x1={n.x + 108} y1="94" x2={arr[i + 1].x - 6} y2="94" stroke="#0e7490" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+        <rect x="56" y="152" width="588" height="58" rx="10" fill="#fff7ed" stroke="#fb923c" />
+        <text x="350" y="174" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          Listeners (event-driven)
+        </text>
+        <text x="350" y="192" textAnchor="middle" fontSize="7" fill="#7c2d12" fontFamily="system-ui">
+          ServletContextListener · HttpSessionListener · ServletRequestListener
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Security defense in depth for servlet apps */
+export function ServletSecurityDefenseDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-servlet-scenario" role="img" aria-label="Servlet security defense layers">
+      <FlowchartFigcaption
+        title="Servlet security — defense in depth"
+        fresher="Layer controls: transport security, authentication, authorization, input checks, and safe output/session handling."
+      />
+      <svg viewBox="0 0 640 250" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { y: 188, w: 520, t: 'HTTPS/TLS', s: 'encrypt transport' },
+          { y: 152, w: 460, t: 'Authentication', s: 'who are you?' },
+          { y: 116, w: 400, t: 'Authorization', s: 'are you allowed?' },
+          { y: 80, w: 340, t: 'Validation + Encoding', s: 'XSS/SQLi defenses' },
+          { y: 44, w: 280, t: 'Business action', s: 'safe operation' }
+        ].map((b) => (
+          <g key={b.t}>
+            <rect x={(640 - b.w) / 2} y={b.y} width={b.w} height="30" rx="8" fill="#f8fafc" stroke="#ef4444" />
+            <text x="320" y={b.y + 12} textAnchor="middle" fontSize="7.3" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">
+              {b.t}
+            </text>
+            <text x="320" y={b.y + 23} textAnchor="middle" fontSize="6.1" fill="#475569" fontFamily="system-ui">
+              {b.s}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** JSP setup and deployment path */
+export function JspProjectSetupDeploymentDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSP project setup and deployment">
+      <FlowchartFigcaption
+        title="JSP project setup and deployment"
+        fresher="JSP pages are packaged in a web app and deployed to a servlet container. In most setups, the first request (or startup precompile) triggers JSP translation/compilation."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 26, t: 'Create web app', s: 'src/main/webapp' },
+          { x: 162, t: 'Add JSP files', s: 'views/*.jsp' },
+          { x: 298, t: 'Package WAR', s: 'mvn package' },
+          { x: 434, t: 'Deploy Tomcat', s: 'webapps/' },
+          { x: 570, t: 'Open URL', s: 'JSP compiles' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="78" width="112" height="56" rx="9" fill="#eef2ff" stroke="#6366f1" filter={`url(#${p}-shadow)`} />
+            <text x={n.x + 56} y="99" textAnchor="middle" fontSize="7.9" fontWeight="800" fill="#3730a3" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 56} y="117" textAnchor="middle" fontSize="6.7" fill="#4c1d95" fontFamily="system-ui">
+              {n.s}
+            </text>
+            {i < arr.length - 1 && (
+              <line x1={n.x + 112} y1="106" x2={arr[i + 1].x - 6} y2="106" stroke="#4f46e5" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** JSP runtime architecture */
+export function JspArchitectureRuntimeDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSP runtime architecture">
+      <FlowchartFigcaption
+        title="JSP runtime architecture"
+        fresher="Browser requests a JSP. The container translates JSP into a servlet, compiles it when needed, then executes that servlet to produce the response."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 36, y: 94, t: 'Browser', s: 'GET /home.jsp' },
+          { x: 178, y: 94, t: 'JspServlet', s: 'dispatcher' },
+          { x: 320, y: 58, t: 'Translate', s: 'JSP -> .java' },
+          { x: 320, y: 132, t: 'Compile', s: '.java -> .class' },
+          { x: 462, y: 94, t: 'Generated servlet', s: '_jspService()' },
+          { x: 604, y: 94, t: 'HTML response', s: 'to browser' }
+        ].map((n) => (
+          <g key={`${n.t}-${n.y}`}>
+            <rect x={n.x} y={n.y} width="116" height="48" rx="8" fill="#ede9fe" stroke="#8b5cf6" />
+            <text x={n.x + 58} y={n.y + 18} textAnchor="middle" fontSize="7.6" fontWeight="800" fill="#5b21b6" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 58} y={n.y + 33} textAnchor="middle" fontSize="6.4" fill="#6d28d9" fontFamily="system-ui">
+              {n.s}
+            </text>
+          </g>
+        ))}
+        <line x1="152" y1="118" x2="172" y2="118" stroke="#6d28d9" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="294" y1="118" x2="320" y2="82" stroke="#6d28d9" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="378" y1="82" x2="436" y2="106" stroke="#6d28d9" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="294" y1="118" x2="320" y2="156" stroke="#6d28d9" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="378" y1="156" x2="436" y2="130" stroke="#6d28d9" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="578" y1="118" x2="598" y2="118" stroke="#6d28d9" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** JSP directives overview */
+export function JspDirectivesOverviewDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSP directives overview">
+      <FlowchartFigcaption
+        title="JSP directives overview"
+        fresher="Directives configure JSP translation behavior: page, include, and taglib."
+      />
+      <svg viewBox="0 0 640 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="220" y="18" width="200" height="36" rx="8" fill="#ddd6fe" stroke="#7c3aed" />
+        <text x="320" y="40" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#5b21b6" fontFamily="ui-monospace">
+          &lt;%@ ... %&gt; directive
+        </text>
+        {[
+          { x: 52, t: 'page', s: 'import, errorPage, isELIgnored' },
+          { x: 252, t: 'include', s: 'static include at translation' },
+          { x: 452, t: 'taglib', s: 'JSTL/custom tags' }
+        ].map((d) => (
+          <g key={d.t}>
+            <rect x={d.x} y="98" width="136" height="66" rx="9" fill="#f5f3ff" stroke="#a78bfa" />
+            <text x={d.x + 68} y="122" textAnchor="middle" fontSize="8.2" fontWeight="800" fill="#6d28d9" fontFamily="ui-monospace">
+              {d.t}
+            </text>
+            <text x={d.x + 68} y="140" textAnchor="middle" fontSize="6.2" fill="#64748b" fontFamily="system-ui">
+              {d.s}
+            </text>
+          </g>
+        ))}
+        <line x1="320" y1="54" x2="120" y2="94" stroke="#7c3aed" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="320" y1="54" x2="320" y2="94" stroke="#7c3aed" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="320" y1="54" x2="520" y2="94" stroke="#7c3aed" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** JSP implicit objects */
+export function JspImplicitObjectsDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSP implicit objects">
+      <FlowchartFigcaption
+        title="JSP implicit objects"
+        fresher="Container injects request/session/application and writer objects so JSP can access data without explicit declarations."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="264" y="20" width="172" height="34" rx="8" fill="#e0e7ff" stroke="#4f46e5" />
+        <text x="350" y="42" textAnchor="middle" fontSize="8.4" fontWeight="800" fill="#312e81" fontFamily="ui-monospace">
+          home.jsp (_jspService)
+        </text>
+        {[
+          { x: 44, y: 86, t: 'request', s: 'params, attrs' },
+          { x: 188, y: 86, t: 'response', s: 'headers/status' },
+          { x: 332, y: 86, t: 'session', s: 'user state' },
+          { x: 476, y: 86, t: 'application', s: 'app scope' },
+          { x: 620, y: 86, t: 'out', s: 'JspWriter' }
+        ].map((n) => (
+          <g key={n.t}>
+            <rect x={n.x} y={n.y} width="90" height="54" rx="8" fill="#eef2ff" stroke="#6366f1" />
+            <text x={n.x + 45} y={n.y + 22} textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#4338ca" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 45} y={n.y + 37} textAnchor="middle" fontSize="6.1" fill="#64748b" fontFamily="system-ui">
+              {n.s}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** JSP EL resolution chain */
+export function JspExpressionLanguageResolutionDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSP EL resolution">
+      <FlowchartFigcaption
+        title="Expression Language resolution chain"
+        fresher="For unqualified variables, EL resolves in order: pageScope, requestScope, sessionScope, then applicationScope (explicit scope qualifiers bypass this search)."
+      />
+      <svg viewBox="0 0 680 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="244" y="20" width="192" height="34" rx="8" fill="#fae8ff" stroke="#c026d3" />
+        <text x="340" y="41" textAnchor="middle" fontSize="8.2" fontWeight="800" fill="#86198f" fontFamily="ui-monospace">
+          ${'{user.name}'}
+        </text>
+        {[
+          { x: 36, t: 'pageScope', ok: false },
+          { x: 164, t: 'requestScope', ok: false },
+          { x: 292, t: 'sessionScope', ok: true },
+          { x: 420, t: 'applicationScope', ok: false }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="104" width="118" height="50" rx="8" fill={n.ok ? '#dcfce7' : '#f5f3ff'} stroke={n.ok ? '#22c55e' : '#a855f7'} />
+            <text x={n.x + 59} y="126" textAnchor="middle" fontSize="7.3" fontWeight="800" fill={n.ok ? '#166534' : '#7e22ce'} fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 59} y="141" textAnchor="middle" fontSize="6.1" fill="#64748b" fontFamily="system-ui">
+              {n.ok ? 'match found' : 'not found'}
+            </text>
+            {i < arr.length - 1 && (
+              <line x1={n.x + 118} y1="129" x2={arr[i + 1].x - 5} y2="129" stroke="#a855f7" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** JSTL flow examples */
+export function JspJstlFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSTL flow diagram">
+      <FlowchartFigcaption
+        title="JSTL core flow: choose + forEach"
+        fresher="JSTL tags replace scriptlet loops/conditions with cleaner declarative view logic."
+      />
+      <svg viewBox="0 0 660 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="250" y="20" width="160" height="34" rx="8" fill="#dcfce7" stroke="#16a34a" />
+        <text x="330" y="41" textAnchor="middle" fontSize="8.2" fontWeight="800" fill="#166534" fontFamily="ui-monospace">
+          &lt;c:forEach items=\"${'{orders}'}\"&gt;
+        </text>
+        <path d="M 330 80 L 390 114 L 330 148 L 270 114 Z" fill="#fef9c3" stroke="#ca8a04" />
+        <text x="330" y="116" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          order.total &gt; 1000?
+        </text>
+        <rect x="124" y="176" width="160" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+        <text x="204" y="201" textAnchor="middle" fontSize="7.1" fontWeight="800" fill="#075985" fontFamily="system-ui">
+          &lt;c:when&gt; Premium badge
+        </text>
+        <rect x="376" y="176" width="160" height="40" rx="8" fill="#f1f5f9" stroke="#64748b" />
+        <text x="456" y="201" textAnchor="middle" fontSize="7.1" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          &lt;c:otherwise&gt; Normal row
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** JSP custom tag lifecycle */
+export function JspCustomTagLifecycleDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jsp-scenario" role="img" aria-label="JSP custom tag lifecycle">
+      <FlowchartFigcaption
+        title="Custom tag lifecycle"
+        fresher="Tag handler class executes reusable view logic. TLD maps prefix to Java handler."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, t: 'taglib directive', s: 'prefix uri' },
+          { x: 160, t: 'TLD lookup', s: 'tag -> handler' },
+          { x: 296, t: 'Tag handler', s: 'doStartTag()' },
+          { x: 432, t: 'Body eval', s: 'optional content' },
+          { x: 568, t: 'Output', s: 'HTML fragment' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="84" width="108" height="52" rx="8" fill="#f5f3ff" stroke="#8b5cf6" />
+            <text x={n.x + 54} y="104" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#6d28d9" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 54} y="120" textAnchor="middle" fontSize="6.1" fill="#64748b" fontFamily="system-ui">
+              {n.s}
+            </text>
+            {i < arr.length - 1 && (
+              <line x1={n.x + 108} y1="110" x2={arr[i + 1].x - 6} y2="110" stroke="#7c3aed" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Hibernate high-level architecture */
+export function HibernateArchitectureLayersDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate architecture layers">
+      <FlowchartFigcaption
+        title="Hibernate architecture layers"
+        fresher="Application code talks to Session/EntityManager APIs; Hibernate translates object operations into SQL over JDBC."
+      />
+      <svg viewBox="0 0 700 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 26, t: 'Domain entities', s: '@Entity classes' },
+          { x: 160, t: 'Session / EM', s: 'persistence context' },
+          { x: 294, t: 'Hibernate core', s: 'dirty check, SQL gen' },
+          { x: 428, t: 'JDBC', s: 'prepared statements' },
+          { x: 562, t: 'Database', s: 'tables/indexes' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="84" width="112" height="58" rx="9" fill="#fff7ed" stroke="#ea580c" filter={`url(#${p}-shadow)`} />
+            <text x={n.x + 56} y="106" textAnchor="middle" fontSize="7.8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 56} y="124" textAnchor="middle" fontSize="6.4" fill="#7c2d12" fontFamily="system-ui">
+              {n.s}
+            </text>
+            {i < arr.length - 1 && (
+              <line x1={n.x + 112} y1="113" x2={arr[i + 1].x - 6} y2="113" stroke="#c2410c" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** SessionFactory bootstrap flow */
+export function HibernateConfigurationBootstrapDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate configuration bootstrap">
+      <FlowchartFigcaption
+        title="Configuration bootstrap"
+        fresher="Hibernate reads config properties and mappings, builds SessionFactory once, then app opens sessions per unit of work."
+      />
+      <svg viewBox="0 0 660 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 36, y: 34, t: 'hibernate.cfg.xml / props', s: 'dialect, url, ddl' },
+          { x: 254, y: 34, t: 'Metadata', s: 'entity mappings' },
+          { x: 472, y: 34, t: 'SessionFactory', s: 'heavy, singleton' },
+          { x: 254, y: 124, t: 'Session', s: 'per request/tx' },
+          { x: 472, y: 124, t: 'Transaction', s: 'begin/commit/rollback' }
+        ].map((n) => (
+          <g key={n.t}>
+            <rect x={n.x} y={n.y} width="170" height="52" rx="8" fill="#ffedd5" stroke="#fb923c" />
+            <text x={n.x + 85} y={n.y + 20} textAnchor="middle" fontSize="7.7" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+              {n.t}
+            </text>
+            <text x={n.x + 85} y={n.y + 36} textAnchor="middle" fontSize="6.3" fill="#7c2d12" fontFamily="system-ui">
+              {n.s}
+            </text>
+          </g>
+        ))}
+        <line x1="206" y1="60" x2="248" y2="60" stroke="#c2410c" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="424" y1="60" x2="466" y2="60" stroke="#c2410c" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="557" y1="86" x2="557" y2="118" stroke="#c2410c" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="424" y1="150" x2="466" y2="150" stroke="#c2410c" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** Entity lifecycle and session states */
+export function HibernateSessionEntityStatesDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate entity states">
+      <FlowchartFigcaption
+        title="Entity states in a session"
+        fresher="Objects move through transient, persistent, detached, and removed states depending on session operations."
+      />
+      <svg viewBox="0 0 680 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="50" y="96" width="120" height="46" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="110" y="122" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">Transient</text>
+        <rect x="250" y="40" width="150" height="52" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="325" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#166534" fontFamily="ui-monospace">Persistent</text>
+        <text x="325" y="77" textAnchor="middle" fontSize="6.3" fill="#15803d" fontFamily="system-ui">tracked by session</text>
+        <rect x="250" y="152" width="150" height="52" rx="8" fill="#e2e8f0" stroke="#64748b" />
+        <text x="325" y="174" textAnchor="middle" fontSize="8" fontWeight="800" fill="#334155" fontFamily="ui-monospace">Detached</text>
+        <text x="325" y="189" textAnchor="middle" fontSize="6.3" fill="#475569" fontFamily="system-ui">session closed/cleared</text>
+        <rect x="500" y="96" width="120" height="46" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="560" y="122" textAnchor="middle" fontSize="8" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">Removed</text>
+        <line x1="170" y1="119" x2="244" y2="66" stroke="#22c55e" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="205" y="83" fontSize="6.3" fill="#166534" fontFamily="system-ui">persist/save</text>
+        <line x1="325" y1="92" x2="325" y2="146" stroke="#64748b" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="334" y="122" fontSize="6.3" fill="#475569" fontFamily="system-ui">close/clear</text>
+        <line x1="400" y1="178" x2="494" y2="120" stroke="#ef4444" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="444" y="141" fontSize="6.3" fill="#991b1b" fontFamily="system-ui">delete/remove</text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Mapping strategy overview */
+export function HibernateMappingStrategiesDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate mapping strategies">
+      <FlowchartFigcaption
+        title="Entity-to-table mapping strategies"
+        fresher="Annotations map classes/fields/relationships to tables and columns; id generation strategy controls primary keys."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="40" y="34" width="220" height="72" rx="9" fill="#fff7ed" stroke="#fb923c" />
+        <text x="150" y="56" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">@Entity Student</text>
+        <text x="150" y="72" textAnchor="middle" fontSize="6.2" fill="#7c2d12" fontFamily="system-ui">@Id @GeneratedValue(strategy=IDENTITY)</text>
+        <text x="150" y="86" textAnchor="middle" fontSize="6.2" fill="#7c2d12" fontFamily="system-ui">@Column(name=\"first_name\")</text>
+        <rect x="430" y="34" width="220" height="72" rx="9" fill="#ffedd5" stroke="#ea580c" />
+        <text x="540" y="56" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">students table</text>
+        <text x="540" y="72" textAnchor="middle" fontSize="6.2" fill="#7c2d12" fontFamily="system-ui">id PK AI, first_name, ...</text>
+        <line x1="260" y1="70" x2="424" y2="70" stroke="#c2410c" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="40" y="136" width="280" height="72" rx="9" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="180" y="158" textAnchor="middle" fontSize="8" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">@ManyToOne / @OneToMany</text>
+        <text x="180" y="174" textAnchor="middle" fontSize="6.2" fill="#0e7490" fontFamily="system-ui">join column + fetch/cascade choices</text>
+        <rect x="380" y="136" width="270" height="72" rx="9" fill="#ecfdf5" stroke="#22c55e" />
+        <text x="515" y="158" textAnchor="middle" fontSize="8" fontWeight="800" fill="#166534" fontFamily="ui-monospace">FK constraints + joins</text>
+        <text x="515" y="174" textAnchor="middle" fontSize="6.2" fill="#15803d" fontFamily="system-ui">DB integrity matches object graph</text>
+        <line x1="320" y1="172" x2="374" y2="172" stroke="#0891b2" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** HQL execution path */
+export function HibernateHqlExecutionDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate HQL execution path">
+      <FlowchartFigcaption
+        title="HQL execution path"
+        fresher="HQL/JPQL is object-oriented query language. Hibernate parses query, generates SQL, binds parameters, then hydrates entities."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 28, t: 'HQL string', s: 'from Student s where ...' },
+          { x: 162, t: 'Parser/AST', s: 'entity metadata' },
+          { x: 296, t: 'SQL generation', s: 'dialect-specific' },
+          { x: 430, t: 'JDBC execution', s: 'prepared statement' },
+          { x: 564, t: 'Hydration', s: 'entities/DTOs' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="108" height="56" rx="8" fill="#ffedd5" stroke="#fb923c" />
+            <text x={n.x + 54} y="103" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 54} y="120" textAnchor="middle" fontSize="6.1" fill="#7c2d12" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 108} y1="110" x2={arr[i + 1].x - 5} y2="110" stroke="#c2410c" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Relationship loading and N+1 hint */
+export function HibernateRelationshipsFetchDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate relationships and fetch behavior">
+      <FlowchartFigcaption
+        title="Relationships and fetch behavior"
+        fresher="Lazy loading reduces upfront queries, but can cause N+1 if you iterate children per parent without join fetch/batch tuning."
+      />
+      <svg viewBox="0 0 700 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="40" y="56" width="180" height="54" rx="8" fill="#fff7ed" stroke="#fb923c" />
+        <text x="130" y="79" textAnchor="middle" fontSize="7.8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">Department (1)</text>
+        <text x="130" y="94" textAnchor="middle" fontSize="6.2" fill="#7c2d12" fontFamily="system-ui">@OneToMany employees</text>
+        <rect x="290" y="26" width="170" height="54" rx="8" fill="#ecfdf5" stroke="#22c55e" />
+        <text x="375" y="49" textAnchor="middle" fontSize="7.6" fontWeight="800" fill="#166534" fontFamily="ui-monospace">JOIN FETCH query</text>
+        <text x="375" y="64" textAnchor="middle" fontSize="6.1" fill="#15803d" fontFamily="system-ui">single SQL for graph</text>
+        <rect x="290" y="132" width="170" height="54" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="375" y="155" textAnchor="middle" fontSize="7.6" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">Lazy loop N+1</text>
+        <text x="375" y="170" textAnchor="middle" fontSize="6.1" fill="#b91c1c" fontFamily="system-ui">1 + N SQL queries</text>
+        <rect x="530" y="56" width="130" height="54" rx="8" fill="#ffedd5" stroke="#ea580c" />
+        <text x="595" y="79" textAnchor="middle" fontSize="7.3" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">employees table</text>
+        <text x="595" y="94" textAnchor="middle" fontSize="6" fill="#7c2d12" fontFamily="system-ui">fk_department_id</text>
+        <line x1="220" y1="82" x2="284" y2="52" stroke="#16a34a" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="220" y1="82" x2="284" y2="158" stroke="#dc2626" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="460" y1="82" x2="524" y2="82" stroke="#c2410c" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** Caching layers in Hibernate */
+export function HibernateCachingLayersDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate caching layers">
+      <FlowchartFigcaption
+        title="Caching layers: first-level, second-level, query cache"
+        fresher="First-level cache lives in Session (always on). Second-level and query cache are optional shared optimizations."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="42" y="88" width="150" height="58" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="117" y="111" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#166534" fontFamily="ui-monospace">Session (L1)</text>
+        <text x="117" y="126" textAnchor="middle" fontSize="6.1" fill="#15803d" fontFamily="system-ui">per request/unit of work</text>
+        <rect x="276" y="48" width="170" height="58" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+        <text x="361" y="71" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#075985" fontFamily="ui-monospace">Second-level cache</text>
+        <text x="361" y="86" textAnchor="middle" fontSize="6.1" fill="#0369a1" fontFamily="system-ui">shared across sessions</text>
+        <rect x="276" y="132" width="170" height="58" rx="8" fill="#fef9c3" stroke="#eab308" />
+        <text x="361" y="155" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#854d0e" fontFamily="ui-monospace">Query cache</text>
+        <text x="361" y="170" textAnchor="middle" fontSize="6.1" fill="#a16207" fontFamily="system-ui">ids/result sets</text>
+        <rect x="530" y="88" width="128" height="58" rx="8" fill="#ffedd5" stroke="#ea580c" />
+        <text x="594" y="111" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">Database</text>
+        <text x="594" y="126" textAnchor="middle" fontSize="6.1" fill="#7c2d12" fontFamily="system-ui">fallback source</text>
+        <line x1="192" y1="117" x2="270" y2="77" stroke="#0284c7" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="192" y1="117" x2="270" y2="161" stroke="#eab308" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="446" y1="117" x2="524" y2="117" stroke="#c2410c" strokeWidth="1.9" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** Locking and version check flow */
+export function HibernateLockingVersionDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate optimistic locking flow">
+      <FlowchartFigcaption
+        title="Optimistic locking with @Version"
+        fresher="Update includes version in WHERE clause. If row count is 0, another transaction modified the row and Hibernate throws stale object exception."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="46" y="80" width="174" height="64" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="133" y="104" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">Tx-A loads entity</text>
+        <text x="133" y="120" textAnchor="middle" fontSize="6.1" fill="#0e7490" fontFamily="system-ui">id=10, version=3</text>
+        <rect x="266" y="42" width="174" height="64" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="353" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#166534" fontFamily="ui-monospace">Tx-B commits first</text>
+        <text x="353" y="82" textAnchor="middle" fontSize="6.1" fill="#15803d" fontFamily="system-ui">{'row version -> 4'}</text>
+        <rect x="266" y="132" width="174" height="64" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="353" y="156" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">Tx-A update fails</text>
+        <text x="353" y="172" textAnchor="middle" fontSize="6.1" fill="#b91c1c" fontFamily="system-ui">{'WHERE version=3 -> 0 rows'}</text>
+        <rect x="486" y="80" width="168" height="64" rx="8" fill="#fff7ed" stroke="#ea580c" />
+        <text x="570" y="104" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">StaleObjectStateEx</text>
+        <text x="570" y="120" textAnchor="middle" fontSize="6.1" fill="#7c2d12" fontFamily="system-ui">retry / merge strategy</text>
+        <line x1="220" y1="112" x2="260" y2="74" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="220" y1="112" x2="260" y2="164" stroke="#ef4444" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="440" y1="164" x2="480" y2="112" stroke="#ef4444" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+/** Batch insert/update pattern */
+export function HibernateBatchProcessingFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-hibernate-scenario" role="img" aria-label="Hibernate batch processing flow">
+      <FlowchartFigcaption
+        title="Batch processing flow"
+        fresher="For large writes, persist in chunks and periodically flush+clear the session to control memory and use JDBC batching."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 34, t: 'Read source', s: 'CSV/API rows' },
+          { x: 166, t: 'persist(entity)', s: 'loop' },
+          { x: 298, t: 'batchSize hit?', s: 'every N rows' },
+          { x: 430, t: 'flush + clear', s: 'release memory' },
+          { x: 562, t: 'commit tx', s: 'next chunk' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="78" width="104" height="58" rx="8" fill="#ffedd5" stroke="#fb923c" />
+            <text x={n.x + 52} y="100" textAnchor="middle" fontSize="7" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 52} y="118" textAnchor="middle" fontSize="6" fill="#7c2d12" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 104} y1="107" x2={arr[i + 1].x - 6} y2="107" stroke="#c2410c" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Spring Cloud architecture fundamentals */
+export function SpringCloudArchitectureDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Spring Cloud architecture">
+      <FlowchartFigcaption
+        title="Spring Cloud architecture (conceptual)"
+        fresher="Gateway fronts traffic, services register in discovery, centralized config supplies properties, and resilience/tracing/logging support operations."
+      />
+      <svg viewBox="0 0 760 250" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="300" y="18" width="160" height="38" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="380" y="42" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#166534" fontFamily="ui-monospace">
+          API Gateway
+        </text>
+        <rect x="88" y="84" width="136" height="46" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="156" y="110" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">Eureka Server</text>
+        <rect x="534" y="84" width="136" height="46" rx="8" fill="#fff7ed" stroke="#ea580c" />
+        <text x="602" y="110" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">Config Server</text>
+        {[
+          { x: 190, t: 'User Service' },
+          { x: 312, t: 'Order Service' },
+          { x: 434, t: 'Payment Service' }
+        ].map((s) => (
+          <g key={s.t}>
+            <rect x={s.x} y="156" width="112" height="44" rx="8" fill="#f8fafc" stroke="#64748b" />
+            <text x={s.x + 56} y="181" textAnchor="middle" fontSize="7.1" fontWeight="800" fill="#334155" fontFamily="ui-monospace">
+              {s.t}
+            </text>
+          </g>
+        ))}
+        <line x1="380" y1="56" x2="246" y2="156" stroke="#16a34a" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="380" y1="56" x2="368" y2="156" stroke="#16a34a" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="380" y1="56" x2="490" y2="156" stroke="#16a34a" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="156" y1="130" x2="246" y2="156" stroke="#0891b2" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="156" y1="130" x2="368" y2="156" stroke="#0891b2" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="156" y1="130" x2="490" y2="156" stroke="#0891b2" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="602" y1="130" x2="246" y2="156" stroke="#c2410c" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="602" y1="130" x2="368" y2="156" stroke="#c2410c" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="602" y1="130" x2="490" y2="156" stroke="#c2410c" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudConfigServerFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Spring Cloud Config Server flow">
+      <FlowchartFigcaption
+        title="Config Server flow"
+        fresher="Services request configuration by application/profile/label; Config Server fetches from Git and returns environment properties."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, t: 'Service startup', s: 'bootstrap context' },
+          { x: 162, t: 'GET /{app}/{profile}', s: 'config endpoint' },
+          { x: 300, t: 'Config Server', s: 'reads backend' },
+          { x: 438, t: 'Git repo', s: 'yaml/properties' },
+          { x: 576, t: 'PropertySource', s: 'applied locally' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="104" height="56" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+            <text x={n.x + 52} y="103" textAnchor="middle" fontSize="7" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 52} y="120" textAnchor="middle" fontSize="6" fill="#0e7490" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 104} y1="110" x2={arr[i + 1].x - 6} y2="110" stroke="#0891b2" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudEurekaDiscoveryFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Eureka discovery flow">
+      <FlowchartFigcaption
+        title="Eureka service discovery flow"
+        fresher="Services register and heartbeat with Eureka; callers query registry and choose an instance via client-side load balancing."
+      />
+      <svg viewBox="0 0 700 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="274" y="26" width="152" height="42" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="350" y="51" textAnchor="middle" fontSize="8" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">Eureka Server</text>
+        <rect x="74" y="146" width="128" height="46" rx="8" fill="#f8fafc" stroke="#64748b" />
+        <text x="138" y="172" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#334155" fontFamily="ui-monospace">Caller Service</text>
+        <rect x="500" y="120" width="130" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="565" y="143" textAnchor="middle" fontSize="7" fontWeight="800" fill="#166534" fontFamily="ui-monospace">Order-1</text>
+        <rect x="500" y="168" width="130" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="565" y="191" textAnchor="middle" fontSize="7" fontWeight="800" fill="#166534" fontFamily="ui-monospace">Order-2</text>
+        <line x1="138" y1="146" x2="314" y2="68" stroke="#0891b2" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="426" y1="68" x2="565" y2="120" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="426" y1="68" x2="565" y2="168" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="202" y1="170" x2="494" y2="140" stroke="#334155" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudApiGatewayRoutingDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="API Gateway routing">
+      <FlowchartFigcaption
+        title="API Gateway routing pipeline"
+        fresher="Gateway applies predicates/filters, authenticates request, then routes to target service and forwards response."
+      />
+      <svg viewBox="0 0 720 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, t: 'Client', s: 'GET /api/orders' },
+          { x: 150, t: 'Route predicate', s: 'path match' },
+          { x: 276, t: 'Filters', s: 'auth, rate-limit' },
+          { x: 402, t: 'LB + discovery', s: 'choose instance' },
+          { x: 528, t: 'Target service', s: 'business logic' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="116" height="56" rx="8" fill="#eef2ff" stroke="#6366f1" />
+            <text x={n.x + 58} y="103" textAnchor="middle" fontSize="7" fontWeight="800" fill="#4338ca" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 58} y="120" textAnchor="middle" fontSize="6" fill="#4f46e5" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 116} y1="110" x2={arr[i + 1].x - 6} y2="110" stroke="#4f46e5" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudLoadBalancingFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Load balancing flow">
+      <FlowchartFigcaption
+        title="Client-side load balancing flow"
+        fresher="Caller gets service instances from discovery and picks one (round-robin or custom strategy) for each request."
+      />
+      <svg viewBox="0 0 700 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="56" y="92" width="140" height="46" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+        <text x="126" y="118" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">Caller + LB client</text>
+        <rect x="278" y="42" width="140" height="40" rx="8" fill="#f8fafc" stroke="#64748b" />
+        <text x="348" y="66" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#334155" fontFamily="ui-monospace">Instance-1</text>
+        <rect x="278" y="92" width="140" height="40" rx="8" fill="#f8fafc" stroke="#64748b" />
+        <text x="348" y="116" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#334155" fontFamily="ui-monospace">Instance-2</text>
+        <rect x="278" y="142" width="140" height="40" rx="8" fill="#f8fafc" stroke="#64748b" />
+        <text x="348" y="166" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#334155" fontFamily="ui-monospace">Instance-3</text>
+        <rect x="512" y="92" width="138" height="46" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="581" y="118" textAnchor="middle" fontSize="7.4" fontWeight="800" fill="#166534" fontFamily="ui-monospace">Response path</text>
+        <line x1="196" y1="102" x2="272" y2="62" stroke="#0891b2" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="196" y1="115" x2="272" y2="112" stroke="#0891b2" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="196" y1="128" x2="272" y2="162" stroke="#0891b2" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="418" y1="112" x2="506" y2="112" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudOpenFeignCallDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="OpenFeign call flow">
+      <FlowchartFigcaption
+        title="OpenFeign call flow"
+        fresher="Feign interface method call is converted to HTTP request, routed via discovery/load balancer, then decoded back to Java object."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 22, t: 'Service code', s: 'client.getOrder(id)' },
+          { x: 156, t: '@FeignClient proxy', s: 'method intercept' },
+          { x: 290, t: 'HTTP request', s: 'JSON + headers' },
+          { x: 424, t: 'Remote service', s: 'process call' },
+          { x: 558, t: 'Decoder', s: 'DTO response' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="106" height="56" rx="8" fill="#f5f3ff" stroke="#8b5cf6" />
+            <text x={n.x + 53} y="103" textAnchor="middle" fontSize="6.8" fontWeight="800" fill="#6d28d9" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 53} y="120" textAnchor="middle" fontSize="5.9" fill="#7c3aed" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 106} y1="110" x2={arr[i + 1].x - 5} y2="110" stroke="#7c3aed" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudResilienceCircuitBreakerDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Resilience4j circuit breaker states">
+      <FlowchartFigcaption
+        title="Circuit breaker state transitions"
+        fresher="Failures push breaker from CLOSED to OPEN; after wait duration it moves HALF_OPEN to test recovery and may close again."
+      />
+      <svg viewBox="0 0 680 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="64" y="96" width="140" height="50" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="134" y="124" textAnchor="middle" fontSize="8" fontWeight="800" fill="#166534" fontFamily="ui-monospace">CLOSED</text>
+        <rect x="268" y="36" width="140" height="50" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="338" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">OPEN</text>
+        <rect x="472" y="96" width="140" height="50" rx="8" fill="#fef9c3" stroke="#eab308" />
+        <text x="542" y="124" textAnchor="middle" fontSize="8" fontWeight="800" fill="#854d0e" fontFamily="ui-monospace">HALF_OPEN</text>
+        <line x1="204" y1="106" x2="262" y2="70" stroke="#ef4444" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="236" y="82" fontSize="6.2" fill="#991b1b" fontFamily="system-ui">failure rate high</text>
+        <line x1="408" y1="70" x2="466" y2="106" stroke="#eab308" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="438" y="82" fontSize="6.2" fill="#854d0e" fontFamily="system-ui">wait duration elapsed</text>
+        <line x1="472" y1="136" x2="204" y2="136" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="336" y="152" textAnchor="middle" fontSize="6.2" fill="#166534" fontFamily="system-ui">trial calls succeed</text>
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudDistributedTracingFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Distributed tracing flow">
+      <FlowchartFigcaption
+        title="Distributed tracing flow"
+        fresher="Trace id propagates across services; each service reports spans to collector (Zipkin/Tempo/Jaeger) for end-to-end timing."
+      />
+      <svg viewBox="0 0 720 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 40, t: 'Gateway', s: 'traceId=abc' },
+          { x: 194, t: 'Order svc', s: 'span 1' },
+          { x: 348, t: 'Payment svc', s: 'span 2' },
+          { x: 502, t: 'Inventory svc', s: 'span 3' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="84" width="128" height="52" rx="8" fill="#ecfeff" stroke="#06b6d4" />
+            <text x={n.x + 64} y="106" textAnchor="middle" fontSize="7.3" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 64} y="122" textAnchor="middle" fontSize="6.1" fill="#0e7490" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 128} y1="110" x2={arr[i + 1].x - 6} y2="110" stroke="#0891b2" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+        <rect x="274" y="168" width="172" height="40" rx="8" fill="#fff7ed" stroke="#ea580c" />
+        <text x="360" y="192" textAnchor="middle" fontSize="7.2" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">Trace backend (Zipkin)</text>
+        <line x1="104" y1="136" x2="302" y2="168" stroke="#c2410c" strokeWidth="1.5" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="258" y1="136" x2="332" y2="168" stroke="#c2410c" strokeWidth="1.5" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="412" y1="136" x2="360" y2="168" stroke="#c2410c" strokeWidth="1.5" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="566" y1="136" x2="390" y2="168" stroke="#c2410c" strokeWidth="1.5" markerEnd={`url(#${p}-arrowhead)`} />
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudSecurityTokenFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="Spring Cloud security token flow">
+      <FlowchartFigcaption
+        title="Security token propagation flow"
+        fresher="Gateway validates JWT then forwards identity claims to downstream services, where fine-grained authorization still applies."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 30, t: 'Client', s: 'Bearer JWT' },
+          { x: 170, t: 'Gateway auth', s: 'verify signature' },
+          { x: 310, t: 'Route + claims', s: 'forward context' },
+          { x: 450, t: 'Service authz', s: 'role/scope check' },
+          { x: 590, t: 'Response', s: 'allow/deny' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="96" height="56" rx="8" fill="#fef2f2" stroke="#ef4444" />
+            <text x={n.x + 48} y="103" textAnchor="middle" fontSize="6.8" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 48} y="120" textAnchor="middle" fontSize="5.9" fill="#b91c1c" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 96} y1="110" x2={arr[i + 1].x - 5} y2="110" stroke="#dc2626" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+export function SpringCloudElkPipelineDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label="ELK logging pipeline">
+      <FlowchartFigcaption
+        title="ELK logging pipeline"
+        fresher="Services emit structured logs; shipper forwards to Logstash/Elasticsearch; Kibana visualizes and correlates incidents."
+      />
+      <svg viewBox="0 0 720 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, t: 'Microservices', s: 'JSON logs' },
+          { x: 162, t: 'Filebeat/FluentBit', s: 'ship logs' },
+          { x: 300, t: 'Logstash', s: 'parse/enrich' },
+          { x: 438, t: 'Elasticsearch', s: 'index/search' },
+          { x: 576, t: 'Kibana', s: 'dashboards' }
+        ].map((n, i, arr) => (
+          <g key={n.t}>
+            <rect x={n.x} y="82" width="112" height="56" rx="8" fill="#f8fafc" stroke="#64748b" />
+            <text x={n.x + 56} y="103" textAnchor="middle" fontSize="7" fontWeight="800" fill="#334155" fontFamily="ui-monospace">{n.t}</text>
+            <text x={n.x + 56} y="120" textAnchor="middle" fontSize="6" fill="#475569" fontFamily="system-ui">{n.s}</text>
+            {i < arr.length - 1 && <line x1={n.x + 112} y1="110" x2={arr[i + 1].x - 6} y2="110" stroke="#475569" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** SVG flowchart with directional runtime steps (Spring Cloud tabs) */
+export function DeepRuntimeFlowDiagram({ title, subtitle, steps = [] }) {
+  const p = useSvgPrefix();
+  const safeSteps = Array.isArray(steps) ? steps.slice(0, 6) : [];
+  const cols = Math.min(3, Math.max(1, safeSteps.length));
+  const rows = Math.ceil(safeSteps.length / cols);
+  const nodeW = 198;
+  const nodeH = 54;
+  const gapX = 24;
+  const gapY = 24;
+  const startX = 26;
+  const startY = 62;
+  const totalW = 760;
+  const totalH = Math.max(220, startY + rows * nodeH + (rows - 1) * gapY + 28);
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label={title || 'Runtime flow'}>
+      <FlowchartFigcaption title={title} fresher={subtitle} />
+      <svg viewBox={`0 0 ${totalW} ${totalH}`} className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {safeSteps.map((s, i) => {
+          const r = Math.floor(i / cols);
+          const c = i % cols;
+          const x = startX + c * (nodeW + gapX);
+          const y = startY + r * (nodeH + gapY);
+          const next = safeSteps[i + 1];
+          const nextR = Math.floor((i + 1) / cols);
+          const nextC = (i + 1) % cols;
+          const nx = startX + nextC * (nodeW + gapX);
+          const ny = startY + nextR * (nodeH + gapY);
+          return (
+            <g key={`${s.title}-${i}`}>
+              <rect x={x} y={y} width={nodeW} height={nodeH} rx="10" fill="#eef2ff" stroke="#6366f1" strokeWidth="1.2" filter={`url(#${p}-shadow)`} />
+              <circle cx={x + 16} cy={y + 16} r="10" fill="#4f46e5" />
+              <text x={x + 16} y={y + 19} textAnchor="middle" fontSize="7" fontWeight="800" fill="#ffffff" fontFamily="ui-monospace">
+                {i + 1}
+              </text>
+              <text x={x + 34} y={y + 18} fontSize="7.2" fontWeight="800" fill="#3730a3" fontFamily="ui-monospace">
+                {s.title}
+              </text>
+              <text x={x + 34} y={y + 34} fontSize="6" fill="#4c1d95" fontFamily="system-ui">
+                {s.sub}
+              </text>
+              {next && (
+                <line
+                  x1={x + nodeW}
+                  y1={y + nodeH / 2}
+                  x2={nextR === r ? nx - 6 : x + nodeW - 2}
+                  y2={nextR === r ? ny + nodeH / 2 : y + nodeH + 10}
+                  stroke="#4f46e5"
+                  strokeWidth="1.8"
+                  markerEnd={`url(#${p}-arrowhead)`}
+                />
+              )}
+              {next && nextR !== r && (
+                <line x1={x + nodeW - 2} y1={y + nodeH + 10} x2={nx - 6} y2={ny + nodeH / 2} stroke="#4f46e5" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </figure>
+  );
+}
+
+/** SVG warning-focused flow for pitfalls tab */
+export function PitfallsFlowDiagram({ title, subtitle, steps = [] }) {
+  const p = useSvgPrefix();
+  const safeSteps = Array.isArray(steps) ? steps.slice(0, 5) : [];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label={title || 'Pitfalls flow'}>
+      <FlowchartFigcaption title={title} fresher={subtitle} />
+      <svg viewBox="0 0 760 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {safeSteps.map((s, i) => {
+          const x = 24 + i * 146;
+          return (
+            <g key={`${s.title}-${i}`}>
+              <rect x={x} y="90" width="132" height="64" rx="10" fill="#fee2e2" stroke="#ef4444" strokeWidth="1.2" filter={`url(#${p}-shadow)`} />
+              <text x={x + 66} y="113" textAnchor="middle" fontSize="7" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">
+                {s.title}
+              </text>
+              <text x={x + 66} y="129" textAnchor="middle" fontSize="5.9" fill="#b91c1c" fontFamily="system-ui">
+                {s.sub}
+              </text>
+              {i < safeSteps.length - 1 && (
+                <line x1={x + 132} y1="122" x2={x + 140} y2="122" stroke="#dc2626" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </figure>
+  );
+}
+
+/** Zig-zag SVG flow for scenario tabs */
+export function ScenarioPathFlowDiagram({ title, subtitle, steps = [] }) {
+  const p = useSvgPrefix();
+  const safeSteps = Array.isArray(steps) ? steps.slice(0, 6) : [];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label={title || 'Scenario path'}>
+      <FlowchartFigcaption title={title} fresher={subtitle} />
+      <svg viewBox="0 0 760 250" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {safeSteps.map((s, i) => {
+          const x = i % 2 === 0 ? 60 : 420;
+          const y = 38 + i * 34;
+          const nx = (i + 1) % 2 === 0 ? 60 : 420;
+          const ny = 38 + (i + 1) * 34;
+          return (
+            <g key={`${s.title}-${i}`}>
+              <rect x={x} y={y} width="280" height="44" rx="10" fill="#ecfeff" stroke="#06b6d4" strokeWidth="1.2" filter={`url(#${p}-shadow)`} />
+              <text x={x + 14} y={y + 18} fontSize="7.1" fontWeight="800" fill="#155e75" fontFamily="ui-monospace">
+                {`${i + 1}. ${s.title}`}
+              </text>
+              <text x={x + 14} y={y + 32} fontSize="6" fill="#0e7490" fontFamily="system-ui">
+                {s.sub}
+              </text>
+              {i < safeSteps.length - 1 && (
+                <path
+                  d={`M ${x + 280} ${y + 22} C ${x + 320} ${y + 22}, ${nx - 40} ${ny + 22}, ${nx} ${ny + 22}`}
+                  fill="none"
+                  stroke="#0891b2"
+                  strokeWidth="1.8"
+                  markerEnd={`url(#${p}-arrowhead)`}
+                />
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </figure>
+  );
+}
+
+/** Interview answer matrix style SVG */
+export function InterviewAnswerMapDiagram({ title, subtitle, steps = [] }) {
+  const p = useSvgPrefix();
+  const safeSteps = Array.isArray(steps) ? steps.slice(0, 4) : [];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springcloud-scenario" role="img" aria-label={title || 'Interview answer map'}>
+      <FlowchartFigcaption title={title} fresher={subtitle} />
+      <svg viewBox="0 0 760 230" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="20" y="26" width="720" height="176" rx="12" fill="#f8fafc" stroke="#38bdf8" />
+        {safeSteps.map((s, i) => {
+          const x = 40 + i * 176;
+          return (
+            <g key={`${s.title}-${i}`}>
+              <rect x={x} y="58" width="160" height="112" rx="10" fill="#eef2ff" stroke="#6366f1" filter={`url(#${p}-shadow)`} />
+              <rect x={x + 12} y="70" width="136" height="22" rx="6" fill="#4f46e5" />
+              <text x={x + 80} y="85" textAnchor="middle" fontSize="7" fontWeight="800" fill="#ffffff" fontFamily="ui-monospace">
+                {s.title}
+              </text>
+              <text x={x + 14} y="108" fontSize="6.1" fill="#334155" fontFamily="system-ui">
+                {s.sub}
+              </text>
+              {i < safeSteps.length - 1 && (
+                <line x1={x + 160} y1="114" x2={x + 170} y2="114" stroke="#4f46e5" strokeWidth="1.7" markerEnd={`url(#${p}-arrowhead)`} />
+              )}
+            </g>
+          );
+        })}
       </svg>
     </figure>
   );

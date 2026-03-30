@@ -7773,3 +7773,816 @@ code {
 .flowchart-pro-jdbc-scenario .flowchart-pro-svg {
   min-height: min(300px, 56vh);
 }
+
+/* Servlet tutorial showcase — teal-blue (Tomcat/web track) */
+.servlet-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(14, 116, 144, 0.45);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(34, 211, 238, 0.11), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(20, 184, 166, 0.1), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #0b1620 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.servlet-showcase-lead {
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: #cbd5e1;
+  margin: 0 0 1rem;
+  max-width: 62ch;
+}
+
+.servlet-showcase-lead code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(34, 211, 238, 0.15);
+  color: #a5f3fc;
+  font-size: 0.88em;
+}
+
+.servlet-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.servlet-tab {
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #ccfbf1;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.servlet-tab.active {
+  background: linear-gradient(135deg, #0e7490, #14b8a6);
+  color: #fff;
+  border-color: transparent;
+}
+
+.servlet-panel {
+  margin-top: 0.25rem;
+}
+
+.servlet-caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  color: #94a3b8;
+}
+
+.servlet-caption code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(34, 211, 238, 0.15);
+  color: #a5f3fc;
+  font-size: 0.88em;
+}
+
+.servlet-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(14, 116, 144, 0.38);
+  background:
+    linear-gradient(135deg, rgba(14, 116, 144, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 22, 28, 0.82) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(20, 184, 166, 0.12);
+}
+
+.servlet-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.servlet-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ecfeff;
+  letter-spacing: -0.02em;
+}
+
+.servlet-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.servlet-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.servlet-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(14, 116, 144, 0.26);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.servlet-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #083344;
+  background: linear-gradient(135deg, #22d3ee, #14b8a6);
+}
+
+.servlet-why-body {
+  min-width: 0;
+}
+
+.servlet-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #ccfbf1;
+  margin-bottom: 0.25rem;
+}
+
+.servlet-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.servlet-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(14, 116, 144, 0.42);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(20, 184, 166, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(10, 20, 26, 0.9) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(20, 184, 166, 0.1);
+}
+
+.servlet-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.servlet-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(14, 116, 144, 0.45);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.servlet-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.servlet-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.servlet-callout-body {
+  color: #cbd5e1;
+}
+
+.servlet-callout--tip {
+  background: rgba(34, 211, 238, 0.1);
+  border-color: rgba(103, 232, 249, 0.35);
+}
+
+.servlet-callout--tip .servlet-callout-title {
+  color: #67e8f9;
+}
+
+.servlet-callout--remember {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.servlet-callout--remember .servlet-callout-title {
+  color: #cbd5e1;
+}
+
+.flowchart-pro-servlet-scenario .flowchart-pro-svg {
+  min-height: min(300px, 56vh);
+}
+
+/* JSP tutorial showcase — violet-indigo */
+.jsp-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(124, 58, 237, 0.42);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.12), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.1), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #111427 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.jsp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.jsp-tab {
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #ede9fe;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.jsp-tab.active {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: #fff;
+  border-color: transparent;
+}
+
+.jsp-panel {
+  margin-top: 0.25rem;
+}
+
+.jsp-caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  color: #94a3b8;
+}
+
+.jsp-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(124, 58, 237, 0.36);
+  background:
+    linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(18, 19, 43, 0.84) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(79, 70, 229, 0.12);
+}
+
+.jsp-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+}
+
+.jsp-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #f5f3ff;
+  letter-spacing: -0.02em;
+}
+
+.jsp-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.jsp-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.jsp-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(124, 58, 237, 0.26);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.jsp-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #312e81;
+  background: linear-gradient(135deg, #a78bfa, #6366f1);
+}
+
+.jsp-why-body {
+  min-width: 0;
+}
+
+.jsp-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #ede9fe;
+  margin-bottom: 0.25rem;
+}
+
+.jsp-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.jsp-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(124, 58, 237, 0.42);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139, 92, 246, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(18, 18, 37, 0.9) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(99, 102, 241, 0.1);
+}
+
+.jsp-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.jsp-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.jsp-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.jsp-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.jsp-callout-body {
+  color: #cbd5e1;
+}
+
+.jsp-callout--tip {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(196, 181, 253, 0.36);
+}
+
+.jsp-callout--tip .jsp-callout-title {
+  color: #c4b5fd;
+}
+
+.flowchart-pro-jsp-scenario .flowchart-pro-svg {
+  min-height: min(300px, 56vh);
+}
+
+/* Hibernate tutorial showcase — amber/orange */
+.hibernate-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(234, 88, 12, 0.42);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(251, 146, 60, 0.14), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(234, 88, 12, 0.1), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #1a130f 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.hibernate-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.hibernate-tab {
+  border: 1px solid rgba(251, 146, 60, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #ffedd5;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hibernate-tab.active {
+  background: linear-gradient(135deg, #ea580c, #f59e0b);
+  color: #fff;
+  border-color: transparent;
+}
+
+.hibernate-panel {
+  margin-top: 0.25rem;
+}
+
+.hibernate-caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  color: #94a3b8;
+}
+
+.hibernate-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(234, 88, 12, 0.36);
+  background:
+    linear-gradient(135deg, rgba(234, 88, 12, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(28, 20, 12, 0.84) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(234, 88, 12, 0.12);
+}
+
+.hibernate-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fdba74;
+}
+
+.hibernate-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff7ed;
+  letter-spacing: -0.02em;
+}
+
+.hibernate-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.hibernate-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.hibernate-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 88, 12, 0.26);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.hibernate-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #7c2d12;
+  background: linear-gradient(135deg, #fdba74, #fb923c);
+}
+
+.hibernate-why-body {
+  min-width: 0;
+}
+
+.hibernate-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #ffedd5;
+  margin-bottom: 0.25rem;
+}
+
+.hibernate-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.hibernate-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(234, 88, 12, 0.42);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(251, 146, 60, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(26, 17, 12, 0.9) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(234, 88, 12, 0.1);
+}
+
+.hibernate-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.hibernate-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(234, 88, 12, 0.45);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.hibernate-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.hibernate-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hibernate-callout-body {
+  color: #cbd5e1;
+}
+
+.hibernate-callout--tip {
+  background: rgba(251, 146, 60, 0.1);
+  border-color: rgba(253, 186, 116, 0.36);
+}
+
+.hibernate-callout--tip .hibernate-callout-title {
+  color: #fdba74;
+}
+
+.flowchart-pro-hibernate-scenario .flowchart-pro-svg {
+  min-height: min(300px, 56vh);
+}
+
+/* Spring Cloud tutorial showcase — blue/teal enterprise */
+.sc-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(56, 189, 248, 0.42);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.13), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(34, 211, 238, 0.1), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #0d1522 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.sc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.sc-tab {
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #cffafe;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sc-tab.active {
+  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  color: #fff;
+  border-color: transparent;
+}
+
+.sc-panel {
+  margin-top: 0.25rem;
+}
+
+.sc-caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  color: #94a3b8;
+}
+
+.sc-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(56, 189, 248, 0.36);
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(12, 20, 34, 0.84) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(14, 165, 233, 0.12);
+}
+
+.sc-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.sc-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ecfeff;
+  letter-spacing: -0.02em;
+}
+
+.sc-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.sc-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.sc-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.26);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sc-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0c4a6e;
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+}
+
+.sc-why-body {
+  min-width: 0;
+}
+
+.sc-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #cffafe;
+  margin-bottom: 0.25rem;
+}
+
+.sc-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.sc-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(56, 189, 248, 0.42);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(10, 20, 30, 0.9) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(6, 182, 212, 0.1);
+}
+
+.sc-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.sc-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.sc-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.sc-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sc-callout-body {
+  color: #cbd5e1;
+}
+
+.sc-callout--tip {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(103, 232, 249, 0.36);
+}
+
+.sc-callout--tip .sc-callout-title {
+  color: #67e8f9;
+}
+
+.flowchart-pro-springcloud-scenario .flowchart-pro-svg {
+  min-height: min(300px, 56vh);
+}

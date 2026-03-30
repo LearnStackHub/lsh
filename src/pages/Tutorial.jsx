@@ -125,6 +125,10 @@ import {
 } from '../components/springframework/showcases';
 import { MySQLShowcaseRouter } from '../components/mysql/showcases';
 import { JDBC_SHOWCASE_TOPIC_IDS, JdbcShowcaseRouter } from '../components/jdbc/showcases';
+import { SERVLET_SHOWCASE_TOPIC_IDS, ServletShowcaseRouter } from '../components/servlets/showcases';
+import { JSP_SHOWCASE_TOPIC_IDS, JspShowcaseRouter } from '../components/jsp/showcases';
+import { HIBERNATE_SHOWCASE_TOPIC_IDS, HibernateShowcaseRouter } from '../components/hibernate/showcases';
+import { SPRING_CLOUD_SHOWCASE_TOPIC_IDS, SpringCloudShowcaseRouter } from '../components/springcloud/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
 
@@ -833,6 +837,10 @@ function Tutorial() {
         {topicId === 'spring-interview-questions' && <SpringFrameworkInterviewQuestionsShowcase />}
         {topicId.startsWith('mysql-') && <MySQLShowcaseRouter topicId={topicId} />}
         {JDBC_SHOWCASE_TOPIC_IDS.has(topicId) && <JdbcShowcaseRouter topicId={topicId} />}
+        {SERVLET_SHOWCASE_TOPIC_IDS.has(topicId) && <ServletShowcaseRouter topicId={topicId} />}
+        {JSP_SHOWCASE_TOPIC_IDS.has(topicId) && <JspShowcaseRouter topicId={topicId} />}
+        {HIBERNATE_SHOWCASE_TOPIC_IDS.has(topicId) && <HibernateShowcaseRouter topicId={topicId} />}
+        {SPRING_CLOUD_SHOWCASE_TOPIC_IDS.has(topicId) && <SpringCloudShowcaseRouter topicId={topicId} />}
         {renderContent(currentTopic.content)}
         
         {/* Internal Links Section */}
