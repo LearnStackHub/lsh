@@ -9,11 +9,28 @@ Installing MySQL is straightforward. This guide covers installation on Windows, 
 
 ---
 
+## Before you install: Server vs MySQL Workbench
+
+These are **two different programs**:
+
+| | **MySQL Server** (mysqld) | **MySQL Workbench** |
+|---|---------------------------|----------------------|
+| **What it is** | The database engine that stores your data and listens on port **3306** | A **GUI client** to run SQL and manage the server |
+| **Required?** | **Yes** — without it, there is no database | **No** — you can use the mysql CLI, DBeaver, or another app instead |
+| **Installs data?** | Yes — creates the data directory and system tables | **No** — it only connects to an existing server |
+
+- **Installing MySQL Workbench alone does not give you a database.** You must install **MySQL Server** first (or use Docker/cloud).
+- On Windows, **MySQL Installer** lets you choose products: **Server** is usually required; **Workbench** is optional.  
+  If you pick **Server only**, Workbench is not installed — add it separately from the same installer (**Modify**) or download **MySQL Workbench** from [MySQL Downloads](https://dev.mysql.com/downloads/workbench/).
+- A shortcut like **“Local instance MySQL80”** in Workbench only appears if the installer registered it. If you do not see it, create a **new connection** manually (see below).
+
+---
+
 ## Installation Methods
 
 ### 1. **MySQL Installer** (Windows - Recommended)
-- Easiest method
-- Includes MySQL Server, Workbench, and tools
+- Easiest method on Windows
+- Lets you choose **which products** to install (Server, Workbench, Shell, etc.)
 - GUI-based installation
 
 ### 2. **Package Manager** (Linux/macOS)
@@ -39,10 +56,11 @@ Installing MySQL is straightforward. This guide covers installation on Windows, 
 ### Step 2: Run Installer
 
 1. Run the downloaded \`.msi\` file
-2. Choose setup type:
-   - **Developer Default** - Includes server, workbench, and tools
-   - **Server only** - Just MySQL server
-   - **Full** - Everything
+2. Choose setup type (you can change products later with **Modify**):
+   - **Developer Default** — Pre-selects common dev tools (usually includes **Server** + **Workbench** + connectors — check the list)
+   - **Server only** — **MySQL Server only** (no Workbench — use CLI or install Workbench later)
+   - **Custom** — Pick exactly which products (recommended if you want **Server** without Workbench, or vice versa)
+   - **Full** — Everything in the catalog (large)
 
 ### Step 3: Configure Server
 
@@ -231,23 +249,26 @@ SHOW DATABASES;
 
 ### Connect to Server
 
-1. Open MySQL Workbench
-2. Click "+" to add connection
-3. Enter:
-   - **Connection Name**: Local MySQL
-   - **Hostname**: localhost
-   - **Port**: 3306
-   - **Username**: root (or your user)
-   - **Password**: Click "Store in Keychain"
-4. Click "Test Connection"
-5. Click "OK"
+Workbench is **not** a substitute for installing **MySQL Server**. If **Test Connection** fails:
+
+1. Confirm **mysqld** is running (Windows Services, Docker, or systemctl on Linux).
+2. Confirm **port 3306** (or your custom port). On some systems, use **\`127.0.0.1\`** instead of \`localhost\` if the client resolves hostnames unexpectedly.
+3. **MySQL 8** default authentication is **caching_sha2_password** — current Workbench supports it; older clients may need a user with **mysql_native_password** (legacy).
+
+**Add a connection:**
+
+1. Open MySQL Workbench → home screen.
+2. **MySQL Connections** → **+** (or **Database** → **Manage Connections**).
+3. **Connection Method:** Standard (TCP/IP).
+4. **Hostname:** \`127.0.0.1\` · **Port:** \`3306\` · **Username:** \`root\` (or app user).
+5. **Password:** Store in Keychain / Vault, or prompt each time.
+6. **Test Connection** → **OK**.
 
 ### Create Database Visually
 
-1. Right-click in Schemas panel
-2. Select "Create Schema"
-3. Enter database name
-4. Click "Apply"
+1. Open the connection (double-click the tile).
+2. **Schemas** (left) → right-click → **Create Schema**.
+3. **Name** (e.g. \`mydb\`) → **Apply** → **Finish**.
 
 ---
 

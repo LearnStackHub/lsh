@@ -83,6 +83,48 @@ import {
   ThreadLifecycleShowcase,
   ThreadMethodsShowcase
 } from '../components/multithreading/showcases';
+import {
+  SpringBootIntroductionShowcase,
+  SpringBootProjectSetupShowcase,
+  SpringBootConfigurationShowcase,
+  SpringBootRestAPIShowcase,
+  SpringBootJPAShowcase,
+  SpringBootExceptionHandlingShowcase,
+  SpringBootValidationShowcase,
+  SpringBootSecurityShowcase,
+  SpringBootSMTPShowcase,
+  SpringBootPostmanSwaggerShowcase,
+  SpringBootTestingShowcase,
+  SpringBootDeploymentShowcase,
+  SpringBootActuatorShowcase,
+  SpringBootInterviewQuestionsShowcase
+} from '../components/springboot/showcases';
+import {
+  SpringFrameworkIntroductionShowcase,
+  SpringFrameworkIOCShowcase,
+  SpringFrameworkDIShowcase,
+  SpringFrameworkBeanShowcase,
+  SpringFrameworkApplicationContextShowcase,
+  SpringFrameworkConfigurationXmlShowcase,
+  SpringFrameworkConfigurationAnnotationShowcase,
+  SpringFrameworkDispatcherServletShowcase,
+  SpringFrameworkMVCControllerShowcase,
+  SpringFrameworkMVCViewResolverShowcase,
+  SpringFrameworkMVCModelAndViewShowcase,
+  SpringFrameworkProjectCrudShowcase,
+  SpringFrameworkDataIntroductionShowcase,
+  SpringFrameworkDataRepositoryArchitectureShowcase,
+  SpringFrameworkJdbcTemplateShowcase,
+  SpringFrameworkDataCustomQueriesShowcase,
+  SpringFrameworkAOPIntroductionShowcase,
+  SpringFrameworkAOPAdvancedPointcutsShowcase,
+  SpringFrameworkAOPCustomAnnotationsShowcase,
+  SpringFrameworkAOPAspectOrderingShowcase,
+  SpringFrameworkAOPWithSpringBootShowcase,
+  SpringFrameworkInterviewQuestionsShowcase
+} from '../components/springframework/showcases';
+import { MySQLShowcaseRouter } from '../components/mysql/showcases';
+import { JDBC_SHOWCASE_TOPIC_IDS, JdbcShowcaseRouter } from '../components/jdbc/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
 
@@ -753,6 +795,44 @@ function Tutorial() {
         {topicId === 'thread-creation' && <ThreadCreationShowcase />}
         {topicId === 'thread-lifecycle' && <ThreadLifecycleShowcase />}
         {topicId === 'thread-methods' && <ThreadMethodsShowcase />}
+        {topicId === 'spring-boot-introduction' && <SpringBootIntroductionShowcase />}
+        {topicId === 'spring-boot-project-setup' && <SpringBootProjectSetupShowcase />}
+        {topicId === 'spring-boot-configuration' && <SpringBootConfigurationShowcase />}
+        {topicId === 'spring-boot-rest-api' && <SpringBootRestAPIShowcase />}
+        {topicId === 'spring-boot-jpa' && <SpringBootJPAShowcase />}
+        {topicId === 'spring-boot-exception-handling' && <SpringBootExceptionHandlingShowcase />}
+        {topicId === 'spring-boot-validation' && <SpringBootValidationShowcase />}
+        {topicId === 'spring-boot-security' && <SpringBootSecurityShowcase />}
+        {topicId === 'spring-boot-smtp' && <SpringBootSMTPShowcase />}
+        {topicId === 'spring-boot-postman-swagger' && <SpringBootPostmanSwaggerShowcase />}
+        {topicId === 'spring-boot-testing' && <SpringBootTestingShowcase />}
+        {topicId === 'spring-boot-deployment' && <SpringBootDeploymentShowcase />}
+        {topicId === 'spring-boot-actuator' && <SpringBootActuatorShowcase />}
+        {topicId === 'spring-boot-interview-questions' && <SpringBootInterviewQuestionsShowcase />}
+        {topicId === 'spring-introduction' && <SpringFrameworkIntroductionShowcase />}
+        {topicId === 'spring-ioc' && <SpringFrameworkIOCShowcase />}
+        {topicId === 'spring-di' && <SpringFrameworkDIShowcase />}
+        {topicId === 'spring-bean' && <SpringFrameworkBeanShowcase />}
+        {topicId === 'spring-applicationcontext' && <SpringFrameworkApplicationContextShowcase />}
+        {topicId === 'spring-configuration-xml' && <SpringFrameworkConfigurationXmlShowcase />}
+        {topicId === 'spring-configuration-annotation' && <SpringFrameworkConfigurationAnnotationShowcase />}
+        {topicId === 'spring-mvc-dispatcherservlet' && <SpringFrameworkDispatcherServletShowcase />}
+        {topicId === 'spring-mvc-controller' && <SpringFrameworkMVCControllerShowcase />}
+        {topicId === 'spring-mvc-viewresolver' && <SpringFrameworkMVCViewResolverShowcase />}
+        {topicId === 'spring-mvc-modelandview' && <SpringFrameworkMVCModelAndViewShowcase />}
+        {topicId === 'spring-project-login-student-crud' && <SpringFrameworkProjectCrudShowcase />}
+        {topicId === 'spring-data-introduction' && <SpringFrameworkDataIntroductionShowcase />}
+        {topicId === 'spring-data-repository-architecture' && <SpringFrameworkDataRepositoryArchitectureShowcase />}
+        {topicId === 'spring-jdbc-template' && <SpringFrameworkJdbcTemplateShowcase />}
+        {topicId === 'spring-data-custom-queries' && <SpringFrameworkDataCustomQueriesShowcase />}
+        {topicId === 'spring-aop-introduction' && <SpringFrameworkAOPIntroductionShowcase />}
+        {topicId === 'spring-aop-advanced-pointcuts' && <SpringFrameworkAOPAdvancedPointcutsShowcase />}
+        {topicId === 'spring-aop-custom-annotations' && <SpringFrameworkAOPCustomAnnotationsShowcase />}
+        {topicId === 'spring-aop-aspect-ordering' && <SpringFrameworkAOPAspectOrderingShowcase />}
+        {topicId === 'spring-aop-spring-boot' && <SpringFrameworkAOPWithSpringBootShowcase />}
+        {topicId === 'spring-interview-questions' && <SpringFrameworkInterviewQuestionsShowcase />}
+        {topicId.startsWith('mysql-') && <MySQLShowcaseRouter topicId={topicId} />}
+        {JDBC_SHOWCASE_TOPIC_IDS.has(topicId) && <JdbcShowcaseRouter topicId={topicId} />}
         {renderContent(currentTopic.content)}
         
         {/* Internal Links Section */}

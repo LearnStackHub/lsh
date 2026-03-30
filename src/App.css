@@ -6803,3 +6803,973 @@ code {
 .flowchart-pro-threadlife .flowchart-pro-svg {
   min-height: min(250px, 58vh);
 }
+
+/* Spring Boot showcase — Spring green / forest panels */
+.sb-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(109, 179, 63, 0.38);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(109, 179, 63, 0.14), transparent 42%),
+    radial-gradient(circle at 100% 100%, rgba(22, 101, 52, 0.12), transparent 45%),
+    linear-gradient(180deg, #0f172a 0%, #0c1a12 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.sb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.sb-tab {
+  border: 1px solid rgba(134, 239, 172, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #d1fae5;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sb-tab.active {
+  background: linear-gradient(135deg, #6db33f, #22c55e);
+  color: #fff;
+  border-color: transparent;
+}
+
+.sb-panel {
+  margin-top: 0.25rem;
+}
+
+.sb-caption {
+  margin: 0.8rem 0 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.58;
+}
+
+.sb-caption code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(109, 179, 63, 0.15);
+  color: #bbf7d0;
+}
+
+.sb-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(109, 179, 63, 0.4);
+  background:
+    linear-gradient(135deg, rgba(109, 179, 63, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(12, 26, 18, 0.75) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(22, 101, 52, 0.18);
+}
+
+.sb-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #86efac;
+}
+
+.sb-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ecfdf5;
+  letter-spacing: -0.02em;
+}
+
+.sb-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.sb-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.sb-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(109, 179, 63, 0.28);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sb-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #052e16;
+  background: linear-gradient(135deg, #6db33f, #22c55e);
+}
+
+.sb-why-body {
+  min-width: 0;
+}
+
+.sb-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #d1fae5;
+  margin-bottom: 0.25rem;
+}
+
+.sb-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.sb-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(109, 179, 63, 0.32);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(109, 179, 63, 0.08), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(12, 26, 18, 0.88) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(22, 101, 52, 0.12);
+}
+
+.sb-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.sb-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(109, 179, 63, 0.38);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.sb-diagram-frame .flowchart-pro-title {
+  color: #bbf7d0;
+}
+
+.sb-diagram-frame .flowchart-pro-fresher {
+  color: #94a3b8;
+}
+
+.sb-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.sb-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sb-callout-body {
+  color: #cbd5e1;
+}
+
+.sb-callout-body p {
+  margin: 0.35rem 0 0;
+}
+
+.sb-callout-body p:first-child {
+  margin-top: 0;
+}
+
+.sb-callout--tip {
+  background: rgba(109, 179, 63, 0.1);
+  border-color: rgba(134, 239, 172, 0.4);
+}
+
+.sb-callout--tip .sb-callout-title {
+  color: #86efac;
+}
+
+.sb-callout--remember {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.sb-callout--remember .sb-callout-title {
+  color: #cbd5e1;
+}
+
+.sb-callout--watch {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.sb-callout--watch .sb-callout-title {
+  color: #fcd34d;
+}
+
+.flowchart-pro-springboot .flowchart-pro-svg {
+  min-height: min(280px, 48vh);
+}
+
+.flowchart-pro-springboot-wide .flowchart-pro-svg {
+  min-height: min(200px, 42vh);
+}
+
+/* Taller Spring Boot flowcharts (bootstrap, validation diamond, etc.) */
+.flowchart-pro-springboot-flow .flowchart-pro-svg {
+  min-height: min(280px, 52vh);
+}
+
+/* Spring Boot “real scenario” flowcharts (JWT, checkout, cache, K8s, …) */
+.flowchart-pro-springboot-scenario .flowchart-pro-svg {
+  min-height: min(300px, 55vh);
+}
+
+/* Spring Framework showcase — Spring green #6DB33F, distinct tab chrome from Spring Boot */
+.sf-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(109, 179, 63, 0.42);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(13, 148, 136, 0.1), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(109, 179, 63, 0.12), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #0a1412 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.sf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.sf-tab {
+  border: 1px solid rgba(109, 179, 63, 0.38);
+  background: rgba(15, 23, 42, 0.65);
+  color: #d1fae5;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sf-tab.active {
+  background: linear-gradient(135deg, #0d9488, #6db33f);
+  color: #fff;
+  border-color: transparent;
+}
+
+.sf-panel {
+  margin-top: 0.25rem;
+}
+
+.sf-caption {
+  margin: 0.8rem 0 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.58;
+}
+
+.sf-caption code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(109, 179, 63, 0.12);
+  color: #bbf7d0;
+}
+
+.sf-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(13, 148, 136, 0.35);
+  background:
+    linear-gradient(135deg, rgba(109, 179, 63, 0.1) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 20, 18, 0.78) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(13, 148, 136, 0.12);
+}
+
+.sf-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5eead4;
+}
+
+.sf-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ecfdf5;
+  letter-spacing: -0.02em;
+}
+
+.sf-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.sf-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.sf-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(109, 179, 63, 0.26);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sf-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #052e16;
+  background: linear-gradient(135deg, #0d9488, #6db33f);
+}
+
+.sf-why-body {
+  min-width: 0;
+}
+
+.sf-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #d1fae5;
+  margin-bottom: 0.25rem;
+}
+
+.sf-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.sf-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(109, 179, 63, 0.3);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(109, 179, 63, 0.07), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(10, 20, 18, 0.88) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(13, 148, 136, 0.12);
+}
+
+.sf-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.sf-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(109, 179, 63, 0.35);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.sf-diagram-frame .flowchart-pro-title {
+  color: #a7f3d0;
+}
+
+.sf-diagram-frame .flowchart-pro-fresher {
+  color: #94a3b8;
+}
+
+.sf-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.sf-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sf-callout-body {
+  color: #cbd5e1;
+}
+
+.sf-callout--tip {
+  background: rgba(109, 179, 63, 0.1);
+  border-color: rgba(134, 239, 172, 0.38);
+}
+
+.sf-callout--tip .sf-callout-title {
+  color: #86efac;
+}
+
+.sf-callout--remember {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.sf-callout--remember .sf-callout-title {
+  color: #cbd5e1;
+}
+
+.sf-callout--watch {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.sf-callout--watch .sf-callout-title {
+  color: #fcd34d;
+}
+
+.flowchart-pro-springframework .flowchart-pro-svg {
+  min-height: min(240px, 46vh);
+}
+
+.flowchart-pro-springframework-wide .flowchart-pro-svg {
+  min-height: min(200px, 42vh);
+}
+
+.flowchart-pro-springframework-flow .flowchart-pro-svg {
+  min-height: min(260px, 50vh);
+}
+
+.flowchart-pro-springframework-scenario .flowchart-pro-svg {
+  min-height: min(280px, 52vh);
+}
+
+/* MySQL tutorial showcases — teal / cyan (brand-adjacent to #00758F) */
+.mysql-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(0, 117, 143, 0.42);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(6, 182, 212, 0.12), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(249, 115, 22, 0.08), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #0c1a1f 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.mysql-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.mysql-tab {
+  border: 1px solid rgba(6, 182, 212, 0.38);
+  background: rgba(15, 23, 42, 0.65);
+  color: #cffafe;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mysql-tab.active {
+  background: linear-gradient(135deg, #0e7490, #0891b2);
+  color: #fff;
+  border-color: transparent;
+}
+
+.mysql-panel {
+  margin-top: 0.25rem;
+}
+
+.mysql-showcase-lead {
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: #cbd5e1;
+  margin: 0 0 1rem;
+  max-width: 62ch;
+}
+
+.mysql-showcase-lead code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(6, 182, 212, 0.15);
+  color: #a5f3fc;
+  font-size: 0.88em;
+}
+
+.mysql-caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  color: #94a3b8;
+}
+
+.mysql-caption code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(6, 182, 212, 0.12);
+  color: #a5f3fc;
+  font-size: 0.88em;
+}
+
+.mysql-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  background:
+    linear-gradient(135deg, rgba(0, 117, 143, 0.14) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 22, 28, 0.82) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(8, 145, 178, 0.12);
+}
+
+.mysql-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.mysql-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ecfeff;
+  letter-spacing: -0.02em;
+}
+
+.mysql-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.mysql-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.mysql-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(6, 182, 212, 0.26);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.mysql-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0c4a6e;
+  background: linear-gradient(135deg, #0e7490, #0891b2);
+}
+
+.mysql-why-body {
+  min-width: 0;
+}
+
+.mysql-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #cffafe;
+  margin-bottom: 0.25rem;
+}
+
+.mysql-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.mysql-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(0, 117, 143, 0.42);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6, 182, 212, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(10, 20, 26, 0.9) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(8, 145, 178, 0.1);
+}
+
+.mysql-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.mysql-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(0, 117, 143, 0.45);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.mysql-diagram-frame .flowchart-pro-title {
+  color: #a5f3fc;
+}
+
+.mysql-diagram-frame .flowchart-pro-fresher {
+  color: #94a3b8;
+}
+
+.mysql-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.mysql-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mysql-callout-body {
+  color: #cbd5e1;
+}
+
+.mysql-callout--tip {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(103, 232, 249, 0.35);
+}
+
+.mysql-callout--tip .mysql-callout-title {
+  color: #67e8f9;
+}
+
+.mysql-callout--remember {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.mysql-callout--remember .mysql-callout-title {
+  color: #cbd5e1;
+}
+
+.flowchart-pro-mysql-scenario .flowchart-pro-svg {
+  min-height: min(300px, 56vh);
+}
+
+/* JDBC tutorial showcases — #4479A1 */
+.jdbc-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(68, 121, 161, 0.45);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.12), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(68, 121, 161, 0.1), transparent 46%),
+    linear-gradient(180deg, #0f172a 0%, #0d1520 100%);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+}
+
+.jdbc-showcase-lead {
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: #cbd5e1;
+  margin: 0 0 1rem;
+  max-width: 62ch;
+}
+
+.jdbc-showcase-lead code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(68, 121, 161, 0.2);
+  color: #bfdbfe;
+  font-size: 0.88em;
+}
+
+.jdbc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+}
+
+.jdbc-tab {
+  border: 1px solid rgba(96, 165, 250, 0.38);
+  background: rgba(15, 23, 42, 0.65);
+  color: #dbeafe;
+  border-radius: 9px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.jdbc-tab.active {
+  background: linear-gradient(135deg, #4479a1, #2563eb);
+  color: #fff;
+  border-color: transparent;
+}
+
+.jdbc-caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  color: #94a3b8;
+}
+
+.jdbc-caption code {
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(68, 121, 161, 0.18);
+  color: #bfdbfe;
+  font-size: 0.88em;
+}
+
+.jdbc-callout {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.jdbc-callout-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.jdbc-callout-body {
+  color: #cbd5e1;
+}
+
+.jdbc-callout-body p {
+  margin: 0.35rem 0 0;
+}
+
+.jdbc-callout-body p:first-child {
+  margin-top: 0;
+}
+
+.jdbc-callout--tip {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(147, 197, 253, 0.4);
+}
+
+.jdbc-callout--tip .jdbc-callout-title {
+  color: #93c5fd;
+}
+
+.jdbc-callout--remember {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.jdbc-callout--remember .jdbc-callout-title {
+  color: #cbd5e1;
+}
+
+.jdbc-panel {
+  margin-top: 0.25rem;
+}
+
+.jdbc-hero {
+  margin: 0 0 1.15rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(68, 121, 161, 0.38);
+  background:
+    linear-gradient(135deg, rgba(68, 121, 161, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(12, 18, 28, 0.85) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(68, 121, 161, 0.12);
+}
+
+.jdbc-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.jdbc-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #eff6ff;
+  letter-spacing: -0.02em;
+}
+
+.jdbc-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 52ch;
+}
+
+.jdbc-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 1.1rem;
+}
+
+.jdbc-why-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(68, 121, 161, 0.28);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.jdbc-why-num {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #eff6ff;
+  background: linear-gradient(135deg, #4479a1, #2563eb);
+}
+
+.jdbc-why-body {
+  min-width: 0;
+}
+
+.jdbc-why-card-title {
+  display: block;
+  font-size: 0.86rem;
+  color: #dbeafe;
+  margin-bottom: 0.25rem;
+}
+
+.jdbc-why-card-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.jdbc-diagram-frame {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0.5rem 0.55rem 0.65rem;
+  border: 1px solid rgba(68, 121, 161, 0.42);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(68, 121, 161, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(10, 16, 26, 0.9) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 40px rgba(68, 121, 161, 0.1);
+}
+
+.jdbc-diagram-frame .flowchart-pro {
+  margin-bottom: 0;
+}
+
+.jdbc-diagram-frame .flowchart-pro-svg {
+  border-radius: 12px;
+  border-color: rgba(68, 121, 161, 0.45);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+}
+
+.jdbc-diagram-frame .flowchart-pro-title {
+  color: #bfdbfe;
+}
+
+.jdbc-diagram-frame .flowchart-pro-fresher {
+  color: #94a3b8;
+}
+
+.flowchart-pro-jdbc-scenario .flowchart-pro-svg {
+  min-height: min(300px, 56vh);
+}

@@ -42,6 +42,64 @@ function useSvgPrefix() {
   return `flow-${id}`;
 }
 
+/** Teal/orange accents for MySQL scenario diagrams (brand-adjacent) */
+function MySQLDefs({ prefix }) {
+  return (
+    <defs>
+      <linearGradient id={`${prefix}-mysql-node`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#ecfeff" />
+        <stop offset="100%" stopColor="#cffafe" />
+      </linearGradient>
+      <linearGradient id={`${prefix}-mysql-deep`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#00758F" />
+        <stop offset="100%" stopColor="#005a6e" />
+      </linearGradient>
+      <filter id={`${prefix}-mysql-glow`} x="-15%" y="-15%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#00758F" floodOpacity="0.15" />
+      </filter>
+      <marker
+        id={`${prefix}-mysql-arrow`}
+        markerWidth="10"
+        markerHeight="7"
+        refX="9"
+        refY="3.5"
+        orient="auto"
+      >
+        <polygon points="0 0, 10 3.5, 0 7" fill="#00758F" />
+      </marker>
+    </defs>
+  );
+}
+
+/** JDBC course palette — blue #4479A1 */
+function JdbcDefs({ prefix }) {
+  return (
+    <defs>
+      <linearGradient id={`${prefix}-jdbc-node`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#f0f9ff" />
+        <stop offset="100%" stopColor="#e0f2fe" />
+      </linearGradient>
+      <linearGradient id={`${prefix}-jdbc-deep`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4479A1" />
+        <stop offset="100%" stopColor="#2c5282" />
+      </linearGradient>
+      <filter id={`${prefix}-jdbc-glow`} x="-15%" y="-15%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#4479A1" floodOpacity="0.14" />
+      </filter>
+      <marker
+        id={`${prefix}-jdbc-arrow`}
+        markerWidth="10"
+        markerHeight="7"
+        refX="9"
+        refY="3.5"
+        orient="auto"
+      >
+        <polygon points="0 0, 10 3.5, 0 7" fill="#4479A1" />
+      </marker>
+    </defs>
+  );
+}
+
 /** Title + optional plain-English line for beginners */
 function FlowchartFigcaption({ title, fresher }) {
   if (!title && !fresher) return null;
@@ -3218,6 +3276,3635 @@ export function SerializableClassDiagram() {
 
         <text x="260" y="198" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
           InvalidClassException if UID mismatches between writer and reader.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Spring Boot — runtime stack from JVM to your app */
+export function SpringBootArchitectureStackDiagram() {
+  const p = useSvgPrefix();
+  const mono = 'ui-monospace, Consolas, monospace';
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const layers = [
+    { y: 44, h: 52, fill: '#ecfdf5', stroke: '#16a34a', title: 'Your code', sub: '@SpringBootApplication · @RestController · @Service', fs: 9 },
+    { y: 108, h: 52, fill: '#dcfce7', stroke: '#22c55e', title: 'Spring Boot', sub: 'auto-configuration · starters · Actuator hooks', fs: 9 },
+    { y: 172, h: 52, fill: '#bbf7d0', stroke: '#15803d', title: 'Spring Framework', sub: 'IoC · MVC · Data · Security (building blocks)', fs: 8.5 },
+    { y: 236, h: 52, fill: '#d1fae5', stroke: '#059669', title: 'Embedded server', sub: 'Tomcat / Jetty / Undertow (no separate WAR deploy)', fs: 8.5 },
+    { y: 300, h: 44, fill: '#f1f5f9', stroke: '#64748b', title: 'JVM', sub: 'Java runtime', fs: 9 }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot" role="img" aria-label="Spring Boot architecture stack">
+      <FlowchartFigcaption
+        title="Spring Boot sits on Spring + an embedded server"
+        fresher="You write a main class with @SpringBootApplication; Spring Boot wires beans, HTTP handling, and data access from classpath starters. The embedded server runs inside the same JVM process—ideal for microservices and fast local dev."
+      />
+      <svg viewBox="0 0 720 360" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="8" width="672" height="344" rx="16" fill="#f8fafc" stroke="#86efac" strokeWidth="1.5" />
+        <text x="360" y="30" textAnchor="middle" fontSize="10" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          One process: app layer down to the JVM
+        </text>
+        {layers.map((L) => (
+          <g key={L.title}>
+            <rect x="80" y={L.y} width="560" height={L.h} rx="10" fill={L.fill} stroke={L.stroke} strokeWidth="1.4" filter={`url(#${p}-shadow)`} />
+            <text x="360" y={L.y + 22} textAnchor="middle" fontSize={L.fs} fontWeight="800" fill="#14532d" fontFamily={mono}>
+              {L.title}
+            </text>
+            <text x="360" y={L.y + 40} textAnchor="middle" fontSize="7.5" fill="#365314" fontFamily={sans}>
+              {L.sub}
+            </text>
+          </g>
+        ))}
+        <line x1="360" y1="96" x2="360" y2="108" stroke="#64748b" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="360" y1="160" x2="360" y2="172" stroke="#64748b" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="360" y1="224" x2="360" y2="236" stroke="#64748b" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <line x1="360" y1="288" x2="360" y2="300" stroke="#64748b" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+
+        <text x="360" y="348" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily={sans}>
+          Starters pull in compatible versions—think “batteries included” dependency sets.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Spring MVC request path inside Spring Boot */
+export function SpringBootWebRequestFlowDiagram() {
+  const p = useSvgPrefix();
+  const steps = [
+    { x: 28, label: 'Client', sub: 'HTTP' },
+    { x: 128, label: 'Embedded\nserver', sub: 'Tomcat' },
+    { x: 228, label: 'Dispatcher\nServlet', sub: 'Spring MVC' },
+    { x: 328, label: '@Controller /\n@RestController', sub: 'handler' },
+    { x: 428, label: '@Service', sub: 'business' },
+    { x: 528, label: '@Repository', sub: 'data' },
+    { x: 628, label: 'DB / API', sub: 'persistence' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-wide" role="img" aria-label="Spring Boot web request flow">
+      <FlowchartFigcaption
+        title="A REST request through Spring Boot"
+        fresher="The embedded server receives HTTP, dispatches to Spring MVC, your controller maps URLs to methods, services hold business rules, repositories talk to databases. Filters and interceptors can wrap this path for security and logging."
+      />
+      <svg viewBox="0 0 760 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="12" y="36" width="736" height="120" rx="12" fill="#f0fdf4" stroke="#86efac" strokeWidth="1.2" />
+        {steps.map((s, i) => (
+          <g key={s.label}>
+            <rect x={s.x} y="56" width="88" height="76" rx="8" fill="#ffffff" stroke="#22c55e" strokeWidth="1.1" filter={`url(#${p}-shadow)`} />
+            <text x={s.x + 44} y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+              {s.label.split('\n').map((line, li) => (
+                <tspan key={line} x={s.x + 44} dy={li === 0 ? 0 : 11}>
+                  {line}
+                </tspan>
+              ))}
+            </text>
+            <text x={s.x + 44} y="118" textAnchor="middle" fontSize="6.5" fill="#4d7c0f" fontFamily="system-ui">
+              {s.sub}
+            </text>
+            {i < steps.length - 1 && (
+              <line
+                x1={s.x + 92}
+                y1="94"
+                x2={steps[i + 1].x - 4}
+                y2="94"
+                stroke="#16a34a"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+        <text x="380" y="178" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
+          JSON/XML conversion happens in the MVC layer (HttpMessageConverters) for @RestController.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Starters + BOM mental model */
+export function SpringBootStartersDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro" role="img" aria-label="Spring Boot starters">
+      <FlowchartFigcaption
+        title="Starters bundle dependencies that work together"
+        fresher="spring-boot-starter-web brings Spring MVC + Jackson + embedded Tomcat. spring-boot-starter-data-jpa adds Hibernate + a connection pool. The Spring Boot BOM keeps versions aligned so you avoid classpath conflicts."
+      />
+      <svg viewBox="0 0 700 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="200" y="16" width="300" height="44" rx="10" fill="#14532d" stroke="#166534" filter={`url(#${p}-shadow)`} />
+        <text x="350" y="34" textAnchor="middle" fontSize="10" fontWeight="800" fill="#ffffff" fontFamily="ui-monospace">
+          spring-boot-starter-parent (BOM)
+        </text>
+        <text x="350" y="50" textAnchor="middle" fontSize="7" fill="#bbf7d0" fontFamily="system-ui">
+          manages dependency versions
+        </text>
+
+        <line x1="350" y1="60" x2="350" y2="78" stroke="#22c55e" strokeWidth="2" />
+
+        <rect x="40" y="82" width="180" height="100" rx="10" fill="#ecfdf5" stroke="#22c55e" />
+        <text x="130" y="108" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          starter-web
+        </text>
+        <text x="130" y="128" textAnchor="middle" fontSize="7" fill="#365314" fontFamily="system-ui">
+          MVC · Jackson · Tomcat
+        </text>
+
+        <rect x="260" y="82" width="180" height="100" rx="10" fill="#ecfdf5" stroke="#16a34a" />
+        <text x="350" y="108" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          starter-data-jpa
+        </text>
+        <text x="350" y="128" textAnchor="middle" fontSize="7" fill="#365314" fontFamily="system-ui">
+          Hibernate · JDBC pool
+        </text>
+
+        <rect x="480" y="82" width="180" height="100" rx="10" fill="#ecfdf5" stroke="#15803d" />
+        <text x="570" y="108" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          starter-security
+        </text>
+        <text x="570" y="128" textAnchor="middle" fontSize="7" fill="#365314" fontFamily="system-ui">
+          filters · auth
+        </text>
+
+        <text x="350" y="206" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
+          Add only the starters you need—extra starters increase classpath and startup time.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** JPA layering in a typical Boot app */
+export function SpringBootJpaPersistenceDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro" role="img" aria-label="Spring Data JPA layers">
+      <FlowchartFigcaption
+        title="Spring Data JPA — from entity to database"
+        fresher="Entities map tables; Spring Data creates repository implementations at runtime; services orchestrate transactions. Spring Boot configures DataSource and Hibernate from application.properties."
+      />
+      <svg viewBox="0 0 640 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="220" y="16" width="200" height="36" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="320" y="38" textAnchor="middle" fontSize="9" fontWeight="800" fill="#1e3a8a" fontFamily="ui-monospace">
+          @Entity
+        </text>
+
+        <line x1="320" y1="52" x2="320" y2="72" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+
+        <rect x="160" y="76" width="320" height="44" rx="8" fill="#eff6ff" stroke="#3b82f6" />
+        <text x="320" y="98" textAnchor="middle" fontSize="9" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          JpaRepository&lt;Entity, Id&gt;
+        </text>
+        <text x="320" y="114" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          query methods · paging · @Query
+        </text>
+
+        <line x1="320" y1="120" x2="320" y2="140" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+
+        <rect x="120" y="144" width="400" height="40" rx="8" fill="#f0fdf4" stroke="#22c55e" />
+        <text x="320" y="168" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          DataSource → Hibernate → JDBC → Database
+        </text>
+
+        <text x="320" y="220" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
+          @Transactional on service methods defines boundary; avoid lazy-loading outside a session.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Security filter chain (simplified) */
+export function SpringBootSecurityFilterDiagram() {
+  const p = useSvgPrefix();
+  const filters = ['SecurityContext', 'Logout', 'UsernamePassword', 'ExceptionTranslation', 'FilterSecurity'];
+  return (
+    <figure className="flowchart-pro" role="img" aria-label="Spring Security filter chain">
+      <FlowchartFigcaption
+        title="Spring Security — request passes through filters"
+        fresher="Before your controller, the chain authenticates and authorizes. Custom filters can be inserted; order matters. Method security (@PreAuthorize) runs after the chain establishes the SecurityContext."
+      />
+      <svg viewBox="0 0 720 160" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="20" y="28" width="680" height="88" rx="10" fill="#fff7ed" stroke="#ea580c" />
+        <text x="360" y="52" textAnchor="middle" fontSize="9" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          FilterChainProxy (simplified)
+        </text>
+        {filters.map((f, i) => (
+          <rect key={f} x={28 + i * 132} y="62" width="120" height="40" rx="6" fill="#ffedd5" stroke="#fb923c" />
+        ))}
+        {filters.map((f, i) => (
+          <text key={f} x={88 + i * 132} y="86" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#7c2d12" fontFamily="ui-monospace">
+            {f}
+          </text>
+        ))}
+        <text x="360" y="138" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
+          Names vary by config; concept: each filter can veto or enrich the request before servlets.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Actuator HTTP endpoints (subset) */
+export function SpringBootActuatorDiagram() {
+  const p = useSvgPrefix();
+  const eps = [
+    { path: '/actuator/health', note: 'liveness / readiness' },
+    { path: '/actuator/metrics', note: 'JVM · HTTP' },
+    { path: '/actuator/info', note: 'build metadata' },
+    { path: '/actuator/env', note: 'properties (careful)' }
+  ];
+  return (
+    <figure className="flowchart-pro" role="img" aria-label="Spring Boot Actuator endpoints">
+      <FlowchartFigcaption
+        title="Actuator — production observability"
+        fresher="Add spring-boot-starter-actuator to expose health and metrics over HTTP or JMX. Secure sensitive endpoints in production; expose only what your platform needs."
+      />
+      <svg viewBox="0 0 640 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="180" y="20" width="280" height="40" rx="8" fill="#14532d" stroke="#166534" />
+        <text x="320" y="44" textAnchor="middle" fontSize="10" fontWeight="800" fill="#ffffff" fontFamily="ui-monospace">
+          Actuator
+        </text>
+        {eps.map((e, i) => (
+          <g key={e.path}>
+            <rect x="48" y={72 + i * 30} width="544" height="26" rx="6" fill="#f0fdf4" stroke="#22c55e" />
+            <text x="60" y={90 + i * 30} fontSize="7.5" fontWeight="700" fill="#14532d" fontFamily="ui-monospace">
+              {e.path}
+            </text>
+            <text x="580" y={90 + i * 30} textAnchor="end" fontSize="7" fill="#64748b" fontFamily="system-ui">
+              {e.note}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Vertical bootstrap flow — how the app actually starts */
+export function SpringBootBootstrapFlowDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const mono = 'ui-monospace, Consolas, monospace';
+  const nodes = [
+    { y: 16, h: 36, t: 'main(String[] args)', s: 'entry point' },
+    { y: 64, h: 36, t: 'SpringApplication.run(…)', s: 'creates application context' },
+    { y: 112, h: 36, t: 'Context refresh', s: 'scan @Configuration, @Component' },
+    { y: 160, h: 36, t: 'Auto-configuration', s: '@Conditional* on classpath' },
+    { y: 208, h: 36, t: 'Embedded server bind', s: 'Tomcat listens on port' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="Spring Boot bootstrap sequence">
+      <FlowchartFigcaption
+        title="Bootstrap sequence — from main() to listening port"
+        fresher="Execution is top-to-bottom: the JVM runs main(), Boot builds the Spring context, auto-config registers beans when conditions match, then the embedded server accepts HTTP. This is the real “startup story” behind @SpringBootApplication."
+      />
+      <svg viewBox="0 0 560 290" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="8" width="512" height="274" rx="14" fill="#f8fafc" stroke="#86efac" strokeWidth="1.2" />
+        <text x="280" y="26" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          Startup flow (read top → bottom)
+        </text>
+        {nodes.map((n, i) => (
+          <g key={n.t}>
+            <rect x="100" y={n.y} width="360" height={n.h} rx="8" fill="#ecfdf5" stroke="#16a34a" strokeWidth="1.2" filter={`url(#${p}-shadow)`} />
+            <text x="280" y={n.y + 16} textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={mono}>
+              {n.t}
+            </text>
+            <text x="280" y={n.y + 30} textAnchor="middle" fontSize="7" fill="#365314" fontFamily={sans}>
+              {n.s}
+            </text>
+            {i < nodes.length - 1 && (
+              <line x1="280" y1={n.y + n.h} x2="280" y2={nodes[i + 1].y - 2} stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Config precedence — higher band wins (simplified) */
+export function SpringBootConfigPrecedenceFlowDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const bands = [
+    { y: 200, w: 480, label: 'application.properties / application.yml', sub: 'base defaults', rank: '1 — lowest' },
+    { y: 152, w: 440, label: 'application-{profile}.* + profile-specific imports', sub: 'dev / prod overlays', rank: '2' },
+    { y: 104, w: 400, label: 'OS environment variables (SPRING_*)', sub: 'container / shell', rank: '3' },
+    { y: 56, w: 360, label: 'Command-line arguments', sub: '--server.port=8081', rank: '4 — wins' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="Spring Boot configuration precedence">
+      <FlowchartFigcaption
+        title="Configuration precedence — who overrides whom"
+        fresher="Later sources in the chain override earlier ones. Same key in a higher band wins. This is why you can set a default in YAML but override it in Docker env vars or K8s without rebuilding."
+      />
+      <svg viewBox="0 0 560 260" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="20" y="12" width="520" height="236" rx="12" fill="#f0fdf4" stroke="#22c55e" strokeWidth="1" />
+        <text x="280" y="32" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          Higher on the diagram = higher precedence (overrides below)
+        </text>
+        {bands.map((b) => (
+          <g key={b.label}>
+            <rect x={(560 - b.w) / 2} y={b.y} width={b.w} height="40" rx="8" fill="#ffffff" stroke="#15803d" strokeWidth="1.1" filter={`url(#${p}-shadow)`} />
+            <text x="280" y={b.y + 16} textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+              {b.label}
+            </text>
+            <text x="280" y={b.y + 30} textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+              {b.sub} · {b.rank}
+            </text>
+          </g>
+        ))}
+        <text x="280" y="248" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          Exact rules include optional config locations; this is the mental model for interviews.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** @Valid decision — valid vs 400 branch */
+export function SpringBootValidationDecisionFlowDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="Bean validation decision flow">
+      <FlowchartFigcaption
+        title="Validation flow — success path vs error path"
+        fresher="After JSON binds to your DTO, Hibernate Validator runs the annotations. If every constraint passes, your controller method runs. If not, Spring throws before the method body and your @ControllerAdvice can format field errors."
+      />
+      <svg viewBox="0 0 640 280" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="220" y="16" width="200" height="36" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="320" y="38" textAnchor="middle" fontSize="9" fontWeight="800" fill="#1e40af" fontFamily="system-ui">
+          HTTP request + @RequestBody DTO
+        </text>
+        <line x1="320" y1="52" x2="320" y2="68" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+
+        <rect x="232" y="72" width="176" height="32" rx="8" fill="#eff6ff" stroke="#3b82f6" />
+        <text x="320" y="92" textAnchor="middle" fontSize="8" fontWeight="700" fill="#1e3a8a" fontFamily="ui-monospace">
+          @Valid triggers validation
+        </text>
+        <line x1="320" y1="104" x2="320" y2="120" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+
+        <path d="M 320 120 L 380 152 L 320 184 L 260 152 Z" fill="#fef9c3" stroke="#ca8a04" strokeWidth="1.4" />
+        <text x="320" y="156" textAnchor="middle" fontSize="8" fontWeight="800" fill="#854d0e" fontFamily={sans}>
+          all constraints
+        </text>
+        <text x="320" y="168" textAnchor="middle" fontSize="7" fill="#a16207" fontFamily={sans}>
+          OK?
+        </text>
+
+        <line x1="380" y1="152" x2="460" y2="152" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="410" y="144" fontSize="7" fill="#15803d" fontFamily={sans}>
+          yes
+        </text>
+        <rect x="468" y="132" width="152" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="544" y="150" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          Controller method
+        </text>
+        <text x="544" y="162" textAnchor="middle" fontSize="7" fill="#365314" fontFamily="system-ui">
+          runs · 200 OK
+        </text>
+
+        <line x1="260" y1="152" x2="120" y2="152" stroke="#dc2626" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="190" y="144" fontSize="7" fill="#b91c1c" fontFamily={sans}>
+          no
+        </text>
+        <rect x="16" y="128" width="100" height="48" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="66" y="148" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">
+          400 Bad Request
+        </text>
+        <text x="66" y="162" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          field errors JSON
+        </text>
+
+        <text x="320" y="220" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily={sans}>
+          Default handler: MethodArgumentNotValidException → customize with @ControllerAdvice.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Global exception handling path */
+export function SpringBootExceptionAdviceFlowDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="Controller advice exception flow">
+      <FlowchartFigcaption
+        title="Exception path — from throw to HTTP response"
+        fresher="Exceptions bubble out of services and controllers. @ControllerAdvice classes register @ExceptionHandler methods by exception type, so one place maps business errors to status codes and JSON bodies."
+      />
+      <svg viewBox="0 0 640 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="32" y="24" width="120" height="44" rx="8" fill={`url(#${p}-node-top)`} stroke="#94a3b8" />
+        <text x="92" y="50" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#0f172a" fontFamily="system-ui">
+          @RestController
+        </text>
+        <line x1="152" y1="46" x2="188" y2="46" stroke="#2563eb" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="170" y="40" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          throws
+        </text>
+
+        <rect x="196" y="24" width="120" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="256" y="48" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Service layer
+        </text>
+
+        <line x1="316" y1="46" x2="352" y2="46" stroke="#2563eb" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="360" y="24" width="120" height="44" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="420" y="48" textAnchor="middle" fontSize="8" fontWeight="800" fill="#991b1b" fontFamily="system-ui">
+          Exception
+        </text>
+
+        <line x1="420" y1="68" x2="420" y2="96" stroke="#64748b" strokeWidth="1.5" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="340" y="100" width="160" height="48" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="420" y="122" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          @ControllerAdvice
+        </text>
+        <text x="420" y="136" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          @ExceptionHandler
+        </text>
+
+        <line x1="420" y1="148" x2="420" y2="168" stroke="#2563eb" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="300" y="172" width="240" height="22" rx="6" fill="#ecfdf5" stroke="#22c55e" />
+        <text x="420" y="187" textAnchor="middle" fontSize="8" fontWeight="700" fill="#14532d" fontFamily="system-ui">
+          ResponseEntity / ProblemDetail → client
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Transaction commit vs rollback */
+export function SpringBootTransactionalFlowDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="Transactional commit and rollback">
+      <FlowchartFigcaption
+        title="@Transactional boundary — commit or rollback"
+        fresher="Spring starts a transaction when you enter an annotated method (usually on a service). If the method returns normally, the transaction commits. If an unchecked exception propagates out, the transaction rolls back by default."
+      />
+      <svg viewBox="0 0 560 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="160" y="16" width="240" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" />
+        <text x="280" y="38" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          @Transactional service method
+        </text>
+        <line x1="280" y1="52" x2="280" y2="72" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+
+        <path d="M 280 72 L 340 112 L 280 152 L 220 112 Z" fill="#fef9c3" stroke="#ca8a04" strokeWidth="1.3" />
+        <text x="280" y="116" textAnchor="middle" fontSize="8" fontWeight="800" fill="#854d0e" fontFamily={sans}>
+          uncaught runtime
+        </text>
+        <text x="280" y="128" textAnchor="middle" fontSize="7" fill="#a16207" fontFamily={sans}>
+          exception?
+        </text>
+
+        <line x1="340" y1="112" x2="420" y2="112" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="370" y="104" fontSize="7" fill="#15803d" fontFamily={sans}>
+          no
+        </text>
+        <rect x="428" y="92" width="112" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="484" y="110" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          COMMIT
+        </text>
+        <text x="484" y="122" textAnchor="middle" fontSize="6.5" fill="#365314" fontFamily={sans}>
+          DB persists
+        </text>
+
+        <line x1="220" y1="112" x2="140" y2="112" stroke="#dc2626" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="180" y="104" fontSize="7" fill="#b91c1c" fontFamily={sans}>
+          yes
+        </text>
+        <rect x="28" y="92" width="112" height="40" rx="8" fill="#fee2e2" stroke="#ef4444" />
+        <text x="84" y="110" textAnchor="middle" fontSize="8" fontWeight="800" fill="#991b1b" fontFamily="system-ui">
+          ROLLBACK
+        </text>
+        <text x="84" y="122" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          default rule
+        </text>
+
+        <text x="280" y="188" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          rollbackFor / noRollbackFor and readOnly tweak this behavior.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Deploy: build → artifact → run */
+export function SpringBootDeploymentPipelineFlowDiagram() {
+  const p = useSvgPrefix();
+  const steps = [
+    { x: 32, label: 'mvn package\ngradle build', sub: 'compile + test' },
+    { x: 168, label: 'Fat JAR\n/ WAR', sub: 'executable' },
+    { x: 304, label: 'Container\nimage', sub: 'optional' },
+    { x: 440, label: 'Run', sub: 'VM · K8s · cloud' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-wide" role="img" aria-label="Spring Boot deployment pipeline">
+      <FlowchartFigcaption
+        title="Deployment pipeline — artifact to runtime"
+        fresher="You compile and test, package a self-contained JAR, optionally bake a Docker image, then run where your platform schedules containers or VMs. Health checks from Actuator tell the orchestrator when traffic is safe."
+      />
+      <svg viewBox="0 0 600 140" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="16" y="28" width="568" height="92" rx="10" fill="#f0fdf4" stroke="#86efac" />
+        {steps.map((s, i) => (
+          <g key={s.label}>
+            <rect x={s.x} y="44" width="120" height="60" rx="8" fill="#ffffff" stroke="#16a34a" strokeWidth="1.1" filter={`url(#${p}-shadow)`} />
+            <text x={s.x + 60} y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+              {s.label.split('\n').map((line, li) => (
+                <tspan key={line} x={s.x + 60} dy={li === 0 ? 0 : 11}>
+                  {line}
+                </tspan>
+              ))}
+            </text>
+            <text x={s.x + 60} y="94" textAnchor="middle" fontSize="6.5" fill="#4d7c0f" fontFamily="system-ui">
+              {s.sub}
+            </text>
+            {i < steps.length - 1 && (
+              <line
+                x1={s.x + 124}
+                y1="74"
+                x2={steps[i + 1].x - 4}
+                y2="74"
+                stroke="#15803d"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** SMTP send sequence */
+export function SpringBootMailFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="JavaMail send sequence">
+      <FlowchartFigcaption
+        title="Sending mail — application to SMTP server"
+        fresher="Your service calls JavaMailSender; Spring Boot auto-configures it from spring.mail.* properties. The sender hands the MIME message to the configured SMTP host—TLS and auth follow your property settings."
+      />
+      <svg viewBox="0 0 620 180" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, w: 100, t: 'Controller /\nScheduler', c: '#dbeafe', stroke: '#2563eb' },
+          { x: 148, w: 100, t: 'Service', c: '#eff6ff', stroke: '#3b82f6' },
+          { x: 272, w: 120, t: 'JavaMailSender', c: '#fef3c7', stroke: '#f59e0b' },
+          { x: 416, w: 100, t: 'SMTP\nhost:port', c: '#ecfdf5', stroke: '#22c55e' },
+          { x: 540, w: 68, t: 'Inbox', c: '#f1f5f9', stroke: '#64748b' }
+        ].map((b, i, arr) => (
+          <g key={b.t}>
+            <rect x={b.x} y="48" width={b.w} height="56" rx="8" fill={b.c} stroke={b.stroke} filter={`url(#${p}-shadow)`} />
+            <text x={b.x + b.w / 2} y="74" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily="system-ui">
+              {b.t.split('\n').map((line, li) => (
+                <tspan key={line} x={b.x + b.w / 2} dy={li === 0 ? 0 : 11}>
+                  {line}
+                </tspan>
+              ))}
+            </text>
+            {i < arr.length - 1 && (
+              <line
+                x1={b.x + b.w + 4}
+                y1="76"
+                x2={arr[i + 1].x - 4}
+                y2="76"
+                stroke="#15803d"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+        <text x="310" y="130" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Async send + retries are often added around this path for resilience.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Testing pyramid for Spring Boot */
+export function SpringBootTestPyramidFlowDiagram() {
+  const p = useSvgPrefix();
+  const layers = [
+    { y: 120, w: 420, h: 36, t: 'Integration / @SpringBootTest', s: 'few, slow, high confidence' },
+    { y: 76, w: 320, h: 36, t: '@WebMvcTest · @DataJpaTest slices', s: 'medium count' },
+    { y: 32, w: 220, h: 36, t: 'Pure unit tests', s: 'many, fast' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="Spring Boot test pyramid">
+      <FlowchartFigcaption
+        title="Test pyramid — how many of each kind"
+        fresher="Lots of fast unit tests at the top of the pyramid, fewer slice tests that spin part of Spring, and a small set of full integration tests. This keeps CI fast while still catching wiring bugs."
+      />
+      <svg viewBox="0 0 480 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <text x="240" y="22" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          More tests ↑ · Broader scope ↓
+        </text>
+        {layers.map((L) => (
+          <g key={L.t}>
+            <rect x={240 - L.w / 2} y={L.y} width={L.w} height={L.h} rx="8" fill="#ecfdf5" stroke="#16a34a" filter={`url(#${p}-shadow)`} />
+            <text x="240" y={L.y + 16} textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+              {L.t}
+            </text>
+            <text x="240" y={L.y + 30} textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+              {L.s}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** OpenAPI doc flow */
+export function SpringBootOpenApiDocFlowDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-flow" role="img" aria-label="OpenAPI documentation flow">
+      <FlowchartFigcaption
+        title="From running app to API docs"
+        fresher="springdoc scans your @RestController mappings at runtime and serves OpenAPI JSON plus Swagger UI. Clients like Postman can import the same document to build requests."
+      />
+      <svg viewBox="0 0 600 160" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="40" width="120" height="48" rx="8" fill="#ecfdf5" stroke="#22c55e" />
+        <text x="84" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          Controllers
+        </text>
+        <text x="84" y="76" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          mappings + DTOs
+        </text>
+        <line x1="144" y1="64" x2="176" y2="64" stroke="#2563eb" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="184" y="36" width="140" height="56" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="254" y="58" textAnchor="middle" fontSize="8" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          springdoc-openapi
+        </text>
+        <text x="254" y="74" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          /v3/api-docs
+        </text>
+        <line x1="324" y1="64" x2="356" y2="64" stroke="#2563eb" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="364" y="40" width="100" height="48" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="414" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Swagger UI
+        </text>
+        <line x1="464" y1="64" x2="496" y2="64" stroke="#2563eb" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="504" y="40" width="72" height="48" rx="8" fill="#f1f5f9" stroke="#94a3b8" />
+        <text x="540" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          Postman
+        </text>
+        <text x="300" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          One OpenAPI description powers interactive docs and client tooling.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Real scenario: login then Bearer JWT on later calls (stateless API) */
+export function SpringBootJwtBearerScenarioDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const mono = 'ui-monospace, Consolas, monospace';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-scenario" role="img" aria-label="JWT login and authenticated request scenario">
+      <FlowchartFigcaption
+        title="Real scenario: secure REST — login, then call protected API"
+        fresher="First request: client posts credentials; Spring Security authenticates and issues a JWT. Later requests: client sends an Authorization: Bearer JWT header; JwtAuthenticationFilter validates signature and expiry, fills SecurityContext, then your @RestController runs as usual."
+      />
+      <svg viewBox="0 0 720 268" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <text x="360" y="18" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          ① First-time login (get a token)
+        </text>
+        <rect x="16" y="28" width="88" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+        <text x="60" y="48" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0c4a6e" fontFamily={sans}>
+          Client
+        </text>
+        <text x="60" y="60" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={sans}>
+          SPA / mobile
+        </text>
+        <line x1="104" y1="48" x2="132" y2="48" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="118" y="42" fontSize="6" fill="#64748b" fontFamily={sans}>
+          POST
+        </text>
+        <rect x="136" y="28" width="120" height="40" rx="8" fill="#ecfdf5" stroke="#16a34a" />
+        <text x="196" y="48" textAnchor="middle" fontSize="7" fontWeight="800" fill="#14532d" fontFamily={mono}>
+          /api/auth/login
+        </text>
+        <line x1="256" y1="48" x2="284" y2="48" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="288" y="26" width="140" height="44" rx="8" fill="#fff7ed" stroke="#ea580c" />
+        <text x="358" y="44" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily={sans}>
+          AuthenticationManager
+        </text>
+        <text x="358" y="58" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={sans}>
+          UserDetailsService + PasswordEncoder
+        </text>
+        <line x1="428" y1="48" x2="456" y2="48" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="460" y="28" width="120" height="40" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="520" y="48" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e40af" fontFamily={sans}>
+          JWT issued
+        </text>
+        <text x="520" y="60" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={mono}>
+          access + refresh
+        </text>
+        <line x1="580" y1="48" x2="612" y2="48" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="616" y="28" width="88" height="40" rx="8" fill="#f0fdf4" stroke="#22c55e" />
+        <text x="660" y="50" textAnchor="middle" fontSize="7" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          200 + body
+        </text>
+
+        <text x="360" y="100" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          ② Later: call protected resource (same session, no server session store)
+        </text>
+        <rect x="16" y="112" width="88" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+        <text x="60" y="138" textAnchor="middle" fontSize="7" fontWeight="800" fill="#0c4a6e" fontFamily={sans}>
+          Client
+        </text>
+        <text x="60" y="148" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={mono}>
+          Bearer eyJ…
+        </text>
+        <line x1="104" y1="132" x2="132" y2="132" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="136" y="110" width="124" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="198" y="130" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily={sans}>
+          JwtAuthenticationFilter
+        </text>
+        <text x="198" y="144" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={sans}>
+          validate + SecurityContext
+        </text>
+        <line x1="260" y1="132" x2="288" y2="132" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="292" y="112" width="120" height="40" rx="8" fill="#ecfdf5" stroke="#16a34a" />
+        <text x="352" y="132" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily={mono}>
+          GET /api/orders
+        </text>
+        <line x1="412" y1="132" x2="440" y2="132" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="444" y="112" width="100" height="40" rx="8" fill="#eff6ff" stroke="#3b82f6" />
+        <text x="494" y="132" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e40af" fontFamily={sans}>
+          Controller
+        </text>
+        <line x1="544" y1="132" x2="572" y2="132" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="576" y="112" width="128" height="40" rx="8" fill="#f0fdf4" stroke="#22c55e" />
+        <text x="640" y="132" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          Service → DB
+        </text>
+
+        <text x="360" y="188" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily={sans}>
+          Production tip: short access token TTL, refresh endpoint, HTTPS only, never log raw tokens.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** E-commerce style: place order with payment + DB (simplified) */
+export function SpringBootOrderPaymentScenarioDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const mono = 'ui-monospace, Consolas, monospace';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-scenario" role="img" aria-label="Order checkout scenario">
+      <FlowchartFigcaption
+        title="Real scenario: checkout — REST → service → payment gateway → persist"
+        fresher="Typical flow: client POSTs a cart; controller validates input; a transactional service reserves stock, calls the payment provider (Stripe/Razorpay HTTP client), then saves the order row. On payment failure you roll back or compensate—this diagram shows the happy path."
+      />
+      <svg viewBox="0 0 720 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="12" y="36" width="696" height="128" rx="12" fill="#f8fafc" stroke="#86efac" />
+        <text x="360" y="32" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          Happy path: payment authorized → order row committed
+        </text>
+        <rect x="24" y="56" width="72" height="56" rx="8" fill="#e0f2fe" stroke="#0284c7" filter={`url(#${p}-shadow)`} />
+        <text x="60" y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily={sans}>
+          Customer
+        </text>
+        <text x="60" y="96" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          browser / app
+        </text>
+        <line x1="96" y1="84" x2="108" y2="84" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="112" y="56" width="100" height="56" rx="8" fill="#ecfdf5" stroke="#16a34a" filter={`url(#${p}-shadow)`} />
+        <text x="162" y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily={mono}>
+          POST /orders
+        </text>
+        <text x="162" y="96" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          JSON cart
+        </text>
+        <line x1="212" y1="84" x2="224" y2="84" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="228" y="56" width="96" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" filter={`url(#${p}-shadow)`} />
+        <text x="276" y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily={sans}>
+          OrderController
+        </text>
+        <text x="276" y="96" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          @Valid DTO
+        </text>
+        <line x1="324" y1="84" x2="336" y2="84" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="340" y="56" width="104" height="56" rx="8" fill="#fff7ed" stroke="#ea580c" filter={`url(#${p}-shadow)`} />
+        <text x="392" y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily={sans}>
+          OrderService
+        </text>
+        <text x="392" y="96" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          @Transactional
+        </text>
+        <line x1="444" y1="84" x2="456" y2="84" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="460" y="56" width="112" height="56" rx="8" fill="#fef3c7" stroke="#f59e0b" filter={`url(#${p}-shadow)`} />
+        <text x="516" y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily={sans}>
+          PaymentClient
+        </text>
+        <text x="516" y="96" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          REST to PSP
+        </text>
+        <line x1="572" y1="84" x2="584" y2="84" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="588" y="56" width="108" height="56" rx="8" fill="#ede9fe" stroke="#7c3aed" filter={`url(#${p}-shadow)`} />
+        <text x="642" y="78" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily={sans}>
+          OrderRepository
+        </text>
+        <text x="642" y="96" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          save()
+        </text>
+        <text x="360" y="182" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          Idempotency keys and outbox pattern are common add-ons for production payments.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Cache-aside read — hit vs miss (realistic API caching) */
+export function SpringBootCacheAsideScenarioDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-scenario" role="img" aria-label="Cache-aside pattern scenario">
+      <FlowchartFigcaption
+        title="Real scenario: cache-aside on GET /products/{id}"
+        fresher="First caller may miss the cache: you load from the database, put the result in Redis or Caffeine, then return. Next callers hit the cache and avoid DB. @Cacheable abstracts this; eviction happens on updates (@CacheEvict)."
+      />
+      <svg viewBox="0 0 640 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="200" y="16" width="240" height="36" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="320" y="38" textAnchor="middle" fontSize="9" fontWeight="800" fill="#1e40af" fontFamily="system-ui">
+          GET /api/products/42
+        </text>
+        <line x1="320" y1="52" x2="320" y2="68" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="240" y="72" width="160" height="36" rx="8" fill="#fef9c3" stroke="#ca8a04" />
+        <text x="320" y="94" textAnchor="middle" fontSize="8" fontWeight="800" fill="#854d0e" fontFamily="system-ui">
+          Cache (Redis / Caffeine)
+        </text>
+        <line x1="320" y1="108" x2="320" y2="124" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <path d="M 320 124 L 380 156 L 320 188 L 260 156 Z" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1.3" />
+        <text x="320" y="158" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily={sans}>
+          key present?
+        </text>
+        <line x1="380" y1="156" x2="460" y2="156" stroke="#16a34a" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="410" y="148" fontSize="7" fill="#15803d" fontFamily={sans}>
+          hit
+        </text>
+        <rect x="468" y="136" width="152" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="544" y="158" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          200 + cached JSON
+        </text>
+        <line x1="260" y1="156" x2="120" y2="156" stroke="#dc2626" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="190" y="148" fontSize="7" fill="#b91c1c" fontFamily={sans}>
+          miss
+        </text>
+        <rect x="28" y="132" width="88" height="48" rx="8" fill="#ede9fe" stroke="#7c3aed" />
+        <text x="72" y="152" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#5b21b6" fontFamily="system-ui">
+          JPA query
+        </text>
+        <text x="72" y="166" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          DB row
+        </text>
+        <line x1="116" y1="156" x2="200" y2="100" stroke="#64748b" strokeWidth="1.2" strokeDasharray="4 3" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="150" y="118" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          populate
+        </text>
+        <text x="320" y="220" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          TTL and stale-while-revalidate policies depend on how fresh data must be.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Kubernetes probes hitting Actuator (production ops scenario) */
+export function SpringBootK8sProbeScenarioDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-scenario" role="img" aria-label="Kubernetes health probe scenario">
+      <FlowchartFigcaption
+        title="Real scenario: Kubernetes probes + Spring Boot Actuator"
+        fresher="The kubelet calls your pod’s HTTP endpoint on a schedule. Liveness decides whether to restart the container; readiness decides whether to send traffic. Bind Actuator to a port the cluster can reach, and implement custom HealthIndicators for dependencies you need before taking traffic."
+      />
+      <svg viewBox="0 0 640 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="28" width="100" height="52" rx="8" fill="#e0e7ff" stroke="#6366f1" />
+        <text x="74" y="50" textAnchor="middle" fontSize="8" fontWeight="800" fill="#312e81" fontFamily={sans}>
+          kubelet
+        </text>
+        <text x="74" y="64" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          probe timer
+        </text>
+        <line x1="124" y1="54" x2="156" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="140" y="46" fontSize="6" fill="#64748b" fontFamily={sans}>
+          HTTP GET
+        </text>
+        <rect x="160" y="30" width="200" height="48" rx="8" fill="#ecfdf5" stroke="#16a34a" />
+        <text x="260" y="50" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          /actuator/health/{liveness,readiness}
+        </text>
+        <text x="260" y="64" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          Actuator + HealthIndicator beans
+        </text>
+        <line x1="360" y1="54" x2="392" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="396" y="28" width="100" height="52" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="446" y="48" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily={sans}>
+          DB / broker
+        </text>
+        <text x="446" y="62" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={sans}>
+          ping
+        </text>
+        <line x1="496" y1="54" x2="528" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="532" y="32" width="84" height="44" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="574" y="54" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          200 UP
+        </text>
+        <text x="320" y="100" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily={sans}>
+          Liveness failure → pod restart · Readiness failure → remove from Service endpoints
+        </text>
+        <rect x="80" y="118" width="480" height="72" rx="10" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="320" y="138" textAnchor="middle" fontSize="8" fontWeight="800" fill="#0f172a" fontFamily={sans}>
+          What operators expect in production
+        </text>
+        <text x="320" y="158" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          Separate management port · auth on actuator · fast timeouts on dependency checks · avoid heavy work in liveness
+        </text>
+        <text x="320" y="176" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          Spring Boot 3: /actuator/health/liveness & /readiness when using dedicated groups
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Scheduled batch job (cron) — nightly report style */
+export function SpringBootScheduledJobScenarioDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const mono = 'ui-monospace, Consolas, monospace';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-scenario" role="img" aria-label="Scheduled job scenario">
+      <FlowchartFigcaption
+        title="Real scenario: @Scheduled cron — batch without a human click"
+        fresher="Spring’s scheduler triggers a method at a cron expression (e.g. every night at 2am). The method runs in a pool thread; use a transactional service to query aggregates, write a CSV to object storage, or enqueue emails. For clusters, add ShedLock or an external scheduler so only one pod runs the job."
+      />
+      <svg viewBox="0 0 640 180" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="32" y="44" width="88" height="44" rx="8" fill="#e0e7ff" stroke="#6366f1" />
+        <text x="76" y="66" textAnchor="middle" fontSize="8" fontWeight="800" fill="#312e81" fontFamily={sans}>
+          Clock
+        </text>
+        <text x="76" y="78" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily={mono}>
+          0 2 * * *
+        </text>
+        <line x1="120" y1="66" x2="152" y2="66" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="156" y="40" width="140" height="52" rx="8" fill="#ecfdf5" stroke="#16a34a" />
+        <text x="226" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily={mono}>
+          @Scheduled
+        </text>
+        <text x="226" y="78" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          @EnableScheduling
+        </text>
+        <line x1="296" y1="66" x2="328" y2="66" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="332" y="42" width="120" height="48" rx="8" fill="#fff7ed" stroke="#ea580c" />
+        <text x="392" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily={sans}>
+          ReportService
+        </text>
+        <text x="392" y="78" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          @Transactional read
+        </text>
+        <line x1="452" y1="66" x2="484" y2="66" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="488" y="42" width="120" height="48" rx="8" fill="#ede9fe" stroke="#7c3aed" />
+        <text x="548" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#5b21b6" fontFamily={sans}>
+          Repository
+        </text>
+        <text x="548" y="78" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          SQL / export
+        </text>
+        <text x="320" y="120" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          Multi-node: use distributed lock or leader election so the job does not run twice.
+        </text>
+        <text x="320" y="138" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          @Async here does not replace scheduling—it only offloads work after trigger.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Event-driven: user registered → async listener sends welcome email */
+export function SpringBootEventAsyncEmailScenarioDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const mono = 'ui-monospace, Consolas, monospace';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springboot-scenario" role="img" aria-label="ApplicationEvent async email scenario">
+      <FlowchartFigcaption
+        title="Real scenario: registration publishes event — listener sends email off the HTTP thread"
+        fresher="The controller returns 201 quickly after saving the user. An ApplicationEvent is published; a @TransactionalEventListener(AFTER_COMMIT) or @Async listener picks it up and calls JavaMailSender so SMTP latency does not block the client. If mail fails, use retry or a dead-letter queue."
+      />
+      <svg viewBox="0 0 720 210" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="16" y="32" width="88" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+        <text x="60" y="56" textAnchor="middle" fontSize="8" fontWeight="800" fill="#0c4a6e" fontFamily={sans}>
+          Client
+        </text>
+        <line x1="104" y1="52" x2="136" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="140" y="28" width="120" height="48" rx="8" fill="#ecfdf5" stroke="#16a34a" />
+        <text x="200" y="50" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily={mono}>
+          POST /users
+        </text>
+        <text x="200" y="64" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          UserController
+        </text>
+        <line x1="260" y1="52" x2="292" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="296" y="28" width="120" height="48" rx="8" fill="#fff7ed" stroke="#ea580c" />
+        <text x="356" y="50" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily={sans}>
+          UserService
+        </text>
+        <text x="356" y="64" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          save + commit
+        </text>
+        <line x1="416" y1="52" x2="448" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="452" y="28" width="120" height="48" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="512" y="50" textAnchor="middle" fontSize="7" fontWeight="800" fill="#1e40af" fontFamily={mono}>
+          publishEvent
+        </text>
+        <text x="512" y="64" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={mono}>
+          UserRegisteredEvent
+        </text>
+        <line x1="572" y1="52" x2="604" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="608" y="32" width="96" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" />
+        <text x="656" y="54" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          201 Created
+        </text>
+
+        <text x="360" y="108" textAnchor="middle" fontSize="8" fontWeight="800" fill="#64748b" fontFamily={sans}>
+          After HTTP response (often after commit):
+        </text>
+        <rect x="200" y="118" width="140" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="270" y="138" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily={sans}>
+          @EventListener / async
+        </text>
+        <text x="270" y="152" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          WelcomeEmailListener
+        </text>
+        <line x1="340" y1="140" x2="372" y2="140" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="376" y="118" width="144" height="44" rx="8" fill="#f0fdf4" stroke="#22c55e" />
+        <text x="448" y="140" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          JavaMailSender
+        </text>
+        <text x="448" y="154" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          SMTP (async thread)
+        </text>
+
+        <text x="360" y="188" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+          Same pattern for audit logs, analytics, and integration messages—keep the HTTP path fast.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/* —— Spring Framework (classic stack: IoC, MVC, JDBC, Data, AOP) —— */
+
+/** High-level modules you learn in order */
+export function SpringFrameworkModulesOverviewDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  const mods = [
+    { x: 40, y: 36, w: 150, t: 'Core Container', s: 'IoC · Beans · Context' },
+    { x: 220, y: 36, w: 150, t: 'MVC / Web', s: 'DispatcherServlet · WebMVC' },
+    { x: 400, y: 36, w: 150, t: 'JDBC / ORM', s: 'JdbcTemplate · tx' },
+    { x: 130, y: 110, w: 150, t: 'Spring Data', s: 'Repository abstraction' },
+    { x: 310, y: 110, w: 150, t: 'AOP', s: 'AspectJ style · proxies' },
+    { x: 490, y: 110, w: 150, t: 'Test', s: 'MockMvc · TestContext' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="Spring Framework modules">
+      <FlowchartFigcaption
+        title="Spring Framework — major building blocks"
+        fresher="You usually learn Core (IoC/DI) first, then wire MVC for web apps, use JdbcTemplate or Spring Data for persistence, and add AOP for cross-cutting concerns. Everything hangs off the ApplicationContext."
+      />
+      <svg viewBox="0 0 680 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="16" y="16" width="648" height="168" rx="14" fill="#f0fdf4" stroke="#6db33f" strokeWidth="1.2" />
+        <text x="340" y="34" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          One ecosystem — compose only what you need
+        </text>
+        {mods.map((m) => (
+          <g key={m.t}>
+            <rect x={m.x} y={m.y} width={m.w} height="56" rx="10" fill="#ffffff" stroke="#6db33f" strokeWidth="1.1" filter={`url(#${p}-shadow)`} />
+            <text x={m.x + m.w / 2} y={m.y + 24} textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily={sans}>
+              {m.t}
+            </text>
+            <text x={m.x + m.w / 2} y={m.y + 44} textAnchor="middle" fontSize="7" fill="#64748b" fontFamily={sans}>
+              {m.s}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** IoC container owns bean definitions and instances */
+export function SpringFrameworkIocContainerDiagram() {
+  const p = useSvgPrefix();
+  const sans = 'system-ui, Segoe UI, sans-serif';
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="IoC container">
+      <FlowchartFigcaption
+        title="Inversion of Control — the container wires collaborators"
+        fresher="Instead of `new` inside your classes, you declare beans (XML, Java config, or annotations). The ApplicationContext creates singletons (by default), injects dependencies, and hands you fully wired objects—this is the heart of Spring."
+      />
+      <svg viewBox="0 0 620 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="140" y="24" width="340" height="168" rx="14" fill="#ecfdf5" stroke="#6db33f" strokeWidth="1.4" />
+        <text x="310" y="48" textAnchor="middle" fontSize="10" fontWeight="800" fill="#14532d" fontFamily={sans}>
+          ApplicationContext (IoC container)
+        </text>
+        <rect x="180" y="64" width="120" height="48" rx="8" fill="#ffffff" stroke="#22c55e" filter={`url(#${p}-shadow)`} />
+        <text x="240" y="88" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          userService
+        </text>
+        <text x="240" y="102" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          @Service bean
+        </text>
+        <rect x="340" y="64" width="120" height="48" rx="8" fill="#ffffff" stroke="#22c55e" filter={`url(#${p}-shadow)`} />
+        <text x="400" y="88" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          userRepository
+        </text>
+        <text x="400" y="102" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          @Repository bean
+        </text>
+        <line x1="300" y1="88" x2="336" y2="88" stroke="#15803d" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <text x="318" y="80" fontSize="6.5" fill="#64748b" fontFamily={sans}>
+          injects
+        </text>
+        <text x="310" y="150" textAnchor="middle" fontSize="7.5" fill="#365314" fontFamily={sans}>
+          Your code asks the container for beans — you do not call `new UserRepository()` in the service.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Constructor vs setter vs field injection */
+export function SpringFrameworkInjectionStylesDiagram() {
+  const p = useSvgPrefix();
+  const cols = [
+    { x: 32, title: 'Constructor', sub: 'recommended', note: 'immutable · testable' },
+    { x: 232, title: 'Setter', sub: 'optional deps', note: 'mutable after creation' },
+    { x: 432, title: 'Field', sub: '@Autowired', note: 'quick but hides deps' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="Dependency injection styles">
+      <FlowchartFigcaption
+        title="Three ways Spring can inject dependencies"
+        fresher="Constructor injection makes required collaborators explicit and eases unit testing with plain `new`. Setter injection suits optional properties. Field injection is concise but harder to see dependencies in API surface—prefer constructor for services."
+      />
+      <svg viewBox="0 0 680 180" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {cols.map((c) => (
+          <g key={c.title}>
+            <rect x={c.x} y="28" width="200" height="120" rx="10" fill="#ffffff" stroke="#6db33f" filter={`url(#${p}-shadow)`} />
+            <text x={c.x + 100} y="52" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+              {c.title}
+            </text>
+            <text x={c.x + 100} y="72" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+              {c.sub}
+            </text>
+            <text x={c.x + 100} y="128" textAnchor="middle" fontSize="7" fill="#365314" fontFamily="system-ui">
+              {c.note}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Bean lifecycle (singleton) */
+export function SpringFrameworkBeanLifecycleDiagram() {
+  const p = useSvgPrefix();
+  const steps = [
+    { y: 20, t: 'Bean definition', s: 'metadata' },
+    { y: 56, t: 'Instantiate', s: 'constructor / factory' },
+    { y: 92, t: 'Populate properties', s: 'DI' },
+    { y: 128, t: 'init / @PostConstruct', s: 'optional callbacks' },
+    { y: 164, t: 'Ready + destroy on shutdown', s: '@PreDestroy / DisposableBean' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-flow" role="img" aria-label="Bean lifecycle">
+      <FlowchartFigcaption
+        title="Bean lifecycle — from definition to destruction"
+        fresher="For singleton scope, one instance serves the whole context. Prototype scope creates a new bean per getBean—Spring does not manage full lifecycle for prototypes. Callbacks let you open resources on start and close them cleanly on shutdown."
+      />
+      <svg viewBox="0 0 520 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="100" y="12" width="320" height="196" rx="12" fill="#f8fafc" stroke="#86efac" />
+        {steps.map((s, i) => (
+          <g key={s.t}>
+            <rect x="140" y={s.y} width="240" height="28" rx="6" fill="#ecfdf5" stroke="#16a34a" />
+            <text x="260" y={s.y + 18} textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+              {s.t}
+            </text>
+            <text x="260" y={s.y + 26} textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+              {s.s}
+            </text>
+            {i < steps.length - 1 && (
+              <line x1="260" y1={s.y + 28} x2="260" y2={steps[i + 1].y - 2} stroke="#15803d" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Context refresh — mental model */
+export function SpringFrameworkContextRefreshDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-flow" role="img" aria-label="ApplicationContext refresh">
+      <FlowchartFigcaption
+        title="ApplicationContext refresh — what happens at startup"
+        fresher="Whether you load XML, scan @Component, or register @Bean methods, the context parses configuration into bean definitions, then instantiates singletons in dependency order. refresh() is expensive; in tests you often reuse a static context or use @DirtiesContext sparingly."
+      />
+      <svg viewBox="0 0 600 160" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, w: 120, t: 'Load config', s: 'XML / @Configuration' },
+          { x: 168, w: 120, t: 'Bean definitions', s: 'metadata registry' },
+          { x: 312, w: 120, t: 'Instantiate beans', s: 'dependency order' },
+          { x: 456, w: 120, t: 'Context ready', s: 'getBean()' }
+        ].map((b, i, arr) => (
+          <g key={b.t}>
+            <rect x={b.x} y="44" width={b.w} height="56" rx="8" fill="#ecfdf5" stroke="#6db33f" filter={`url(#${p}-shadow)`} />
+            <text x={b.x + b.w / 2} y="70" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+              {b.t}
+            </text>
+            <text x={b.x + b.w / 2} y="88" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+              {b.s}
+            </text>
+            {i < arr.length - 1 && (
+              <line
+                x1={b.x + b.w + 4}
+                y1="72"
+                x2={arr[i + 1].x - 4}
+                y2="72"
+                stroke="#15803d"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** XML vs Java configuration */
+export function SpringFrameworkXmlVsJavaConfigDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="XML versus Java configuration">
+      <FlowchartFigcaption
+        title="Two ways to declare beans — XML or Java config"
+        fresher="Legacy apps often use applicationContext.xml; modern Spring favors @Configuration classes with @Bean methods and component scanning. Both produce the same bean definitions at runtime; Java config gives refactoring and type safety in the IDE."
+      />
+      <svg viewBox="0 0 640 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="32" y="32" width="260" height="136" rx="12" fill="#eff6ff" stroke="#2563eb" />
+        <text x="162" y="56" textAnchor="middle" fontSize="9" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          beans.xml
+        </text>
+        <text x="162" y="78" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          &lt;bean id="…" class="…"/&gt;
+        </text>
+        <text x="162" y="100" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          ClassPathXmlApplicationContext
+        </text>
+        <rect x="348" y="32" width="260" height="136" rx="12" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="478" y="56" textAnchor="middle" fontSize="9" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          @Configuration
+        </text>
+        <text x="478" y="78" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          @Bean methods + @ComponentScan
+        </text>
+        <text x="478" y="100" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          AnnotationConfigApplicationContext
+        </text>
+        <text x="320" y="178" textAnchor="middle" fontSize="7.5" fill="#64748b" fontFamily="system-ui">
+          Pick one primary style per module; mixing is fine during migration.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** DispatcherServlet pipeline */
+export function SpringFrameworkDispatcherServletPipelineDiagram() {
+  const p = useSvgPrefix();
+  const row = [
+    { x: 16, t: 'HTTP', s: 'request' },
+    { x: 108, t: 'Dispatcher\nServlet', s: 'front controller' },
+    { x: 212, t: 'Handler\nMapping', s: 'URL → method' },
+    { x: 316, t: 'Controller', s: '@Controller' },
+    { x: 420, t: 'ModelAndView', s: 'data + view name' },
+    { x: 524, t: 'ViewResolver\n+ View', s: 'render' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-wide" role="img" aria-label="DispatcherServlet pipeline">
+      <FlowchartFigcaption
+        title="Spring MVC request pipeline"
+        fresher="DispatcherServlet is the single entry point: it picks a controller method via HandlerMapping, invokes it, then resolves the logical view name to a concrete View (JSP, Thymeleaf, etc.) and renders the response."
+      />
+      <svg viewBox="0 0 640 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="12" y="40" width="616" height="100" rx="10" fill="#f0fdf4" stroke="#86efac" />
+        {row.map((s, i) => (
+          <g key={s.t}>
+            <rect x={s.x} y="56" width="88" height="68" rx="8" fill="#ffffff" stroke="#6db33f" filter={`url(#${p}-shadow)`} />
+            <text x={s.x + 44} y="78" textAnchor="middle" fontSize="7" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+              {s.t.split('\n').map((line, li) => (
+                <tspan key={line} x={s.x + 44} dy={li === 0 ? 0 : 10}>
+                  {line}
+                </tspan>
+              ))}
+            </text>
+            <text x={s.x + 44} y="114" textAnchor="middle" fontSize="6" fill="#4d7c0f" fontFamily="system-ui">
+              {s.s}
+            </text>
+            {i < row.length - 1 && (
+              <line
+                x1={s.x + 92}
+                y1="90"
+                x2={row[i + 1].x - 4}
+                y2="90"
+                stroke="#15803d"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+        <text x="320" y="176" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Filters (e.g. Spring Security) run before DispatcherServlet in the servlet chain.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Classic layered MVC scenario */
+export function SpringFrameworkMvcLayeredScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="Layered MVC scenario">
+      <FlowchartFigcaption
+        title="Real scenario: browser hits your Spring MVC app"
+        fresher="A form POST to `/students/save` hits the DispatcherServlet, maps to a controller method, which delegates to a @Service for validation and business rules, then a @Repository or JdbcTemplate for persistence—layers stay testable because Spring injects interfaces."
+      />
+      <svg viewBox="0 0 720 160" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, w: 88, t: 'Browser', c: '#e0f2fe' },
+          { x: 132, w: 100, t: 'DispatcherServlet', c: '#ecfdf5' },
+          { x: 252, w: 100, t: 'StudentController', c: '#eff6ff' },
+          { x: 372, w: 100, t: 'StudentService', c: '#fff7ed' },
+          { x: 492, w: 100, t: 'StudentDao / Repo', c: '#ede9fe' },
+          { x: 612, w: 84, t: 'Database', c: '#f1f5f9' }
+        ].map((b, i, arr) => (
+          <g key={b.t}>
+            <rect x={b.x} y="48" width={b.w} height="52" rx="8" fill={b.c} stroke="#6db33f" filter={`url(#${p}-shadow)`} />
+            <text x={b.x + b.w / 2} y="76" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0f172a" fontFamily="system-ui">
+              {b.t}
+            </text>
+            {i < arr.length - 1 && (
+              <line
+                x1={b.x + b.w + 4}
+                y1="74"
+                x2={arr[i + 1].x - 4}
+                y2="74"
+                stroke="#15803d"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** ViewResolver resolves logical name */
+export function SpringFrameworkViewResolverPipelineDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-flow" role="img" aria-label="View resolver pipeline">
+      <FlowchartFigcaption
+        title="Logical view name → concrete page"
+        fresher="Controller returns a view name like `students/list`. ViewResolver applies prefix/suffix (e.g. `/WEB-INF/views/` + `list` + `.jsp`) to build the real resource. Multiple resolvers can be chained with order."
+      />
+      <svg viewBox="0 0 600 140" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="40" width="120" height="48" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="84" y="68" textAnchor="middle" fontSize="8" fontWeight="800" fill="#1e40af" fontFamily="system-ui">
+          logical: list
+        </text>
+        <line x1="144" y1="64" x2="176" y2="64" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="180" y="36" width="160" height="56" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="260" y="60" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          ViewResolver
+        </text>
+        <text x="260" y="78" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          prefix + suffix
+        </text>
+        <line x1="340" y1="64" x2="372" y2="64" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="376" y="40" width="200" height="48" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="476" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          /WEB-INF/views/list.jsp
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** JdbcTemplate flow */
+export function SpringFrameworkJdbcTemplatePipelineDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-flow" role="img" aria-label="JdbcTemplate pipeline">
+      <FlowchartFigcaption
+        title="JdbcTemplate — less boilerplate than raw JDBC"
+        fresher="You still write SQL, but JdbcTemplate handles connection acquisition from the DataSource, statement creation, and resource cleanup in finally blocks. Use for simple DAOs; pair with RowMapper for object mapping."
+      />
+      <svg viewBox="0 0 600 150" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {[
+          { x: 24, t: 'Dao method', s: 'query / update' },
+          { x: 156, t: 'JdbcTemplate', s: 'Spring API' },
+          { x: 300, t: 'DataSource', s: 'pool' },
+          { x: 432, t: 'JDBC Driver', s: 'DB' }
+        ].map((b, i, arr) => (
+          <g key={b.t}>
+            <rect x={b.x} y="44" width="120" height="48" rx="8" fill="#ecfdf5" stroke="#6db33f" filter={`url(#${p}-shadow)`} />
+            <text x={b.x + 60} y="68" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+              {b.t}
+            </text>
+            <text x={b.x + 60} y="84" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+              {b.s}
+            </text>
+            {i < arr.length - 1 && (
+              <line
+                x1={b.x + 124}
+                y1="68"
+                x2={arr[i + 1].x - 4}
+                y2="68"
+                stroke="#15803d"
+                strokeWidth="2"
+                markerEnd={`url(#${p}-arrowhead)`}
+              />
+            )}
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Spring Data repository abstraction */
+export function SpringFrameworkSpringDataRepositoryDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="Spring Data repository">
+      <FlowchartFigcaption
+        title="Spring Data — interface becomes implementation at runtime"
+        fresher="You declare `interface StudentRepository extends JpaRepository<Student, Long>`; Spring Data generates the implementation from the name, @Query, or method signatures. No boilerplate DAO class for CRUD."
+      />
+      <svg viewBox="0 0 560 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="160" y="24" width="240" height="40" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="280" y="48" textAnchor="middle" fontSize="9" fontWeight="800" fill="#1e3a8a" fontFamily="ui-monospace">
+          StudentRepository interface
+        </text>
+        <line x1="280" y1="64" x2="280" y2="84" stroke="#2563eb" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="120" y="88" width="320" height="44" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="280" y="114" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          Spring-generated proxy (SimpleJpaRepository …)
+        </text>
+        <line x1="280" y1="132" x2="280" y2="148" stroke="#15803d" strokeWidth="1.8" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="160" y="152" width="240" height="36" rx="8" fill="#f1f5f9" stroke="#64748b" />
+        <text x="280" y="174" textAnchor="middle" fontSize="8" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          EntityManager / JDBC
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** AOP proxy + advice */
+export function SpringFrameworkAopProxyDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="AOP proxy">
+      <FlowchartFigcaption
+        title="AOP — JDK dynamic proxy or CGLIB subclass"
+        fresher="Spring wraps your bean in a proxy. Calls from other beans go through the proxy first, so aspects can run before/after/around the real method. Interface-based beans use JDK proxies; class-based proxies use CGLIB when needed."
+      />
+      <svg viewBox="0 0 640 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="40" y="48" width="100" height="48" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+        <text x="90" y="76" textAnchor="middle" fontSize="8" fontWeight="800" fill="#0c4a6e" fontFamily="system-ui">
+          Caller
+        </text>
+        <line x1="140" y1="72" x2="172" y2="72" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="176" y="36" width="200" height="72" rx="10" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="276" y="58" textAnchor="middle" fontSize="9" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Proxy (advice chain)
+        </text>
+        <text x="276" y="76" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          @Before · @Around · …
+        </text>
+        <line x1="376" y1="72" x2="408" y2="72" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="412" y="48" width="120" height="48" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="472" y="76" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          Target bean
+        </text>
+        <line x1="532" y1="72" x2="564" y2="72" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="568" y="52" width="72" height="40" rx="8" fill="#f1f5f9" stroke="#94a3b8" />
+        <text x="604" y="76" textAnchor="middle" fontSize="7" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          Result
+        </text>
+        <text x="320" y="148" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          self-invocation inside the same class bypasses the proxy—use AspectJ weaving or inject self for internal calls.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Advice types */
+export function SpringFrameworkAdviceTypesDiagram() {
+  const p = useSvgPrefix();
+  const tips = ['@Before', '@AfterReturning', '@AfterThrowing', '@After', '@Around'];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="Advice types">
+      <FlowchartFigcaption
+        title="AspectJ-style advice types in Spring AOP"
+        fresher="@Around is the most powerful—it wraps the join point and can skip or retry the method. @Before runs just before; @After* run after success or failure depending on variant. Combine with pointcut expressions to target packages or annotations."
+      />
+      <svg viewBox="0 0 640 120" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {tips.map((t, i) => (
+          <rect key={t} x={24 + i * 118} y="40" width="108" height="44" rx="8" fill="#ecfdf5" stroke="#6db33f" filter={`url(#${p}-shadow)`} />
+        ))}
+        {tips.map((t, i) => (
+          <text key={t} x={78 + i * 118} y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+            {t}
+          </text>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** @Order on aspects */
+export function SpringFrameworkAspectOrderDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-flow" role="img" aria-label="Aspect order">
+      <FlowchartFigcaption
+        title="Multiple aspects — @Order controls precedence"
+        fresher="Lower order values run earlier in the advice chain (outer layers). When logging and transaction aspects both apply, you usually want transactions inside logging—or the opposite for audit—so ordering matters."
+      />
+      <svg viewBox="0 0 560 140" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="80" y="44" width="160" height="48" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="160" y="72" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          LoggingAspect @Order(1)
+        </text>
+        <line x1="240" y1="68" x2="272" y2="68" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="276" y="44" width="200" height="48" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="376" y="72" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          TransactionAspect @Order(2)
+        </text>
+        <text x="280" y="112" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Same @Order → undefined relative order — avoid relying on ties.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** EnableAspectJAutoProxy with Spring Boot */
+export function SpringFrameworkEnableAspectJDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework" role="img" aria-label="Enable AspectJ auto proxy">
+      <FlowchartFigcaption
+        title="Enabling @Aspect support"
+        fresher="On plain Spring, add @EnableAspectJAutoProxy on a @Configuration class. With Spring Boot, AOP starter brings auto-configuration—your @Aspect beans are picked up from component scan. You still need spring-boot-starter-aop for aspects to work."
+      />
+      <svg viewBox="0 0 560 160" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="60" y="36" width="180" height="48" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="150" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          @SpringBootApplication
+        </text>
+        <line x1="240" y1="60" x2="280" y2="60" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="284" y="36" width="200" height="48" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="384" y="60" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          @EnableAspectJAutoProxy
+        </text>
+        <text x="384" y="74" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          (or starter-aop auto-config)
+        </text>
+        <text x="280" y="120" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          @Aspect classes with @Component are registered as aspects.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Pointcut expression families */
+export function SpringFrameworkPointcutExpressionsDiagram() {
+  const p = useSvgPrefix();
+  const rows = [
+    { ex: 'execution(* com.app.service.*.*(..))', note: 'method pattern' },
+    { ex: '@within(org.springframework.stereotype.Service)', note: 'class annotation' },
+    { ex: '@annotation(com.app.Audited)', note: 'method annotation' }
+  ];
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-flow" role="img" aria-label="Pointcut expressions">
+      <FlowchartFigcaption
+        title="Common pointcut expressions"
+        fresher="execution matches method signatures; @within and @annotation tie advice to metadata. Combine with && and || for precise targeting. For complex cases, use @Pointcut methods to reuse the same expression."
+      />
+      <svg viewBox="0 0 620 140" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        {rows.map((r, i) => (
+          <g key={r.ex}>
+            <rect x="40" y={28 + i * 36} width="540" height="28" rx="6" fill="#f8fafc" stroke="#cbd5e1" />
+            <text x="52" y={46 + i * 36} fontSize="7" fontWeight="700" fill="#14532d" fontFamily="ui-monospace">
+              {r.ex}
+            </text>
+            <text x="560" y={46 + i * 36} textAnchor="end" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+              {r.note}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </figure>
+  );
+}
+
+/** Classic WAR deployment — Spring MVC on Tomcat (Framework-era interview scenario) */
+export function SpringFrameworkWarDeploymentScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="WAR deployment scenario">
+      <FlowchartFigcaption
+        title="Real scenario: Spring MVC WAR on Tomcat"
+        fresher="You package a WAR with web.xml (or Servlet 3+ WebApplicationInitializer). Tomcat loads the WAR, creates the servlet context, starts DispatcherServlet, and Spring builds the application context from XML or @Configuration. This is the classic pre-Boot deployment story."
+      />
+      <svg viewBox="0 0 720 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="28" width="120" height="44" rx="8" fill="#e0e7ff" stroke="#6366f1" />
+        <text x="84" y="54" textAnchor="middle" fontSize="8" fontWeight="800" fill="#312e81" fontFamily="system-ui">
+          Tomcat
+        </text>
+        <line x1="144" y1="50" x2="188" y2="50" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="192" y="28" width="140" height="44" rx="8" fill="#fef3c7" stroke="#d97706" />
+        <text x="262" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          web.xml / WebAppInit
+        </text>
+        <line x1="332" y1="50" x2="376" y2="50" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="380" y="28" width="160" height="44" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="460" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          DispatcherServlet
+        </text>
+        <line x1="540" y1="50" x2="584" y2="50" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="588" y="28" width="108" height="44" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="642" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          Spring context
+        </text>
+        <text x="360" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Context loads controllers, services, view resolvers — then requests hit DispatcherServlet → handler → view.
+        </text>
+        <rect x="80" y="128" width="560" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="360" y="152" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Interview angle: “How does Spring start inside a servlet container?” → bootstrap sequence above + root vs servlet context.
+        </text>
+        <text x="360" y="170" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Boot hides this with embedded Tomcat + auto-config; Framework-era questions often still use WAR + XML.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Bootstrap ApplicationContext without Spring Boot */
+export function SpringFrameworkApplicationContextBootstrapScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="ApplicationContext bootstrap">
+      <FlowchartFigcaption
+        title="Real scenario: bootstrapping the IoC container"
+        fresher="In tests or standalone apps you use ClassPathXmlApplicationContext or AnnotationConfigApplicationContext. The container reads bean definitions, instantiates singletons (unless prototype), runs BeanPostProcessors, and wires dependencies. No SpringApplication.run — you own the main() or test setup."
+      />
+      <svg viewBox="0 0 700 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="32" y="32" width="200" height="48" rx="8" fill="#f1f5f9" stroke="#64748b" />
+        <text x="132" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="ui-monospace">
+          new ClassPathXmlApplicationContext
+        </text>
+        <text x="132" y="72" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          or AnnotationConfigApplicationContext
+        </text>
+        <line x1="232" y1="56" x2="276" y2="56" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="280" y="32" width="160" height="48" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="360" y="58" textAnchor="middle" fontSize="8" fontWeight="800" fill="#1e40af" fontFamily="system-ui">
+          Parse definitions
+        </text>
+        <line x1="440" y1="56" x2="484" y2="56" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="488" y="32" width="180" height="48" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="578" y="58" textAnchor="middle" fontSize="8" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          Instantiate &amp; wire
+        </text>
+        <text x="350" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          getBean() returns fully wired singletons; prototype beans created per getBean (or injection site).
+        </text>
+        <rect x="40" y="128" width="620" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="350" y="152" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Real scenario: integration test starts minimal context with @ContextConfiguration or @SpringJUnitConfig.
+        </text>
+        <text x="350" y="170" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Same lifecycle — container refresh, dependency graph, lifecycle callbacks (@PostConstruct).
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Form POST through validation to service */
+export function SpringFrameworkMvcFormSubmissionScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="MVC form submission">
+      <FlowchartFigcaption
+        title="Real scenario: form POST in Spring MVC"
+        fresher="Browser POSTs to a URL. DispatcherServlet maps to @Controller method. @Valid triggers Bean Validation on the command object. BindingResult captures field errors. On success the service layer runs; on failure you return the form view with errors. PRG (redirect after POST) avoids duplicate submits."
+      />
+      <svg viewBox="0 0 720 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="32" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" />
+        <text x="74" y="56" textAnchor="middle" fontSize="8" fontWeight="800" fill="#312e81" fontFamily="system-ui">
+          POST /save
+        </text>
+        <line x1="124" y1="52" x2="168" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="172" y="32" width="120" height="40" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="232" y="56" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          DispatcherServlet
+        </text>
+        <line x1="292" y1="52" x2="336" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="340" y="28" width="140" height="48" rx="8" fill="#fef3c7" stroke="#d97706" />
+        <text x="410" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          @Valid + BindingResult
+        </text>
+        <line x1="480" y1="52" x2="524" y2="52" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="528" y="32" width="168" height="40" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="612" y="56" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          Controller → Service
+        </text>
+        <text x="360" y="100" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Errors? → return view name + model with BindingResult. OK? → redirect:redirect:/list (PRG).
+        </text>
+        <rect x="40" y="118" width="640" height="66" rx="8" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="360" y="142" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Interview: “Where does validation happen?” — WebDataBinder + validator before your business logic; not in JSP alone.
+        </text>
+        <text x="360" y="162" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Framework stack: spring-webmvc + spring-context + validation-api (Hibernate Validator impl).
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** JDBC + declarative transaction */
+export function SpringFrameworkJdbcTransactionalScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="JDBC transactional scenario">
+      <FlowchartFigcaption
+        title="Real scenario: @Transactional + JdbcTemplate"
+        fresher="A service method is annotated with @Transactional. Spring creates a proxy; on entry it binds a Connection to ThreadLocal and starts a transaction. JdbcTemplate uses DataSourceUtils so all JDBC work shares that connection. On success commit; on RuntimeException rollback (by default)."
+      />
+      <svg viewBox="0 0 720 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="32" width="140" height="44" rx="8" fill="#fef3c7" stroke="#d97706" />
+        <text x="94" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          @Transactional service
+        </text>
+        <line x1="164" y1="54" x2="208" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="212" y="32" width="160" height="44" rx="8" fill="#fce7f3" stroke="#db2777" />
+        <text x="292" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9d174d" fontFamily="system-ui">
+          Transaction proxy
+        </text>
+        <line x1="372" y1="54" x2="416" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="420" y="32" width="140" height="44" rx="8" fill="#dbeafe" stroke="#2563eb" />
+        <text x="490" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e40af" fontFamily="ui-monospace">
+          JdbcTemplate
+        </text>
+        <line x1="560" y1="54" x2="604" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="608" y="32" width="88" height="44" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="652" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="system-ui">
+          DB
+        </text>
+        <text x="360" y="100" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          PlatformTransactionManager (e.g. DataSourceTransactionManager) coordinates begin / commit / rollback.
+        </text>
+        <rect x="40" y="118" width="640" height="66" rx="8" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="360" y="142" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Real scenario: two DAO calls in one @Transactional method — same connection, one atomic unit.
+        </text>
+        <text x="360" y="162" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Enable with @EnableTransactionManagement + DataSource + TransactionManager beans (no Boot magic).
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** @Around advice on a service — production-style cross-cutting concern */
+export function SpringFrameworkAopAroundAdviceScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-springframework-scenario" role="img" aria-label="AOP around advice scenario">
+      <FlowchartFigcaption
+        title="Real scenario: @Around logging / timing on a service"
+        fresher="You define an @Aspect with @Around(&quot;execution(* com.app.service..*(..))&quot;). At runtime Spring wraps matching beans in a proxy. Before proceed() you log start time; after, log duration or catch exceptions. Same pattern for security checks or metrics — without changing service code."
+      />
+      <svg viewBox="0 0 720 200" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <Defs prefix={p} />
+        <rect x="24" y="32" width="120" height="44" rx="8" fill="#e0e7ff" stroke="#6366f1" />
+        <text x="84" y="58" textAnchor="middle" fontSize="8" fontWeight="800" fill="#312e81" fontFamily="system-ui">
+          Caller
+        </text>
+        <line x1="144" y1="54" x2="188" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="192" y="28" width="160" height="52" rx="8" fill="#fce7f3" stroke="#db2777" />
+        <text x="272" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9d174d" fontFamily="system-ui">
+          Proxy (JDK or CGLIB)
+        </text>
+        <text x="272" y="68" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="ui-monospace">
+          @Around advice first
+        </text>
+        <line x1="352" y1="54" x2="396" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="400" y="32" width="140" height="44" rx="8" fill="#ecfdf5" stroke="#6db33f" />
+        <text x="470" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#14532d" fontFamily="ui-monospace">
+          UserService.save()
+        </text>
+        <line x1="540" y1="54" x2="584" y2="54" stroke="#15803d" strokeWidth="2" markerEnd={`url(#${p}-arrowhead)`} />
+        <rect x="588" y="32" width="108" height="44" rx="8" fill="#f1f5f9" stroke="#64748b" />
+        <text x="642" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          proceed()
+        </text>
+        <text x="360" y="100" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          @EnableAspectJAutoProxy — remember self-invocation skips the proxy (call another bean for AOP).
+        </text>
+        <rect x="40" y="118" width="640" height="66" rx="8" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="360" y="142" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Interview: “How does Spring AOP differ from AspectJ weaving?” — proxy-based vs compile/load-time weaving.
+        </text>
+        <text x="360" y="162" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Framework: spring-aop + aspectjweaver on classpath; interfaces → JDK proxy, else CGLIB (when exposed).
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** App → server → storage — production mental model */
+export function MySQLClientServerArchitectureScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL client server architecture">
+      <FlowchartFigcaption
+        title="Real scenario: how your app reaches data"
+        fresher="Every client—Java JDBC, Python, PHP, the mysql CLI, or MySQL Workbench—opens a TCP connection to the server port (default 3306), completes authentication (user@host, password or plugin), then sends SQL as text. The server’s connection thread accepts the packet, the SQL layer parses and optimizes, and InnoDB (or another engine) reads or writes pages in the buffer pool and on disk. Nothing in this path is “Workbench-specific”: Workbench is just another client. Tuning max_connections, wait_timeout, and thread pool sizes maps directly to how many concurrent clients you can support."
+      />
+      <svg viewBox="0 0 760 228" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="16" y="24" width="728" height="168" rx="14" fill="#f0fdfa" stroke="#99f6e4" strokeWidth="1.2" filter={`url(#${p}-mysql-glow)`} />
+        <text x="380" y="46" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f766e" fontFamily="system-ui">
+          MySQL Server process (mysqld)
+        </text>
+        <rect x="36" y="58" width="112" height="48" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.5" />
+        <text x="92" y="80" textAnchor="middle" fontSize="8" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Client app
+        </text>
+        <text x="92" y="94" textAnchor="middle" fontSize="6.5" fill="#0d9488" fontFamily="ui-monospace">
+          JDBC / CLI
+        </text>
+        <line x1="148" y1="82" x2="188" y2="82" stroke="#00758F" strokeWidth="2.2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <text x="168" y="74" textAnchor="middle" fontSize="6" fill="#f97316" fontWeight="700" fontFamily="ui-monospace">
+          :3306
+        </text>
+        <rect x="192" y="58" width="128" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="256" y="80" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Connection layer
+        </text>
+        <text x="256" y="94" textAnchor="middle" fontSize="6.5" fill="#c2410c" fontFamily="system-ui">
+          threads / auth
+        </text>
+        <line x1="320" y1="82" x2="360" y2="82" stroke="#00758F" strokeWidth="2.2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="364" y="54" width="156" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.5" />
+        <text x="442" y="78" textAnchor="middle" fontSize="8" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          SQL + Optimizer
+        </text>
+        <text x="442" y="94" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          parse · plan · execute
+        </text>
+        <line x1="520" y1="82" x2="560" y2="82" stroke="#00758F" strokeWidth="2.2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="564" y="58" width="160" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="644" y="80" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          InnoDB engine
+        </text>
+        <text x="644" y="94" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          buffer pool · ibd
+        </text>
+        <rect x="120" y="128" width="520" height="52" rx="10" fill="rgba(0,117,143,0.06)" stroke="#5eead4" strokeWidth="1" />
+        <text x="380" y="152" textAnchor="middle" fontSize="7" fontWeight="700" fill="#115e59" fontFamily="system-ui">
+          Interview angle: “Where does query optimization happen?” — after parsing, before execution; storage engine handles rows &amp; locks.
+        </text>
+        <text x="380" y="168" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          One connection ≈ one session; pool sizing (HikariCP) maps to server thread / connection limits.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** SELECT path through parser and optimizer */
+export function MySQLQueryExecutionPipelineScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL query execution pipeline">
+      <FlowchartFigcaption
+        title="Real scenario: what happens when you run SELECT"
+        fresher="Lexing and parsing turn your SQL string into a parse tree; the resolver binds table/column names to metadata in the data dictionary and checks privileges. The optimizer (cost-based) estimates cardinalities using statistics and chooses access paths: which index, join order, and join algorithm. The execution engine then requests rows from InnoDB via the handler interface—buffer pool hits avoid disk; misses read pages from .ibd files. Aggregates and GROUP BY may require temporary tables or sorting. EXPLAIN shows this plan; EXPLAIN ANALYZE (8.0.18+) adds actual timings."
+      />
+      <svg viewBox="0 0 760 232" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="24" y="32" width="96" height="44" rx="9" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.4" />
+        <text x="72" y="58" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          SELECT …
+        </text>
+        <line x1="120" y1="54" x2="156" y2="54" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="160" y="28" width="108" height="52" rx="9" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="214" y="50" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Parser
+        </text>
+        <text x="214" y="66" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          syntax tree
+        </text>
+        <line x1="268" y1="54" x2="304" y2="54" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="308" y="28" width="120" height="52" rx="9" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="368" y="50" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Resolver
+        </text>
+        <text x="368" y="66" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          tables · columns
+        </text>
+        <line x1="428" y1="54" x2="464" y2="54" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="468" y="28" width="132" height="52" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.4" />
+        <text x="534" y="50" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Optimizer
+        </text>
+        <text x="534" y="66" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          cost · index choice
+        </text>
+        <line x1="600" y1="54" x2="636" y2="54" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="640" y="32" width="96" height="44" rx="9" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="688" y="58" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Execute
+        </text>
+        <text x="380" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          EXPLAIN shows the plan the optimizer chose — always verify for hot queries in production.
+        </text>
+        <rect x="40" y="124" width="680" height="92" rx="12" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1" />
+        <text x="380" y="148" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          Real scenario: slow dashboard query
+        </text>
+        <text x="380" y="168" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Check · missing index · full table scan · wrong join order → use EXPLAIN ANALYZE (8.0.18+) or optimizer trace.
+        </text>
+        <text x="380" y="188" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Covering indexes and selective WHERE clauses reduce rows read from InnoDB.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** BEGIN … COMMIT with InnoDB */
+export function MySQLInnoDBTransactionACIDScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="InnoDB transaction scenario">
+      <FlowchartFigcaption
+        title="Real scenario: InnoDB transaction lifecycle"
+        fresher="BEGIN allocates a transaction id (trx id). Row changes update the buffer pool; redo log records physical changes for crash recovery (WAL: log before durable data page flush). Undo segments store old row versions for ROLLBACK and for consistent reads (MVCC). COMMIT flushes redo to disk (group commit batches transactions); ROLLBACK walks undo. Isolation level (REPEATABLE READ default) sets what each snapshot read sees; gap/next-key locks prevent phantoms for locking reads."
+      />
+      <svg viewBox="0 0 760 236" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="32" y="36" width="88" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.3" />
+        <text x="76" y="60" textAnchor="middle" fontSize="8" fontWeight="800" fill="#0c4a6e" fontFamily="ui-monospace">
+          BEGIN
+        </text>
+        <line x1="120" y1="56" x2="156" y2="56" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="160" y="32" width="140" height="48" rx="9" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="230" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Buffer pool
+        </text>
+        <text x="230" y="70" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          dirty pages
+        </text>
+        <line x1="300" y1="56" x2="336" y2="56" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="340" y="32" width="120" height="48" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="400" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Redo log
+        </text>
+        <text x="400" y="70" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          durability path
+        </text>
+        <line x1="460" y1="56" x2="496" y2="56" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="500" y="32" width="120" height="48" rx="9" fill="#fce7f3" stroke="#db2777" strokeWidth="1.3" />
+        <text x="560" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9d174d" fontFamily="system-ui">
+          Undo log
+        </text>
+        <text x="560" y="70" textAnchor="middle" fontSize="6.5" fill="#be185d" fontFamily="system-ui">
+          rollback / MVCC
+        </text>
+        <line x1="620" y1="56" x2="656" y2="56" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="660" y="36" width="72" height="40" rx="8" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="696" y="60" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ecfeff" fontFamily="ui-monospace">
+          COMMIT
+        </text>
+        <text x="380" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Isolation level (REPEATABLE READ default in InnoDB) defines what each statement’s consistent read sees.
+        </text>
+        <rect x="40" y="124" width="680" height="96" rx="12" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="150" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          Production checklist: keep transactions short; avoid long-held locks; watch innodb_lock_wait_timeout.
+        </text>
+        <text x="380" y="172" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Deadlocks: InnoDB detects and rolls back one transaction — retry logic belongs in the app layer.
+        </text>
+        <text x="380" y="194" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          autocommit = ON: each statement is its own transaction unless you explicitly BEGIN.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Index seek vs full scan */
+export function MySQLBTreeIndexSeekScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL B-tree index seek">
+      <FlowchartFigcaption
+        title="Real scenario: why the right index matters"
+        fresher="A secondary index in InnoDB is a B+Tree of key values pointing to primary key entries. Seeking by indexed column walks the tree in O(log n) page accesses. Without an index, InnoDB may scan the whole clustered table — expensive on large tables."
+      />
+      <svg viewBox="0 0 760 240" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="24" y="28" width="340" height="168" rx="12" fill="#f0fdfa" stroke="#2dd4bf" strokeWidth="1.2" />
+        <text x="194" y="50" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f766e" fontFamily="system-ui">
+          With index (seek)
+        </text>
+        <rect x="48" y="64" width="72" height="36" rx="6" fill="#ccfbf1" stroke="#0d9488" />
+        <text x="84" y="86" textAnchor="middle" fontSize="7" fontWeight="700" fill="#134e4a" fontFamily="ui-monospace">
+          root
+        </text>
+        <line x1="120" y1="82" x2="152" y2="82" stroke="#00758F" strokeWidth="1.5" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="156" y="68" width="72" height="36" rx="6" fill="#ccfbf1" stroke="#0d9488" />
+        <text x="192" y="90" textAnchor="middle" fontSize="7" fontWeight="700" fill="#134e4a" fontFamily="ui-monospace">
+          branch
+        </text>
+        <line x1="228" y1="82" x2="260" y2="82" stroke="#00758F" strokeWidth="1.5" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="264" y="72" width="84" height="44" rx="6" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" />
+        <text x="306" y="92" textAnchor="middle" fontSize="7" fontWeight="800" fill="#ecfeff" fontFamily="ui-monospace">
+          leaf PK
+        </text>
+        <text x="306" y="106" textAnchor="middle" fontSize="6" fill="#a5f3fc" fontFamily="system-ui">
+          clustered row
+        </text>
+        <text x="194" y="148" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          WHERE email = ? uses idx_email → few random I/Os.
+        </text>
+        <rect x="396" y="28" width="340" height="168" rx="12" fill="#fffbeb" stroke="#fcd34d" strokeWidth="1.2" />
+        <text x="566" y="50" textAnchor="middle" fontSize="9" fontWeight="800" fill="#b45309" fontFamily="system-ui">
+          Full table scan (no useful index)
+        </text>
+        <rect x="420" y="68" width="292" height="44" rx="8" fill="#fef3c7" stroke="#d97706" strokeDasharray="6 4" />
+        <text x="566" y="88" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#92400e" fontFamily="system-ui">
+          Read pages sequentially through clustered index / heap
+        </text>
+        <text x="566" y="104" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          every row evaluated for WHERE — cost ∝ table size
+        </text>
+        <text x="566" y="148" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          EXPLAIN type = ALL → expect large rows examined.
+        </text>
+        <text x="380" y="212" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Composite index (a,b,c) left-prefix rule: filters on (a) and (a,b) can use it; starting with (b) often cannot.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** INNER JOIN nested loop mental model */
+export function MySQLNestedLoopJoinScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL nested loop join">
+      <FlowchartFigcaption
+        title="Real scenario: how a join runs (nested-loop idea)"
+        fresher="For each row from the outer table (often the smaller or better-indexed side), the engine looks up matching rows in the inner table using an index or scan. The optimizer swaps order and methods (block nested loop, hash in memory) — but the nested-loop picture is what interviews expect."
+      />
+      <svg viewBox="0 0 760 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="40" y="40" width="200" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="140" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Outer: orders
+        </text>
+        <text x="140" y="82" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          scan / idx range
+        </text>
+        <text x="290" y="78" textAnchor="middle" fontSize="20" fill="#00758F" fontFamily="system-ui">
+          ×
+        </text>
+        <rect x="360" y="40" width="200" height="56" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.4" />
+        <text x="460" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Inner: customers
+        </text>
+        <text x="460" y="82" textAnchor="middle" fontSize="6.5" fill="#c2410c" fontFamily="ui-monospace">
+          lookup by PK / idx
+        </text>
+        <line x1="240" y1="68" x2="320" y2="68" stroke="#00758F" strokeWidth="1.5" strokeDasharray="4 3" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <line x1="560" y1="68" x2="640" y2="68" stroke="#00758F" strokeWidth="1.5" strokeDasharray="4 3" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="644" y="44" width="88" height="48" rx="9" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" />
+        <text x="688" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          joined rows
+        </text>
+        <text x="380" y="124" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          STRAIGHT_JOIN hints force join order — use sparingly; prefer statistics and indexes so the optimizer chooses well.
+        </text>
+        <rect x="48" y="140" width="664" height="64" rx="10" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="164" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Real scenario: N+1 in ORMs — one query per parent row — fix with JOIN FETCH or a single SQL join.
+        </text>
+        <text x="380" y="186" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          ON vs WHERE: outer join null-preserved side — predicates belong in ON when they define the join, not filter after.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Async replication overview */
+export function MySQLPrimaryReplicaReplicationScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL replication scenario">
+      <FlowchartFigcaption
+        title="Real scenario: asynchronous replication (classic)"
+        fresher="The primary writes the binary log (binlog) after transactions commit. Replica I/O thread pulls events over the network into a relay log; the SQL thread replays them to stay warm. Lag is normal — reads on replicas may be slightly stale; plan for replication lag monitoring."
+      />
+      <svg viewBox="0 0 760 224" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="32" y="40" width="160" height="52" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.3" />
+        <text x="112" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Primary (source)
+        </text>
+        <text x="112" y="80" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="ui-monospace">
+          binlog (ROW/SBR)
+        </text>
+        <line x1="192" y1="66" x2="248" y2="66" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="252" y="44" width="120" height="44" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.2" />
+        <text x="312" y="70" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0c4a6e" fontFamily="system-ui">
+          Network
+        </text>
+        <line x1="372" y1="66" x2="428" y2="66" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="432" y="40" width="140" height="52" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="502" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Replica I/O
+        </text>
+        <text x="502" y="80" textAnchor="middle" fontSize="6.5" fill="#c2410c" fontFamily="system-ui">
+          relay log
+        </text>
+        <line x1="572" y1="66" x2="616" y2="66" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="620" y="40" width="108" height="52" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="674" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          SQL thread
+        </text>
+        <text x="674" y="80" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          apply
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          GTIDs (global transaction IDs) simplify failover and auto-positioning in modern topologies.
+        </text>
+        <rect x="40" y="132" width="680" height="76" rx="12" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          Not for synchronous strong consistency — use clustering or external consensus if you need that guarantee.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Backups: snapshot replica + binlog position, or mysqldump / Percona XtraBackup depending on size and RTO/RPO.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** INSERT / UPDATE path */
+export function MySQLDmlWritePathScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL DML write path">
+      <FlowchartFigcaption
+        title="Real scenario: what happens on INSERT or UPDATE"
+        fresher="DML modifies buffer pool pages in memory first. InnoDB writes redo log records before page flush (WAL). Doublewrite buffer protects against torn pages. UNIQUE checks and foreign keys may trigger extra index lookups — batch inserts and ordered PKs help throughput."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="28" y="36" width="100" height="44" rx="8" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="78" y="64" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          INSERT
+        </text>
+        <line x1="128" y1="58" x2="168" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="172" y="32" width="132" height="52" rx="9" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="238" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Change buffer
+        </text>
+        <text x="238" y="70" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          secondary idx (merge)
+        </text>
+        <line x1="304" y1="58" x2="344" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="348" y="32" width="124" height="52" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="410" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Redo + undo
+        </text>
+        <text x="410" y="70" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          WAL ordering
+        </text>
+        <line x1="472" y1="58" x2="512" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="516" y="36" width="108" height="44" rx="9" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="570" y="62" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Flush pages
+        </text>
+        <line x1="624" y1="58" x2="664" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="668" y="36" width="64" height="44" rx="8" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="700" y="62" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="system-ui">
+          .ibd
+        </text>
+        <text x="380" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Bulk load: INSERT … VALUES many rows, or LOAD DATA INFILE — fewer round-trips, less redo overhead per row.
+        </text>
+        <rect x="40" y="124" width="680" height="76" rx="12" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="150" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Real scenario: hot row updates — contention on same index range → consider queueing, sharding, or smaller transactions.
+        </text>
+        <text x="380" y="174" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          UPDATE can’t always be in-place — variable-length columns may cause page splits.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Deep Windows-style installer path — Server product vs optional tools */
+export function MySQLWindowsInstallerDeepScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL Windows installer deep flow">
+      <FlowchartFigcaption
+        title="Deep dive: MySQL Installer (Windows) — what actually happens"
+        fresher="The Community Installer is a bundle manager: you pick which products to install (MySQL Server is the database process; MySQL Workbench, Shell, and connectors are separate line items). The wizard then runs: extract files → initialize the data directory (system tables) → apply network and account settings → install/register the Windows Service so mysqld starts on boot. If you skip Workbench here, you can add it later from the same installer (Modify) or install Workbench separately — you still need a running Server first."
+      />
+      <svg viewBox="0 0 780 340" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <text x="390" y="22" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f766e" fontFamily="system-ui">
+          Phase 1 — Choose products (Custom / Developer Default)
+        </text>
+        <rect x="20" y="32" width="168" height="56" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.4" />
+        <text x="104" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          MySQL Installer
+        </text>
+        <text x="104" y="70" textAnchor="middle" fontSize="6.5" fill="#c2410c" fontFamily="system-ui">
+          mysql-installer-community
+        </text>
+        <text x="104" y="82" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          Select / update catalog
+        </text>
+        <line x1="188" y1="60" x2="228" y2="60" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="232" y="30" width="200" height="60" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="332" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Product selection
+        </text>
+        <text x="332" y="68" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          Server 8.0.x (required)
+        </text>
+        <text x="332" y="80" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          Workbench optional · same wizard
+        </text>
+        <line x1="432" y1="60" x2="472" y2="60" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="476" y="32" width="284" height="56" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="618" y="54" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Download &amp; Execute
+        </text>
+        <text x="618" y="70" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          MSI installs files to Program Files
+        </text>
+        <text x="390" y="112" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f766e" fontFamily="system-ui">
+          Phase 2 — Configuration (after files are on disk)
+        </text>
+        <rect x="24" y="120" width="168" height="64" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="108" y="144" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Type &amp; Networking
+        </text>
+        <text x="108" y="162" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          port 3306 · firewall
+        </text>
+        <text x="108" y="176" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          Config Type: Dev / Dedicated
+        </text>
+        <line x1="192" y1="152" x2="232" y2="152" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="236" y="120" width="168" height="64" rx="10" fill="#fce7f3" stroke="#db2777" strokeWidth="1.2" />
+        <text x="320" y="144" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9d174d" fontFamily="system-ui">
+          Accounts &amp; roles
+        </text>
+        <text x="320" y="162" textAnchor="middle" fontSize="6.5" fill="#be185d" fontFamily="system-ui">
+          root password · caching_sha2
+        </text>
+        <text x="320" y="176" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          MySQL 8 default auth plugin
+        </text>
+        <line x1="404" y1="152" x2="444" y2="152" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="448" y="120" width="168" height="64" rx="10" fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.2" />
+        <text x="532" y="144" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0c4a6e" fontFamily="system-ui">
+          Windows Service
+        </text>
+        <text x="532" y="162" textAnchor="middle" fontSize="6.5" fill="#0369a1" fontFamily="system-ui">
+          MySQL80 · auto-start
+        </text>
+        <text x="532" y="176" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          service name may vary
+        </text>
+        <line x1="616" y1="152" x2="656" y2="152" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="660" y="124" width="100" height="56" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="710" y="150" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Apply
+        </text>
+        <text x="710" y="166" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          init datadir
+        </text>
+        <text x="390" y="208" textAnchor="middle" fontSize="9" fontWeight="800" fill="#0f766e" fontFamily="system-ui">
+          Phase 3 — Runtime (every client uses this)
+        </text>
+        <rect x="120" y="218" width="200" height="52" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.3" />
+        <text x="220" y="242" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ecfeff" fontFamily="ui-monospace">
+          mysqld.exe
+        </text>
+        <text x="220" y="258" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          listens TCP 3306
+        </text>
+        <line x1="320" y1="244" x2="360" y2="244" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="364" y="218" width="296" height="52" rx="10" fill="#f0fdfa" stroke="#99f6e4" strokeWidth="1.2" />
+        <text x="512" y="240" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#115e59" fontFamily="system-ui">
+          Clients: mysql CLI, Workbench, app JDBC
+        </text>
+        <text x="512" y="256" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          all use TCP to the same server — not separate databases
+        </text>
+        <rect x="32" y="282" width="716" height="52" rx="10" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="390" y="304" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Linux/macOS: package or brew installs mysqld; datadir often /var/lib/mysql. Docker: container runs mysqld, host maps 3306.
+        </text>
+        <text x="390" y="322" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          my.ini / my.cnf: port, datadir, innodb_buffer_pool_size — after editing, restart the service.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Workbench is a client — it does not replace the server */
+export function MySQLWorkbenchVsServerScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL Workbench vs server">
+      <FlowchartFigcaption
+        title="Critical distinction: MySQL Workbench vs MySQL Server"
+        fresher="MySQL Server (mysqld) is the process that stores data and listens on port 3306. MySQL Workbench is only a GUI client — it sends SQL over the same protocol as the mysql command-line. Installing Workbench alone does not give you a database. Installing Server without Workbench is normal for servers; you connect with CLI or another app. If Workbench shows no connection, the Server service is not running or the host/port/user is wrong — not a missing Workbench install."
+      />
+      <svg viewBox="0 0 760 260" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="16" y="36" width="240" height="120" rx="14" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.5" filter={`url(#${p}-mysql-glow)`} />
+        <text x="136" y="64" textAnchor="middle" fontSize="9" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          MySQL Workbench (GUI)
+        </text>
+        <text x="136" y="84" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Optional · Windows / macOS app
+        </text>
+        <text x="136" y="104" textAnchor="middle" fontSize="6.5" fill="#c2410c" fontFamily="system-ui">
+          SQL editor, modeling, admin tools
+        </text>
+        <text x="136" y="128" textAnchor="middle" fontSize="6.5" fill="#334155" fontFamily="system-ui">
+          Does not host data
+        </text>
+        <text x="136" y="148" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          macOS: separate .dmg or brew cask
+        </text>
+        <line x1="256" y1="96" x2="320" y2="96" stroke="#00758F" strokeWidth="2.5" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <text x="288" y="88" textAnchor="middle" fontSize="7" fontWeight="800" fill="#f97316" fontFamily="ui-monospace">
+          TCP 3306
+        </text>
+        <text x="288" y="108" textAnchor="middle" fontSize="6" fill="#64748b" fontFamily="system-ui">
+          JDBC / CLI same port
+        </text>
+        <rect x="504" y="36" width="240" height="120" rx="14" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.4" />
+        <text x="624" y="64" textAnchor="middle" fontSize="9" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          MySQL Server (mysqld)
+        </text>
+        <text x="624" y="84" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          Required for any database
+        </text>
+        <text x="624" y="104" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          InnoDB · data files · users
+        </text>
+        <text x="624" y="128" textAnchor="middle" fontSize="6.5" fill="#ccfbf1" fontFamily="system-ui">
+          Windows Service / systemd
+        </text>
+        <rect x="40" y="176" width="680" height="72" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="198" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          New connection: Home → MySQL Connections → + → Standard (TCP/IP) → Hostname 127.0.0.1, Port 3306, User root → Test Connection.
+        </text>
+        <text x="380" y="218" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          “Local instance MySQL80” appears only if the installer created it; otherwise create the connection yourself.
+        </text>
+        <text x="380" y="238" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Auth failures: wrong password or user@host — fix in SQL or installer, not by reinstalling Workbench alone.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Install → data directory → server start */
+export function MySQLInstallationAndStartScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL installation flow">
+      <FlowchartFigcaption
+        title="Summary: binaries → datadir → service → first client"
+        fresher="After the server package is installed, the data directory must be initialized (system tables, mysql schema). Configuration sets port and engine defaults. The OS service launches mysqld; only then do clients (Workbench, mysql CLI, JDBC) succeed. For the full Windows wizard, open the Installation topic’s “Deep installer” tab."
+      />
+      <svg viewBox="0 0 760 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="24" y="40" width="100" height="44" rx="9" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="74" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Install
+        </text>
+        <line x1="124" y1="62" x2="164" y2="62" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="168" y="36" width="120" height="52" rx="9" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="228" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Init datadir
+        </text>
+        <text x="228" y="74" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          mysql system db
+        </text>
+        <line x1="288" y1="62" x2="328" y2="62" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="332" y="40" width="108" height="44" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="386" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          my.cnf
+        </text>
+        <line x1="440" y1="62" x2="480" y2="62" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="484" y="36" width="120" height="52" rx="9" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="544" y="58" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          mysqld start
+        </text>
+        <text x="544" y="74" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          service / docker
+        </text>
+        <line x1="604" y1="62" x2="644" y2="62" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="648" y="40" width="88" height="44" rx="9" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="692" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="ui-monospace">
+          mysql -u
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          First login: reset temporary root password, create app users with least privilege — not root in production apps.
+        </text>
+        <rect x="40" y="136" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="162" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Cloud managed (RDS, Cloud SQL): you still reason about VPC, security groups, and parameter groups — same logical path.
+        </text>
+        <text x="380" y="186" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Verify with SHOW VARIABLES LIKE &apos;port&apos;; and SELECT VERSION();
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Choosing types for rows and indexes */
+export function MySQLDataTypeDesignScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="MySQL data type design">
+      <FlowchartFigcaption
+        title="Real scenario: how column types affect storage and queries"
+        fresher="Each column has a type and optional constraints. Fixed vs variable length, charset for strings, and DECIMAL vs FLOAT for money all change on-disk row size, index width, and comparison semantics. Wrong types inflate I/O and break indexes."
+      />
+      <svg viewBox="0 0 760 224" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="32" y="40" width="140" height="48" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="102" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Column definition
+        </text>
+        <text x="102" y="78" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          INT / VARCHAR / DECIMAL
+        </text>
+        <line x1="172" y1="64" x2="212" y2="64" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="216" y="40" width="148" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="290" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Row format
+        </text>
+        <text x="290" y="78" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          COMPACT / DYNAMIC
+        </text>
+        <line x1="364" y1="64" x2="404" y2="64" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="408" y="40" width="160" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="488" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Index footprint
+        </text>
+        <text x="488" y="78" textAnchor="middle" fontSize="6.5" fill="#c2410c" fontFamily="system-ui">
+          prefix length · charset
+        </text>
+        <line x1="568" y1="64" x2="608" y2="64" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="612" y="40" width="116" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="670" y="70" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Query cost
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Use the smallest type that fits the domain; VARCHAR(255) everywhere wastes index space and memory.
+        </text>
+        <rect x="40" y="132" width="680" height="76" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          DATETIME vs TIMESTAMP: timezone storage differs — pick one convention for the whole app.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          BLOB/TEXT can force off-page storage — keep hot columns narrow for buffer pool efficiency.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** CREATE DATABASE in the server */
+export function MySQLCreateDatabaseScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Create database scenario">
+      <FlowchartFigcaption
+        title="Real scenario: creating a schema (database)"
+        fresher="CREATE DATABASE defines a new namespace for objects. The server records it in the data dictionary; physical layout depends on innodb_file_per_table and file placement. Charset and collation default apply to new tables unless overridden."
+      />
+      <svg viewBox="0 0 760 212" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="40" y="44" width="160" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="120" y="72" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          CREATE DATABASE
+        </text>
+        <line x1="200" y1="68" x2="244" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="248" y="40" width="180" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="338" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Data dictionary
+        </text>
+        <text x="338" y="82" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          mysql.* metadata
+        </text>
+        <line x1="428" y1="68" x2="472" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="476" y="44" width="132" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="542" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Namespace
+        </text>
+        <line x1="608" y1="68" x2="652" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="656" y="44" width="72" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="692" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          USE db
+        </text>
+        <text x="380" y="120" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          One MySQL instance hosts many databases; permissions can be scoped per schema.
+        </text>
+        <rect x="48" y="136" width="664" height="64" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="162" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          utf8mb4 + sensible collation — set once at DB or connection level to avoid mixed encodings.
+        </text>
+        <text x="380" y="184" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          DROP DATABASE is destructive — backups and privilege review first.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** DDL and metadata locks */
+export function MySQLDDLAlterScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="DDL alter scenario">
+      <FlowchartFigcaption
+        title="Real scenario: DDL and long-running alters"
+        fresher="CREATE / ALTER / DROP acquire metadata locks so the table definition stays consistent. Big ALTERs may rebuild the table (copy) or use online DDL depending on version and algorithm. Concurrent DML can wait behind MDL — plan maintenance windows for wide tables."
+      />
+      <svg viewBox="0 0 760 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="28" y="40" width="120" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="88" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          ALTER TABLE
+        </text>
+        <line x1="148" y1="64" x2="188" y2="64" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="192" y="36" width="140" height="56" rx="10" fill="#fce7f3" stroke="#db2777" strokeWidth="1.2" />
+        <text x="262" y="60" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9d174d" fontFamily="system-ui">
+          Metadata lock
+        </text>
+        <text x="262" y="78" textAnchor="middle" fontSize="6.5" fill="#be185d" fontFamily="system-ui">
+          waits for sessions
+        </text>
+        <line x1="332" y1="64" x2="372" y2="64" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="376" y="40" width="160" height="48" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="456" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Engine DDL
+        </text>
+        <text x="456" y="78" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          INPLACE / COPY
+        </text>
+        <line x1="536" y1="64" x2="576" y2="64" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="580" y="40" width="152" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="656" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          New table def
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          pt-online-schema-change and gh-ost are common patterns when native online DDL is not enough.
+        </text>
+        <rect x="40" y="132" width="680" height="72" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Adding an index: still builds B-Tree — monitor disk I/O and replication lag on replicas.
+        </text>
+        <text x="380" y="184" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Prefer additive changes; destructive column type shrinks need careful backfill strategies.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** SELECT structure — logical building blocks */
+export function MySQLSelectStatementShapeScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="SELECT statement shape">
+      <FlowchartFigcaption
+        title="Real scenario: how a SELECT is structured"
+        fresher="Execution order differs from written order, but mentally you build FROM (sources) → filters → grouping → projection. SELECT list expressions can reference aliases only in outer queries — understanding clauses prevents subtle bugs."
+      />
+      <svg viewBox="0 0 760 228" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="60" y="36" width="120" height="44" rx="9" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="120" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ecfeff" fontFamily="ui-monospace">
+          FROM / JOIN
+        </text>
+        <line x1="180" y1="58" x2="220" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="224" y="36" width="100" height="44" rx="9" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="274" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#134e4a" fontFamily="ui-monospace">
+          WHERE
+        </text>
+        <line x1="324" y1="58" x2="364" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="368" y="36" width="112" height="44" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="424" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          GROUP BY
+        </text>
+        <line x1="480" y1="58" x2="520" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="524" y="36" width="100" height="44" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="574" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          HAVING
+        </text>
+        <line x1="624" y1="58" x2="664" y2="58" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="668" y="36" width="72" height="44" rx="9" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="704" y="62" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          SELECT
+        </text>
+        <text x="380" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Optimizer may reorder joins; written SELECT list is evaluated in context of grouped rows when GROUP BY is present.
+        </text>
+        <rect x="40" y="124" width="680" height="88" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="148" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          DISTINCT applies after row combination; window functions (8.0) add another evaluation phase after result rows.
+        </text>
+        <text x="380" y="172" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          FOR UPDATE locks selected rows in InnoDB — use in transactions intentionally.
+        </text>
+        <text x="380" y="194" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          * in production APIs: prefer explicit column lists to avoid breaking clients when schema evolves.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Logical clause order (not written top-to-bottom) */
+export function MySQLClauseLogicalOrderScenarioDiagram() {
+  const p = useSvgPrefix();
+  const steps = ['FROM', 'WHERE', 'GROUP BY', 'HAVING', 'SELECT', 'ORDER BY', 'LIMIT'];
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="SQL clause order">
+      <FlowchartFigcaption
+        title="Real scenario: logical processing order"
+        fresher="Engines optimize internally, but for reasoning about HAVING vs WHERE, alias visibility, and when ORDER BY runs, this order is the standard teaching model. WHERE filters rows before grouping; HAVING filters groups after aggregates."
+      />
+      <svg viewBox="0 0 760 248" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        {steps.map((label, i) => {
+          const x = 36 + i * 98;
+          return (
+            <g key={label}>
+              <rect x={x} y="40" width="88" height="40" rx="8" fill={i % 2 === 0 ? `url(#${p}-mysql-node)` : '#fef3c7'} stroke={i % 2 === 0 ? '#00758F' : '#d97706'} strokeWidth="1.2" />
+              <text x={x + 44} y="64" textAnchor="middle" fontSize="7" fontWeight="800" fill={i % 2 === 0 ? '#134e4a' : '#92400e'} fontFamily="ui-monospace">
+                {label}
+              </text>
+              {i < steps.length - 1 && (
+                <line x1={x + 88} y1="60" x2={x + 98} y2="60" stroke="#00758F" strokeWidth="1.8" markerEnd={`url(#${p}-mysql-arrow)`} />
+              )}
+            </g>
+          );
+        })}
+        <text x="380" y="108" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          WHERE cannot use aggregate aliases; HAVING can — because aggregates exist only after GROUP BY.
+        </text>
+        <rect x="40" y="124" width="680" height="108" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="150" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          Real bug: using SELECT alias in WHERE — not allowed; repeat expression or use subquery / outer query.
+        </text>
+        <text x="380" y="174" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          ORDER BY can reference SELECT aliases in MySQL — convenient but be explicit in shared SQL for portability.
+        </text>
+        <text x="380" y="198" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          LIMIT last: pagination with OFFSET pays O(offset) cost — keyset pagination for deep pages.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** FK insert checks parent */
+export function MySQLForeignKeyValidationScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Foreign key validation">
+      <FlowchartFigcaption
+        title="Real scenario: inserting a child row with a foreign key"
+        fresher="InnoDB enforces referential integrity: before committing a child row, the referenced parent key must exist (or NULL if allowed). Deletes/updates on the parent can CASCADE or RESTRICT depending on the FK definition — plan for lock order to avoid deadlocks."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="40" y="44" width="140" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="110" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          INSERT child
+        </text>
+        <line x1="180" y1="68" x2="224" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="228" y="40" width="180" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="318" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Lookup parent PK
+        </text>
+        <text x="318" y="82" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          shared lock / check
+        </text>
+        <line x1="408" y1="68" x2="452" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="456" y="44" width="120" height="48" rx="10" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="516" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="system-ui">
+          OK → row
+        </text>
+        <line x1="576" y1="68" x2="620" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="624" y="44" width="96" height="48" rx="10" fill="#fee2e2" stroke="#dc2626" strokeWidth="1.2" />
+        <text x="672" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#991b1b" fontFamily="system-ui">
+          Error 1452
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          ON DELETE CASCADE: deleting parent removes children — dangerous without backups and audits.
+        </text>
+        <rect x="48" y="132" width="664" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Composite FKs: all columns must match — indexing the child columns in left-prefix order helps join performance.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Disable FK checks (SESSION) only for controlled migrations — not in normal app code.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** GROUP BY + aggregates */
+export function MySQLAggregatePipelineScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Aggregate query pipeline">
+      <FlowchartFigcaption
+        title="Real scenario: aggregates and GROUP BY"
+        fresher="Rows are partitioned by GROUP BY keys. Aggregate functions (COUNT, SUM, AVG…) collapse each group to one row. Non-aggregated columns in SELECT must appear in GROUP BY (or ONLY_FULL_GROUP_BY mode errors). HAVING filters groups after aggregation."
+      />
+      <svg viewBox="0 0 760 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="32" y="44" width="140" height="48" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="102" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Row stream
+        </text>
+        <line x1="172" y1="68" x2="212" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="216" y="40" width="160" height="56" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="296" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          GROUP BY keys
+        </text>
+        <text x="296" y="82" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          sort / hash
+        </text>
+        <line x1="376" y1="68" x2="416" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="420" y="44" width="160" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="500" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Aggregates
+        </text>
+        <line x1="580" y1="68" x2="620" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="624" y="44" width="104" height="48" rx="10" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="676" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="system-ui">
+          HAVING
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          COUNT(*) vs COUNT(col): NULL handling differs — know which you need for reporting accuracy.
+        </text>
+        <rect x="40" y="132" width="680" height="72" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          ROLLUP / CUBE (8.0+ features via GROUPING) — super useful for subtotals in analytics exports.
+        </text>
+        <text x="380" y="184" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Large GROUP BY: ensure selective WHERE first to shrink input — memory for temp tables is bounded by tmp_table_size.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Scalar functions on each row */
+export function MySQLScalarExpressionRowScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Scalar functions">
+      <FlowchartFigcaption
+        title="Real scenario: scalar functions in the SELECT list"
+        fresher="For each surviving row after joins and WHERE, the engine evaluates expressions: CONCAT, DATE_FORMAT, COALESCE, CASE…. These run row-by-row (unless optimized away). Heavy functions on unindexed columns can still dominate CPU — compute in app tier when possible."
+      />
+      <svg viewBox="0 0 760 208" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="48" y="48" width="160" height="48" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="128" y="76" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Current row
+        </text>
+        <line x1="208" y1="72" x2="252" y2="72" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="256" y="44" width="200" height="56" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="356" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          expr per column
+        </text>
+        <text x="356" y="86" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="ui-monospace">
+          UPPER · IFNULL · ROUND
+        </text>
+        <line x1="456" y1="72" x2="500" y2="72" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="504" y="48" width="208" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="608" y="76" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Result row
+        </text>
+        <text x="380" y="124" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          WHERE UPPER(col) = … prevents index use on col — consider generated column + index for case-insensitive search.
+        </text>
+        <rect x="48" y="140" width="664" height="56" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="166" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Deterministic vs non-deterministic functions matter for replication and caching — document side effects.
+        </text>
+        <text x="380" y="184" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          JSON_* functions: flexible but validate size and indexing strategy (functional indexes in 8.0+).
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** VIEW merged into statement */
+export function MySQLViewQueryMergeScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="View resolution">
+      <FlowchartFigcaption
+        title="Real scenario: querying a view"
+        fresher="A view stores a SELECT definition, not materialized rows (unless explicitly so in other engines). MySQL typically merges the view SQL into your outer query so the optimizer sees through it. Complex views can still obscure index use — check EXPLAIN on the expanded SQL."
+      />
+      <svg viewBox="0 0 760 212" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="40" y="44" width="120" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="100" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          SELECT … v
+        </text>
+        <line x1="160" y1="68" x2="204" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="208" y="40" width="180" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="298" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Expand view def
+        </text>
+        <text x="298" y="82" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          merge algorithm
+        </text>
+        <line x1="388" y1="68" x2="432" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="436" y="44" width="200" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="536" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Single optimized query
+        </text>
+        <line x1="636" y1="68" x2="680" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="684" y="44" width="36" height="48" rx="8" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="702" y="76" textAnchor="middle" fontSize="9" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          ⇢
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          WITH CHECK OPTION on updatable views — prevents rows that would disappear from the view after insert/update.
+        </text>
+        <rect x="48" y="132" width="664" height="64" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Security: views can hide columns — still enforce privileges on underlying tables for defense in depth.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Nested views: readability vs optimizer complexity — sometimes a CTE (8.0+) is clearer.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** CALL procedure */
+export function MySQLProcedureCallFlowScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Stored procedure call">
+      <FlowchartFigcaption
+        title="Real scenario: executing a stored procedure"
+        fresher="CALL transfers control to a precompiled routine in the server. It can run multiple statements, use session variables, and return result sets. Delimiter changes matter in CLI scripts; apps use JDBC CallableStatement. Permissions EXECUTE must be granted explicitly."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="36" y="44" width="112" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="92" y="72" textAnchor="middle" fontSize="8" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          CALL sp()
+        </text>
+        <line x1="148" y1="68" x2="192" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="196" y="40" width="160" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="276" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Parse &amp; bind
+        </text>
+        <text x="276" y="82" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          mysql.proc
+        </text>
+        <line x1="356" y1="68" x2="400" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="404" y="44" width="200" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="504" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Procedure body
+        </text>
+        <line x1="604" y1="68" x2="648" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="652" y="44" width="72" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="688" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          OUT / RS
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Migrations: store procedures in version control — drift between environments breaks apps silently.
+        </text>
+        <rect x="40" y="132" width="680" height="72" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          SQL injection: dynamic SQL inside procedures must still use parameters — never concat user input.
+        </text>
+        <text x="380" y="184" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Testing: exercise procedures with the same roles the app uses — DEFINER vs INVOKER security model matters.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Trigger chain */
+export function MySQLTriggerBeforeAfterScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Trigger execution">
+      <FlowchartFigcaption
+        title="Real scenario: BEFORE and AFTER triggers"
+        fresher="On INSERT/UPDATE/DELETE, MySQL runs matching triggers in order. BEFORE triggers can modify NEW row values; AFTER triggers often audit or fan out side work. Triggers share the same transaction as the statement — an error rolls everything back."
+      />
+      <svg viewBox="0 0 760 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="32" y="44" width="120" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="92" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          DML stmt
+        </text>
+        <line x1="152" y1="68" x2="196" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="200" y="40" width="140" height="56" rx="10" fill="#fce7f3" stroke="#db2777" strokeWidth="1.2" />
+        <text x="270" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9d174d" fontFamily="system-ui">
+          BEFORE
+        </text>
+        <text x="270" y="82" textAnchor="middle" fontSize="6.5" fill="#be185d" fontFamily="system-ui">
+          validate / NEW
+        </text>
+        <line x1="340" y1="68" x2="384" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="388" y="44" width="160" height="48" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="468" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Row change
+        </text>
+        <line x1="548" y1="68" x2="592" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="596" y="40" width="132" height="56" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="662" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          AFTER
+        </text>
+        <text x="662" y="82" textAnchor="middle" fontSize="6.5" fill="#a5f3fc" fontFamily="system-ui">
+          audit / log
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Cascading triggers and FK checks: ordering can surprise you — keep trigger bodies small and deterministic.
+        </text>
+        <rect x="40" y="132" width="680" height="72" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Hidden side effects hurt observability — prefer explicit app-level workflows for complex rules when possible.
+        </text>
+        <text x="380" y="184" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          SHOW TRIGGERS; and information_schema.TRIGGERS for inventory during audits.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Correlated subquery */
+export function MySQLCorrelatedSubqueryScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Correlated subquery">
+      <FlowchartFigcaption
+        title="Real scenario: correlated vs independent subqueries"
+        fresher="A correlated subquery references columns from an outer query, so it can run once per outer row — O(n²) danger. The optimizer may decorrelate into joins (semijoin), but bad plans still happen. Independent subqueries run once and cache results."
+      />
+      <svg viewBox="0 0 760 224" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="36" y="44" width="160" height="52" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="116" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Outer rows
+        </text>
+        <text x="116" y="84" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="ui-monospace">
+          e.g. customers
+        </text>
+        <line x1="196" y1="70" x2="240" y2="70" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="244" y="40" width="200" height="60" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="344" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Inner query uses outer.col
+        </text>
+        <text x="344" y="82" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          per outer row (correlated)
+        </text>
+        <line x1="444" y1="70" x2="488" y2="70" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="492" y="44" width="232" height="52" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="608" y="74" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          EXISTS / scalar result
+        </text>
+        <text x="380" y="124" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Rewrite candidate: JOIN + GROUP BY or lateral-style patterns when the optimizer does not decorrelate well.
+        </text>
+        <rect x="40" y="140" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="166" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          IN (subquery) with large lists: temp table materialization — compare timing with JOIN form.
+        </text>
+        <text x="380" y="190" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Derived tables (FROM (SELECT…) t) — give them names; optimizer can merge or materialize.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** AuthZ after AuthN */
+export function MySQLPrivilegeGrantCheckScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-mysql-scenario" role="img" aria-label="Privilege check">
+      <FlowchartFigcaption
+        title="Real scenario: connection, authentication, authorization"
+        fresher="First the server verifies credentials (plugin, password, SSL). Then every statement is checked against grants for user@host, including roles (8.0). Dynamic privileges and partial revokes (8.0) add nuance — least privilege keeps blast radius small."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <MySQLDefs prefix={p} />
+        <rect x="32" y="44" width="120" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="92" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Connect
+        </text>
+        <line x1="152" y1="68" x2="196" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="200" y="40" width="160" height="56" rx="10" fill={`url(#${p}-mysql-node)`} stroke="#00758F" strokeWidth="1.4" />
+        <text x="280" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#134e4a" fontFamily="system-ui">
+          Authentication
+        </text>
+        <text x="280" y="82" textAnchor="middle" fontSize="6.5" fill="#0f766e" fontFamily="system-ui">
+          caching_sha2 …
+        </text>
+        <line x1="360" y1="68" x2="404" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="408" y="44" width="180" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="498" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          mysql.* grants
+        </text>
+        <line x1="588" y1="68" x2="632" y2="68" stroke="#00758F" strokeWidth="2" markerEnd={`url(#${p}-mysql-arrow)`} />
+        <rect x="636" y="44" width="92" height="48" rx="10" fill={`url(#${p}-mysql-deep)`} stroke="#0e7490" strokeWidth="1.2" />
+        <text x="682" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ecfeff" fontFamily="system-ui">
+          Allow
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          user@&apos;%&apos; vs exact host — DNS and proxy layers can change effective host; use concrete subnets in prod.
+        </text>
+        <rect x="40" y="132" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          GRANT … WITH GRANT OPTION: transitive power — audit who can delegate privileges.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          FLUSH PRIVILEGES reloads grant tables — needed rarely on modern versions after direct table edits (avoid those).
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** pom / deps → connector JAR */
+export function JdbcProjectClasspathScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="JDBC project classpath">
+      <FlowchartFigcaption
+        title="Real scenario: JDBC driver on the classpath"
+        fresher="Maven or Gradle declares mysql-connector-j (or your vendor driver). The build tool downloads the JAR into the local repo; at runtime the JVM loads the Driver class from that JAR. Without the driver on the classpath, DriverManager.getConnection throws “No suitable driver”."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="24" y="40" width="140" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="94" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          pom.xml / Gradle
+        </text>
+        <line x1="164" y1="64" x2="208" y2="64" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="212" y="36" width="180" height="56" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="302" y="60" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          Dependency
+        </text>
+        <text x="302" y="78" textAnchor="middle" fontSize="6.5" fill="#2c5282" fontFamily="ui-monospace">
+          mysql-connector-j
+        </text>
+        <line x1="392" y1="64" x2="436" y2="64" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="440" y="40" width="148" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="514" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Classpath
+        </text>
+        <line x1="588" y1="64" x2="632" y2="64" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="636" y="40" width="100" height="48" rx="10" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="686" y="68" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          Driver
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Fat JAR / Spring Boot: driver is bundled; plain Java app: java -cp ... must include connector JAR.
+        </text>
+        <rect x="40" y="132" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Version pin: match driver major to server major when possible — avoid silent protocol mismatches.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Module path (JPMS): requires requires java.sql; and opens for reflective drivers if your stack needs it.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** JDBC API stack */
+export function JdbcArchitectureLayersScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="JDBC architecture">
+      <FlowchartFigcaption
+        title="Real scenario: where JDBC sits in your app"
+        fresher="Application code uses Java interfaces in java.sql (Connection, Statement, ResultSet). The JDBC driver implements those interfaces and speaks the database wire protocol. Your code never talks to sockets directly — the driver does, so swapping databases means swapping drivers and sometimes SQL dialects."
+      />
+      <svg viewBox="0 0 760 220" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="40" y="44" width="160" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="120" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="system-ui">
+          Your code
+        </text>
+        <line x1="200" y1="68" x2="244" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="248" y="40" width="180" height="56" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="338" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          JDBC API (java.sql)
+        </text>
+        <text x="338" y="82" textAnchor="middle" fontSize="6.5" fill="#2c5282" fontFamily="ui-monospace">
+          Connection · Statement
+        </text>
+        <line x1="428" y1="68" x2="472" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="476" y="44" width="132" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="542" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          Driver
+        </text>
+        <line x1="608" y1="68" x2="652" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="656" y="44" width="72" height="48" rx="10" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="692" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          DB
+        </text>
+        <text x="380" y="120" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          javax.sql.DataSource (connection pools): still JDBC underneath — HikariCP wraps DriverManager or DataSource.
+        </text>
+        <rect x="40" y="136" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="162" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Try-with-resources: Connection / Statement / ResultSet close in reverse order — prevents connection leaks.
+        </text>
+        <text x="380" y="186" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          SQLException chain: use getNextException() to log full failure traces in production.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Loading driver */
+export function JdbcDriverLoaderScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="JDBC driver loading">
+      <FlowchartFigcaption
+        title="Real scenario: making the driver discoverable"
+        fresher="DriverManager loads drivers from the classpath. JDBC 4+ drivers register via META-INF/services — Class.forName is often optional. Older tutorials still call Class.forName for explicit registration. getConnection(url) picks a driver that accepts the JDBC URL prefix (jdbc:mysql:, jdbc:postgresql:, …)."
+      />
+      <svg viewBox="0 0 760 228" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="32" y="44" width="140" height="48" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="102" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          Classpath
+        </text>
+        <line x1="172" y1="68" x2="216" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="220" y="40" width="200" height="56" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="320" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          ServiceLoader / static init
+        </text>
+        <text x="320" y="82" textAnchor="middle" fontSize="6.5" fill="#b45309" fontFamily="system-ui">
+          registers Driver
+        </text>
+        <line x1="420" y1="68" x2="464" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="468" y="44" width="160" height="48" rx="10" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="548" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          DriverManager
+        </text>
+        <line x1="628" y1="68" x2="672" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="676" y="44" width="52" height="48" rx="8" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="702" y="72" textAnchor="middle" fontSize="7" fontWeight="800" fill="#065f46" fontFamily="system-ui">
+          ✓
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Multiple drivers: first matching acceptsURL wins — keep one driver per app classloader unless you know isolation.
+        </text>
+        <rect x="40" y="132" width="680" height="76" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Driver property: serverTimezone, SSL, etc. — pass via URL query or Properties to getConnection.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          “Communications link failure” → network, firewall, or wrong host/port — before SQL errors.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** getConnection → physical session */
+export function JdbcConnectionObtainScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="JDBC getConnection">
+      <FlowchartFigcaption
+        title="Real scenario: opening a JDBC connection"
+        fresher="DriverManager.getConnection(url, user, password) or Properties negotiates a TCP session to the database, authenticates, and returns a Connection object. That object is a handle to a server-side session — pool size and server max_connections must align. Always close or return connections to the pool in finally or try-with-resources."
+      />
+      <svg viewBox="0 0 760 224" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="28" y="44" width="200" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="128" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          jdbc:mysql://host:3306/db
+        </text>
+        <line x1="228" y1="68" x2="272" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="276" y="40" width="160" height="56" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="356" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          Driver connects
+        </text>
+        <text x="356" y="82" textAnchor="middle" fontSize="6.5" fill="#2c5282" fontFamily="system-ui">
+          TCP + auth
+        </text>
+        <line x1="436" y1="68" x2="480" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="484" y="40" width="248" height="56" rx="10" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="608" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          Connection (session)
+        </text>
+        <text x="608" y="82" textAnchor="middle" fontSize="6.5" fill="#bfdbfe" fontFamily="system-ui">
+          JDBC handle to DB
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Connection is not thread-safe — one connection per thread or use a pool that hands out per-thread leases.
+        </text>
+        <rect x="40" y="132" width="680" height="76" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          SSL: use URL + truststore for encrypted links in cloud; never ship passwords in source — env vars or vault.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          validateConnectionOnBorrow in pools catches stale TCP before your query fails mid-request.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Statement execute */
+export function JdbcStatementExecuteScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="Statement execute">
+      <FlowchartFigcaption
+        title="Real scenario: Statement and executeQuery"
+        fresher="Connection.createStatement() returns a Statement used for static SQL strings. executeQuery runs SELECT and returns a ResultSet; executeUpdate runs INSERT/UPDATE/DELETE and returns row counts. Concatenating user input into SQL here is dangerous — use PreparedStatement for parameters."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="36" y="44" width="120" height="48" rx="10" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="96" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          Connection
+        </text>
+        <line x1="156" y1="68" x2="200" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="204" y="44" width="140" height="48" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="274" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          createStatement
+        </text>
+        <line x1="344" y1="68" x2="388" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="392" y="44" width="160" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="472" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          executeQuery / Update
+        </text>
+        <line x1="552" y1="68" x2="596" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="600" y="44" width="124" height="48" rx="10" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="662" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="system-ui">
+          ResultSet / int
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Statement per request or reuse carefully — prefer PreparedStatement for anything repeated.
+        </text>
+        <rect x="40" y="132" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          executeQuery with DDL: driver-dependent — use execute() for mixed or unknown SQL in tools.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Large ResultSet: fetch size / streaming — avoid loading millions of rows into heap at once.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** PreparedStatement */
+export function JdbcPreparedStatementBindScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="PreparedStatement bind">
+      <FlowchartFigcaption
+        title="Real scenario: parameters and prepared statements"
+        fresher="prepareStatement(sql) sends the SQL template to the server once; placeholders ? are bound with setString, setInt, etc. The driver escapes types safely — this is the primary defense against SQL injection. Same PreparedStatement can be reused in a loop with new binds."
+      />
+      <svg viewBox="0 0 760 228" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="32" y="44" width="160" height="48" rx="10" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="112" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          INSERT … VALUES (?)
+        </text>
+        <line x1="192" y1="68" x2="236" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="240" y="40" width="200" height="56" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="340" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          setString(1, …)
+        </text>
+        <text x="340" y="82" textAnchor="middle" fontSize="6.5" fill="#2c5282" fontFamily="system-ui">
+          bind types
+        </text>
+        <line x1="440" y1="68" x2="484" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="488" y="44" width="140" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="558" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          executeUpdate
+        </text>
+        <line x1="628" y1="68" x2="672" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="676" y="44" width="52" height="48" rx="8" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="702" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          OK
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          clearParameters() between loop iterations — leftover binds cause subtle bugs.
+        </text>
+        <rect x="40" y="132" width="680" height="76" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Batch: addBatch / executeBatch for bulk inserts — reduces round-trips.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          setNull for nullable columns; setObject for generic mapping — watch JDBC type mapping to SQL types.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** ResultSet navigation */
+export function JdbcResultSetCursorScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="ResultSet cursor">
+      <FlowchartFigcaption
+        title="Real scenario: reading rows from ResultSet"
+        fresher="ResultSet is a cursor over server rows (or buffered client-side depending on fetch size). next() advances; getInt/getString read by column index or label. Column labels are case-sensitive rules depend on database — prefer explicit labels. One ResultSet per Statement at a time unless supported otherwise."
+      />
+      <svg viewBox="0 0 760 216" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="40" y="44" width="140" height="48" rx="10" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="110" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="system-ui">
+          ResultSet
+        </text>
+        <line x1="180" y1="68" x2="224" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="228" y="44" width="120" height="48" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="288" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          next()
+        </text>
+        <line x1="348" y1="68" x2="392" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="396" y="44" width="200" height="48" rx="10" fill={`url(#${p}-jdbc-deep)`} stroke="#2c5282" strokeWidth="1.2" />
+        <text x="496" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#eff6ff" fontFamily="system-ui">
+          getXxx(column)
+        </text>
+        <line x1="596" y1="68" x2="640" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="644" y="44" width="76" height="48" rx="10" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="682" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="system-ui">
+          DTO
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          wasNull() after getInt — distinguish 0 from NULL when using primitives carefully.
+        </text>
+        <rect x="40" y="132" width="680" height="68" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          TYPE_FORWARD_ONLY vs scrollable: default is forward-only — don’t call previous() unless you request scrollable.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Close ResultSet before reusing Statement for another query — driver-specific errors if not.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** CRUD via JDBC */
+export function JdbcCrudOperationsScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="JDBC CRUD">
+      <FlowchartFigcaption
+        title="Real scenario: mapping CRUD to JDBC calls"
+        fresher="CREATE/READ/UPDATE/DELETE in JDBC are still SQL strings (or generated SQL). INSERT/UPDATE/DELETE use executeUpdate; SELECT uses executeQuery. Generated keys: prepareStatement(sql, RETURN_GENERATED_KEYS) then getGeneratedKeys() for auto-increment IDs. Transactions wrap multiple DMLs for atomicity."
+      />
+      <svg viewBox="0 0 760 232" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="24" y="40" width="108" height="44" rx="9" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="78" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="ui-monospace">
+          INSERT
+        </text>
+        <rect x="148" y="40" width="108" height="44" rx="9" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="202" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="ui-monospace">
+          SELECT
+        </text>
+        <rect x="272" y="40" width="108" height="44" rx="9" fill="#fef3c7" stroke="#d97706" strokeWidth="1.3" />
+        <text x="326" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#92400e" fontFamily="ui-monospace">
+          UPDATE
+        </text>
+        <rect x="396" y="40" width="108" height="44" rx="9" fill="#fff7ed" stroke="#ea580c" strokeWidth="1.3" />
+        <text x="450" y="66" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#9a3412" fontFamily="ui-monospace">
+          DELETE
+        </text>
+        <text x="580" y="66" textAnchor="middle" fontSize="8" fontWeight="800" fill="#2c5282" fontFamily="system-ui">
+          → PreparedStatement
+        </text>
+        <line x1="380" y1="100" x2="380" y2="120" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="200" y="124" width="360" height="52" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="148" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          executeUpdate (rows) · executeQuery (ResultSet) · getGeneratedKeys()
+        </text>
+        <text x="380" y="168" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          ORM (JPA) maps entities to these same primitives — understand JDBC to debug generated SQL.
+        </text>
+        <text x="380" y="198" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Soft delete: WHERE active = 1 — still a JDBC UPDATE, not a DELETE.
+        </text>
+      </svg>
+    </figure>
+  );
+}
+
+/** Transaction boundaries */
+export function JdbcTransactionBoundaryScenarioDiagram() {
+  const p = useSvgPrefix();
+  return (
+    <figure className="flowchart-pro flowchart-pro-jdbc-scenario" role="img" aria-label="JDBC transaction">
+      <FlowchartFigcaption
+        title="Real scenario: JDBC transaction boundaries"
+        fresher="setAutoCommit(false) starts explicit transaction boundaries. Multiple DML statements share one database transaction until commit() or rollback(). setAutoCommit(true) restores autocommit after commit. Pooling: return connection to pool only after commit/rollback — never leak open transactions."
+      />
+      <svg viewBox="0 0 760 224" className="flowchart-pro-svg" preserveAspectRatio="xMidYMid meet">
+        <JdbcDefs prefix={p} />
+        <rect x="28" y="44" width="120" height="48" rx="10" fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.2" />
+        <text x="88" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#0c4a6e" fontFamily="ui-monospace">
+          setAutoCommit(false)
+        </text>
+        <line x1="148" y1="68" x2="192" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="196" y="40" width="160" height="56" rx="10" fill={`url(#${p}-jdbc-node)`} stroke="#4479A1" strokeWidth="1.4" />
+        <text x="276" y="64" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1e3a5f" fontFamily="system-ui">
+          DML + DML
+        </text>
+        <text x="276" y="82" textAnchor="middle" fontSize="6.5" fill="#2c5282" fontFamily="system-ui">
+          same tx
+        </text>
+        <line x1="356" y1="68" x2="400" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="404" y="44" width="100" height="48" rx="10" fill="#ecfdf5" stroke="#059669" strokeWidth="1.2" />
+        <text x="454" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#065f46" fontFamily="ui-monospace">
+          commit()
+        </text>
+        <line x1="504" y1="68" x2="548" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="552" y="44" width="100" height="48" rx="10" fill="#fee2e2" stroke="#dc2626" strokeWidth="1.2" />
+        <text x="602" y="72" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#991b1b" fontFamily="ui-monospace">
+          rollback()
+        </text>
+        <line x1="652" y1="68" x2="696" y2="68" stroke="#4479A1" strokeWidth="2" markerEnd={`url(#${p}-jdbc-arrow)`} />
+        <rect x="700" y="44" width="40" height="48" rx="8" fill="#f1f5f9" stroke="#64748b" strokeWidth="1.2" />
+        <text x="720" y="74" textAnchor="middle" fontSize="7" fontWeight="800" fill="#334155" fontFamily="system-ui">
+          idle
+        </text>
+        <text x="380" y="118" textAnchor="middle" fontSize="7" fill="#64748b" fontFamily="system-ui">
+          Savepoints: setSavepoint / rollback(savepoint) — partial rollback in long transactions.
+        </text>
+        <rect x="40" y="132" width="680" height="76" rx="11" fill="#f8fafc" stroke="#cbd5e1" />
+        <text x="380" y="158" textAnchor="middle" fontSize="7" fontWeight="700" fill="#334155" fontFamily="system-ui">
+          Isolation: setTransactionIsolation — READ COMMITTED vs REPEATABLE READ matches DB defaults.
+        </text>
+        <text x="380" y="182" textAnchor="middle" fontSize="6.5" fill="#64748b" fontFamily="system-ui">
+          Connection pool + tx: borrow → work → commit → pool returns connection to idle state.
         </text>
       </svg>
     </figure>
