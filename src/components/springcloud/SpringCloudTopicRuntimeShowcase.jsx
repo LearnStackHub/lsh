@@ -16,6 +16,12 @@ import {
   ScenarioPathFlowDiagram,
   InterviewAnswerMapDiagram
 } from '../flow/ProfessionalDiagrams';
+import {
+  SpringCloudMechanicsTabDiagram,
+  SpringCloudScenarioTabDiagram,
+  SpringCloudPitfallsTabDiagram,
+  SpringCloudInterviewTabDiagram
+} from './SpringCloudTopicTabDiagrams';
 
 const CONFIG = {
   'spring-cloud-microservices-project': {
@@ -439,31 +445,56 @@ export default function SpringCloudTopicRuntimeShowcase({ topicId }) {
     const t = text.replace(/^Scenario:\s*/i, '').trim();
     return t.length > max ? `${t.slice(0, max - 1)}…` : t;
   };
+  const coreTabLabel = compact(cfg.conceptLabel || cfg.title || 'Core concept');
+  const mechanicsTabLabel = compact(cfg.mechanicsTitle || `${cfg.title} mechanics`);
+  const scenarioTabLabel = compact(cfg.scenarioTitle || `${cfg.title} scenario`);
+  const pitfallsTabLabel = compact(`${cfg.title} pitfalls`);
+  const interviewTabLabel = compact(`${cfg.title} interview`);
+
   const depthTabs = [
-    ['core', compact(cfg.coreTabLabel || cfg.conceptLabel || 'Concept')],
-    ['mechanics', compact(cfg.mechanicsTabLabel || cfg.mechanicsTitle || 'Mechanics')],
-    ['scenario', compact(cfg.scenarioTabLabel || cfg.scenarioTitle || 'Scenario')],
-    ['pitfalls', compact(cfg.pitfallsTabLabel || 'Failure traps')],
-    ['interview', compact(cfg.interviewTabLabel || 'Interview framing')]
+    ['core', coreTabLabel],
+    ['mechanics', mechanicsTabLabel],
+    ['scenario', scenarioTabLabel],
+    ['pitfalls', pitfallsTabLabel],
+    ['interview', interviewTabLabel]
   ];
   const coreCaption = cfg.coreCaption ?? cfg.subtitle;
   const mechanicsCaption =
     cfg.mechanicsCaption ??
-    'This tab explains runtime mechanics step-by-step so concept depth is clear and interview-ready.';
-  const pitfallsSteps = cfg.pitfallsSteps ?? [
-    { title: 'Tight coupling', sub: 'sync calls everywhere' },
-    { title: 'Weak timeouts', sub: 'thread pool exhaustion' },
-    { title: 'Poor observability', sub: 'blind incident response' },
-    { title: 'Inconsistent policy', sub: 'security/routing drift' }
-  ];
-  const pitfallsCaption = cfg.pitfallsCaption ?? 'Use this to avoid common distributed-system implementation mistakes.';
-  const interviewSteps = cfg.interviewSteps ?? [
-    { title: 'Explain request path', sub: 'gateway to service chain' },
-    { title: 'Describe failure handling', sub: 'resilience patterns' },
-    { title: 'Show observability', sub: 'trace + logs + metrics' },
-    { title: 'Share measurable impact', sub: 'latency/error improvements' }
-  ];
-  const interviewCaption = cfg.interviewCaption ?? 'Use this structure for crisp, high-signal interview answers.';
+    `Explains runtime steps for: ${cfg.mechanicsTitle || cfg.title}.`;
+  const pitfallsCaption = cfg.pitfallsCaption ?? 'Use this checklist to prevent the most common production failures.';
+  const interviewCaption = cfg.interviewCaption ?? 'Use this structure to answer interview questions with practical depth.';
+
+  const derivePitfallsSteps = () => {
+    const m = cfg.mechanicsSteps ?? [];
+    const s = cfg.scenarioSteps ?? [];
+    const fromMechanics = m.slice(0, 4).map((st) => ({
+      title: `${st.title} failure`,
+      sub: `can break: ${st.sub}`
+    }));
+    const fromScenario = s.slice(0, 4).map((st) => ({
+      title: `${st.title} breakdown`,
+      sub: `causes: ${st.sub}`
+    }));
+    return [...fromMechanics, ...fromScenario].slice(0, 8);
+  };
+
+  const deriveInterviewSteps = () => {
+    const m = cfg.mechanicsSteps ?? [];
+    const s = cfg.scenarioSteps ?? [];
+    const fromScenario = s.slice(0, 4).map((st) => ({
+      title: `Explain: ${st.title}`,
+      sub: `what to watch: ${st.sub}`
+    }));
+    const fromMechanics = m.slice(0, 4).map((st) => ({
+      title: `Under the hood: ${st.title}`,
+      sub: `trade-off: ${st.sub}`
+    }));
+    return [...fromScenario, ...fromMechanics].slice(0, 8);
+  };
+
+  const pitfallsSteps = derivePitfallsSteps();
+  const interviewSteps = deriveInterviewSteps();
 
   return (
     <div className="sc-showcase">
@@ -481,7 +512,7 @@ export default function SpringCloudTopicRuntimeShowcase({ topicId }) {
       <div className="sc-panel">
         {tab === 'core' && (
           <>
-            <SpringCloudDiagramFrame label={cfg.conceptLabel || 'Core concept'}>
+            <SpringCloudDiagramFrame label={coreTabLabel}>
               <cfg.ConceptDiagram />
             </SpringCloudDiagramFrame>
             <p className="sc-caption">{coreCaption}</p>
@@ -489,26 +520,37 @@ export default function SpringCloudTopicRuntimeShowcase({ topicId }) {
         )}
         {tab === 'mechanics' && (
           <>
-            <SpringCloudDiagramFrame label="Under the hood mechanics">
-              <DeepRuntimeFlowDiagram title={cfg.mechanicsTitle} subtitle="Internal runtime sequence" steps={cfg.mechanicsSteps} />
+            <SpringCloudDiagramFrame label={mechanicsTabLabel}>
+              <SpringCloudMechanicsTabDiagram
+                topicId={topicId}
+                title={cfg.mechanicsTitle}
+                subtitle={`Runtime steps: ${cfg.mechanicsTitle}`}
+                steps={cfg.mechanicsSteps}
+              />
             </SpringCloudDiagramFrame>
             <p className="sc-caption">{mechanicsCaption}</p>
           </>
         )}
         {tab === 'scenario' && (
           <>
-            <SpringCloudDiagramFrame label="Applied real-world scenario">
-              <ScenarioPathFlowDiagram title={cfg.scenarioTitle} subtitle="End-to-end request path" steps={cfg.scenarioSteps} />
+            <SpringCloudDiagramFrame label={scenarioTabLabel}>
+              <SpringCloudScenarioTabDiagram
+                topicId={topicId}
+                title={cfg.scenarioTitle}
+                subtitle={`End-to-end: ${cfg.scenarioTitle}`}
+                steps={cfg.scenarioSteps}
+              />
             </SpringCloudDiagramFrame>
             <p className="sc-caption">{cfg.scenarioCaption}</p>
           </>
         )}
         {tab === 'pitfalls' && (
           <>
-            <SpringCloudDiagramFrame label="Common pitfalls and prevention">
-              <PitfallsFlowDiagram
-                title={`${cfg.title} — common pitfalls`}
-                subtitle="Failure patterns you should catch early"
+            <SpringCloudDiagramFrame label={pitfallsTabLabel}>
+              <SpringCloudPitfallsTabDiagram
+                topicId={topicId}
+                title={`${cfg.title} pitfalls`}
+                subtitle={`Failure modes for: ${cfg.title}`}
                 steps={pitfallsSteps}
               />
             </SpringCloudDiagramFrame>
@@ -517,10 +559,11 @@ export default function SpringCloudTopicRuntimeShowcase({ topicId }) {
         )}
         {tab === 'interview' && (
           <>
-            <SpringCloudDiagramFrame label="Interview explanation angle">
-              <InterviewAnswerMapDiagram
-                title={`${cfg.title} — interview framing`}
-                subtitle="How to explain this topic clearly in interviews"
+            <SpringCloudDiagramFrame label={interviewTabLabel}>
+              <SpringCloudInterviewTabDiagram
+                topicId={topicId}
+                title={`${cfg.title} interview`}
+                subtitle={`How to explain: ${cfg.title}`}
                 steps={interviewSteps}
               />
             </SpringCloudDiagramFrame>
