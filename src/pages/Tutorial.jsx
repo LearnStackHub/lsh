@@ -129,6 +129,7 @@ import { SERVLET_SHOWCASE_TOPIC_IDS, ServletShowcaseRouter } from '../components
 import { JSP_SHOWCASE_TOPIC_IDS, JspShowcaseRouter } from '../components/jsp/showcases';
 import { HIBERNATE_SHOWCASE_TOPIC_IDS, HibernateShowcaseRouter } from '../components/hibernate/showcases';
 import { SPRING_CLOUD_SHOWCASE_TOPIC_IDS, SpringCloudShowcaseRouter } from '../components/springcloud/showcases';
+import { HTTP_SHOWCASE_TOPIC_IDS, HttpShowcaseRouter } from '../components/http/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
 
@@ -841,6 +842,7 @@ function Tutorial() {
         {JSP_SHOWCASE_TOPIC_IDS.has(topicId) && <JspShowcaseRouter topicId={topicId} />}
         {HIBERNATE_SHOWCASE_TOPIC_IDS.has(topicId) && <HibernateShowcaseRouter topicId={topicId} />}
         {SPRING_CLOUD_SHOWCASE_TOPIC_IDS.has(topicId) && <SpringCloudShowcaseRouter topicId={topicId} />}
+        {HTTP_SHOWCASE_TOPIC_IDS.has(topicId) && <HttpShowcaseRouter topicId={topicId} />}
         {renderContent(currentTopic.content)}
         
         {/* Internal Links Section */}
