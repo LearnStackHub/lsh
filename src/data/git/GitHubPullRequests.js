@@ -322,6 +322,52 @@ You've learned:
 - Learn about code review best practices
 - Explore GitHub's collaboration features
 
+---
+
+## 10 Important Pull Request Interview Questions
+
+1. **What is a Pull Request (PR)?**  
+   A **request to merge** one branch into another (often **feature → main**) with **discussion**, **diff**, **checks**, and **reviews** on GitHub. It’s the main **quality gate** in team development.
+
+2. **Why not push directly to \`main\`?**  
+   **\`main\`** should stay **deployable**. PRs force **review**, **CI tests**, and **conversation** before merge—reduces **breaking production**.
+
+3. **What is a draft PR?**  
+   Signals **work in progress**—reviewers know it’s **not** ready to merge. Good for **early feedback** on direction.
+
+4. **What do reviewers look for?**  
+   **Correctness**, **tests**, **readability**, **security** (no secrets), **performance** hot spots, and **style** per team guidelines. **Comments** should be **specific** and **kind**.
+
+5. **What is CI on a PR?**  
+   **Continuous Integration** runs automated **build/test** (e.g. GitHub Actions + **\`mvn test\`**) on every push. **Green checks** give confidence before merge.
+
+6. **How do you update a PR after feedback?**  
+   Commit on the **same branch** and **push**—GitHub **updates** the PR automatically. Prefer **small follow-up commits** or **squash** per team rules.
+
+7. **What is merge vs squash merge vs rebase merge?**  
+   **Merge:** preserves branch topology with a merge commit. **Squash:** one commit on target—clean history, loses per-commit detail on main. **Rebase:** replays commits linearly—**policy** varies by team.
+
+8. **What is a CODEOWNERS file?**  
+   Auto-requests **review** from the right people for paths (e.g. **\`*.java\`** → backend team). Part of **scale** collaboration.
+
+9. **How do you handle merge conflicts on a PR?**  
+   **Pull** or **merge** target branch into your feature branch (or **rebase** onto target), **resolve** conflicts locally, **push**—PR updates.
+
+10. **What closes an issue from a PR?**  
+    In the PR description or a commit message: **\`Fixes #42\`**—GitHub **links** and can **auto-close** the issue when merged.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Clone & remotes** | [GitHub Basics](/tutorial/github-basics) |
+| **Feature branches** | [Git Branches](/tutorial/git-branches) |
+| **Team branching models** | [Git Workflow](/tutorial/git-workflow) |
+| **Protected main & rules** | [Git Branch Protection](/tutorial/git-branch-protection) |
+| **SDLC / delivery context** | [SDLC Introduction](/tutorial/sdlc-introduction) |
+
 Pull Requests are essential for professional development - master them!
 `
 };

@@ -457,6 +457,63 @@ Now that you understand HTML best practices, you're ready to build professional 
 - **[Frontend Development](/tutorial/frontend-development)**: Master modern frontend
 
 HTML best practices are essential for professional web development. Continue learning about [CSS Introduction](/tutorial/css-introduction) to style your HTML professionally.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Best Practices Interview Questions
+
+1. **Why validate HTML?**  
+   Validators find **syntax mistakes** (unclosed tags, illegal nesting) that cause **inconsistent** rendering across **Chrome/Firefox/Safari**. **Accessibility** tools also assume **valid** structures—**ARIA** roles on wrong elements may **fail** audits. **CI** can run **HTML validation** on templates. Validation does not replace **manual** accessibility testing.
+
+2. **Why prefer semantic elements over \`<div>\` everywhere?**  
+   **Semantics** communicate **purpose** to **assistive tech** and **search engines** (\`<button>\` vs \`<div onclick>\`). **Keyboard** and **focus** behavior differ by element. **Maintainability**: future developers see **intent** immediately. Use **\`<div>\`** only when **no** semantic tag fits.
+
+3. **Why avoid tables for layout?**  
+   **Tables** imply **row/column relationships** for **screen readers**. Using them for **columns** confuses **reading order** and **linearization** on mobile. **CSS Grid/Flexbox** separates **content order** from **visual order** more safely. **Exception**: HTML email still uses tables for **client** compatibility—different domain.
+
+4. **Why keep heading levels logical (\`h1\` → \`h2\` → \`h3\`)?**  
+   **Heading hierarchy** forms an **outline**; skipping levels (\`h1\` → \`h4\`) confuses **outline navigation** in assistive tech. **SEO** uses headings to understand **sections**—not for **keyword stuffing**. **Style** big text with **CSS**, not a fake \`<h1>\` for every line.
+
+5. **Why minimize inline styles?**  
+   **Inline** styles **override** stylesheets unpredictably, are **harder** to theme, and **bloat** HTML. **External CSS** enables **caching**, **design tokens**, and **dark mode** via **media queries**. **Exceptions**: dynamic values (e.g. width from JS) or **email** templates.
+
+6. **What is progressive enhancement?**  
+   **Base layer**: semantic HTML that **works** without JS (links, forms submit). **Enhance** with **CSS** for layout and **JS** for **AJAX**, validation UX, **SPA** routing. If JS **fails**, users still get **content** and **core** actions. **Graceful degradation** is the older converse framing.
+
+7. **How does accessibility relate to HTML?**  
+   **Most** accessibility is **correct HTML**: **labels**, **alt**, **buttons** for actions, **links** for navigation, **lang**, **focus order**. **ARIA** fills gaps but **does not fix** bad semantics (\`role="button"\` on \`<div>\` still needs **keyboard** handlers). **Test** with **keyboard-only** and **screen readers**.
+
+8. **What are common deprecated tags to avoid?**  
+   **\`<font>\`, \`<center>\`, \`<big>\`, \`<marquee>\`**—presentation belongs in **CSS**. **\`<u>\`** default underline can be confused with **links**—use sparingly. **Framesets** are obsolete for typical sites—bad for **URL** and **accessibility** patterns.
+
+9. **Why optimize assets (images, media)?**  
+   **Largest Contentful Paint** and **bandwidth** are often **image/video**-bound. Serve **responsive** sizes, **modern** formats, **lazy** load offscreen media, and **preload** only **critical** assets. **HTML** should reference **right-sized** assets—**CDN** and **caching** headers help.
+
+10. **What is the W3C validator used for?**  
+    The **Nu Html Checker** (validator.w3.org/nu) compares your document to the **HTML** rules—reports **parse errors** and **bad attributes**. **Warnings** may be **style** hints (missing \`alt\`). Use in **development**; some **framework** outputs need **configuration** to validate **fragments** correctly.
+
 `,
   code: `// HTML Best Practices & Validation
 

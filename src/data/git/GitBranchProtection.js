@@ -337,6 +337,52 @@ You've learned:
 - Best practices for branch protection
 - Repository visibility settings
 
+---
+
+## 10 Important Branch Protection Interview Questions
+
+1. **Why protect \`main\`?**  
+   **\`main\`** is usually **production** or **release** source. Protection **blocks** direct pushes, **requires** PRs, **reviews**, and **CI**—so **one person** can’t break everyone.
+
+2. **What is a required pull request review?**  
+   Merging to \`main\` needs **N approvals** from people **not** the author (depending on rules). **Catches** bugs and **shares** knowledge.
+
+3. **What are required status checks?**  
+   GitHub **blocks merge** until **CI** jobs (build, test, lint) **pass**. Links **quality** to **merge button**.
+
+4. **What is signed commit requirement?**  
+   Commits must be **GPG/SSH signed** so GitHub can **verify** identity—**stronger** audit for regulated teams.
+
+5. **What is \`CODEOWNERS\`?**  
+   File defining **who must review** which paths. **Auto-assigns** reviewers when PRs touch those files.
+
+6. **Can admins bypass branch protection?**  
+   Often **yes** unless **“include administrators”** is enabled. **Policy** question—good teams **don’t** bypass casually.
+
+7. **What is the difference between private repo and protected branch?**  
+   **Private** = **who** can see the repo. **Protected branch** = **who** can **push/merge** to **specific** branches. You can have **public** repo with **protected** \`main\`.
+
+8. **Why require linear history?**  
+   Some teams **disallow merge commits**—only **squash** or **rebase** merges—for a **straight** \`main\` log (**easier** \`git bisect\`).
+
+9. **What is deployment branch protection?**  
+   Rules tie **environment** deploy approvals to **branch** or **environment** protection—**extra** gates for **production**.
+
+10. **What should a fresher remember in interviews?**  
+    “**Protected main + PR + CI + review** reduces risk and is **standard** in industry.”
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Pull requests** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
+| **Team permissions** | [GitHub Teams](/tutorial/github-teams) |
+| **Account & repo security** | [GitHub Security](/tutorial/github-security) |
+| **Workflow context** | [Git Workflow](/tutorial/git-workflow) |
+| **CI/CD pipelines** | [Git Deployment](/tutorial/git-deployment) |
+
 Protecting your branches ensures code quality and prevents accidental changes to important code!
 `
 };

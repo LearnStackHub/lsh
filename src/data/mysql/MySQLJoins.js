@@ -356,198 +356,6 @@ GROUP BY c.id, c.name, c.email
 ORDER BY total_spent DESC
 LIMIT 5;
 \`\`\`
-  `,
-  code: `-- MySQL Joins Examples
-
--- Create database and tables
-CREATE DATABASE IF NOT EXISTS joins_demo;
-USE joins_demo;
-
-CREATE TABLE customers (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    city VARCHAR(100)
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED NOT NULL,
-    order_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    category VARCHAR(50)
-);
-
-CREATE TABLE order_items (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
-    quantity INT UNSIGNED NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
--- Insert sample data
-INSERT INTO customers (name, email, city) VALUES
-('Dattu p', ' Dattu@example.com', 'New York'),
-('Jane Smith', 'jane@example.com', 'Los Angeles'),
-('Bob  Dattuson', 'bob@example.com', 'Chicago'),
-('Alice Brown', 'alice@example.com', 'New York');
-
-INSERT INTO products (name, price, category) VALUES
-('Laptop', 999.99, 'Electronics'),
-('Mouse', 29.99, 'Electronics'),
-('Keyboard', 79.99, 'Electronics'),
-('Desk', 199.99, 'Furniture');
-
-INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
-(1, '2024-01-15', 999.99, 'completed'),
-(2, '2024-01-16', 109.98, 'completed'),
-(1, '2024-01-17', 199.99, 'pending'),
-(3, '2024-01-18', 79.99, 'completed');
-
-INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
-(1, 1, 1, 999.99),
-(2, 2, 2, 29.99),
-(2, 3, 1, 79.99),
-(3, 4, 1, 199.99),
-(4, 3, 1, 79.99);
-
--- ========== INNER JOIN ==========
-
--- Get orders with customer names
-SELECT 
-    o.id AS order_id,
-    o.order_date,
-    o.total_amount,
-    c.name AS customer_name,
-    c.email
-FROM orders o
-INNER JOIN customers c ON o.customer_id = c.id;
-
--- ========== LEFT JOIN ==========
-
--- Get all customers and their orders
-SELECT 
-    c.name AS customer_name,
-    c.email,
-    o.id AS order_id,
-    o.total_amount
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id;
-
--- Find customers without orders
-SELECT 
-    c.name,
-    c.email
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id
-WHERE o.id IS NULL;
-
--- ========== RIGHT JOIN ==========
-
--- Get all orders with customer info
-SELECT 
-    o.id AS order_id,
-    o.total_amount,
-    c.name AS customer_name
-FROM customers c
-RIGHT JOIN orders o ON c.id = o.customer_id;
-
--- ========== Multiple Table Joins ==========
-
--- Complete order details
-SELECT 
-    o.id AS order_id,
-    o.order_date,
-    c.name AS customer_name,
-    p.name AS product_name,
-    oi.quantity,
-    oi.price AS unit_price,
-    (oi.quantity * oi.price) AS line_total
-FROM orders o
-INNER JOIN customers c ON o.customer_id = c.id
-INNER JOIN order_items oi ON o.id = oi.order_id
-INNER JOIN products p ON oi.product_id = p.id
-ORDER BY o.order_date DESC;
-
--- ========== Aggregate with JOIN ==========
-
--- Total sales per customer
-SELECT 
-    c.name AS customer_name,
-    COUNT(o.id) AS order_count,
-    COALESCE(SUM(o.total_amount), 0) AS total_spent
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id
-GROUP BY c.id, c.name
-ORDER BY total_spent DESC;
-
--- Product sales statistics
-SELECT 
-    p.name AS product_name,
-    p.category,
-    COUNT(oi.id) AS times_ordered,
-    SUM(oi.quantity) AS total_quantity_sold,
-    SUM(oi.quantity * oi.price) AS total_revenue
-FROM products p
-LEFT JOIN order_items oi ON p.id = oi.product_id
-LEFT JOIN orders o ON oi.order_id = o.id AND o.status = 'completed'
-GROUP BY p.id, p.name, p.category
-ORDER BY total_revenue DESC;
-
--- ========== Self JOIN Example ==========
-
-CREATE TABLE employees (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    manager_id INT UNSIGNED,
-    FOREIGN KEY (manager_id) REFERENCES employees(id)
-);
-
-INSERT INTO employees (name, manager_id) VALUES
-('CEO', NULL),
-('Manager 1', 1),
-('Manager 2', 1),
-('Employee 1', 2),
-('Employee 2', 2);
-
--- Get employees with managers
-SELECT 
-    e.name AS employee_name,
-    m.name AS manager_name
-FROM employees e
-LEFT JOIN employees m ON e.manager_id = m.id;
-
--- ========== Complex Real-World Query ==========
-
--- Customer purchase history with product details
-SELECT 
-    c.name AS customer_name,
-    o.order_date,
-    p.name AS product_name,
-    p.category,
-    oi.quantity,
-    oi.price AS unit_price,
-    (oi.quantity * oi.price) AS line_total,
-    o.status
-FROM customers c
-INNER JOIN orders o ON c.id = o.customer_id
-INNER JOIN order_items oi ON o.id = oi.order_id
-INNER JOIN products p ON oi.product_id = p.id
-WHERE c.id = 1
-ORDER BY o.order_date DESC, p.name;
-\`\`\`
-
 ---
 
 ## Real-World Applications
@@ -754,9 +562,255 @@ Master these related MySQL topics:
 
 ---
 
+## 10 Important MySQL JOIN Interview Questions
+
+### 1. What is an INNER JOIN?
+
+**Answer:** **INNER JOIN** returns only rows where the **join condition** matches in **both** tables. Non-matching rows from **either** side are **discarded**. It is the **default** intersection of relational data—**most** join queries are **INNER** unless you explicitly need **outer** rows.
+
+### 2. What is a LEFT OUTER JOIN?
+
+**Answer:** **LEFT JOIN** keeps **all** rows from the **left** table, joining **matching** rows from the **right** table. Where there is **no** match, right-side columns are **NULL**. This models **optional** relationships: **all customers** and **their orders if any**. **Reporting** and **master-detail** screens use this constantly.
+
+### 3. When do you use RIGHT JOIN?
+
+**Answer:** **RIGHT JOIN** is the **mirror** of **LEFT JOIN**—all rows from the **right** table. It is **less common** in hand-written SQL because teams **standardize** on **LEFT** for consistency: **swap** table order and use **LEFT** instead. **Readability** matters in **code review**.
+
+### 4. What is a Cartesian product and how do you accidentally create one?
+
+**Answer:** A **Cartesian product** multiplies **every** row from one table with **every** row from another—**n × m** rows. It happens when you **omit** **ON**/**WHERE** join condition or **cross join** without filters. Results are **huge** and usually **wrong**. **Always** verify **row counts** during **development**.
+
+### 5. Why index foreign key and join columns?
+
+**Answer:** Joins **probe** matching rows—**B-Tree** indexes on **FK** columns and **JOIN keys** enable **nested-loop** joins with **index seeks** instead of **full scans**. **Missing** indexes on large tables **destroy** join performance. **EXPLAIN** shows **type=ALL** when scans are used.
+
+### 6. How do you write multiple joins in one query?
+
+**Answer:** Chain **\`FROM a INNER JOIN b ON ... INNER JOIN c ON ...\`**. MySQL evaluates joins **left-to-right** conceptually; **parentheses** are rarely needed. **ON** conditions should reference **keys** and **sargable** predicates. **Alias** every table for clarity.
+
+### 7. What is a self-join?
+
+**Answer:** The **same** table appears **twice** with **different aliases**—e.g. **employees** joined to **employees** to find **manager** names. **Hierarchy** and **graph** patterns use self-joins. **Careful** with **NULL** managers in **root** nodes.
+
+### 8. JOIN vs subquery—which is better?
+
+**Answer:** Often the **optimizer** rewrites **equivalent** forms. **Choose** the **clearest** query for **maintainers**. If **performance** is uncertain, **EXPLAIN** both. **Correlated** subqueries can be **slow**; **JOINs** often **scale** better—but **not** always.
+
+### 9. What is NATURAL JOIN and why avoid it?
+
+**Answer:** **NATURAL JOIN** joins tables on **all** columns with the **same names**—implicitly. **Schema changes** (rename/add column) can **silently** change join behavior. Prefer **explicit** \`ON\` clauses with **foreign keys**.
+
+### 10. How do you summarize INNER vs LEFT in one interview sentence?
+
+**Answer:** **INNER** keeps only **matching** keys; **LEFT** **preserves** the **driving** side and **NULLs** the rest. **Practice** drawing **Venn** diagrams—some interviewers still use whiteboards.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
+| **Constraints / FK** | [MySQL Constraints](/tutorial/mysql-constraints) |
+| **Indexes** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **Hibernate relationships** | [Hibernate Relationships](/tutorial/hibernate-relationships) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL Joins? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering INNER JOIN, LEFT JOIN, RIGHT JOIN, and more!
+  `,
+  code: `-- MySQL Joins Examples
+
+-- Create database and tables
+CREATE DATABASE IF NOT EXISTS joins_demo;
+USE joins_demo;
+
+CREATE TABLE customers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    city VARCHAR(100)
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(50)
+);
+
+CREATE TABLE order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED NOT NULL,
+    quantity INT UNSIGNED NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Insert sample data
+INSERT INTO customers (name, email, city) VALUES
+('Dattu p', ' Dattu@example.com', 'New York'),
+('Jane Smith', 'jane@example.com', 'Los Angeles'),
+('Bob  Dattuson', 'bob@example.com', 'Chicago'),
+('Alice Brown', 'alice@example.com', 'New York');
+
+INSERT INTO products (name, price, category) VALUES
+('Laptop', 999.99, 'Electronics'),
+('Mouse', 29.99, 'Electronics'),
+('Keyboard', 79.99, 'Electronics'),
+('Desk', 199.99, 'Furniture');
+
+INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
+(1, '2024-01-15', 999.99, 'completed'),
+(2, '2024-01-16', 109.98, 'completed'),
+(1, '2024-01-17', 199.99, 'pending'),
+(3, '2024-01-18', 79.99, 'completed');
+
+INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99),
+(2, 2, 2, 29.99),
+(2, 3, 1, 79.99),
+(3, 4, 1, 199.99),
+(4, 3, 1, 79.99);
+
+-- ========== INNER JOIN ==========
+
+-- Get orders with customer names
+SELECT 
+    o.id AS order_id,
+    o.order_date,
+    o.total_amount,
+    c.name AS customer_name,
+    c.email
+FROM orders o
+INNER JOIN customers c ON o.customer_id = c.id;
+
+-- ========== LEFT JOIN ==========
+
+-- Get all customers and their orders
+SELECT 
+    c.name AS customer_name,
+    c.email,
+    o.id AS order_id,
+    o.total_amount
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id;
+
+-- Find customers without orders
+SELECT 
+    c.name,
+    c.email
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+WHERE o.id IS NULL;
+
+-- ========== RIGHT JOIN ==========
+
+-- Get all orders with customer info
+SELECT 
+    o.id AS order_id,
+    o.total_amount,
+    c.name AS customer_name
+FROM customers c
+RIGHT JOIN orders o ON c.id = o.customer_id;
+
+-- ========== Multiple Table Joins ==========
+
+-- Complete order details
+SELECT 
+    o.id AS order_id,
+    o.order_date,
+    c.name AS customer_name,
+    p.name AS product_name,
+    oi.quantity,
+    oi.price AS unit_price,
+    (oi.quantity * oi.price) AS line_total
+FROM orders o
+INNER JOIN customers c ON o.customer_id = c.id
+INNER JOIN order_items oi ON o.id = oi.order_id
+INNER JOIN products p ON oi.product_id = p.id
+ORDER BY o.order_date DESC;
+
+-- ========== Aggregate with JOIN ==========
+
+-- Total sales per customer
+SELECT 
+    c.name AS customer_name,
+    COUNT(o.id) AS order_count,
+    COALESCE(SUM(o.total_amount), 0) AS total_spent
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.name
+ORDER BY total_spent DESC;
+
+-- Product sales statistics
+SELECT 
+    p.name AS product_name,
+    p.category,
+    COUNT(oi.id) AS times_ordered,
+    SUM(oi.quantity) AS total_quantity_sold,
+    SUM(oi.quantity * oi.price) AS total_revenue
+FROM products p
+LEFT JOIN order_items oi ON p.id = oi.product_id
+LEFT JOIN orders o ON oi.order_id = o.id AND o.status = 'completed'
+GROUP BY p.id, p.name, p.category
+ORDER BY total_revenue DESC;
+
+-- ========== Self JOIN Example ==========
+
+CREATE TABLE employees (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    manager_id INT UNSIGNED,
+    FOREIGN KEY (manager_id) REFERENCES employees(id)
+);
+
+INSERT INTO employees (name, manager_id) VALUES
+('CEO', NULL),
+('Manager 1', 1),
+('Manager 2', 1),
+('Employee 1', 2),
+('Employee 2', 2);
+
+-- Get employees with managers
+SELECT 
+    e.name AS employee_name,
+    m.name AS manager_name
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;
+
+-- ========== Complex Real-World Query ==========
+
+-- Customer purchase history with product details
+SELECT 
+    c.name AS customer_name,
+    o.order_date,
+    p.name AS product_name,
+    p.category,
+    oi.quantity,
+    oi.price AS unit_price,
+    (oi.quantity * oi.price) AS line_total,
+    o.status
+FROM customers c
+INNER JOIN orders o ON c.id = o.customer_id
+INNER JOIN order_items oi ON o.id = oi.order_id
+INNER JOIN products p ON oi.product_id = p.id
+WHERE c.id = 1
+ORDER BY o.order_date DESC, p.name;
 `
 };
 

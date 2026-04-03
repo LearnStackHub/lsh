@@ -804,6 +804,63 @@ Now that you understand HTML forms, you're ready to enhance your web development
 - **[Spring Boot REST API](/tutorial/spring-boot-rest-api)**: Build APIs that handle form data
 
 HTML forms are the foundation of interactive web applications. Continue learning about [CSS Introduction](/tutorial/css-introduction) to style your forms and create professional-looking user interfaces.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Forms Interview Questions
+
+1. **What are \`method="GET"\` and \`method="POST"\`?**  
+   **GET** requests append **name=value** pairs to the **URL query string**—good for **idempotent** reads (search, filters) and **shareable/bookmarkable** URLs. **Length limits** and **logging** exposure apply (URLs appear in history, server logs). **POST** sends the body in the **HTTP request**—required for **large** payloads, **file uploads**, and **sensitive** data (though **HTTPS** is what truly protects secrets in transit). **Mutating** actions (create account, pay) should use **POST** (or other verbs via JS/fetch APIs).
+
+2. **What is the \`action\` attribute?**  
+   It is the **URL** that receives the submission when the user activates a **submit** control. If omitted, the current document URL is used. With **JavaScript** (\`preventDefault\`), you may submit via **fetch** instead—still keep **progressive enhancement** in mind. **action** must match the **server route** or **API** that parses the **encoding** (\`application/x-www-form-urlencoded\`, \`multipart/form-data\`, \`text/plain\`).
+
+3. **Why is \`name\` important on inputs?**  
+   Successful controls are serialized using **name** as the **field key** in \`application/x-www-form-urlencoded\` or **multipart** parts. **id** is for **DOM/CSS/ARIA**; **name** is for **submission**. Radios in a group share a **name** so only one is selected. **Buttons** need \`name\`/\`value\` only if they participate in submission.
+
+4. **Why pair \`<label for="id">\` with \`id\` on inputs?**  
+   A **programmatic label** ties text to control for **screen readers** (announced as one field). Clicking/tapping the **label** focuses **checkboxes/radios** and activates **inputs**, increasing **hit targets**. **Nested** labels (wrapping input) work without \`for\`, but **explicit** \`for/id\` is clear when markup is separated.
+
+5. **What is \`enctype="multipart/form-data"\` for?**  
+   Default **enctype** is \`application/x-www-form-urlencoded\` (ASCII-friendly key–values). **File inputs** require **\`multipart/form-data\`** so files are sent as **binary parts** with boundaries. Also set **\`method="POST"\`** for uploads in classic forms. **text/plain** is rarely used—mostly debugging.
+
+6. **Difference between \`type="radio"\` and \`type="checkbox"\`?**  
+   **Checkboxes** are **independent toggles** (zero or many on). **Radio buttons** with the same **\`name\`** form an **exclusive** group—exactly one selected (or none if none checked, depending on UX). Use radios for **mutually exclusive** options (payment type); checkboxes for **multi-select** (toppings).
+
+7. **What is \`<select>\` and \`<option>\`?**  
+   **\`<select>\`** presents a **dropdown** (or listbox with \`multiple\`). Each **\`<option>\`** has a **\`value\`** submitted; the **visible** text can differ. Use **\`<optgroup>\`** to group options. For **long** lists with search, **custom** components (ARIA **combobox**) may be better UX than native \`<select>\` on mobile/desktop—trade-offs in interviews.
+
+8. **What does the \`required\` attribute do?**  
+   It triggers **built-in** browser validation: empty **required** fields block **submit** and show a **native** message. It is **not** a security boundary—**attackers** can bypass the client. Pair with **correct** \`type\` (\`email\`, \`url\`, \`number\`) for format hints. **Custom** error UI often needs JS and **aria-invalid**/**aria-describedby**.
+
+9. **What is \`<textarea>\` used for?**  
+   **Free-form multi-line** text (comments, messages). Unlike \`<input>\`, content is **between tags** (watch HTML **escaping** when pre-filling). Use **\`rows\`/\`cols\`** as hints; **CSS** controls actual size. For **rich text**, editors produce HTML—**sanitize** server-side to prevent **XSS**.
+
+10. **Why validate on the server too?**  
+    **Anything client-side can be forged**—DevTools can remove \`required\`, change \`value\`, or POST directly with **curl**. **Server-side** validation enforces **authorization**, **business rules**, and **database constraints**. **Client** validation improves UX; **server** validation guarantees **integrity** and **security** (SQL injection is parameterized separately; **XSS** output encoding matters on responses).
+
 `,
   code: `// HTML Forms
 

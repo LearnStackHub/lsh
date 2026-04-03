@@ -438,6 +438,72 @@ Key scopes:
 - **runtime** - Only at runtime
 
 Next, let's learn about Maven plugins!
+
+---
+
+## 10 Important Maven Dependency Management Interview Questions
+
+1. **What is a transitive dependency?**  
+   You declare **only** \`spring-boot-starter-web\`. Spring **also** needs **Tomcat**, **Jackson**, **logging**, etc. Those **extra** JARs are **transitive**—you didn’t list them, but Maven adds them.  
+   Run **\`mvn dependency:tree\`** to see the **full tree**. **Conflict:** Two libraries ask for **different versions** of **the same** artifact (e.g. two Guava versions)—you must **choose** one (BOM, explicit version, or **exclusion**).
+
+2. **What does \`<scope>test</scope>\` mean?**  
+   The dependency is used **only when compiling and running tests**. It does **not** go into the **production** JAR/WAR. **JUnit**, **Mockito**, **Spring Test** are **test** scope.  
+   **Why it matters:** Smaller deployable artifact and no test code leaking to production.
+
+3. **What is \`provided\` scope?**  
+   You need the classes **while writing code** (compile), but at **runtime** something else **already provides** them. Example: **Servlet API** on Tomcat—the **server** has those JARs; you must **not** bundle duplicate APIs in the WAR.  
+   **compile** = ship with app; **provided** = “container has it.”
+
+4. **How do you exclude a transitive dependency?**  
+   Under **\`<dependency>\`**, add **\`<exclusions><exclusion>...</exclusion></exclusions>\`** with **groupId** + **artifactId** of the library you want to **block**.  
+   Use when a library pulls **wrong** SLF4J binding or **old** vulnerable JAR. **Better first:** fix root cause with a **BOM** or **aligned** parent so you don’t fight the tree blindly.
+
+5. **What is \`optional\` dependency?**  
+   Marks “**nice to have**” for your library: **consumers** of your JAR **do not automatically** get that dependency. Used for **optional features** (e.g. extra codec).  
+   Contrast: normal transitive deps are pulled **unless** excluded.
+
+6. **What is \`dependencyManagement\` in a parent POM?**  
+   Parent lists **artifact + version** pairs **without** necessarily adding them to classpath. Child modules say **“I need spring-core”** **without** a version—parent’s **dependencyManagement** supplies the version.  
+   **Spring Boot parent** manages **hundreds** of versions so **starters** stay compatible.
+
+7. **What is \`mvn dependency:analyze\`?**  
+   A **report** that says: dependencies you **declared but never use**, and classes you **use** but **didn’t declare** (coming transitively—risky). Helps **clean** \`pom.xml\` and avoid **accidental** reliance on transitive deps.
+
+8. **How do you force a specific version (last resort)?**  
+   Put the winning version in **\`<dependencyManagement>\`** (or a direct **\`<dependency>\`** with explicit version). **Enforcer** plugin can **fail** the build if forbidden versions appear.  
+   **Don’t** randomly exclude libraries without reading **\`dependency:tree\`**—you might break runtime.
+
+9. **What is a version conflict “nearest wins” rule?**  
+   Maven picks **one** version per artifact using rules (shortest path, order). It is **not** magic—sometimes the “nearest” is **wrong** for your app.  
+   **Fix:** import a **BOM**, use **Spring** parent, or set **explicit** version in **dependencyManagement**.
+
+10. **Why avoid \`LATEST\` / \`RELEASE\` version ranges in production?**  
+    Today’s build might resolve **1.2.3**; next month **the same POM** might pull **1.3.0** without you changing a line—**not reproducible**, bad for audits.  
+    **Best practice:** **Pin** versions (e.g. \`1.2.3\`); upgrade **deliberately** with PRs and tests.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

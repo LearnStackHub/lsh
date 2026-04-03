@@ -463,6 +463,70 @@ Spring Boot makes Maven even more powerful by providing:
 - Production features
 
 Next, let's learn about useful Maven commands!
+
+---
+
+## 10 Important Maven + Spring Boot Interview Questions
+
+1. **What does \`spring-boot-starter-parent\` provide?**  
+   It is a **parent POM** you put in **\`<parent>\`**. It pre-defines **compatible versions** for hundreds of libraries (Spring, Tomcat, Jackson, etc.), default **plugin** versions, **UTF-8** encoding, and **Java** properties.  
+   **Result:** In your \`pom.xml\` you add **\`spring-boot-starter-web\`** **without** a version—parent already **knows** a safe version.
+
+2. **What is a Spring Boot “starter” dependency?**  
+   A **starter** is a **bundle** of dependencies for one **feature**. Example: **\`spring-boot-starter-web\`** pulls **Spring MVC**, **embedded Tomcat**, **Jackson** for JSON, **logging** bridges—**pre-tested together**.  
+   **Fresher analogy:** A “meal combo” instead of ordering each side dish separately.
+
+3. **What does \`spring-boot-maven-plugin\` do?**  
+   - **repackage:** After \`jar:jar\`, **repackages** into a **fat/executable JAR** (dependencies nested + **Main-Class** loader).  
+   - **run:** Runs your app with **\`mvn spring-boot:run\`** using **dev** classpath (good for local dev).  
+   - Optional **build-info** for **Actuator** (/info endpoint).
+
+4. **Why might \`mvn spring-boot:run\` differ from \`java -jar\`?**  
+   **\`spring-boot:run\`** uses Maven’s **runtime classpath** (can pick **test** resources if configured, **devtools** on classpath). **\`java -jar\`** runs the **packaged** fat JAR—closest to **production**.  
+   Always **verify** with **packaged JAR** before release.
+
+5. **How do you skip repackaging for a library module?**  
+   In a **multi-module** project, **shared** JAR modules often should **not** be fat JARs—only the **final** app module needs **repackage**. Set **\`<skip>true</skip>\`** on **spring-boot-maven-plugin** in library POMs or omit the plugin there.
+
+6. **What is \`spring-boot.version\` property?**  
+   Often set in **parent** or **imported BOM** so **all** Boot pieces use the **same** x.y.z. If you **change** Boot version, **update** parent/BOM **once**—don’t mix random Boot **2.x** and **3.x** artifacts.
+
+7. **How does Spring Boot relate to \`maven-compiler-plugin\`?**  
+   Parent sets **\`java.version\`** / **compiler plugin** **release** so bytecode matches **supported JDK** for that Boot line (e.g. Boot 3 needs **Java 17+**).  
+   Mismatch = **“release version not supported”** or runtime errors.
+
+8. **What is \`spring-boot-starter-test\` scope?**  
+   Declared with **\`<scope>test</scope>\`**: JUnit 5, Mockito, AssertJ, Spring Test **only for tests**—**not** inside the production fat JAR.
+
+9. **Why “Could not find spring-boot-starter-parent”?**  
+   **Typo** in **groupId**/**artifactId**/**version**, **no internet**, or **corporate** mirror **blocking** Maven Central. **Spring** artifacts are on Central—ensure **settings.xml** allows access.  
+   **Offline:** \`~/.m2\` might be missing the parent—run **online** once.
+
+10. **What is \`spring-boot.build-info\` goal?**  
+    Optional execution that writes **build-info.properties** (time, version, git if configured) into the JAR for **Actuator** \`/actuator/info\`. Helps **ops** see **what** was deployed.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

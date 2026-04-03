@@ -283,6 +283,63 @@ public class User {
 </body>
 </html>
 \`\`\`
+
+---
+
+## 10 Important JSP Action Tags Interview Questions
+
+### 1. What are JSP standard actions?
+
+**Answer:** They are XML-style elements in the \`jsp\` namespace (\`<jsp:include>\`, \`<jsp:forward>\`, \`<jsp:useBean>\`, \`<jsp:setProperty>\`, \`<jsp:getProperty>\`, \`<jsp:param>\`, etc.) interpreted by the container at **runtime** as part of JSP processing. Unlike directives, they participate in **request-time** composition and bean wiring. They map closely to servlet APIs such as **RequestDispatcher** and **attribute** scopes.
+
+### 2. How does \`<jsp:include>\` differ from the include directive?
+
+**Answer:** \`<jsp:include page="target.jsp" />\` dispatches to another resource during the **request**, merges its **output** into the current response, and can vary per invocation. \`<%@ include file="..." %>\` inlines another file at **translation** time into **one** servlet class. Choose include **action** for **dynamic** or parameterized fragments; choose the **directive** for **static** templates that rarely change. This distinction is fundamental.
+
+### 3. Compare \`<jsp:forward>\` with \`HttpServletResponse.sendRedirect\`.
+
+**Answer:** **Forward** happens **entirely on the server**: the same request continues to a new resource, the browser URL usually **unchanged**, and **request attributes** remain. **Redirect** sends a **3xx** Location header; the browser issues a **new** GET, losing **POST** body unless you rebuild it, but enabling **bookmarkable** URLs and **PRG** (Post/Redirect/Get) patterns for **duplicate submit** prevention. Interview answers should mention **attribute** lifetime and **bookmark** behavior.
+
+### 4. Explain \`<jsp:useBean>\` in depth.
+
+**Answer:** The container looks up an object under the given **id** in the chosen **scope** (\`page\`, \`request\`, \`session\`, \`application\`). If missing, it may **instantiate** the **class** (requires a **no-arg** constructor), bind it under that id, and optionally run a \`jsp:useBean\` body for initialization. This mirrors manual code: \`getAttribute\` / \`new\` / \`setAttribute\`. Scope choice drives **visibility** and **memory**: session beans follow **users**; application beans are **global**.
+
+### 5. What does \`<jsp:setProperty property="*" />\` do?
+
+**Answer:** It matches **request parameter names** to **JavaBean setter** names (\`name\` → \`setName\`) and assigns **strings** with appropriate **conversion** for primitive properties. It is a quick way to **populate** a form-backed bean in **one** tag. Caveats: **type** conversion errors surface as exceptions; **security** requires validating input afterward; **nested** properties need more than \`*\` in complex cases.
+
+### 6. How are \`<jsp:param>\` elements used?
+
+**Answer:** Nested inside \`jsp:include\` or \`jsp:forward\`, they add **request parameters** visible to the **target** resource (as if they were query or form parameters, depending on dispatcher behavior). This is how you pass **context** to an included header without global state. Contrast with **request attributes**, which are **server-only** and not tied to parameter maps.
+
+### 7. Why can \`forward\` fail with \`IllegalStateException\`?
+
+**Answer:** Forwarding requires a **non-committed** response. If the JSP (or a tag) has **flushed** the buffer, headers and status may already be sent, so the container cannot switch the active resource. Managing **buffer** sizes, \`autoFlush\`, and avoiding premature prints before **forward** is part of servlet discipline.
+
+### 8. Discuss choosing \`session\` vs \`application\` scope on \`useBean\`.
+
+**Answer:** **Session** stores **per-user** conversational state (carts, wizard steps) but increases **memory** per user and complicates **clustering** unless sessions replicate or are sticky. **Application** scope shares **one** bean for **everyone**—only appropriate for **read-mostly** singletons (with thread-safe design), never for individual user data. Wrong scope causes **data leaks** between users—an interview-worthy horror story.
+
+### 9. What goes wrong with \`<jsp:getProperty>\`?
+
+**Answer:** The bean must expose a **readable** property: public \`getXxx()\` matching the **property** name. Typos, missing getters, or **null** beans cause **exceptions** or empty output. This is why many teams moved to **EL** (\`\${bean.prop}\`) which still requires correct getters but reads more cleanly—always escape untrusted values in output.
+
+### 10. Are action tags obsolete in modern Spring applications?
+
+**Answer:** Not **obsolete**, but **less central**. Spring MVC **controllers** usually put **model** objects in the request and return a **view** name; JSPs bind with **EL/JSTL** instead of \`useBean\`. You still see **jsp:include** for layout on legacy apps, and action tags remain fair game in **certification** and **maintenance** interviews. A balanced answer acknowledges **ecosystem shift** without dismissing JSP features outright.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Directives** | [JSP directives](/tutorial/jsp-directives) |
+| **Implicit objects** | [JSP implicit objects](/tutorial/jsp-implicit-objects) |
+| **EL** | [JSP Expression Language](/tutorial/jsp-expression-language) |
+| **JSTL** | [JSP JSTL](/tutorial/jsp-jstl) |
+| **Servlet basics** | [Servlet introduction](/tutorial/servlet-introduction) |
+
 `,
   code: `// JSP Action Tags Demo
 // Demonstrates include, forward, useBean, and property tags

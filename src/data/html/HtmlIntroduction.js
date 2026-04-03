@@ -1204,6 +1204,62 @@ Now that you understand HTML fundamentals, continue your web development journey
 
 HTML provides the structural foundation. Combine it with [CSS](/tutorial/css-introduction) for styling and JavaScript for interactivity to build complete web applications. Start with [HTML Structure](/tutorial/html-structure) to deepen your understanding of document organization.
 
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Introduction Interview Questions
+
+1. **What is HTML and what does it stand for?**  
+   **HTML** stands for **HyperText Markup Language**. **HyperText** means documents can link to other pages or resources (the “web” of documents). **Markup** means you **annotate** content with tags so the browser knows what is a heading, paragraph, list, or image—not how it looks. HTML is **not** a programming language; it is a **declarative** language for **structure**. You can add that browsers parse HTML into a **DOM tree**, which CSS and JavaScript then work with.
+
+2. **What is the role of HTML vs CSS vs JavaScript?**  
+   This is a **classic triad** question. **HTML** defines the **meaning and structure** of the page (headings, forms, landmarks). **CSS** defines **presentation**: colors, fonts, spacing, layout, responsive breakpoints. **JavaScript** adds **behavior**: validation, API calls, DOM updates, single-page app logic. **Separation of concerns** matters: put content in HTML, visuals in CSS, and behavior in JS when possible; mixing too much presentation into HTML (old \`<font>\`, \`<center>\`) is discouraged. In practice, frameworks still **compile down** to HTML/CSS/JS in the browser.
+
+3. **What is HTML5?**  
+   **HTML5** is the current HTML standard from WHATWG/W3C. It added **semantic elements** (\`<header>\`, \`<nav>\`, \`<article>\`), **native audio/video** without plugins, **richer form controls** (\`<input type="email">\`, \`date\`), and **APIs** for offline storage, geolocation, etc. It is **backward compatible** in spirit: older tags often still work, but **best practice** is semantic HTML5 and CSS for layout. Interviewers may ask how HTML5 differs from **XHTML**: HTML5 is **less strict** about syntax (e.g. optional quotes in some cases) but you should still write **clean, valid** markup.
+
+4. **What is the difference between a tag, an element, and an attribute?**  
+   A **tag** is the marker in source code, e.g. \`<p>\` (opening) and \`</p>\` (closing). An **element** is the **whole thing**: opening tag + content + closing tag (e.g. \`<p>Hello</p>\`). **Void elements** like \`<img>\` have **no** closing tag and no inner HTML. An **attribute** sits on the opening tag and gives **extra information**: \`id\`, \`class\`, \`href\`, \`src\`, \`alt\`, \`data-*\`. **Attributes** are not the same as **properties** in the DOM (related but updated differently in JS).
+
+5. **What are void (empty) elements? Give examples.**  
+   **Void** (or **empty**) elements **cannot** have content between tags; they are **self-contained**. Examples: \`<br>\` (line break), \`<hr>\` (thematic break), \`<img>\`, \`<input>\`, \`<meta>\`, \`<link>\`, \`<source>\`. In HTML5 you write them as \`<br>\` or \`<br />\` (XML-style is optional). Do **not** wrap them in a closing tag. Interviewers often pair this with “what is a **self-closing** tag?”—same idea for void elements.
+
+6. **Why is semantic HTML important?**  
+   **Semantic** elements describe **purpose** (\`<nav>\` for navigation, \`<main>\` for primary content) instead of only \`<div class="nav">\`. **Accessibility**: screen readers use landmarks and headings to navigate. **SEO**: search engines infer page structure. **Maintainability**: the next developer understands intent. **Styling** is still done with CSS; semantics are about **meaning**, not appearance. Contrast \`<div>\` with no role vs \`<button>\` for actions—wrong element hurts **keyboard** and **AT** users.
+
+7. **What is the difference between block-level and inline elements?**  
+   **Block-level** elements (e.g. \`<div>\`, \`<p>\`, \`<h1>\`–\`<h6>\`, \`<ul>\`) typically **start on a new line** and stretch **horizontally** in the normal flow (width behavior depends on CSS). **Inline** elements (e.g. \`<span>\`, \`<a>\`, \`<strong>\`) sit **in the line** and only take width **as needed** (height/width rules differ from blocks). In CSS, **display** can change behavior (\`inline-block\`, \`flex\`). **HTML5** de-emphasizes “block vs inline” in the spec in favor of **content models**, but interviewers still use this vocabulary.
+
+8. **What does \`<!DOCTYPE html>\` do?**  
+   The **doctype** tells the browser **which version of HTML** to assume and triggers **standards mode** (correct CSS layout) instead of **quirks mode** (legacy bug-compatible layout). For HTML5, the declaration is simply \`<!DOCTYPE html>\`. It must be the **first line** of the document (before \`<html>\`). If omitted, older browsers can render pages inconsistently.
+
+9. **Why is \`<meta charset="UTF-8">\` used?**  
+   It declares that the document’s **character encoding** is **UTF-8**, which supports **virtually all** languages and symbols. Without it, the browser may **guess** wrong and show **mojibake** (garbled text). UTF-8 is the **default** for the web today. Place it **early** in \`<head>\` (first 1024 bytes recommendation) so the parser picks it up quickly.
+
+10. **Why validate HTML?**  
+    **Validation** (e.g. W3C validator) checks markup against the **grammar** of HTML: unclosed tags, invalid nesting, duplicate IDs, obsolete attributes. Benefits: fewer **surprise** browser quirks, easier **debugging**, better **accessibility** (e.g. missing \`alt\`), and **cleaner** collaboration. It does not guarantee **visual** perfection—CSS and JS still matter—but it catches **structural** mistakes early.
+
 Understanding HTML is the first step in becoming a web developer. Master HTML, then move on to CSS for styling and JavaScript for interactivity to build complete web applications.
 `,
   code: `// HTML Introduction - What is HTML?

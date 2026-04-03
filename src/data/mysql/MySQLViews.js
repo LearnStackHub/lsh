@@ -328,164 +328,6 @@ WHERE status = 'completed'
 GROUP BY DATE_FORMAT(order_date, '%Y-%m')
 ORDER BY month DESC;
 \`\`\`
-  `,
-  code: `-- MySQL Views Examples
-
-CREATE DATABASE views_demo;
-USE views_demo;
-
-CREATE TABLE customers (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    phone VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    stock INT UNSIGNED DEFAULT 0,
-    category VARCHAR(50),
-    is_active TINYINT(1) DEFAULT 1
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED NOT NULL,
-    order_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
-
-CREATE TABLE order_items (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
-    quantity INT UNSIGNED NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
--- Insert sample data
-INSERT INTO customers (name, email) VALUES
-('Dattu p', ' Dattu@example.com'),
-('Jane Smith', 'jane@example.com'),
-('Bob  Dattuson', 'bob@example.com');
-
-INSERT INTO products (name, price, stock, category) VALUES
-('Laptop', 999.99, 50, 'Electronics'),
-('Mouse', 29.99, 100, 'Electronics'),
-('Keyboard', 79.99, 75, 'Electronics');
-
-INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
-(1, '2024-01-15', 999.99, 'completed'),
-(2, '2024-01-16', 109.98, 'completed'),
-(1, '2024-01-17', 199.99, 'pending');
-
--- ========== Basic Views ==========
-
--- Simple view: Active products
-CREATE VIEW active_products AS
-SELECT id, name, price, stock, category
-FROM products
-WHERE is_active = 1;
-
--- Query the view
-SELECT * FROM active_products;
-
--- ========== Complex Views ==========
-
--- Customer order summary
-CREATE VIEW customer_order_summary AS
-SELECT 
-    c.id AS customer_id,
-    c.name AS customer_name,
-    c.email,
-    COUNT(o.id) AS order_count,
-    COALESCE(SUM(o.total_amount), 0) AS total_spent,
-    COALESCE(AVG(o.total_amount), 0) AS avg_order_value,
-    MAX(o.order_date) AS last_order_date
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id
-GROUP BY c.id, c.name, c.email;
-
--- Query the view
-SELECT * FROM customer_order_summary WHERE total_spent > 100;
-
--- Product sales view
-CREATE VIEW product_sales_view AS
-SELECT 
-    p.id AS product_id,
-    p.name AS product_name,
-    p.category,
-    COUNT(oi.id) AS times_ordered,
-    COALESCE(SUM(oi.quantity), 0) AS total_quantity_sold,
-    COALESCE(SUM(oi.quantity * oi.price), 0) AS total_revenue
-FROM products p
-LEFT JOIN order_items oi ON p.id = oi.product_id
-LEFT JOIN orders o ON oi.order_id = o.id AND o.status = 'completed'
-GROUP BY p.id, p.name, p.category;
-
--- Monthly sales summary
-CREATE VIEW monthly_sales_summary AS
-SELECT 
-    DATE_FORMAT(order_date, '%Y-%m') AS month,
-    COUNT(*) AS total_orders,
-    SUM(total_amount) AS total_revenue,
-    AVG(total_amount) AS avg_order_value,
-    COUNT(DISTINCT customer_id) AS unique_customers
-FROM orders
-WHERE status = 'completed'
-GROUP BY DATE_FORMAT(order_date, '%Y-%m')
-ORDER BY month DESC;
-
--- ========== Security Views ==========
-
--- Public view (hides sensitive data)
-CREATE VIEW public_customer_info AS
-SELECT id, name, email, created_at
-FROM customers;
--- phone is hidden
-
--- Admin view (full access)
-CREATE VIEW admin_customer_info AS
-SELECT * FROM customers;
-
--- ========== Updatable Views ==========
-
--- Simple updatable view
-CREATE VIEW active_products_editable AS
-SELECT id, name, price, stock
-FROM products
-WHERE is_active = 1;
-
--- Update through view
-UPDATE active_products_editable SET price = 899.99 WHERE id = 1;
-
--- ========== View Management ==========
-
--- Show all views
-SHOW FULL TABLES WHERE Table_type = 'VIEW';
-
--- Show view definition
-SHOW CREATE VIEW customer_order_summary;
-
--- Describe view
-DESCRIBE customer_order_summary;
-
--- Update view
-CREATE OR REPLACE VIEW active_products AS
-SELECT id, name, price, stock, category
-FROM products
-WHERE is_active = 1 AND stock > 0;
-
--- Drop view
-DROP VIEW IF EXISTS old_view;
-
 ---
 
 ## Real-World Applications
@@ -649,9 +491,222 @@ Views are essential for simplifying complex queries and improving security. Cont
 
 ---
 
+## 10 Important MySQL Views Interview Questions
+
+### 1. What is a view?
+
+**Answer:** A **view** is a **named**, **stored** **SELECT** statement that you query like a **table**. It **does not** duplicate data by default—it **rewrites** to the **underlying** query at **runtime** (**MERGE** algorithm when possible). Views **simplify** **complex joins**, **encapsulate** reporting logic, and can **restrict** visible **columns** or **rows**.
+
+### 2. Is a view a physical table?
+
+**Answer:** Usually **no**—MySQL stores the **view definition** in the **data dictionary**. **Materialized** views (precomputed **physical** storage) are **not** first-class like in some other DBMS; people simulate them with **tables** + **ETL**. **Clarify** this if the interviewer compares Oracle/SQL Server features.
+
+### 3. Can you INSERT, UPDATE, or DELETE through a view?
+
+**Answer:** **Sometimes**, if the view is **updatable** and **simple** enough—typically **one** **base** table, **no** aggregates, **no** DISTINCT, and columns map **directly**. **WITH CHECK OPTION** ensures **inserted/updated** rows remain **visible** through the view. **Complex** views are **read-only**.
+
+### 4. What security benefit do views provide?
+
+**Answer:** You can **GRANT SELECT** on a **view** that **exposes** only **safe** columns while **hiding** **PII** or **internal** keys in **base** tables. **Defense in depth** with **application** auth still **required**—views are **not** a substitute for **proper** **authorization**.
+
+### 5. How do views affect performance?
+
+**Answer:** The optimizer often **merges** the view SQL into the **outer** query (**ALGORITHM=MERGE**). **Deeply nested** views can produce **hard-to-read** plans and **missed** index opportunities—**EXPLAIN** the **expanded** SQL. **TEMPTABLE** algorithm materializes to a **temporary** table—**costly** for **large** data.
+
+### 6. What does CREATE OR REPLACE VIEW do?
+
+**Answer:** It **atomically** **replaces** the view definition if it exists, or **creates** it if not—handy for **idempotent** **migration** scripts. **Permissions** on the view may need **revalidation** when **underlying** schema changes.
+
+### 7. What is the difference between MERGE and TEMPTABLE algorithms?
+
+**Answer:** **MERGE** **inlines** the view query into the **statement**—generally **faster** and **more** optimizable. **TEMPTABLE** **materializes** results to a **temp** table first—useful when **merge** is **impossible**; can be **slower** and **more** **temp** **disk**.
+
+### 8. Why expose reporting APIs through views?
+
+**Answer:** Views provide a **stable** **contract** for **BI** tools and **analysts** while **refactoring** **physical** tables behind the scenes—**similar** to **API** **versioning** in services. **Document** **assumptions** and **avoid** **breaking** **column** renames without coordination.
+
+### 9. How does a view differ from a CTE (WITH clause)?
+
+**Answer:** A **CTE** exists **only** for **one** query execution—it is **not** a **catalog** object. A **view** is **persistent** metadata **reusable** across **sessions** and **users** with **GRANT**. **CTEs** aid **readability**; **views** aid **reuse** and **governance**.
+
+### 10. How would you summarize views in an interview?
+
+**Answer:** Views are **saved SELECTs** for **clarity**, **reuse**, and **controlled** **access**—**not** magic **performance** boosters. **Always** **EXPLAIN** realistic **queries** that **use** them.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Privileges** | [MySQL Privileges](/tutorial/mysql-privileges) |
+| **Stored programs** | [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) |
+| **Triggers** | [MySQL Triggers](/tutorial/mysql-triggers) |
+| **Hibernate HQL** | [Hibernate HQL](/tutorial/hibernate-hql) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL views? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering views, stored procedures, triggers, and all MySQL topics!
+  `,
+  code: `-- MySQL Views Examples
+
+CREATE DATABASE views_demo;
+USE views_demo;
+
+CREATE TABLE customers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT UNSIGNED DEFAULT 0,
+    category VARCHAR(50),
+    is_active TINYINT(1) DEFAULT 1
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED NOT NULL,
+    quantity INT UNSIGNED NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Insert sample data
+INSERT INTO customers (name, email) VALUES
+('Dattu p', ' Dattu@example.com'),
+('Jane Smith', 'jane@example.com'),
+('Bob  Dattuson', 'bob@example.com');
+
+INSERT INTO products (name, price, stock, category) VALUES
+('Laptop', 999.99, 50, 'Electronics'),
+('Mouse', 29.99, 100, 'Electronics'),
+('Keyboard', 79.99, 75, 'Electronics');
+
+INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
+(1, '2024-01-15', 999.99, 'completed'),
+(2, '2024-01-16', 109.98, 'completed'),
+(1, '2024-01-17', 199.99, 'pending');
+
+-- ========== Basic Views ==========
+
+-- Simple view: Active products
+CREATE VIEW active_products AS
+SELECT id, name, price, stock, category
+FROM products
+WHERE is_active = 1;
+
+-- Query the view
+SELECT * FROM active_products;
+
+-- ========== Complex Views ==========
+
+-- Customer order summary
+CREATE VIEW customer_order_summary AS
+SELECT 
+    c.id AS customer_id,
+    c.name AS customer_name,
+    c.email,
+    COUNT(o.id) AS order_count,
+    COALESCE(SUM(o.total_amount), 0) AS total_spent,
+    COALESCE(AVG(o.total_amount), 0) AS avg_order_value,
+    MAX(o.order_date) AS last_order_date
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.name, c.email;
+
+-- Query the view
+SELECT * FROM customer_order_summary WHERE total_spent > 100;
+
+-- Product sales view
+CREATE VIEW product_sales_view AS
+SELECT 
+    p.id AS product_id,
+    p.name AS product_name,
+    p.category,
+    COUNT(oi.id) AS times_ordered,
+    COALESCE(SUM(oi.quantity), 0) AS total_quantity_sold,
+    COALESCE(SUM(oi.quantity * oi.price), 0) AS total_revenue
+FROM products p
+LEFT JOIN order_items oi ON p.id = oi.product_id
+LEFT JOIN orders o ON oi.order_id = o.id AND o.status = 'completed'
+GROUP BY p.id, p.name, p.category;
+
+-- Monthly sales summary
+CREATE VIEW monthly_sales_summary AS
+SELECT 
+    DATE_FORMAT(order_date, '%Y-%m') AS month,
+    COUNT(*) AS total_orders,
+    SUM(total_amount) AS total_revenue,
+    AVG(total_amount) AS avg_order_value,
+    COUNT(DISTINCT customer_id) AS unique_customers
+FROM orders
+WHERE status = 'completed'
+GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+ORDER BY month DESC;
+
+-- ========== Security Views ==========
+
+-- Public view (hides sensitive data)
+CREATE VIEW public_customer_info AS
+SELECT id, name, email, created_at
+FROM customers;
+-- phone is hidden
+
+-- Admin view (full access)
+CREATE VIEW admin_customer_info AS
+SELECT * FROM customers;
+
+-- ========== Updatable Views ==========
+
+-- Simple updatable view
+CREATE VIEW active_products_editable AS
+SELECT id, name, price, stock
+FROM products
+WHERE is_active = 1;
+
+-- Update through view
+UPDATE active_products_editable SET price = 899.99 WHERE id = 1;
+
+-- ========== View Management ==========
+
+-- Show all views
+SHOW FULL TABLES WHERE Table_type = 'VIEW';
+
+-- Show view definition
+SHOW CREATE VIEW customer_order_summary;
+
+-- Describe view
+DESCRIBE customer_order_summary;
+
+-- Update view
+CREATE OR REPLACE VIEW active_products AS
+SELECT id, name, price, stock, category
+FROM products
+WHERE is_active = 1 AND stock > 0;
+
+-- Drop view
+DROP VIEW IF EXISTS old_view;
 `
 };
 

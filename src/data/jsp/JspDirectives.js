@@ -288,6 +288,63 @@ Imports custom tag libraries.
 <%-- Include footer --%>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
 \`\`\`
+
+---
+
+## 10 Important JSP Directives Interview Questions
+
+### 1. What is a JSP directive?
+
+**Answer:** Directives use the syntax \`<%@ ... %>\` and send **instructions to the JSP container** during translation, not markup to the browser. The three common kinds are **page** (per-JSP settings), **include** (static file inclusion at translation time), and **taglib** (registering tag libraries with a **URI** and **prefix**). They are processed **before** the page becomes a servlet. Explaining “translation-time vs runtime” is the key differentiator from **action** tags.
+
+### 2. What can you configure with the page directive?
+
+**Answer:** Typical attributes include \`language\`, \`contentType\`, \`pageEncoding\`, \`import\`, \`session\` (true/false to disable session creation), \`buffer\` and \`autoFlush\`, \`isThreadSafe\` (legacy), \`errorPage\` and \`isErrorPage\`, \`extends\` (rare), and \`isELIgnored\`. Together they shape how the **generated servlet** behaves and how the **response** is encoded. A strong candidate ties \`pageEncoding\` vs \`contentType\` to **UTF-8** end-to-end correctness.
+
+### 3. Compare \`<%@ include file="..." %>\` with \`<jsp:include page="..." />\`.
+
+**Answer:** The **include directive** pulls file contents in at **translation** time, producing **one** combined servlet. If the included file changes, the parent JSP must be **retranslated**. **jsp:include** dispatches to another resource at **request time**, so the included output can vary per request and can even be dynamic. Use the directive for **static** chrome (headers/footers) that rarely changes; use the action when you need **parameterized** or **volatile** fragments. This is one of the most classic JSP interview comparisons.
+
+### 4. When is static include the wrong tool?
+
+**Answer:** When included content changes **frequently** or per **user/locale** and you forget to redeploy dependent parents, you get **stale** output. Static include also cannot accept **request parameters** the way \`jsp:include\` can with \`jsp:param\`. Very large static includes can **inflate** generated servlet size. Mention **tag files** or **composition** patterns as modern alternatives for reusable UI.
+
+### 5. What does the taglib directive do?
+
+**Answer:** \`<%@ taglib uri="..." prefix="c" %>\` binds a **tag library** namespace to a **prefix** used in the page (\`<c:if>\`, etc.). The URI may map to a **TLD** file or be resolved by the container. Without it, custom and JSTL tags are unknown at translation time. Interview follow-up: explain the difference between **standard** URIs (JSTL) and **custom** URIs packaged in your JAR.
+
+### 6. How do \`errorPage\` and \`isErrorPage\` work together?
+
+**Answer:** A page can declare \`errorPage="error.jsp"\` so **uncaught exceptions** during its execution forward to the error handler (per container rules). The handler JSP sets \`isErrorPage="true"\` so the **exception** implicit object is available for logging or user-safe messaging. Discuss **security**: error pages should not dump **stack traces** to end users in production. Also contrast with **web.xml** \`<error-page>\` for **global** mapping.
+
+### 7. Can a JSP have multiple page directives?
+
+**Answer:** Yes, multiple \`<%@ page %>\` directives are merged into one effective set of attributes, but readability suffers. Teams usually consolidate to **one** directive at the top. Know the spec-level behavior in case of **conflicting** attributes—some combinations are invalid or last-wins depending on rules; in interviews, prefer saying “we keep a single page directive to avoid ambiguity.”
+
+### 8. What does \`import\` on the page directive accomplish?
+
+**Answer:** It adds Java \`import\` statements to the **generated servlet** source so you can reference classes without fully qualified names inside scriptlets or expressions. With **scriptless** JSPs, imports matter less because EL and tags hide types. Still relevant when legacy code uses **Java** in the page.
+
+### 9. What is the purpose of the \`buffer\` and \`autoFlush\` attributes?
+
+**Answer:** They control the **JspWriter** buffer size and whether the buffer **auto-flushes** when full. Buffering affects whether you can still call \`forward\` or set **status** headers—once response bytes are **committed**, forwarding throws \`IllegalStateException\`. This links JSP directives to servlet **response commit** semantics and is a favorite advanced topic.
+
+### 10. What does \`body-content\` like \`scriptless\` or \`tagdependent\` mean for tags?
+
+**Answer:** In a **TLD**, \`body-content\` tells the container how to parse the tag body. **scriptless** forbids scriptlets but allows EL and standard actions; **tagdependent** passes body text **verbatim** to the tag handler (useful for **embedded** mini-languages). **empty** means no body. Understanding this shows you know **custom tag** development, not only built-in directives.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **JSP overview** | [JSP introduction](/tutorial/jsp-introduction) |
+| **Action tags** | [JSP action tags](/tutorial/jsp-action-tags) |
+| **JSTL** | [JSP JSTL](/tutorial/jsp-jstl) |
+| **Custom tags** | [JSP custom tags](/tutorial/jsp-custom-tags) |
+| **Architecture** | [JSP architecture](/tutorial/jsp-architecture) |
+
 `,
   code: `// JSP Directives Demo
 // Demonstrates page, include, and taglib directives

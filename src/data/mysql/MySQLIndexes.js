@@ -406,176 +406,6 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 \`\`\`
-  `,
-  code: `-- MySQL Indexes Examples
-
-CREATE DATABASE indexes_demo;
-USE indexes_demo;
-
--- ========== Primary Key Index ==========
-
--- Primary key automatically creates index
-CREATE TABLE products (
-    id INT PRIMARY KEY,
-    name VARCHAR(200)
-);
-
--- ========== Unique Index ==========
-
-CREATE TABLE users (
-    id INT PRIMARY KEY,
-    email VARCHAR(255),
-    username VARCHAR(50)
-);
-
--- Create unique index
-CREATE UNIQUE INDEX idx_email ON users(email);
-
--- Or in table definition
-CREATE TABLE users2 (
-    id INT PRIMARY KEY,
-    email VARCHAR(255),
-    UNIQUE INDEX idx_email (email)
-);
-
--- ========== Regular Index ==========
-
--- Single column index
-CREATE INDEX idx_name ON products(name);
-
--- Composite index
-CREATE INDEX idx_category_price ON products(category, price);
-
--- Index with prefix
-CREATE INDEX idx_name_prefix ON products(name(10));
-
--- ========== Full-Text Index ==========
-
-CREATE TABLE articles (
-    id INT PRIMARY KEY,
-    title VARCHAR(200),
-    content TEXT,
-    FULLTEXT INDEX idx_content (content)
-);
-
--- Use full-text search
-SELECT * FROM articles 
-WHERE MATCH(content) AGAINST('laptop' IN NATURAL LANGUAGE MODE);
-
--- ========== Creating Indexes ==========
-
--- CREATE INDEX
-CREATE INDEX idx_name ON products(name);
-CREATE INDEX idx_category_price ON products(category, price);
-
--- ALTER TABLE
-ALTER TABLE products ADD INDEX idx_name (name);
-ALTER TABLE products ADD UNIQUE INDEX idx_sku (sku);
-ALTER TABLE products ADD INDEX idx_category_price (category, price);
-
--- In table definition
-CREATE TABLE products2 (
-    id INT PRIMARY KEY,
-    name VARCHAR(200),
-    category VARCHAR(50),
-    price DECIMAL(10, 2),
-    INDEX idx_name (name),
-    INDEX idx_category (category),
-    INDEX idx_category_price (category, price)
-);
-
--- ========== Dropping Indexes ==========
-
--- Drop index
-DROP INDEX idx_name ON products;
-
--- Or with ALTER TABLE
-ALTER TABLE products DROP INDEX idx_name;
-
--- ========== Viewing Indexes ==========
-
--- Show indexes
-SHOW INDEX FROM products;
-
--- Query information schema
-SELECT 
-    INDEX_NAME,
-    COLUMN_NAME,
-    SEQ_IN_INDEX,
-    NON_UNIQUE
-FROM INFORMATION_SCHEMA.STATISTICS
-WHERE TABLE_SCHEMA = 'indexes_demo'
-AND TABLE_NAME = 'products';
-
--- ========== Index Usage ==========
-
--- Check index usage with EXPLAIN
-EXPLAIN SELECT * FROM products WHERE name = 'Laptop';
-
--- Index used for WHERE
-SELECT * FROM products WHERE name = 'Laptop';
-
--- Index used for ORDER BY
-SELECT * FROM products ORDER BY name;
-
--- Index used for JOIN
-SELECT * FROM products p
-JOIN categories c ON p.category_id = c.id;
-
--- ========== Composite Indexes ==========
-
--- Composite index
-CREATE INDEX idx_category_price ON products(category, price);
-
--- This helps:
-SELECT * FROM products WHERE category = 'Electronics';
-SELECT * FROM products WHERE category = 'Electronics' AND price > 100;
-
--- This doesn't use index efficiently:
--- SELECT * FROM products WHERE price > 100;
-
--- ========== Real-World Example ==========
-
-CREATE TABLE products (
-    id INT PRIMARY KEY,
-    sku VARCHAR(50) UNIQUE,
-    name VARCHAR(200),
-    category VARCHAR(50),
-    price DECIMAL(10, 2),
-    stock INT,
-    created_at TIMESTAMP,
-    INDEX idx_name (name),
-    INDEX idx_category (category),
-    INDEX idx_price (price),
-    INDEX idx_category_price (category, price),
-    INDEX idx_created (created_at)
-);
-
--- Optimized queries
-SELECT * FROM products WHERE name LIKE '%laptop%';
-SELECT * FROM products WHERE category = 'Electronics' AND price < 500;
-SELECT * FROM products ORDER BY created_at DESC LIMIT 10;
-
--- ========== Foreign Key Indexes ==========
-
-CREATE TABLE orders (
-    id INT PRIMARY KEY,
-    customer_id INT,
-    order_date DATE,
-    INDEX idx_customer_id (customer_id),
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
-
-CREATE TABLE order_items (
-    id INT PRIMARY KEY,
-    order_id INT,
-    product_id INT,
-    INDEX idx_order_id (order_id),
-    INDEX idx_product_id (product_id),
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
 ---
 
 ## Real-World Applications
@@ -765,9 +595,234 @@ Indexes are essential for database performance. Continue learning about [MySQL P
 
 ---
 
+## 10 Important MySQL Indexes Interview Questions
+
+### 1. What is a database index?
+
+**Answer:** An **index** is an auxiliary **data structure** (InnoDB uses **B+Tree** for most secondary indexes) that lets the engine find rows **without** scanning every row. Indexes speed **equality** and **range** predicates, **sorts**, and **some joins**. **Cost:** extra **disk**, **memory** for buffer pool pages, and **maintenance** on every write. **Trade** read vs write consciously.
+
+### 2. How does the PRIMARY KEY work in InnoDB?
+
+**Answer:** The **primary key** is the **clustered index**: table rows are **stored** in the **B+Tree** ordered by PK. **Secondary** indexes store **PK columns** as **pointers** to the full row. That means **wide** primary keys bloat **every** secondary index. Choose **narrow**, **stable** surrogate keys when appropriate.
+
+### 3. What is a composite index and the left-prefix rule?
+
+**Answer:** A **composite** index spans multiple columns, e.g. \`(last_name, first_name)\`. MySQL can use it for predicates that **match a left prefix**: \`WHERE last_name = ?\` or \`WHERE last_name = ? AND first_name = ?\`. It **may not** efficiently use the index for **only** \`first_name = ?\`—the **left-prefix** rule. **Column order** in the index must match **query** patterns.
+
+### 4. What is a covering index?
+
+**Answer:** A **covering** index contains **all columns** needed to satisfy a **SELECT** (including **SELECT** list and **WHERE**), so InnoDB can answer from the **index alone** without **random** lookups to the **clustered** PK (**“Using index”** in \`EXPLAIN\`). This dramatically reduces **I/O** for hot queries.
+
+### 5. What is EXPLAIN used for?
+
+**Answer:** \`EXPLAIN\` shows the **optimizer’s plan**: **access type** (ref, range, index, ALL), **possible_keys**, **key** used, **rows** estimated, **Extra** (filesort, temporary, using index). It is the **first** step in **tuning** slow queries. **EXPLAIN ANALYZE** (MySQL 8.0.18+) adds **actual** timings—prefer it when available.
+
+### 6. How does a UNIQUE index relate to a UNIQUE constraint?
+
+**Answer:** In MySQL, **UNIQUE** constraints are implemented with a **unique** **B-Tree** index. **Uniqueness** is enforced on insert/update. **Duplicates** are rejected **unless** NULL handling allows multiple NULLs. **Primary key** is a **special** unique case.
+
+### 7. What does a full table scan mean in EXPLAIN?
+
+**Answer:** **type = ALL** means the engine reads **all rows** in the table (often a **full table scan**). For **large** tables this is expensive. Sometimes scans are **acceptable** (tiny tables, **wide** queries without selective predicates). **Optimization** means adding **indexes**, rewriting **predicates**, or **reducing** selected columns.
+
+### 8. What is wrong with too many indexes?
+
+**Answer:** Every **INSERT**/**UPDATE**/**DELETE** must **update** each affected index. **Too many** indexes **slow** writes and **increase** **storage** and **cache** pressure. **Duplicate** or **unused** indexes waste resources—use **performance_schema** or **sys** schema to find **unused** indexes.
+
+### 9. What is index cardinality / selectivity?
+
+**Answer:** **Cardinality** estimates how many **distinct** values exist in an index column—**high** cardinality means **more selective** filters (e.g. user id). **Low** cardinality alone (e.g. **boolean** flag) may not narrow rows much; **composite** indexes or **combined** predicates help. **Statistics** can be **stale**—\`ANALYZE TABLE\` refreshes them.
+
+### 10. What is a practical indexing strategy?
+
+**Answer:** Index **real** query patterns: **WHERE**, **JOIN ON**, **ORDER BY**, **GROUP BY** as seen in **slow query log**. **Verify** with **EXPLAIN** and **load tests**. Avoid indexing **every** column “just in case.” **Monitor** after **schema** changes—new indexes can **shift** plans unexpectedly.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Query writing** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
+| **DDL** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **Transactions & locks** | [MySQL Transactions](/tutorial/mysql-transactions) |
+| **ORM performance** | [Hibernate Caching](/tutorial/hibernate-caching) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL indexes? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering indexes, performance optimization, and all MySQL topics!
+  `,
+  code: `-- MySQL Indexes Examples
+
+CREATE DATABASE indexes_demo;
+USE indexes_demo;
+
+-- ========== Primary Key Index ==========
+
+-- Primary key automatically creates index
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(200)
+);
+
+-- ========== Unique Index ==========
+
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    email VARCHAR(255),
+    username VARCHAR(50)
+);
+
+-- Create unique index
+CREATE UNIQUE INDEX idx_email ON users(email);
+
+-- Or in table definition
+CREATE TABLE users2 (
+    id INT PRIMARY KEY,
+    email VARCHAR(255),
+    UNIQUE INDEX idx_email (email)
+);
+
+-- ========== Regular Index ==========
+
+-- Single column index
+CREATE INDEX idx_name ON products(name);
+
+-- Composite index
+CREATE INDEX idx_category_price ON products(category, price);
+
+-- Index with prefix
+CREATE INDEX idx_name_prefix ON products(name(10));
+
+-- ========== Full-Text Index ==========
+
+CREATE TABLE articles (
+    id INT PRIMARY KEY,
+    title VARCHAR(200),
+    content TEXT,
+    FULLTEXT INDEX idx_content (content)
+);
+
+-- Use full-text search
+SELECT * FROM articles 
+WHERE MATCH(content) AGAINST('laptop' IN NATURAL LANGUAGE MODE);
+
+-- ========== Creating Indexes ==========
+
+-- CREATE INDEX
+CREATE INDEX idx_name ON products(name);
+CREATE INDEX idx_category_price ON products(category, price);
+
+-- ALTER TABLE
+ALTER TABLE products ADD INDEX idx_name (name);
+ALTER TABLE products ADD UNIQUE INDEX idx_sku (sku);
+ALTER TABLE products ADD INDEX idx_category_price (category, price);
+
+-- In table definition
+CREATE TABLE products2 (
+    id INT PRIMARY KEY,
+    name VARCHAR(200),
+    category VARCHAR(50),
+    price DECIMAL(10, 2),
+    INDEX idx_name (name),
+    INDEX idx_category (category),
+    INDEX idx_category_price (category, price)
+);
+
+-- ========== Dropping Indexes ==========
+
+-- Drop index
+DROP INDEX idx_name ON products;
+
+-- Or with ALTER TABLE
+ALTER TABLE products DROP INDEX idx_name;
+
+-- ========== Viewing Indexes ==========
+
+-- Show indexes
+SHOW INDEX FROM products;
+
+-- Query information schema
+SELECT 
+    INDEX_NAME,
+    COLUMN_NAME,
+    SEQ_IN_INDEX,
+    NON_UNIQUE
+FROM INFORMATION_SCHEMA.STATISTICS
+WHERE TABLE_SCHEMA = 'indexes_demo'
+AND TABLE_NAME = 'products';
+
+-- ========== Index Usage ==========
+
+-- Check index usage with EXPLAIN
+EXPLAIN SELECT * FROM products WHERE name = 'Laptop';
+
+-- Index used for WHERE
+SELECT * FROM products WHERE name = 'Laptop';
+
+-- Index used for ORDER BY
+SELECT * FROM products ORDER BY name;
+
+-- Index used for JOIN
+SELECT * FROM products p
+JOIN categories c ON p.category_id = c.id;
+
+-- ========== Composite Indexes ==========
+
+-- Composite index
+CREATE INDEX idx_category_price ON products(category, price);
+
+-- This helps:
+SELECT * FROM products WHERE category = 'Electronics';
+SELECT * FROM products WHERE category = 'Electronics' AND price > 100;
+
+-- This doesn't use index efficiently:
+-- SELECT * FROM products WHERE price > 100;
+
+-- ========== Real-World Example ==========
+
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    sku VARCHAR(50) UNIQUE,
+    name VARCHAR(200),
+    category VARCHAR(50),
+    price DECIMAL(10, 2),
+    stock INT,
+    created_at TIMESTAMP,
+    INDEX idx_name (name),
+    INDEX idx_category (category),
+    INDEX idx_price (price),
+    INDEX idx_category_price (category, price),
+    INDEX idx_created (created_at)
+);
+
+-- Optimized queries
+SELECT * FROM products WHERE name LIKE '%laptop%';
+SELECT * FROM products WHERE category = 'Electronics' AND price < 500;
+SELECT * FROM products ORDER BY created_at DESC LIMIT 10;
+
+-- ========== Foreign Key Indexes ==========
+
+CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    INDEX idx_customer_id (customer_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE order_items (
+    id INT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    INDEX idx_order_id (order_id),
+    INDEX idx_product_id (product_id),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
 `
 };
 

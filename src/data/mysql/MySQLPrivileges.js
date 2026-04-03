@@ -361,125 +361,6 @@ FLUSH PRIVILEGES;
 REVOKE DELETE ON database_name.* FROM 'app_user'@'localhost';
 FLUSH PRIVILEGES;
 \`\`\`
-  `,
-  code: `-- MySQL Privileges & Security Examples
-
--- Note: These commands require appropriate privileges
--- Run as root or user with CREATE USER and GRANT privileges
-
--- ========== User Management ==========
-
--- Create user
-CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password123';
-
--- Create user with specific host
-CREATE USER 'remoteuser'@'%' IDENTIFIED BY 'password123';
-
--- Create user with IP range
-CREATE USER 'networkuser'@'192.168.1.%' IDENTIFIED BY 'password123';
-
--- Drop user
-DROP USER 'testuser'@'localhost';
-
--- Rename user
-RENAME USER 'olduser'@'localhost' TO 'newuser'@'localhost';
-
--- Change password
-ALTER USER 'testuser'@'localhost' IDENTIFIED BY 'newpassword123';
-
--- ========== GRANT Privileges ==========
-
--- Grant all privileges on database
-GRANT ALL PRIVILEGES ON my_database.* TO 'testuser'@'localhost';
-
--- Grant specific privileges
-GRANT SELECT, INSERT, UPDATE ON my_database.* TO 'testuser'@'localhost';
-
--- Grant on specific table
-GRANT SELECT, INSERT ON my_database.products TO 'testuser'@'localhost';
-
--- Grant on all databases
-GRANT SELECT ON *.* TO 'readonly'@'localhost';
-
--- Grant column-level privileges
-GRANT SELECT (id, name), UPDATE (name) 
-ON my_database.products 
-TO 'testuser'@'localhost';
-
--- Grant with GRANT OPTION
-GRANT SELECT ON my_database.* 
-TO 'testuser'@'localhost' 
-WITH GRANT OPTION;
-
--- ========== REVOKE Privileges ==========
-
--- Revoke all privileges
-REVOKE ALL PRIVILEGES ON my_database.* FROM 'testuser'@'localhost';
-
--- Revoke specific privileges
-REVOKE SELECT, INSERT ON my_database.* FROM 'testuser'@'localhost';
-
--- Revoke grant option
-REVOKE GRANT OPTION ON my_database.* FROM 'testuser'@'localhost';
-
--- ========== View Privileges ==========
-
--- Show user privileges
-SHOW GRANTS FOR 'testuser'@'localhost';
-
--- Show current user privileges
-SHOW GRANTS;
-SHOW GRANTS FOR CURRENT_USER();
-
--- Query privilege tables
-SELECT User, Host FROM mysql.user;
-SELECT * FROM mysql.db WHERE User = 'testuser';
-SELECT * FROM mysql.tables_priv WHERE User = 'testuser';
-
--- ========== Common Scenarios ==========
-
--- Read-only user
-CREATE USER 'readonly'@'localhost' IDENTIFIED BY 'password';
-GRANT SELECT ON my_database.* TO 'readonly'@'localhost';
-FLUSH PRIVILEGES;
-
--- Application user (no DDL)
-CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'password';
-GRANT SELECT, INSERT, UPDATE, DELETE ON my_database.* TO 'app_user'@'localhost';
-FLUSH PRIVILEGES;
-
--- Developer user
-CREATE USER 'developer'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON dev_database.* TO 'developer'@'localhost';
-FLUSH PRIVILEGES;
-
--- Admin user
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-
--- ========== FLUSH PRIVILEGES ==========
-
--- Reload privileges (required after GRANT/REVOKE)
-FLUSH PRIVILEGES;
-
--- ========== Security Best Practices ==========
-
--- List all users
-SELECT User, Host FROM mysql.user;
-
--- List users with specific privilege
-SELECT User, Host FROM mysql.user WHERE Select_priv = 'Y';
-
--- Remove unused users
-DROP USER IF EXISTS 'olduser'@'localhost';
-
--- Change password regularly
-ALTER USER 'testuser'@'localhost' IDENTIFIED BY 'new_secure_password';
-
--- Note: Always use strong passwords in production!
--- Consider using password validation plugin for MySQL 5.7+
-
 ---
 
 ## Real-World Applications
@@ -670,9 +551,183 @@ DCL and privileges are essential for database security. Continue learning about 
 
 ---
 
+## 10 Important MySQL Privileges Interview Questions
+
+### 1. What does GRANT do?
+
+**Answer:** **GRANT** assigns **privileges** (e.g. **SELECT**, **INSERT**, **UPDATE**, **DELETE**, **ALL PRIVILEGES**) to a MySQL account identified as **\`'username'@'host'\`** at **global**, **database**, **table**, or **column** scope. **Privileges** are stored in the **mysql** system database and **apply** on **next** connection (or after **flush** in edge cases). **Principle of least privilege** means granting **only** what is **needed**.
+
+### 2. Why does the host part of a user matter?
+
+**Answer:** MySQL treats **\`'app'@'localhost'\`** and **\`'app'@'%'\`** as **different** accounts. **localhost** typically matches **TCP** connections from the **same** machine (or **socket**). **\`%\`** matches **any** remote host—**convenient** but **dangerous** without **firewall** and **strong** passwords. **Always** tie **users** to **known** **network** paths.
+
+### 3. What is FLUSH PRIVILEGES?
+
+**Answer:** **FLUSH PRIVILEGES** reloads **grant** tables from disk—rarely needed on **modern** MySQL for **normal** **GRANT**/**REVOKE** but still relevant if you **hand-edit** **mysql.user** (discouraged). **Know** it exists for **recovery** scenarios.
+
+### 4. What is the principle of least privilege?
+
+**Answer:** Application accounts should have **only** the **minimum** rights required: **read-only** users for **reporting**, **no** **DROP**/**ALTER** on **production** unless **migrations** run as a **separate** **role**. **Separation** limits **blast radius** when credentials **leak** or SQL injection **occurs**.
+
+### 5. What are roles in MySQL 8+?
+
+**Answer:** **Roles** bundle **grants** (e.g. **app_read**, **app_write**). You **GRANT** roles **TO** users and **SET DEFAULT ROLE** or **activate** per session. **Simplifies** **onboarding** and **rotation** compared to **per-user** **GRANT** lists.
+
+### 6. How do you revoke privileges?
+
+**Answer:** **REVOKE** removes privileges symmetrically to **GRANT**. **Audit** periodically: **SHOW GRANTS FOR 'user'@'host'**; query **information_schema.USER_PRIVILEGES**. **Dangerous** global rights include **SUPER**, **FILE**, **SHUTDOWN**—**restrict** to **DBA** accounts.
+
+### 7. What is WITH GRANT OPTION?
+
+**Answer:** It allows a user to **grant** their **own** privileges to **other** users—effectively **delegating** **administration**. **Use** **sparingly**—it **expands** the **attack** surface. **Revoke** when **roles** change jobs.
+
+### 8. How do DB privileges relate to SQL injection?
+
+**Answer:** **Prepared statements** stop **most** injection, but a **compromised** app or **bug** can still run **authorized** SQL—**least privilege** limits **damage** (e.g. **read-only** cannot **DROP** tables). **Defense in depth**: **app** validation + **DB** **privileges** + **network** controls.
+
+### 9. What belongs on a production security checklist?
+
+**Answer:** **No** **root** **remote** login; **TLS** for connections; **strong** **passwords** or **cert** auth; **minimal** grants; **network** isolation (VPC, **private** subnets); **audit** logs for **DDL**/**GRANT**; **rotate** credentials. **Align** with **compliance** (PCI, HIPAA) if applicable.
+
+### 10. How do you inspect effective permissions?
+
+**Answer:** **SHOW GRANTS FOR CURRENT_USER();** and **SHOW GRANTS FOR 'user'@'host';** display **privileges**. Use this when debugging **Access denied** errors—often a **wrong** **host** pattern or **missing** **database**-level **grant**.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Installation / users** | [MySQL Installation](/tutorial/mysql-installation) |
+| **DDL (object ownership)** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **App security** | [Servlet Security](/tutorial/servlet-security) |
+| **API auth** | [Authentication & Authorization](/tutorial/authentication-authorization) |
+| **HTTPS** | [HTTPS Security](/tutorial/https-security) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL privileges? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering privileges, security, and all MySQL topics!
+  `,
+  code: `-- MySQL Privileges & Security Examples
+
+-- Note: These commands require appropriate privileges
+-- Run as root or user with CREATE USER and GRANT privileges
+
+-- ========== User Management ==========
+
+-- Create user
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password123';
+
+-- Create user with specific host
+CREATE USER 'remoteuser'@'%' IDENTIFIED BY 'password123';
+
+-- Create user with IP range
+CREATE USER 'networkuser'@'192.168.1.%' IDENTIFIED BY 'password123';
+
+-- Drop user
+DROP USER 'testuser'@'localhost';
+
+-- Rename user
+RENAME USER 'olduser'@'localhost' TO 'newuser'@'localhost';
+
+-- Change password
+ALTER USER 'testuser'@'localhost' IDENTIFIED BY 'newpassword123';
+
+-- ========== GRANT Privileges ==========
+
+-- Grant all privileges on database
+GRANT ALL PRIVILEGES ON my_database.* TO 'testuser'@'localhost';
+
+-- Grant specific privileges
+GRANT SELECT, INSERT, UPDATE ON my_database.* TO 'testuser'@'localhost';
+
+-- Grant on specific table
+GRANT SELECT, INSERT ON my_database.products TO 'testuser'@'localhost';
+
+-- Grant on all databases
+GRANT SELECT ON *.* TO 'readonly'@'localhost';
+
+-- Grant column-level privileges
+GRANT SELECT (id, name), UPDATE (name) 
+ON my_database.products 
+TO 'testuser'@'localhost';
+
+-- Grant with GRANT OPTION
+GRANT SELECT ON my_database.* 
+TO 'testuser'@'localhost' 
+WITH GRANT OPTION;
+
+-- ========== REVOKE Privileges ==========
+
+-- Revoke all privileges
+REVOKE ALL PRIVILEGES ON my_database.* FROM 'testuser'@'localhost';
+
+-- Revoke specific privileges
+REVOKE SELECT, INSERT ON my_database.* FROM 'testuser'@'localhost';
+
+-- Revoke grant option
+REVOKE GRANT OPTION ON my_database.* FROM 'testuser'@'localhost';
+
+-- ========== View Privileges ==========
+
+-- Show user privileges
+SHOW GRANTS FOR 'testuser'@'localhost';
+
+-- Show current user privileges
+SHOW GRANTS;
+SHOW GRANTS FOR CURRENT_USER();
+
+-- Query privilege tables
+SELECT User, Host FROM mysql.user;
+SELECT * FROM mysql.db WHERE User = 'testuser';
+SELECT * FROM mysql.tables_priv WHERE User = 'testuser';
+
+-- ========== Common Scenarios ==========
+
+-- Read-only user
+CREATE USER 'readonly'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT ON my_database.* TO 'readonly'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Application user (no DDL)
+CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON my_database.* TO 'app_user'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Developer user
+CREATE USER 'developer'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON dev_database.* TO 'developer'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Admin user
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+-- ========== FLUSH PRIVILEGES ==========
+
+-- Reload privileges (required after GRANT/REVOKE)
+FLUSH PRIVILEGES;
+
+-- ========== Security Best Practices ==========
+
+-- List all users
+SELECT User, Host FROM mysql.user;
+
+-- List users with specific privilege
+SELECT User, Host FROM mysql.user WHERE Select_priv = 'Y';
+
+-- Remove unused users
+DROP USER IF EXISTS 'olduser'@'localhost';
+
+-- Change password regularly
+ALTER USER 'testuser'@'localhost' IDENTIFIED BY 'new_secure_password';
+
+-- Note: Always use strong passwords in production!
+-- Consider using password validation plugin for MySQL 5.7+
 `
 };
 

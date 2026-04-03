@@ -929,6 +929,95 @@ Start applying these concepts to your next project, and you'll see the differenc
 
 ---
 
+## Full-stack Java tutorials — quick links
+
+Use these tutorials in order as you move through the **Development** phase of SDLC: markup and styling first, then language and data access, then web and enterprise stacks, then APIs and cloud.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important SDLC Interview Questions
+
+1. **What is SDLC?**  
+   Think of **SDLC (Software Development Life Cycle)** as a **recipe for building software** that teams follow from the first idea until the software runs in production and later gets updates. Instead of everyone doing random steps, SDLC splits work into clear **stages**—for example: understand what to build, check if it is possible, design, write code, test, release, and then maintain.  
+   **Why it matters for a fresher:** You will hear words like “phase,” “release,” and “sign-off” in meetings. SDLC explains **why** companies don’t jump straight to coding: they want **quality**, **predictable timelines**, and **less risk**.  
+   **Important detail:** SDLC is **not** one fixed method. The **same phases** can be run in a strict line (**Waterfall**) or in short loops (**Agile**). In interviews, say SDLC gives a **clear process**, **traceability** (who decided what), and **risk control**—not only paperwork.
+
+2. **List the main phases of SDLC in order.**  
+   Here is a **simple order** beginners can remember (names may change slightly in different companies):  
+   - **Requirement gathering** — Talk to users and write what the system **must** do (features, rules).  
+   - **Feasibility study** — Check if the project is **possible** in time, budget, and technology (can we actually build this?).  
+   - **Design** — Draw the **big picture** (architecture, databases, APIs) and **detailed** design (classes, screens).  
+   - **Development (coding)** — Developers write code according to the design.  
+   - **Testing** — Find bugs: unit tests (small pieces), integration (modules together), system (whole app), UAT (users try it).  
+   - **Deployment** — Put the software on servers or app stores so **real users** can use it.  
+   - **Maintenance** — Fix bugs, improve speed, add new features after release.  
+   **Tip:** Say in interviews that each phase has **deliverables** (documents or working software) so the next team knows what was agreed.
+
+3. **What is the Waterfall model, and when is it suitable?**  
+   **Waterfall** means: finish **step 1** completely, then start **step 2**, like water flowing **downstairs**—you don’t usually go back to the top without cost. Example: first finish all requirements documents, then all design, then all coding.  
+   **Good for:** Requirements that **won’t change much** (e.g. some government or fixed-spec projects) or when **regulations** need heavy documentation **before** coding.  
+   **Weak point:** If the client changes their mind late, going **back** to change requirements is **expensive** because many steps are already done.  
+   **Fresher note:** Many companies still use **parts** of Waterfall (documents, approvals) but combine them with **Agile** for faster delivery.
+
+4. **What is Agile, and how does it differ from Waterfall?**  
+   **Waterfall** tries to plan **everything** at the start and finish one big phase before the next. **Agile** says: “We build **small pieces** in **short cycles** (often 1–4 weeks called **sprints**), show working software to users, and **adjust** the plan based on feedback.”  
+   **Simple analogy:** Waterfall is like building a full house from one fixed blueprint. Agile is like building **room by room** and changing the next room’s plan after you see how people use the first.  
+   **Roles you may hear:** **Product Owner** (what to build), **Scrum Master** (removes blockers), **developers**. **Ceremonies:** planning, daily stand-up, review, retrospective.  
+   **Interview line:** Agile is a **mindset** (“deliver value early, welcome change”) plus **frameworks** like **Scrum** or **Kanban**—it is **not** “zero documentation.”
+
+5. **Explain the V-Model.**  
+   Draw a **V** in your mind. On the **left** side you go **down** through development steps (requirements → design → coding). On the **right** side you go **up** through **testing** that matches each left step. So: **requirements** are checked by **acceptance tests**; **design** is checked by **integration/system tests**; **code** is checked by **unit tests**.  
+   **Why:** So every piece of work has a **matching test plan**—you always ask, “How will we **prove** this works?”  
+   **Where it is used:** Banks, hospitals, airplanes—places where **wrong software can be dangerous** and **auditors** want proof from requirement → test case.  
+   **Downside:** If requirements change late, updating both sides of the V takes time.
+
+6. **What is the Spiral model?**  
+   The **Spiral** model repeats a **loop**: **plan** a little → study **risks** (what could go wrong?) → **build** a small part (maybe a prototype) → **show** users and get feedback → repeat.  
+   **Why:** Big unknowns (new technology, unclear users) are handled **early** instead of discovering disaster at the end.  
+   **Good for:** Large, expensive, or **high-risk** projects.  
+   **vs Agile:** Spiral focuses strongly on **formal risk analysis** each round; Agile focuses on **fixed-length sprints** and product backlog. Both use **iteration**, but Spiral is often more **documented** and **risk-centric**.
+
+7. **What is the difference between SDLC and STLC?**  
+   **SDLC** is the **full journey** of the software: idea → design → build → test → deploy → maintain → retire.  
+   **STLC (Software Testing Life Cycle)** is **only the testing part** inside SDLC: how we **plan** tests, **write** test cases, **run** them, **log** defects, **retest** fixes, and **sign off** that quality is OK.  
+   **Analogy:** SDLC is the whole **school year**; STLC is the **exam preparation and exam process** inside that year.  
+   **Interview answer:** “SDLC is how we **build** the product; STLC is how we **validate** it step by step.”
+
+8. **What is CI/CD, and where does it fit in SDLC?**  
+   **CI (Continuous Integration):** Whenever a developer pushes code, a **machine automatically** compiles the project and runs tests. If something breaks, the team fixes it **quickly**—so you don’t merge many broken changes together.  
+   **CD (Continuous Delivery or Deployment):** After tests pass, the pipeline can **package** the app and sometimes **deploy** it to a server automatically (with approvals in Delivery, more automatic in Deployment).  
+   **Where in SDLC:** It connects **development** (writing code), **testing** (automated checks), and **deployment** (release).  
+   **Why freshers should care:** In jobs you will use **Jenkins**, **GitHub Actions**, **GitLab CI**, etc.—all implement CI/CD ideas so releases are **frequent** and **less scary**.
+
+9. **What is Secure SDLC (or DevSecOps)?**  
+   Old style: build the app first, then run a **security scan** at the end. **Secure SDLC / DevSecOps** says: think about **security in every phase**. Examples: security requirements (“must encrypt passwords”), **threat modeling** in design (“who could attack this?”), **safe coding** rules and **library scanning** during development, **security tests** in QA, **secure servers** and **patching** after deployment.  
+   **“Shift left”** means finding security bugs **early** when they are **cheap to fix**.  
+   **Fresher takeaway:** Security is **not** only the security team’s job—developers must avoid **SQL injection**, **XSS**, **leaked secrets**, etc.
+
+10. **Why are prototypes or MVPs used in early SDLC?**  
+    A **prototype** is a **quick, rough version** to show ideas (may be throwaway). An **MVP (Minimum Viable Product)** is the **smallest** product that still **solves one real problem** for users so you can learn from **real usage**.  
+    **Why:** Reading documents is not the same as **using** software. Early demos reduce **wrong requirements** and save months of building the wrong thing.  
+    **Example:** Instead of coding every report for six months, you might ship **one main flow** in two weeks and see if users actually need the rest.  
+    **Interview line:** Prototypes/MVPs **reduce risk** and **validate assumptions** before big investment.
+
+---
+
 ## Frequently Asked Questions (FAQs)
 
 ### What is SDLC and why is it important?

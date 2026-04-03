@@ -323,71 +323,6 @@ Understanding these concepts is essential before learning [MySQL Data Types](/tu
 5. **Widely Supported** - Works with all web frameworks
 6. **Proven** - Used by major websites, battle-tested
 7. **Scalable** - Can grow with your application
-  `,
-  code: `-- MySQL Introduction Examples
-
--- Create a simple database
-CREATE DATABASE ecommerce_db;
-USE ecommerce_db;
-
--- Create a products table
-CREATE TABLE products (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    stock INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create a customers table
-CREATE TABLE customers (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create an orders table with relationship
-CREATE TABLE orders (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    customer_id INT NOT NULL,
-    order_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (customer_id) REFERENCES customers(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Insert sample data
-INSERT INTO products (name, price, stock) VALUES
-('Laptop', 999.99, 50),
-('Mouse', 29.99, 100),
-('Keyboard', 79.99, 75);
-
-INSERT INTO customers (name, email, phone) VALUES
-('Dattu p', ' Dattu@example.com', '123-456-7890'),
-('Jane Smith', 'jane@example.com', '098-765-4321');
-
-INSERT INTO orders (customer_id, order_date, total_amount) VALUES
-(1, '2024-01-15', 999.99),
-(2, '2024-01-16', 109.98);
-
--- Query data
-SELECT * FROM products;
-SELECT * FROM customers;
-SELECT * FROM orders;
-
--- Query with JOIN
-SELECT 
-    o.id AS order_id,
-    c.name AS customer_name,
-    o.order_date,
-    o.total_amount
-FROM orders o
-JOIN customers c ON o.customer_id = c.id;
-\`\`\`
-
 ---
 
 ## Frequently Asked Questions (FAQs)
@@ -485,9 +420,129 @@ Now that you understand MySQL basics:
 
 ---
 
+## 10 Important MySQL Introduction Interview Questions
+
+### 1. What is MySQL?
+
+**Answer:** MySQL is an **open-source relational database management system (RDBMS)**. Data is stored in **tables** made of **rows** (records) and **columns** (fields). You interact with it using **SQL** to define structure (DDL), change data (DML), and retrieve results (queries). In interviews, a strong one-liner is: “MySQL is a widely used **relational SQL database** that sits behind many web stacks and enterprise applications.” Mentioning that Oracle maintains the product and that **MariaDB** is a common fork shows broader context if asked.
+
+### 2. What is SQL?
+
+**Answer:** **Structured Query Language (SQL)** is the **declarative** language used to create schemas, enforce rules, and query or modify data in relational systems. Core families of statements include **DDL** (\`CREATE\`, \`ALTER\`, \`DROP\`), **DML** (\`INSERT\`, \`UPDATE\`, \`DELETE\`), and **query** constructs (\`SELECT\` with joins and filters). MySQL follows the SQL standard but adds **dialect** features (e.g. certain functions, engine clauses). Interviewers often expect you to separate **ANSI SQL** concepts from **MySQL-specific** syntax.
+
+### 3. What is a relational database?
+
+**Answer:** A relational database models data as **relations** (tables) and formal **relationships** between them—typically enforced with **primary keys** and **foreign keys** so facts are stored **once** and referenced, reducing duplication and update anomalies. Normalization, integrity constraints, and **transactions** are part of why relational stores dominate **OLTP** workloads. Contrast briefly with **document** or **key-value** stores only if the interviewer opens “SQL vs NoSQL.”
+
+### 4. What is a primary key?
+
+**Answer:** A **primary key** uniquely identifies **each row** in a table. It must be **NOT NULL** and **unique**; it can be a single column (often a surrogate \`id\`) or a **composite** of several columns for natural keys (e.g. line items). In MySQL, \`AUTO_INCREMENT\` on an integer primary key is a common pattern for surrogate IDs. Explain that the optimizer uses primary keys for **clustered** index access in InnoDB (the table is organized around the PK).
+
+### 5. What is InnoDB at a high level?
+
+**Answer:** **InnoDB** is MySQL’s default **storage engine** for new tables. It provides **ACID transactions**, **foreign keys**, **row-level locking**, and **multi-version concurrency (MVCC)** for consistent reads. That combination makes it suitable for typical web and business applications. Older engines like **MyISAM** lack transactions and FKs; you should say **InnoDB** unless there is a rare legacy reason.
+
+### 6. Why does MySQL show up so often in interviews?
+
+**Answer:** It is **free**, **well documented**, easy to install locally, and pairs naturally with **Java (JDBC)**, **Spring Boot**, **PHP**, **Python**, and **Node** stacks. Many companies already run it in production. Interview expectations usually include: **JOINs**, **indexes**, **constraints**, **transactions**, basic **DDL/DML**, and **security** (users and least privilege). Framing MySQL as “the database you’re most likely to **practice** and **ship**” is credible.
+
+### 7. What is the difference between a database and a table?
+
+**Answer:** A **database** (schema) is a **namespace**—a container for **tables**, **views**, **stored procedures**, triggers, and **privileges**. A **table** is a single relation with a defined set of columns. Example: database \`shop\` might hold \`customers\`, \`products\`, and \`orders\`. Operations like \`USE shop;\` set the **default** schema for the session. This distinction matters for **GRANT** and migration scripts.
+
+### 8. What port does MySQL use by default?
+
+**Answer:** The default **TCP** port is **3306**. Connection strings, JDBC URLs, and firewall rules often specify \`hostname:3306\`. If you use a non-default port, every client and load balancer must match. **SSL/TLS** connections may use the same port with encryption negotiated in the protocol.
+
+### 9. Explain the client–server model in MySQL.
+
+**Answer:** The **server** process (\`mysqld\`) stores data files, parses SQL, executes plans, and returns results. **Clients**—\`mysql\` CLI, MySQL Workbench, application servers—open **TCP** connections (or local sockets), authenticate, and send SQL. Your Java app is a client; it never “embeds” the engine unless you use something like **embedded** modes (uncommon for production MySQL). Understanding this helps debug **connection refused**, **max connections**, and **network** issues.
+
+### 10. How does MySQL connect to a Java application?
+
+**Answer:** Typically through **JDBC** (driver, connection URL, \`PreparedStatement\`) or **higher-level** APIs: **JPA/Hibernate**, **Spring Data JPA**, **MyBatis**, etc. The application obtains a **connection pool**, executes SQL or mapped queries, maps **ResultSet** rows to **objects**, and closes resources in \`finally\` or try-with-resources. Mention **connection pooling** (HikariCP) and **transaction boundaries** (\`@Transactional\`) for Spring interviews—this shows end-to-end thinking beyond raw SQL.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Install MySQL** | [MySQL Installation](/tutorial/mysql-installation) |
+| **Create DB & tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
+| **Connect from Java** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **ORM with Spring** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+| **Hibernate mapping** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Software lifecycle context** | [SDLC Introduction](/tutorial/sdlc-introduction) |
+
+---
+
 ## Test Your Knowledge
 
 Ready to test your MySQL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering all MySQL topics. Perfect for practice and assessment!
+  `,
+  code: `-- MySQL Introduction Examples
+
+-- Create a simple database
+CREATE DATABASE ecommerce_db;
+USE ecommerce_db;
+
+-- Create a products table
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create a customers table
+CREATE TABLE customers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create an orders table with relationship
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert sample data
+INSERT INTO products (name, price, stock) VALUES
+('Laptop', 999.99, 50),
+('Mouse', 29.99, 100),
+('Keyboard', 79.99, 75);
+
+INSERT INTO customers (name, email, phone) VALUES
+('Dattu p', ' Dattu@example.com', '123-456-7890'),
+('Jane Smith', 'jane@example.com', '098-765-4321');
+
+INSERT INTO orders (customer_id, order_date, total_amount) VALUES
+(1, '2024-01-15', 999.99),
+(2, '2024-01-16', 109.98);
+
+-- Query data
+SELECT * FROM products;
+SELECT * FROM customers;
+SELECT * FROM orders;
+
+-- Query with JOIN
+SELECT 
+    o.id AS order_id,
+    c.name AS customer_name,
+    o.order_date,
+    o.total_amount
+FROM orders o
+JOIN customers c ON o.customer_id = c.id;
 `
 };
 

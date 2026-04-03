@@ -835,6 +835,63 @@ Continue your CSS learning journey with these essential topics:
 - **HTML Introduction**: Understand the structure that CSS styles
 
 Mastering CSS is essential for creating modern, professional web applications. Combine CSS with HTML for structure and JavaScript for interactivity to build complete web solutions.
+
+---
+
+## 10 Important CSS Introduction Interview Questions
+
+1. **What is CSS and what problem does it solve?**  
+   **CSS (Cascading Style Sheets)** describes how HTML should **look**: colors, fonts, spacing, layout, and responsive behavior—separate from **what** the content is. That **separation** lets one stylesheet style many pages, supports **themes**, and keeps HTML **semantic**. Browsers apply CSS rules to the **DOM** after HTML is parsed.
+
+2. **What does “cascade” mean in CSS?**  
+   When several rules target the same element, the **cascade** decides which **declaration** wins using **origin** (user, author, browser), **importance** (\`!important\`), **specificity**, and **source order**. Understanding the cascade prevents “random” overrides and explains why moving a rule **below** another can change the outcome.
+
+3. **How is CSS specificity calculated (at a high level)?**  
+   Specificity compares **inline styles** (highest), then **IDs**, then **classes, attributes, and pseudo-classes**, then **elements and pseudo-elements**. More specific selectors beat less specific ones; **equal** specificity defers to **later** rules in the stylesheet. **!important** breaks normal rules—use **sparingly**.
+
+4. **What are the three ways to include CSS, and which is preferred for large apps?**  
+   **Inline** (\`style\` attribute), **internal** (\`<style>\` in HTML), and **external** (\`<link rel="stylesheet">\`). **External** CSS is preferred for **reuse**, **caching**, and **maintainability**; inline is for **one-off** or **dynamic** values only. **Critical CSS** can be inlined for **above-the-fold** performance, then load the rest async.
+
+5. **What is the difference between \`rem\` and \`em\`?**  
+   **\`rem\`** is relative to the **root** (\`<html>\`) font size—consistent scaling across components. **\`em\`** is relative to the **element’s** font size and **compounds** on nested elements, which can surprise you. **\`px\`** is absolute—fine for borders; **rem** is popular for **accessible** typography scaling.
+
+6. **What is the CSS box model?**  
+   Each element’s total space involves **content**, **padding**, **border**, and **margin**. **\`box-sizing: border-box\`** makes \`width\`/\`height\` include padding and border—easier layout math. **Margin collapse** affects adjacent **vertical** margins in normal flow.
+
+7. **What are CSS custom properties (“variables”)?**  
+   **\`--token: value;\`** on a selector (often \`:root\`) and **\`var(--token)\`** where needed. They enable **themes**, **runtime** updates via JS, and **scoped** tokens on components. They **inherit** and can **fallback**: \`var(--x, #000)\`.
+
+8. **What is a media query and why is it used?**  
+   **\`@media (min-width: 768px) { ... }\`** applies rules when conditions match (width, height, **prefers-reduced-motion**, **orientation**). It is the backbone of **responsive** design—often combined with **mobile-first** (base styles for small screens, **min-width** to enhance).
+
+9. **How does CSS relate to accessibility?**  
+   CSS affects **focus outlines**, **contrast**, **target size**, and **motion**. **Never** remove \`:focus\` styles without a **visible** replacement. Respect **\`prefers-reduced-motion\`** for large animations. **Color alone** must not convey meaning—pair with text or icons.
+
+10. **Name common strategies for organizing large CSS codebases.**  
+    **BEM** naming, **CSS Modules**, **utility-first** (e.g. Tailwind), **design tokens**, and **layering** (\`@layer\`) to control the cascade. Goals: **predictable** overrides, **fewer** global leaks, and **easier** onboarding.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Introduction - What is CSS?
 

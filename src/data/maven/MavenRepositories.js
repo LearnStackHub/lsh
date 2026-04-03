@@ -359,6 +359,73 @@ Understanding repositories helps you:
 - Optimize build performance
 
 Next, let's learn about dependency management!
+
+---
+
+## 10 Important Maven Repositories Interview Questions
+
+1. **What is the local repository?**  
+   When Maven downloads a library the first time, it stores a **copy** on your computer under **\`~/.m2/repository\`** (Windows: \`C:\\Users\\You\\.m2\\repository\`).  
+   Next builds **reuse** the cache—**faster** and works **offline** (if everything was already downloaded).  
+   If a file is **corrupt**, you can delete that folder under \`.m2\` and Maven will **re-download**. **Do not** treat \`.m2\` as project backup.
+
+2. **What is Maven Central?**  
+   **Maven Central** is the **default public** server where most **open-source** Java libraries are published. When your \`pom.xml\` lists a dependency, Maven looks up **Central** (unless your company **mirrors** it).  
+   You rarely add Central by hand—it is **built in**—but you must have **internet** (or a mirror) the first time.
+
+3. **What is a remote repository in \`pom.xml\`?**  
+   Sometimes a JAR is **not** on Central (older **JBoss**, **private** company libs). Then you add **\`<repositories>\`** with a **URL**. **Plugin** JARs use **\`<pluginRepositories>\`**.  
+   **Fresher note:** Company **Nexus** often replaces many remotes with **one internal URL**.
+
+4. **What is a mirror in \`settings.xml\`?**  
+   A **mirror** **redirects** requests: instead of every developer hitting the public internet, everyone hits **company Nexus** (faster, **cached**, **audited**).  
+   **\`mirrorOf\`** can be \`central\` or \`*\` (everything—use carefully). Admins set this; you just need to know **why** builds use an internal URL.
+
+5. **What is a SNAPSHOT version?**  
+   **\`1.0.0-SNAPSHOT\`** means “**still under development**”—the JAR can **change** day to day. Maven may **check again** for newer snapshots.  
+   **\`1.0.0\`** (no SNAPSHOT) is a **release**: **immutable**—you should always get the **same** bits. **Production** should depend on **releases**, not snapshots.
+
+6. **How does artifact resolution order work?**  
+   **Step 1:** Look in **local** \`.m2\`. **Step 2:** If missing, download from **repositories** listed in POM + **settings** + **parent** POMs. **Step 3:** Usually ends at **Central** or your **mirror**.  
+   Understanding this helps when Maven says **“cannot find artifact”**—wrong version, repo blocked, or typo in coordinates.
+
+7. **What is \`distributionManagement\`?**  
+   When you run **\`mvn deploy\`**, Maven needs **where to upload** your built JAR (snapshots vs releases URLs). That’s **\`<distributionManagement>\`** in \`pom.xml\`.  
+   **Passwords** are **not** stored in POM—use **\`<server>\`** in **\`settings.xml\`** with the **same id** as in distributionManagement.
+
+8. **Why might builds fail with “Could not transfer artifact”?**  
+   Common causes: **no network**, **VPN** off, **wrong** repository URL, **SSL** certificate problems (corporate proxy), or **401** (bad username for private repo).  
+   **Fix path:** Run **\`mvn -X\`** for details, verify **\`settings.xml\`** proxy/credentials, try the URL in a browser (if allowed).
+
+9. **What is a private / hosted repository manager?**  
+   Products like **Sonatype Nexus** or **JFrog Artifactory** sit **inside** the company. They **cache** Maven Central (speed), **host** internal \`com.mycompany:...\` artifacts, and **scan** for security issues.  
+   **Interview:** “Private repo = control + speed + compliance.”
+
+10. **Should you commit \`~/.m2\` to Git?**  
+    **No.** It can be **gigabytes** and is **machine-specific**. You only commit **\`pom.xml\`**, **wrapper** files, and source. Anyone can run Maven to **rebuild** the same cache.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

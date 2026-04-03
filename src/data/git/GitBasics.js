@@ -332,6 +332,53 @@ You've learned:
 - Connect to GitHub
 - Work with remote repositories
 
+---
+
+## 10 Important Git Basics Interview Questions
+
+1. **What is the difference between the working directory, staging area, and repository?**  
+   **Working directory:** files on disk as you edit them. **Staging area (index):** what you’ve marked with **\`git add\`** for the **next** commit. **Repository:** committed snapshots stored in **\`.git\`**.  
+   **Flow:** edit → **add** → **commit**.
+
+2. **What does \`git status\` tell you?**  
+   Which branch you’re on, **untracked** files, **modified** files not staged, and **staged** files ready to commit. **Always** run it when you’re unsure what Git sees.
+
+3. **What is staging? Why not commit directly?**  
+   Staging lets you **choose** which hunks/files go into **one logical commit**. Example: fix a typo and a big feature in the same folder—you can **stage only** the typo for a small commit.
+
+4. **What makes a good commit message?**  
+   **Imperative, short subject** (e.g. “Add login validation”), optional body with **why**. Avoid vague messages like “fix” or “changes.” Future you (and reviewers) read the **log** like a diary.
+
+5. **What does \`git log\` show?**  
+   Commit history: hashes, authors, dates, messages. **\`git log --oneline\`** is a compact view. Use it to find a commit to **revert** or **cherry-pick**.
+
+6. **What is \`HEAD\`?**  
+   **HEAD** points to your **current commit** (usually the tip of your current **branch**). “Detached HEAD” means HEAD points **directly** to a commit—not wrong, but know what you’re doing.
+
+7. **What is \`.gitignore\`?**  
+   A file listing patterns for files Git **should not track** (\`target/\`, \`.class\`, \`node_modules/\`, IDE folders, secrets). **Never** commit passwords or **\`.env\`** with real keys.
+
+8. **Difference between \`git add .\` and \`git add -p\`?**  
+   **\`.\`** stages **everything** changed (risky if you mixed unrelated edits). **\`-p\`** (patch) lets you **interactively** stage parts of a file—**better** for clean commits.
+
+9. **Can you change the last commit message?**  
+   **\`git commit --amend\`** rewrites the **latest** commit (message and/or contents). **Warning:** if you already **pushed** that commit, amending rewrites history—coordinate with the team.
+
+10. **What does \`git clone\` do vs \`git init\`?**  
+    **\`git init\`** starts a **new** repo in an existing folder. **\`git clone <url>\`** **downloads** an existing remote repo with history. Freshers use **clone** daily when joining a team.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Git concepts overview** | [Git Introduction](/tutorial/git-introduction) |
+| **Branches next** | [Git Branches](/tutorial/git-branches) |
+| **Remotes & GitHub** | [GitHub Basics](/tutorial/github-basics) |
+| **Java build output to ignore** | [Maven Project Structure](/tutorial/maven-project-structure) |
+| **Team workflow** | [Git Workflow](/tutorial/git-workflow) |
+
 Keep practicing these commands - they're the foundation of everything in Git!
 `
 };

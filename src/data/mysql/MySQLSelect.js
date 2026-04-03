@@ -635,6 +635,62 @@ SELECT is the foundation of data retrieval. Continue learning about [MySQL Joins
 
 ---
 
+## 10 Important MySQL SELECT Interview Questions
+
+### 1. What does SELECT do in SQL?
+
+**Answer:** \`SELECT\` **projects** and **returns** a **result set**: rows and columns produced from **tables**, **views**, **CTEs**, or **expressions**. It is the core of **reporting**, **OLTP reads**, and **analytics** extracts. Every non-trivial application issues **SELECT** statements through JDBC, ORMs, or BI tools. **Read-only** in terms of **data** (ignoring locking side effects), but **heavy** SELECTs can still **load** the server.
+
+### 2. What is the difference between WHERE and HAVING?
+
+**Answer:** \`WHERE\` filters **individual rows** **before** grouping and **cannot** reference aggregate functions (in standard SQL). \`HAVING\` filters **groups** **after** \`GROUP BY\` and is where you put conditions on **SUM**, **COUNT**, **AVG**, etc. Example: filter orders with \`WHERE order_date >= ...\`, then keep only customers with **\`HAVING SUM(amount) > 100\`**. **Mixing** them up is a classic junior mistake.
+
+### 3. When is GROUP BY required?
+
+**Answer:** Whenever you combine **aggregate functions** with **non-aggregated** columns in the \`SELECT\` list, those columns must appear in \`GROUP BY\` (in **ONLY_FULL_GROUP_BY** mode in MySQL). That mode prevents ambiguous “one row per group” bugs. **Functionally**, \`GROUP BY\` defines **buckets**; aggregates compute **per bucket**.
+
+### 4. How do ORDER BY and LIMIT work together?
+
+**Answer:** \`ORDER BY\` defines a **total ordering** (or partial ordering). \`LIMIT n\` returns the **first n** rows **after** sorting. **Pagination** often uses \`LIMIT pageSize OFFSET (page-1)*pageSize\`—but **large OFFSET** can be slow; **keyset** pagination (\`WHERE id > last_id ORDER BY id LIMIT n\`) scales better. **Top-N** queries (e.g. top 5 customers) use **ORDER BY metric DESC LIMIT 5**.
+
+### 5. Why use table and column aliases (AS)?
+
+**Answer:** **Aliases** shorten names in **JOINs** (\`FROM orders o\`), clarify **self-joins**, and give **readable** column headers in reports. **Correlated** subqueries and **outer** queries reference inner aliases. **AS** is optional for column aliases but **recommended** for clarity.
+
+### 6. Explain INNER JOIN vs LEFT JOIN.
+
+**Answer:** **INNER JOIN** returns only rows where the **join condition** matches in **both** tables. **LEFT OUTER JOIN** returns **every** row from the **left** table, matching **right** rows where possible, and **NULL** for right-side columns when there is **no** match—ideal for “**all** customers and their orders if any.” **RIGHT JOIN** is the mirror; many teams **rewrite** as **LEFT** for consistency.
+
+### 7. What does LIKE do?
+
+**Answer:** \`LIKE\` performs **pattern** matching: \`%\` matches zero or more characters, \`_\` matches exactly **one** character. **Collation** determines **case** sensitivity. For **leading** wildcards (\`%\` at the start), **B-tree** indexes often **cannot** be used—consider **full-text** search or **denormalized** tokens for large text search.
+
+### 8. What does DISTINCT do?
+
+**Answer:** \`DISTINCT\` **deduplicates** rows in the **result** for the **selected** expressions. It is **not** a substitute for **GROUP BY** when you also need **aggregates**—use **GROUP BY** instead. **DISTINCT** can be **expensive** on large result sets because it requires sorting or hashing.
+
+### 9. Why use PreparedStatement in Java instead of concatenating SQL?
+
+**Answer:** **PreparedStatement** binds **parameters** with \`?\` placeholders, which **prevents SQL injection** and allows **plan reuse** for repeated queries. **Never** concatenate user input into SQL strings. The same **parameterized** SQL pattern applies in other languages with **bound** parameters.
+
+### 10. What are common SELECT performance tips?
+
+**Answer:** **Index** columns used in **WHERE**, **JOIN ON**, and **ORDER BY**; **avoid** \`SELECT *\` in production—list **explicit** columns to reduce **I/O** and **coupling**; **EXPLAIN** slow queries; **limit** result sets; **avoid** functions on indexed columns in the **WHERE** clause when it blocks index use. **Monitor** slow query log.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **DQL overview** | [MySQL DQL](/tutorial/mysql-dql) |
+| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
+| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
+| **Aggregates** | [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) |
+| **PreparedStatement** | [Prepared Statement](/tutorial/prepared-statement) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered SELECT queries? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering all MySQL topics including SELECT, WHERE, JOINs, and more!
@@ -658,6 +714,21 @@ GROUP BY c.id, c.name, c.email
 ORDER BY total_spent DESC
 LIMIT 5;
 \`\`\`
+---
+
+## What's Next?
+
+Master these related MySQL topics:
+
+1. **[MySQL Joins](/tutorial/mysql-joins)** - Combine data from multiple tables
+2. **[MySQL Clauses](/tutorial/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
+4. **[MySQL Subqueries](/tutorial/mysql-subqueries)** - Nested queries for complex data
+5. **[MySQL Views](/tutorial/mysql-views)** - Simplify complex SELECT queries
+
+**Connect to Java:**
+- Use SELECT in [JDBC](/tutorial/jdbc-introduction) to retrieve data
+- Spring Boot JPA simplifies queries - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
   `,
   code: `-- MySQL SELECT Query Examples
 
@@ -774,23 +845,6 @@ GROUP BY u.id, u.name, u.city
 HAVING COUNT(o.id) > 0
 ORDER BY total_spent DESC
 LIMIT 5;
-\`\`\`
-
----
-
-## What's Next?
-
-Master these related MySQL topics:
-
-1. **[MySQL Joins](/tutorial/mysql-joins)** - Combine data from multiple tables
-2. **[MySQL Clauses](/tutorial/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
-3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
-4. **[MySQL Subqueries](/tutorial/mysql-subqueries)** - Nested queries for complex data
-5. **[MySQL Views](/tutorial/mysql-views)** - Simplify complex SELECT queries
-
-**Connect to Java:**
-- Use SELECT in [JDBC](/tutorial/jdbc-introduction) to retrieve data
-- Spring Boot JPA simplifies queries - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
 `
 };
 

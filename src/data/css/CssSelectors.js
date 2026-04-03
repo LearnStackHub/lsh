@@ -506,6 +506,63 @@ Pseudo-classes like \`:hover\`, \`:active\`, and \`:focus\` let you style elemen
 Pseudo-elements like \`::before\` and \`::after\` let you add content before or after elements, while \`::first-line\` and \`::first-letter\` let you style specific parts of text.
 
 Selectors are the foundation of CSS. Understanding how to use them effectively is essential for writing good CSS.
+
+---
+
+## 10 Important CSS Selectors Interview Questions
+
+1. **What is the difference between class, ID, and element selectors?**  
+   **Element** selectors (\`p\`, \`a\`) match every instance—**low specificity**. **Class** selectors (\`.btn\`) are reusable and preferred for styling. **ID** selectors (\`#header\`) are **unique** per page (in valid HTML), **high specificity**, and harder to override—use for **anchors/JS hooks**, not routine styling. Overusing IDs leads to **specificity wars**.
+
+2. **Explain descendant vs child combinators.**  
+   **Descendant** (\`div p\`) matches a \`p\` **anywhere** inside a \`div\`, at any depth. **Child** (\`div > p\`) matches only **direct** children. Child combinator is **narrower** and often **clearer** for styling immediate structure (e.g. **menu items** only one level deep).
+
+3. **What do adjacent (+) and general (~) sibling combinators do?**  
+   **\`h2 + p\`** selects a \`p\` **immediately** following an \`h2\`. **\`h2 ~ p\`** selects **all** \`p\` siblings that follow an \`h2\` (not necessarily adjacent). Useful for **typography** patterns without extra classes.
+
+4. **What is a pseudo-class vs a pseudo-element?**  
+   **Pseudo-classes** (\`:hover\`, \`:focus\`, \`:nth-child(3)\`) style elements based on **state** or **position** in the tree—syntax **one colon** (legacy \`:before\` allowed). **Pseudo-elements** (\`::before\`, \`::after\`, \`::first-line\`) target **parts** of an element or **generated** content—**double colon** in modern CSS. \`::before\`/\`::after\` need \`content\` (even \`''\`) to appear.
+
+5. **How does \`:nth-child()\` differ from \`:nth-of-type()\`?**  
+   **\`:nth-child(2)\`** counts **all** sibling elements; the second child must also match the element type in the full selector. **\`:nth-of-type(2)\`** counts only siblings of the **same element type**. Mixing tags in a list makes the distinction critical.
+
+6. **What is attribute selection? Give examples.**  
+   \`[type="email"]\`, \`[href^="https"]\`, \`[class*="card"]\`. Useful for **forms** and **links** without adding classes. **Specificity** equals class selectors. Watch **performance** on huge DOMs—usually fine on modern browsers.
+
+7. **What is specificity and why do interviewers care?**  
+   When two rules conflict, **specificity** decides the winner before **order** (if equal specificity, **later** wins). **Inline** > **ID** > **class/attribute/pseudo-class** > **element/pseudo-element**. **Universal** \`*\` and **combinators** add no specificity. Debugging “wrong color” almost always starts here.
+
+8. **Why avoid overly long selectors like \`div div div .foo\`?**  
+   They are **brittle** (DOM changes break styles), **high specificity**, and hurt **maintainability**. Prefer **classes** on meaningful elements or **BEM**-style naming. **Shallow** selectors are easier to **reuse** and **override**.
+
+9. **What does \`:is()\` and \`:where()\` do for specificity?**  
+   **\`:is(.a, .b)\`** takes the **specificity** of the **most specific** argument. **\`:where()\`** has **zero specificity**—useful for **resets** and **base** styles that should be easy to override. They reduce **repetition** in long selector lists.
+
+10. **How do you select “only direct list items in nav” vs “all nested items”?**  
+    **\`nav > ul > li\`** limits depth. **\`nav li\`** selects **any** \`li\` descendant—includes nested submenus. Choosing the right combinator prevents **accidentally** styling nested menus.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Selectors
 

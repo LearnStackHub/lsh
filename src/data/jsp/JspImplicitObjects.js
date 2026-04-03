@@ -325,6 +325,63 @@ Available only in error pages (\`isErrorPage="true"\`).
 </body>
 </html>
 \`\`\`
+
+---
+
+## 10 Important JSP Implicit Objects Interview Questions
+
+### 1. List the JSP implicit objects and what they represent.
+
+**Answer:** The usual nine are **request** (\`HttpServletRequest\`), **response** (\`HttpServletResponse\`), **session** (\`HttpSession\`), **application** (\`ServletContext\`), **out** (\`JspWriter\`), **pageContext** (\`PageContext\`), **config** (\`ServletConfig\`), **page** (the servlet instance, \`this\`), and **exception** (a \`Throwable\`, only on error pages). They exist so the JSP author can access the servlet environment **without** declaring variables. Memorizing the **types** matters because follow-up questions often drill into servlet APIs.
+
+### 2. What concrete types are \`request\` and \`response\`?
+
+**Answer:** In a typical Jakarta Servlet / Java EE stack they are \`javax.servlet.http.HttpServletRequest\` and \`javax.servlet.http.HttpServletResponse\` (package names may be \`jakarta.*\` in newer versions). They expose parameters, headers, cookies, dispatcher APIs, output streams, status codes, and redirects. Connecting JSP implicit objects to **servlet** training proves foundational understanding.
+
+### 3. Why is \`pageContext\` considered powerful?
+
+**Answer:** \`PageContext\` is a façade: it can store and retrieve attributes in **PAGE**, **REQUEST**, **SESSION**, and **APPLICATION** scopes; expose sibling implicit objects; and provide \`forward\` / \`include\` helpers that respect JSP semantics. It is the bridge between **scripting** JSP and higher-level abstractions. Advanced answers mention \`findAttribute\` walking the scope chain—mirroring how **EL** resolves simple names.
+
+### 4. When can you use the \`exception\` implicit object?
+
+**Answer:** Only on a JSP that is designated an **error page** via \`isErrorPage="true"\` (and the container has routed an error there). It represents the **throwable** that caused the failure. Use it to log internally and show a **safe** user message. Never assume \`exception\` exists on ordinary pages.
+
+### 5. Can \`session\` be unavailable on a JSP?
+
+**Answer:** If the page directive sets \`session="false"\`, the container does **not** create or join an \`HttpSession\` for that page, and code should not rely on \`session\` for state. This is done for **stateless** public pages to save memory or cookies. Interviewers may pair this with **REST**-style statelessness.
+
+### 6. Compare \`application\` and \`session\`.
+
+**Answer:** \`application\` is the \`ServletContext\`: **one** per web application deployment, shared by **all** users and threads for **global** configuration or caches (with careful synchronization). \`session\` is \`HttpSession\`: **per browser conversation**, ideal for **shopping carts** or **login** tickets, with a **timeout** and **serialization** concerns in clusters. Misusing \`application\` for user-specific data is a classic bug.
+
+### 7. Should you use \`out\` or \`response.getWriter()\` in a JSP?
+
+**Answer:** Prefer \`out\` (\`JspWriter\`) because it participates in JSP **buffering** and coordinates with tag handlers and the page lifecycle. Calling \`getWriter()\` directly can conflict with JSP’s writer management and cause **IllegalStateException** if mixed improperly. In scriptlet-heavy legacy code, consistency matters more than dogma, but the spec-minded answer is **use \`out\`**.
+
+### 8. What does the \`page\` implicit object refer to?
+
+**Answer:** It is \`this\` in the generated servlet class—the servlet instance itself. Rarely needed except for reflection-style hacks or legacy patterns. Most modern JSPs never reference \`page\` explicitly.
+
+### 9. How does EL resolve a simple name like \`user\`?
+
+**Answer:** EL searches **scoped attributes** in a defined order (conceptually similar to \`pageContext.findAttribute\`): **page**, then **request**, then **session**, then **application**. You can disambiguate with **implicit scope maps** such as \`requestScope.user\`. Mentioning alignment between **implicit objects** and **EL** scopes shows integrated knowledge.
+
+### 10. Why is EL often preferred to scriptlets that call \`request.getAttribute\`?
+
+**Answer:** EL is **concise**, encourages **view-focused** expressions, and applies **coercion** and **null** handling rules that reduce boilerplate and some classes of \`NullPointerException\` in templates. It keeps templates readable for non-Java specialists. The trade-off is you must understand **what** EL can and cannot do (security, method calls, performance of repeated resolution).
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Expression Language** | [JSP Expression Language](/tutorial/jsp-expression-language) |
+| **Session usage** | [Session management](/tutorial/session-management) |
+| **Servlet API** | [Servlet introduction](/tutorial/servlet-introduction) |
+| **HTTP** | [HttpServletRequest & Response](/tutorial/http-request-response) |
+| **Scripting** | [JSP scripting elements](/tutorial/jsp-scripting-elements) |
+
 `,
   code: `// JSP Implicit Objects Demo
 // Demonstrates the 9 built-in objects

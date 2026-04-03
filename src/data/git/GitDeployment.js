@@ -380,6 +380,52 @@ You've learned:
 - Rollback strategies
 - Best practices for deployment
 
+---
+
+## 10 Important Git + Deployment Interview Questions
+
+1. **What is CI in GitHub Actions?**  
+   **Continuous Integration:** on **push/PR**, a **workflow** runs **build and tests** (e.g. \`mvn test\`). **Fast feedback** before merge.
+
+2. **What is CD?**  
+   **Continuous Delivery/Deployment:** **after** merge (or tag), **automatically** deploy to **staging/production**—often gated by **approvals** or **branch** (\`main\` only).
+
+3. **Why use secrets in GitHub Actions?**  
+   **Never** put passwords or SSH keys in YAML. **Repository/Environment secrets** inject values at **runtime**—**masked** in logs.
+
+4. **What is \`on: push\` vs \`on: pull_request\`?**  
+   **push** runs when branches update; **pull_request** runs on **PR** events—typical for **CI on PRs** before merge.
+
+5. **How does Maven fit into a Java deploy pipeline?**  
+   **\`mvn clean verify\`** or **\`mvn package\`** produces **JAR/WAR**; next step **copies** artifact to server, **Docker** build, or **cloud** deploy.
+
+6. **What is blue-green deployment (concept)?**  
+   Two **environments** (blue/green); **switch traffic** to the new version **instantly**—**rollback** by switching back. **Interview** buzzword tied to **zero-downtime**.
+
+7. **Why deploy from tags or releases?**  
+   **Immutable** version markers (\`v1.2.0\`) tie **deployed** bits to **exact** source—**audit** and **rollback** clarity.
+
+8. **What is artifact caching in CI?**  
+   Cache **\`~/.m2\`** between runs to **speed** Maven builds—**faster** PR checks.
+
+9. **What can go wrong if you deploy \`main\` on every commit without tests?**  
+   **Broken** code reaches users. **Always** run **tests** and **use** branch protection.
+
+10. **How does Git relate to deployment?**  
+    Git **stores** the **version** of code; pipelines **react** to Git **events**. **“Git is source of truth; CI/CD is automation on top.”**
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **GitHub Actions examples (this topic)** | [Git Deployment](/tutorial/git-deployment) |
+| **Maven build commands** | [Maven Build Lifecycle](/tutorial/maven-build-lifecycle) |
+| **Spring Boot deploy** | [Spring Boot Deployment](/tutorial/spring-boot-deployment) |
+| **Workflow & branches** | [Git Workflow](/tutorial/git-workflow) |
+| **HTTP basics (webhooks/APIs)** | [HTTP Introduction](/tutorial/http-introduction) |
+
 Automated deployment saves time and reduces errors. Start with simple workflows and expand as needed!
 `
 };

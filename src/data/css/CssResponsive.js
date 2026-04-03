@@ -349,6 +349,63 @@ Responsive design uses several key techniques. Make images flexible with \`max-w
 Common breakpoints are mobile devices (640px and below), tablets (641px to 1024px), and desktops (1025px and above). However, you should test your design on actual devices and adjust breakpoints based on your content.
 
 Responsive design ensures your site works on all devices, providing a good user experience whether someone visits on a phone, tablet, or desktop computer.
+
+---
+
+## 10 Important CSS Responsive Design Interview Questions
+
+1. **What is the viewport meta tag and why is it required?**  
+   **\`<meta name="viewport" content="width=device-width, initial-scale=1">\`** maps CSS **px** to **device-independent** pixels and sets **initial zoom**. Without it, mobile browsers may assume **~980px** layout width—your **media queries** won’t match expectations.
+
+2. **What is mobile-first vs desktop-first CSS?**  
+   **Mobile-first**: base styles for **small** screens, **\`min-width\`** media queries **add** complexity for larger. **Desktop-first** uses **\`max-width\`** to **simplify** down. **Mobile-first** is **default** in modern tutorials—**lighter** CSS for phones on **first paint**.
+
+3. **How do \`min-width\` and \`max-width\` media queries differ?**  
+   **\`@media (min-width: 768px)\`** applies when viewport **≥ 768**. **max-width** applies when **≤**. **Inclusive** boundaries matter—avoid **1px gaps** between breakpoints; use **consistent** tokens (\`767px\` vs \`768px\`).
+
+4. **What units are common for responsive typography and layout?**  
+   **rem** for type (scales with **root**), **%** for **fluid** widths, **vw/vh** for **viewport-relative** (careful: **vh** includes mobile **browser UI** quirks—\`dvh\` **dynamic** viewport units help). **clamp()** for **fluid** type without **many** breakpoints.
+
+5. **What is a breakpoint and how do you choose them?**  
+   A **width** where layout **changes**. Prefer **content-based** breakpoints (“**design breaks**”) over **device** stereotypes. **Test** real **content**—long **German** words shift layouts. **Standard** values (640/768/1024) are only **starting points**.
+
+6. **How do images behave responsively?**  
+   **\`max-width: 100%; height: auto;\`** for **intrinsic** scaling. **\`srcset\`/\`sizes\`** on **\`<img>\`** serve **appropriate** resolution. **CSS** **background** images are harder for **art direction**—**picture** element for **critical** **LCP** images.
+
+7. **What is \`clamp(min, preferred, max)\` used for?**  
+   **Fluid** sizing without **media queries**: e.g. **\`font-size: clamp(1rem, 2.5vw, 1.25rem)\`**. **preferred** usually mixes **vw** with **rem** for **scalable** UI. **Test** **extreme** viewports.
+
+8. **How does \`orientation: portrait\` media query help?**  
+   Targets **tall** vs **wide** viewports—useful for **video** players or **split** layouts. **Not** a substitute for **width** breakpoints—tablets can be **landscape** with **large** width.
+
+9. **What are common responsive accessibility concerns?**  
+   **Touch targets** ≥ **44×44px**, **readable** font sizes, **no horizontal scroll** for **text** blocks, **contrast** maintained in **dark** themes. **Zoom** to **200%** should not **break** layout (**WCAG**).
+
+10. **How do container queries differ from viewport media queries?**  
+    **\`@container\`** responds to **parent container** width—**component-level** responsiveness inside **sidebars** vs **main**. **Growing** support—**progressive enhancement** for **design systems**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Responsive Design
 

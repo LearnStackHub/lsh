@@ -479,6 +479,72 @@ Command options:
 Master these commands and you'll be productive with Maven!
 
 Next, let's learn about common errors and how to fix them!
+
+---
+
+## 10 Important Maven Commands Interview Questions
+
+1. **What does \`mvn clean install\` do end-to-end?**  
+   **\`clean\`** deletes the **\`target/\`** folder. Then Maven runs the **default lifecycle** through **\`install\`**: validate → compile → test → package → verify → install.  
+   **\`install\`** copies the built JAR/WAR into **\`~/.m2/repository\`** so **other projects** on your machine can depend on it.  
+   **Typical use:** “I want a **full** local build before I publish or before another module picks up my changes.”
+
+2. **What is \`mvn verify\` used for?**  
+   Runs everything **through** \`package\`, then runs **integration-test** / **verify** phases (Failsafe, extra checks). **CI** often uses **\`mvn verify\`** as the **quality gate** before **deploy**.  
+   **vs install:** \`verify\` does **not** put the artifact in **local** \`.m2\` unless you also run **install** (depends on pipeline).
+
+3. **What does \`mvn dependency:tree\` show?**  
+   Prints a **tree** of **dependencies** and **transitive** dependencies—**essential** when you see **NoClassDefFoundError** or **version conflicts**.  
+   **\`mvn dependency:tree -Dverbose\`** shows **why** a version was **chosen** (omitted for conflict).
+
+4. **What is \`mvn -o\` / offline mode?**  
+   **\`mvn -o\`** or **\`--offline\`** tells Maven **no downloads**. Build **fails** if something is missing from \`.m2\`.  
+   **Use:** Air-gapped networks or **checking** that your cache is complete.
+
+5. **What does \`mvn -U\` mean?**  
+   **\`--update-snapshots\`** forces Maven to **check** remote repos for **newer** snapshots (and **metadata** for releases). Use when you think you’re stuck on an **old** SNAPSHOT.
+
+6. **What is \`mvn -X\`?**  
+   **Debug mode**—very **verbose** logs: settings files, plugin resolution, HTTP, **why** a dependency was picked.  
+   **Tip:** Redirect to a file: \`mvn -X clean install > debug.log 2>&1\` (then search for **ERROR**).
+
+7. **What is \`mvn dependency:go-offline\`?**  
+   Downloads **all** dependencies and plugins needed for the build so you can work **offline** later. Used in **Docker** builds to **cache** a layer of dependencies.
+
+8. **What does \`-DskipTests\` vs \`-Dmaven.test.skip\`?**  
+   **\`-DskipTests\`:** Skip **running** tests, but still **compile** test classes (faster; tests might be broken).  
+   **\`-Dmaven.test.skip=true\`:** Skip **both** compiling and running tests (when test code doesn’t compile—**temporary** only).
+
+9. **What is \`mvn help:effective-pom\`?**  
+   Prints the **merged** POM after **parent inheritance**, **profiles**, and **defaults**. Use when you **can’t** see where a **plugin version** or **dependency** version comes from.  
+   **Pipe to file** if it’s huge.
+
+10. **What is \`mvn versions:set\`?**  
+    **versions-maven-plugin** can **bump** \`<version>\` across **all modules** in one go (e.g. **1.0.0** → **1.1.0**).  
+    **Use with care:** update **Git tags**, **CI**, and **release notes**—version bumps are **team** events.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

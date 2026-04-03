@@ -310,6 +310,63 @@ The position property controls where elements are placed. Static is the default 
 Positioning properties like \`top\`, \`right\`, \`bottom\`, and \`left\` only work with positioned elements (not static). The \`z-index\` property controls the stacking order, with higher values appearing on top.
 
 Display and positioning give you control over layout. Understanding these concepts is essential for creating the layouts you want.
+
+---
+
+## 10 Important CSS Display & Positioning Interview Questions
+
+1. **What does \`display: block\` vs \`inline\` vs \`inline-block\` do?**  
+   **block** takes full **available width** (breaks line), respects **width/height**. **inline** flows in text—**width/height** ignored for non-replaced elements. **inline-block** is inline-level but **box** respects **dimensions**—good for **buttons** in text. **none** removes from **layout** and **accessibility tree** (use **visibility** or **hidden** attribute carefully for **screen readers**).
+
+2. **How does \`position: relative\` differ from \`absolute\`?**  
+   **relative** offsets from the element’s **normal** position but **keeps** space in flow unless shifted visually. **absolute** removes from flow; **top/right/bottom/left** position relative to the **nearest positioned ancestor** (not \`static\`) or **viewport** if none. **absolute** needs a **relative** parent for predictable **containment**.
+
+3. **What is \`position: fixed\` and what breaks it?**  
+   **fixed** is relative to the **viewport**—stays on screen on scroll (headers, modals). **transform**, **filter**, or **perspective** on **ancestors** can create a new **containing block** and make **fixed** behave like **absolute**—classic **debugging** gotcha.
+
+4. **Explain \`position: sticky\`.**  
+   Hybrid: **relative** until scroll crosses a **threshold** (\`top: 0\`), then **sticks** like fixed **within** its **scroll container**. Requires **room** to stick (ancestor **overflow** hidden can break it). Great for **section headers** and **nav bars**.
+
+5. **What is stacking context and \`z-index\`?**  
+   **z-index** only works on **positioned** elements (not \`static\`) or **flex/grid** items with **z-index**. New **stacking contexts** are created by **opacity < 1**, **transforms**, **filters**, **isolation**, etc.—children can’t escape above **parent’s** context. **Higher** z-index wins **within** the same context.
+
+6. **What does \`overflow: hidden\` do beyond clipping?**  
+   Clips **paint** and creates a **scroll container** if content overflows (with **auto/scroll**). Affects **sticky**, **position: fixed** descendants, and **border-radius** clipping. Can **clip** **focus outlines**—watch **accessibility**.
+
+7. **When would you use \`display: flex\` or \`grid\` vs floats?**  
+   **Floats** were for **wrapping** text around images; layout hacks are **legacy**. **Flex**/**Grid** are **modern** layout tools with **alignment** and **gap**. Prefer them for **UI** layout; **float** rarely except **typography** cases.
+
+8. **What is \`inset\` shorthand?**  
+   Sets **top/right/bottom/left** together—less typing for **absolute/fixed** **full-bleed**: \`inset: 0;\`. Logical properties (\`inset-inline\`) help **RTL** layouts.
+
+9. **How does \`visibility: hidden\` differ from \`opacity: 0\`?**  
+   **hidden** hides visually but element **occupies space** (layout); non-interactive. **opacity: 0** can still **receive pointer events** unless **pointer-events: none**. For **screen readers**, **display:none** or **hidden** attribute may be better than **visibility** depending on intent.
+
+10. **Why understand “containing block” for absolute positioning?**  
+    **Absolute** elements position against the **padding edge** of the containing block—usually the nearest **positioned** ancestor. Misunderstanding leads to elements **anchoring** to \`body\` or **viewport** unexpectedly. **DevTools** highlight the containing block in modern browsers.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Display & Positioning
 

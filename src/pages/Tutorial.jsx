@@ -123,7 +123,6 @@ import {
   SpringFrameworkAOPWithSpringBootShowcase,
   SpringFrameworkInterviewQuestionsShowcase
 } from '../components/springframework/showcases';
-import { MySQLShowcaseRouter } from '../components/mysql/showcases';
 import { JDBC_SHOWCASE_TOPIC_IDS, JdbcShowcaseRouter } from '../components/jdbc/showcases';
 import { SERVLET_SHOWCASE_TOPIC_IDS, ServletShowcaseRouter } from '../components/servlets/showcases';
 import { JSP_SHOWCASE_TOPIC_IDS, JspShowcaseRouter } from '../components/jsp/showcases';
@@ -170,6 +169,8 @@ function Tutorial() {
       }
     : originalTopic;
 
+  const isMysqlTopic = topicId.startsWith('mysql-');
+
   const navigation = getNavigation(topicId);
   const fallbackLastUpdated = '2026-03-27';
 
@@ -204,11 +205,11 @@ function Tutorial() {
   const lastUpdatedDisplay = formatDate(lastUpdatedRaw);
 
   useEffect(() => {
-    if (currentTopic?.code) {
+    if (currentTopic?.code && !isMysqlTopic) {
       setEditorCode(currentTopic.code);
       setOutput('Click "Run Code" to execute your code');
     }
-  }, [currentTopic]);
+  }, [currentTopic, isMysqlTopic]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -267,7 +268,7 @@ function Tutorial() {
 
   // Lazy load CodeMirror only when code editor is needed (saves 100KB initial load)
   useEffect(() => {
-    if (currentTopic?.code && !CodeMirrorComponent) {
+    if (currentTopic?.code && !isMysqlTopic && !CodeMirrorComponent) {
       Promise.all([
         import('@uiw/react-codemirror'),
         import('@codemirror/lang-java')
@@ -276,7 +277,7 @@ function Tutorial() {
         setJavaLang(() => javaModule.java);
       });
     }
-  }, [currentTopic?.code, CodeMirrorComponent]);
+  }, [currentTopic?.code, isMysqlTopic, CodeMirrorComponent]);
 
   const onChange = useCallback((value) => {
     setEditorCode(value);
@@ -313,13 +314,17 @@ function Tutorial() {
           <table key={`table-${elements.length}`}>
             <thead>
               <tr>
-                {headerRow.map((cell, i) => <th key={i}>{cell}</th>)}
+                {headerRow.map((cell, i) => (
+                  <th key={i}>{formatInlineCode(cell)}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {bodyRows.map((row, i) => (
                 <tr key={i}>
-                  {row.map((cell, j) => <td key={j}>{cell}</td>)}
+                  {row.map((cell, j) => (
+                    <td key={j}>{formatInlineCode(cell)}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>
@@ -361,6 +366,81 @@ function Tutorial() {
       if (inDiagramBlock) {
         diagramContent += line + '\n';
         return;
+      }
+
+      // Check for image/GIF syntax: ![alt](url) or !gif[alt](url)
+      const imageMatchEarly = line.match(/!gif\[([^\]]*)\]\(([^)]+)\)/);
+      if (imageMatchEarly) {
+        const [, alt, src] = imageMatchEarly;
+        elements.push(
+          <ImageGif 
+            key={`gif-${index}`}
+            src={src}
+            alt={alt}
+            type="gif"
+          />
+        );
+        return;
+      }
+      
+      const staticImageMatchEarly = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+      if (staticImageMatchEarly) {
+        const [, alt, src] = staticImageMatchEarly;
+        elements.push(
+          <ImageGif 
+            key={`img-${index}`}
+            src={src}
+            alt={alt}
+            type="image"
+          />
+        );
+        return;
+      }
+      
+      if (line.trim().startsWith('```')) {
+        if (inCodeBlock) {
+          elements.push(
+            <SyntaxHighlighter 
+              key={`code-${index}`}
+              language="java" 
+              style={codeTheme}
+              showLineNumbers={false}
+              customStyle={{
+                borderRadius: '8px',
+                padding: '1rem',
+                fontSize: '0.9rem',
+                margin: '1rem 0'
+              }}
+            >
+              {codeContent.trim()}
+            </SyntaxHighlighter>
+          );
+          codeContent = '';
+          inCodeBlock = false;
+        } else {
+          flushTable();
+          inCodeBlock = true;
+        }
+        return;
+      }
+
+      if (inCodeBlock) {
+        codeContent += line + '\n';
+        return;
+      }
+
+      // Markdown tables must run before generic [text](url) lines — otherwise "| Col | [Link](/path) |" breaks the table
+      if (line.includes('|') && line.trim().startsWith('|')) {
+        const cells = line.split('|').filter(c => c.trim()).map(c => c.trim());
+        if (cells.length > 0 && !cells[0].match(/^[-:]+$/)) {
+          tableRows.push(cells);
+          inTable = true;
+        } else if (cells[0]?.match(/^[-:]+$/)) {
+          tableRows.push(cells);
+        }
+        return;
+      } else if (inTable) {
+        flushTable();
       }
       
       // Check for markdown links: [text](url) - but not images
@@ -455,80 +535,6 @@ function Tutorial() {
             return;
           }
         }
-      }
-      
-      // Check for image/GIF syntax: ![alt](url) or !gif[alt](url)
-      const imageMatch = line.match(/!gif\[([^\]]*)\]\(([^)]+)\)/);
-      if (imageMatch) {
-        const [, alt, src] = imageMatch;
-        elements.push(
-          <ImageGif 
-            key={`gif-${index}`}
-            src={src}
-            alt={alt}
-            type="gif"
-          />
-        );
-        return;
-      }
-      
-      const staticImageMatch = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
-      if (staticImageMatch) {
-        const [, alt, src] = staticImageMatch;
-        elements.push(
-          <ImageGif 
-            key={`img-${index}`}
-            src={src}
-            alt={alt}
-            type="image"
-          />
-        );
-        return;
-      }
-      
-      if (line.trim().startsWith('```')) {
-        if (inCodeBlock) {
-          elements.push(
-            <SyntaxHighlighter 
-              key={`code-${index}`}
-              language="java" 
-              style={codeTheme}
-              showLineNumbers={false}
-              customStyle={{
-                borderRadius: '8px',
-                padding: '1rem',
-                fontSize: '0.9rem',
-                margin: '1rem 0'
-              }}
-            >
-              {codeContent.trim()}
-            </SyntaxHighlighter>
-          );
-          codeContent = '';
-          inCodeBlock = false;
-        } else {
-          flushTable();
-          inCodeBlock = true;
-        }
-        return;
-      }
-
-      if (inCodeBlock) {
-        codeContent += line + '\n';
-        return;
-      }
-
-      if (line.includes('|') && line.trim().startsWith('|')) {
-        const cells = line.split('|').filter(c => c.trim()).map(c => c.trim());
-        if (cells.length > 0 && !cells[0].match(/^[-:]+$/)) {
-          tableRows.push(cells);
-          inTable = true;
-        } else if (cells[0]?.match(/^[-:]+$/)) {
-          tableRows.push(cells);
-        }
-        return;
-      } else if (inTable) {
-        flushTable();
       }
 
       if (line.startsWith('# ')) {
@@ -684,24 +690,10 @@ function Tutorial() {
     });
   };
 
-  // Handle case when topic is not found
-  if (!currentTopic) {
-    return (
-      <div className="tutorial-page fade-in">
-        <div style={{ padding: '2rem', textAlign: 'center' }}>
-          <SEOHead title="Topic Not Found - LearnStackHub" noindex />
-          <h1>Topic Not Found</h1>
-          <p>The tutorial topic "{topicId}" could not be found.</p>
-          <Link to="/" style={{ color: '#3b82f6', textDecoration: 'underline' }}>
-            Return to Home
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const isJspTopic = topicId.startsWith('jsp-');
 
   return (
-    <div className="tutorial-page fade-in">
+    <div className={`tutorial-page fade-in${isMysqlTopic ? ' tutorial-page--mysql' : ''}${isJspTopic ? ' tutorial-page--jsp' : ''}`}>
       <SEOHead topicId={topicId} />
       <StructuredData topicId={topicId} type="Article" />
       {/* Breadcrumb */}
@@ -716,7 +708,7 @@ function Tutorial() {
       </div>
 
       {/* Header */}
-      <div className="tutorial-header">
+      <div className={`tutorial-header${isMysqlTopic ? ' tutorial-header--mysql' : ''}${isJspTopic ? ' tutorial-header--jsp' : ''}`}>
         <div className="tutorial-header-top">
           <h1 className="tutorial-title">{generateSEOTitle(currentTopic)}</h1>
         </div>
@@ -752,7 +744,19 @@ function Tutorial() {
       </div>
 
       {/* Content */}
-      <div className="tutorial-content">
+      <div className={`tutorial-content${isMysqlTopic ? ' tutorial-content--mysql' : ''}${isJspTopic ? ' tutorial-content--jsp' : ''}`}>
+        {isMysqlTopic && topicId !== 'mysql-mcq' && topicId !== 'mysql-interview-questions' && (
+          <div className="mysql-interview-notice" role="note">
+            <strong>Interview questions on this page:</strong> each MySQL lesson includes{' '}
+            <strong>10 important interview questions with full answers</strong> and a <strong>related tutorials</strong> table. Scroll past the main article (before “Test Your Knowledge”) or use your browser find for <strong>Interview Questions</strong>.
+          </div>
+        )}
+        {isJspTopic && (
+          <div className="jsp-interview-notice" role="note">
+            <strong>Interview prep on this page:</strong> each JSP lesson ends with{' '}
+            <strong>10 fresher-level interview Q&amp;As</strong> and a <strong>related tutorials</strong> table (with links). Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
+          </div>
+        )}
         {topicId === 'java-introduction' && <JavaIntroductionShowcase />}
         {topicId === 'java-features' && <JavaFeaturesShowcase />}
         {topicId === 'java-syntax' && <JavaSyntaxShowcase />}
@@ -836,7 +840,6 @@ function Tutorial() {
         {topicId === 'spring-aop-aspect-ordering' && <SpringFrameworkAOPAspectOrderingShowcase />}
         {topicId === 'spring-aop-spring-boot' && <SpringFrameworkAOPWithSpringBootShowcase />}
         {topicId === 'spring-interview-questions' && <SpringFrameworkInterviewQuestionsShowcase />}
-        {topicId.startsWith('mysql-') && <MySQLShowcaseRouter topicId={topicId} />}
         {JDBC_SHOWCASE_TOPIC_IDS.has(topicId) && <JdbcShowcaseRouter topicId={topicId} />}
         {SERVLET_SHOWCASE_TOPIC_IDS.has(topicId) && <ServletShowcaseRouter topicId={topicId} />}
         {JSP_SHOWCASE_TOPIC_IDS.has(topicId) && <JspShowcaseRouter topicId={topicId} />}
@@ -858,8 +861,8 @@ function Tutorial() {
         />
       </div>
 
-      {/* Code Example */}
-      {currentTopic.code && (
+      {/* Code Example (Java tutorials only; MySQL uses SQL in the article body) */}
+      {currentTopic.code && !isMysqlTopic && (
         <div className="code-block">
           <div className="code-header">
             <div className="code-language">
@@ -891,8 +894,8 @@ function Tutorial() {
         </div>
       )}
 
-      {/* Try It Yourself Editor */}
-      {currentTopic.code && (
+      {/* Try It Yourself Editor (Java-only; MySQL lessons use static SQL examples) */}
+      {currentTopic.code && !isMysqlTopic && (
         <div className="try-it-section">
           <div className="try-it-header">
             <div className="try-it-title">

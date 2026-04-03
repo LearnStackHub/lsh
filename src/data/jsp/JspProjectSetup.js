@@ -899,7 +899,64 @@ Now you're ready to build dynamic web pages with JSP!
 - Explore **JSP Expression Language (EL)**
 - Learn **JSTL (JSP Standard Tag Library)**
 - Build a complete **MVC application**
-  `,
+
+---
+
+## 10 Important JSP Project Setup Interview Questions
+
+### 1. Where do JSP files live in a standard WAR layout?
+
+**Answer:** In Maven-style projects, public JSPs go under \`src/main/webapp\` (Eclipse often calls this \`WebContent\`). Anything here is served relative to the application **context path** (for example \`/myapp/hello.jsp\`). Files under \`WEB-INF\` are **not** directly accessible by URL—which is why you put **libraries** (\`WEB-INF/lib\`), **web.xml**, and sometimes **fragments** or **included** JSPs there. If you place a JSP only under \`WEB-INF\`, users cannot type its path in the browser; you must **forward** or **include** it from another resource. Interviewers like hearing that distinction because it touches **security** and **MVC routing**.
+
+### 2. What is \`web.xml\` and is it still relevant?
+
+**Answer:** \`web.xml\` is the **deployment descriptor**. It can register **servlets**, **filters**, **listeners**, define **welcome** files, **error** pages, **security constraints**, **session** settings, and **JSP configuration** (in some containers). Since Servlet 3.0, many defaults moved to **annotations** (\`@WebServlet\`, etc.), but \`web.xml\` remains important for **ordering filters**, **overriding** fragment metadata, **vendor** settings, and **legacy** apps. In an interview, saying “we use annotations for servlets but keep \`web.xml\` for security and error pages” sounds realistic.
+
+### 3. What role does Tomcat play for JSP?
+
+**Answer:** Tomcat is a **servlet container** and **JSP engine**. It loads your **WAR**, manages the **classloader** for your app, implements the **Servlet** and **JSP** APIs, and listens for **HTTP**. When a JSP is requested, Tomcat’s **Jasper** (or equivalent) handles **translation** and **compilation** unless JSPs were precompiled. You can contrast **Tomcat** with a full **Java EE / Jakarta EE** application server if the interviewer cares about **EJB**, **JMS**, or **full platform** support.
+
+### 4. Why configure \`pageEncoding\` and \`contentType\` on a JSP?
+
+**Answer:** \`pageEncoding\` tells the container how to **read** the JSP source file (characters in the file on disk). \`contentType\` (often \`text/html; charset=UTF-8\`) tells the **browser** how to interpret the **bytes** of the response. If these disagree from your actual files or database strings, you see **mojibake** (wrong characters). A solid answer adds: set **consistent UTF-8** in the IDE, **build**, **database**, **JDBC URL**, and **HTTP** headers—not only the JSP directive.
+
+### 5. How do you structure a Maven project for JSP?
+
+**Answer:** Use \`<packaging>war</packaging>\`. Servlet and JSP APIs should usually be \`provided\` scope because the **server** already supplies them; bundling those jars inside the WAR can cause **version clashes** or **classloader** issues. Dependencies like **JSTL** are typically bundled in \`WEB-INF/lib\` (declared in \`pom.xml\` without \`provided\` if the server does not ship them). Mention \`mvn package\` producing a WAR and deploying it to \`webapps\` or an IDE **Run Configuration**.
+
+### 6. A JSP returns 404—what do you check?
+
+**Answer:** Work through the **URL**: correct **context path** (\`/app\` prefix), **case sensitivity** on Linux servers, and **file name** (\`.jsp\` extension). Confirm the file is under the **webapp root** (not only under \`src/main/java\`). Verify the app **deployed** successfully (Tomcat **logs**, missing WAR, or exploded folder). If routing goes through a **servlet** or **filter**, the 404 might be **intentional**—check mappings. This structured debugging story is what interviewers want.
+
+### 7. IDE “Run on Server” vs copying a WAR manually—what’s the difference?
+
+**Answer:** Both end with an **artifact** deployed to a container. The IDE automates **build**, **publish**, and sometimes **hot swap** of resources; manual flow is \`mvn clean package\` then copy the WAR to \`webapps/\` and restart or rely on **auto-deploy**. Hot reload of **JSP** often works without restart; **Java class** changes usually need **redeploy** or **restarts** depending on tooling. Mention **consistent environments** (dev vs staging) so configuration drift does not bite you.
+
+### 8. How is \`src/main/java\` different from \`webapp\`?
+
+**Answer:** \`src/main/java\` holds **compiled** Java sources (servlets, services, models); they end up in \`WEB-INF/classes\`. \`webapp\` holds **deployment resources**: JSP, static CSS/JS, images, and \`WEB-INF\`. Understanding the **WAR directory layout** helps you explain **classpath** vs **public** resources and why JSP is not “just another Java file” in the same sense.
+
+### 9. Why is the first request to a JSP sometimes slow?
+
+**Answer:** The container may need to **translate** the JSP to Java, **invoke the compiler**, and **load** the new class—CPU- and I/O-heavy work on a cold server. Subsequent requests reuse the compiled servlet until the file changes or the app reloads. Mitigations: **precompile** during build, **warm-up** scripts after deployment, **pool** settings, and avoiding **huge** pages. This ties back to **performance testing** and **SRE** concerns.
+
+### 10. What is a “Dynamic Web Project” in Eclipse terms?
+
+**Answer:** It is Eclipse’s wizard-driven layout for a **servlet/JSP** application: **facets** for Dynamic Web Module, a **target runtime** (Tomcat), optional **web.xml** generation, and a \`WebContent\` (or Maven \`webapp\`) root. The name signals **server-side** web apps as opposed to static sites or plain Java SE projects. Relating it to **WAR** packaging shows you connect IDE concepts to **deployment** artifacts.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **JSP basics** | [JSP introduction](/tutorial/jsp-introduction) |
+| **Servlet project** | [Servlet project setup](/tutorial/servlet-project-setup) |
+| **Servlet config** | [Servlet annotations](/tutorial/servlet-annotations) |
+| **Maven & WAR** | [Maven POM (\`pom.xml\`)](/tutorial/maven-pom-xml) |
+| **Tomcat** | [Tomcat server](/tutorial/tomcat-server) |
+
+`,
   code: `// JSP Project Setup Guide
 // This is a reference guide - actual setup is done in IDE
 

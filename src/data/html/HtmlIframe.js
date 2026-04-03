@@ -349,6 +349,63 @@ Now that you understand iframes, you're ready to explore related web development
 - **[Frontend Development](/tutorial/frontend-development)**: Master modern embedding techniques
 
 Iframes are essential for embedding external content. Continue learning about [Web Security](/tutorial/web-security) to understand iframe security best practices.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML iframe Interview Questions
+
+1. **What is an \`<iframe>\`?**  
+   An **inline frame** loads a **separate document** (often another HTML page) inside a **rectangular** region of the parent page. It has its **own** window, **navigation history** (nested), and **security** boundary. **Embedding** is different from **Ajax** HTML injection—iframes are **full browsing contexts** (with limitations).
+
+2. **What is the \`src\` attribute?**  
+   **\`src\`** is the **URL** to load—can be **https** pages, **PDF** viewers, or **provider** embed URLs (maps, video). **Use HTTPS** to avoid **mixed content** blocking. **about:blank** is used for **sandboxed** or dynamically written docs.
+
+3. **What is the \`sandbox\` attribute?**  
+   **\`sandbox\`** applies **restrictions**: no **scripts**, **forms**, **popups**, or **top navigation** unless **allowlisted** (\`allow-scripts\`, \`allow-forms\`, etc.). **Empty sandbox** is maximum lockdown. **Untrusted** embeds (user HTML) should **always** be sandboxed. **Combine** with **Content Security Policy** on the parent page.
+
+4. **What is \`X-Frame-Options\` / CSP frame-ancestors?**  
+   Servers send **\`X-Frame-Options: DENY\` or \`SAMEORIGIN\`** to **prevent** their pages being embedded—mitigates **clickjacking**. **CSP** \`frame-ancestors 'none'\` is the **modern** replacement with more **expressive** rules. If blocked, the iframe **loads blank** or errors—**handle** gracefully in UI.
+
+5. **Why use \`loading="lazy"\` on iframes?**  
+   Defers **network fetch** until the iframe is **near** the viewport—similar to images. **Heavy** embeds (maps, third-party widgets) should not load **eagerly** if they are **below the fold**. **LCP** considerations: if the iframe **is** the hero, **do not** lazy-load it.
+
+6. **How can parent and iframe communicate cross-origin?**  
+   **Same-origin policy** blocks **direct DOM** access. **\`window.postMessage\`** passes **strings** between windows with **targetOrigin** checks. **Validate** messages—never **eval** incoming data. **Shared** cookies are **not** cross-site by default in modern **SameSite** models.
+
+7. **Should iframes be used for layout?**  
+   **No.** **CSS Grid/Flexbox** builds **responsive** layouts. **iframes** are **slow**, **hard** to **size**, and **break** accessibility when overused. **Legacy** apps sometimes used iframe “layout” — **avoid** in new designs.
+
+8. **What are common iframe use cases?**  
+   **Maps**, **video embeds**, **payment iframes** (PCI DSS), **document** viewers (PDF), **OAuth** flows, **third-party** widgets (chat, support). **Isolation** protects **parent** JS from **vendor** code and vice versa.
+
+9. **What is \`allow\` (Permissions Policy) on iframes?**  
+   **\`allow="camera; microphone; geolocation"\`** delegates **powerful features** to the embedded origin. **Fine-grained** control over **fullscreen**, **payment**, **autoplay**, etc. **Feature policy** evolved into **Permissions Policy**—check **current** browser names in docs.
+
+10. **Why provide fallback content inside \`<iframe>\`?**  
+    Content between **opening/closing** iframe tags displays when **iframes** are **unsupported** or **blocked**. Also helps **no-JS** users if **embed** relies on JS. **Always** test **blocked** embeds (privacy extensions, **CSP**).
+
 `,
   code: `// HTML iframe
 

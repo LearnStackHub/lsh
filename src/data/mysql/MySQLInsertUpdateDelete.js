@@ -397,197 +397,6 @@ UPDATE customers
 SET is_deleted = 1, deleted_at = CURRENT_TIMESTAMP
 WHERE email = 'updated@example.com';
 \`\`\`
-  `,
-  code: `-- MySQL INSERT, UPDATE, DELETE Examples
-
--- Create database and tables
-CREATE DATABASE IF NOT EXISTS crud_demo;
-USE crud_demo;
-
-CREATE TABLE users (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    age INT,
-    city VARCHAR(100),
-    is_active TINYINT(1) DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    stock INT UNSIGNED DEFAULT 0,
-    category VARCHAR(50),
-    views INT UNSIGNED DEFAULT 0
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNSIGNED NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    order_date DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- ========== INSERT Examples ==========
-
--- Insert single row
-INSERT INTO users (name, email, age, city)
-VALUES ('Dattu p', ' Dattu@example.com', 25, 'New York');
-
--- Insert multiple rows
-INSERT INTO users (name, email, age, city) VALUES
-('Jane Smith', 'jane@example.com', 30, 'Los Angeles'),
-('Bob  Dattuson', 'bob@example.com', 28, 'Chicago'),
-('Alice Brown', 'alice@example.com', 35, 'New York');
-
--- Insert with default values
-INSERT INTO users (name, email)
-VALUES ('Charlie Wilson', 'charlie@example.com');
--- age and city will be NULL, is_active will be 1
-
--- Insert products
-INSERT INTO products (name, price, stock, category) VALUES
-('Laptop', 999.99, 50, 'Electronics'),
-('Mouse', 29.99, 100, 'Electronics'),
-('Keyboard', 79.99, 75, 'Electronics'),
-('Desk', 199.99, 30, 'Furniture');
-
--- Insert from SELECT
-CREATE TABLE users_backup LIKE users;
-INSERT INTO users_backup (name, email, age)
-SELECT name, email, age FROM users WHERE age > 25;
-
--- ========== UPDATE Examples ==========
-
--- Update single row
-UPDATE users SET age = 26 WHERE id = 1;
-
--- Update multiple columns
-UPDATE users 
-SET name = ' Dattu Smith', city = 'Boston'
-WHERE id = 1;
-
--- Update multiple rows
-UPDATE products 
-SET price = price * 0.9 
-WHERE category = 'Electronics';
-
--- Update with calculation
-UPDATE products 
-SET stock = stock + 10 
-WHERE id = 1;
-
--- Increment counter
-UPDATE products 
-SET views = views + 1 
-WHERE id = 1;
-
--- Update with condition
-UPDATE users 
-SET is_active = 0 
-WHERE age < 18;
-
--- Update with JOIN
-UPDATE orders o
-JOIN users u ON o.user_id = u.id
-SET o.status = 'completed'
-WHERE u.email = ' Dattu@example.com';
-
--- ========== DELETE Examples ==========
-
--- Delete specific row
-DELETE FROM users WHERE id = 5;
-
--- Delete multiple rows
-DELETE FROM products WHERE stock = 0;
-
--- Delete with condition
-DELETE FROM orders WHERE status = 'cancelled';
-
--- Delete with JOIN
-DELETE o FROM orders o
-JOIN users u ON o.user_id = u.id
-WHERE u.email = ' Dattu@example.com';
-
--- Soft delete (recommended)
-ALTER TABLE users ADD COLUMN is_deleted TINYINT(1) DEFAULT 0;
-ALTER TABLE users ADD COLUMN deleted_at TIMESTAMP NULL;
-
-UPDATE users 
-SET is_deleted = 1, deleted_at = CURRENT_TIMESTAMP
-WHERE id = 10;
-
--- Query active users
-SELECT * FROM users WHERE is_deleted = 0;
-
--- ========== Real-World Examples ==========
-
--- E-commerce: Add new product
-INSERT INTO products (name, price, stock, category)
-VALUES ('Wireless Mouse', 39.99, 100, 'Electronics');
-
--- E-commerce: Update price on sale
-UPDATE products 
-SET price = price * 0.8 
-WHERE category = 'Electronics' AND id IN (1, 2, 3);
-
--- E-commerce: Update stock after order
-UPDATE products 
-SET stock = stock - 2 
-WHERE id = 5;
-
--- E-commerce: Create order
-INSERT INTO orders (user_id, order_date, total_amount, status)
-VALUES (1, CURRENT_DATE, 99.99, 'pending');
-
--- E-commerce: Mark order as shipped
-UPDATE orders 
-SET status = 'shipped'
-WHERE id = 1;
-
--- E-commerce: Delete old cancelled orders
-DELETE FROM orders 
-WHERE status = 'cancelled' 
-AND order_date < DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR);
-
--- ========== UPSERT (Insert or Update) ==========
-
--- MySQL 8.0+ ON DUPLICATE KEY UPDATE
-INSERT INTO users (id, name, email, age)
-VALUES (1, ' Dattu Updated', ' Dattu@example.com', 27)
-ON DUPLICATE KEY UPDATE
-    name = VALUES(name),
-    age = VALUES(age);
-
--- ========== Transactions ==========
-
-START TRANSACTION;
-
-UPDATE products SET stock = stock - 1 WHERE id = 1;
-INSERT INTO orders (user_id, order_date, total_amount) 
-VALUES (1, CURRENT_DATE, 99.99);
-UPDATE users SET is_active = 1 WHERE id = 1;
-
-COMMIT;  -- Or ROLLBACK if error
-
--- ========== Archive Pattern ==========
-
--- Create archive table
-CREATE TABLE orders_archive LIKE orders;
-
--- Move old orders to archive
-INSERT INTO orders_archive 
-SELECT * FROM orders 
-WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
-
--- Delete archived orders
-DELETE FROM orders 
-WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
-
 ---
 
 ## Real-World Applications
@@ -808,9 +617,255 @@ INSERT, UPDATE, and DELETE are essential for data management. Continue learning 
 
 ---
 
+## 10 Important DML (INSERT/UPDATE/DELETE) Interview Questions
+
+### 1. What is DML?
+
+**Answer:** **Data Manipulation Language** covers **INSERT**, **UPDATE**, and **DELETE**—statements that **change** table data. **SELECT** is sometimes grouped with DML for **read/write** work, or classified separately as **DQL**. **DDL** (\`CREATE\`, \`ALTER\`) changes **structure**, not row content—keep the **taxonomy** straight in interviews.
+
+### 2. What is the benefit of bulk INSERT?
+
+**Answer:** **Multi-row** inserts—**\`INSERT INTO t (cols) VALUES (...), (...), ...\`**—reduce **round trips** and **parser** overhead versus **many** single-row statements. For **large** loads, also consider **LOAD DATA**, **batching**, and **disable keys** strategies (with **care**). **Throughput** matters in **ETL**.
+
+### 3. What does ON DUPLICATE KEY UPDATE do?
+
+**Answer:** It implements an **upsert**: if a **PRIMARY** or **UNIQUE** key **conflict** occurs, MySQL **updates** specified columns instead of **failing**. **Use** for **idempotent** sync jobs and **natural** keys. **Understand** which row counts **affected rows** returns and **race** conditions under **concurrency**.
+
+### 4. Why use LIMIT with UPDATE or DELETE?
+
+**Answer:** **LIMIT** caps how many rows are changed in **one** statement—**safety** for **manual** fixes and **batch** maintenance. **Still** use **transactions** and **verify** with **SELECT** first. **Replication** and **locking** behavior differ from **unlimited** deletes—**plan** for **large** tables.
+
+### 5. Compare DELETE and TRUNCATE.
+
+**Answer:** **DELETE** removes rows **optionally** filtered by **WHERE**; **fires** **triggers**; **fully logged** in **statement/row** form depending on settings; can be **rolled back** in a transaction. **TRUNCATE** quickly removes **all** rows, **resets** auto-increment, and has **different** **locking** and **logging** characteristics—often **faster** but **less** flexible. **Foreign keys** may block or **cascade**.
+
+### 6. What is ON DELETE CASCADE?
+
+**Answer:** A **foreign key** option that **automatically deletes** **dependent** child rows when the **parent** row is deleted. **Powerful** for **referential** cleanup but **dangerous** if a **mistaken** parent delete **wipes** children—**prefer** **RESTRICT** or **soft** deletes when **business** rules require **audit**.
+
+### 7. Why use PreparedStatement for INSERT in Java?
+
+**Answer:** **PreparedStatement** binds **typed** parameters, **prevents SQL injection**, and **reduces** parse overhead for repeated inserts. **Batch** updates (\`addBatch\`/\`executeBatch\`) **boost** throughput. **Never** concatenate user input into SQL.
+
+### 8. What is LAST_INSERT_ID()?
+
+**Answer:** **LAST\_INSERT\_ID()** returns the **first** auto-generated **id** from the **most recent** successful **INSERT** in the **current** **session** connection—**critical** for **parent/child** inserts in **same** transaction. **Do not** rely on it across **pooled** connections without **care**—**use** the **same** connection.
+
+### 9. What is a soft delete?
+
+**Answer:** Instead of **DELETE**, mark rows with **\`deleted_at\`** timestamp or **\`is_active = 0\`**. **Queries** filter **\`WHERE deleted_at IS NULL\`**. **Pros:** **history** and **recovery**. **Cons:** **unique** constraints and **indexes** need **care**; **ORM** must **respect** the filter globally.
+
+### 10. How do transactions relate to DML?
+
+**Answer:** Wrap related **INSERT/UPDATE/DELETE** in **\`START TRANSACTION ... COMMIT\`** (or JDBC **\`setAutoCommit(false)\`**) so changes **commit** **together**—**atomicity**. **ROLLBACK** on **failure**. **Isolation level** determines what **concurrent** sessions **see**—**pair** with **business** rules.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Transactions** | [MySQL Transactions](/tutorial/mysql-transactions) |
+| **Constraints & FK** | [MySQL Constraints](/tutorial/mysql-constraints) |
+| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **JDBC CRUD** | [CRUD Operations](/tutorial/crud-operations) |
+| **Spring Data JPA** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered DML operations? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering INSERT, UPDATE, DELETE, and all MySQL topics!
+  `,
+  code: `-- MySQL INSERT, UPDATE, DELETE Examples
+
+-- Create database and tables
+CREATE DATABASE IF NOT EXISTS crud_demo;
+USE crud_demo;
+
+CREATE TABLE users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    age INT,
+    city VARCHAR(100),
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT UNSIGNED DEFAULT 0,
+    category VARCHAR(50),
+    views INT UNSIGNED DEFAULT 0
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    order_date DATE NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- ========== INSERT Examples ==========
+
+-- Insert single row
+INSERT INTO users (name, email, age, city)
+VALUES ('Dattu p', ' Dattu@example.com', 25, 'New York');
+
+-- Insert multiple rows
+INSERT INTO users (name, email, age, city) VALUES
+('Jane Smith', 'jane@example.com', 30, 'Los Angeles'),
+('Bob  Dattuson', 'bob@example.com', 28, 'Chicago'),
+('Alice Brown', 'alice@example.com', 35, 'New York');
+
+-- Insert with default values
+INSERT INTO users (name, email)
+VALUES ('Charlie Wilson', 'charlie@example.com');
+-- age and city will be NULL, is_active will be 1
+
+-- Insert products
+INSERT INTO products (name, price, stock, category) VALUES
+('Laptop', 999.99, 50, 'Electronics'),
+('Mouse', 29.99, 100, 'Electronics'),
+('Keyboard', 79.99, 75, 'Electronics'),
+('Desk', 199.99, 30, 'Furniture');
+
+-- Insert from SELECT
+CREATE TABLE users_backup LIKE users;
+INSERT INTO users_backup (name, email, age)
+SELECT name, email, age FROM users WHERE age > 25;
+
+-- ========== UPDATE Examples ==========
+
+-- Update single row
+UPDATE users SET age = 26 WHERE id = 1;
+
+-- Update multiple columns
+UPDATE users 
+SET name = ' Dattu Smith', city = 'Boston'
+WHERE id = 1;
+
+-- Update multiple rows
+UPDATE products 
+SET price = price * 0.9 
+WHERE category = 'Electronics';
+
+-- Update with calculation
+UPDATE products 
+SET stock = stock + 10 
+WHERE id = 1;
+
+-- Increment counter
+UPDATE products 
+SET views = views + 1 
+WHERE id = 1;
+
+-- Update with condition
+UPDATE users 
+SET is_active = 0 
+WHERE age < 18;
+
+-- Update with JOIN
+UPDATE orders o
+JOIN users u ON o.user_id = u.id
+SET o.status = 'completed'
+WHERE u.email = ' Dattu@example.com';
+
+-- ========== DELETE Examples ==========
+
+-- Delete specific row
+DELETE FROM users WHERE id = 5;
+
+-- Delete multiple rows
+DELETE FROM products WHERE stock = 0;
+
+-- Delete with condition
+DELETE FROM orders WHERE status = 'cancelled';
+
+-- Delete with JOIN
+DELETE o FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE u.email = ' Dattu@example.com';
+
+-- Soft delete (recommended)
+ALTER TABLE users ADD COLUMN is_deleted TINYINT(1) DEFAULT 0;
+ALTER TABLE users ADD COLUMN deleted_at TIMESTAMP NULL;
+
+UPDATE users 
+SET is_deleted = 1, deleted_at = CURRENT_TIMESTAMP
+WHERE id = 10;
+
+-- Query active users
+SELECT * FROM users WHERE is_deleted = 0;
+
+-- ========== Real-World Examples ==========
+
+-- E-commerce: Add new product
+INSERT INTO products (name, price, stock, category)
+VALUES ('Wireless Mouse', 39.99, 100, 'Electronics');
+
+-- E-commerce: Update price on sale
+UPDATE products 
+SET price = price * 0.8 
+WHERE category = 'Electronics' AND id IN (1, 2, 3);
+
+-- E-commerce: Update stock after order
+UPDATE products 
+SET stock = stock - 2 
+WHERE id = 5;
+
+-- E-commerce: Create order
+INSERT INTO orders (user_id, order_date, total_amount, status)
+VALUES (1, CURRENT_DATE, 99.99, 'pending');
+
+-- E-commerce: Mark order as shipped
+UPDATE orders 
+SET status = 'shipped'
+WHERE id = 1;
+
+-- E-commerce: Delete old cancelled orders
+DELETE FROM orders 
+WHERE status = 'cancelled' 
+AND order_date < DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR);
+
+-- ========== UPSERT (Insert or Update) ==========
+
+-- MySQL 8.0+ ON DUPLICATE KEY UPDATE
+INSERT INTO users (id, name, email, age)
+VALUES (1, ' Dattu Updated', ' Dattu@example.com', 27)
+ON DUPLICATE KEY UPDATE
+    name = VALUES(name),
+    age = VALUES(age);
+
+-- ========== Transactions ==========
+
+START TRANSACTION;
+
+UPDATE products SET stock = stock - 1 WHERE id = 1;
+INSERT INTO orders (user_id, order_date, total_amount) 
+VALUES (1, CURRENT_DATE, 99.99);
+UPDATE users SET is_active = 1 WHERE id = 1;
+
+COMMIT;  -- Or ROLLBACK if error
+
+-- ========== Archive Pattern ==========
+
+-- Create archive table
+CREATE TABLE orders_archive LIKE orders;
+
+-- Move old orders to archive
+INSERT INTO orders_archive 
+SELECT * FROM orders 
+WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
+
+-- Delete archived orders
+DELETE FROM orders 
+WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
 `
 };
 

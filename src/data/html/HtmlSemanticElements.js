@@ -471,6 +471,63 @@ Semantic elements clearly describe their purpose:
 - ✅ Self-documenting
 
 Semantic HTML makes your code meaningful and accessible!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Semantic Elements Interview Questions
+
+1. **What is semantic HTML?**  
+   **Semantic** elements describe the **role** of content: \`<nav>\` for navigation, \`<main>\` for primary content, \`<article>\` for self-contained pieces. This is different from **presentational** markup (\`<div class="header">\`) that only suggests appearance via class names. Semantics help **accessibility APIs** (roles, landmarks), **search engines** (identifying main text vs boilerplate), and **teams** reading code months later.
+
+2. **What is \`<main>\` for?**  
+   **\`<main>\`** wraps the **dominant** content of the page—what is **unique** to this document (not site-wide nav, footer, or sidebars). There should be **at most one** visible \`<main>\` per page. **Skip links** often target \`main\` so keyboard users jump past chrome. **Do not** nest \`<main>\` inside \`<article>\` (invalid)—use headings inside \`<main>\` instead.
+
+3. **Difference between \`<article>\` and \`<section>\`?**  
+   **\`<article>\`** is **independently distributable** content (blog post, news story, product card with its own title). **\`<section>\`** is a **thematic** grouping inside a document—usually **requires a heading** (unless it is a **widget** exception). **Articles** can contain **sections**; **sections** should not be used as a generic wrapper when only \`<div>\` styling is needed.
+
+4. **What is \`<nav>\` used for?**  
+   **Major navigation** blocks: primary site menu, **breadcrumb** trails, **table of contents**. **Not** every set of links is \`<nav>\`—footer links or inline links in prose may not need it. Multiple **\`<nav>\`** elements are allowed; label with **\`aria-label\`** or **headings** if they serve different purposes (“Primary”, “Footer”).
+
+5. **What is \`<aside>\`?**  
+   Content **tangentially related** to nearby content or the site: **sidebars**, **related articles**, **pull quotes**, **advertising** when not main content. **Not** automatically “sidebar” visually—**CSS** positions it. If the aside is **essential** to the article, reconsider whether it belongs in the **main** flow.
+
+6. **Can \`<header>\` and \`<footer>\` appear inside \`<article>\`?**  
+   Yes. **\`<header>\`** inside an article might hold the **title** and **byline**; **\`<footer>\`** might hold **footnotes** or **meta** (tags, date). **Site-level** header/footer often wrap **branding** and **global** nav. **Landmark** roles (**banner**, **contentinfo**) map to page-level header/footer in **ARIA** when needed.
+
+7. **Why prefer \`<time datetime="...">\`?**  
+   Human-visible text (“April 3, 2026”) plus **machine-readable** \`datetime\` enables **ISO8601** parsing for **scripts**, **ICS** calendars, and **consistent** sorting. **Search** can extract **freshness**. **Accessibility** can expose the date more reliably than plain text.
+
+8. **What is \`<figure>\` / \`<figcaption>\`?**  
+   **Figure** groups **media** with an optional **caption** that is **associated** programmatically. **Not** only for images—**code listings**, **charts**, **videos** can be figures. **Figcaption** is optional but when present should describe the figure. **Do not** use figure for **every** image—only when captioning/grouping is semantically correct.
+
+9. **How do semantic elements help SEO?**  
+   Crawlers use **headings**, **main**, and **article** boundaries to **extract** primary text and **avoid** boilerplate. **Structured data** (JSON-LD) complements HTML semantics but does **not replace** good headings and clean markup. **Core** signals: **title**, **meta description**, **canonical**, **headings**, **alt**, **fast** pages.
+
+10. **When is \`<div>\` still appropriate?**  
+    Use **\`<div>\`** when **no semantic element** matches and you need a **layout** or **hook** for CSS/JS. **\`<span>\`** for **inline** hooks. **Over-wrapping** divs (“div soup”) hurts readability—**prefer** semantic tags first, then **reduce** unnecessary containers.
+
 `,
   code: `// HTML5 Semantic Elements
 

@@ -162,6 +162,87 @@ Maven is a build automation tool that:
 Maven serves as a comprehensive project management tool that automates build processes, dependency management, and project lifecycle tasks, enabling developers to focus on application logic rather than build configuration.
 
 Ready to install Maven? Let's move to the next tutorial!
+
+---
+
+## 10 Important Maven Introduction Interview Questions
+
+1. **What is Apache Maven?**  
+   Without a build tool, you would **manually** compile each \`.java\` file, collect \`.class\` files, download every JAR, fix the **classpath**, run tests by hand, and zip everything—easy to mess up.  
+   **Maven** automates this. You describe the project in **\`pom.xml\`**, then run commands like \`mvn compile\` or \`mvn package\`. Maven **knows** how to compile, test, and package in a **repeatable** way on any machine.  
+   **Simple interview answer:** Maven is a **build automation** and **dependency management** tool for Java projects.
+
+2. **What is a Project Object Model (POM)?**  
+   **POM** = **Project Object Model** = your **\`pom.xml\`** file. It is the **single main configuration file** Maven reads first.  
+   Inside it you write: project **name/version**, **dependencies** (which libraries you need), **plugins** (compiler, tests, packaging), optional **modules** (sub-projects), and **properties** (like Java version).  
+   **For freshers:** If \`pom.xml\` has a mistake, **nothing** works—so learning this file is step one.
+
+3. **What are Maven coordinates (GAV)?**  
+   Maven needs a **unique address** for every JAR on the internet—like a postal address for libraries. Three parts:  
+   - **groupId** — Usually your **organization**, e.g. \`org.springframework\` or \`com.mycompany\`.  
+   - **artifactId** — The **project** name, e.g. \`spring-boot-starter-web\`.  
+   - **version** — The **release number**, e.g. \`3.2.0\`.  
+   Together: **\`groupId:artifactId:version\`**. Maven uses this string to **download exactly that JAR**, every time.
+
+4. **How does Maven handle dependencies?**  
+   You list libraries inside \`<dependencies>\` in \`pom.xml\`. For each one, Maven:  
+   **(1)** Checks your **local** folder (\`~/.m2/repository\` on Windows often \`C:\\Users\\You\\.m2\\repository\`). If the file exists, it **reuses** it.  
+   **(2)** If not, it **downloads** from the internet (Maven Central by default).  
+   **Transitive:** If you add library **A**, and **A** needs **B**, Maven can bring **B** too—you don’t always write **B** yourself. That saves time but later you learn to check conflicts with \`mvn dependency:tree\`.
+
+5. **What is the standard Maven directory layout?**  
+   Maven expects this **fixed folder pattern**:  
+   - **\`src/main/java\`** — Your **main** Java source.  
+   - **\`src/main/resources\`** — Config files (properties, XML) copied into the final JAR.  
+   - **\`src/test/java\`** — **JUnit** tests.  
+   - **\`src/test/resources\`** — Test-only files.  
+   - **\`target/\`** — **Output** after build (compiled code, final JAR). Use \`mvn clean\` to delete it; add \`target/\` to **\`.gitignore\`**.  
+   **Why:** Any developer opens any Maven project and **immediately** knows where code lives.
+
+6. **What does “convention over configuration” mean for Maven?**  
+   **Convention** = Maven’s **default rules** (folder names, build steps). If you follow them, your XML stays **short**.  
+   **Configuration** = **Extra XML** only when you need something **non-standard**.  
+   **Fresher analogy:** Like a **standard chessboard**—everyone knows where pieces start; you only write special rules if you play a **variant**.
+
+7. **Is Maven only for Java?**  
+   **Mostly Java and JVM** (Kotlin, Scala). The core is **Java compilation** and JAR/WAR packaging. Other languages usually use **Gradle** or other tools, but in **enterprise Java**, Maven is **very common**. Spring, Hibernate, and most tutorials assume Maven **or** Gradle.
+
+8. **How does Maven relate to an IDE?**  
+   **IntelliJ / Eclipse / VS Code** can **import** \`pom.xml\`, download dependencies, and show **Run** buttons. But the **official** definition of the project is still **\`pom.xml\`**.  
+   **Team rule:** Everyone should be able to run \`mvn clean install\` from **terminal**. CI servers (GitHub Actions, Jenkins) use **command-line Maven**, not your IDE clicks.
+
+9. **What is the local repository?**  
+   A **folder on your PC** (default \`~/.m2/repository\`) where Maven **stores downloaded JARs** forever (until you delete them).  
+   **Benefit:** Second project that needs the **same** Spring version **does not download again**—builds are **faster**.  
+   **Fix for weird errors:** Sometimes a **half-downloaded** file breaks the build—delete that library’s folder under \`.m2\` and run Maven again.
+
+10. **Why use Maven instead of manually downloading JARs?**  
+    **Manual:** Download from random sites, wrong versions, missing transitive JARs, different setups per developer.  
+    **Maven:** One \`pom.xml\`, **same** versions for the whole team, **automatic** transitive libraries, **one command** for CI.  
+    **Interview line:** Less **“works on my machine”**, more **professional** and **scalable** development.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

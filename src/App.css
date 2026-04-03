@@ -1585,6 +1585,200 @@ code {
   background: var(--bg-tertiary);
 }
 
+/* MySQL course — page shell & prose (dolphin / teal #00758F) */
+.tutorial-page--mysql {
+  max-width: 920px;
+}
+
+.tutorial-header--mysql {
+  border-bottom: none;
+  margin-bottom: 1.75rem;
+  padding: 1.2rem 1.35rem 1.45rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 117, 143, 0.28);
+  background:
+    radial-gradient(ellipse 120% 80% at 0% 0%, rgba(6, 182, 212, 0.14), transparent 52%),
+    radial-gradient(ellipse 90% 70% at 100% 100%, rgba(249, 115, 22, 0.07), transparent 48%),
+    var(--bg-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 36px rgba(0, 117, 143, 0.12);
+}
+
+.tutorial-header--mysql .tutorial-title {
+  color: #0e7490;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tutorial-header--mysql .tutorial-meta {
+  color: var(--text-secondary);
+}
+
+.tutorial-header--mysql .tutorial-meta svg {
+  color: #0891b2;
+  opacity: 0.95;
+}
+
+.tutorial-content--mysql h1 {
+  border-bottom-color: #00758f;
+  border-bottom-width: 3px;
+}
+
+.tutorial-content--mysql h2 {
+  color: #0e7490;
+  border-left: 4px solid #0891b2;
+  padding-left: 0.85rem;
+  margin-left: 0;
+}
+
+.tutorial-content--mysql h3 {
+  color: var(--text-primary);
+}
+
+.tutorial-content--mysql table {
+  border: 1px solid rgba(0, 117, 143, 0.2);
+  box-shadow: 0 10px 32px rgba(0, 117, 143, 0.1);
+}
+
+.tutorial-content--mysql table thead tr:first-child th {
+  background: linear-gradient(90deg, #00758f 0%, #0e7490 55%, #0891b2 100%);
+  color: #ecfeff;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.92rem;
+  border-bottom: none;
+}
+
+.tutorial-content--mysql table tbody tr:hover td {
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.tutorial-content--mysql a {
+  color: #0d9488;
+  font-weight: 600;
+}
+
+.tutorial-content--mysql a:hover {
+  color: #0891b2;
+}
+
+.tutorial-content--mysql hr {
+  border: none;
+  border-top: 1px solid rgba(0, 117, 143, 0.22);
+  margin: 2.25rem 0;
+}
+
+.tutorial-content--mysql pre {
+  border: 1px solid rgba(0, 117, 143, 0.2);
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+}
+
+/* JSP course — Java blue (#5382A1) */
+.tutorial-page--jsp {
+  max-width: 920px;
+}
+
+.tutorial-header--jsp {
+  border-bottom: none;
+  margin-bottom: 1.75rem;
+  padding: 1.2rem 1.35rem 1.45rem;
+  border-radius: 16px;
+  border: 1px solid rgba(83, 130, 161, 0.32);
+  background:
+    radial-gradient(ellipse 120% 80% at 0% 0%, rgba(83, 130, 161, 0.14), transparent 52%),
+    radial-gradient(ellipse 90% 70% at 100% 100%, rgba(234, 88, 12, 0.08), transparent 48%),
+    var(--bg-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 36px rgba(83, 130, 161, 0.12);
+}
+
+.tutorial-header--jsp .tutorial-title {
+  color: #3d6a8a;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tutorial-header--jsp .tutorial-meta {
+  color: var(--text-secondary);
+}
+
+.tutorial-header--jsp .tutorial-meta svg {
+  color: #5382a1;
+  opacity: 0.95;
+}
+
+.tutorial-content--jsp h1 {
+  border-bottom-color: #5382a1;
+  border-bottom-width: 3px;
+}
+
+.tutorial-content--jsp h2 {
+  color: #3d6a8a;
+  border-left: 4px solid #5382a1;
+  padding-left: 0.85rem;
+  margin-left: 0;
+}
+
+.tutorial-content--jsp h3 {
+  color: var(--text-primary);
+}
+
+.tutorial-content--jsp table {
+  border: 1px solid rgba(83, 130, 161, 0.22);
+  box-shadow: 0 10px 32px rgba(83, 130, 161, 0.1);
+}
+
+.tutorial-content--jsp table thead tr:first-child th {
+  background: linear-gradient(90deg, #3d6a8a 0%, #5382a1 55%, #6b9fc4 100%);
+  color: #f0f9ff;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.92rem;
+  border-bottom: none;
+}
+
+.tutorial-content--jsp table tbody tr:hover td {
+  background: rgba(83, 130, 161, 0.08);
+}
+
+.tutorial-content--jsp a {
+  color: #4476a3;
+  font-weight: 600;
+}
+
+.tutorial-content--jsp a:hover {
+  color: #5382a1;
+}
+
+.tutorial-content--jsp hr {
+  border: none;
+  border-top: 1px solid rgba(83, 130, 161, 0.22);
+  margin: 2.25rem 0;
+}
+
+.tutorial-content--jsp pre {
+  border: 1px solid rgba(83, 130, 161, 0.2);
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+}
+
+/* JSP — notice so readers find interview Q&A */
+.jsp-interview-notice {
+  margin: 0 0 1.75rem;
+  padding: 1rem 1.15rem;
+  border-radius: 12px;
+  border: 1px solid rgba(83, 130, 161, 0.35);
+  background: linear-gradient(135deg, rgba(83, 130, 161, 0.12) 0%, rgba(61, 106, 138, 0.08) 100%);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.jsp-interview-notice strong {
+  color: #3d6a8a;
+}
+
 /* Blockquotes */
 .tutorial-content blockquote {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
@@ -7292,6 +7486,22 @@ code {
 
 .flowchart-pro-springframework-scenario .flowchart-pro-svg {
   min-height: min(280px, 52vh);
+}
+
+/* MySQL — notice so readers find interview Q&A (long pages + showcase above) */
+.mysql-interview-notice {
+  margin: 0 0 1.75rem;
+  padding: 1rem 1.15rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 117, 143, 0.35);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(0, 117, 143, 0.08) 100%);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.mysql-interview-notice strong {
+  color: #0e7490;
 }
 
 /* MySQL tutorial showcases — teal / cyan (brand-adjacent to #00758F) */

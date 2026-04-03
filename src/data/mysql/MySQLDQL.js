@@ -352,201 +352,6 @@ FROM products
 GROUP BY category
 HAVING COUNT(*) > 10;
 \`\`\`
-  `,
-  code: `-- MySQL DQL Examples
-
-CREATE DATABASE dql_demo;
-USE dql_demo;
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    category VARCHAR(50),
-    stock INT UNSIGNED DEFAULT 0
-);
-
-CREATE TABLE customers (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) UNIQUE
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED,
-    order_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
-
-CREATE TABLE order_items (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED,
-    product_id INT UNSIGNED,
-    quantity INT UNSIGNED NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
--- Insert sample data
-INSERT INTO products (name, price, category, stock) VALUES
-('Laptop', 999.99, 'Electronics', 50),
-('Mouse', 29.99, 'Electronics', 100),
-('Keyboard', 79.99, 'Electronics', 75),
-('Desk', 199.99, 'Furniture', 30);
-
-INSERT INTO customers (name, email) VALUES
-('Dattu p', ' Dattu@example.com'),
-('Jane Smith', 'jane@example.com');
-
-INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
-(1, '2024-01-15', 999.99, 'completed'),
-(2, '2024-01-16', 109.98, 'completed');
-
--- ========== Basic SELECT ==========
-
--- Select all columns
-SELECT * FROM products;
-
--- Select specific columns
-SELECT id, name, price FROM products;
-
--- ========== SELECT with WHERE ==========
-
--- Simple condition
-SELECT * FROM products WHERE price > 100;
-
--- Multiple conditions
-SELECT * FROM products WHERE price > 100 AND stock > 0;
-
--- Pattern matching
-SELECT * FROM products WHERE name LIKE '%laptop%';
-
--- ========== SELECT with DISTINCT ==========
-
--- Distinct values
-SELECT DISTINCT category FROM products;
-
--- ========== SELECT with ORDER BY ==========
-
--- Ascending (default)
-SELECT * FROM products ORDER BY price;
-
--- Descending
-SELECT * FROM products ORDER BY price DESC;
-
--- Multiple columns
-SELECT * FROM products ORDER BY category, price DESC;
-
--- ========== SELECT with LIMIT ==========
-
--- Limit rows
-SELECT * FROM products LIMIT 10;
-
--- Limit with offset
-SELECT * FROM products LIMIT 10 OFFSET 0;
-SELECT * FROM products LIMIT 0, 10;  -- Same as above
-
--- ========== SELECT with GROUP BY ==========
-
--- Group by category
-SELECT category, COUNT(*) AS count
-FROM products
-GROUP BY category;
-
--- Group with aggregates
-SELECT 
-    category,
-    COUNT(*) AS product_count,
-    AVG(price) AS avg_price,
-    SUM(stock) AS total_stock
-FROM products
-GROUP BY category;
-
--- ========== SELECT with HAVING ==========
-
--- Filter groups
-SELECT category, COUNT(*) AS count
-FROM products
-GROUP BY category
-HAVING COUNT(*) > 1;
-
--- ========== SELECT with Aliases ==========
-
--- Column alias
-SELECT 
-    name AS product_name,
-    price AS product_price
-FROM products;
-
--- Table alias
-SELECT p.name, p.price
-FROM products p
-WHERE p.price > 100;
-
--- ========== SELECT with Expressions ==========
-
--- Calculate total
-SELECT 
-    name,
-    price,
-    stock,
-    price * stock AS total_value
-FROM products;
-
--- Use functions
-SELECT 
-    name,
-    UPPER(name) AS name_upper,
-    ROUND(price, 2) AS price_rounded
-FROM products;
-
--- ========== SELECT with CASE ==========
-
-SELECT 
-    name,
-    price,
-    CASE
-        WHEN price > 500 THEN 'Expensive'
-        WHEN price > 100 THEN 'Moderate'
-        ELSE 'Cheap'
-    END AS price_category
-FROM products;
-
--- ========== Real-World Examples ==========
-
--- Top products by stock value
-SELECT 
-    name,
-    price,
-    stock,
-    price * stock AS total_value
-FROM products
-ORDER BY total_value DESC
-LIMIT 5;
-
--- Customer order summary
-SELECT 
-    c.name AS customer_name,
-    COUNT(o.id) AS order_count,
-    COALESCE(SUM(o.total_amount), 0) AS total_spent
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id
-GROUP BY c.id, c.name;
-
--- Products above average price
-SELECT * FROM products
-WHERE price > (SELECT AVG(price) FROM products);
-
--- Categories with multiple products
-SELECT category, COUNT(*) AS product_count
-FROM products
-GROUP BY category
-HAVING COUNT(*) > 1;
-
 ---
 
 ## Real-World Applications
@@ -757,9 +562,259 @@ DQL is essential for data retrieval. Continue learning about [MySQL Joins](/tuto
 
 ---
 
+## 10 Important MySQL DQL Interview Questions
+
+### 1. What is DQL?
+
+**Answer:** **Data Query Language (DQL)** is the subset of SQL centered on **reading** data—primarily **\`SELECT\`**. Some textbooks fold **SELECT** under **DML**; others separate **DQL** for clarity. In interviews, **DDL/DML/DQL** taxonomy shows you can **classify** statements: \`CREATE TABLE\` is DDL, \`INSERT\` is DML, \`SELECT\` is DQL.
+
+### 2. What is the logical order of SELECT clauses?
+
+**Answer:** Think in this **logical** order for understanding: **FROM** (including **JOINs**) → **WHERE** → **GROUP BY** → **HAVING** → **SELECT** expressions → **DISTINCT** → **ORDER BY** → **LIMIT**. The **optimizer** may **reorder** operations for efficiency, but **semantics** follow this mental model—e.g. **WHERE** cannot see **aliases** from **SELECT** in the same level (use **subquery** or repeat expression).
+
+### 3. Why avoid SELECT * in production?
+
+**Answer:** \`SELECT *\` pulls **every** column, increasing **disk I/O**, **network**, and **memory**. It also **couples** clients to **schema changes**—new columns can break **ORDER BY** assumptions or **ORM** mappings. **Explicit** columns document **intent** and **stabilize** APIs.
+
+### 4. What is a predicate in WHERE?
+
+**Answer:** A **predicate** is a **boolean** expression that evaluates per row: comparisons (\`=\`, \`<\`), **\`IN\`**, **\`BETWEEN\`**, **\`LIKE\`**, **\`IS NULL\`**, **combinations** with **AND/OR/NOT**. **Short-circuit** evaluation is not guaranteed—**optimize** predicates for **index** use.
+
+### 5. Explain WHERE vs HAVING again.
+
+**Answer:** \`WHERE\` filters **individual rows** **before** aggregation. \`HAVING\` filters **groups** **after** \`GROUP BY\` and may reference **aggregate** results. **Example:** \`WHERE status = 'shipped'\` then \`HAVING COUNT(*) > 10\` per customer.
+
+### 6. What are aggregate functions?
+
+**Answer:** **COUNT**, **SUM**, **AVG**, **MIN**, **MAX** collapse **many** rows into a **single** summary (or **per-group** summary with \`GROUP BY\`). **COUNT(\*)** counts rows; **COUNT(column)** counts **non-NULL** values. **Aggregates** are central to **reporting** and **dashboards**.
+
+### 7. What does DISTINCT accomplish?
+
+**Answer:** \`DISTINCT\` **eliminates duplicate** rows from the **result** for the **selected** column list. **Contrast** with **GROUP BY** when you also need **aggregates**—use **GROUP BY** for that pattern.
+
+### 8. What is a subquery?
+
+**Answer:** A **subquery** is a **nested** \`SELECT\` used inside **WHERE**, **FROM**, or **SELECT** list. **Correlated** subqueries reference **outer** query columns (often **slower** per row). **Uncorrelated** subqueries run **once**. **Optimizer** may rewrite subqueries to **JOINs**.
+
+### 9. What is the purpose of JOIN?
+
+**Answer:** **JOIN** combines **related** rows from **two or more** tables in **one** result set based on a **predicate** (usually **keys**). **Relational** databases **normalize** data across tables; **JOIN** is how you **reassemble** it for **applications** and **reports**.
+
+### 10. How does DQL relate to JDBC?
+
+**Answer:** Java code uses **JDBC** \`Statement\` or \`PreparedStatement\` to execute **\`SELECT\`** strings, then **\`ResultSet\`** iterates rows. **ORMs** generate **SELECT** behind the scenes. **Same SQL** skills apply—**tuning** happens in the database and in **connection** pool settings.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **SELECT deep dive** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
+| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
+| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
+| **JDBC ResultSet** | [Result Set Interface](/tutorial/resultset-interface) |
+
+---
+
 ## Test Your Knowledge
 
 Ready to test your MySQL DQL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering DQL, DDL, DML, and all MySQL topics!
+  `,
+  code: `-- MySQL DQL Examples
+
+CREATE DATABASE dql_demo;
+USE dql_demo;
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(50),
+    stock INT UNSIGNED DEFAULT 0
+);
+
+CREATE TABLE customers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED,
+    product_id INT UNSIGNED,
+    quantity INT UNSIGNED NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Insert sample data
+INSERT INTO products (name, price, category, stock) VALUES
+('Laptop', 999.99, 'Electronics', 50),
+('Mouse', 29.99, 'Electronics', 100),
+('Keyboard', 79.99, 'Electronics', 75),
+('Desk', 199.99, 'Furniture', 30);
+
+INSERT INTO customers (name, email) VALUES
+('Dattu p', ' Dattu@example.com'),
+('Jane Smith', 'jane@example.com');
+
+INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
+(1, '2024-01-15', 999.99, 'completed'),
+(2, '2024-01-16', 109.98, 'completed');
+
+-- ========== Basic SELECT ==========
+
+-- Select all columns
+SELECT * FROM products;
+
+-- Select specific columns
+SELECT id, name, price FROM products;
+
+-- ========== SELECT with WHERE ==========
+
+-- Simple condition
+SELECT * FROM products WHERE price > 100;
+
+-- Multiple conditions
+SELECT * FROM products WHERE price > 100 AND stock > 0;
+
+-- Pattern matching
+SELECT * FROM products WHERE name LIKE '%laptop%';
+
+-- ========== SELECT with DISTINCT ==========
+
+-- Distinct values
+SELECT DISTINCT category FROM products;
+
+-- ========== SELECT with ORDER BY ==========
+
+-- Ascending (default)
+SELECT * FROM products ORDER BY price;
+
+-- Descending
+SELECT * FROM products ORDER BY price DESC;
+
+-- Multiple columns
+SELECT * FROM products ORDER BY category, price DESC;
+
+-- ========== SELECT with LIMIT ==========
+
+-- Limit rows
+SELECT * FROM products LIMIT 10;
+
+-- Limit with offset
+SELECT * FROM products LIMIT 10 OFFSET 0;
+SELECT * FROM products LIMIT 0, 10;  -- Same as above
+
+-- ========== SELECT with GROUP BY ==========
+
+-- Group by category
+SELECT category, COUNT(*) AS count
+FROM products
+GROUP BY category;
+
+-- Group with aggregates
+SELECT 
+    category,
+    COUNT(*) AS product_count,
+    AVG(price) AS avg_price,
+    SUM(stock) AS total_stock
+FROM products
+GROUP BY category;
+
+-- ========== SELECT with HAVING ==========
+
+-- Filter groups
+SELECT category, COUNT(*) AS count
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 1;
+
+-- ========== SELECT with Aliases ==========
+
+-- Column alias
+SELECT 
+    name AS product_name,
+    price AS product_price
+FROM products;
+
+-- Table alias
+SELECT p.name, p.price
+FROM products p
+WHERE p.price > 100;
+
+-- ========== SELECT with Expressions ==========
+
+-- Calculate total
+SELECT 
+    name,
+    price,
+    stock,
+    price * stock AS total_value
+FROM products;
+
+-- Use functions
+SELECT 
+    name,
+    UPPER(name) AS name_upper,
+    ROUND(price, 2) AS price_rounded
+FROM products;
+
+-- ========== SELECT with CASE ==========
+
+SELECT 
+    name,
+    price,
+    CASE
+        WHEN price > 500 THEN 'Expensive'
+        WHEN price > 100 THEN 'Moderate'
+        ELSE 'Cheap'
+    END AS price_category
+FROM products;
+
+-- ========== Real-World Examples ==========
+
+-- Top products by stock value
+SELECT 
+    name,
+    price,
+    stock,
+    price * stock AS total_value
+FROM products
+ORDER BY total_value DESC
+LIMIT 5;
+
+-- Customer order summary
+SELECT 
+    c.name AS customer_name,
+    COUNT(o.id) AS order_count,
+    COALESCE(SUM(o.total_amount), 0) AS total_spent
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.name;
+
+-- Products above average price
+SELECT * FROM products
+WHERE price > (SELECT AVG(price) FROM products);
+
+-- Categories with multiple products
+SELECT category, COUNT(*) AS product_count
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 1;
 `
 };
 

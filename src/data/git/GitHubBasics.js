@@ -325,6 +325,53 @@ You've learned:
 - Understand collaboration workflows
 - Explore GitHub features (Issues, Projects, etc.)
 
+---
+
+## 10 Important GitHub Basics Interview Questions
+
+1. **What is GitHub?**  
+   **GitHub** is a **hosting platform** for Git repositories: **backup**, **collaboration**, **issues**, **pull requests**, **Actions (CI)**. **Git** is local; **GitHub** is the **remote** most teams use.
+
+2. **What is \`origin\`?**  
+   The default **name** for your **primary remote** URL (\`git@github.com:user/repo.git\` or HTTPS). **\`git push origin main\`** sends commits to that remote.
+
+3. **Difference between \`git fetch\` and \`git pull\`?**  
+   **\`fetch\`** downloads new commits to **remote-tracking** branches **without** merging into your branch. **\`pull\`** is typically **fetch + merge** (or rebase)—updates **your** current branch.  
+   **Safe learning:** \`git fetch\` then \`git log origin/main\` then merge when you understand.
+
+4. **What does \`git push -u origin main\` do?**  
+   Pushes **\`main\`** and sets **upstream** tracking so later you can type just **\`git push\`** / **\`git pull\`**. **\`-u\`** remembers the pairing.
+
+5. **What is \`git clone\`?**  
+   Copies a remote repo **with full history** into a new folder. This is how you **start** on an existing team project. **HTTPS** needs token/password; **SSH** needs a key.
+
+6. **HTTPS vs SSH for GitHub?**  
+   **HTTPS:** simpler start, uses **personal access token** instead of password. **SSH:** \`git@github.com:...\` URLs, key-based—no typing token each push once set up.
+
+7. **What is a README on GitHub?**  
+   **\`README.md\`** is shown on the repo home page—explain **how to run** the project, prerequisites (Java 17, Maven), and **contribution** rules.
+
+8. **What happens if push is “rejected”?**  
+   Remote has commits you don’t (**someone else pushed**). **Fix:** \`git pull\` (or \`fetch\` + merge/rebase), **resolve conflicts**, then **push** again—never **force push** to **shared** \`main\` without permission.
+
+9. **What is a fork?**  
+   Your **copy** of someone else’s repo under **your** GitHub account—used for **open source** contributions or when you **don’t** have write access to the original.
+
+10. **Why use \`.gitignore\` before first push?**  
+    Stops committing **build folders** (\`target/\`), **secrets**, and IDE junk. Easier to set **early** than to **purge** secrets from history later.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Local Git first** | [Git Basics](/tutorial/git-basics) |
+| **Branches on remotes** | [Git Branches](/tutorial/git-branches) |
+| **Code review flow** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
+| **Secure account & tokens** | [GitHub Security](/tutorial/github-security) |
+| **REST APIs (GitHub is HTTP-based)** | [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 Your code is now safely backed up and shareable on GitHub!
 `
 };

@@ -440,6 +440,63 @@ Animations are more powerful than transitions because they can loop, reverse, an
 The transform property lets you move, resize, rotate, and skew elements. Use \`translate()\` to move elements, \`scale()\` to resize them, \`rotate()\` to turn them, and \`skew()\` to distort them. These transformations don't affect the document flow, making them perfect for animations.
 
 Animations make websites engaging and interactive. When used thoughtfully, they can guide user attention and make interfaces feel more responsive and polished.
+
+---
+
+## 10 Important CSS Animations & Transitions Interview Questions
+
+1. **What is the difference between \`transition\` and \`animation\`?**  
+   **Transitions** interpolate between **two states** when a **property changes** (often on **:hover**)—need a **trigger**. **Animations** use **@keyframes** with **multiple steps**, can **loop**, **reverse**, and run **without** a discrete state change (careful with **autoplay**).
+
+2. **Which properties are cheapest to animate?**  
+   **transform** (translate, scale, rotate) and **opacity** are typically **compositor-friendly** and avoid **layout** (**reflow**). Animating **width**, **height**, **top/left**, **margin** forces **layout**—**janky** on low-end devices.
+
+3. **What does \`transition: all\` risk?**  
+   Accidentally animating **expensive** properties when **any** style changes—**harder** debugging. Prefer **explicit** property lists: **\`transition: transform 200ms, opacity 200ms;\`**.
+
+4. **How do \`@keyframes\` work?**  
+   Define **keyframes** with **from/to** or **percentages**. **animation** shorthand sets **name, duration, timing-function, delay, iteration-count, direction, fill-mode, play-state**. **animation-fill-mode: forwards** keeps **end** styles after finish.
+
+5. **What is \`will-change\` and when to use it?**  
+   Hints the browser to **optimize** for upcoming changes—**overuse** wastes **memory**. Apply **short-term** before **heavy** animations; **remove** when done. **Not** a substitute for **good** property choice.
+
+6. **What easing functions are common?**  
+   **ease, ease-in-out, cubic-bezier()**—**custom** curves for **natural** motion. **linear** for **spinners**. **step** functions for **frame**-like changes. **DevTools** can **edit** cubic-bezier interactively.
+
+7. **How does \`prefers-reduced-motion\` relate to animations?**  
+   **\`@media (prefers-reduced-motion: reduce)\`** should **disable or shorten** non-essential motion—**WCAG** guidance. **Respect** OS setting—some users get **motion sickness** from **parallax** or **large** transitions.
+
+8. **Can CSS animations run on the compositor thread?**  
+   **transform/opacity** often **avoid** main-thread **paint** when promoted to **layers**—smoother during **JS** **busy** work. **Still** profile—**too many** layers cost **memory**.
+
+9. **What is the difference between \`animation-play-state: paused\` and \`visibility: hidden\` on animated elements?**  
+   **paused** freezes **keyframes**—useful for **scroll-driven** or **interaction** control. **hidden** removes **visibility**—different purpose. For **infinite** loaders, **paused** may still **consume** CPU if poorly implemented—**test**.
+
+10. **When might you prefer JS (Web Animations API / RAF) over CSS?**  
+    **Complex** choreography tied to **input**, **physics**, or **dynamic** values **not** expressible in keyframes. For **simple** **UI** feedback, **CSS** stays **declarative** and **performant**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Animations & Transitions
 

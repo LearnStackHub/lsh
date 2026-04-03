@@ -424,187 +424,6 @@ HAVING SUM(oi.quantity) >= 10
 ORDER BY total_revenue DESC
 LIMIT 3;
 \`\`\`
-  `,
-  code: `-- MySQL Aggregate Functions Examples
-
-CREATE DATABASE aggregate_demo;
-USE aggregate_demo;
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    stock INT UNSIGNED DEFAULT 0,
-    category VARCHAR(50)
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED,
-    order_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending'
-);
-
-CREATE TABLE order_items (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
-    quantity INT UNSIGNED NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
-);
-
--- Insert sample data
-INSERT INTO products (name, price, stock, category) VALUES
-('Laptop', 999.99, 50, 'Electronics'),
-('Mouse', 29.99, 100, 'Electronics'),
-('Keyboard', 79.99, 75, 'Electronics'),
-('Desk', 199.99, 30, 'Furniture'),
-('Chair', 149.99, 40, 'Furniture');
-
-INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
-(1, '2024-01-15', 999.99, 'completed'),
-(2, '2024-01-16', 109.98, 'completed'),
-(1, '2024-01-17', 199.99, 'pending'),
-(3, '2024-01-18', 79.99, 'completed');
-
-INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
-(1, 1, 1, 999.99),
-(2, 2, 2, 29.99),
-(2, 3, 1, 79.99),
-(3, 4, 1, 199.99),
-(4, 3, 1, 79.99);
-
--- ========== COUNT Examples ==========
-
--- Count all rows
-SELECT COUNT(*) FROM products;
-
--- Count with condition
-SELECT COUNT(*) FROM products WHERE price > 100;
-
--- Count distinct
-SELECT COUNT(DISTINCT category) FROM products;
-
--- Count by group
-SELECT category, COUNT(*) AS product_count FROM products GROUP BY category;
-
--- ========== SUM Examples ==========
-
--- Sum all prices
-SELECT SUM(price) FROM products;
-
--- Sum with condition
-SELECT SUM(total_amount) FROM orders WHERE status = 'completed';
-
--- Sum with calculation
-SELECT SUM(quantity * price) AS total_revenue FROM order_items;
-
--- Sum by group
-SELECT category, SUM(price) AS total_value FROM products GROUP BY category;
-
--- ========== AVG Examples ==========
-
--- Average price
-SELECT AVG(price) FROM products;
-
--- Average by category
-SELECT category, AVG(price) AS avg_price FROM products GROUP BY category;
-
--- Average order value
-SELECT AVG(total_amount) FROM orders WHERE status = 'completed';
-
--- ========== MIN and MAX Examples ==========
-
--- Minimum and maximum price
-SELECT MIN(price) AS cheapest, MAX(price) AS most_expensive FROM products;
-
--- By category
-SELECT 
-    category,
-    MIN(price) AS min_price,
-    MAX(price) AS max_price,
-    AVG(price) AS avg_price
-FROM products
-GROUP BY category;
-
--- ========== GROUP_CONCAT Examples ==========
-
--- List all products in category
-SELECT 
-    category,
-    GROUP_CONCAT(name) AS products
-FROM products
-GROUP BY category;
-
--- With separator and ordering
-SELECT 
-    category,
-    GROUP_CONCAT(name ORDER BY price DESC SEPARATOR ', ') AS products
-FROM products
-GROUP BY category;
-
--- ========== HAVING Examples ==========
-
--- Categories with more than 2 products
-SELECT category, COUNT(*) AS product_count
-FROM products
-GROUP BY category
-HAVING COUNT(*) > 2;
-
--- Categories with average price > 100
-SELECT category, AVG(price) AS avg_price
-FROM products
-GROUP BY category
-HAVING AVG(price) > 100;
-
--- ========== Multiple Aggregate Functions ==========
-
--- Complete statistics
-SELECT 
-    category,
-    COUNT(*) AS product_count,
-    SUM(stock) AS total_stock,
-    AVG(price) AS avg_price,
-    MIN(price) AS min_price,
-    MAX(price) AS max_price,
-    SUM(price * stock) AS inventory_value
-FROM products
-GROUP BY category;
-
--- ========== Real-World Examples ==========
-
--- Sales report by month
-SELECT 
-    DATE_FORMAT(order_date, '%Y-%m') AS month,
-    COUNT(*) AS order_count,
-    SUM(total_amount) AS total_revenue,
-    AVG(total_amount) AS avg_order_value
-FROM orders
-WHERE status = 'completed'
-GROUP BY DATE_FORMAT(order_date, '%Y-%m')
-ORDER BY month DESC;
-
--- Product sales analysis
-SELECT 
-    p.name AS product_name,
-    p.category,
-    COUNT(oi.id) AS times_ordered,
-    SUM(oi.quantity) AS total_sold,
-    SUM(oi.quantity * oi.price) AS total_revenue
-FROM products p
-LEFT JOIN order_items oi ON p.id = oi.product_id
-GROUP BY p.id, p.name, p.category
-ORDER BY total_revenue DESC;
-
--- Conditional aggregation
-SELECT 
-    COUNT(*) AS total_orders,
-    SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed,
-    SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending,
-    SUM(CASE WHEN status = 'completed' THEN total_amount ELSE 0 END) AS revenue
-FROM orders;
-
 ---
 
 ## Real-World Applications
@@ -806,9 +625,245 @@ Aggregate functions are essential for data analysis. Continue learning about [My
 
 ---
 
+## 10 Important Aggregate Functions Interview Questions
+
+### 1. What is an aggregate function?
+
+**Answer:** **Aggregate** functions summarize **many** rows into **fewer** values: **COUNT**, **SUM**, **AVG**, **MIN**, **MAX**, **GROUP_CONCAT**, etc. Without **GROUP BY**, they collapse the **entire** result into **one** row (or one row per **distinct** group when grouped). They are **central** to **analytics** and **reports**.
+
+### 2. What is the difference between COUNT(*) and COUNT(column)?
+
+**Answer:** **COUNT(\*)** counts **rows**, including rows where some columns are **NULL**. **COUNT(column)** counts rows where **that column** is **non-NULL**. **COUNT(DISTINCT column)** counts **unique** non-NULL values. This distinction is **high-frequency** in interviews.
+
+### 3. Can you nest aggregates in one SELECT?
+
+**Answer:** **No**—you cannot write **\`AVG(SUM(x))\`** in a **single** SELECT list without **grouping** or **subquery**. **Nesting** requires **derived tables**, **CTEs**, or **subqueries** to compute **inner** aggregates first. **SQL standard** disallows mixing aggregate levels in one expression.
+
+### 4. Why do you use GROUP BY?
+
+**Answer:** **GROUP BY** partitions rows into **groups** sharing the same values in the **grouped** columns. **Aggregates** then compute **per group**—e.g. **total revenue per region**. **Every** non-aggregated **SELECT** column should be **functionally** tied to the group in **ONLY_FULL_GROUP_BY** mode.
+
+### 5. Can you use HAVING without GROUP BY?
+
+**Answer:** **Yes**—the entire result is treated as **one implicit group**. Example: **\`SELECT COUNT(*) FROM orders HAVING COUNT(*) > 0;\`** filters the **aggregate** over the whole table. **Rare** in practice but **valid** and sometimes used in **dynamic** SQL.
+
+### 6. Does AVG ignore NULL?
+
+**Answer:** **Yes**—**NULL** values are **excluded** from **SUM** and **AVG** numerator/denominator. If **NULL** should mean **zero**, use **COALESCE** before aggregating—**business** semantics matter. **Wrong** NULL handling **skews** averages.
+
+### 7. How does COUNT DISTINCT work?
+
+**Answer:** **\`COUNT(DISTINCT col)\`** counts **unique** non-NULL values—useful for **“how many unique users”** questions. **Memory** and **temp** tables may be used for large sets—**performance** can matter.
+
+### 8. Do MIN and MAX work on dates and strings?
+
+**Answer:** **Yes**—they use the **type’s** sort order. **MIN(created_at)** finds the **earliest** timestamp; **MAX(name)** picks the **lexicographically last** string under the **collation**. **Useful** for **first/last** event queries.
+
+### 9. Why can’t WHERE reference SUM in the same query level?
+
+**Answer:** **WHERE** filters **rows before** aggregation—**SUM** does not exist yet. **Filter** aggregates with **HAVING** **after** **GROUP BY**. **Repeat** this until it is **automatic**.
+
+### 10. What is the performance angle for aggregates?
+
+**Answer:** Large **GROUP BY** queries benefit from **indexes** that **cover** **WHERE** predicates and **grouping** columns; **avoid** **functions** on indexed columns in **WHERE**. **Partitioning** large tables **may** help. **EXPLAIN** and **slow query log** guide tuning.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
+| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
+| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
+| **Reports in apps** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered aggregate functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering COUNT, SUM, AVG, MAX, MIN, and all MySQL topics!
+  `,
+  code: `-- MySQL Aggregate Functions Examples
+
+CREATE DATABASE aggregate_demo;
+USE aggregate_demo;
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT UNSIGNED DEFAULT 0,
+    category VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending'
+);
+
+CREATE TABLE order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED NOT NULL,
+    quantity INT UNSIGNED NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+-- Insert sample data
+INSERT INTO products (name, price, stock, category) VALUES
+('Laptop', 999.99, 50, 'Electronics'),
+('Mouse', 29.99, 100, 'Electronics'),
+('Keyboard', 79.99, 75, 'Electronics'),
+('Desk', 199.99, 30, 'Furniture'),
+('Chair', 149.99, 40, 'Furniture');
+
+INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
+(1, '2024-01-15', 999.99, 'completed'),
+(2, '2024-01-16', 109.98, 'completed'),
+(1, '2024-01-17', 199.99, 'pending'),
+(3, '2024-01-18', 79.99, 'completed');
+
+INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99),
+(2, 2, 2, 29.99),
+(2, 3, 1, 79.99),
+(3, 4, 1, 199.99),
+(4, 3, 1, 79.99);
+
+-- ========== COUNT Examples ==========
+
+-- Count all rows
+SELECT COUNT(*) FROM products;
+
+-- Count with condition
+SELECT COUNT(*) FROM products WHERE price > 100;
+
+-- Count distinct
+SELECT COUNT(DISTINCT category) FROM products;
+
+-- Count by group
+SELECT category, COUNT(*) AS product_count FROM products GROUP BY category;
+
+-- ========== SUM Examples ==========
+
+-- Sum all prices
+SELECT SUM(price) FROM products;
+
+-- Sum with condition
+SELECT SUM(total_amount) FROM orders WHERE status = 'completed';
+
+-- Sum with calculation
+SELECT SUM(quantity * price) AS total_revenue FROM order_items;
+
+-- Sum by group
+SELECT category, SUM(price) AS total_value FROM products GROUP BY category;
+
+-- ========== AVG Examples ==========
+
+-- Average price
+SELECT AVG(price) FROM products;
+
+-- Average by category
+SELECT category, AVG(price) AS avg_price FROM products GROUP BY category;
+
+-- Average order value
+SELECT AVG(total_amount) FROM orders WHERE status = 'completed';
+
+-- ========== MIN and MAX Examples ==========
+
+-- Minimum and maximum price
+SELECT MIN(price) AS cheapest, MAX(price) AS most_expensive FROM products;
+
+-- By category
+SELECT 
+    category,
+    MIN(price) AS min_price,
+    MAX(price) AS max_price,
+    AVG(price) AS avg_price
+FROM products
+GROUP BY category;
+
+-- ========== GROUP_CONCAT Examples ==========
+
+-- List all products in category
+SELECT 
+    category,
+    GROUP_CONCAT(name) AS products
+FROM products
+GROUP BY category;
+
+-- With separator and ordering
+SELECT 
+    category,
+    GROUP_CONCAT(name ORDER BY price DESC SEPARATOR ', ') AS products
+FROM products
+GROUP BY category;
+
+-- ========== HAVING Examples ==========
+
+-- Categories with more than 2 products
+SELECT category, COUNT(*) AS product_count
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 2;
+
+-- Categories with average price > 100
+SELECT category, AVG(price) AS avg_price
+FROM products
+GROUP BY category
+HAVING AVG(price) > 100;
+
+-- ========== Multiple Aggregate Functions ==========
+
+-- Complete statistics
+SELECT 
+    category,
+    COUNT(*) AS product_count,
+    SUM(stock) AS total_stock,
+    AVG(price) AS avg_price,
+    MIN(price) AS min_price,
+    MAX(price) AS max_price,
+    SUM(price * stock) AS inventory_value
+FROM products
+GROUP BY category;
+
+-- ========== Real-World Examples ==========
+
+-- Sales report by month
+SELECT 
+    DATE_FORMAT(order_date, '%Y-%m') AS month,
+    COUNT(*) AS order_count,
+    SUM(total_amount) AS total_revenue,
+    AVG(total_amount) AS avg_order_value
+FROM orders
+WHERE status = 'completed'
+GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+ORDER BY month DESC;
+
+-- Product sales analysis
+SELECT 
+    p.name AS product_name,
+    p.category,
+    COUNT(oi.id) AS times_ordered,
+    SUM(oi.quantity) AS total_sold,
+    SUM(oi.quantity * oi.price) AS total_revenue
+FROM products p
+LEFT JOIN order_items oi ON p.id = oi.product_id
+GROUP BY p.id, p.name, p.category
+ORDER BY total_revenue DESC;
+
+-- Conditional aggregation
+SELECT 
+    COUNT(*) AS total_orders,
+    SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed,
+    SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending,
+    SUM(CASE WHEN status = 'completed' THEN total_amount ELSE 0 END) AS revenue
+FROM orders;
 `
 };
 

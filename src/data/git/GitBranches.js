@@ -322,6 +322,52 @@ You've learned:
 - Understand pull requests
 - Learn advanced merging strategies
 
+---
+
+## 10 Important Git Branches Interview Questions
+
+1. **What is a branch in Git?**  
+   A branch is a **named pointer** to a commit. New commits move the branch **forward**. **\`main\`** (or \`master\`) usually holds **production-ready** code; **feature branches** hold work in progress.
+
+2. **How do you create and switch branches?**  
+   **Create:** \`git branch feature-login\` or **create+switch:** \`git switch -c feature-login\` (modern) / \`git checkout -b feature-login\` (classic). **Switch:** \`git switch feature-login\`.
+
+3. **What is \`git merge\`?**  
+   Combines another branch’s history **into** the branch you’re on (e.g. on \`main\`, run \`git merge feature-login\`). Git creates a **merge commit** unless it can **fast-forward**.
+
+4. **What is a fast-forward merge?**  
+   If \`main\` has **no new commits** since the feature branch split, Git just **moves the pointer** forward—linear history, **no** merge commit. **Good** for simple flows.
+
+5. **What is a merge conflict?**  
+   Two branches changed the **same lines**. Git **stops** and marks **\`<<<<<<< ======= >>>>>>>\`** in files. You **edit** to the final code, **\`git add\`**, then **\`git commit\`** (or complete the merge).
+
+6. **How do you delete a branch safely?**  
+   After merging: **\`git branch -d feature-login\`** (safe delete; fails if not merged). **\`-D\`** force-deletes—use only if you’re sure.
+
+7. **What is \`git branch -a\`?**  
+   Lists **local** and **remote-tracking** branches (e.g. \`origin/main\`). Helps you see what exists on the **server** vs your machine.
+
+8. **Why use short-lived feature branches?**  
+   Smaller PRs, **easier** review, **less** merge pain, and **faster** feedback. Long-lived branches drift and collect **many** conflicts.
+
+9. **What is \`HEAD\` on a branch?**  
+   **HEAD** usually points to a **branch name**, which points to a **commit**. “Checkout” moves **HEAD**—that’s how you **switch** what you’re working on.
+
+10. **Difference between merge and rebase (conceptual)?**  
+    **Merge** preserves exact branch history with a merge commit. **Rebase** **replays** your commits on top of another branch for a **straighter** log—powerful but **rewrites** commits; **avoid** on **shared** branches unless the team agrees.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Staging & commits** | [Git Basics](/tutorial/git-basics) |
+| **Merge strategies & conflicts** | [Git Merge Config](/tutorial/git-merge-config) |
+| **Undo mistakes** | [Git Revert](/tutorial/git-revert) |
+| **PRs from branches** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
+| **Daily team habits** | [Git Workflow](/tutorial/git-workflow) |
+
 Branches are essential for professional development - master them!
 `
 };

@@ -464,6 +464,76 @@ General troubleshooting:
 Most errors have simple solutions. Don't panic, follow the steps, and you'll resolve them!
 
 Next, let's compare Maven with Gradle!
+
+---
+
+## 10 Important Maven Troubleshooting Interview Questions
+
+1. **“Could not resolve dependency” — first checks?**  
+   **Step 1:** Read the **error**—copy the **exact** \`groupId:artifactId:version\` Maven tried to download.  
+   **Step 2:** Check for **typos** in \`pom.xml\`.  
+   **Step 3:** Confirm **internet** / **VPN** and that **company mirror** in **\`settings.xml\`** is not blocking.  
+   **Step 4:** Run **\`mvn -X\`** and search the log for **“Could not resolve”** to see **which URL** failed.  
+   **Step 5:** Try **\`mvn -U\`** once in case **metadata** is stale.
+
+2. **“Compilation failure: source release X requires target release X”**  
+   Your **POM** asks for Java **X** (e.g. **17**), but **JAVA_HOME** or **PATH** points to an **older** JDK (e.g. **11**).  
+   **Fix:** Install correct JDK, set **JAVA_HOME**, restart terminal, run **\`java -version\`** and **\`mvn -v\`** to confirm Maven sees the right Java.
+
+3. **Tests pass in IDE but fail in Maven?**  
+   The IDE might use **different** JUnit version, **different** working directory, or **include** folders Maven doesn’t. **Surefire** only runs certain **naming patterns** (\`*Test.java\`).  
+   **Fix:** Run **\`mvn -q test\`** locally; align **JUnit 4 vs 5** dependencies; put test resources under **\`src/test/resources\`**.
+
+4. **“Plugin not found” or wrong version?**  
+   Check **plugin** \`groupId\` and \`artifactId\` (easy to typo). Ensure **pluginRepositories** if the plugin is **not** on Central.  
+   **Parent POM** should list **pluginManagement** with **version**—child must **reference** the plugin to use it.
+
+5. **OutOfMemoryError during build?**  
+   Big projects or **forked** test JVMs can run out of heap. Set **\`MAVEN_OPTS\`** e.g. **\`-Xmx1024m\`** (Windows: **set MAVEN_OPTS=-Xmx1024m**).  
+   Also increase **Surefire** \`forkCount\` / memory in **plugin** config if tests spawn **many** JVMs.
+
+6. **SSL / PKIX certificate errors downloading from Central?**  
+   Corporate networks often **inspect HTTPS** with a **custom CA**. Java doesn’t trust that CA by default.  
+   **Proper fix:** Import company CA into **JDK cacerts** or use an **internal Nexus mirror** that IT maintains. **Never** disable SSL in real **production** CI as a lazy fix.
+
+7. **“Duplicate class” or “class path contains multiple SLF4J bindings”?**  
+   Two **different** JARs contain the **same** package (shade/relocate issue) or you have **two** logging implementations.  
+   **Fix:** **\`mvn dependency:tree\`**, find duplicates, add **\`<exclusions>\`**, or use **Spring** / **logging** BOM to align **one** stack.
+
+8. **Wrong artifact in local repo (corrupted)?**  
+   Sometimes download **cuts** mid-file—Maven caches a **broken** JAR.  
+   **Fix:** Delete the folder **\`~/.m2/repository/.../artifact-name/version/\`** and rebuild. **Last resort:** delete larger parts of \`.m2\` (slower re-download).
+
+9. **Build works locally, fails in CI?**  
+   Compare **JDK** version, **Maven** version, **\`MAVEN_OPTS\`**, **locale/timezone**, and **file encoding** (**UTF-8** in POM).  
+   CI might **not** have **\`settings.xml\`** secrets—fix **credentials** for **private** repos. **Linux vs Windows** path issues are rare but happen in **bad** scripts.
+
+10. **How do you isolate a failing phase?**  
+    Run **\`mvn compile\`** → then **\`mvn test\`** → then **\`mvn package\`** to see **where** it breaks.  
+    In **multi-module** builds, **\`mvn -rf :module-name\`** **resumes** the reactor **from** the failed module after you fix it—saves time.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

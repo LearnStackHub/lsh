@@ -306,6 +306,72 @@ Ways to create Maven project:
 Choose the method that works best for you. For beginners, I recommend starting with IntelliJ or the command line archetype.
 
 Once you have a project, let's learn about Maven's build lifecycle!
+
+---
+
+## 10 Important Creating Maven Projects Interview Questions
+
+1. **What is a Maven Archetype?**  
+   An **archetype** is a **blueprint project**. When you run **\`mvn archetype:generate\`**, Maven downloads a template and creates folders + a starter \`pom.xml\` + sample Java files.  
+   Think of it as **“File → New Project”** on the command line. There are archetypes for **plain Java**, **web apps**, **Spring**, etc.
+
+2. **How do you create a project non-interactively?**  
+   Add **\`-B\`** (batch mode) so Maven **does not ask** questions in the terminal. Pass everything with **\`-D\` flags**: \`-DgroupId=com.example\`, \`-DartifactId=demo\`, \`-DarchetypeArtifactId=maven-archetype-quickstart\`, etc.  
+   **Why:** CI servers **cannot** answer interactive prompts.
+
+3. **What is \`archetypeArtifactId=quickstart\`?**  
+   **\`maven-archetype-quickstart\`** is the **simplest** Java project: one \`App.java\`, one JUnit test, standard \`src/main/java\` layout.  
+   For **servlets**, people often start from **\`maven-archetype-webapp\`** or use **Spring Initializr** (which also produces Maven projects).
+
+4. **How do IDEs create Maven projects?**  
+   IntelliJ / Eclipse / VS Code can **generate** the same \`pom.xml\` and folders. The IDE then **imports** the Maven model.  
+   **You should still check:** Java version in POM matches **JDK** installed; **parent** and **dependencies** match **company** standards (don’t ship a homework project with wrong Spring version).
+
+5. **What is \`mvnw\` / Maven Wrapper generation?**  
+   Run **\`mvn -N wrapper:wrapper\`** (or use Spring Initializr which includes it). This adds **\`mvnw\`**, **\`mvnw.cmd\`**, and **\`.mvn/wrapper/\`**.  
+   **Benefit:** Everyone uses the **same Maven version** from the repo—no “works on my machine” because of different global Maven installs.
+
+6. **Can you convert a non-Maven project?**  
+   Yes, step by step: create **\`pom.xml\`**, move \`.java\` files into **\`src/main/java\`** with correct packages, move config files to **\`src/main/resources\`**, add **\`<dependencies>\`** for libraries you used to keep in \`lib/\`, then run **\`mvn verify\`** and fix errors.  
+   Large legacy apps may need **build-helper** or gradual migration.
+
+7. **What is \`packaging\` in a new project?**  
+   **\`jar\`:** default; builds a **\`.jar\`** (CLI tool, library, or Spring Boot executable JAR).  
+   **\`war\`:** builds a **\`.war\`** for deployment to **Tomcat** / **JBoss**.  
+   **\`pom\`:** this project **only aggregates** other modules—**no** main artifact.
+
+8. **Why might first \`mvn\` run be slow?**  
+   Maven must **download** the **compiler plugin**, **Surefire**, and **every dependency** (Spring can pull **100+** JARs). All of that is cached under **\`~/.m2/repository\`**.  
+   Behind a **corporate firewall**, you may need a **mirror** in **\`settings.xml\`**.
+
+9. **What is \`modelVersion\` in POM?**  
+   Almost always **\`4.0.0\`**—this is the **XML schema version** for Maven 3.x POM files. It must be the **first** thing inside \`<project>\` (after the XML header).
+
+10. **How do you validate a new POM?**  
+    Run **\`mvn validate\`**—checks POM structure. IDEs underline XML errors. For **stricter** checks, teams add **maven-enforcer-plugin** (JDK version, banned dependencies, etc.).
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

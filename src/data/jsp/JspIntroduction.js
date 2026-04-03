@@ -733,12 +733,69 @@ Master these JSP topics:
 
 **Prerequisites:**
 - Learn [Servlets Introduction](/tutorial/servlet-introduction) first
-- Understand [HTTP Request and Response](/tutorial/servlet-http-request-response)
-- Master [Session Management](/tutorial/servlet-session-management)
+- Understand [HTTP Request and Response](/tutorial/http-request-response)
+- Master [Session Management](/tutorial/session-management)
 
 **Next Level:**
 - Use [Spring Boot](/tutorial/spring-boot-introduction) with Thymeleaf templates
-- Learn [Spring MVC](/tutorial/spring-mvc-introduction) for modern web development
+- Learn [Spring MVC](/tutorial/spring-mvc-dispatcherservlet) for modern web development
+
+---
+
+## 10 Important JSP Introduction Interview Questions
+
+### 1. What is JSP?
+
+**Answer:** JavaServer Pages (JSP) is a server-side technology that lets you build dynamic web pages by mixing **markup** (usually HTML) with **Java** or **tag libraries**. You write a \`.jsp\` file; the **JSP container** (part of the servlet engine) **translates** that file into a **Java servlet class**, **compiles** it, and then runs that servlet on every request. The servlet’s job is to write HTML (or other content) to the response. So JSP is not a separate runtime—it is a **convenient authoring model** on top of the **servlet model**. That matters in interviews: you can explain that “under the hood it’s still a servlet,” which shows you understand the stack.
+
+### 2. JSP vs servlet—when would you use which?
+
+**Answer:** Historically, **servlets** were used to generate HTML by calling \`out.println\` in Java, which becomes messy for large UIs. **JSP** inverts the default: the page is mostly HTML, with small dynamic islands. In a clean design, the **servlet (or a framework controller)** handles **HTTP**, **validation**, **calling services**, and **choosing the next view**; the **JSP** focuses on **presentation**—looping over a list, formatting dates, showing errors. Putting heavy business logic inside JSP scriptlets is discouraged because it is **hard to unit test**, **hard to reuse**, and **blurs layers**. A strong interview answer: “Servlet/controller for orchestration; JSP for rendering; shared logic in plain Java classes.”
+
+### 3. What happens on the first request to a JSP?
+
+**Answer:** The first time a JSP is needed (or after it changes, depending on server settings), the container **parses** the JSP and **generates** a \`.java\` servlet source file, then **compiles** it to a \`.class\`, **loads** the class, and may call **jspInit** once. Only then does it run **service** logic for the request. That pipeline—**translation → compile → load → init → service**—explains the classic **“first hit is slow”** problem. In production discussions you can mention **precompiling JSPs** at build time, **warming** critical pages after deploy, or tuning the container’s JSP engine so predictable latency matters for your SLA.
+
+### 4. Explain scriptlet, expression, and declaration.
+
+**Answer:** A **scriptlet** (\`<% ... %>\`) embeds **statements** in the generated servlet’s service method—conditionals, loops, assignments. A **JSP expression** (\`<%= expr %>\`) evaluates an expression, converts it to a string, and **writes** it to the output; you must **not** put a semicolon inside the expression. A **declaration** (\`<%! ... %>\`) ends up as **members of the servlet class** (fields or methods), not inside \`_jspService\`. That last point is a common trap: instance fields on the servlet are **shared across all concurrent requests** unless you synchronize (usually a bad idea), so declarations that hold **mutable state** are **not thread-safe**. Interviewers often listen for that distinction.
+
+### 5. Why are heavy scriptlets discouraged?
+
+**Answer:** Scriptlets interleave **Java** with **HTML**, so the page becomes a single tangled artifact. That makes **code review** harder, **refactoring** riskier, and **automated testing** of presentation logic nearly impossible. Teams prefer **JSTL** (loops, conditionals) and **EL** (reading attributes and bean properties) because the JSP reads more like a **template** and less like a **program**. Security is another angle: long scriptlets make it easier to accidentally **bypass** escaping or **duplicate** validation. A mature answer: “We moved logic to services/controllers and kept JSP declarative.”
+
+### 6. What are JSP implicit objects?
+
+**Answer:** The container injects a fixed set of **variables** into the page so you do not declare them yourself. They include **request** (\`HttpServletRequest\`), **response** (\`HttpServletResponse\`), **session** (\`HttpSession\`), **application** (\`ServletContext\`), **out** (\`JspWriter\`), **pageContext** (access to scopes and convenience APIs), **config** (\`ServletConfig\`), **page** (the servlet instance), and **exception** (only on error pages configured with \`isErrorPage="true"\`). Knowing **pageContext** is useful because it is the bridge to **forward/include** and **scoped attributes** in one place. This topic pairs well with EL’s **implicit objects** (\`param\`, \`header\`, scope maps, etc.) in a follow-up question.
+
+### 7. How does a servlet pass data to a JSP?
+
+**Answer:** The usual pattern is **request-scoped** data: the servlet calls \`request.setAttribute("key", value)\`, then obtains a \`RequestDispatcher\` for the JSP and calls \`forward(request, response)\`. The **same request** continues into the JSP, so attributes are still available. For data that must survive **redirects**, you use **session** or **flash** patterns instead. In the JSP, you can read \`request.getAttribute("key")\` in a scriptlet, or in modern pages use EL such as \`\${key}\` or \`\${requestScope.key}\` after enabling EL. Mentioning **forward vs sendRedirect** here shows you understand **lifecycle** and **double-submit** issues.
+
+### 8. What is MVC with JSP?
+
+**Answer:** **Model** holds data and business rules (POJOs, services, DAOs). **View** is the JSP (or template) that renders HTML. **Controller** is typically a servlet or a framework class that reads input, invokes the model, selects a view, and forwards. The goal is **separation of concerns**: the JSP should not decide business outcomes or talk to the database directly. In interviews, contrast this with **“Model 1”** (JSP does everything) and explain why **Model 2** MVC scales better for teams and maintenance.
+
+### 9. What should you know about XSS in JSP?
+
+**Answer:** Cross-site scripting happens when **user-supplied** text is written into HTML **without encoding**, so the browser treats it as markup or script. Raw \`<%= userInput %>\` or EL that prints untrusted data can be dangerous. Mitigations include **context-appropriate escaping**, using JSTL’s \`<c:out>\` (default escaping), **Content-Security-Policy** headers, and **validating** input on the server. A good answer mentions **defense in depth**: encode on output, validate on input, and avoid mixing **trusted** and **untrusted** strings in one variable.
+
+### 10. What are common alternatives to JSP today?
+
+**Answer:** **Thymeleaf**, **FreeMarker**, and **Velocity** are popular **server-side** template engines, often paired with **Spring Boot**. **Single-page applications** (React, Vue, Angular) consume **JSON APIs** and move rendering to the browser. Many **greenfield** Spring projects default to Thymeleaf or REST + SPA, while **enterprise** and **legacy** codebases still run large JSP portfolios. Saying “JSP is legacy-only” is too strong; saying “I’d pick JSP when extending an existing stack, and templates or APIs for new services” sounds balanced and experienced.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **JSP scripting** | [JSP scripting elements](/tutorial/jsp-scripting-elements) |
+| **JSP directives** | [JSP directives](/tutorial/jsp-directives) |
+| **Servlets** | [Servlet introduction](/tutorial/servlet-introduction) |
+| **HTTP** | [HttpServletRequest & Response](/tutorial/http-request-response) |
+| **Spring MVC** | [Spring MVC DispatcherServlet](/tutorial/spring-mvc-dispatcherservlet) |
+
 `,
   code: `// JSP Introduction Demo
 // Demonstrates JSP concepts and syntax

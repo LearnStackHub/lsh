@@ -504,6 +504,67 @@ CREATE TABLE comments (
     INDEX idx_user (user_id)
 );
 \`\`\`
+---
+
+## 10 Important CREATE DATABASE / TABLE Interview Questions
+
+### 1. What is the difference between CREATE DATABASE and CREATE SCHEMA?
+
+**Answer:** In MySQL, **CREATE DATABASE** and **CREATE SCHEMA** are **synonyms**—both create a **logical database** (a namespace) that contains **tables**, **views**, **routines**, etc. The word “schema” in MySQL is often used interchangeably with **database** (unlike some other DBMS where schema is a namespace **inside** a database). State this clearly to avoid confusion in cross-database interviews.
+
+### 2. What does \`USE database_name;\` do?
+
+**Answer:** \`USE\` sets the **default schema** for the current **session**. Subsequent unqualified object names (\`users\`, \`orders\`) resolve in that database. You can always override with **qualified** names (\`otherdb.users\`). **Connection** strings often include a **default database** parameter for the same effect.
+
+### 3. What is a PRIMARY KEY in CREATE TABLE?
+
+**Answer:** A **primary key** uniquely identifies each row and implies **NOT NULL** and **UNIQUE**. InnoDB creates a **clustered index** on the primary key, physically ordering rows by PK. **Surrogate** integer keys with \`AUTO_INCREMENT\` are common; **natural** keys are valid when stable. **Composite** PKs are used when the combination is the natural identifier.
+
+### 4. What is a FOREIGN KEY?
+
+**Answer:** A **foreign key** links a **child** column (or set) to a **parent** primary or unique key, enforcing **referential integrity**: you cannot insert a child value that **does not exist** in the parent (unless **NULL** is allowed and used). **ON DELETE** and **ON UPDATE** clauses define **CASCADE**, **RESTRICT**, **SET NULL**, etc. **InnoDB** enforces FKs; **MyISAM** does not.
+
+### 5. What does \`ENGINE=InnoDB\` mean?
+
+**Answer:** It selects the **storage engine** for the table. **InnoDB** is the default and supports **transactions**, **foreign keys**, and **row-level locking**. **MyISAM** is legacy for many use cases. Stating **InnoDB** for OLTP is the expected interview default unless you cite a specific reason otherwise.
+
+### 6. Why use \`utf8mb4\` character set?
+
+**Answer:** **utf8mb4** is the **full UTF-8** encoding in MySQL (up to **4 bytes** per character), covering **emoji** and all Unicode. The older **utf8** alias in MySQL was **truncated** to three-byte sequences and **cannot** store all Unicode. Set **utf8mb4** at **server**, **database**, **table**, or **column** level, with a sensible **collation** for sorting and comparisons.
+
+### 7. Compare DROP TABLE and TRUNCATE TABLE.
+
+**Answer:** **DROP TABLE** removes the **table definition** and all **data** and **indexes**—the object is gone. **TRUNCATE** removes **all rows** and **resets** auto-increment counters but **keeps** the table structure. **TRUNCATE** is **faster** for full clears but interacts with **FKs** and **transactions** differently than **DELETE**; understand your **isolation** and **replication** context.
+
+### 8. What is the purpose of \`IF NOT EXISTS\`?
+
+**Answer:** \`CREATE DATABASE IF NOT EXISTS\` and \`CREATE TABLE IF NOT EXISTS\` prevent **errors** when the object already exists—useful for **bootstrap** scripts. **Caution:** in production, silent success can **mask** that **actual** definition differs from what the script expects—use **versioned migrations** for serious systems.
+
+### 9. Why specify NOT NULL on columns?
+
+**Answer:** **NOT NULL** enforces that a column must **always** have a value, which **documents** intent and **catches** bugs at insert time. **Combine** with **DEFAULT** for timestamps or flags. **Nullable** columns propagate **NULL** through queries and **aggregates**—use deliberately, not by accident.
+
+### 10. How do you inspect a table’s structure?
+
+**Answer:** Use \`DESCRIBE table_name;\` or \`SHOW COLUMNS FROM table_name;\` for a quick column list. **SHOW CREATE TABLE table_name;\`** gives exact **DDL** including **indexes**, **engine**, and **charset**—ideal for **copying** schema or **debugging** differences between environments. **information_schema** tables offer **programmatic** access for tooling.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Data types** | [MySQL Data Types](/tutorial/mysql-data-types) |
+| **DDL deep dive** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **DQL basics** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
+| **Maven + JDBC project** | [JDBC Project Setup](/tutorial/jdbc-project-setup) |
+
+---
+
+## Test Your Knowledge
+
+Mastered creating databases and tables? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering CREATE, ALTER, DROP, and all MySQL topics!
   `,
   code: `-- MySQL Database and Table Creation Examples
 
@@ -617,13 +678,7 @@ SELECT
     o.total_amount,
     o.status
 FROM orders o
-JOIN customers c ON o.customer_id = c.id;
-
----
-
-## Test Your Knowledge
-
-Mastered creating databases and tables? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering CREATE, ALTER, DROP, and all MySQL topics!`
+JOIN customers c ON o.customer_id = c.id;`
 };
 
 export default mysqlCreateDatabase;

@@ -500,6 +500,70 @@ Use cases:
 - Layered architectures
 
 Next, let's learn about Maven with Spring Boot!
+
+---
+
+## 10 Important Maven Multi-Module Interview Questions
+
+1. **What is an aggregator POM?**  
+   A root \`pom.xml\` with **packaging \`pom\`** and a **\`<modules>\`** list (each entry = subfolder name). It **doesn’t compile Java itself**—it **orchestrates** child projects.  
+   **\`mvn install\`** from root walks the **reactor** (all modules) in the **right order** so dependencies between modules resolve.
+
+2. **Why use multi-module projects?**  
+   Split **API** JAR, **implementation**, **web** layer, **shared** utilities—**clear boundaries** and **reuse**. One **\`mvn verify\`** at root tests **everything** together.  
+   **Parent POM** holds **dependencyManagement** so **all** modules use the **same** Spring/Jackson versions.
+
+3. **What is a parent POM?**  
+   Child modules include **\`<parent>\`** pointing to the **corporate** or **framework** parent (e.g. \`spring-boot-starter-parent\`). They **inherit** **properties**, **pluginManagement**, **dependencyManagement**.  
+   You avoid **copy-pasting** the same 200 lines into every module.
+
+4. **How do modules depend on each other?**  
+   Treat sibling modules like **any** Maven dependency: **\`<dependency>\`** with **groupId**, **artifactId**, **version**. For internal artifacts, version is often **\`\${project.version}\`** so **all** modules share one **release** version.  
+   Maven builds **dependency module** before **consumer module** automatically.
+
+5. **What is \`relativePath\` in \`<parent>\`?**  
+   By default Maven looks **one level up** (\`../pom.xml\`) for the parent **file**. If parent is **only** in a **repository** (not on disk next to you), use **\`<relativePath/>\`** empty to **skip** local lookup.
+
+6. **What does \`mvn -pl module -am\` do?**  
+   **\`-pl\`** = **project list** (which module(s) to build). **\`-am\`** = **also make** dependencies—build **this** module **and** any modules it **depends on** that are part of the reactor.  
+   **Use case:** Quick rebuild of **service-api** + its **service-core** dependency.
+
+7. **What is \`-amd\`?**  
+   **Also make dependents**—build the selected module **and** everything that **depends on** it. Useful when you change a **shared** library and want to **recompile all consumers**.
+
+8. **How do you version internal modules together?**  
+   Use one **\`\${revision}\`** property (e.g. \`1.4.0\`) in parent so **every** module gets the **same** version string. **flatten-maven-plugin** can **rewrite** POMs for publishing so consumers see a **literal** version.  
+   **Avoid** each module hardcoding **different** patch versions.
+
+9. **Circular dependency between modules?**  
+   If **A** depends on **B** and **B** depends on **A**, Maven **cannot** compile—**no valid order**.  
+   **Fix:** Extract **shared interfaces** to a **third** module **C** that both **A** and **B** depend on, or merge modules.
+
+10. **Why might you use \`dependencyManagement\` only in parent?**  
+    Children list **dependencies** **without** **\`<version>\`** tags—versions come **only** from parent’s **dependencyManagement**. When you **upgrade Spring**, you edit **one** parent POM, not **ten** child POMs.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

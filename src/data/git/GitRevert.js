@@ -356,6 +356,52 @@ You've learned:
 - Undoing on remote repositories
 - Best practices for undoing changes
 
+---
+
+## 10 Important Git Revert / Reset Interview Questions
+
+1. **What does \`git revert\` do?**  
+   Creates a **new commit** that **undoes** a previous commit’s changes—**history stays**; **safe** for **shared** branches because you **don’t** rewrite old commits.
+
+2. **What does \`git reset --hard\` do?**  
+   Moves **branch pointer** and **discards** working tree changes to match that commit—**destructive**. **Never** on **pushed shared** history without team agreement.
+
+3. **Difference between \`reset --soft\`, \`--mixed\`, \`--hard\`?**  
+   **soft:** move HEAD, **keep** staging + working changes. **mixed (default):** move HEAD, **unstage**, keep working files. **hard:** **wipe** staging and working tree to match commit.
+
+4. **When would you use \`git restore\`?**  
+   **Discard** local changes in a file (**before commit**) or **restore** from index—**safer** mental model than some **checkout** uses in modern Git.
+
+5. **Can you undo a \`git push\`?**  
+   Technically **\`git push --force\`** can **rewrite** remote history—**dangerous** if others **pulled**. Prefer **\`git revert\`** on shared branches.
+
+6. **What is \`git reflog\`?**  
+   **Local** log of **where HEAD moved**—helps **recover** “lost” commits after reset **if** you haven’t garbage-collected. **Lifeline** when you mess up **locally**.
+
+7. **How do you revert a merge commit?**  
+   **\`git revert -m 1 <merge-commit>\`** (choose **mainline parent**)—**tricky**; read docs or ask **senior** first. Wrong **\-m** picks wrong parent tree.
+
+8. **Why is “force push to main” a red flag?**  
+   **Rewrites** **public** history—teammates’ branches **break**, **CI** tags may **misalign**. **Policy** usually **forbids** except **admin** maintenance.
+
+9. **What is the safe default for freshers fixing a bad commit already on GitHub?**  
+   **\`git revert <bad-commit>\`** and **push**—transparent undo everyone can **understand**.
+
+10. **What is interactive rebase (\`git rebase -i\`)?**  
+    **Rewrite** your **local** commit series (squash, reword, reorder)—**powerful** for **clean** history **before** PR; **do not** rebase **others’** commits.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Commits & history** | [Git Basics](/tutorial/git-basics) |
+| **Merge & conflicts** | [Git Merge Config](/tutorial/git-merge-config) |
+| **Branch safety** | [Git Branches](/tutorial/git-branches) |
+| **After bad deploy** | [Git Deployment](/tutorial/git-deployment) |
+| **Protected history policies** | [Git Branch Protection](/tutorial/git-branch-protection) |
+
 Remember: When in doubt, use revert. It's safer and preserves history!
 `
 };

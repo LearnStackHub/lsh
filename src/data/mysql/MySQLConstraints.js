@@ -501,170 +501,6 @@ CREATE TABLE borrowings (
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE RESTRICT
 );
 \`\`\`
-  `,
-  code: `-- MySQL Constraints and Keys Examples
-
-CREATE DATABASE constraints_demo;
-USE constraints_demo;
-
--- ========== PRIMARY KEY Examples ==========
-
--- Single column primary key
-CREATE TABLE users1 (
-    id INT PRIMARY KEY,
-    name VARCHAR(100)
-);
-
--- Auto-increment primary key
-CREATE TABLE users2 (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100)
-);
-
--- Composite primary key
-CREATE TABLE order_items (
-    order_id INT,
-    product_id INT,
-    quantity INT,
-    PRIMARY KEY (order_id, product_id)
-);
-
--- ========== FOREIGN KEY Examples ==========
-
-CREATE TABLE customers (
-    id INT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
-);
-
--- Foreign key with CASCADE
-CREATE TABLE orders1 (
-    id INT PRIMARY KEY,
-    customer_id INT,
-    FOREIGN KEY (customer_id) 
-        REFERENCES customers(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-
--- Foreign key with RESTRICT
-CREATE TABLE orders2 (
-    id INT PRIMARY KEY,
-    customer_id INT,
-    FOREIGN KEY (customer_id) 
-        REFERENCES customers(id)
-        ON DELETE RESTRICT
-        ON UPDATE RESTRICT
-);
-
--- Foreign key with SET NULL
-CREATE TABLE orders3 (
-    id INT PRIMARY KEY,
-    customer_id INT,
-    FOREIGN KEY (customer_id) 
-        REFERENCES customers(id)
-        ON DELETE SET NULL
-        ON UPDATE SET NULL
-);
-
--- ========== UNIQUE Constraint ==========
-
-CREATE TABLE users3 (
-    id INT PRIMARY KEY,
-    email VARCHAR(255) UNIQUE,
-    username VARCHAR(50) UNIQUE,
-    phone VARCHAR(20)
-);
-
--- Composite unique
-CREATE TABLE enrollments (
-    student_id INT,
-    course_id INT,
-    UNIQUE (student_id, course_id)
-);
-
--- ========== NOT NULL ==========
-
-CREATE TABLE users4 (
-    id INT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone VARCHAR(20)  -- Can be NULL
-);
-
--- ========== CHECK Constraint (MySQL 8.0+) ==========
-
-CREATE TABLE products (
-    id INT PRIMARY KEY,
-    name VARCHAR(100),
-    price DECIMAL(10, 2) CHECK (price > 0),
-    stock INT CHECK (stock >= 0),
-    discount DECIMAL(5, 2) CHECK (discount >= 0 AND discount <= 100)
-);
-
-CREATE TABLE employees (
-    id INT PRIMARY KEY,
-    name VARCHAR(100),
-    age INT CHECK (age >= 18 AND age <= 65),
-    salary DECIMAL(10, 2) CHECK (salary > 0),
-    email VARCHAR(255) CHECK (email LIKE '%@%.%')
-);
-
--- ========== DEFAULT Constraint ==========
-
-CREATE TABLE products2 (
-    id INT PRIMARY KEY,
-    name VARCHAR(100),
-    stock INT DEFAULT 0,
-    is_active TINYINT(1) DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
--- ========== Complete E-Commerce Example ==========
-
-CREATE TABLE categories (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    parent_id INT UNSIGNED,
-    FOREIGN KEY (parent_id) REFERENCES categories(id) ON DELETE SET NULL
-);
-
-CREATE TABLE customers (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    name VARCHAR(100) NOT NULL,
-    phone VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE products3 (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    sku VARCHAR(50) NOT NULL UNIQUE,
-    price DECIMAL(10, 2) NOT NULL CHECK (price > 0),
-    stock INT UNSIGNED DEFAULT 0 CHECK (stock >= 0),
-    category_id INT UNSIGNED,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
-);
-
--- ========== Modifying Constraints ==========
-
--- Add constraint
-ALTER TABLE users4 ADD UNIQUE (email);
-ALTER TABLE products3 ADD CONSTRAINT chk_price CHECK (price > 0);
-
--- Drop constraint
-ALTER TABLE users4 DROP INDEX email;
-ALTER TABLE orders1 DROP FOREIGN KEY orders1_ibfk_1;
-
--- View constraints
-SELECT 
-    CONSTRAINT_NAME,
-    CONSTRAINT_TYPE,
-    TABLE_NAME
-FROM information_schema.TABLE_CONSTRAINTS
-WHERE TABLE_SCHEMA = 'constraints_demo';
-
 ---
 
 ## Real-World Applications
@@ -853,9 +689,228 @@ Constraints are essential for maintaining data integrity. Continue learning abou
 
 ---
 
+## 10 Important MySQL Constraints Interview Questions
+
+### 1. What is a PRIMARY KEY constraint?
+
+**Answer:** A **primary key** uniquely identifies **each row** in a table. It must be **NOT NULL** and **unique** across the table. A table has **at most one** primary key; it may be **single-column** or **composite**. In **InnoDB**, the primary key defines the **clustered index**—rows are stored in PK order. **AUTO_INCREMENT** is common on surrogate keys.
+
+### 2. What is the purpose of a FOREIGN KEY?
+
+**Answer:** A **foreign key** enforces **referential integrity** between **child** and **parent** tables: values in the child column(s) must match existing values in the referenced **parent** key (or be **NULL** if the column is nullable). This prevents **orphan** rows. **InnoDB** actually enforces FKs; **MyISAM** does not.
+
+### 3. How does UNIQUE differ from PRIMARY KEY?
+
+**Answer:** A table can have **multiple UNIQUE** constraints but **only one** PRIMARY KEY. Both enforce uniqueness; **UNIQUE** allows **multiple NULLs** in some versions/engine modes (MySQL treats NULL as distinct in unique indexes—**verify** behavior for your version). **PRIMARY KEY** columns are implicitly **NOT NULL**. **Unique** indexes also speed **lookup** by those columns.
+
+### 4. What are CHECK constraints in MySQL?
+
+**Answer:** **CHECK** constraints enforce **row-level** predicates (e.g. \`CHECK (age >= 0)\`). **MySQL 8.0.16+** enforces them **reliably**; older versions **parsed** but did **not** enforce CHECK—**legacy** databases may still have “dead” checks. Always validate **migrations** on a target version.
+
+### 5. What is a DEFAULT clause?
+
+**Answer:** **DEFAULT** supplies a value when an **INSERT** omits the column (or uses \`DEFAULT\` keyword). **Explicit** NULL in the insert **overrides** default for nullable columns. **NOT NULL** columns without a default require a value on insert. **Expression** defaults (e.g. \`CURRENT_TIMESTAMP\`) are common for audit columns.
+
+### 6. Explain ON DELETE CASCADE vs RESTRICT.
+
+**Answer:** **ON DELETE CASCADE** automatically **deletes** dependent **child** rows when the **parent** row is deleted—useful but **dangerous** if you delete by mistake. **RESTRICT** / **NO ACTION** (MySQL treats them similarly in many contexts) **blocks** deleting the parent **while children exist**—safer default for **data integrity**. **ON DELETE SET NULL** clears the FK when parent is deleted if the column is nullable. Choose **policies** to match **business** rules.
+
+### 7. Why use NOT NULL on important business columns?
+
+**Answer:** **NOT NULL** pushes **validation** into the database so **bad** rows cannot be stored even if **application** bugs slip through. It is **defense in depth** alongside **API** validation. Document **required** fields clearly; use **NULL** only when “unknown” is **meaningful**.
+
+### 8. What is a composite foreign key?
+
+**Answer:** When the relationship uses **multiple columns** in both parent and child (e.g. \`(warehouse_id, sku_id)\`), the foreign key references a **parent unique key** or **primary key** with the **same** column list and order. **Column order** must match exactly. **Junction** tables for many-to-many relationships often use composite keys.
+
+### 9. How do you discover foreign keys on a table?
+
+**Answer:** Use \`SHOW CREATE TABLE\` for human-readable DDL. Query **information_schema.KEY_COLUMN_USAGE** and **REFERENTIAL_CONSTRAINTS** for **programmatic** discovery. **GUI** tools (Workbench, DataGrip) visualize FK graphs. **Replication** and **migration** tools rely on this metadata.
+
+### 10. What are trade-offs of many foreign keys?
+
+**Answer:** FKs add **write** overhead (each insert/update/delete may **check** parent existence) and **migration** complexity (order of **drops/creates** matters). **Benefits** are **stronger** integrity and **clearer** data model. For **OLTP**, **correctness** usually wins; for **bulk** ETL, FKs may be **temporarily disabled** in controlled ways—**never** casually in production without understanding **risk**.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **DDL** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **Create tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
+| **Joins (use FKs)** | [MySQL Joins](/tutorial/mysql-joins) |
+| **Indexes** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **JPA mapping** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL constraints? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, and all MySQL topics!
+  `,
+  code: `-- MySQL Constraints and Keys Examples
+
+CREATE DATABASE constraints_demo;
+USE constraints_demo;
+
+-- ========== PRIMARY KEY Examples ==========
+
+-- Single column primary key
+CREATE TABLE users1 (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+-- Auto-increment primary key
+CREATE TABLE users2 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+-- Composite primary key
+CREATE TABLE order_items (
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    PRIMARY KEY (order_id, product_id)
+);
+
+-- ========== FOREIGN KEY Examples ==========
+
+CREATE TABLE customers (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Foreign key with CASCADE
+CREATE TABLE orders1 (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) 
+        REFERENCES customers(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Foreign key with RESTRICT
+CREATE TABLE orders2 (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) 
+        REFERENCES customers(id)
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT
+);
+
+-- Foreign key with SET NULL
+CREATE TABLE orders3 (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) 
+        REFERENCES customers(id)
+        ON DELETE SET NULL
+        ON UPDATE SET NULL
+);
+
+-- ========== UNIQUE Constraint ==========
+
+CREATE TABLE users3 (
+    id INT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    username VARCHAR(50) UNIQUE,
+    phone VARCHAR(20)
+);
+
+-- Composite unique
+CREATE TABLE enrollments (
+    student_id INT,
+    course_id INT,
+    UNIQUE (student_id, course_id)
+);
+
+-- ========== NOT NULL ==========
+
+CREATE TABLE users4 (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20)  -- Can be NULL
+);
+
+-- ========== CHECK Constraint (MySQL 8.0+) ==========
+
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    price DECIMAL(10, 2) CHECK (price > 0),
+    stock INT CHECK (stock >= 0),
+    discount DECIMAL(5, 2) CHECK (discount >= 0 AND discount <= 100)
+);
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT CHECK (age >= 18 AND age <= 65),
+    salary DECIMAL(10, 2) CHECK (salary > 0),
+    email VARCHAR(255) CHECK (email LIKE '%@%.%')
+);
+
+-- ========== DEFAULT Constraint ==========
+
+CREATE TABLE products2 (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    stock INT DEFAULT 0,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- ========== Complete E-Commerce Example ==========
+
+CREATE TABLE categories (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    parent_id INT UNSIGNED,
+    FOREIGN KEY (parent_id) REFERENCES categories(id) ON DELETE SET NULL
+);
+
+CREATE TABLE customers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE products3 (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    sku VARCHAR(50) NOT NULL UNIQUE,
+    price DECIMAL(10, 2) NOT NULL CHECK (price > 0),
+    stock INT UNSIGNED DEFAULT 0 CHECK (stock >= 0),
+    category_id INT UNSIGNED,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+);
+
+-- ========== Modifying Constraints ==========
+
+-- Add constraint
+ALTER TABLE users4 ADD UNIQUE (email);
+ALTER TABLE products3 ADD CONSTRAINT chk_price CHECK (price > 0);
+
+-- Drop constraint
+ALTER TABLE users4 DROP INDEX email;
+ALTER TABLE orders1 DROP FOREIGN KEY orders1_ibfk_1;
+
+-- View constraints
+SELECT 
+    CONSTRAINT_NAME,
+    CONSTRAINT_TYPE,
+    TABLE_NAME
+FROM information_schema.TABLE_CONSTRAINTS
+WHERE TABLE_SCHEMA = 'constraints_demo';
 `
 };
 

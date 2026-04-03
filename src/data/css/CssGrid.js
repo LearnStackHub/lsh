@@ -336,6 +336,63 @@ For grid items, you can control placement using \`grid-column\` to specify which
 For responsive designs, you can use \`repeat(auto-fit, minmax())\` to automatically create as many columns as fit in the available space, with each column having a minimum and maximum size. This is perfect for creating responsive card grids that adapt to different screen sizes.
 
 Grid is perfect for complex two-dimensional layouts like page layouts, image galleries, and dashboard interfaces. It works great alongside Flexbox, which is better for one-dimensional layouts.
+
+---
+
+## 10 Important CSS Grid Interview Questions
+
+1. **What problem does CSS Grid solve?**  
+   **Two-dimensional** layout: explicit **rows and columns** with alignment, **gaps**, and **named areas**. Ideal for **page shells**, **dashboards**, **galleries**. Unlike Flex (primarily **1D**), Grid models **both** axes simultaneously.
+
+2. **What do \`grid-template-columns\` and \`fr\` units mean?**  
+   **fr** = **fraction** of **remaining** free space after **min-content** contributions. **\`1fr 2fr\`** splits space **1:2**. **\`minmax(200px, 1fr)\`** prevents columns shrinking below **200px**—key for **responsive** grids.
+
+3. **What does \`repeat(auto-fit, minmax(250px, 1fr))\` achieve?**  
+   **Responsive** columns without **media queries**: as many **250px-min** tracks as fit, **stretch** to fill (\`auto-fit\` collapses empty tracks). **auto-fill** keeps **empty** tracks—subtle difference for **sparse** rows.
+
+4. **How does \`grid-template-areas\` help readability?**  
+   ASCII-art **layout** maps (\`"header header"\`) assign **names** to **cells**; children use **\`grid-area: header\`**. Great for **prototypes** and **team** communication. Reflow by **renaming** areas at breakpoints.
+
+5. **What is the difference between \`justify-items\` and \`justify-self\`?**  
+   **-items** aligns **all** grid items **within** their **cells** (cross vs main depends on **writing mode**). **-self** overrides for **one** item. Analogous **align-** properties control the **other** axis.
+
+6. **What are implicit vs explicit grid tracks?**  
+   **Explicit** tracks come from **template-rows/columns**. **Implicit** tracks are **auto-created** when you place **more** items than defined—sized with **grid-auto-rows/columns**. **Dense** packing (\`grid-auto-flow: row dense\`) fills **holes** but can reorder **visual** vs **DOM** reading order—**accessibility** caution.
+
+7. **How do you overlap grid items?**  
+   Place two items in the **same** **grid-area** or overlapping **line ranges**. Use **z-index** for **stacking**. Useful for **badges** on **cards**—often simpler than **absolute** positioning if already in **grid**.
+
+8. **What is subgrid (\`grid-template-rows: subgrid\`)?**  
+   Lets nested grids **align** to **parent** track definitions—great for **card** titles lining up across **rows**. **Growing** browser support—**fallbacks** may be needed for **older** browsers.
+
+9. **Grid vs Flexbox in interviews—practical split?**  
+   **Grid** for **macro** layout (sections, columns). **Flex** for **micro** layout (icon + label row). **Grid** handles **2D** alignment; **Flex** is simpler when you only need **one** axis distribution.
+
+10. **What is \`minmax()\` with \`min-content\` and \`max-content\`?**  
+    **min-content** is the **smallest** size without **overflow** (often **longest word** width). **max-content** is **as wide as content wants**. Used in **advanced** grids to let **tracks** respond to **typography** and **images**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Grid
 

@@ -289,6 +289,52 @@ You've successfully:
 
 **Next Tutorial:** Git Basics - Creating Your First Repository
 
+---
+
+## 10 Important Git Installation Interview Questions
+
+1. **How do you check if Git is already installed?**  
+   Open a terminal and run **\`git --version\`**. If you see a version (e.g. \`git version 2.43\`), Git is installed. If you get “command not found,” install Git for your OS.
+
+2. **What is the difference between Git and Git GUI tools?**  
+   **Git** is the **command-line** program. GUIs (GitHub Desktop, IDE plugins) call the same Git underneath. **Interviews** still expect you to know basic **CLI** commands.
+
+3. **Why set \`user.name\` and \`user.email\`?**  
+   Every **commit** records **who** made it. Git uses **\`git config --global user.name "..."\`** and **\`user.email\`**. Use the **same email** as your GitHub account (or your company email) so commits **link** to your profile.
+
+4. **What does \`--global\` mean in \`git config\`?**  
+   Settings apply to **all repositories** on your machine (stored in your home directory). **Without** \`--global\`, config applies **only** to the **current** repo (useful for work vs personal on one PC).
+
+5. **How do you see your Git configuration?**  
+   **\`git config --list\`** shows all settings. **\`git config user.email\`** shows one value. Use this when debugging “wrong author on commits.”
+
+6. **What is the default branch name—\`main\` or \`master\`?**  
+   New Git versions often default to **\`main\`**. Older tutorials say **\`master\`**. Both are just **names**; teams pick one and stay consistent. You can set **\`init.defaultBranch\`** in config.
+
+7. **On Windows, why use Git Bash vs PowerShell?**  
+   **Git Bash** provides Unix-like commands and paths many tutorials assume. **PowerShell** works too with Git for Windows. Pick one terminal and learn **\`cd\`** into your project folder before running Git.
+
+8. **What if \`git\` is not recognized after install?**  
+   **PATH** is wrong or terminal wasn’t restarted. Re-run the installer with “Add Git to PATH,” or add **\`.../Git/cmd\`** manually to **PATH**, then **open a new** terminal.
+
+9. **Should you install Git as administrator?**  
+   On Windows, **admin** can help with PATH for all users. For learning, per-user install is fine. **Avoid** running every Git command as admin day-to-day.
+
+10. **What’s the next step after installation?**  
+    Run **\`git config --global --list\`**, create a test folder, **\`git init\`**, **\`git status\`**—confirm nothing errors. Then follow **[Git Basics](/tutorial/git-basics)**.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **What Git is (concepts)** | [Git Introduction](/tutorial/git-introduction) |
+| **Next: first repo & commits** | [Git Basics](/tutorial/git-basics) |
+| **Editor / IDE setup** | [Java Environment Setup](/tutorial/java-environment-setup) |
+| **Project + build files** | [Maven Introduction](/tutorial/maven-introduction) |
+| **SSH keys (later, for GitHub)** | [GitHub Security](/tutorial/github-security) |
+
 Ready to start using Git? Let's move forward!
 `
 };

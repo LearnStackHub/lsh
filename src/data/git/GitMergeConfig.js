@@ -327,6 +327,52 @@ You've learned:
 - Rebase vs merge
 - Best practices for merging
 
+---
+
+## 10 Important Git Merge Interview Questions
+
+1. **What is a three-way merge?**  
+   Git finds a **common ancestor** commit and **two** tips (e.g. \`main\` and \`feature\`), then **combines** changes. If the **same lines** changed both sides → **conflict**.
+
+2. **What is fast-forward vs no-fast-forward (\`--no-ff\`)?**  
+   **Fast-forward:** simply moves the branch pointer—**no** merge commit. **\`--no-ff\`:** always creates a **merge commit** to **record** that a feature branch existed—clearer history for **release** archaeology.
+
+3. **What does \`git merge --squash\` do?**  
+   Applies **all** changes from a branch as **uncommitted** staged changes on your current branch—one **single** commit when you commit. **Flattens** feature commits; **different** from **GitHub squash merge** UI but similar idea.
+
+4. **What is \`ours\` vs \`theirs\` during conflicts?**  
+   In a merge, **“ours”** is usually **your current branch**, **“theirs”** is the **branch being merged** (can feel reversed during **rebase**—**be careful**). Prefer **manual** resolution over blind **\`--ours\`** unless you’re sure.
+
+5. **How do you abort a bad merge?**  
+   **\`git merge --abort\`** (if merge in progress). Returns you to **pre-merge** state—safe when you’re confused.
+
+6. **What is \`git mergetool\`?**  
+   Opens a **visual** diff/merge tool (Beyond Compare, VS Code) to resolve conflicts **faster** than raw text markers.
+
+7. **Rebase vs merge (when to use which)?**  
+   **Merge** preserves **true** parallel history. **Rebase** **replays** commits for a **linear** log—nice on **private** feature branches; **dangerous** if you **rebase shared** history others already pulled.
+
+8. **What is an octopus merge?**  
+   Merging **more than two** parents at once—**rare** manually; Git uses it internally in some cases. **Fresher:** know the **name**; you’ll mostly see **two-parent** merges.
+
+9. **Why run tests after resolving conflicts?**  
+   Conflict resolution can **drop** logic or **duplicate** lines. **Compile + tests** catch mistakes **before** push.
+
+10. **What is \`.gitattributes\` for merges?**  
+    Can set **merge strategies** per file type (e.g. **binary**, **union**). Advanced—**enterprises** use it for **generated** files.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Branch basics** | [Git Branches](/tutorial/git-branches) |
+| **Safe undo** | [Git Revert](/tutorial/git-revert) |
+| **PR + merge policies** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
+| **Protected branches** | [Git Branch Protection](/tutorial/git-branch-protection) |
+| **Daily habits** | [Git Workflow](/tutorial/git-workflow) |
+
 Understanding merge configurations helps you work more effectively with teams and maintain clean project history!
 `
 };

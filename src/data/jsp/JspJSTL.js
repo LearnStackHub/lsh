@@ -279,6 +279,63 @@ Dollar{fn:escapeXml(htmlContent)}           <%-- Escape HTML --%>
 </body>
 </html>
 \`\`\`
+
+---
+
+## 10 Important JSP JSTL Interview Questions
+
+### 1. What is JSTL and why use it?
+
+**Answer:** The **JSP Standard Tag Library** bundles **vendor-neutral** tags for common view tasks: iteration, conditionals, URL building, internationalized formatting, and more. Instead of Java **scriptlets** for loops and \`if\` statements, you use XML tags that read like **template** logic. That improves **readability**, **security** (e.g. \`c:out\` escaping), and **team** collaboration because designers can follow tag structure more easily than embedded Java.
+
+### 2. What are the main JSTL modules (prefixes) you should name in an interview?
+
+**Answer:** **Core** tags (prefix \`c\`) cover flow and general utilities; **Formatting** tags (prefix \`fmt\`) handle numbers, dates, time zones, and resource bundles; **Functions** (prefix \`fn\`) expose string and collection helpers you call from EL; historically there are also **SQL** and **XML** modules (generally discouraged for real **business** SQL/XML inside JSP today). Saying that **SQL tags** blur layers and belong in **services** shows architectural judgment.
+
+### 3. How does \`<c:forEach>\` differ from a Java \`for\` scriptlet?
+
+**Answer:** \`c:forEach\` iterates **collections**, **arrays**, \`Iterator\`, \`Enumeration\`, and comma-separated **tokens**, exposing \`var\`, \`varStatus\` (\`index\`, \`count\`, \`first\`, \`last\`), and optional \`begin\`/\`end\`/\`step\`. It runs through the **tag handler**, not user-written Java in the page, so the servlet code stays **declarative**. Compare **performance**: for huge lists, **pagination** belongs in the **controller**, not a million-iteration JSP.
+
+### 4. Explain \`<c:if>\`, \`<c:choose>\`, \`<c:when>\`, and \`<c:otherwise>\`.
+
+**Answer:** \`c:if\` is a **single** boolean test (no \`else\` in core JSTL 1.x—use nested tags or \`choose\`). \`c:choose\` is the **switch** pattern: multiple \`c:when\` tests in order, then \`c:otherwise\` as default. EL expressions in \`test\` must resolve to **boolean**-friendly values per coercion rules. This replaces tangled scriptlet \`if/else\` chains.
+
+### 5. What does \`<c:out>\` add beyond printing EL?
+
+**Answer:** Default **XML/HTML escaping** prevents **XSS** when rendering untrusted strings. It supports a \`default\` attribute when the value is **null** or empty. Interviewers like hearing **escapeXml** vs **raw** output trade-offs and when to use **unescaped** output (rare, controlled HTML fragments only).
+
+### 6. What is \`<c:url>\` / \`<c:param>\` for?
+
+**Answer:** They build **context-relative** URLs with correct **context path** prepending and optional **query** parameters—important when the app is not mounted at \`/\`. This avoids hard-coded \`/app\` prefixes that break between environments. Relate it to **reverse proxies** and **URL rewriting** for sessions.
+
+### 7. How do \`fmt:formatDate\` and \`fmt:formatNumber\` help internationalization?
+
+**Answer:** They format **dates** and **numbers** according to a **locale** (from the request, session, or explicit tag attributes) and **time zone** settings. Raw \`toString()\` on \`Date\` or \`double\` is not acceptable for **global** apps. Mention **resource bundles** (\`fmt:message\`) for **translated** text instead of hard-coded strings.
+
+### 8. What is the JSTL **functions** library (\`fn:\`)?
+
+**Answer:** It exposes methods like \`length\`, \`substring\`, \`contains\`, \`trim\`, \`split\`, usable inside **EL** (\`fn:length(items)\`). That keeps **string** manipulation out of scriptlets. Caution: heavy **logic** in EL + \`fn:\` can still become **unreadable**—know when to move to **Java** helpers.
+
+### 9. How do you declare JSTL in a JSP?
+
+**Answer:** Place taglib directives mapping the **standard URIs** to prefixes, for example \`<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>\` (implementation JARs must be on the classpath—typically \`WEB-INF/lib\`). Confusing **URI** strings with **download URLs** is a common beginner mistake; explain that the URI is a **logical** namespace resolved by the container and TLDs.
+
+### 10. What mistakes do candidates make around JSTL and EL together?
+
+**Answer:** Putting **business rules** inside \`test="\${...}"\`; forgetting **null**/empty checks; using **SQL** tags for **transactional** logic; mixing **unescaped** output with user data; and not understanding that **tags** execute **server-side** on every request—**no** client-side caching of tag results. A strong closing ties JSTL to **MVC**: controller prepares **model**, JSP/JSTL **renders**.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **EL** | [JSP Expression Language](/tutorial/jsp-expression-language) |
+| **Custom tags** | [JSP custom tags](/tutorial/jsp-custom-tags) |
+| **Directives** | [JSP directives](/tutorial/jsp-directives) |
+| **Action tags** | [JSP action tags](/tutorial/jsp-action-tags) |
+| **Introduction** | [JSP introduction](/tutorial/jsp-introduction) |
+
 `,
   code: `// JSTL Demo
 // Demonstrates core, formatting, and function tags

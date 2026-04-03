@@ -447,190 +447,6 @@ GROUP BY category
 ORDER BY total_stock_value DESC
 LIMIT 3;
 \`\`\`
-  `,
-  code: `-- MySQL Clauses Examples
-
-CREATE DATABASE clauses_demo;
-USE clauses_demo;
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    category VARCHAR(50),
-    stock INT UNSIGNED DEFAULT 0,
-    status VARCHAR(20) DEFAULT 'active',
-    description TEXT
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED,
-    order_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending'
-);
-
--- Insert sample data
-INSERT INTO products (name, price, category, stock, status) VALUES
-('Laptop', 999.99, 'Electronics', 50, 'active'),
-('Mouse', 29.99, 'Electronics', 100, 'active'),
-('Keyboard', 79.99, 'Electronics', 75, 'active'),
-('Desk', 199.99, 'Furniture', 30, 'active'),
-('Chair', 149.99, 'Furniture', 25, 'active');
-
--- ========== WHERE Clause ==========
-
--- Simple condition
-SELECT * FROM products WHERE price > 100;
-
--- Multiple conditions with AND
-SELECT * FROM products WHERE price > 100 AND stock > 0;
-
--- Multiple conditions with OR
-SELECT * FROM products WHERE category = 'Electronics' OR category = 'Furniture';
-
--- IN
-SELECT * FROM products WHERE category IN ('Electronics', 'Furniture');
-
--- NOT IN
-SELECT * FROM products WHERE category NOT IN ('Electronics');
-
--- BETWEEN
-SELECT * FROM products WHERE price BETWEEN 50 AND 200;
-
--- LIKE
-SELECT * FROM products WHERE name LIKE '%laptop%';
-SELECT * FROM products WHERE name LIKE 'Laptop%';
-SELECT * FROM products WHERE name LIKE '%Pro';
-
--- IS NULL / IS NOT NULL
-SELECT * FROM products WHERE description IS NULL;
-SELECT * FROM products WHERE description IS NOT NULL;
-
--- ========== GROUP BY Clause ==========
-
--- Group by single column
-SELECT category, COUNT(*) AS count
-FROM products
-GROUP BY category;
-
--- Group by multiple columns
-SELECT category, status, COUNT(*) AS count
-FROM products
-GROUP BY category, status;
-
--- Group with aggregates
-SELECT 
-    category,
-    COUNT(*) AS product_count,
-    AVG(price) AS avg_price,
-    MAX(price) AS max_price,
-    MIN(price) AS min_price,
-    SUM(stock) AS total_stock
-FROM products
-GROUP BY category;
-
--- ========== HAVING Clause ==========
-
--- Filter groups
-SELECT category, COUNT(*) AS count
-FROM products
-GROUP BY category
-HAVING COUNT(*) > 2;
-
--- HAVING with aggregates
-SELECT 
-    category,
-    AVG(price) AS avg_price
-FROM products
-GROUP BY category
-HAVING AVG(price) > 100;
-
--- WHERE vs HAVING
-SELECT 
-    category,
-    COUNT(*) AS count,
-    AVG(price) AS avg_price
-FROM products
-WHERE stock > 0          -- Filter rows first
-GROUP BY category
-HAVING COUNT(*) > 1     -- Filter groups after
-AND AVG(price) > 50;
-
--- ========== ORDER BY Clause ==========
-
--- Ascending (default)
-SELECT * FROM products ORDER BY price;
-
--- Descending
-SELECT * FROM products ORDER BY price DESC;
-
--- Multiple columns
-SELECT * FROM products ORDER BY category, price DESC;
-
--- Using expressions
-SELECT 
-    name,
-    price * stock AS total_value
-FROM products
-ORDER BY total_value DESC;
-
--- ========== LIMIT Clause ==========
-
--- Limit rows
-SELECT * FROM products LIMIT 10;
-
--- Limit with offset
-SELECT * FROM products LIMIT 10 OFFSET 0;
-SELECT * FROM products LIMIT 0, 10;
-
--- Top N
-SELECT * FROM products ORDER BY price DESC LIMIT 5;
-
--- Pagination
-SELECT * FROM products LIMIT 0, 10;   -- Page 1
-SELECT * FROM products LIMIT 10, 10;  -- Page 2
-SELECT * FROM products LIMIT 20, 10;  -- Page 3
-
--- ========== Complete Example ==========
-
-SELECT 
-    category,
-    COUNT(*) AS product_count,
-    AVG(price) AS avg_price,
-    SUM(stock) AS total_stock
-FROM products
-WHERE stock > 0
-AND price > 10
-GROUP BY category
-HAVING COUNT(*) > 1
-AND AVG(price) > 50
-ORDER BY avg_price DESC
-LIMIT 10;
-
--- ========== Real-World Examples ==========
-
--- Top categories by stock value
-SELECT 
-    category,
-    SUM(price * stock) AS total_stock_value
-FROM products
-WHERE stock > 0
-GROUP BY category
-ORDER BY total_stock_value DESC
-LIMIT 3;
-
--- Categories with high average price
-SELECT 
-    category,
-    AVG(price) AS avg_price,
-    COUNT(*) AS product_count
-FROM products
-GROUP BY category
-HAVING AVG(price) > 100
-ORDER BY avg_price DESC;
-
 ---
 
 ## Real-World Applications
@@ -824,9 +640,248 @@ SQL clauses are essential for building effective queries. Continue learning abou
 
 ---
 
+## 10 Important SQL Clauses Interview Questions
+
+### 1. What is the WHERE clause for?
+
+**Answer:** \`WHERE\` **restricts** which rows participate in the rest of the query **before** grouping. Conditions reference **columns**, **expressions**, and **parameters**—but **not** aggregate functions (use **HAVING** for those). **Index-friendly** predicates (\`=\`, **range** on leading index columns) **speed** execution.
+
+### 2. What does GROUP BY do?
+
+**Answer:** \`GROUP BY\` partitions rows into **groups** that share the same values in the **grouped** columns. **Aggregate** functions then compute **per group** totals. In **ONLY_FULL_GROUP_BY** mode, non-aggregated **SELECT** columns must appear in \`GROUP BY\` or be **functionally dependent** on grouped columns—preventing **ambiguous** results.
+
+### 3. Why is WHERE COUNT(*) wrong but HAVING COUNT(*) right?
+
+**Answer:** At the **WHERE** stage, **aggregates** do **not** exist yet—each row is still **individual**. **COUNT(\*)** is computed **after** grouping. **Filter** aggregates with \`HAVING COUNT(*) > 1\` (e.g. **duplicate** detection). **This** distinction trips many candidates.
+
+### 4. How does ORDER BY work and what is ASC/DESC?
+
+**Answer:** \`ORDER BY\` sorts the **final** result set. **ASC** (default) is ascending; **DESC** is descending—common for **newest first** on \`created_at\`. You can sort by **expression** or **alias** (MySQL allows **SELECT** alias in **ORDER BY** in many cases). **Avoid** numeric **positional** \`ORDER BY 1\` in production code—**fragile** when columns change.
+
+### 5. What are LIMIT and OFFSET?
+
+**Answer:** \`LIMIT n\` returns at most **n** rows (after \`ORDER BY\`). **OFFSET m** skips the first **m** rows—**pagination** pattern. **Large OFFSET** can be **slow** because the engine still **sorts** and **discards** many rows—use **keyset** pagination for **deep** pages.
+
+### 6. Is BETWEEN inclusive?
+
+**Answer:** Yes—\`BETWEEN a AND b\` includes **both** endpoints **when** \`a <= b\`. **Watch** **data types** and **time** boundaries (end-of-day vs \`< next day\`). **BETWEEN** on **datetime** ranges can be subtle with **microseconds**.
+
+### 7. When do you use IN vs a long OR list?
+
+**Answer:** \`IN (v1, v2, ...)\` is **clearer** than **chained OR** for many literals. **Performance** is similar for **small** constants. For **subqueries**, \`IN (SELECT ...)\` may be rewritten to **EXISTS** or **JOIN** by the optimizer—**EXPLAIN** to verify.
+
+### 8. Can ORDER BY reference columns not in the SELECT list?
+
+**Answer:** **Yes**—\`ORDER BY\` can sort by columns not projected, as long as they are **available** in the **FROM** clause (or **expressions**). **GROUP BY** rules are **stricter**—do **not** confuse the two.
+
+### 9. How does ORDER BY treat NULLs?
+
+**Answer:** **NULL** sort order depends on **ASC/DESC** and **MySQL version** (\`NULLS FIRST\` / \`LAST\` are **not** standard in older MySQL). If **NULL** order matters, use **CASE** expressions or **IS NULL** in **ORDER BY** to **force** order.
+
+### 10. What is the classic WHERE vs HAVING interview line?
+
+**Answer:** **WHERE** filters **raw rows**; **HAVING** filters **groups** **after** \`GROUP BY\`. Say it **slowly** with an **example**—interviewers use this as a **weed-out** question.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **DQL** | [MySQL DQL](/tutorial/mysql-dql) |
+| **Aggregates** | [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) |
+| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
+| **Indexes (sort speed)** | [MySQL Indexes](/tutorial/mysql-indexes) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered SQL clauses? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and all MySQL topics!
+  `,
+  code: `-- MySQL Clauses Examples
+
+CREATE DATABASE clauses_demo;
+USE clauses_demo;
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(50),
+    stock INT UNSIGNED DEFAULT 0,
+    status VARCHAR(20) DEFAULT 'active',
+    description TEXT
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending'
+);
+
+-- Insert sample data
+INSERT INTO products (name, price, category, stock, status) VALUES
+('Laptop', 999.99, 'Electronics', 50, 'active'),
+('Mouse', 29.99, 'Electronics', 100, 'active'),
+('Keyboard', 79.99, 'Electronics', 75, 'active'),
+('Desk', 199.99, 'Furniture', 30, 'active'),
+('Chair', 149.99, 'Furniture', 25, 'active');
+
+-- ========== WHERE Clause ==========
+
+-- Simple condition
+SELECT * FROM products WHERE price > 100;
+
+-- Multiple conditions with AND
+SELECT * FROM products WHERE price > 100 AND stock > 0;
+
+-- Multiple conditions with OR
+SELECT * FROM products WHERE category = 'Electronics' OR category = 'Furniture';
+
+-- IN
+SELECT * FROM products WHERE category IN ('Electronics', 'Furniture');
+
+-- NOT IN
+SELECT * FROM products WHERE category NOT IN ('Electronics');
+
+-- BETWEEN
+SELECT * FROM products WHERE price BETWEEN 50 AND 200;
+
+-- LIKE
+SELECT * FROM products WHERE name LIKE '%laptop%';
+SELECT * FROM products WHERE name LIKE 'Laptop%';
+SELECT * FROM products WHERE name LIKE '%Pro';
+
+-- IS NULL / IS NOT NULL
+SELECT * FROM products WHERE description IS NULL;
+SELECT * FROM products WHERE description IS NOT NULL;
+
+-- ========== GROUP BY Clause ==========
+
+-- Group by single column
+SELECT category, COUNT(*) AS count
+FROM products
+GROUP BY category;
+
+-- Group by multiple columns
+SELECT category, status, COUNT(*) AS count
+FROM products
+GROUP BY category, status;
+
+-- Group with aggregates
+SELECT 
+    category,
+    COUNT(*) AS product_count,
+    AVG(price) AS avg_price,
+    MAX(price) AS max_price,
+    MIN(price) AS min_price,
+    SUM(stock) AS total_stock
+FROM products
+GROUP BY category;
+
+-- ========== HAVING Clause ==========
+
+-- Filter groups
+SELECT category, COUNT(*) AS count
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 2;
+
+-- HAVING with aggregates
+SELECT 
+    category,
+    AVG(price) AS avg_price
+FROM products
+GROUP BY category
+HAVING AVG(price) > 100;
+
+-- WHERE vs HAVING
+SELECT 
+    category,
+    COUNT(*) AS count,
+    AVG(price) AS avg_price
+FROM products
+WHERE stock > 0          -- Filter rows first
+GROUP BY category
+HAVING COUNT(*) > 1     -- Filter groups after
+AND AVG(price) > 50;
+
+-- ========== ORDER BY Clause ==========
+
+-- Ascending (default)
+SELECT * FROM products ORDER BY price;
+
+-- Descending
+SELECT * FROM products ORDER BY price DESC;
+
+-- Multiple columns
+SELECT * FROM products ORDER BY category, price DESC;
+
+-- Using expressions
+SELECT 
+    name,
+    price * stock AS total_value
+FROM products
+ORDER BY total_value DESC;
+
+-- ========== LIMIT Clause ==========
+
+-- Limit rows
+SELECT * FROM products LIMIT 10;
+
+-- Limit with offset
+SELECT * FROM products LIMIT 10 OFFSET 0;
+SELECT * FROM products LIMIT 0, 10;
+
+-- Top N
+SELECT * FROM products ORDER BY price DESC LIMIT 5;
+
+-- Pagination
+SELECT * FROM products LIMIT 0, 10;   -- Page 1
+SELECT * FROM products LIMIT 10, 10;  -- Page 2
+SELECT * FROM products LIMIT 20, 10;  -- Page 3
+
+-- ========== Complete Example ==========
+
+SELECT 
+    category,
+    COUNT(*) AS product_count,
+    AVG(price) AS avg_price,
+    SUM(stock) AS total_stock
+FROM products
+WHERE stock > 0
+AND price > 10
+GROUP BY category
+HAVING COUNT(*) > 1
+AND AVG(price) > 50
+ORDER BY avg_price DESC
+LIMIT 10;
+
+-- ========== Real-World Examples ==========
+
+-- Top categories by stock value
+SELECT 
+    category,
+    SUM(price * stock) AS total_stock_value
+FROM products
+WHERE stock > 0
+GROUP BY category
+ORDER BY total_stock_value DESC
+LIMIT 3;
+
+-- Categories with high average price
+SELECT 
+    category,
+    AVG(price) AS avg_price,
+    COUNT(*) AS product_count
+FROM products
+GROUP BY category
+HAVING AVG(price) > 100
+ORDER BY avg_price DESC;
 `
 };
 

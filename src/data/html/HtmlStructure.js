@@ -438,6 +438,63 @@ Enterprise web applications rely on proper HTML structure for SEO optimization, 
 - ✅ \`<span>\` - Inline container
 
 Understanding structure is the foundation of HTML!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Document Structure Interview Questions
+
+1. **What is the purpose of \`<!DOCTYPE html>\`?**  
+   The **doctype** tells the browser which **ruleset** to use when parsing the document. For HTML5, \`<!DOCTYPE html>\` is short but enough to trigger **standards mode**, where CSS layout behaves predictably. Without a doctype, **quirks mode** can activate and break margins, box model, and sizing in subtle ways. It should be the **very first** line of the file.
+
+2. **Why use \`lang\` on \`<html>\`?**  
+   The \`lang\` attribute (e.g. \`<html lang="en">\` or \`lang="hi"\`) declares the **primary language** of the document. **Screen readers** pick the correct pronunciation and voice; **search engines** use it for language targeting; **hyphenation** and **fonts** can follow language rules. For mixed-language pages, you can mark **subtrees** with \`lang\` on inner elements.
+
+3. **What is the difference between \`<head>\` and \`<body>\`?**  
+   The **\`<head>\`** contains **machine-oriented** information: \`<title>\` (tab title, bookmark default), \`<meta>\` (charset, viewport, description), \`<link>\` to CSS, \`<script src>\` references, Open Graph tags, etc. None of this is the **main visible** page content. The **\`<body>\`** holds what users **see**: headings, text, images, forms, landmarks. Scripts can appear in head or body depending on **defer/async** and when execution should run.
+
+4. **Why is \`<meta charset="UTF-8">\` important?**  
+   Browsers need to know **how bytes map to characters**. UTF-8 supports global scripts and emoji. If encoding is wrong or missing, users see **garbled characters**. Declaring UTF-8 early in \`<head>\` avoids mis-detection. The server should also send **Content-Type: text/html; charset=utf-8** when possible.
+
+5. **What does the viewport meta tag do?**  
+   On mobile, the default “virtual viewport” can make desktop-width layouts shrink. \`<meta name="viewport" content="width=device-width, initial-scale=1.0">\` ties the **layout viewport** to the **device width** and sets initial zoom. Without it, responsive CSS may not behave as designers expect. **initial-scale** controls default zoom; avoid disabling user zoom for **accessibility** unless you have a strong reason.
+
+6. **How many \`<h1>\` tags should a page typically have?**  
+   **Best practice** for most documents is **one \`<h1>\`** representing the **main title** of the page. Subsections use \`<h2>\` down to \`<h6>\` in **logical order** (don’t skip levels for styling—fix with CSS). Multiple \`<h1>\`s are allowed in HTML5 in theory (e.g. in separate \`<article>\`s), but **one per page** is clearer for SEO and screen-reader **outline** navigation.
+
+7. **When do you use \`<br>\` vs a new \`<p>\`?**  
+   **\`<p>\`** separates **paragraphs** of content—each is a **block** with default margins. **\`<br>\`** is only a **line break** inside the **same** paragraph (addresses, poems, single-line formatting). Using many \`<br>\`s for vertical spacing is a **code smell**—use **margin/padding** in CSS instead. If two ideas deserve separate paragraphs, use two \`<p>\` tags.
+
+8. **What is the difference between \`<div>\` and \`<span>\`?**  
+   Both are **generic containers** with no default semantic meaning. **\`<div>\`** is **block-level** in classic flow—good for **layout regions** (often with CSS Grid/Flex). **\`<span>\`** is **inline**—good for **phrasing** hooks (highlight part of a sentence, microdata). Prefer **semantic** elements (\`<section>\`, \`<nav>\`, \`<button>\`) when they match the meaning; use div/span when no better element exists.
+
+9. **What is the difference between \`<strong>\` and \`<b>\`?**  
+   **\`<strong>\`** indicates **strong importance** (semantic emphasis for assistive tech). **\`<b>\`** is **bold** without inherent importance—use when the spec allows **stylistic offset** (e.g. keywords in a summary) without changing meaning. In modern apps, **CSS font-weight** often handles visuals; still use \`<strong>\` when the content is **actually** more important than surrounding text.
+
+10. **How do you write an HTML comment?**  
+    Syntax: \`<!-- your note -->\`. Comments are **ignored** by the rendering engine but visible in **View Source**. They help explain **non-obvious** markup or **temporary** removals. **Do not** put sensitive secrets in HTML comments—clients can always read them. Comments cannot nest (\`<!-- <!-- -->\` breaks).
+
 `,
   code: `// HTML Document Structure & Basic Tags
 

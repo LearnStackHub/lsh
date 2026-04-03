@@ -311,163 +311,6 @@ FOREIGN KEY (customer_id) REFERENCES customers(id);
 -- 4. Rename table
 ALTER TABLE old_products RENAME TO products;
 \`\`\`
-  `,
-  code: `-- MySQL DDL Examples
-
-CREATE DATABASE ddl_demo;
-USE ddl_demo;
-
--- Create initial table
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
-);
-
--- ========== ALTER TABLE - Add Column ==========
-
--- Add single column
-ALTER TABLE products 
-ADD COLUMN description TEXT;
-
--- Add multiple columns
-ALTER TABLE products 
-ADD COLUMN category VARCHAR(50),
-ADD COLUMN stock INT UNSIGNED DEFAULT 0;
-
--- Add column at specific position
-ALTER TABLE products 
-ADD COLUMN sku VARCHAR(50) AFTER name;
-
--- ========== ALTER TABLE - Modify Column ==========
-
--- Change column data type
-ALTER TABLE products 
-MODIFY COLUMN price DECIMAL(12, 2);
-
--- Change column name and type
-ALTER TABLE products 
-CHANGE COLUMN description product_description TEXT;
-
--- Modify with constraints
-ALTER TABLE products 
-MODIFY COLUMN name VARCHAR(200) NOT NULL;
-
--- ========== ALTER TABLE - Drop Column ==========
-
--- Remove column
-ALTER TABLE products 
-DROP COLUMN product_description;
-
--- ========== ALTER TABLE - Constraints ==========
-
--- Add primary key (if not exists)
--- ALTER TABLE products ADD PRIMARY KEY (id);
-
--- Add foreign key
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED,
-    total_amount DECIMAL(10, 2)
-);
-
-CREATE TABLE customers (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100)
-);
-
-ALTER TABLE orders 
-ADD CONSTRAINT fk_orders_customer 
-FOREIGN KEY (customer_id) REFERENCES customers(id);
-
--- Add unique constraint
-ALTER TABLE products 
-ADD CONSTRAINT uk_sku UNIQUE (sku);
-
--- Add check constraint (MySQL 8.0.16+)
-ALTER TABLE products 
-ADD CONSTRAINT chk_price CHECK (price > 0);
-
--- Drop constraint
-ALTER TABLE products 
-DROP CONSTRAINT uk_sku;
-
--- Drop foreign key
-ALTER TABLE orders 
-DROP FOREIGN KEY fk_orders_customer;
-
--- ========== ALTER TABLE - Indexes ==========
-
--- Add index
-ALTER TABLE products 
-ADD INDEX idx_name (name);
-
--- Add unique index
-ALTER TABLE products 
-ADD UNIQUE INDEX idx_sku (sku);
-
--- Add composite index
-ALTER TABLE products 
-ADD INDEX idx_category_price (category, price);
-
--- Drop index
-ALTER TABLE products 
-DROP INDEX idx_name;
-
--- ========== ALTER TABLE - Rename ==========
-
--- Rename table
-ALTER TABLE products RENAME TO product_items;
-
--- Or use RENAME TABLE
-RENAME TABLE product_items TO products;
-
--- ========== DROP Statement ==========
-
--- Drop table
-DROP TABLE IF EXISTS temp_table;
-
--- Drop multiple tables
--- DROP TABLE table1, table2, table3;
-
--- Drop database
--- DROP DATABASE IF EXISTS test_db;
-
--- Drop index
-DROP INDEX idx_sku ON products;
-
--- ========== TRUNCATE TABLE ==========
-
--- Truncate table (removes all rows)
-TRUNCATE TABLE products;
-
--- TRUNCATE vs DELETE
--- TRUNCATE: Faster, resets AUTO_INCREMENT, no WHERE clause
--- DELETE: Slower, doesn't reset AUTO_INCREMENT, supports WHERE
-
--- ========== Real-World Examples ==========
-
--- Add timestamp columns
-ALTER TABLE products 
-ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
--- Increase column size
-ALTER TABLE products 
-MODIFY COLUMN name VARCHAR(500);
-
--- Add status column
-ALTER TABLE products 
-ADD COLUMN status VARCHAR(20) DEFAULT 'active' AFTER name;
-
--- Add foreign key with CASCADE
-ALTER TABLE orders 
-ADD CONSTRAINT fk_orders_customer 
-FOREIGN KEY (customer_id) 
-REFERENCES customers(id) 
-ON DELETE CASCADE 
-ON UPDATE CASCADE;
-
 ---
 
 ## Real-World Applications
@@ -663,9 +506,221 @@ DDL is essential for database structure management. Continue learning about [MyS
 
 ---
 
+## 10 Important MySQL DDL Interview Questions
+
+### 1. What is DDL and how does it differ from DML?
+
+**Answer:** **DDL (Data Definition Language)** describes **metadata**: creating and altering **schemas**, **tables**, **indexes**, **views**, and **constraints**—statements like \`CREATE\`, \`ALTER\`, \`DROP\`, and often \`TRUNCATE\` for wiping a table’s rows. **DML (Data Manipulation Language)** changes **rows**: \`INSERT\`, \`UPDATE\`, \`DELETE\`, and \`SELECT\` for reading. In operations, DDL may require **stronger locks** or **online DDL** planning on large InnoDB tables. Interviewers like when you mention **migrations** (Flyway/Liquibase) and **rollback** strategy for DDL.
+
+### 2. What should you consider when using ALTER TABLE ADD COLUMN?
+
+**Answer:** Adding a column must define how **existing rows** get values: **NULL** (if allowed), **DEFAULT**, or a **generated** default in newer versions. On **large** tables, \`ALTER\` can be **slow** and may **block** or use **online** algorithms depending on version and settings. Always test on a **copy** of production volume and read **metadata locks**. Mention **backfill** jobs if you need computed values for old rows.
+
+### 3. What is the difference between DROP TABLE and TRUNCATE TABLE?
+
+**Answer:** **DROP TABLE** removes the **table object** from the catalog (and its indexes); it is a structural change. **TRUNCATE** removes **all rows** quickly and typically **resets** \`AUTO_INCREMENT\`; the **table definition** remains. **TRUNCATE** is often **DDL-like** and may **commit** implicitly in ways that differ from **DELETE**; **foreign keys** and **referential** rules may block or cascade depending on definitions. **DELETE** without \`WHERE\` is row-by-row and fully logged—**slower** but sometimes safer for transactional control.
+
+### 4. How do indexes relate to DDL?
+
+**Answer:** Indexes are **created** with DDL (\`CREATE INDEX\`, or inline \`KEY\`/\`INDEX\` in \`CREATE TABLE\`). They are **physical structures** that speed **point lookups**, **range scans**, and **some** sorts and joins. **Trade-off:** faster reads, **more** disk, and **write amplification** on every insert/update/delete. **Primary key** and **unique** constraints are implemented with **unique** indexes in InnoDB.
+
+### 5. What is a composite primary key?
+
+**Answer:** A **composite** primary key uses **two or more** columns together, e.g. \`PRIMARY KEY (order_id, line_no)\`. **Uniqueness** applies to the **combination**, not each column alone. **Junction** tables for many-to-many relationships often use composite PKs or a **surrogate** id plus **unique** constraints—be ready to defend either design.
+
+### 6. What does MODIFY COLUMN (or CHANGE COLUMN) do?
+
+**Answer:** \`ALTER TABLE ... MODIFY\` changes **column definition**: type, **NULL**/**NOT NULL**, **default**, **charset**, etc. **Narrowing** types (e.g. \`VARCHAR(255)\` → \`VARCHAR(10)\`) can **truncate** or **fail** if data does not fit. **Widening** is usually safer. Always validate with **SELECT** checks on min/max lengths before **ALTER** in production.
+
+### 7. Why use IF EXISTS / IF NOT EXISTS in DDL scripts?
+
+**Answer:** These clauses make scripts **idempotent**—safe to run in **automation** when the object may already exist. They reduce **noise** in CI/CD but are **not** a substitute for **migration versioning**; you still need ordered, reviewed changes. In production, **blind** \`CREATE IF NOT EXISTS\` can hide **schema drift** if someone hand-edited the database.
+
+### 8. What is a view from a DDL perspective?
+
+**Answer:** \`CREATE VIEW\` registers a **named query** that behaves like a **virtual table**. Views simplify **reporting**, **security** (hiding columns), and **API** stability. They usually **do not** store data (unless **materialized** views—limited in MySQL compared to other DBs). **Updatable** views have restrictions; complex views may be **read-only**.
+
+### 9. What is normalization?
+
+**Answer:** **Normalization** organizes tables to **reduce redundancy** and **anomalies** (insert/update/delete). **Third Normal Form (3NF)** is a common OLTP target: every non-key column depends **only** on the key, **not** on other non-key columns. Denormalization is sometimes intentional for **read** performance—say you understand **trade-offs**, not only textbook rules.
+
+### 10. What should you say about DDL in production?
+
+**Answer:** Treat DDL as **high-risk**: coordinate with **backups**, **replication** lag, **application** deploy order, and **rollback** plans. Use **maintenance windows** or **online DDL** where supported. **Review** lock duration and **binlog** impact. A mature sound bite: “**Schema changes** are code changes—same **review**, **testing**, and **observability**.”
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Create DB & tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
+| **Data types** | [MySQL Data Types](/tutorial/mysql-data-types) |
+| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
+| **Indexes** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **Hibernate mapping** | [Hibernate Mapping](/tutorial/hibernate-mapping) |
+
+---
+
 ## Test Your Knowledge
 
 Ready to test your MySQL DDL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering DDL, DML, DQL, and all MySQL topics!
+  `,
+  code: `-- MySQL DDL Examples
+
+CREATE DATABASE ddl_demo;
+USE ddl_demo;
+
+-- Create initial table
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+-- ========== ALTER TABLE - Add Column ==========
+
+-- Add single column
+ALTER TABLE products 
+ADD COLUMN description TEXT;
+
+-- Add multiple columns
+ALTER TABLE products 
+ADD COLUMN category VARCHAR(50),
+ADD COLUMN stock INT UNSIGNED DEFAULT 0;
+
+-- Add column at specific position
+ALTER TABLE products 
+ADD COLUMN sku VARCHAR(50) AFTER name;
+
+-- ========== ALTER TABLE - Modify Column ==========
+
+-- Change column data type
+ALTER TABLE products 
+MODIFY COLUMN price DECIMAL(12, 2);
+
+-- Change column name and type
+ALTER TABLE products 
+CHANGE COLUMN description product_description TEXT;
+
+-- Modify with constraints
+ALTER TABLE products 
+MODIFY COLUMN name VARCHAR(200) NOT NULL;
+
+-- ========== ALTER TABLE - Drop Column ==========
+
+-- Remove column
+ALTER TABLE products 
+DROP COLUMN product_description;
+
+-- ========== ALTER TABLE - Constraints ==========
+
+-- Add primary key (if not exists)
+-- ALTER TABLE products ADD PRIMARY KEY (id);
+
+-- Add foreign key
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED,
+    total_amount DECIMAL(10, 2)
+);
+
+CREATE TABLE customers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+ALTER TABLE orders 
+ADD CONSTRAINT fk_orders_customer 
+FOREIGN KEY (customer_id) REFERENCES customers(id);
+
+-- Add unique constraint
+ALTER TABLE products 
+ADD CONSTRAINT uk_sku UNIQUE (sku);
+
+-- Add check constraint (MySQL 8.0.16+)
+ALTER TABLE products 
+ADD CONSTRAINT chk_price CHECK (price > 0);
+
+-- Drop constraint
+ALTER TABLE products 
+DROP CONSTRAINT uk_sku;
+
+-- Drop foreign key
+ALTER TABLE orders 
+DROP FOREIGN KEY fk_orders_customer;
+
+-- ========== ALTER TABLE - Indexes ==========
+
+-- Add index
+ALTER TABLE products 
+ADD INDEX idx_name (name);
+
+-- Add unique index
+ALTER TABLE products 
+ADD UNIQUE INDEX idx_sku (sku);
+
+-- Add composite index
+ALTER TABLE products 
+ADD INDEX idx_category_price (category, price);
+
+-- Drop index
+ALTER TABLE products 
+DROP INDEX idx_name;
+
+-- ========== ALTER TABLE - Rename ==========
+
+-- Rename table
+ALTER TABLE products RENAME TO product_items;
+
+-- Or use RENAME TABLE
+RENAME TABLE product_items TO products;
+
+-- ========== DROP Statement ==========
+
+-- Drop table
+DROP TABLE IF EXISTS temp_table;
+
+-- Drop multiple tables
+-- DROP TABLE table1, table2, table3;
+
+-- Drop database
+-- DROP DATABASE IF EXISTS test_db;
+
+-- Drop index
+DROP INDEX idx_sku ON products;
+
+-- ========== TRUNCATE TABLE ==========
+
+-- Truncate table (removes all rows)
+TRUNCATE TABLE products;
+
+-- TRUNCATE vs DELETE
+-- TRUNCATE: Faster, resets AUTO_INCREMENT, no WHERE clause
+-- DELETE: Slower, doesn't reset AUTO_INCREMENT, supports WHERE
+
+-- ========== Real-World Examples ==========
+
+-- Add timestamp columns
+ALTER TABLE products 
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+-- Increase column size
+ALTER TABLE products 
+MODIFY COLUMN name VARCHAR(500);
+
+-- Add status column
+ALTER TABLE products 
+ADD COLUMN status VARCHAR(20) DEFAULT 'active' AFTER name;
+
+-- Add foreign key with CASCADE
+ALTER TABLE orders 
+ADD CONSTRAINT fk_orders_customer 
+FOREIGN KEY (customer_id) 
+REFERENCES customers(id) 
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
 `
 };
 

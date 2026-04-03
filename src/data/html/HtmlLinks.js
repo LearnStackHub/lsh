@@ -375,6 +375,63 @@ a:active { color: green; }      /* Active */
 - ✅ \`id\` - For anchor links
 
 Links are the foundation of web navigation!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Links & Anchors Interview Questions
+
+1. **What is the \`<a>\` element used for?**  
+   The **anchor** element creates **hyperlinks**. With \`href\`, it navigates to another **URL**, **path**, **fragment** on the page, or special schemes like \`mailto:\` or \`tel:\`. Without a valid \`href\` (or with \`href\` removed in JS), it behaves like a **placeholder** and is not a proper link. The **visible text** (or image inside the anchor) should describe the destination for **accessibility**.
+
+2. **What is the difference between absolute and relative URLs?**  
+   An **absolute URL** includes **scheme + authority + path** (e.g. \`https://example.com/docs/page\`). A **relative URL** is resolved against the **current document** (e.g. \`./contact.html\`, \`../assets/logo.png\`, \`/site-wide/path\` from site root). Relative links are easier to move between **environments** (dev/staging/prod) if paths stay consistent. **Protocol-relative** URLs (\`//cdn.example.com\`) are less common now—prefer **explicit https**.
+
+3. **Why use \`rel="noopener noreferrer"\` with \`target="_blank"\`?**  
+   \`target="_blank"\` opens a **new browsing context**. The opened page can access \`window.opener\` in older patterns (**reverse tabnabbing**). **\`noopener\`** severs that relationship for security. **\`noreferrer\`** also omits the **Referer** header (privacy). Modern browsers often imply \`noopener\` for \`target="_blank"\`, but **explicit** \`rel\` is still recommended and clear in code review.
+
+4. **How do you link to a section on the same page?**  
+   Put an **\`id\`** on the target element (e.g. \`<h2 id="pricing">Pricing</h2>\`) and link with \`href="#pricing"\`. The browser **scrolls** to that element. For long pages, consider **smooth scrolling** via CSS \`scroll-behavior\` or JS. **IDs must be unique** in the document. You can also use **named anchors** historically, but **id** on any element is the modern approach.
+
+5. **What is the \`download\` attribute?**  
+   On a **same-origin** link (or when CORS allows), \`download\` suggests the browser **download** the resource instead of navigating. An optional value sets a **default filename**. It does **not** bypass server **Content-Disposition** in all cases, and **cross-origin** downloads may still open in a new tab depending on policy. Use for **export** links when appropriate.
+
+6. **How do \`mailto:\` and \`tel:\` links work?**  
+   \`mailto:user@example.com?subject=Hi&body=...\` asks the OS to open the **default mail client** with optional query parameters (support varies). \`tel:+15551234567\` triggers **dialer** on phones; on desktop it may open **softphone** apps. Always use **international** format with \`+\` for \`tel:\` when possible. These are **convenience** links, not a replacement for server-side contact forms.
+
+7. **What makes good link text for accessibility?**  
+   Link text should **stand alone** out of context (screen readers can list all links). Avoid **“click here”** and **“read more”** without saying **what** happens. Prefer **“Download the 2025 annual report (PDF)”** over **“click here”**. If you use an **icon-only** link, provide **\`aria-label\`** or visually hidden text. **Color alone** must not be the only cue that text is a link—use underline or other indicators.
+
+8. **What is the \`title\` attribute on a link?**  
+   It shows a **native tooltip** on hover. It is **supplementary**: many **touch** users never see it, and **keyboard** users may not. **Do not** put critical instructions only in \`title\`. Some accessibility guidelines discourage relying on \`title\` for essential info. Prefer visible text or **aria-describedby** when you need robust help.
+
+9. **Can an image be a link?**  
+   Yes: \`<a href="..."><img src="..." alt="Describe destination"></a>\`. The **\`alt\`** on the image should describe the **purpose** of the link (e.g. “Company home”), not only what the picture looks like, if the image is the whole control. If text and image are **redundant**, adjust \`alt\` to avoid **stuttering** for screen readers.
+
+10. **What is the difference between \`href="#"\` and omitting \`href\`?**  
+    \`href="#"\` jumps to the **top** of the page and is often used as a **hack** for JS-driven actions—this is **bad for accessibility** and **history**. For buttons, use \`<button type="button">\` or \`<a role="button">\` with **keyboard** support and **focus** styles. A **\`<a>\` without \`href\`** is not focusable by default and is not a link until you add **tabindex** and semantics—usually the wrong pattern.
+
 `,
   code: `// HTML Links & Anchors
 

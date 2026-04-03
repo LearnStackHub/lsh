@@ -210,6 +210,63 @@ Enterprise web applications extensively use media elements for product demonstra
 - ✅ Audio: MP3, OGG
 
 Media elements make web pages more engaging!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Audio & Video Interview Questions
+
+1. **What do \`<video>\` and \`<audio>\` do?**  
+   They embed **media** without browser plugins (Flash-era). The **browser** handles decoding, **hardware** acceleration where available, and **native controls** when \`controls\` is present. **Accessibility** requires **keyboard** operable controls and **captions** for video. **Autoplay** policies differ by browser—**never** rely on autoplay with sound for critical content.
+
+2. **Why use multiple \`<source>\` children?**  
+   Browsers support **different codecs** and **containers**. Listing **\`<source src type="video/mp4">\`** and **WebM** lets the browser **choose** the first playable source. **\`type\`** helps the browser avoid downloading an **unsupported** file. Always **order** from most compatible to **fallback**.
+
+3. **What does the \`controls\` attribute do?**  
+   Shows the **browser default** UI: play/pause, timeline, volume, fullscreen (video). Without **controls**, media is **invisible** unless you build **custom** UI with JS. Custom players must implement **keyboard** accessibility and **ARIA** patterns.
+
+4. **Why is autoplay with sound often blocked?**  
+   Autoplaying **audio** is **disruptive** and used for ads. **Chrome/Safari** etc. allow **muted** autoplay or autoplay after **user gesture** on the page. **Respect** \`prefers-reduced-motion\` for excessive motion in custom players.
+
+5. **What is \`poster\` on \`<video>\`?**  
+   **\`poster="image.jpg"\`** shows a **thumbnail** before playback and when the video is paused (depending on browser). **Pick** a frame that represents content and **optimize** size. **Poster** is not a substitute for **video captions**.
+
+6. **What is \`preload\`?**  
+   **\`none\`**: minimal preloading; **\`metadata\`**: duration/dimensions; **\`auto\`**: browser may prefetch aggressively. **Bandwidth** vs **startup latency** trade-off—use **\`none\`** for below-the-fold media unless you know it will play. **\`preload\`** is a **hint**; **mobile** networks may ignore aggressive behavior.
+
+7. **What is the \`<track>\` element for?**  
+   **\`<track kind="subtitles" src="captions.vtt" srclang="en" default>\`** links **WebVTT** text tracks for **captions/subtitles**, **descriptions**, or **chapters**. **Captions** are required for **deaf/hard-of-hearing** users and **WCAG**. **kind** controls behavior; **default** picks the initial track.
+
+8. **Common video formats on the web?**  
+   **MP4** with **H.264** video + **AAC** audio has **universal** support. **WebM** (VP9/AV1) offers **open** licensing and smaller files on supporting browsers. **HLS/DASH** streaming uses **MSE** in JS for adaptive bitrate—beyond basic \`<video>\` **src**.
+
+9. **How do you provide fallback content?**  
+   Place **children** inside \`<video>\`/\`<audio>\`: a **download link** or message for **legacy** browsers. **Feature detection** (e.g. \`canPlayType\`) can choose **formats**. For **enterprise** support, **transcoding** to multiple formats is common.
+
+10. **Why optimize media files?**  
+    Video is **heavy**—large files **bloat** LCP, **buffer**, and **data caps**. **Compress** with modern codecs, **limit** resolution to **need**, use **adaptive** streaming for long content, and **serve** responsive **bitrates**. **Audio** should be **compressed** (AAC/Opus) for **music/podcasts**.
+
 `,
   code: `// HTML Media - Audio & Video
 

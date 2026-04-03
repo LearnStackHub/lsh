@@ -276,6 +276,63 @@ EL is most powerful when combined with JSTL:
 </body>
 </html>
 \`\`\`
+
+---
+
+## 10 Important JSP Expression Language Interview Questions
+
+### 1. What problem does Expression Language (EL) solve in JSP?
+
+**Answer:** EL gives a **compact, readable** syntax for **reading** data out of **scoped attributes**, **request parameters**, **headers**, and **bean properties** directly in template text. Before EL, developers chained \`request.getAttribute\`, casts, and null checks inside scriptlets. EL reduces noise and encourages a **view-model** style where the controller prepares attributes and the page **binds** them declaratively. That separation is exactly what interviewers testing **MVC** maturity listen for.
+
+### 2. What is the basic EL syntax in a JSP page?
+
+**Answer:** In real JSP source you write a **dollar sign** and **curly braces** around the expression body (the classic EL delimiter pair). Inside, you can navigate **properties** (\`user.address.city\`), **maps** (\`map['key']\` or \`map.key\`), and **indexed** values (\`list[0]\`). The language applies **coercion** rules when comparing or formatting. In this tutorial’s printed code samples, the same idea sometimes appears as **Dollar{...}** placeholders—in your editor you use the real EL delimiters.
+
+### 3. How does EL resolve an unqualified name such as \`product\`?
+
+**Answer:** The evaluator searches **scoped attributes** in ascending breadth: **page**, **request**, **session**, **application**—similar in spirit to \`PageContext.findAttribute\`. If multiple scopes could collide, qualify explicitly: \`requestScope.product\`, \`sessionScope.product\`, etc. Understanding this prevents subtle bugs where a **stale session** value shadows a **request** value.
+
+### 4. What does the \`empty\` operator do in EL?
+
+**Answer:** \`empty expr\` evaluates to **true** when the value is **null**, an **empty string**, or an **empty** array, \`Collection\`, or \`Map\`. It is the idiomatic way to write guards like \`not empty items\` before rendering a table. Pair it with JSTL \`<c:if>\` for clean templates without scriptlets. Contrast with Java’s \`== null\` checks scattered through markup.
+
+### 5. Explain \`param\`, \`paramValues\`, and related implicit objects.
+
+**Answer:** \`param.name\` returns the **first** value of a request parameter; \`paramValues.name\` returns a **String[]** for multi-select controls or repeated keys. Likewise, \`header\` / \`headerValues\` expose HTTP headers, and \`cookie\` exposes cookies by name. These objects make EL useful for **simple** forms without hitting the servlet API directly—though **validation** still belongs in Java code.
+
+### 6. Why prefer EL over scriptlets for rendering values?
+
+**Answer:** EL keeps templates **declarative** and aligns with **JSTL** flow control. It applies **null-safe** navigation rules (no thrown NPE for missing intermediate properties in many cases) and reduces **casting**. Scriptlets interleave **imperative** Java with HTML, harming readability and testability. A senior answer notes EL is **not** a full programming language—complex logic still belongs in **controllers** or **services**.
+
+### 7. Can EL invoke arbitrary Java methods?
+
+**Answer:** Historically EL focused on **property** access and **collection** operations. **EL 3.0** (Java EE 7+) introduces richer features including **lambda-like** constructs and **method** invocations under controlled rules. In many interviews, especially for **maintainability**, the expected guidance is: use EL for **data binding**, not for **business rules**; keep heavy logic in Java. Know your container’s **spec level**.
+
+### 8. How do you disable EL evaluation for a page?
+
+**Answer:** Use \`<%@ page isELIgnored="true" %>\` when migrating **legacy** pages that literally contained a dollar sign followed by braces in static text (older JSPs predating EL). With EL enabled, those sequences would be **interpreted**. Modern apps rarely disable EL globally; instead they **escape** output properly and avoid ambiguous text patterns.
+
+### 9. What is \`pageContext\` in EL used for?
+
+**Answer:** \`pageContext\` is the hook from EL back to **infrastructure**: \`pageContext.request\`, \`pageContext.response\`, \`pageContext.session\`, \`pageContext.servletContext\`, and so on. Use it when you truly need servlet objects inside an expression—though frameworks often **wrap** these details. Overusing \`pageContext\` can signal **leaky** abstractions.
+
+### 10. Give common EL + JSTL patterns you would defend in an interview.
+
+**Answer:** Conditional regions: \`<c:if test="\${not empty user}">...</c:if>\`. Iteration: \`<c:forEach var="row" items="\${rows}">\` with nested EL for columns. Formatting numbers/dates with **JSTL fmt** tags instead of raw scriptlets. Escaping with \`<c:out value="\${untrusted}" />\` when content is user-controlled. Articulating **why** each pattern improves **security** and **readability** completes a strong answer.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **JSTL** | [JSP JSTL](/tutorial/jsp-jstl) |
+| **Implicit objects** | [JSP implicit objects](/tutorial/jsp-implicit-objects) |
+| **Scripting** | [JSP scripting elements](/tutorial/jsp-scripting-elements) |
+| **Action tags** | [JSP action tags](/tutorial/jsp-action-tags) |
+| **Custom tags** | [JSP custom tags](/tutorial/jsp-custom-tags) |
+
 `,
   code: `// JSP Expression Language Demo
 // Demonstrates EL syntax and features

@@ -377,197 +377,6 @@ AND EXISTS (
 )
 AND p.stock > 0;
 \`\`\`
-  `,
-  code: `-- MySQL Subqueries Examples
-
-CREATE DATABASE subqueries_demo;
-USE subqueries_demo;
-
-CREATE TABLE customers (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL
-);
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    category VARCHAR(50),
-    stock INT UNSIGNED DEFAULT 0
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    order_date DATE NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
-
-CREATE TABLE order_items (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
-    quantity INT UNSIGNED NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
--- Insert sample data
-INSERT INTO customers (name, email) VALUES
-('Dattu p', ' Dattu@example.com'),
-('Jane Smith', 'jane@example.com'),
-('Bob  Dattuson', 'bob@example.com');
-
-INSERT INTO products (name, price, category, stock) VALUES
-('Laptop', 999.99, 'Electronics', 50),
-('Mouse', 29.99, 'Electronics', 100),
-('Keyboard', 79.99, 'Electronics', 75),
-('Desk', 199.99, 'Furniture', 30);
-
-INSERT INTO orders (customer_id, total_amount, order_date) VALUES
-(1, 999.99, '2024-01-15'),
-(2, 109.98, '2024-01-16'),
-(1, 199.99, '2024-01-17');
-
-INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
-(1, 1, 1, 999.99),
-(2, 2, 2, 29.99),
-(2, 3, 1, 79.99),
-(3, 4, 1, 199.99);
-
--- ========== Scalar Subqueries ==========
-
--- In SELECT
-SELECT 
-    name,
-    price,
-    (SELECT AVG(price) FROM products) AS avg_price,
-    price - (SELECT AVG(price) FROM products) AS difference
-FROM products;
-
--- In WHERE
-SELECT * FROM products 
-WHERE price > (SELECT AVG(price) FROM products);
-
--- ========== IN Subquery ==========
-
--- Customers who placed orders
-SELECT * FROM customers
-WHERE id IN (SELECT DISTINCT customer_id FROM orders);
-
--- Products that have been ordered
-SELECT * FROM products
-WHERE id IN (SELECT DISTINCT product_id FROM order_items);
-
--- NOT IN
-SELECT * FROM customers
-WHERE id NOT IN (
-    SELECT DISTINCT customer_id FROM orders WHERE customer_id IS NOT NULL
-);
-
--- ========== EXISTS Subquery ==========
-
--- Customers with orders
-SELECT * FROM customers c
-WHERE EXISTS (
-    SELECT 1 FROM orders o WHERE o.customer_id = c.id
-);
-
--- Products that have been ordered
-SELECT * FROM products p
-WHERE EXISTS (
-    SELECT 1 FROM order_items oi WHERE oi.product_id = p.id
-);
-
--- NOT EXISTS
-SELECT * FROM products p
-WHERE NOT EXISTS (
-    SELECT 1 FROM order_items oi WHERE oi.product_id = p.id
-);
-
--- ========== Correlated Subqueries ==========
-
--- Products above category average
-SELECT p1.* FROM products p1
-WHERE p1.price > (
-    SELECT AVG(p2.price) 
-    FROM products p2 
-    WHERE p2.category = p1.category
-);
-
--- Orders above customer average
-SELECT o1.* FROM orders o1
-WHERE o1.total_amount > (
-    SELECT AVG(o2.total_amount)
-    FROM orders o2
-    WHERE o2.customer_id = o1.customer_id
-);
-
--- ========== ANY/SOME ==========
-
--- Products more expensive than any Electronics product
-SELECT * FROM products
-WHERE price > ANY (
-    SELECT price FROM products WHERE category = 'Electronics'
-);
-
--- ========== ALL ==========
-
--- Products more expensive than all Electronics products
-SELECT * FROM products
-WHERE price > ALL (
-    SELECT price FROM products WHERE category = 'Electronics'
-);
-
--- ========== Derived Tables (FROM) ==========
-
--- Top customers by spending
-SELECT 
-    customer_name,
-    total_spent
-FROM (
-    SELECT 
-        c.name AS customer_name,
-        SUM(o.total_amount) AS total_spent
-    FROM customers c
-    JOIN orders o ON c.id = o.customer_id
-    GROUP BY c.id, c.name
-) AS customer_totals
-ORDER BY total_spent DESC;
-
--- ========== Real-World Examples ==========
-
--- Customers who spent more than average
-SELECT 
-    c.name,
-    SUM(o.total_amount) AS total_spent
-FROM customers c
-JOIN orders o ON c.id = o.customer_id
-GROUP BY c.id, c.name
-HAVING SUM(o.total_amount) > (
-    SELECT AVG(total_amount) FROM orders
-);
-
--- Second highest price
-SELECT * FROM products
-WHERE price = (
-    SELECT MAX(price) FROM products
-    WHERE price < (SELECT MAX(price) FROM products)
-);
-
--- Products above category average, ordered, in stock
-SELECT * FROM products p
-WHERE p.price > (
-    SELECT AVG(price) FROM products WHERE category = p.category
-)
-AND EXISTS (
-    SELECT 1 FROM order_items oi WHERE oi.product_id = p.id
-)
-AND p.stock > 0;
-
 ---
 
 ## Real-World Applications
@@ -764,9 +573,255 @@ Subqueries are essential for complex data retrieval. Continue learning about [My
 
 ---
 
+## 10 Important Subqueries Interview Questions
+
+### 1. What is a subquery?
+
+**Answer:** A **subquery** (inner query) is a **SELECT** nested inside another SQL statement—commonly in **WHERE** (\`IN\`, **comparison**, **EXISTS**), **FROM** (**derived table**), or the **SELECT** list (**scalar** subquery). It lets you express **multi-step** logic in one statement. **Readability** vs **JOIN** form is a team style choice unless **performance** forces one shape.
+
+### 2. What is the difference between correlated and non-correlated subqueries?
+
+**Answer:** A **non-correlated** subquery does **not** reference the outer query; it can be evaluated **once** and **cached** conceptually. A **correlated** subquery references **outer** columns and is logically evaluated **per outer row**—often **O(n²)** without proper **indexes** on the correlation predicate. **EXPLAIN** shows whether the optimizer **rewrote** to a **JOIN** or **semi-join**.
+
+### 3. Compare IN and EXISTS.
+
+**Answer:** **\`IN (subquery)\`** checks membership in a **set**. **\`EXISTS (subquery)\`** tests whether the subquery returns **any** row—often **stops** at the **first** match (**short-circuit** semantics). For **large** inner sets, **EXISTS** can win when you only need **presence**. The optimizer may **transform** between them—**verify** plans, don’t assume.
+
+### 4. What is a derived table?
+
+**Answer:** A subquery in the **FROM** clause: \`FROM (SELECT ...) AS alias\`. MySQL **requires** an **alias** for the derived table. Use it to **stage** calculations (e.g. **aggregate** then **join**). **Nested** derived tables can hurt **readability**—**CTEs** (\`WITH\`) in MySQL 8+ often read cleaner.
+
+### 5. What is a scalar subquery?
+
+**Answer:** A subquery that returns **at most one value** (one row, one column)—used in **SELECT** or **WHERE col = (subquery)**. If **zero** rows, result is **NULL** in many contexts; **multiple** rows cause a **runtime error** for equality. **Validate** with **LIMIT 1** or **aggregates** when appropriate.
+
+### 6. When should you rewrite a subquery as a JOIN?
+
+**Answer:** When the **JOIN** form is **clearer** to your team, or when **EXPLAIN** shows a **better** plan (e.g. **hash join** vs **nested** correlated loops). **Not** all subqueries are bad—**optimizers** improved. **Measure** on **real** data volumes.
+
+### 7. What are ALL, ANY, and SOME?
+
+**Answer:** These **quantified** comparisons relate a value to a **set** returned by a subquery (e.g. **\`> ANY (subquery)\`**). They are **less common** in everyday CRUD than **IN**/**EXISTS** but appear in **certification** exams. **Know** that **ANY** and **SOME** are synonyms in MySQL.
+
+### 8. What is tricky about UPDATE/DELETE with subqueries in MySQL?
+
+**Answer:** MySQL forbids updating a table while **selecting** from the **same** table in a subquery in a **naive** way—you may need a **JOIN**, **derived table**, or **temporary** table workaround. **Read** the exact error message and **consult** docs for your version—this trips **ORM**-generated SQL too.
+
+### 9. What is an anti-pattern for subqueries?
+
+**Answer:** A **correlated** subquery on **millions** of rows with **no index** on the **correlation** columns—becomes a **nested loop** disaster. **Fix** by **indexing**, **rewriting** to **JOIN**, or **pre-aggregating** in a **CTE**.
+
+### 10. What is your practical tuning tip?
+
+**Answer:** **EXPLAIN** the **final** query; compare **subquery** vs **JOIN** versions on **production-like** data; watch **rows examined** and **temporary** tables. **Avoid** guessing—**evidence** wins interviews.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
+| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **DQL** | [MySQL DQL](/tutorial/mysql-dql) |
+| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
+| **JPQL / Criteria** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL subqueries? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering subqueries, JOINs, and all MySQL topics!
+  `,
+  code: `-- MySQL Subqueries Examples
+
+CREATE DATABASE subqueries_demo;
+USE subqueries_demo;
+
+CREATE TABLE customers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(50),
+    stock INT UNSIGNED DEFAULT 0
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    order_date DATE NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED NOT NULL,
+    quantity INT UNSIGNED NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Insert sample data
+INSERT INTO customers (name, email) VALUES
+('Dattu p', ' Dattu@example.com'),
+('Jane Smith', 'jane@example.com'),
+('Bob  Dattuson', 'bob@example.com');
+
+INSERT INTO products (name, price, category, stock) VALUES
+('Laptop', 999.99, 'Electronics', 50),
+('Mouse', 29.99, 'Electronics', 100),
+('Keyboard', 79.99, 'Electronics', 75),
+('Desk', 199.99, 'Furniture', 30);
+
+INSERT INTO orders (customer_id, total_amount, order_date) VALUES
+(1, 999.99, '2024-01-15'),
+(2, 109.98, '2024-01-16'),
+(1, 199.99, '2024-01-17');
+
+INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99),
+(2, 2, 2, 29.99),
+(2, 3, 1, 79.99),
+(3, 4, 1, 199.99);
+
+-- ========== Scalar Subqueries ==========
+
+-- In SELECT
+SELECT 
+    name,
+    price,
+    (SELECT AVG(price) FROM products) AS avg_price,
+    price - (SELECT AVG(price) FROM products) AS difference
+FROM products;
+
+-- In WHERE
+SELECT * FROM products 
+WHERE price > (SELECT AVG(price) FROM products);
+
+-- ========== IN Subquery ==========
+
+-- Customers who placed orders
+SELECT * FROM customers
+WHERE id IN (SELECT DISTINCT customer_id FROM orders);
+
+-- Products that have been ordered
+SELECT * FROM products
+WHERE id IN (SELECT DISTINCT product_id FROM order_items);
+
+-- NOT IN
+SELECT * FROM customers
+WHERE id NOT IN (
+    SELECT DISTINCT customer_id FROM orders WHERE customer_id IS NOT NULL
+);
+
+-- ========== EXISTS Subquery ==========
+
+-- Customers with orders
+SELECT * FROM customers c
+WHERE EXISTS (
+    SELECT 1 FROM orders o WHERE o.customer_id = c.id
+);
+
+-- Products that have been ordered
+SELECT * FROM products p
+WHERE EXISTS (
+    SELECT 1 FROM order_items oi WHERE oi.product_id = p.id
+);
+
+-- NOT EXISTS
+SELECT * FROM products p
+WHERE NOT EXISTS (
+    SELECT 1 FROM order_items oi WHERE oi.product_id = p.id
+);
+
+-- ========== Correlated Subqueries ==========
+
+-- Products above category average
+SELECT p1.* FROM products p1
+WHERE p1.price > (
+    SELECT AVG(p2.price) 
+    FROM products p2 
+    WHERE p2.category = p1.category
+);
+
+-- Orders above customer average
+SELECT o1.* FROM orders o1
+WHERE o1.total_amount > (
+    SELECT AVG(o2.total_amount)
+    FROM orders o2
+    WHERE o2.customer_id = o1.customer_id
+);
+
+-- ========== ANY/SOME ==========
+
+-- Products more expensive than any Electronics product
+SELECT * FROM products
+WHERE price > ANY (
+    SELECT price FROM products WHERE category = 'Electronics'
+);
+
+-- ========== ALL ==========
+
+-- Products more expensive than all Electronics products
+SELECT * FROM products
+WHERE price > ALL (
+    SELECT price FROM products WHERE category = 'Electronics'
+);
+
+-- ========== Derived Tables (FROM) ==========
+
+-- Top customers by spending
+SELECT 
+    customer_name,
+    total_spent
+FROM (
+    SELECT 
+        c.name AS customer_name,
+        SUM(o.total_amount) AS total_spent
+    FROM customers c
+    JOIN orders o ON c.id = o.customer_id
+    GROUP BY c.id, c.name
+) AS customer_totals
+ORDER BY total_spent DESC;
+
+-- ========== Real-World Examples ==========
+
+-- Customers who spent more than average
+SELECT 
+    c.name,
+    SUM(o.total_amount) AS total_spent
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.name
+HAVING SUM(o.total_amount) > (
+    SELECT AVG(total_amount) FROM orders
+);
+
+-- Second highest price
+SELECT * FROM products
+WHERE price = (
+    SELECT MAX(price) FROM products
+    WHERE price < (SELECT MAX(price) FROM products)
+);
+
+-- Products above category average, ordered, in stock
+SELECT * FROM products p
+WHERE p.price > (
+    SELECT AVG(price) FROM products WHERE category = p.category
+)
+AND EXISTS (
+    SELECT 1 FROM order_items oi WHERE oi.product_id = p.id
+)
+AND p.stock > 0;
 `
 };
 

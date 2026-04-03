@@ -465,6 +465,71 @@ Following these practices makes your projects:
 - Professional quality
 
 Remember: Good practices save time in the long run!
+
+---
+
+## 10 Important Maven Best Practices Interview Questions
+
+1. **Why pin dependency and plugin versions explicitly?**  
+   If versions **float**, today’s build might differ from tomorrow’s **without** a code change—**bugs** become **impossible** to reproduce.  
+   **Best practice:** Use a **parent** or **BOM** so you **bump** versions in **one** place, but every build still resolves to **known** numbers.
+
+2. **Why prefer \`dependencyManagement\` in parent for teams?**  
+   Ten microservices **sharing** a library should **not** each pick a **different** Spring patch version.  
+   **Parent** \`dependencyManagement\` means **one** upgrade path, **fewer** production surprises.
+
+3. **What is the enforcer plugin used for?**  
+   **maven-enforcer-plugin** **fails the build early** if rules break: e.g. “**JDK must be 17+**”, “**no SNAPSHOT** dependencies in **release** builds”, “**ban** known-bad library versions.”  
+   **Why:** Catch mistakes in **CI** before they reach **production**.
+
+4. **Why use \`.mvn/maven.config\` or \`jvm.config\`?**  
+   Files **committed** in the repo (e.g. **\`.mvn/jvm.config\`** with **\`-Xmx512m\`**) give **every** developer the **same** JVM flags for Maven.  
+   **Benefit:** Fewer “works on my machine” **OutOfMemory** issues.
+
+5. **How do you handle secrets for deploy?**  
+   Never put **passwords** in \`pom.xml\`. Use **\`<server id="nexus-releases">\`** in **\`~/.m2/settings.xml\`** with username/password, matching **\`distributionManagement\` id**.  
+   **CI** injects credentials via **environment** or **secret store**—masked in logs.
+
+6. **Why run \`mvn -ntp\` (no transfer progress) in CI?**  
+   **\`-ntp\`** (no transfer progress) **reduces** **spam** lines when downloading dependencies—**cleaner** Docker/CI logs and **easier** to find **real** errors.
+
+7. **What is a BOM and why import it?**  
+   A **BOM** POM lists **compatible versions** for a **family** of libraries (e.g. **Jackson** modules). You **import** it once; dependencies **inherit** matching versions.  
+   **Result:** Less **manual** version alignment and fewer **NoSuchMethodError** at runtime.
+
+8. **Why avoid unused dependencies?**  
+   Extra libraries **increase** download time, **confuse** readers (“why is this here?”), and **widen** the **security** surface (more CVEs to track).  
+   Run **\`mvn dependency:analyze\`** occasionally and **remove** dead deps.
+
+9. **How do profiles help environments?**  
+   **Profiles** switch **configuration** without duplicating whole POMs: e.g. **\`-Pdev\`** activates **H2** database properties; **\`-Pprod\`** uses **PostgreSQL**.  
+   **Caution:** Don’t hide **critical** differences—document which profile **CI** uses.
+
+10. **What is \`flatten-maven-plugin\` for CI-friendly versions?**  
+    Teams use **\`\${revision}\`** in POMs for **one** version variable across modules. **Flatten** rewrites the **installed** POM so published artifacts show a **plain** version string (e.g. **1.2.3**) for **consumers** who don’t understand **CI placeholders**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

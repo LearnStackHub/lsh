@@ -402,6 +402,52 @@ You've learned:
 - Find what works for your team
 - Establish team conventions
 
+---
+
+## 10 Important Git Workflow Interview Questions
+
+1. **What is Git Flow at a high level?**  
+   A branching model with **long-lived** branches like **\`main\`** (production), **\`develop\`** (integration), **feature**, **release**, **hotfix** branches. **Heavier** than trunk-based—some enterprises like it, many startups **simplify**.
+
+2. **What is trunk-based development?**  
+   Developers integrate **frequently** into **one main line** (\`main\`) with **short** feature branches and **strong** CI. **Goal:** small batches, **less** merge pain.
+
+3. **What is a feature branch workflow?**  
+   Each feature gets **\`feature/...\`**, opened as a **PR** into \`main\` (or \`develop\`). Most **common** pattern for GitHub teams.
+
+4. **What is forking workflow?**  
+   Contributors **fork** the repo, push to **their** fork, open **PR** to **upstream**. Standard for **open source** where outsiders lack write access.
+
+5. **Why “pull before push”?**  
+   Incorporates **others’ commits** first so you **resolve conflicts locally** and avoid **rejecting** pushes. **Daily** habit on shared branches.
+
+6. **What makes a good commit in a workflow?**  
+   **Small**, **atomic**, with **clear messages**—easier **bisect**, **revert**, and **review**. Squash-merge teams may relax per-commit beauty but **PR description** must explain **why**.
+
+7. **How do workflows relate to CI/CD?**  
+   **Merge to main** may **trigger** deploy pipelines (GitHub Actions, Jenkins). Workflow rules (**who merges**, **required checks**) protect **release** quality.
+
+8. **What is environment branching (concept)?**  
+   Some teams use **\`develop\` → staging**, **\`main\` → production**—workflow **maps** branches to **environments**. Others deploy from **tags** or **single** main with **feature flags**.
+
+9. **Who should resolve merge conflicts—the author or reviewer?**  
+   Usually the **PR author** knows the **intent** of their changes; they **merge** latest target and fix conflicts, then **re-request** review.
+
+10. **How do you choose a workflow?**  
+    Team **size**, **release cadence**, **compliance**, and **tooling**. **Interview answer:** “We use **feature branches + PR + protected main** with **CI**—simple and common.”
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Branches & merge** | [Git Branches](/tutorial/git-branches) |
+| **PR mechanics** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
+| **Repo & remote basics** | [GitHub Basics](/tutorial/github-basics) |
+| **Automation & deploy** | [Git Deployment](/tutorial/git-deployment) |
+| **Software lifecycle** | [SDLC Introduction](/tutorial/sdlc-introduction) |
+
 A good workflow makes development smoother and more professional!
 `
 };

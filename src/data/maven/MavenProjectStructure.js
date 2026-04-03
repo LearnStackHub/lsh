@@ -282,6 +282,72 @@ Benefits:
 Once you learn this structure, you can navigate any Maven project instantly. It's one of Maven's best features!
 
 Next, let's learn about pom.xml - the file that makes it all work.
+
+---
+
+## 10 Important Maven Project Structure Interview Questions
+
+1. **Where does production Java code live?**  
+   All **real application** code goes under **\`src/main/java\`**. Inside that, you create folders that match your **package name**: for package \`com.example.order\`, the path is \`src/main/java/com/example/order/\`.  
+   **Tests** (JUnit) go in **\`src/test/java\`** with the **same package structure** so you can test package-private code easily.  
+   **Why separate?** Maven’s **Surefire** plugin looks only in \`test/java\` for tests. If you mix tests inside \`main\`, you confuse tools and may ship test code in production by mistake.
+
+2. **What belongs in \`src/main/resources\`?**  
+   Anything that is **not** \`.java\` but must sit on the **classpath** at runtime: **\`application.properties\`**, **\`application.yml\`**, **Hibernate** \`.xml\` mappings, **JSON** samples, **SQL** scripts, **logback.xml**, etc.  
+   These files are **copied as-is** into the JAR/WAR (no compilation). **Interview tip:** “Resources = configuration and non-code assets the app reads from the classpath.”
+
+3. **What is the \`target/\` directory?**  
+   **\`target/\`** is Maven’s **scratch folder**: compiled \`.class\` files, packaged **\`.jar\`**, test reports, temporary files. It is **regenerated** every build.  
+   Run **\`mvn clean\`** to delete \`target/\` when you suspect **old** class files are confusing you. **Never** commit \`target/\` to Git—add it to **\`.gitignore\`**.
+
+4. **Why separate \`test\` resources?**  
+   **\`src/test/resources\`** holds files **only for tests**: e.g. **H2** in-memory DB config, **mock** JSON, **logback-test.xml** with DEBUG logging.  
+   Normal packaging puts **main** resources in the artifact; test resources **stay out** of the production JAR so you don’t ship test passwords or huge test data.
+
+5. **What is the standard package-to-directory rule?**  
+   Java requires: package \`com.example.app\` → folder path **\`com/example/app\`**. If you put a class in the wrong folder, the compiler or IDE says **“class … is public, should be declared in a file named …”** or **wrong package**.  
+   **Always** match folder names to package dots (except the root \`java\` folder).
+
+6. **Can you customize source directories?**  
+   Technically **yes** (e.g. \`build-helper-maven-plugin\` or \`<sourceDirectory>\`), but **avoid** unless you inherit an old Ant layout. Custom paths break **onboarding**—everyone expects \`src/main/java\`.  
+   **Fresher answer:** “Possible, but standard layout is preferred.”
+
+7. **What is \`src/site\` for?**  
+   Optional folder for **Maven Site**—generated project documentation (reports, Javadoc links). Many teams skip it and use **README**, **Wiki**, or **Swagger** instead.  
+   You only need to know it exists for **interviews**; most junior projects won’t use it.
+
+8. **How do multi-module projects look?**  
+   Top folder has a **parent** \`pom.xml\` with **\`<modules>\`** listing subfolders like \`service-api\`, \`service-impl\`, \`web\`. Each subfolder has its own **\`src\`** and **child** \`pom.xml\`.  
+   The **parent** might have **packaging \`pom\`** and **no** \`src\` at all—it only **coordinates** children.
+
+9. **Why does Maven enforce layout?**  
+   **Convention over configuration:** Compiler, Surefire, and JAR plugins **already know** where to look. Less XML, fewer mistakes. New developers **open any Maven repo** and instantly know where code lives.
+
+10. **What happens if resources aren’t in \`resources\`?**  
+    If you put a \`.properties\` file inside **\`src/main/java\`**, it might **not** be copied into the JAR unless you add special config. **Best practice:** put all non-Java files under **\`src/main/resources\`** in a path that mirrors the package if you want **\`ClassLoader.getResource\`** to find them predictably.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

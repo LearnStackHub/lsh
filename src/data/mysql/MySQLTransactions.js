@@ -296,148 +296,6 @@ VALUES (@order_id, CURRENT_DATE, (SELECT total_amount FROM orders WHERE id = @or
 COMMIT;
 SELECT 'Refund processed successfully' AS message;
 \`\`\`
-  `,
-  code: `-- MySQL Transactions Examples
-
-CREATE DATABASE transactions_demo;
-USE transactions_demo;
-
-CREATE TABLE accounts (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    account_number VARCHAR(20) UNIQUE NOT NULL,
-    balance DECIMAL(15, 2) DEFAULT 0
-);
-
-CREATE TABLE orders (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT UNSIGNED,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending'
-);
-
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200),
-    stock INT UNSIGNED DEFAULT 0
-);
-
-CREATE TABLE order_items (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED,
-    product_id INT UNSIGNED,
-    quantity INT UNSIGNED
-);
-
--- ========== Basic Transaction ==========
-
--- Money transfer
-START TRANSACTION;
-
-UPDATE accounts SET balance = balance - 100 WHERE id = 1;
-UPDATE accounts SET balance = balance + 100 WHERE id = 2;
-
--- Check for errors
--- If successful:
-COMMIT;
-
--- If error:
--- ROLLBACK;
-
--- ========== Order Processing Transaction ==========
-
-START TRANSACTION;
-
--- Create order
-INSERT INTO orders (customer_id, total_amount) VALUES (1, 99.99);
-SET @order_id = LAST_INSERT_ID();
-
--- Add item
-INSERT INTO order_items (order_id, product_id, quantity) 
-VALUES (@order_id, 5, 1);
-
--- Update stock
-UPDATE products SET stock = stock - 1 WHERE id = 5;
-
--- Check stock
-IF (SELECT stock FROM products WHERE id = 5) < 0 THEN
-    ROLLBACK;
-ELSE
-    COMMIT;
-END IF;
-
--- ========== Savepoints ==========
-
-START TRANSACTION;
-
-INSERT INTO orders (customer_id, total_amount) VALUES (1, 50.00);
-SAVEPOINT sp1;
-
-UPDATE products SET stock = stock - 1 WHERE id = 1;
-SAVEPOINT sp2;
-
--- Rollback to savepoint
-ROLLBACK TO SAVEPOINT sp1;
-
--- Continue
-COMMIT;
-
--- ========== Auto-commit Control ==========
-
--- Disable auto-commit
-SET autocommit = 0;
-
--- Multiple operations
-INSERT INTO orders ...;
-UPDATE products ...;
-
--- Must commit
-COMMIT;
-
--- Re-enable
-SET autocommit = 1;
-
--- ========== Isolation Levels ==========
-
--- Set isolation level
-SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
-
-START TRANSACTION;
-SELECT * FROM orders;
-COMMIT;
-
--- ========== Error Handling ==========
-
-DELIMITER //
-CREATE PROCEDURE ProcessOrderWithTransaction(
-    IN p_customer_id INT,
-    IN p_product_id INT,
-    IN p_quantity INT
-)
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
-        ROLLBACK;
-        SELECT 'Transaction failed' AS message;
-    END;
-    
-    START TRANSACTION;
-    
-    -- Create order
-    INSERT INTO orders (customer_id, total_amount) VALUES (p_customer_id, 99.99);
-    SET @order_id = LAST_INSERT_ID();
-    
-    -- Add item
-    INSERT INTO order_items (order_id, product_id, quantity) 
-    VALUES (@order_id, p_product_id, p_quantity);
-    
-    -- Update stock
-    UPDATE products SET stock = stock - p_quantity WHERE id = p_product_id;
-    
-    COMMIT;
-    SELECT 'Order processed successfully' AS message;
-END //
-DELIMITER ;
-
 ---
 
 ## Real-World Applications
@@ -612,9 +470,206 @@ Transactions are essential for data integrity. Continue learning about [MySQL St
 
 ---
 
+## 10 Important MySQL Transactions Interview Questions
+
+### 1. What is a database transaction?
+
+**Answer:** A **transaction** is a **logical unit of work**—one or more SQL statements that should **commit** **together** or **roll back** **together**. **Atomicity** means **all-or-nothing**: either every change **persists** or **none** do. **Bank transfers** (debit + credit) are the classic example. **InnoDB** transactions are **ACID**-compliant.
+
+### 2. What does ACID stand for?
+
+**Answer:** **Atomicity** (all-or-nothing commits); **Consistency** (constraints hold when a transaction ends); **Isolation** (concurrent transactions don’t **interfere** beyond allowed phenomena); **Durability** (committed data survives **crashes** after the log is **flushed**). **Interviewers** expect you to **define** each term in **plain English**, not only **acronyms**.
+
+### 3. How do START TRANSACTION, COMMIT, and ROLLBACK work?
+
+**Answer:** **START TRANSACTION** (or **BEGIN**) opens a transaction boundary. **COMMIT** makes changes **permanent** and **releases** locks (subject to isolation). **ROLLBACK** **undoes** work since the transaction **start** (or to a **SAVEPOINT**). **autocommit=1** (default) wraps **each statement** in its **own** transaction unless you **explicitly** begin one.
+
+### 4. What is a transaction isolation level?
+
+**Answer:** Isolation defines **which** **concurrency anomalies** are possible: **dirty reads** (uncommitted data), **non-repeatable reads**, **phantom reads**. **Higher** isolation **reduces** anomalies but **increases** **locking** and **contention**. **Trade-off** between **correctness** and **throughput**.
+
+### 5. Compare READ COMMITTED and REPEATABLE READ in InnoDB.
+
+**Answer:** **REPEATABLE READ** is **InnoDB’s default**: consistent **read snapshot** for the transaction; **phantom** behavior is **limited** by **next-key locking** in many cases. **READ COMMITTED** sees **each** statement’s **fresh** committed data—**fewer** lock **conflicts** but **weaker** guarantees. **Choose** based on **business** tolerance for **anomalies**.
+
+### 6. What is a deadlock?
+
+**Answer:** **Deadlock** occurs when **two or more** transactions **hold** locks the others **need**, forming a **cycle**. **InnoDB** **detects** deadlocks and **rolls back** one transaction (**victim**) to **break** the cycle. **Reduce** deadlocks with **consistent lock order**, **shorter** transactions, and **proper** **indexing**.
+
+### 7. What is autocommit?
+
+**Answer:** When **autocommit** is **ON**, each **standalone** statement **commits** immediately. Turn it **OFF** (or use **explicit** transaction APIs) to **batch** multiple statements **atomically**. **Connection pools** often **reset** autocommit—**watch** for **surprises**.
+
+### 8. What is a SAVEPOINT?
+
+**Answer:** **SAVEPOINT name** marks a **position** inside a transaction; **ROLLBACK TO SAVEPOINT** **undoes** work after that point **without** ending the whole transaction. **Use** for **complex** workflows—**rare** in simple CRUD but **fair** for **advanced** interviews.
+
+### 9. How do JDBC transactions map to MySQL?
+
+**Answer:** **Connection.setAutoCommit(false)** begins **manual** transaction control; **commit()** and **rollback()** end it. **Must** use **try/finally** or try-with-resources to **rollback** on **errors**. **Spring** \`@Transactional\` manages this **declaratively**—still **same** underlying semantics.
+
+### 10. How do you summarize transactions for an interview?
+
+**Answer:** **Transactions** **bundle** related changes; **isolation** controls **how much** of **others’** work you **see** while **in flight**; **locks** and **deadlocks** are the **price** of **concurrency**. **Measure** under **load**, don’t only **recite** definitions.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **DML** | [MySQL INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete) |
+| **Locks & concurrency** | [Hibernate Locking](/tutorial/hibernate-locking) |
+| **JDBC transactions** | [Transaction Management (JDBC)](/tutorial/transaction-management) |
+| **Spring @Transactional** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+| **Indexes & contention** | [MySQL Indexes](/tutorial/mysql-indexes) |
+
+---
+
 ## Test Your Knowledge
 
 Mastered MySQL transactions? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering transactions, ACID properties, isolation levels, and all MySQL topics!
+  `,
+  code: `-- MySQL Transactions Examples
+
+CREATE DATABASE transactions_demo;
+USE transactions_demo;
+
+CREATE TABLE accounts (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    account_number VARCHAR(20) UNIQUE NOT NULL,
+    balance DECIMAL(15, 2) DEFAULT 0
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending'
+);
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200),
+    stock INT UNSIGNED DEFAULT 0
+);
+
+CREATE TABLE order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED,
+    product_id INT UNSIGNED,
+    quantity INT UNSIGNED
+);
+
+-- ========== Basic Transaction ==========
+
+-- Money transfer
+START TRANSACTION;
+
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+-- Check for errors
+-- If successful:
+COMMIT;
+
+-- If error:
+-- ROLLBACK;
+
+-- ========== Order Processing Transaction ==========
+
+START TRANSACTION;
+
+-- Create order
+INSERT INTO orders (customer_id, total_amount) VALUES (1, 99.99);
+SET @order_id = LAST_INSERT_ID();
+
+-- Add item
+INSERT INTO order_items (order_id, product_id, quantity) 
+VALUES (@order_id, 5, 1);
+
+-- Update stock
+UPDATE products SET stock = stock - 1 WHERE id = 5;
+
+-- Check stock
+IF (SELECT stock FROM products WHERE id = 5) < 0 THEN
+    ROLLBACK;
+ELSE
+    COMMIT;
+END IF;
+
+-- ========== Savepoints ==========
+
+START TRANSACTION;
+
+INSERT INTO orders (customer_id, total_amount) VALUES (1, 50.00);
+SAVEPOINT sp1;
+
+UPDATE products SET stock = stock - 1 WHERE id = 1;
+SAVEPOINT sp2;
+
+-- Rollback to savepoint
+ROLLBACK TO SAVEPOINT sp1;
+
+-- Continue
+COMMIT;
+
+-- ========== Auto-commit Control ==========
+
+-- Disable auto-commit
+SET autocommit = 0;
+
+-- Multiple operations
+INSERT INTO orders ...;
+UPDATE products ...;
+
+-- Must commit
+COMMIT;
+
+-- Re-enable
+SET autocommit = 1;
+
+-- ========== Isolation Levels ==========
+
+-- Set isolation level
+SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+START TRANSACTION;
+SELECT * FROM orders;
+COMMIT;
+
+-- ========== Error Handling ==========
+
+DELIMITER //
+CREATE PROCEDURE ProcessOrderWithTransaction(
+    IN p_customer_id INT,
+    IN p_product_id INT,
+    IN p_quantity INT
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT 'Transaction failed' AS message;
+    END;
+    
+    START TRANSACTION;
+    
+    -- Create order
+    INSERT INTO orders (customer_id, total_amount) VALUES (p_customer_id, 99.99);
+    SET @order_id = LAST_INSERT_ID();
+    
+    -- Add item
+    INSERT INTO order_items (order_id, product_id, quantity) 
+    VALUES (@order_id, p_product_id, p_quantity);
+    
+    -- Update stock
+    UPDATE products SET stock = stock - p_quantity WHERE id = p_product_id;
+    
+    COMMIT;
+    SELECT 'Order processed successfully' AS message;
+END //
+DELIMITER ;
 `
 };
 

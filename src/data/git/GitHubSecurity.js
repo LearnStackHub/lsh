@@ -316,6 +316,52 @@ You've learned:
 - Secret scanning and protection
 - Security best practices
 
+---
+
+## 10 Important GitHub Security Interview Questions
+
+1. **Why enable 2FA on GitHub?**  
+   Password leaks happen; **2FA** blocks account takeover even if password is stolen. **Required** by many **employers** and **open source** foundations.
+
+2. **What is a Personal Access Token (PAT)?**  
+   **Password substitute** for **HTTPS Git** and **API** calls—**scoped** (repo, workflow, etc.) and **revocable**. **Never** commit PATs to a repo.
+
+3. **Why prefer SSH keys for Git?**  
+   **Key pair** (\`id_ed25519\`): private key stays on your machine; GitHub stores **public** key. **No** token in URL for each push once configured.
+
+4. **What should never be committed?**  
+   **\`.env\`** with secrets, **private keys**, **cloud** credentials, **database** passwords. Use **\`.gitignore\`** + **secret scanning** (GitHub can **block** pushes).
+
+5. **What is GitHub secret scanning?**  
+   Detects **known secret patterns** in pushes and can **alert** or **block**—helps **prevent** credential leaks.
+
+6. **What is Dependabot (high level)?**  
+   **Automated PRs** to bump **vulnerable** dependencies—**security** maintenance for **Maven** \`pom.xml\`, npm, etc.
+
+7. **How do you revoke a leaked token?**  
+   GitHub **Settings → Developer settings → Tokens** → **delete** immediately; **rotate** any systems using it; **audit** repo access.
+
+8. **What is least privilege for collaborators?**  
+   Give **read**/**triage**/**write**/**admin** **only** as needed. **Fewer** admins = **smaller** blast radius.
+
+9. **Why review SSH key and PAT list periodically?**  
+   Remove **old** laptops’ keys and **unused** tokens—stale credentials are **attack** surface.
+
+10. **Interview summary line?**  
+    “**2FA + PAT/SSH + no secrets in Git + Dependabot** is the baseline **secure** GitHub setup.”
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **HTTPS & TLS** | [HTTPS Security](/tutorial/https-security) |
+| **Auth concepts (APIs)** | [Authentication & Authorization](/tutorial/authentication-authorization) |
+| **API hardening** | [API Security Best Practices](/tutorial/api-security-best-practices) |
+| **Using GitHub** | [GitHub Basics](/tutorial/github-basics) |
+| **Org permissions** | [GitHub Teams](/tutorial/github-teams) |
+
 Securing your GitHub account protects your code and your reputation. Take security seriously!
 `
 };

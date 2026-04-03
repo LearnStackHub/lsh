@@ -383,6 +383,63 @@ CSS
 - ✅ \`value\` - Set item number (on <li>)
 
 Lists are essential for organizing content on web pages!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Lists Interview Questions
+
+1. **What are the three main list types in HTML?**  
+   **\`<ul>\` (unordered list)** for items where sequence does not matter—typically **bullets**. **\`<ol>\` (ordered list)** when **order is meaningful**—steps, rankings, legal clauses—typically **numbers**. **\`<dl>\` (description list)** pairs **terms** (\`<dt>\`) with **descriptions** (\`<dd>\`)—glossaries, metadata, FAQ-style pairs. Choosing the right list type helps **screen readers** announce content correctly (e.g. “list, three items” vs “numbered list”).
+
+2. **When should you use \`<ol>\` vs \`<ul>\`?**  
+   Use **\`<ol>\`** when changing the order would **change the meaning** (recipe steps, tutorial instructions). Use **\`<ul>\`** for **sets** where order is arbitrary (feature lists, nav items). If you only number for **decoration**, that is a **styling** concern—still use \`<ul>\` and style with CSS, unless the numbers carry **semantic** meaning.
+
+3. **What is \`<li>\`?**  
+   The **list item** element. Only \`<li>\` should be direct children of \`<ul>\` or \`<ol>\` (plus script-supporting elements in some cases). Each \`<li>\` can contain **flow content**: paragraphs, nested lists, links, etc. **Never** put bare text or other elements directly under \`<ul>\` without wrapping in \`<li>\`.
+
+4. **Can lists be nested?**  
+   Yes. Put the **inner** \`<ul>\` or \`<ol>\` **inside** an \`<li>\` of the outer list. This pattern builds **multi-level** navigation, outlines, and sub-steps. **Deep nesting** hurts usability—consider **flattening** or **headings** for very complex structures. Screen readers announce **nesting level**, so keep hierarchy meaningful.
+
+5. **What are \`<dl>\`, \`<dt>\`, and \`<dd>\`?**  
+   A **description list** groups **name–value** pairs. **\`<dt>\`** = term (name). **\`<dd>\`** = description (one or more \`<dd>\` per \`<dt>\` is allowed). Common uses: **glossary**, **product specs**, **key–value** metadata. Do **not** misuse \`<dl>\` for arbitrary columns—if it is not term/definition semantics, a **table** or **grid** may fit better.
+
+6. **What does the \`start\` attribute on \`<ol>\` do?**  
+   It sets the **numeric starting value** for the list (e.g. continue a procedure from step 5 across sections: \`<ol start="5">\`). This affects **accessibility** and **printed** documents. Combine with **CSS counters** for advanced styling if needed.
+
+7. **What does \`reversed\` do on \`<ol>\`?**  
+   It numbers items in **descending** order (e.g. top-10 countdown). The **browser** handles numbering; you still author \`<li>\` in **document order**. Test with **screen readers** to ensure the announcement matches user expectations.
+
+8. **How do you change bullet/number style?**  
+   Use **CSS** \`list-style-type\` on \`<ul>\`/\`<ol>\` (e.g. \`disc\`, \`circle\`, \`decimal\`, \`lower-roman\`). The old **\`type\`** attribute on \`<ol>\`/\`<ul>\` still exists but **CSS** is preferred for maintainability. For **custom** bullets, **\`list-style: none\`** plus **pseudo-elements** or background images is common.
+
+9. **Is it valid to put raw text directly inside \`<ul>\`?**  
+   **No**—only \`<li>\` (and certain **script/template** elements) belong as direct children. Raw text nodes under \`<ul>\` are **invalid** and confuse parsers and assistive tech. Always wrap content in \`<li>\`.
+
+10. **Why use a list for navigation?**  
+    A **\`<nav>\`** containing a **\`<ul>\` of links** is a widely recognized **pattern**: screen readers announce **“navigation, list, N items”**, and keyboard users can move predictably. **Divs** with links work visually but lose **list semantics**. Combine with **focus styles** and **ARIA** only when patterns are nonstandard.
+
 `,
   code: `// HTML Lists
 

@@ -391,6 +391,63 @@ Now that you understand marquee (and why to avoid it), you're ready to explore m
 - **[Frontend Development](/tutorial/frontend-development)**: Master modern frontend techniques
 
 Marquee is deprecated - use modern alternatives. Continue learning about [CSS Introduction](/tutorial/css-introduction) to create modern scrolling effects.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Marquee Interview Questions
+
+1. **Is \`<marquee>\` valid in modern HTML?**  
+   **No** for new work—\`<marquee>\` is **obsolete** in the WHATWG HTML living standard. Browsers may still render it for **legacy** pages, but it is **non-standard** behavior you should not depend on. **Interviews** expect you to say: “deprecated—use CSS/JS alternatives.”
+
+2. **Why was marquee deprecated?**  
+   It mixes **presentation** into HTML, offers **no reliable pause** for users who need to read slowly, and creates **constant motion** that distracts users with **ADHD** or **vestibular** sensitivity. **Screen reader** behavior was inconsistent. **Separation of concerns**: motion belongs in **CSS** or **JS** with **controls**.
+
+3. **What WCAG concern does scrolling text raise?**  
+   **WCAG 2.2** includes guidance on **moving/blinking** content: users must be able to **pause, stop, or hide** movement unless it is **essential**. Auto-scrolling tickers often **violate** this. **Flashing** content also risks **seizures** (thresholds on frequency). **Marquee** fails many of these tests by design.
+
+4. **What is the recommended replacement for marquee?**  
+   Build a **ticker** with **CSS animation** (\`transform: translateX\`) or **JS** \`requestAnimationFrame\`, and add **Pause/Play** buttons wired to **\`animation-play-state\`** or class toggles. Provide **keyboard** access. Respect **\`prefers-reduced-motion: reduce\`** by showing **static** text or disabling animation.
+
+5. **Can screen readers handle marquee well?**  
+   **Generally poorly**—moving text may be **hard to track**, and focus order may not follow visual order. **Better**: static headline + **link** to full article, or **aria-live** updates only when content **changes meaningfully**, not continuously.
+
+6. **How do CSS \`@keyframes\` replace marquee?**  
+   Wrap text in an **overflow:hidden** container; animate **\`transform\`** (GPU-friendly) instead of **\`left\`/\`margin\`** for smoother performance. Control **duration**, **easing**, and **iteration**. For **infinite** loops, duplicate content for **seamless** scroll. **Test** on **low-end** mobile devices.
+
+7. **Why prefer JS over pure CSS for news tickers?**  
+   **CSS-only** tickers struggle with **dynamic feeds**, **pause on hover/focus**, and **accessible** announcements. **JS** can fetch items, **pause** when the tab is hidden (**Page Visibility API**), and expose **ARIA** live regions **carefully**. Still keep **animations** in CSS where possible.
+
+8. **Should you refactor legacy pages that use marquee?**  
+   **Yes**, when those pages are actively **maintained**—especially **public** or **compliance**-sensitive sites. Prioritize **high-traffic** pages first. **Full** removal may need **design** approval if marketing liked the effect—offer **accessible** equivalents.
+
+9. **Is infinite scrolling animation always bad?**  
+   Not always—**subtle**, **slow** motion with **clear controls** may be acceptable. **Never** make **critical** text only available inside endless motion. **User testing** matters. **Always** honor **reduced motion** settings.
+
+10. **What is \`prefers-reduced-motion\`?**  
+    A **CSS media query** (\`@media (prefers-reduced-motion: reduce)\`) that matches when the user selects **“reduce motion”** at the OS level (Windows, macOS, iOS, Android). **Disable or simplify** animations; provide **static** alternatives. **Not** a replacement for **pause buttons**—some users need motion reduced **even** when the OS setting is off.
+
 `,
   code: `// HTML Marquee (Deprecated)
 

@@ -309,6 +309,63 @@ public class FormInputTag extends SimpleTagSupport {
     <button type="submit">Register</button>
 </form>
 \`\`\`
+
+---
+
+## 10 Important JSP Custom Tags Interview Questions
+
+### 1. Why create custom JSP tags instead of using scriptlets?
+
+**Answer:** Custom tags package **reusable** view behavior (UI widgets, conditional chrome, formatted blocks) behind a **declarative** XML interface. Page authors use \`<my:widget />\` instead of copying **Java** snippets. That improves **consistency**, **testing** of tag handlers in isolation, and **separation** between designers and Java developers. Interview narrative: “We push repetition into tags or includes, not into scriptlets.”
+
+### 2. What is a **tag handler** class?
+
+**Answer:** For **simple** tags, you often extend \`SimpleTagSupport\` and implement \`doTag()\` to generate output via \`JspContext.getOut()\`. **Classic** tags used \`Tag\` / \`BodyTag\` with a heavier lifecycle (\`doStartTag\`, \`doEndTag\`, body iteration). Modern JSP favors **SimpleTag** and **tag files** for many use cases. Know which API your **container** version targets.
+
+### 3. What is a TLD file?
+
+**Answer:** A **Tag Library Descriptor** (XML) maps **tag names** to **Java classes** (or tag files), declares **attributes**, **required** flags, **rtexprvalue** (whether attributes accept runtime expressions), and **body-content** (\`empty\`, \`scriptless\`, \`tagdependent\`, etc.). The \`uri\` in the TLD matches the \`taglib\` directive in JSP. Misconfigured TLDs cause **translation** errors before runtime.
+
+### 4. What are **tag files**?
+
+**Answer:** Tag files are JSP fragments (often \`.tag\` or \`.tagx\`) packaged under \`WEB-INF/tags\` or in tag libraries, compiled into tag handlers **without** writing a Java class by hand. They are ideal for **lightweight** composition—headers, repeated panels—when full Java handlers are overkill. Contrast **performance** and **tooling**: tag files are faster to write; Java handlers offer maximal **control**.
+
+### 5. Explain \`body-content\` values in a TLD.
+
+**Answer:** \`empty\` means no body; \`scriptless\` allows EL and subactions but **not** scriptlets; \`tagdependent\` passes body text **verbatim** to the handler (for embedded mini-languages); \`JSP\` (classic) allows full JSP in bodies—rare in modern **scriptless** policies. Choosing wrong values breaks **translation** or allows **scriptlets** where you wanted to forbid them.
+
+### 6. What does \`rtexprvalue\` mean on an attribute?
+
+**Answer:** If **true**, the attribute may be set from a **runtime** expression (EL or request-time expression, depending on spec and container). If **false**, only **static** strings are allowed. This controls whether \`<my:tag title="\${msg}" />\` is legal. Interviewers check whether you understand **translation-time** vs **request-time** attribute values.
+
+### 7. How do custom tags access the **page context** or **scoped variables**?
+
+**Answer:** Handlers receive \`JspContext\` / \`PageContext\` to look up **attributes**, find **request/response**, dispatch **forwards/includes**, or cooperate with **tag parents**. Nested tags can coordinate via **findAncestorWithClass**. Advanced questions cover **attribute** scope and **cooperative** tags (e.g. iterator + item renderer patterns).
+
+### 8. How do custom tags relate to **security**?
+
+**Answer:** Tags that render **user** input must **encode** appropriately, mirroring \`c:out\` discipline. Tags that perform **authorization** checks can centralize **access control** for fragments of a page—but business **authorization** still belongs in **controllers/services** for **non-negotiable** rules. Mention **OWASP**-style thinking: tags are not a magic sandbox.
+
+### 9. When would you choose **SimpleTag** vs **JSP Fragment** / **jsp:include**?
+
+**Answer:** Use **SimpleTag** (or tag files) when you need **parameters**, **body** evaluation control, or **iteration** over **JspFragment**. Use **include** for **page** composition without a new tag contract. Use **tag files** for rapid UI reuse. The decision is about **API surface** vs **simplicity**.
+
+### 10. How do custom tags fit into Spring MVC or similar frameworks?
+
+**Answer:** Frameworks often provide their **own** tag libraries (form binding, URL tags, security) that wrap **model** data and **CSRF** tokens. Even then, **project-specific** tags help standardize **widgets**. In interviews, acknowledge **ecosystem** tags first, then explain where **custom** tags still add value (design system components, legacy coexistence).
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **JSTL** | [JSP JSTL](/tutorial/jsp-jstl) |
+| **Directives** | [JSP directives](/tutorial/jsp-directives) |
+| **EL** | [JSP Expression Language](/tutorial/jsp-expression-language) |
+| **Action tags** | [JSP action tags](/tutorial/jsp-action-tags) |
+| **Architecture** | [JSP architecture](/tutorial/jsp-architecture) |
+
 `,
   code: `// JSP Custom Tags Demo
 // Demonstrates creating and using custom tags

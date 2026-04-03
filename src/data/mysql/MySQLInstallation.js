@@ -459,6 +459,62 @@ Your MySQL installation is complete and ready for database development.
 
 ---
 
+## 10 Important MySQL Installation Interview Questions
+
+### 1. How do you verify MySQL is installed correctly?
+
+**Answer:** From the shell, run \`mysql --version\` to confirm the client binary is on your **PATH**. Then connect with \`mysql -u root -p\` (or another user) and execute \`SELECT VERSION();\`, \`SELECT @@hostname;\`, and \`SHOW DATABASES;\`. If \`mysql\` is “not found,” the install or **PATH** is wrong. If connection fails, separate **client** vs **server** issues (service down, wrong port, socket path on Linux).
+
+### 2. What is the default network port and why does it matter?
+
+**Answer:** MySQL listens on **TCP 3306** by default. Connection URLs, JDBC strings, Docker **port mappings**, and **security groups** must all align. **Remote** access also requires the server to **listen** on that interface (\`bind-address\`) and **firewalls** to allow inbound traffic. Changing the port is valid but must be coordinated everywhere.
+
+### 3. Who is the \`root\` user?
+
+**Answer:** \`root\` is the built-in **superuser** with full administrative privileges. It is acceptable for **local learning** and initial setup. In production **applications**, you create **dedicated** accounts with **least privilege** (only the databases and statements needed). **Never** embed \`root\` credentials in application config for production.
+
+### 4. Why is a strong root password important?
+
+**Answer:** \`root\` can **drop databases**, create users, grant **ALL PRIVILEGES**, and read all data. A weak password on a **network-exposed** instance is a common entry point for attackers. Best practice: strong password, **no** public exposure without VPN, and **fail2ban** or network isolation where applicable. **Rotate** credentials after install scripts.
+
+### 5. What is MySQL Workbench?
+
+**Answer:** **MySQL Workbench** is Oracle’s **GUI** for SQL editing, **schema** design, **server administration**, and **migration**. It is optional—many developers use the **CLI**, **VS Code** extensions, or **DataGrip**. In interviews, say you can use any client as long as you understand **SQL** and **connection** parameters.
+
+### 6. How do you start and stop MySQL on Windows vs Linux?
+
+**Answer:** On **Windows**, use **Services** (\`services.msc\`) to start/stop the MySQL service, or PowerShell equivalents. On **Linux**, the service name depends on the package (\`mysql\`, \`mysqld\`, or \`mariadb\`); common commands are \`systemctl start mysql\` / \`stop\` / \`status\`. **macOS** Homebrew uses \`brew services\`. Knowing the **exact** service name for your distro avoids confusion in troubleshooting.
+
+### 7. What does \`bind-address\` control?
+
+**Answer:** In \`my.cnf\` (or \`my.ini\`), \`bind-address\` sets **which IP addresses** MySQL listens on. **127.0.0.1** means **local only** connections. **0.0.0.0** (or **::**) means **all interfaces**—required for remote clients but **dangerous** without firewall and auth hardening. **skip-networking=1** disables TCP entirely (socket only).
+
+### 8. What are common causes of “Can’t connect to MySQL server”?
+
+**Answer:** Typical causes: **mysqld** not running; wrong **host** (\`localhost\` vs **127.0.0.1** vs socket); wrong **port**; **firewall** blocking 3306; **user** defined only for \`localhost\` while you connect from another host; **max_connections** reached; **SSL** requirements mismatch. Systematic checks: **ping**, **telnet/nc** to port, **error log**, \`SHOW PROCESSLIST\` for admins.
+
+### 9. Why use MySQL in Docker?
+
+**Answer:** Docker gives a **reproducible** MySQL version for every developer and CI job, without conflicting OS packages. You can pin **image tags**, map **ports** and **volumes**, and tear down environments cleanly. Trade-offs: **volume** backup strategy, **memory** limits, and **production** still needs proper **backup** and **HA**—Docker is not “production” by itself.
+
+### 10. After installation, what first SQL should a beginner run?
+
+**Answer:** Run \`SHOW DATABASES;\` to see schemas, \`CREATE DATABASE test_db;\` and \`USE test_db;\` to prove DDL rights, then \`CREATE TABLE\`, \`INSERT\`, \`SELECT\` to validate the full path. Also run \`SELECT USER(), CURRENT_USER();\` to see **which** account you authenticated as—important when debugging **privilege** issues.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **MySQL concepts** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **DDL: create objects** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **Create DB & tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
+| **Users & GRANT** | [MySQL Privileges](/tutorial/mysql-privileges) |
+| **Java connection** | [JDBC Connection Steps](/tutorial/jdbc-connection-steps) |
+
+---
+
 ## Test Your Knowledge
 
 MySQL installed successfully? Test your MySQL knowledge with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering installation, setup, and all MySQL topics!

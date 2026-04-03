@@ -398,6 +398,63 @@ Enterprise web applications extensively use images for product displays, user av
 - ✅ Choose appropriate format
 
 Images bring life to web pages when used correctly!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Images Interview Questions
+
+1. **What attributes are required on \`<img>\`?**  
+   **\`src\`** is **required** so the browser knows **which resource** to fetch. **\`alt\`** is **required by spec for accessibility**: it must be **present** on every \`<img>\`—use a **meaningful** string when the image conveys information, and \`alt=""\` when the image is **purely decorative**. **width** and **height** are optional but recommended for **layout stability** (reserve space before load).
+
+2. **Why is \`alt\` text important?**  
+   Screen readers **announce** \`alt\` instead of showing the picture. If the image fails to load, **browsers** may show \`alt\` text or a broken icon with tooltip. Search engines use \`alt\` to understand **image content**. Good \`alt\` is **concise** and describes **function** (e.g. “Submit search”) not every visual detail unless needed.
+
+3. **When is \`alt=""\` appropriate?**  
+   When the image is **redundant** with nearby text (e.g. icon next to a visible label) or **pure ornament**. Empty \`alt\` tells assistive tech to **skip** the image as non-essential. **Never** omit \`alt\` entirely—missing \`alt\` is not the same as empty \`alt\` for accessibility tools.
+
+4. **What is \`loading="lazy"\`?**  
+   Native **lazy loading** delays fetching the image until it is **near the viewport** (browser-dependent distance). This improves **LCP** and **bandwidth** for long pages. **Do not** lazy-load **above-the-fold hero** images if that hurts LCP—use \`loading="eager"\` or no attribute for critical images. **SEO crawlers** generally execute lazy loading in modern setups, but test critical content.
+
+5. **What is \`srcset\` used for?**  
+   **\`srcset\`** lists **candidate URLs** with **width or density descriptors** (e.g. \`image-400w.jpg 400w\`). Together with **\`sizes\`**, the browser picks an appropriate file for **DPR** and **layout width**, saving **mobile data**. The \`src\` attribute remains a **fallback** for older browsers.
+
+6. **What is the \`<picture>\` element for?**  
+   **\`<picture>\`** wraps multiple **\`<source>\`** elements (with \`media\`, \`type\`, or \`srcset\`) and ends with a **required \`<img>\`** as the **final** embedded image. Use it for **art direction** (crop differently on mobile vs desktop), **format** fallback (WebP with JPEG fallback), or **media-query**-based sources. It is more powerful than \`srcset\` alone when **CSS breakpoints** must change **which** image, not only resolution.
+
+7. **JPEG vs PNG vs SVG—when to use each?**  
+   **JPEG** is **lossy**—best for **photos** and continuous tone; smaller files, no transparency. **PNG** supports **lossless** compression and **alpha transparency**—good for **logos**, **screenshots**, **UI** with sharp edges. **SVG** is **vector**—infinitely scalable, small for **icons** and **diagrams**, stylable with CSS—but avoid huge **complex** SVGs. **WebP/AVIF** often beat JPEG/PNG on size at similar quality when you can provide **fallbacks**.
+
+8. **What are \`<figure>\` and \`<figcaption>\`?**  
+   **\`<figure>\`** is a **self-contained** unit: image, diagram, code snippet, quote, etc. **\`<figcaption>\`** is the **caption** associated with that figure (visible text). This grouping helps **screen readers** understand that caption and image belong together. **Not every image** needs a figure—only when a **caption** or **grouping** is semantically correct.
+
+9. **Should you set width/height in HTML or CSS?**  
+   **Intrinsic** \`width\`/\`height\` attributes (or CSS **aspect-ratio**) help the browser **reserve space** before the image loads, reducing **CLS** (Cumulative Layout Shift). **Visual styling** (margins, borders, responsive max-width) belongs in **CSS**. A common pattern: set **dimensions** for layout stability, then \`max-width: 100%; height: auto;\` in CSS for **fluid** images.
+
+10. **How do you make an image a link?**  
+    Nest the image inside an anchor: \`<a href="/details"><img src="thumb.jpg" alt="View product details"></a>\`. Ensure **keyboard** users can focus the link and **focus styles** are visible. If the link text is **only** the image, the \`alt\` should describe the **link purpose**, not just “photo of shoe” unless that is the intent.
+
 `,
   code: `// HTML Images
 

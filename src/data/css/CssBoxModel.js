@@ -319,6 +319,63 @@ Box sizing controls how the width and height are calculated. With \`content-box\
 You can use shorthand properties to set all sides at once. For padding and margin, use \`padding: top right bottom left;\` or \`margin: top right bottom left;\`. For borders, use \`border: width style color;\` to set all border properties at once.
 
 Understanding the box model is essential for CSS layout. Once you understand how content, padding, border, and margin work together, you'll be able to create layouts with confidence.
+
+---
+
+## 10 Important CSS Box Model Interview Questions
+
+1. **What are the four layers of the standard box model?**  
+   From inside out: **content** (text/replaced elements), **padding** (inside border), **border**, and **margin** (outside border). **Width/height** in default **content-box** apply to **content only**—padding and border **add** to the total size.
+
+2. **What does \`box-sizing: border-box\` change?**  
+   **\`width\` and \`height\`** include **content + padding + border**—the **border box**. Layout math matches intuition: “300px wide card” stays **300px** after padding. Most **CSS resets** set \`* { box-sizing: border-box; }\` globally.
+
+3. **What is margin collapse and when does it happen?**  
+   **Adjacent vertical margins** of **block** boxes in normal flow **collapse** to the **larger** margin (not sum). **Horizontal** margins don’t collapse. **Padding**, **borders**, **flex/grid**, and **overflow** other than **visible** can **prevent** collapse. Explains “missing” vertical spacing bugs.
+
+4. **Difference between margin and padding?**  
+   **Padding** is **inside** the border—**background** paints under padding. **Margin** is **outside**—transparent, pushes **other** boxes away. Use **padding** for **clickable** touch targets inside a component; **margin** for **space between** siblings.
+
+5. **How do percentage widths and margins work?**  
+   **Percentage** \`width\` is usually relative to the **containing block** width. **margin: 0 auto** with a **fixed width** block **centers** horizontally. **Vertical** percentage margins can reference **width** too (CSS quirk)—know the **containing block** rules.
+
+6. **What is the \`outline\` property and how is it different from \`border\`?**  
+   **Outline** does **not** affect layout (no extra box space) and is often used for **focus rings**. **Border** participates in **box size** (with box-sizing) and layout. **Don’t** remove **:focus-visible** outlines without replacement—**accessibility** issue.
+
+7. **What are negative margins used for?**  
+   Pulling elements **closer** or creating **full-bleed** effects inside constrained parents. **Risky**: can cause **overlap** and **scroll** issues. Prefer **transform** or **grid** alignment when possible; use negative margins **knowingly**.
+
+8. **What is \`min-width\`, \`max-width\`, and \`min-height\` used for?**  
+   They **clamp** the **computed** size—essential for **responsive** text columns (\`max-width: 65ch\`) and **flex** children (\`min-width: 0\` to allow shrinking). **Flex** items default **min-width: auto** which can **block** shrinking—common interview trap.
+
+9. **How does \`border-radius\` interact with background and overflow?**  
+   Rounds the **border box**; **background** clips to radius unless otherwise set. **overflow: hidden** with **radius** clips **children** for **card** UIs. **Percentage** radius makes **circles** when **width == height**.
+
+10. **Why is the box model foundational for Flexbox and Grid?**  
+    Flex and Grid items are still **boxes**—**min/max sizes**, **padding**, and **borders** affect **flex-basis**, **track sizing**, and **alignment**. Debugging layout often means inspecting **computed** box sizes in DevTools.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Box Model
 

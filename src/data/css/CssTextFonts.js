@@ -335,6 +335,63 @@ Text properties control how text is displayed. The \`color\` property sets the t
 When working with typography, remember to use readable fonts that are appropriate for your content. Maintain a proper line height (typically 1.5 to 1.8 times the font size) for comfortable reading. Limit the number of font families you use (2-3 maximum) to keep your design cohesive. Always provide font stacks with fallbacks so your text displays correctly even if the primary font isn't available.
 
 Typography makes content readable and beautiful. Good typography enhances readability and helps guide users through your content.
+
+---
+
+## 10 Important CSS Text & Fonts Interview Questions
+
+1. **What is a font stack and why use it?**  
+   A **comma-separated** list: \`font-family: "Inter", system-ui, sans-serif;\`. The browser picks the **first** available font. **Stacks** ensure **graceful degradation** when webfonts fail to load or glyphs are missing. Always end with a **generic** family (\`serif\`, \`sans-serif\`, \`monospace\`).
+
+2. **How do \`@font-face\` and webfonts work?**  
+   **\`@font-face\`** declares a **font family name** and points to **font files** (woff2 preferred). Browsers **download** fonts—impacts **performance** (FOIT/FOUT). Use **font-display: swap** (or **optional**) to control **text visibility** during load. **Subset** fonts to **languages** you need.
+
+3. **What is the difference between \`rem\`, \`em\`, and \`px\` for font-size?**  
+   **rem** = root **em**—scales with **html** font size (user zoom friendly). **em** compounds with **parent** font size—powerful but easy to **nest** incorrectly. **px** is **fixed**—ignores user **browser text size** preferences unless zoomed—**avoid** for **body** text when accessibility matters.
+
+4. **What does \`line-height\` control and what values are common?**  
+   Vertical rhythm between **lines** (often **unitless** like \`1.5\` so it scales with font-size). Too tight hurts **readability**; too loose looks **disjointed**. **Headings** often use **tighter** line-height than **body** copy.
+
+5. **What is \`font-weight\` and how do variable fonts change things?**  
+   Numeric weights **100–900** map to **Thin** through **Black** if the **font file** contains those masters. **Variable fonts** interpolate—fewer files, **smooth** weight animation. If you request **700** but only **400** exists, browser **synthesizes**—may look **blurry**.
+
+6. **How do \`letter-spacing\` and \`word-spacing\` affect UI text?**  
+   **letter-spacing** (tracking) adjusts space **between characters**—common in **uppercase** labels. **word-spacing** adjusts **words**—less common. Overuse harms **dyslexic** readers—keep **subtle**.
+
+7. **What does \`text-overflow: ellipsis\` require?**  
+   Typically **\`white-space: nowrap\`**, **\`overflow: hidden\`**, and a **bounded width**. For **multi-line** ellipsis, newer **line-clamp** (\`-webkit-line-clamp\` with **flex**) is common—check **browser** support and **fallbacks**.
+
+8. **Difference between \`text-align\` and flex \`justify-content\` for centering text?**  
+   **text-align** affects **inline content** inside a **block**. **Flex** centers the **flex items** (boxes). For **one line of text** in a flex item, you may need **both** or **align-items/justify-content** depending on **direction**.
+
+9. **What is \`font-smoothing\` / \`-webkit-font-smoothing\`?**  
+   **Non-standard** tweaks for **subpixel** antialiasing on macOS—use **carefully**; can make text **thinner**. Not a substitute for **good** font choice. **Test** on **Windows** and **Linux** too.
+
+10. **How does typography relate to responsive design?**  
+    Use **fluid** type (\`clamp(min, preferred, max)\`) or **stepped** sizes at **breakpoints**. **Avoid** shrinking body text below **16px** on mobile for **readability**. Pair with **max-width** on text blocks (**measure**) for comfortable **line length**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Text & Fonts
 

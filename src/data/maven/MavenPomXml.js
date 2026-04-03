@@ -383,6 +383,78 @@ Key elements:
 Once you understand pom.xml, you understand Maven. It's that important!
 
 Next, let's learn how to create a Maven project.
+
+---
+
+## 10 Important Maven \`pom.xml\` Interview Questions
+
+1. **What are groupId, artifactId, and version?**  
+   Together they form **Maven coordinates**—like a **unique address** for your JAR in the world (and in \`~/.m2\`).  
+   - **groupId:** Usually **reverse domain**, e.g. \`com.mycompany\` (organization).  
+   - **artifactId:** Short **project name**, e.g. \`order-service\`.  
+   - **version:** e.g. \`1.0.0\` or \`1.0.0-SNAPSHOT\` (SNAPSHOT = still changing).  
+   **Packaging** (\`jar\`, \`war\`, \`pom\`) says what **type** of file Maven builds. **Jar** = library or runnable fat-jar; **war** = web app for Tomcat; **pom** = parent/aggregator only.
+
+2. **What is \`<parent>\` in a POM?**  
+   **Inheritance:** Your project can **extend** another POM. The parent may define **\`<dependencyManagement>\`** (approved versions), **\`<pluginManagement>\`** (plugin versions), and **\`<properties>\`**.  
+   **Spring Boot:** \`spring-boot-starter-parent\` gives you **sensible defaults** so you don’t type versions for every small library.
+
+3. **What is \`<properties>\` used for?**  
+   A **single place** for values used many times: **\`java.version\`**, **\`project.build.sourceEncoding\`**, or your own \`my.lib.version\`.  
+   You reference them as **\`\${propertyName}\`** in dependencies and plugins—change **once**, update **everywhere**.
+
+4. **Difference between \`<dependencies>\` and \`<dependencyManagement>\`?**  
+   **\`<dependencies>\`:** These libraries are **actually added** to this module’s classpath.  
+   **\`<dependencyManagement>\`:** Only **declares versions** (often in a **parent** BOM). Child modules can list a dependency **without** a version tag—“use the version Dad chose.”  
+   **Analogy:** dependencyManagement is the **approved shopping list**; dependencies is **what you actually put in your cart**.
+
+5. **What does \`<scope>\` mean on a dependency?**  
+   **compile** (default): needed to compile and run.  
+   **provided:** compile-time only; **Tomcat** gives **servlet-api** at runtime (don’t bundle it).  
+   **runtime:** needed to run but not compile (some JDBC drivers).  
+   **test:** only for **tests** (JUnit).  
+   **system:** local path—**avoid**; not portable.
+
+6. **What is \`<build><plugins>\`?**  
+   **Plugins** are tools Maven runs: **compiler**, **surefire** (tests), **jar**, **spring-boot**, etc. You configure versions and options here. **\`<executions>\`** can **bind** a plugin goal to a **lifecycle phase** (e.g. run a check before \`package\`).  
+   **pluginManagement** in parent = “default config + versions for children”; children still **declare** the plugin to **activate** it.
+
+7. **Why specify \`maven.compiler.source/target\`?**  
+   They tell the **compiler plugin** which **Java language features** you use (\`source\`) and which **bytecode version** to emit (\`target\`).  
+   If you set **17** but CI uses JDK **11**, build **fails**. They should match **team JDK** and **\`java.version\`** in Spring Boot.
+
+8. **What is a BOM (Bill of Materials)?**  
+   A **POM** that only lists **dependencyManagement** for **many** related libraries (same **compatible** versions). You **import** the BOM with \`scope import\` so you don’t manually align **Jackson** minor versions across 10 dependencies.
+
+9. **What is \`<modules>\` in a parent POM?**  
+   Lists **subfolders** to build in **one reactor** build (e.g. \`<module>api</module>\`). Order can matter for **inter-module** dependencies.  
+   This is **not** the same as listing **\`<dependency>\`** on another module—\`modules\` is **“build these projects together.”**
+
+10. **Should you commit internal credentials in \`pom.xml\`?**  
+    **Never.** \`pom.xml\` is usually **public** in Git. Put **passwords** in **\`~/.m2/settings.xml\`** under **\`<servers>\`**, or in **CI secret stores**, and reference **\`<id>\`** that matches **distributionManagement**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

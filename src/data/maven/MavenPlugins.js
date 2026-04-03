@@ -409,6 +409,70 @@ Plugin management:
 - Consistent builds
 
 Next, let's learn about multi-module projects!
+
+---
+
+## 10 Important Maven Plugins Interview Questions
+
+1. **What is a Maven plugin?**  
+   Maven’s **lifecycle** (compile, test, package) is **empty** without plugins. Each plugin is a **set of goals** (tasks): e.g. **compiler** runs **javac**, **surefire** runs **JUnit**.  
+   Plugins are identified like dependencies: **\`groupId:artifactId:version\`**. Maven downloads them automatically when needed.
+
+2. **What does \`maven-compiler-plugin\` do?**  
+   It runs the **Java compiler** with settings from **\`maven.compiler.release\`** or **source/target**. If Java version doesn’t match your **JDK**, you get errors like **invalid flag** or **release version not supported**.  
+   **Fresher:** “Compiler plugin = bridge between Maven lifecycle and **javac**.”
+
+3. **What is Surefire vs Failsafe?**  
+   **maven-surefire-plugin:** runs **fast unit tests** during **\`test\`** phase (\`*Test.java\`).  
+   **maven-failsafe-plugin:** runs **integration tests** during **\`integration-test\`** / **\`verify\`** (\`*IT.java\`). Failsafe **won’t fail** the build before **package** in the same way—designed for tests that **start** Tomcat/Spring and **tear down** cleanly.
+
+4. **What is \`pluginManagement\`?**  
+   In a **parent** POM, **pluginManagement** says: “**If** a child uses this plugin, **here** is the **version** and default **config**.” Children still **declare** the plugin to **turn it on**.  
+   **Benefit:** One place to bump **Surefire** version for **all** modules.
+
+5. **How do you run a plugin goal directly?**  
+   Syntax: **\`mvn prefix:goal\`** or full **\`mvn groupId:artifactId:version:goal\`**. Example: **\`mvn spring-boot:run\`** (shortcut) or **\`mvn org.springframework.boot:spring-boot-maven-plugin:run\`**.  
+   If version isn’t in **pluginManagement**, Maven may ask or fail—**define** version in parent.
+
+6. **What is \`<executions>\`?**  
+   Binds a plugin **goal** to a **lifecycle phase** (e.g. run **code generation** before \`compile\`). You can have **multiple** executions with **different** IDs (generate sources twice, etc.).
+
+7. **Why pin plugin versions?**  
+   Without a fixed version, Maven might pick a **newer** plugin later—**CI** behavior changes **without** code changes. **Pin** versions in **\`<build><plugins>\`** or **pluginManagement** for **reproducible** builds.
+
+8. **What does \`spring-boot-maven-plugin\` add?**  
+   Main goals: **repackage** — turns your JAR into a **fat JAR** (dependencies inside) with a special **loader**; **run** — runs the app with **\`mvn spring-boot:run\`** for development.  
+   **Interview:** “Repackage = production-ready executable JAR.”
+
+9. **What is \`maven-jar-plugin\` \`manifest\` configuration?**  
+   For **non-Boot** apps, you set **Main-Class** in **MANIFEST.MF** so **\`java -jar app.jar\`** knows where **main()** is. Spring Boot plugin **replaces** much of this for Boot apps.
+
+10. **How do plugins relate to the lifecycle?**  
+    Maven **binds** default plugins to phases: **compiler:compile** → **compile**, **surefire:test** → **test**, **jar:jar** → **package**.  
+    If your JAR looks wrong, check **which phase** ran and **which plugin** is configured—debugging builds means **thinking in phases + goals**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

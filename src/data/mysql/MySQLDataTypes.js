@@ -425,133 +425,6 @@ CREATE TABLE products (
     is_active TINYINT(1) DEFAULT 1
 );
 \`\`\`
-  `,
-  code: `-- MySQL Data Types Examples
-
--- Create database
-CREATE DATABASE data_types_demo;
-USE data_types_demo;
-
--- Example 1: Numeric Types
-CREATE TABLE numeric_examples (
-    -- Integer types
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    age TINYINT UNSIGNED,
-    user_count INT UNSIGNED DEFAULT 0,
-    total_views BIGINT UNSIGNED DEFAULT 0,
-    status_code TINYINT(1) DEFAULT 1,  -- Boolean-like
-    
-    -- Decimal types
-    price DECIMAL(10, 2) NOT NULL,
-    weight DECIMAL(8, 3),
-    discount DECIMAL(5, 2) DEFAULT 0.00,
-    
-    -- Float types
-    temperature FLOAT,
-    distance DOUBLE
-);
-
--- Example 2: String Types
-CREATE TABLE string_examples (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    
-    -- VARCHAR (variable length)
-    name VARCHAR(100),
-    email VARCHAR(255),
-    address VARCHAR(500),
-    
-    -- CHAR (fixed length)
-    country_code CHAR(2),  -- 'US', 'IN', 'UK'
-    status CHAR(1),  -- 'A', 'I', 'D'
-    
-    -- TEXT types
-    short_description TINYTEXT,
-    description TEXT,
-    long_content MEDIUMTEXT,
-    very_long_content LONGTEXT
-);
-
--- Example 3: Date/Time Types
-CREATE TABLE datetime_examples (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    
-    -- DATE
-    birth_date DATE,
-    order_date DATE,
-    
-    -- TIME
-    meeting_time TIME,
-    
-    -- DATETIME
-    created_at DATETIME,
-    event_datetime DATETIME,
-    
-    -- TIMESTAMP (auto-updating)
-    created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
-    -- YEAR
-    graduation_year YEAR
-);
-
--- Example 4: JSON Type (MySQL 5.7+)
-CREATE TABLE json_examples (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    
-    -- JSON data
-    preferences JSON,
-    metadata JSON,
-    settings JSON
-);
-
--- Insert examples
-INSERT INTO numeric_examples (age, price, weight, temperature) VALUES
-(25, 99.99, 1.500, 23.5),
-(30, 149.50, 2.250, 25.8);
-
-INSERT INTO string_examples (name, email, country_code, status, description) VALUES
-('Dattu p', ' Dattu@example.com', 'US', 'A', 'This is a description'),
-('Jane Smith', 'jane@example.com', 'UK', 'I', 'Another description');
-
-INSERT INTO datetime_examples (birth_date, order_date, created_at) VALUES
-('1990-01-15', '2024-01-20', '2024-01-20 10:30:00'),
-('1985-05-22', '2024-01-21', '2024-01-21 14:45:00');
-
-INSERT INTO json_examples (name, preferences, metadata) VALUES
-(' Dattu', '{"theme": "dark", "language": "en"}', '{"version": 1, "features": ["feature1", "feature2"]}'),
-('Jane', '{"theme": "light", "language": "fr"}', '{"version": 2, "features": ["feature1"]}');
-
--- Query examples
-SELECT * FROM numeric_examples;
-SELECT * FROM string_examples;
-SELECT * FROM datetime_examples;
-
--- Query JSON
-SELECT name, preferences->'$.theme' AS theme FROM json_examples;
-SELECT name, JSON_EXTRACT(metadata, '$.version') AS version FROM json_examples;
-
--- Complete E-Commerce Example
-CREATE TABLE products (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    category_id SMALLINT UNSIGNED,
-    name VARCHAR(200) NOT NULL,
-    sku CHAR(20) UNIQUE NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    stock_quantity INT UNSIGNED DEFAULT 0,
-    description TEXT,
-    is_active TINYINT(1) DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    specifications JSON
-);
-
-INSERT INTO products (category_id, name, sku, price, stock_quantity, description, specifications) VALUES
-(1, 'Laptop', 'LAP-001', 999.99, 50, 'High-performance laptop', '{"cpu": "Intel i7", "ram": "16GB", "storage": "512GB SSD"}'),
-(1, 'Mouse', 'MOU-001', 29.99, 100, 'Wireless mouse', '{"connectivity": "Bluetooth", "battery": "Rechargeable"}');
-
-SELECT * FROM products;
-
 ---
 
 ## Real-World Applications
@@ -734,9 +607,191 @@ Data types are fundamental to database design. Continue learning about [MySQL Co
 
 ---
 
+## 10 Important MySQL Data Types Interview Questions
+
+### 1. Why do data types matter in schema design?
+
+**Answer:** Data types **bound** storage size, **permitted values**, **comparison semantics**, and how **indexes** behave. Choosing a type that is too small risks **overflow**; too large wastes **memory** and **I/O** and can hurt **buffer pool** efficiency. Types also affect **JOIN** performance and **sort** order (e.g. string vs numeric). A good interview answer ties types to **constraints** and **query patterns**, not only to “saving disk.”
+
+### 2. When do you choose INT vs BIGINT?
+
+**Answer:** **INT** (signed ~±2.1 billion) is enough for many **surrogate keys** with \`AUTO_INCREMENT\`. **BIGINT** is used when you need a **much larger** range (high-volume IDs, **snowflake**-style IDs, or avoiding overflow in analytics). **BIGINT** doubles key width compared to **INT**, which increases **index** and **row** size—use it when you truly need the range.
+
+### 3. Compare CHAR and VARCHAR.
+
+**Answer:** **CHAR(n)** stores **fixed** width: shorter values are **padded** with spaces (for the CHAR type). **VARCHAR(n)** stores **variable** length up to **n** characters (subject to row format limits). Use **CHAR** for fixed-length codes (e.g. country codes if truly fixed). Use **VARCHAR** for names, emails, and descriptions—**always** pick a **realistic** maximum to avoid bloat and bad data.
+
+### 4. Why use DECIMAL for money?
+
+**Answer:** **DECIMAL(p,s)** is **fixed-point** decimal arithmetic—exact for money at the scale you define. **FLOAT** and **DOUBLE** are **binary floating** types and cannot represent all decimal fractions exactly, which causes **rounding** bugs in financial totals. State **DECIMAL(19,4)** or similar for **ledger**-grade systems if needed. Mention **application** rounding rules and **currency** as a separate concern.
+
+### 5. Explain DATE, DATETIME, and TIMESTAMP.
+
+**Answer:** **DATE** stores a **calendar date** without time-of-day. **DATETIME** stores **date and time** with a range from **1000-01-01** to **9999-12-31**; it does **not** carry timezone information in the type itself. **TIMESTAMP** stores **UTC** internally and converts to the **session** \`time_zone\` for display; range is limited (roughly **1970–2038** on older systems). **TIMESTAMP** is common for **created_at** if you rely on **session** TZ; **DATETIME** is simpler when you store “wall clock” as agreed in the app.
+
+### 6. What is ENUM and when is it a bad fit?
+
+**Answer:** **ENUM** restricts a column to a **small fixed set** of string labels stored as integers internally. **Pros:** compact storage and **DB-enforced** allowed values. **Cons:** changing the list requires **ALTER**; ordering is tied to enum definition; portability to other DBs is weaker than a **lookup table**. Many teams prefer a **reference table** + **FK** for evolving domain values.
+
+### 7. What does NULL mean in SQL?
+
+**Answer:** **NULL** means **unknown** or **missing**—not the same as **zero**, **false**, or **empty string**. **Aggregates** and **predicates** treat NULL specially: e.g. \`COUNT(*)\` counts rows, **COUNT(col)** skips NULLs in that column; **WHERE col = NULL** is wrong—use **IS NULL**. **Three-valued logic** (TRUE/FALSE/UNKNOWN) is a frequent interview follow-up.
+
+### 8. Compare BLOB and TEXT.
+
+**Answer:** **BLOB** stores **binary** data (images, PDFs); **TEXT** is for **character** large objects with a **character set**. Both can make **rows very large**, hurting **buffer pool** and **backup** times. Often better to store **files** in **object storage** and keep only **metadata** and **URLs** in MySQL. If you must store large objects, understand **max_allowed_packet** and **InnoDB** row limits.
+
+### 9. What is the BOOLEAN type in MySQL?
+
+**Answer:** **BOOLEAN** is a synonym for **TINYINT(1)**. Values are typically **0** and **1**. There is no separate boolean engine type; **ORMs** map booleans to this. Be explicit in **migrations** and **APIs** so consumers know the convention.
+
+### 10. What is a practical rule of thumb for choosing types?
+
+**Answer:** Use the **smallest** type that fits the **domain**; use **DECIMAL** for money; use **utf8mb4** (with **utf8mb4_unicode_ci** or similar) for **Unicode** text; avoid oversized **VARCHAR**; prefer **INT/BIGINT** for keys; document **timezone** and **NULL** policies. Mentioning **index** width and **JOIN** cardinality links data types to **performance**—that is senior-level framing.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **DDL & table design** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **Create tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
+| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
+| **Indexes & types** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **JDBC types** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+
+---
+
 ## Test Your Knowledge
 
 Ready to test your MySQL data types knowledge? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering data types, DDL, DML, and all MySQL topics!
+  `,
+  code: `-- MySQL Data Types Examples
+
+-- Create database
+CREATE DATABASE data_types_demo;
+USE data_types_demo;
+
+-- Example 1: Numeric Types
+CREATE TABLE numeric_examples (
+    -- Integer types
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    age TINYINT UNSIGNED,
+    user_count INT UNSIGNED DEFAULT 0,
+    total_views BIGINT UNSIGNED DEFAULT 0,
+    status_code TINYINT(1) DEFAULT 1,  -- Boolean-like
+    
+    -- Decimal types
+    price DECIMAL(10, 2) NOT NULL,
+    weight DECIMAL(8, 3),
+    discount DECIMAL(5, 2) DEFAULT 0.00,
+    
+    -- Float types
+    temperature FLOAT,
+    distance DOUBLE
+);
+
+-- Example 2: String Types
+CREATE TABLE string_examples (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    
+    -- VARCHAR (variable length)
+    name VARCHAR(100),
+    email VARCHAR(255),
+    address VARCHAR(500),
+    
+    -- CHAR (fixed length)
+    country_code CHAR(2),  -- 'US', 'IN', 'UK'
+    status CHAR(1),  -- 'A', 'I', 'D'
+    
+    -- TEXT types
+    short_description TINYTEXT,
+    description TEXT,
+    long_content MEDIUMTEXT,
+    very_long_content LONGTEXT
+);
+
+-- Example 3: Date/Time Types
+CREATE TABLE datetime_examples (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    
+    -- DATE
+    birth_date DATE,
+    order_date DATE,
+    
+    -- TIME
+    meeting_time TIME,
+    
+    -- DATETIME
+    created_at DATETIME,
+    event_datetime DATETIME,
+    
+    -- TIMESTAMP (auto-updating)
+    created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- YEAR
+    graduation_year YEAR
+);
+
+-- Example 4: JSON Type (MySQL 5.7+)
+CREATE TABLE json_examples (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    
+    -- JSON data
+    preferences JSON,
+    metadata JSON,
+    settings JSON
+);
+
+-- Insert examples
+INSERT INTO numeric_examples (age, price, weight, temperature) VALUES
+(25, 99.99, 1.500, 23.5),
+(30, 149.50, 2.250, 25.8);
+
+INSERT INTO string_examples (name, email, country_code, status, description) VALUES
+('Dattu p', ' Dattu@example.com', 'US', 'A', 'This is a description'),
+('Jane Smith', 'jane@example.com', 'UK', 'I', 'Another description');
+
+INSERT INTO datetime_examples (birth_date, order_date, created_at) VALUES
+('1990-01-15', '2024-01-20', '2024-01-20 10:30:00'),
+('1985-05-22', '2024-01-21', '2024-01-21 14:45:00');
+
+INSERT INTO json_examples (name, preferences, metadata) VALUES
+(' Dattu', '{"theme": "dark", "language": "en"}', '{"version": 1, "features": ["feature1", "feature2"]}'),
+('Jane', '{"theme": "light", "language": "fr"}', '{"version": 2, "features": ["feature1"]}');
+
+-- Query examples
+SELECT * FROM numeric_examples;
+SELECT * FROM string_examples;
+SELECT * FROM datetime_examples;
+
+-- Query JSON
+SELECT name, preferences->'$.theme' AS theme FROM json_examples;
+SELECT name, JSON_EXTRACT(metadata, '$.version') AS version FROM json_examples;
+
+-- Complete E-Commerce Example
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    category_id SMALLINT UNSIGNED,
+    name VARCHAR(200) NOT NULL,
+    sku CHAR(20) UNIQUE NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT UNSIGNED DEFAULT 0,
+    description TEXT,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    specifications JSON
+);
+
+INSERT INTO products (category_id, name, sku, price, stock_quantity, description, specifications) VALUES
+(1, 'Laptop', 'LAP-001', 999.99, 50, 'High-performance laptop', '{"cpu": "Intel i7", "ram": "16GB", "storage": "512GB SSD"}'),
+(1, 'Mouse', 'MOU-001', 29.99, 100, 'Wireless mouse', '{"connectivity": "Bluetooth", "battery": "Rechargeable"}');
+
+SELECT * FROM products;
 `
 };
 

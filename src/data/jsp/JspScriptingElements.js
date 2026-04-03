@@ -280,6 +280,63 @@ These objects are available in scriptlets and expressions without declaration:
 3. **Avoid declarations** — Thread-safety issues
 4. **Use expressions for output** — Cleaner than out.print()
 5. **Comment your code** — Use JSP comments for hidden notes
+
+---
+
+## 10 Important JSP Scripting Elements Interview Questions
+
+### 1. What is a JSP scriptlet?
+
+**Answer:** A scriptlet is a block \`<% ... %>\` containing **Java statements** that are copied into the generated servlet’s \`_jspService\` method (or equivalent), executing **on the server** for each request when that part of the page is reached. You use it for control flow, variable assignment, and calling Java APIs. Because it lives inside the service method, **local** variables are **per request** (each thread gets its own stack frame), which is different from **declarations** at class scope. Interview tip: always mention that excessive scriptlets harm **maintainability** and that **JSTL** replaces most looping/branching needs.
+
+### 2. What is a JSP expression?
+
+**Answer:** \`<%= expression %>\` evaluates a **single Java expression**, converts the result with something like \`String.valueOf\`, and writes it to the output stream. It must **not** include a trailing semicolon (it is an expression position, not a full statement). Common uses: printing request parameters, bean properties, or simple calculations. Compare to **scriptlets**, which run **statements** without automatically printing. Getting this distinction right is a basic but frequent screening question.
+
+### 3. What is a JSP declaration?
+
+**Answer:** \`<%! ... %>\` defines **fields or methods** on the **generated servlet class**, outside any single request method. That means **instance fields** are **shared** by all threads hitting that servlet unless you guard them—classic **thread-safety** hazard. Helper **methods** declared here can be called from scriptlets or expressions. Best practice: prefer **static** utility methods or **separate** Java classes instead of large declaration blocks. Interviewers reward hearing “declaration = class level, scriptlet = request method level.”
+
+### 4. How do JSP comments differ from HTML comments?
+
+**Answer:** \`<%-- ... --%>\` is removed entirely during JSP processing; it never appears in the HTML sent to the browser, so it is safe for **internal** notes and sometimes for temporarily disabling JSP fragments. \`<!-- ... -->\` is plain HTML: it is sent to the client and visible in **View Source**, and may leak **implementation** details. For security discussions, note that HTML comments do **not** stop sensitive data from reaching the client if you mistakenly put secrets there.
+
+### 5. Why are scriptlets discouraged in modern codebases?
+
+**Answer:** They entangle **Java** with **presentation**, defeating **separation of concerns** and making pages harder to read for **front-end** collaborators. They are awkward to **unit test** and encourage copy-paste logic instead of **shared services**. EL and JSTL express most view concerns **declaratively** and align better with **MVC**. A nuanced answer acknowledges **legacy** pages full of scriptlets and a **gradual** migration strategy rather than pretending they never exist.
+
+### 6. Can you define a method inside a scriptlet?
+
+**Answer:** **No.** Method definitions belong at **class** scope; a scriptlet is inside a method body already. If you try to declare a method inside \`<%\`, it is a **syntax error**. Put methods in \`<%! %>\` declarations or, preferably, in ordinary Java classes. This question tests whether you understand **where** generated code lands in the servlet.
+
+### 7. What rules apply to JSP expressions and return types?
+
+**Answer:** The expression must be **evaluable** as Java code in an expression context and should produce a value that can be **stringified** for output. If the result is \`null\`, behavior depends on conversion rules and context; in practice you should design for **null-safe** rendering (EL handles many null cases more gracefully than raw \`<%= %>\`). Mention that expressions should stay **side-effect free** for clarity, even though Java allows side effects in expressions.
+
+### 8. What is the difference between \`<%\` and \`<%= %>\`?
+
+**Answer:** **Scriptlet** runs **statements** (often multiple lines) and prints **nothing** unless you call \`out.print\` yourself. **Expression** evaluates **one expression** and **always** prints its string form. Mnemonic: \`=\` means “**emit** this value.” Many bugs come from putting a semicolon inside \`<%= %>\` or from using a scriptlet when an expression would suffice.
+
+### 9. How does thread safety relate to JSP?
+
+**Answer:** The container typically uses **one instance** of the JSP servlet to serve **many concurrent requests**, each on its own thread. **Local** variables in scriptlets are thread-safe because they are **stack-confined**. **Instance fields** from declarations or the \`page\` implicit object’s mutable state are **not** automatically safe. Shared **static** mutable state is also dangerous. Good interview language: “Treat the JSP servlet like any servlet—avoid mutable instance fields; use request/session scopes appropriately.”
+
+### 10. How does EL compare to \`<%= %>\` for reading data?
+
+**Answer:** Expression Language (for example \`\${user.name}\`) is designed for **reading** attributes and **bean properties** with **compact** syntax and **null-friendly** rules. It reduces casting and \`getAttribute\` noise compared to scriptlets. \`<%= %>\` still works but scales poorly as models grow. In interviews, say you default to **EL + JSTL** and fall back to scriptlets only for **legacy** maintenance or rare edge cases.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **JSP basics** | [JSP introduction](/tutorial/jsp-introduction) |
+| **Directives** | [JSP directives](/tutorial/jsp-directives) |
+| **Implicit objects** | [JSP implicit objects](/tutorial/jsp-implicit-objects) |
+| **EL** | [JSP Expression Language](/tutorial/jsp-expression-language) |
+| **JSTL** | [JSP JSTL](/tutorial/jsp-jstl) |
+
 `,
   code: `// JSP Scripting Elements Demo
 // Demonstrates scriptlets, expressions, and declarations

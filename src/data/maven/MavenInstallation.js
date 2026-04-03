@@ -221,6 +221,76 @@ Now that Maven is installed, you're ready to:
 3. Work with pom.xml
 
 Let's move to the next tutorial and create a Maven project!
+
+---
+
+## 10 Important Maven Installation Interview Questions
+
+1. **What do you need installed before Maven?**  
+   Maven itself is **written in Java**, so you need a **JDK** (Java Development Kit)—not only a **JRE** (runtime). The JDK includes **\`javac\`** (compiler) which Maven calls through plugins.  
+   **Check:** Open terminal and run \`java -version\` and \`javac -version\`. If \`javac\` is not found, install a full JDK (e.g. Temurin 17). Your project’s \`pom.xml\` should use a **matching** Java version (e.g. Java 17).
+
+2. **What is \`MAVEN_HOME\` / \`M2_HOME\`?**  
+   After you unzip Maven, you get a folder like \`apache-maven-3.9.6\`. **MAVEN_HOME** (older name **M2_HOME**) should point to **that folder**—the place that contains the **\`bin\`** subfolder.  
+   You must add **\`%MAVEN_HOME%\\bin\`** (Windows) or **\`$MAVEN_HOME/bin\`** (Mac/Linux) to your **PATH** so typing \`mvn\` works in any folder. If \`mvn\` is “not recognized,” PATH is wrong.
+
+3. **How do you verify Maven installed correctly?**  
+   Run: \`mvn -v\`  
+   Good output shows: **Maven version** (e.g. 3.9.x), **Java version** Maven is using, and **OS**.  
+   If **Java version** looks wrong (e.g. Java 8 when you need 17), fix **JAVA_HOME** to point to the correct JDK folder.
+
+4. **Why set \`JAVA_HOME\`?**  
+   **JAVA_HOME** is an environment variable pointing to your **JDK root** (folder that contains \`bin/java\`). Maven **forks** new Java processes for compiling and testing; they read **JAVA_HOME**.  
+   If JAVA_HOME is empty or points to a **JRE** only, you may see errors like **“invalid target release”** or wrong bytecode version.
+
+5. **What is the difference between installing via archive vs package manager?**  
+   **Manual zip from Apache:** You choose **exact** Maven version; good for matching **company standard**.  
+   **brew install maven / apt install maven:** Very fast, but version might be **older** than the website.  
+   **For CI Docker images:** Teams often **pin** one Maven + one JDK version so builds never change accidentally.
+
+6. **Where is user-level Maven config?**  
+   File: **\`~/.m2/settings.xml\`** (Windows: \`C:\\Users\\YourName\\.m2\\settings.xml\`). You can add **mirrors** (company proxy), **servers** (username/password for private repo—**never** commit passwords to Git), and **profiles**.  
+   If the file **does not exist**, you can create it. Project-specific stuff stays in **\`pom.xml\`**; **secrets** stay in **settings.xml** or CI variables.
+
+7. **Can multiple Maven versions coexist?**  
+   Yes. Install different versions in different folders and **change PATH** when needed, or use tools like **SDKMAN** (Linux/Mac).  
+   Best practice for **teams:** use **Maven Wrapper** (\`mvnw\` / \`mvnw.cmd\`) so the **project** stores which Maven version to use—no arguing.
+
+8. **What is the Maven Wrapper (\`mvnw\`)?**  
+   Small scripts (\`mvnw\` on Unix, \`mvnw.cmd\` on Windows) that **download** the **exact** Maven version listed in the project (first run may download).  
+   **Benefit:** New developer clones repo and runs \`./mvnw clean install\` **without** installing Maven globally. **CI** uses the same file—**zero** version mismatch.
+
+9. **Common install issue: \`mvn\` not found?**  
+   **Cause 1:** PATH does not include Maven’s \`bin\`.  
+   **Cause 2:** Typo in **MAVEN_HOME**.  
+   **Windows:** Close and reopen **terminal** after changing environment variables.  
+   **Fix:** Run full path once: \`C:\\\\path\\\\to\\\\maven\\\\bin\\\\mvn -v\` to confirm Maven works, then fix PATH.
+
+10. **Should Maven run as root?**  
+    **No** on your laptop. Run as **your user** so the \`.m2\` folder **owns** downloaded files. Running as root can create **permission** problems later. On **CI**, use a normal **service account**, not root, unless your admin requires it.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

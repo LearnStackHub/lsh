@@ -353,6 +353,63 @@ Everything in DOM is a **node**:
 - ✅ Common events: click, mouseover, keydown, etc.
 
 DOM is the bridge between HTML and JavaScript!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML DOM Interview Questions
+
+1. **What is the DOM?**  
+   After the browser **parses** HTML, it builds the **Document Object Model**—a **live tree** of **nodes** (objects) you can read and change with **JavaScript**. The DOM is **not** the same as the **source HTML string**; **scripts** can add/remove nodes **after** load. **CSS** also interacts via the **CSSOM**; layout uses both.
+
+2. **What is a node vs an element?**  
+   **Node** is the **generic** interface: **elements**, **text nodes**, **comments**, **document** itself. **Element** nodes represent **HTML tags** (\`HTMLElement\`, etc.). **Text** inside \`<p>Hi</p>\` is a **child text node**. **Traversing** uses properties like \`childNodes\` (includes text) vs \`children\` (elements only).
+
+3. **What does \`document.getElementById\` do?**  
+   Returns a **live reference** to the element with matching **\`id\`**, or **null**. **IDs** must be **unique**—duplicates are invalid HTML and \`getElementById\` returns an **arbitrary** match. **Fast** lookup via ID maps. Prefer **\`getElementById\`** over **\`querySelector('#id')\`** when possible (micro-optimization, clearer intent).
+
+4. **Difference between \`querySelector\` and \`querySelectorAll\`?**  
+   **\`querySelector(css)\`** returns the **first** matching **Element** or **null**. **\`querySelectorAll(css)\`** returns a **static NodeList** of **all** matches (not live for most changes). Use **modern** CSS selectors (\`:scope\`, \`:is()\`). **Live** vs **static** lists matter if you mutate the DOM while iterating.
+
+5. **What is the difference between \`innerHTML\` and \`textContent\`?**  
+   **\`innerHTML\`** parses **HTML** and can introduce **XSS** if you interpolate **untrusted** strings—**sanitize** or avoid. **\`textContent\`** assigns **plain text** (no HTML parsing), which is **safer** for user-supplied values. For performance, **textContent** is often faster than **innerHTML** for large text updates.
+
+6. **How do you create and add an element in JS?**  
+   \`const el = document.createElement('div');\` then set **properties** (\`textContent\`, \`className\`, \`attributes\`). Insert with **\`parent.append(el)\`** (modern), **\`appendChild\`**, **\`insertBefore\`**, or **\`replaceChildren\`**. Use **\`DocumentFragment\`** to batch many inserts and reduce **reflows**.
+
+7. **What is \`addEventListener\` used for?**  
+   Registers a **callback** for **DOM events** (\`click\`, \`input\`, \`keydown\`, \`submit\`). Third argument can be **\`{ capture, passive, once }\`**—**\`passive: true\`** helps **scroll** performance for touch/wheel. Prefer **\`addEventListener\`** over **\`onclick\` HTML attributes** for separation and **multiple** handlers.
+
+8. **What is event delegation?**  
+   Attach **one** listener on a **stable ancestor** (e.g. \`<ul>\`) and check **\`event.target\`** for which **child** was clicked. **Pros**: fewer listeners, works for **dynamically added** children. **Cons**: **filtering** logic needed; **focus** events don’t bubble the same way—know **event phases** (capture vs bubble).
+
+9. **Why cache DOM queries in variables?**  
+   Each **querySelector**/DOM walk has **cost**. If you reference the same element in a **hot** loop, **cache** it. **Re-query** if **third-party** scripts might **replace** nodes. **React/Vue** abstract this with **virtual DOM**—but vanilla JS interviews expect this reasoning.
+
+10. **What is reflow/repaint in the DOM context?**  
+    **Reflow** (layout): browser recalculates **positions/sizes** when geometry-affecting properties change. **Repaint**: redraw **pixels** (e.g. color) without full layout. **Batch** DOM reads/writes—alternating read/write causes **forced synchronous layout** (layout thrashing). **CSS transforms/opacity** often **composite** on the GPU with fewer reflows.
+
 `,
   code: `// HTML DOM - Document Object Model
 

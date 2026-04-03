@@ -335,6 +335,85 @@ Common commands:
 Remember: Running a phase executes all previous phases automatically.
 
 Next, let's learn about Maven repositories!
+
+---
+
+## 10 Important Maven Build Lifecycle Interview Questions
+
+1. **What are the three built-in lifecycles?**  
+   Maven has **three lifecycles** (separate “pipelines”):  
+   - **clean** — deletes build output (\`target/\`).  
+   - **default** — the main **compile, test, package** flow.  
+   - **site** — generates project **documentation site** (less common today).  
+   When you run a **phase** (e.g. \`package\`), Maven runs **that phase and every earlier phase in the same lifecycle**. So \`mvn package\` automatically runs \`compile\` and \`test\` first.
+
+2. **Name key phases in the default lifecycle (order).**  
+   Common order: **validate → compile → test → package → verify → install → deploy**.  
+   - **validate:** POM is OK.  
+   - **compile:** \`.java\` → \`.class\`.  
+   - **test:** unit tests (Surefire).  
+   - **package:** JAR/WAR built.  
+   - **verify:** integration tests / extra checks.  
+   - **install:** copy artifact into **local** \`~/.m2\` so **other projects** on your PC can depend on it.  
+   - **deploy:** upload to **remote** Nexus/Artifactory.
+
+3. **What does \`mvn clean\` do?**  
+   Runs the **clean** lifecycle’s **clean** phase, which **deletes** the **\`target/\`** folder.  
+   **Why:** Sometimes old class files or copied resources **linger** and cause weird bugs. **clean** = fresh start.
+
+4. **Why is \`mvn clean install\` popular?**  
+   **clean** wipes \`target/\`. **install** runs a **full default lifecycle** up to **install**, so you get **compile + test + package** and the JAR lands in **local** \`.m2\`.  
+   Developers use it before **publishing** a library module that another local project will import.
+
+5. **What is the difference between \`package\` and \`install\`?**  
+   **package:** Builds **\`target/myapp-1.0.jar\`** (or WAR) **only on disk** in that project.  
+   **install:** Does **everything package does**, then **copies** that JAR into **\`~/.m2/repository/...\`** so **Maven can resolve it** as a dependency from **another project**.
+
+6. **Which phase runs unit tests?**  
+   The **\`test\`** phase runs **Surefire** (\`*Test.java\`, \`Test*.java\`).  
+   **Integration tests** (often \`*IT.java\`) are usually bound to **\`integration-test\`** / **\`verify\`** using the **Failsafe** plugin—**slower**, may need a **running** database or server.
+
+7. **What does \`verify\` do?**  
+   Everything **up to package**, then **extra verification**: integration tests, code coverage gates, **spotbugs**, etc., depending on plugins.  
+   **Order:** … → package → **verify** → install → deploy. So **verify** is “**prove** the built artifact is good” before **installing** it locally or **deploying** remotely.
+
+8. **Can you skip tests?**  
+   **\`-DskipTests\`:** Skip **running** tests, but still **compile** test classes (faster broken builds—use rarely).  
+   **\`-Dmaven.test.skip=true\`:** Skip **both** running and compiling tests.  
+   **Interview:** Say you use these **only for local experiments**; **CI must run tests** for quality.
+
+9. **What is a plugin goal vs phase binding?**  
+   A **goal** is one **task** from a plugin, e.g. \`compiler:compile\` or \`jar:jar\`.  
+   **Phase binding** means: “When lifecycle reaches **\`compile\`**, run **compiler:compile** automatically.”  
+   You can also call **\`mvn compiler:compile\`** directly **without** thinking about phases.
+
+10. **What is \`mvn compile\` vs \`mvn package\`?**  
+    **\`mvn compile\`:** Only **main** sources → \`.class\` files (fast feedback while coding).  
+    **\`mvn package\`:** Runs **compile**, **test**, then **packages** JAR/WAR.  
+    For quick syntax checks use **compile**; before release use **package** or **verify**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

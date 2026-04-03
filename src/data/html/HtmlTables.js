@@ -544,6 +544,63 @@ Enterprise applications extensively use tables for data presentation, reports, d
 - ✅ Add captions
 
 Tables are perfect for displaying structured data!
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these tutorials as you build the full stack after HTML: styling, backend, data, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
+---
+
+## 10 Important HTML Tables Interview Questions
+
+1. **What are \`<table>\`, \`<tr>\`, \`<th>\`, and \`<td>\`?**  
+   **\`<table>\`** is the **tabular data** container. **\`<tr>\`** is a **row**. **\`<th>\`** is a **header cell** (column or row header—semantic, not only bold). **\`<td>\`** is a **data cell**. Tables represent **relationships** between data points in **rows and columns**. The browser’s **table model** computes column widths and alignment from content and CSS.
+
+2. **What is the purpose of \`<thead>\`, \`<tbody>\`, and \`<tfoot>\`?**  
+   These **sectioning** elements group rows: **header** rows (often repeated on **printed** pages), **body** rows (main data), **footer** rows (totals). They help **CSS** target regions (\`tbody tr:hover\`) and let browsers **pin** header/footer in some designs. **\`<tfoot>\`** can appear **before** \`<tbody>\` in source order for legacy parsing reasons, but **rendering** still places it at the bottom—know this for interviews.
+
+3. **What does \`colspan\` do?**  
+   **\`colspan="N"\`** merges a cell across **N columns** in that row. Use for **grouped** headers (e.g. “Q1” spanning three month columns). Keep **track** of column counts—errors break the grid. Overuse makes **small-screen** layouts harder; test with **horizontal scroll** or **reflow** strategies.
+
+4. **What does \`rowspan\` do?**  
+   **\`rowspan="N"\`** merges a cell across **N rows** in the same column—common for **row labels** that apply to multiple data rows. **Complex tables** need careful ordering of \`<tr>\`/\`<td>\` so rowspans line up. Screen readers rely on **headers + scope/ids** to read these correctly.
+
+5. **Why use \`<caption>\`?**  
+   **\`<caption>\`** is the **visible title** of the table, associated as the **first child** of \`<table>\`. It improves **understanding** for everyone and gives **context** before entering the grid for screen-reader users. **CSS** can position the caption (\`caption-side\`), but keep it **meaningful** (“2025 sales by region”), not redundant with nearby headings unless intentional.
+
+6. **Why should tables not be used for page layout?**  
+   **Layout tables** (pre-CSS era) tie **presentation** to **markup**, break **source order** for screen readers, and make **responsive** design painful. Modern **CSS Grid/Flexbox** separates structure from layout. Tables should represent **tabular data** (matrices, schedules), not columns of unrelated content. Legacy sites may still use layout tables—**refactor** when possible.
+
+7. **What is \`scope\` on \`<th>\`?**  
+   **\`scope="col"\`** marks a **column header**; **\`scope="row"\`** marks a **row header**. It helps assistive technologies associate **cells** with the correct headers in **simple** tables. For **complex** tables (merged headers), **\`headers\` / \`id\`** pairing on cells may be needed. **WCAG** success criteria expect programmatic relationships for large data tables.
+
+8. **What is the difference between \`<th>\` and \`<td>\`?**  
+   **\`<th>\`** is for **header** information (row/column labels); **\`<td>\`** is for **data**. Default **styling** differs, but **semantics** matter: always use \`<th>\` for headers, not bold \`<td>\`. **\`<th>\`** has a \`scope\` attribute; **\`<td>\`** does not. Use **\`abbr\`** on \`<th>\` for shortened headers if needed.
+
+9. **How do you make tables responsive?**  
+   Common patterns: **horizontal scroll** inside a **wrapper** (\`overflow-x: auto\`) on small screens; **priority columns** with hiding lower-priority columns via CSS; **transforming** rows into **cards** at breakpoints (changes markup/CSS significantly). **Avoid** fixed **pixel** widths that overflow the viewport. Test **zoom** and **landscape** modes.
+
+10. **Why is header association important?**  
+    When users **cannot see** the grid, assistive tech must read **“this number is for Product X in March”** by linking **\`<td>\`** to the right **\`<th>\`**. **scope**, **headers/id**, and **caption** provide that **programmatic** relationship. Without it, a table becomes a **wall of numbers**—a serious **accessibility** failure for data-heavy apps.
+
 `,
   code: `// HTML Tables
 

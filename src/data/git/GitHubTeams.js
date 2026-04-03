@@ -302,6 +302,52 @@ You've learned:
 - Organizing teams effectively
 - Nested team structures
 
+---
+
+## 10 Important GitHub Teams Interview Questions
+
+1. **What is a GitHub Team?**  
+   A **group of users** with a **name** (e.g. \`@acme/backend\`) used to **grant** repo access and **mention** in PRs/issues—**scalable** permission management.
+
+2. **Why use teams instead of adding users per repo?**  
+   **Onboarding:** add person **once** to team → inherits **all** repos that team can access. **Offboarding:** remove from team.
+
+3. **What are common permission levels on a repo?**  
+   **Read** (clone), **Triage** (issues), **Write** (push branches), **Maintain**, **Admin** (settings). **Principle of least privilege.**
+
+4. **What are nested teams?**  
+   **Parent/child** teams for **org charts**—child can **inherit** parent permissions (depending on org settings). **Large** companies use this.
+
+5. **How do teams relate to CODEOWNERS?**  
+   **CODEOWNERS** can list **\`@org/team-name\`** so **entire team** is requested for review on **path** changes.
+
+6. **What is organization vs personal account?**  
+   **Org** owns **shared** repos, **teams**, **SSO/SAML** (Enterprise). **Personal** repos are **yours**—companies use **orgs** for **work**.
+
+7. **Why separate teams by function (backend/frontend/QA)?**  
+   **Clear ownership** of directories and **services**—reviews go to **people who know** that area.
+
+8. **What is team discussion (feature area)?**  
+   **Async** communication space for a team—**document** decisions that aren’t a single PR comment thread.
+
+9. **How do fresher interviews phrase “collaboration on GitHub”?**  
+   “We use **orgs**, **teams**, **branch protection**, and **PR reviews** so **access** and **quality** are **structured**.”
+
+10. **What mistake to avoid?**  
+    Giving **everyone** **admin** “to move faster”—creates **security** and **accidental** settings changes.
+
+---
+
+## Related tutorials — quick links (topic-wise)
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **PR & review flow** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
+| **Branch rules** | [Git Branch Protection](/tutorial/git-branch-protection) |
+| **Account hardening** | [GitHub Security](/tutorial/github-security) |
+| **Workflow** | [Git Workflow](/tutorial/git-workflow) |
+| **SDLC context** | [SDLC Introduction](/tutorial/sdlc-introduction) |
+
 Teams make collaboration easier and permissions management simpler. Use them to organize your organization effectively!
 `
 };

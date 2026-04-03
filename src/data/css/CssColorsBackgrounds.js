@@ -330,6 +330,63 @@ Background properties let you control how backgrounds are displayed. Use \`backg
 Gradients create smooth color transitions. Linear gradients go in one direction, radial gradients radiate from a center point, and conic gradients create color wheel effects. Gradients are great for creating modern, eye-catching designs.
 
 Colors and backgrounds bring life to web pages. They're one of the first things users notice, so choosing the right colors and backgrounds is important for creating a good user experience.
+
+---
+
+## 10 Important CSS Colors & Backgrounds Interview Questions
+
+1. **What are common ways to specify color in CSS?**  
+   **Named colors**, **hex** (\`#rrggbb\`, \`#rgb\` shorthand), **rgb()/rgba()**, **hsl()/hsla()**, and **modern** \`color(display-p3 ...)\` in supporting browsers. **HSL** is intuitive for **adjusting lightness/saturation** in design systems. **Alpha** in **rgb** uses **slash** syntax: \`rgb(0 0 0 / 0.5)\`.
+
+2. **When would you use \`rgba\` or alpha instead of opacity?**  
+   **\`opacity\`** affects the **whole element** including children. **Alpha on color** only affects **that paint** (e.g. background) so **text** stays fully opaque. For **overlays**, prefer **background-color: rgba(...)** or **semi-transparent** custom properties.
+
+3. **What is the difference between \`background-color\` and \`background\` shorthand?**  
+   **\`background-color\`** sets only the solid/transparent fill. **\`background\`** resets **all** background **subproperties** not specified—can **unintentionally** clear \`background-size\` or \`background-position\` if you reuse it carelessly. Set **longhands** when you need **surgical** updates.
+
+4. **How does \`background-size: cover\` vs \`contain\` work?**  
+   **cover** scales the image to **cover** the box—may **crop**. **contain** fits the entire image inside—may show **letterboxing** (empty areas). Pick based on **hero** vs **logo** behavior. **\`background-position\`** + **\`background-repeat: no-repeat\`** usually pair with these.
+
+5. **What are linear vs radial gradients?**  
+   **linear-gradient** transitions colors along a **line** (angle or \`to bottom\`). **radial-gradient** radiates from a **center**. Use **multiple color stops** for rich UI backgrounds. **Gradients** are resolution-independent but can be **heavy** if overused—**prefer** CSS over huge background images when possible.
+
+6. **Why set \`background-repeat\` and \`background-position\` on patterns?**  
+   Small **tile** images repeat by default—often undesirable for **photos**. **no-repeat** with **cover** or explicit **size** is common. **position** controls **focal point** (e.g. **center top** for faces in hero images).
+
+7. **What is \`background-attachment: fixed\` and what are the caveats?**  
+   Background can appear **fixed** to the **viewport** while content scrolls—**parallax-like** effects. On **mobile**, behavior varies; it can hurt **performance** and **accessibility** (motion). Test thoroughly; often **avoid** for **prefers-reduced-motion** users.
+
+8. **How do CSS variables help with colors?**  
+   Define **\`--color-primary\`** on \`:root\` or a **theme** class and reuse with **\`var()\`**. Enables **dark mode** by swapping variables on \`html\` or \`body\`. Keeps **contrast** decisions in one place—pair with **design tokens**.
+
+9. **What is contrast accessibility in practical terms?**  
+   Text must meet **WCAG** contrast ratios against its **background** (roughly **4.5:1** for normal text, **3:1** large). **Tools** (DevTools, Lighthouse) sample **computed** colors. **Don’t** rely only on **hover** states for critical text.
+
+10. **How do you optimize background images for performance?**  
+    Use **compressed** formats (**WebP/AVIF** with fallbacks), **right dimensions** (not 4000px wide for a 800px slot), **lazy** load content images (not always applicable to **CSS** backgrounds—consider **\`<img>\`** + **object-fit** for **LCP** heroes). Use **CDN** and **HTTP caching**.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Colors & Backgrounds
 

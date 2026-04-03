@@ -325,6 +325,69 @@ Both are excellent tools. Maven is simpler and more widely used. Gradle is more 
 For most Java projects, Maven is a safe and solid choice. For advanced needs, Gradle offers more flexibility and performance.
 
 Next, let's learn about Maven best practices!
+
+---
+
+## 10 Important Maven vs Gradle Interview Questions
+
+1. **What is Maven’s core model?**  
+   You describe the project in **\`pom.xml\`** (XML): coordinates, dependencies, plugins. Maven has a **fixed lifecycle** (compile, test, package) and **strong conventions** (\`src/main/java\`).  
+   **Fresher view:** Less **coding** in the build file—more **declaring** what you need. Good when the team wants **one obvious way** to build.
+
+2. **What is Gradle’s core model?**  
+   Build logic lives in **\`build.gradle\`** or **\`build.gradle.kts\`** (Groovy or Kotlin). You define **tasks** and how they **connect** (task graph). Gradle can **skip** work that didn’t change (**incremental** builds).  
+   **Fresher view:** More **flexible**—and more **ways** to write yourself into complexity.
+
+3. **Which is faster and why?**  
+   **Gradle** often feels **faster** on **large** projects because of **incremental** compilation, **build cache**, and a **long-lived daemon** JVM.  
+   **Maven** can use **\`mvn -T 1C\`** for **parallel** module builds and has gotten faster, but the model is **phase-based**, not a custom task graph. **Real answer in interview:** “Depends on project size and tuning.”
+
+4. **Which has better ecosystem for Java enterprise?**  
+   **Maven** appears in **most** Spring tutorials, **most** job descriptions, and **most** legacy enterprise repos.  
+   **Gradle** is **huge** for **Android** and common in **Kotlin** backends. **Both** are **first-class** for Spring—**Spring Initializr** offers **both**.
+
+5. **How do multi-module projects compare?**  
+   **Maven** uses a **reactor** (modules listed in parent POM). **Gradle** uses **multi-project** builds with **\`settings.gradle\`**.  
+   Both can handle **monorepos**; **team skill** matters more than the tool for **structure**.
+
+6. **Dependency management comparison?**  
+   **Maven:** **\`<dependencyManagement>\`**, **BOM** imports (\`scope import\`), **parent POM**.  
+   **Gradle:** **platform()**, **BOM** imports, **Spring Dependency Management** plugin. **Same ideas**, different syntax.
+
+7. **When do teams choose Maven?**  
+   Large **enterprise** with **strict** standards, many **junior** devs who already learned Maven in college, **XML** is OK, **existing** CI is Maven-centric.
+
+8. **When do teams choose Gradle?**  
+   Need **custom** build logic (many **if/else** paths), **polyglot** (Java + Kotlin + native), **very large** codebases where **incremental** builds matter, or **Android** in the same company.
+
+9. **Can one project use both?**  
+   **Not** in the **same** module—you’d have **two** competing build tools. Libraries sometimes publish **examples** for **both** Maven and Gradle **snippets**. Pick **one** per repo.
+
+10. **Interview sound bite?**  
+    “**Maven** is **declarative XML**, **convention-heavy**, and **widely** used in Java enterprise—easy to **onboard**. **Gradle** is **scripted**, **flexible**, and often **faster** at scale—common for **Android** and **complex** builds. I’d use **Maven** unless the team **already** standardized on **Gradle** or we need **Gradle-specific** features.”
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Continue learning the full Java stack alongside Maven.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `
 };
 

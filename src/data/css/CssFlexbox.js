@@ -324,6 +324,63 @@ Flexbox is a powerful layout system that makes it easy to create flexible, respo
 For flex items, you can use the \`flex\` shorthand property which combines \`flex-grow\`, \`flex-shrink\`, and \`flex-basis\`. The \`flex-grow\` property controls how much an item can grow, \`flex-shrink\` controls how much it can shrink, and \`flex-basis\` sets the initial size. You can override the container's alignment for individual items using \`align-self\`.
 
 Flexbox makes layouts flexible and responsive. It's particularly useful for navigation bars, card layouts, and centering content. Once you understand the basic concepts, you'll find it much easier to create modern layouts than with older CSS methods.
+
+---
+
+## 10 Important CSS Flexbox Interview Questions
+
+1. **What problem does Flexbox solve?**  
+   **One-dimensional** layout: distribute space and align items along a **row OR column** (main axis). Great for **nav bars**, **toolbars**, **card rows**, **centering**. For **full page** 2D layouts, often combine with **Grid** or nested flex containers.
+
+2. **What are the main axis and cross axis?**  
+   **flex-direction: row** → main axis is **horizontal**, cross is **vertical**. **column** swaps them. **justify-content** aligns on the **main** axis; **align-items** on the **cross** axis (for a **single line**—use **align-content** for **multi-line** wrap).
+
+3. **What does \`justify-content: space-between\` do?**  
+   Distributes **free space between** items—first/last flush to edges. Contrast with **space-around** (half-size end gaps) and **space-evenly**. **gap** property adds **consistent** spacing without **margin hacks**.
+
+4. **Explain \`flex: 1\` shorthand.**  
+   **\`flex: 1 1 0\`** commonly—grow, shrink, **basis 0**—items share **remaining** space equally. **\`flex: none\`** = \`0 0 auto\` (fixed size). **\`flex-basis\`** sets **initial** size before **grow/shrink** distribution.
+
+5. **What is \`align-self\`?**  
+   Overrides **align-items** for a **single** flex item—useful for **odd one out** vertical alignment in a row.
+
+6. **What does \`flex-wrap: wrap\` change?**  
+   Items **wrap** to new lines when they exceed container width—**cross-axis** behavior then involves **align-content** (distribution of **lines**). Without wrap, items **shrink** (if allowed) or **overflow**.
+
+7. **Why is \`min-width: 0\` often needed on flex children?**  
+   Flex items default **min-width: auto**—content **prevents** shrinking below intrinsic size, causing **overflow**. Setting **min-width: 0** (or **overflow** tricks) lets **flex-shrink** work for **text**/**long URLs**.
+
+8. **How do you vertically center with Flexbox?**  
+   Parent: \`display: flex; align-items: center;\` (single line) or **justify-content** too for **both** axes (\`justify-content: center\`). For **viewport** centering, **min-height: 100vh** on container is common—watch **mobile** browser **dynamic toolbars**.
+
+9. **What is \`order\` and should you use it?**  
+   **order** changes **visual** order without changing **DOM** order—**bad** for **focus** tab order if it mismatches. Use for **responsive** tweaks cautiously; **screen readers** follow **DOM** order.
+
+10. **Flexbox vs Grid—when to choose Flex?**  
+    **Flex** for **components** along one axis (nav, distribute **icons**). **Grid** for **2D** **page** layouts (rows **and** columns). **Interview** answer: they **complement**—many UIs use **Grid** for page shell and **Flex** inside regions.
+
+---
+
+## Full-stack Java tutorials — quick links
+
+Use these alongside CSS when you move into backend services, databases, and APIs.
+
+| Topic | Tutorial link |
+|-------|----------------|
+| **Core Java** | [Java Introduction](/tutorial/java-introduction) |
+| **HTML** | [HTML Introduction](/tutorial/html-introduction) |
+| **CSS** | [CSS Introduction](/tutorial/css-introduction) |
+| **MySQL** | [MySQL Introduction](/tutorial/mysql-introduction) |
+| **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
+| **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
+| **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
+| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
+| **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
+| **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |
+| **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
+| **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
+
 `,
   code: `// CSS Flexbox
 
