@@ -565,6 +565,62 @@ Use optimistic locking for most cases, pessimistic for critical operations!
 5. **User Experience** - Users can read data even when others are updating
 
 Pessimistic locking is better for high-conflict scenarios like financial transactions.
+
+---
+
+
+
+## 10 Important Hibernate Locking Interview Questions
+
+### 1. Why is locking required in ORM-based systems?
+**Answer:** Concurrent updates on same row can overwrite each other; locking strategies prevent lost updates and protect consistency.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 2. What is optimistic locking in Hibernate?
+**Answer:** Optimistic locking uses version checks and fails conflicting updates instead of taking heavy locks early.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 3. What is pessimistic locking in Hibernate?
+**Answer:** Pessimistic locking acquires database locks during transaction to block conflicting writes immediately.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 4. When is optimistic locking usually better?
+**Answer:** It is better for low-conflict, high-read systems where contention is occasional and throughput matters.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 5. When is pessimistic locking justified?
+**Answer:** It is justified for high-conflict critical paths like wallet debit or limited inventory reservation where consistency must be strict.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 6. How do you handle optimistic lock exceptions gracefully?
+**Answer:** Implement retry with backoff for safe operations or show conflict message prompting user refresh and reapply action.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 7. What deadlock-related practice should teams adopt?
+**Answer:** Keep transactions short, access rows in consistent order, and monitor DB deadlock logs for recurring patterns.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 8. Real-time scenario: flash sale with 1 item left and 200 buyers, what locking approach works?
+**Answer:** Use optimistic locking with bounded retries or targeted pessimistic lock on inventory row depending on measured conflict rates.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 9. How do you benchmark locking strategy choice?
+**Answer:** Run load tests simulating contention and compare success rate, retries, deadlocks, and latency across strategies.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 10. Interview summary for locking?
+**Answer:** Locking strategy is a business-consistency decision under concurrency; choose based on conflict profile, not framework default.
+Detailed Explanation: Locking answers must tie strategy choice to contention patterns, user experience, and recovery/retry behavior. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
   `,
   code: `// Hibernate Locking Examples
 import org.hibernate.Session;

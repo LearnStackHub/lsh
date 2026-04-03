@@ -1,0 +1,452 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-size: 14px; }
+
+  .lesson { padding: 1rem 0; }
+
+  .section-title {
+    font-size: 18px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 2rem 0 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .intro-text {
+    font-size: 14px; color: var(--color-text-secondary);
+    line-height: 1.7; margin-bottom: 1rem;
+  }
+
+  /* ─── Workflow Diagram ─── */
+  .workflow {
+    display: flex; align-items: center; gap: 0; margin: 1.25rem 0;
+    flex-wrap: wrap;
+  }
+  .wf-box {
+    flex: 1; min-width: 120px;
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 14px 12px; text-align: center;
+  }
+  .wf-box .icon { font-size: 20px; margin-bottom: 4px; }
+  .wf-box .label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .wf-box .sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+  .wf-box.active { border-color: var(--color-border-info); background: var(--color-background-info); }
+  .wf-box.active .label { color: var(--color-text-info); }
+  .wf-arrow {
+    font-size: 16px; color: var(--color-text-tertiary);
+    padding: 0 4px; flex-shrink: 0;
+  }
+  .wf-cmd {
+    font-size: 10px; color: var(--color-text-tertiary);
+    text-align: center; margin-top: 3px;
+    font-family: var(--font-mono);
+  }
+
+  /* ─── Steps ─── */
+  .steps { margin: 1rem 0; }
+  .step {
+    display: flex; gap: 12px; margin-bottom: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 28px; height: 28px; flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; color: var(--color-text-secondary);
+  }
+  .step-body { flex: 1; }
+  .step-body h4 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .step-body p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 6px; }
+
+  /* ─── Code blocks ─── */
+  .cmd-block {
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 10px 14px; margin: 4px 0;
+    font-family: var(--font-mono); font-size: 13px;
+    color: var(--color-text-primary);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cmd-block .prompt { color: var(--color-text-tertiary); margin-right: 6px; }
+  .copy-btn {
+    background: none; border: 0.5px solid var(--color-border-secondary);
+    border-radius: 4px; padding: 2px 8px;
+    font-size: 11px; color: var(--color-text-secondary);
+    cursor: pointer; font-family: var(--font-sans);
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: var(--color-background-tertiary); }
+  .copy-btn.copied { color: var(--color-text-success); border-color: var(--color-border-success); }
+
+  .output-block {
+    background: var(--color-background-tertiary);
+    border-left: 2px solid var(--color-border-secondary);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    padding: 8px 14px; margin: 4px 0 8px;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--color-text-secondary); line-height: 1.6;
+  }
+
+  /* ─── States visual ─── */
+  .states-diagram {
+    display: flex; align-items: center; gap: 0;
+    margin: 1rem 0; flex-wrap: wrap;
+  }
+  .state-box {
+    flex: 1; min-width: 100px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 12px 10px; text-align: center;
+  }
+  .state-box .s-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .state-box .s-desc { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; line-height: 1.4; }
+  .state-box.s1 { background: var(--color-background-secondary); }
+  .state-box.s2 { background: var(--color-background-warning); border-color: var(--color-border-warning); }
+  .state-box.s2 .s-label { color: var(--color-text-warning); }
+  .state-box.s3 { background: var(--color-background-success); border-color: var(--color-border-success); }
+  .state-box.s3 .s-label { color: var(--color-text-success); }
+  .state-arrow {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 6px; flex-shrink: 0;
+  }
+  .state-arrow .s-cmd {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--color-text-info); margin-bottom: 2px; white-space: nowrap;
+  }
+  .state-arrow .arr { color: var(--color-text-tertiary); font-size: 14px; }
+
+  /* ─── Tips ─── */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 1rem 0; }
+  .tip-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 12px;
+  }
+  .tip-card .t-icon { font-size: 18px; margin-bottom: 6px; }
+  .tip-card .t-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .tip-card .t-text { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+  /* ─── Commands table ─── */
+  .cmd-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 1rem 0; }
+  .cmd-table th {
+    text-align: left; padding: 8px 12px;
+    background: var(--color-background-secondary);
+    color: var(--color-text-secondary); font-weight: 500; font-size: 12px;
+    border-bottom: 0.5px solid var(--color-border-secondary);
+  }
+  .cmd-table td { padding: 8px 12px; border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: top; }
+  .cmd-table tr:last-child td { border-bottom: none; }
+  .cmd-table td:first-child { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-info); white-space: nowrap; }
+  .cmd-table td:last-child { color: var(--color-text-secondary); }
+
+  /* ─── Commit message demo ─── */
+  .msg-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0.75rem 0; }
+  .msg-card {
+    border-radius: var(--border-radius-md); padding: 12px;
+    border: 0.5px solid;
+  }
+  .msg-card.bad { background: var(--color-background-danger); border-color: var(--color-border-danger); }
+  .msg-card.good { background: var(--color-background-success); border-color: var(--color-border-success); }
+  .msg-card .m-tag { font-size: 10px; font-weight: 500; letter-spacing: .05em; margin-bottom: 6px; }
+  .msg-card.bad .m-tag { color: var(--color-text-danger); }
+  .msg-card.good .m-tag { color: var(--color-text-success); }
+  .msg-card .m-text { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-primary); }
+  .msg-card .m-why { font-size: 11px; margin-top: 6px; color: var(--color-text-secondary); }
+
+  /* ─── Interview accordion ─── */
+  .qa-list { margin: 0.75rem 0; }
+  .qa-item {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    margin-bottom: 6px; overflow: hidden;
+  }
+  .qa-q {
+    width: 100%; background: none; border: none; cursor: pointer;
+    padding: 10px 14px; text-align: left;
+    font-size: 13px; font-weight: 500; color: var(--color-text-primary);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-sans);
+  }
+  .qa-q:hover { background: var(--color-background-secondary); }
+  .qa-q .chevron { color: var(--color-text-tertiary); transition: transform 0.2s; font-size: 12px; }
+  .qa-q.open .chevron { transform: rotate(90deg); }
+  .qa-a {
+    display: none; padding: 0 14px 12px; font-size: 13px;
+    color: var(--color-text-secondary); line-height: 1.6;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-secondary);
+  }
+  .qa-a code { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-info); }
+  .qa-a.open { display: block; }
+  .qa-q .q-num { color: var(--color-text-tertiary); font-size: 12px; margin-right: 8px; font-weight: 400; }
+</style>
+
+<div class="lesson">
+
+  <!-- ── Workflow diagram ── -->
+  <p class="intro-text">The core Git workflow has three zones. Every file moves through them in order.</p>
+
+  <div class="workflow">
+    <div class="wf-box">
+      <div class="icon">📁</div>
+      <div class="label">Working directory</div>
+      <div class="sub">Your project files on disk. Edit freely here.</div>
+    </div>
+    <div class="wf-arrow">
+      <div style="text-align:center">
+        <div class="wf-cmd">git add</div>
+        <div>›</div>
+      </div>
+    </div>
+    <div class="wf-box active">
+      <div class="icon">📋</div>
+      <div class="label">Staging area</div>
+      <div class="sub">A waiting room. Chosen changes go here first.</div>
+    </div>
+    <div class="wf-arrow">
+      <div style="text-align:center">
+        <div class="wf-cmd">git commit</div>
+        <div>›</div>
+      </div>
+    </div>
+    <div class="wf-box">
+      <div class="icon">📚</div>
+      <div class="label">Repository</div>
+      <div class="sub">Permanent history. Every commit lives here forever.</div>
+    </div>
+  </div>
+
+  <!-- ── Step-by-step commands ── -->
+  <div class="section-title">Step-by-step: your first commit</div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Create a project folder</h4>
+        <div class="cmd-block"><span><span class="prompt">$</span> mkdir my-java-project && cd my-java-project</span><button class="copy-btn" onclick="copyCmd(this,'mkdir my-java-project && cd my-java-project')">copy</button></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Initialize a Git repository</h4>
+        <p>This creates a hidden <code style="font-family:var(--font-mono);color:var(--color-text-info)">.git</code> folder — Git's brain. Never delete it.</p>
+        <div class="cmd-block"><span><span class="prompt">$</span> git init</span><button class="copy-btn" onclick="copyCmd(this,'git init')">copy</button></div>
+        <div class="output-block">Initialized empty Git repository in /path/to/my-java-project/.git/</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Check what Git sees</h4>
+        <p>Run this often. It tells you exactly what state your files are in.</p>
+        <div class="cmd-block"><span><span class="prompt">$</span> git status</span><button class="copy-btn" onclick="copyCmd(this,'git status')">copy</button></div>
+        <div class="output-block">On branch main<br>No commits yet<br><br>Untracked files:<br>  (use "git add &lt;file&gt;..." to include)<br>        HelloWorld.java</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Stage your file</h4>
+        <p>Move <code style="font-family:var(--font-mono);color:var(--color-text-info)">HelloWorld.java</code> from the working directory into the staging area. Use <code style="font-family:var(--font-mono);color:var(--color-text-info)">git add .</code> to stage everything at once.</p>
+        <div class="cmd-block"><span><span class="prompt">$</span> git add HelloWorld.java</span><button class="copy-btn" onclick="copyCmd(this,'git add HelloWorld.java')">copy</button></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Commit — take a snapshot</h4>
+        <p>The <code style="font-family:var(--font-mono);color:var(--color-text-info)">-m</code> flag sets the message inline. Be descriptive.</p>
+        <div class="cmd-block"><span><span class="prompt">$</span> git commit -m "Add HelloWorld.java"</span><button class="copy-btn" onclick="copyCmd(this,'git commit -m "Add HelloWorld.java"')">copy</button></div>
+        <div class="output-block">[main (root-commit) abc1234] Add HelloWorld.java<br> 1 file changed, 5 insertions(+)</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h4>View commit history</h4>
+        <p>Use <code style="font-family:var(--font-mono);color:var(--color-text-info)">--oneline</code> for a compact, readable log.</p>
+        <div class="cmd-block"><span><span class="prompt">$</span> git log --oneline</span><button class="copy-btn" onclick="copyCmd(this,'git log --oneline')">copy</button></div>
+        <div class="output-block">abc1234 Add HelloWorld.java</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── File states ── -->
+  <div class="section-title">The three file states</div>
+  <p class="intro-text" style="margin-bottom:0.75rem">Every file in your project is always in one of these states:</p>
+
+  <div class="states-diagram">
+    <div class="state-box s1">
+      <div class="s-label">Untracked</div>
+      <div class="s-desc">Git sees the file but isn't watching it yet</div>
+    </div>
+    <div class="state-arrow">
+      <div class="s-cmd">git add</div>
+      <div class="arr">›</div>
+    </div>
+    <div class="state-box s2">
+      <div class="s-label">Staged</div>
+      <div class="s-desc">Queued for the next commit</div>
+    </div>
+    <div class="state-arrow">
+      <div class="s-cmd">git commit</div>
+      <div class="arr">›</div>
+    </div>
+    <div class="state-box s3">
+      <div class="s-label">Committed</div>
+      <div class="s-desc">Saved permanently in the repo</div>
+    </div>
+  </div>
+
+  <!-- ── Commands summary ── -->
+  <div class="section-title">Commands at a glance</div>
+  <table class="cmd-table">
+    <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>git init</td><td>Start tracking a folder as a Git repository</td></tr>
+      <tr><td>git status</td><td>See which files are untracked, modified, or staged</td></tr>
+      <tr><td>git add &lt;file&gt;</td><td>Move a file into the staging area</td></tr>
+      <tr><td>git add .</td><td>Stage all changed files at once</td></tr>
+      <tr><td>git add -p</td><td>Interactively pick parts of a file to stage (cleaner commits)</td></tr>
+      <tr><td>git commit -m "…"</td><td>Save staged changes as a snapshot with a message</td></tr>
+      <tr><td>git commit --amend</td><td>Rewrite the most recent commit message or content</td></tr>
+      <tr><td>git log</td><td>View full commit history (author, date, message)</td></tr>
+      <tr><td>git log --oneline</td><td>Compact one-line view of commit history</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Commit messages ── -->
+  <div class="section-title">Writing good commit messages</div>
+  <p class="intro-text" style="margin-bottom:0.75rem">Commit messages are a diary for your future self and teammates. Make them count.</p>
+
+  <div class="msg-compare">
+    <div class="msg-card bad">
+      <div class="m-tag">AVOID</div>
+      <div class="m-text">fix<br>update<br>changes<br>wip</div>
+      <div class="m-why">Too vague. Says nothing about what changed or why.</div>
+    </div>
+    <div class="msg-card good">
+      <div class="m-tag">PREFER</div>
+      <div class="m-text">Add user login validation<br>Fix null pointer in UserDAO<br>Create User model with getters</div>
+      <div class="m-why">Short, imperative, and specific. A future reader knows exactly what happened.</div>
+    </div>
+  </div>
+
+  <!-- ── Best practice tips ── -->
+  <div class="section-title">Best practices</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="t-icon">🔁</div>
+      <div class="t-title">Commit often</div>
+      <div class="t-text">Small, frequent commits are easier to review and revert than one big commit at the end.</div>
+    </div>
+    <div class="tip-card">
+      <div class="t-icon">👁</div>
+      <div class="t-title">Always check status first</div>
+      <div class="t-text">Run <code style="font-family:var(--font-mono);font-size:11px">git status</code> before committing so you know exactly what's going in.</div>
+    </div>
+    <div class="tip-card">
+      <div class="t-icon">🚫</div>
+      <div class="t-title">Use .gitignore</div>
+      <div class="t-text">List files Git should never track: <code style="font-family:var(--font-mono);font-size:11px">target/</code>, <code style="font-family:var(--font-mono);font-size:11px">.class</code>, IDE folders, secrets.</div>
+    </div>
+    <div class="tip-card">
+      <div class="t-icon">🧩</div>
+      <div class="t-title">One concern per commit</div>
+      <div class="t-text">A bug fix and a new feature should be two separate commits, not one.</div>
+    </div>
+  </div>
+
+  <!-- ── Interview Q&A ── -->
+  <div class="section-title">Interview questions — tap to reveal</div>
+  <div class="qa-list" id="qa-list"></div>
+
+</div>
+
+<script>
+const qas = [
+  {
+    q: "What is the difference between working directory, staging area, and repository?",
+    a: "Working directory: files on disk as you edit them. Staging area (index): what you've marked with <code>git add</code> for the next commit. Repository: committed snapshots stored in <code>.git</code>. Flow: edit → add → commit."
+  },
+  {
+    q: "What does git status tell you?",
+    a: "Which branch you're on, <b>untracked</b> files Git hasn't seen before, <b>modified</b> files not yet staged, and <b>staged</b> files ready to commit. Run it constantly — it's your compass."
+  },
+  {
+    q: "Why stage files instead of committing directly?",
+    a: "Staging lets you choose which changes go into one logical commit. Example: you fixed a typo and added a big feature in the same folder — you can stage only the typo first for a clean, separate commit."
+  },
+  {
+    q: "What makes a good commit message?",
+    a: "An imperative subject line (e.g. <code>Add login validation</code>), 50 chars max. Optionally, a blank line then a body explaining <em>why</em>. Avoid vague messages like 'fix' or 'changes'."
+  },
+  {
+    q: "What is HEAD in Git?",
+    a: "<code>HEAD</code> points to your current commit — usually the tip of your current branch. 'Detached HEAD' means HEAD points directly to a commit rather than a branch. It's useful but can be confusing — always check where you are."
+  },
+  {
+    q: "Difference between git add . and git add -p?",
+    a: "<code>git add .</code> stages everything changed (risky if you mixed unrelated edits). <code>git add -p</code> (patch mode) lets you interactively review and choose individual hunks — better for producing clean, focused commits."
+  },
+  {
+    q: "Can you change the last commit message?",
+    a: "<code>git commit --amend</code> rewrites the latest commit. Warning: if you already <em>pushed</em> that commit, amending rewrites history — always coordinate with your team first."
+  },
+  {
+    q: "What does git clone do vs git init?",
+    a: "<code>git init</code> starts a brand-new repo in an existing local folder. <code>git clone &lt;url&gt;</code> downloads an existing remote repo with its full history. You'll use clone daily when joining a project."
+  },
+  {
+    q: "What is .gitignore?",
+    a: "A file listing patterns that Git should never track: build output folders (<code>target/</code>), compiled files (<code>*.class</code>), IDE configs, and especially secrets like <code>.env</code> files with real credentials."
+  },
+  {
+    q: "What does git log show?",
+    a: "The full commit history: hashes, authors, dates, and messages. Use <code>git log --oneline</code> for a compact view. You use it to find a specific commit to revert, cherry-pick, or inspect."
+  }
+];
+
+const list = document.getElementById('qa-list');
+qas.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'qa-item';
+  div.innerHTML = `
+    <button class="qa-q" onclick="toggleQA(this)">
+      <span><span class="q-num">Q${i+1}.</span>${item.q}</span>
+      <span class="chevron">›</span>
+    </button>
+    <div class="qa-a">${item.a}</div>
+  `;
+  list.appendChild(div);
+});
+
+function toggleQA(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>

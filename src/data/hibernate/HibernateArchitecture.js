@@ -338,6 +338,62 @@ Understanding this architecture helps you:
 5. Prepares SQL statements
 
 Since it's thread-safe and immutable, you should create it once at application startup and reuse it throughout the application lifecycle.
+
+---
+
+
+
+## 10 Important Hibernate Architecture Interview Questions
+
+### 1. What are the core architecture components in Hibernate?
+**Answer:** Configuration metadata, SessionFactory, Session, transaction layer, query engine, caching layers, and JDBC integration form the core architecture pipeline.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 2. Why is SessionFactory created once and reused?
+**Answer:** It is expensive and thread-safe; it stores mapping metadata and cache context, so recreating it repeatedly wastes memory and startup time.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 3. What architectural role does Session play?
+**Answer:** Session is the unit-of-work boundary for entity lifecycle, first-level cache, and write-behind behavior before SQL flush.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 4. How does dialect fit into architecture?
+**Answer:** Dialect adapts generated SQL to vendor-specific syntax and capabilities, ensuring compatibility across MySQL, PostgreSQL, Oracle, and others.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 5. Where does first-level cache exist architecturally?
+**Answer:** It is session-scoped and always active; each session has its own managed entity cache.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 6. Where does second-level cache exist architecturally?
+**Answer:** It is SessionFactory-scoped and shared across sessions, typically integrated with providers like Ehcache or Infinispan.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 7. What is a common architecture anti-pattern in Hibernate apps?
+**Answer:** Keeping sessions open globally or across threads causes memory growth, stale state, and unpredictable persistence behavior.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 8. Real-time scenario: multi-tenant SaaS service, what architecture choice is critical?
+**Answer:** SessionFactory strategy, tenant-aware configuration, and strict session-per-request boundaries are critical for isolation and scalability.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 9. How do you explain query execution flow in architecture interviews?
+**Answer:** Application code issues HQL/criteria, Hibernate resolves mapping and dialect, builds SQL, executes through JDBC, then hydrates entities back into session context.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 10. Interview summary for Hibernate architecture?
+**Answer:** Hibernate architecture is a layered persistence engine; understanding scope boundaries of SessionFactory, Session, cache, and transaction flow is key to production correctness.
+Detailed Explanation: Architecture answers should show component boundaries, lifecycle ownership, and where performance/caching/transactions sit in the flow. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
   `,
   code: `// Hibernate Architecture Example
 import org.hibernate.Session;

@@ -493,6 +493,62 @@ Master batch processing, and you can handle any data volume efficiently!
   - Use try-catch for error handling
   - Log progress every 1000 records
 - **Expected Performance**: ~5-10 seconds (vs 10+ minutes without batching)
+
+---
+
+
+
+## 10 Important Hibernate Batch Processing Interview Questions
+
+### 1. What is batch processing in Hibernate and why use it?
+**Answer:** Batch processing groups many DML operations to reduce round-trips and improve throughput for bulk workloads.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 2. Why do large loops fail without flush and clear strategy?
+**Answer:** Persistence context grows too large, causing memory pressure and slower dirty checking over time.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 3. What is an effective batch size strategy?
+**Answer:** Use moderate batch size based on driver and DB characteristics, then tune with load testing to avoid memory and lock side effects.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 4. How does ordered insert and update help batches?
+**Answer:** Ordered SQL can improve batching efficiency and reduce deadlock probability in some write-heavy workloads.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 5. When should StatelessSession be used?
+**Answer:** Use StatelessSession for high-volume migration or ETL where full entity lifecycle management is unnecessary.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 6. Why should batch transactions be chunked?
+**Answer:** Chunking limits rollback scope, lock duration, and failure blast radius for long-running data jobs.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 7. What is a typical retry approach for failed chunks?
+**Answer:** Retry failed chunk with bounded attempts and logging, then park failed records for manual reconciliation pipeline.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 8. Real-time scenario: nightly customer data migration of 5 million rows, how do you design the job?
+**Answer:** Process in chunks with periodic flush and clear, checkpoint progress, monitor throughput, and support resumable execution after failures.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 9. Which metrics matter most for batch health?
+**Answer:** Rows per second, chunk failure rate, DB CPU/IO utilization, lock waits, and memory usage are key batch observability metrics.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 10. Interview summary for batch processing?
+**Answer:** Hibernate batch success depends on chunking, session memory control, transaction design, and operational monitoring.
+Detailed Explanation: Batch answers should cover chunking, memory control, flush/clear cadence, and resilient long-running job design. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
   `,
   code: `// Hibernate Batch Processing Examples
 import org.hibernate.Session;

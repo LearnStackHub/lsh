@@ -453,6 +453,62 @@ String hql = "SELECT u FROM User u JOIN u.orders o " +
 Query<User> query = session.createQuery(hql, User.class);
 List<User> users = query.list();
 \`\`\`
+
+---
+
+
+
+## 10 Important Hibernate HQL Interview Questions
+
+### 1. What is HQL and why do teams use it?
+**Answer:** HQL is entity-oriented query language that lets developers query using domain model names instead of table-centric SQL.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 2. HQL vs native SQL: what is the practical trade-off?
+**Answer:** HQL improves portability and readability for ORM models, while native SQL offers precise vendor-specific control for advanced cases.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 3. Why are named parameters preferred in HQL?
+**Answer:** Named parameters improve readability and reduce mistakes in complex queries compared with positional placeholders.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 4. How is pagination implemented in HQL queries?
+**Answer:** Pagination is done via query API with first result and max results settings rather than DB-specific limit syntax directly.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 5. What is fetch join and when should it be used?
+**Answer:** Fetch join loads related entities in one query to avoid N+1, but must be used carefully to avoid large result explosion.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 6. Can HQL perform bulk update and delete?
+**Answer:** Yes, but bulk operations bypass normal session entity synchronization, so session cache handling must be considered after execution.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 7. What are common HQL query optimization techniques?
+**Answer:** Select only needed fields, index filtering columns, use pagination, avoid unnecessary joins, and inspect generated SQL plans.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 8. Real-time scenario: search endpoint with filters, sort, pagination; how do you design HQL?
+**Answer:** Build parameterized HQL with deterministic sorting and optional filters, then paginate and project DTOs for stable API response times.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 9. HQL and Criteria API when to choose which?
+**Answer:** Use HQL for fixed readable queries; choose Criteria API when query conditions are highly dynamic at runtime.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
+
+### 10. Interview summary for HQL?
+**Answer:** HQL gives object-centric querying with better maintainability, but high-quality performance still depends on query design discipline.
+Detailed Explanation: HQL answers should combine syntax understanding with query planning, pagination discipline, and safe parameter usage. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
+Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
   `,
   code: `// Hibernate HQL Examples
 import org.hibernate.Session;

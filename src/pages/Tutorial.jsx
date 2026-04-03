@@ -143,7 +143,7 @@ function topicContentToString(content) {
 
 function Tutorial() {
   const { topicId } = useParams();
-  const [copied, setCopied] = useState(false);
+  const [copiedBlockId, setCopiedBlockId] = useState(null);
   const [editorCode, setEditorCode] = useState('');
   const [output, setOutput] = useState('Click "Run Code" to execute your code');
   const [isRunning, setIsRunning] = useState(false);
@@ -172,6 +172,7 @@ function Tutorial() {
   const isMysqlTopic = topicId.startsWith('mysql-');
   const isServletTopic = topicId.startsWith('servlet-') || topicId === 'http-request-response' || topicId === 'session-management' || topicId === 'filters-listeners' || topicId === 'tomcat-server';
   const isJdbcTopic = topicId.startsWith('jdbc-') || topicId === 'transaction-management' || topicId === 'crud-operations' || topicId === 'statement-interface' || topicId === 'preparedstatement-interface' || topicId === 'resultset-interface';
+  const isHibernateTopic = topicId.startsWith('hibernate-');
 
   const navigation = getNavigation(topicId);
   const fallbackLastUpdated = '2026-03-27';
@@ -207,29 +208,36 @@ function Tutorial() {
   const lastUpdatedDisplay = formatDate(lastUpdatedRaw);
 
   useEffect(() => {
-    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic) {
+    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic) {
       setEditorCode(currentTopic.code);
       setOutput('Click "Run Code" to execute your code');
     }
-  }, [currentTopic, isMysqlTopic, isServletTopic, isJdbcTopic]);
+  }, [currentTopic, isMysqlTopic, isServletTopic, isJdbcTopic, isHibernateTopic]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+  }, [topicId]);
+
+  useEffect(() => {
     // Track tutorial view in Google Analytics
     if (currentTopic) {
       trackTutorialView(topicId, currentTopic.title);
     }
-  }, [topicId, currentTopic]);
+  }, [topicId, currentTopic?.title]);
+
+  const copyToClipboard = async (text, blockId, eventLabel = 'copy_code') => {
+    if (!text) return;
+    await navigator.clipboard.writeText(text);
+    setCopiedBlockId(blockId);
+    setTimeout(() => {
+      setCopiedBlockId((currentId) => (currentId === blockId ? null : currentId));
+    }, 2000);
+    trackButtonClick(eventLabel, 'tutorial');
+  };
 
   const copyCode = async () => {
     if (currentTopic?.code) {
-      await navigator.clipboard.writeText(currentTopic.code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-      
-      // Track copy code action
-      trackButtonClick('copy_code', 'tutorial');
+      await copyToClipboard(currentTopic.code, 'topic-main-code');
     }
   };
 
@@ -270,7 +278,7 @@ function Tutorial() {
 
   // Lazy load CodeMirror only when code editor is needed (saves 100KB initial load)
   useEffect(() => {
-    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !CodeMirrorComponent) {
+    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && !CodeMirrorComponent) {
       Promise.all([
         import('@uiw/react-codemirror'),
         import('@codemirror/lang-java')
@@ -279,7 +287,7 @@ function Tutorial() {
         setJavaLang(() => javaModule.java);
       });
     }
-  }, [currentTopic?.code, isMysqlTopic, isServletTopic, isJdbcTopic, CodeMirrorComponent]);
+  }, [currentTopic?.code, isMysqlTopic, isServletTopic, isJdbcTopic, isHibernateTopic, CodeMirrorComponent]);
 
   const onChange = useCallback((value) => {
     setEditorCode(value);
@@ -401,21 +409,34 @@ function Tutorial() {
       
       if (line.trim().startsWith('```')) {
         if (inCodeBlock) {
+          const blockId = `content-code-${index}`;
+          const trimmedCode = codeContent.trim();
           elements.push(
-            <SyntaxHighlighter 
-              key={`code-${index}`}
-              language="java" 
-              style={codeTheme}
-              showLineNumbers={false}
-              customStyle={{
-                borderRadius: '8px',
-                padding: '1rem',
-                fontSize: '0.9rem',
-                margin: '1rem 0'
-              }}
-            >
-              {codeContent.trim()}
-            </SyntaxHighlighter>
+            <div key={`code-wrapper-${index}`} style={{ position: 'relative', margin: '1rem 0' }}>
+              <button
+                className="code-btn"
+                style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', zIndex: 1 }}
+                onClick={() => copyToClipboard(trimmedCode, blockId, 'copy_content_code')}
+                aria-label={copiedBlockId === blockId ? 'Code copied' : 'Copy code block'}
+              >
+                {copiedBlockId === blockId ? <Check size={14} /> : <Copy size={14} />}
+                {copiedBlockId === blockId ? 'Copied!' : 'Copy'}
+              </button>
+              <SyntaxHighlighter
+                language="java"
+                style={codeTheme}
+                showLineNumbers={false}
+                customStyle={{
+                  borderRadius: '8px',
+                  padding: '1rem',
+                  paddingTop: '2.8rem',
+                  fontSize: '0.9rem',
+                  margin: 0
+                }}
+              >
+                {trimmedCode}
+              </SyntaxHighlighter>
+            </div>
           );
           codeContent = '';
           inCodeBlock = false;
@@ -870,7 +891,7 @@ function Tutorial() {
       </div>
 
       {/* Code Example (Java tutorials only; MySQL/Servlet tracks use article body examples) */}
-      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && (
+      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && (
         <div className="code-block">
           <div className="code-header">
             <div className="code-language">
@@ -879,8 +900,8 @@ function Tutorial() {
             </div>
             <div className="code-actions">
               <button className="code-btn" onClick={copyCode}>
-                {copied ? <Check size={14} /> : <Copy size={14} />}
-                {copied ? 'Copied!' : 'Copy'}
+                {copiedBlockId === 'topic-main-code' ? <Check size={14} /> : <Copy size={14} />}
+                {copiedBlockId === 'topic-main-code' ? 'Copied!' : 'Copy'}
               </button>
             </div>
           </div>
@@ -903,7 +924,7 @@ function Tutorial() {
       )}
 
       {/* Try It Yourself Editor (Java-only; MySQL/Servlet lessons use static in-article examples) */}
-      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && (
+      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && (
         <div className="try-it-section">
           <div className="try-it-header">
             <div className="try-it-title">
@@ -971,6 +992,15 @@ function Tutorial() {
               <p className="hint"><strong>Hint:</strong> {q.hint}</p>
               {q.starterCode && (
                 <div className="starter-code">
+                  <button
+                    className="code-btn"
+                    style={{ marginBottom: '0.5rem' }}
+                    onClick={() => copyToClipboard(q.starterCode, `starter-code-${index}`, 'copy_starter_code')}
+                    aria-label={copiedBlockId === `starter-code-${index}` ? 'Code copied' : 'Copy starter code'}
+                  >
+                    {copiedBlockId === `starter-code-${index}` ? <Check size={14} /> : <Copy size={14} />}
+                    {copiedBlockId === `starter-code-${index}` ? 'Copied!' : 'Copy'}
+                  </button>
                   <SyntaxHighlighter 
                     language="java" 
                     style={codeTheme}
