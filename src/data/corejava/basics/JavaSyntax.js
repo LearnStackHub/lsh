@@ -300,6 +300,51 @@ System.out.printf("Name: %s, Age: %d, Salary: $%.2f%n", name, age, salary);
 | Variable names | camelCase |
 | Constants | UPPER_SNAKE_CASE |
 | File name | Must match public class name |
+
+---
+
+## 10 Important Java Syntax Interview Questions
+
+### 1. Why must a source file’s public class name match the filename?
+**Answer:** The compiler enforces a one-to-one mapping for discoverability and predictable class loading from the filesystem.
+Refactoring tools rename both together to stay consistent.
+
+### 2. What is a compile-time error vs a runtime error with a simple example?
+**Answer:** Syntax/type mistakes fail at compile time (\`String x = 1;\`); \`NullPointerException\` may appear only when a path executes.
+Tests should cover branches that exercise nullable references.
+
+### 3. What are Java identifiers and naming conventions?
+**Answer:** Identifiers are names for classes, methods, variables; conventions use PascalCase for classes, camelCase for members, UPPER_SNAKE for constants.
+Consistency matters more for team readability than for the compiler.
+
+### 4. What delimits statements and blocks?
+**Answer:** Statements end with \`;\`; blocks use braces \`{ }\` to group statements and define scope.
+Omitting braces on single-line \`if\` is legal but risky during edits.
+
+### 5. What is the role of the package declaration?
+**Answer:** It namespaces types to avoid collisions and maps to directory structure for class loading.
+Default package is only for quick experiments.
+
+### 6. What are literals vs variables?
+**Answer:** Literals are fixed values in source (\`42\`, \`"hi"\`); variables hold values that can change (unless \`final\`).
+Type inference with \`var\` still requires initialization before use.
+
+### 7. How do single-line vs multi-line comments differ?
+**Answer:** \`//\` to end of line; \`/* */\` for blocks; Javadoc \`/** */\` for API documentation processed by \`javadoc\`.
+Public API teams treat Javadoc as part of the contract.
+
+### 8. Scenario: your teammate’s code compiles but your checkout doesn’t—same repo. What syntax-related causes do you check?
+**Answer:** JDK version (preview features), file encoding, and line endings corrupting hidden characters—less often pure syntax.
+Also verify you didn’t merge partial files with mismatched braces.
+
+### 9. Why does Java require explicit types (or \`var\`) for local variables?
+**Answer:** Static typing catches many mistakes early and documents intent; \`var\` infers type but still binds a single static type.
+Dynamic typing is not Java’s model.
+
+### 10. What happens if you forget a semicolon?
+**Answer:** The compiler reports an error near the next token; cascading errors can appear until fixed.
+IDEs usually highlight the exact statement.
+
 `,
   code: `// Java Syntax Demo - Understanding Java code structure
 

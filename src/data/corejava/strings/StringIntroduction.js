@@ -303,6 +303,51 @@ public class EmailValidation {
 ## Test Your Knowledge
 
 Mastered String operations? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering String, StringBuffer, StringBuilder, and all Core Java topics!
+
+---
+
+## 10 Important String Introduction Interview Questions
+
+### 1. Why is \`String\` immutable in Java?
+**Answer:** Security (class loading, network), caching (string pool), thread-safety without locks, and safe sharing as keys in \`HashMap\`.
+Immutability trades memory for predictability.
+
+### 2. Where do string literals live?
+**Answer:** String literals are interned in the string pool (part of the Java heap in modern JVMs); class metadata uses metaspace (Java 8+). Interned literals may share instances.
+\`new String("hi")\` creates a separate heap object outside the pool unless interned.
+
+### 3. What is \`String.intern()\`?
+**Answer:** Adds string to pool and returns canonical reference—use sparingly; misuse can blow metaspace and slow down GC.
+Rare in app code; more in frameworks.
+
+### 4. How does \`+\` concatenation perform in loops?
+**Answer:** Creates many intermediate \`String\` objects—use \`StringBuilder\` in hot loops.
+Compiler optimizes some simple cases, not all.
+
+### 5. What encoding does \`String\` use internally?
+**Answer:** UTF-16 \`char\` sequence—supplementary characters use surrogate pairs.
+Network I/O should specify charset explicitly.
+
+### 6. Scenario: reading user password into \`String\`—what security concern exists?
+**Answer:** Strings stay in memory until GC and may be interned—sensitive data better in \`char[]\` you can wipe.
+Security reviews flag \`String\` passwords.
+
+### 7. What does \`equals\` vs \`==\` mean for strings?
+**Answer:** \`equals\` compares character content; \`==\` compares references—interning can make \`==\` accidentally true for literals.
+Always use \`equals\` for logic unless identity intended.
+
+### 8. Are strings thread-safe?
+**Answer:** Yes, immutable values are freely shared across threads without synchronization.
+Contrast with \`StringBuilder\`.
+
+### 9. What is string pool duplication issue?
+**Answer:** Large dynamic strings interned unnecessarily waste memory—don’t intern untrusted large inputs.
+Monitor metaspace in long-running services.
+
+### 10. How do raw bytes become \`String\`?
+**Answer:** Via constructors and \`Charset\`—wrong charset produces mojibake—always specify UTF-8 at boundaries.
+Files and sockets need explicit decoding.
+
 `,
   code: `// Real-Time: Complete String Operations Demo
 // User registration and data processing

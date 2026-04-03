@@ -530,6 +530,51 @@ for(int i = 0; i < list.size(); i++) {
 ## Test Your Knowledge
 
 Mastered Collections framework? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering Collections, List, Set, Map, Queue, and all Core Java topics!
+
+---
+
+## 10 Important Collections Framework Interview Questions
+
+### 1. What root interfaces define Java collections?
+**Answer:** \`Collection\`, \`List\`, \`Set\`, \`Queue\`, \`Map\` (not extending Collection)—choose by duplicates, order, and key-value needs.
+Interviewers expect complexity trade-offs.
+
+### 2. What is difference between \`Iterable\` and \`Collection\`?
+**Answer:** \`Iterable\` enables enhanced for; \`Collection\` adds size, add, contains—broader mutability contract.
+Streams also build on spliterator iteration.
+
+### 3. Why not use Vector / Hashtable in new code?
+**Answer:** Legacy synchronized collections—poor concurrency scalability—prefer \`ConcurrentHashMap\`, \`CopyOnWriteArrayList\` when needed.
+Performance and API modernization.
+
+### 4. What is fail-fast iterator?
+**Answer:** Throws \`ConcurrentModificationException\` if collection structurally modified during iteration (except via iterator’s remove)—detects single-thread misuse mostly.
+Not a full concurrency guarantee.
+
+### 5. Scenario: counting distinct users—Set vs List?
+**Answer:** \`Set\` enforces uniqueness—\`HashSet\` average O(1) add/contains—List would need contains scan O(n) per insert.
+Choose structure for access pattern.
+
+### 6. What is \`Collections.unmodifiableList\`?
+**Answer:** Wrapper preventing modification—fails fast on mutators—underlying list changes still visible if mutable elements.
+Defensive copies for true immutability.
+
+### 7. How do generics improve collections?
+**Answer:** Compile-time checks instead of runtime \`ClassCastException\`—readability and safety.
+Wildcards capture producer/consumer roles.
+
+### 8. What is \`Comparable\` vs \`Comparator\`?
+**Answer:** Natural ordering inside class vs external ordering strategy—\`TreeSet\` uses Comparable or provided Comparator.
+Multiple sort orders need Comparator.
+
+### 9. Big-O for \`ArrayList\` vs \`LinkedList\`?
+**Answer:** ArrayList fast random access O(1), append amortized O(1); LinkedList O(n) random, fast head/tail inserts—ArrayList wins most cases due to cache locality.
+Benchmark before choosing LinkedList.
+
+### 10. What is \`equals/hashCode\` contract for Set/Map keys?
+**Answer:** Equal objects must have equal hash codes—mutating key fields after insert breaks map invariants—use immutable keys.
+Frequent interview trap.
+
 `,
   code: `// Complete Collections Framework Demo
 // Understanding all collection types

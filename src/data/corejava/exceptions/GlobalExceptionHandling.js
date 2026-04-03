@@ -847,7 +847,52 @@ Not:
 "java.lang.NullPointerException at com.example.service.UserService.getUser(UserService.java:45)"
 
 That's the difference between amateur and professional code.
-  `,
+  
+---
+
+## 10 Important Global Exception Handling Interview Questions
+
+### 1. What is a global exception handler in Spring?
+**Answer:** \`@ControllerAdvice\` / \`@ExceptionHandler\` centralizes mapping from exceptions to HTTP responses and logging.
+Reduces duplication in controllers.
+
+### 2. Why not handle exceptions in every controller method?
+**Answer:** Cross-cutting concern—DRY, consistent client experience, easier policy changes.
+Local handling only for special cases.
+
+### 3. Scenario: validation errors—what HTTP status?
+**Answer:** Often 400 Bad Request with field-level error list—422 Unprocessable Entity sometimes for semantic validation.
+Document consistent schema.
+
+### 4. How to log exceptions globally without double logging?
+**Answer:** Single handler logs once at appropriate level—avoid logging in filter and advice unless differentiated.
+Correlation IDs tie logs to requests.
+
+### 5. Should global handlers catch \`Throwable\`?
+**Answer:** Dangerous—catches \`Error\`—usually catch \`Exception\` or specific types—let JVM handle serious errors.
+OOM needs process-level response.
+
+### 6. What about async/thread pool exceptions?
+**Answer:** Not handled by MVC advice—use \`AsyncUncaughtExceptionHandler\` or framework hooks.
+Reactive stacks use different error channels.
+
+### 7. How to propagate trace ids to error payloads?
+**Answer:** MDC logging context + include trace id in JSON error body—OpenTelemetry integration.
+Supports customer support debugging.
+
+### 8. Security of error messages globally?
+**Answer:** Sanitize—no SQL fragments, paths, or stack traces to external users—detailed info only in server logs.
+Pen testers look for info leaks.
+
+### 9. Ordering of multiple \`@ControllerAdvice\` beans?
+**Answer:** \`@Order\` annotation controls precedence—more specific handlers should win—document ordering rules.
+Avoid overlapping exception type handling ambiguity.
+
+### 10. Testing global handlers?
+**Answer:** \`@WebMvcTest\` with thrown exceptions—verify JSON shape and status—contract tests for API errors.
+Consumers rely on stable error formats.
+
+`,
   code: `// Global Exception Handling - Complete Real-World Example
 
 // Custom Exception Classes

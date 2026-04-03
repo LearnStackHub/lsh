@@ -470,6 +470,51 @@ Now that you understand for loops, you're ready to explore other control flow st
 - **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
 
 For loops are essential for processing data and implementing algorithms. Continue learning about [While Loop](/tutorial/while-loop) to understand condition-based repetition and expand your control flow knowledge.
+
+---
+
+## 10 Important for-loop Interview Questions
+
+### 1. What are the three parts of a traditional \`for\` loop?
+**Answer:** Initialization, condition, and update—executed before iteration, before each body, and after each body respectively.
+The condition is checked every iteration.
+
+### 2. What is enhanced for (\`for-each\`) and what types does it accept?
+**Answer:** \`for (T x : iterable)\` iterates arrays or \`Iterable\`; no index unless you track manually.
+Fails fast if collection is structurally modified—\`ConcurrentModificationException\` for many collections.
+
+### 3. When is a traditional \`for\` loop better than enhanced for?
+**Answer:** When you need the index, multiple arrays in lockstep, or to iterate backwards.
+Enhanced for is clearer when you only need elements.
+
+### 4. What is \`break\` and \`continue\` inside a for loop?
+**Answer:** \`break\` exits the loop; \`continue\` skips to the next iteration.
+Labeled \`break\` can exit outer loops.
+
+### 5. What is off-by-one risk in loop bounds?
+**Answer:** Using \`<=\` vs \`<\` with array length—classic fencepost errors.
+Test with empty and single-element collections.
+
+### 6. How do multiple variables work in \`for\` initialization?
+**Answer:** You can declare several same-type vars: \`for (int i = 0, j = n - 1; i < j; i++, j--)\`.
+Useful for two-pointer algorithms.
+
+### 7. Scenario: processing millions of rows—what for-loop concerns arise?
+**Answer:** Allocation in the loop header, autoboxing in enhanced for over poor structures, and unnecessary object creation in update step.
+Profile before micro-optimizing.
+
+### 8. What is the scope of the loop variable in a traditional for?
+**Answer:** Declared in the for header, scoped to the loop body in modern Java (block scoped).
+Older code sometimes declared \`int i\` outside for wider scope—avoid unless needed.
+
+### 9. Can the loop condition call methods with side effects?
+**Answer:** Yes, but it’s poor style—\`for (; it.hasNext(); )\` on an \`Iterator\` or calling \`size()\` each time can be costly if the method isn’t O(1).
+Cache lengths or iterator state when appropriate.
+
+### 10. How does \`for\` relate to iterators under the hood?
+**Answer:** Enhanced for compiles to iterator or array index loops depending on type.
+Understanding this explains CME and performance of raw arrays vs lists.
+
 `,
   code: `// For Loop Demo
 

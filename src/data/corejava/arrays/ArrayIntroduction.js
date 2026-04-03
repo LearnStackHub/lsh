@@ -246,6 +246,51 @@ public class GradeManagement {
 ## Test Your Knowledge
 
 Mastered Arrays? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering Arrays, single-dimensional, multi-dimensional, and all Core Java topics!
+
+---
+
+## 10 Important Arrays (Introduction) Interview Questions
+
+### 1. What is an array in Java?
+**Answer:** A fixed-length, ordered container of elements of the same type, indexed from \`0\` to \`length-1\`, stored contiguously for fast access.
+Length is set at creation and cannot grow.
+
+### 2. What is the default value for array elements?
+**Answer:** Numeric types default to zero, \`boolean\` to false, reference types to \`null\`.
+Local array variables themselves must be assigned before use.
+
+### 3. How do you get array length—method or field?
+**Answer:** \`array.length\` is a field, not a method—common gotcha vs \`String.length()\`.
+No parentheses for arrays.
+
+### 4. What is \`ArrayIndexOutOfBoundsException\`?
+**Answer:** Thrown when index is negative or \`>= length\`; indicates bounds check failure.
+Always validate external input indices.
+
+### 5. Are arrays objects in Java?
+**Answer:** Yes—arrays extend \`Object\`, can be \`null\`, and are heap allocated.
+They’re covariant (typing pitfall with arrays of subtypes).
+
+### 6. What is array covariance?
+**Answer:** \`String[]\` is a subtype of \`Object[]\`, which allows \`ArrayStoreException\` at runtime if you insert wrong reified types.
+Prefer \`List\` with generics for safer APIs.
+
+### 7. Scenario: API returns byte[]—what concerns appear?
+**Answer:** Mutability—callers might alter backing arrays; consider defensive copies for security-sensitive data.
+Also watch large allocations on heap.
+
+### 8. How do arrays compare to \`ArrayList\`?
+**Answer:** Arrays fixed-size and faster for primitive-heavy tight loops; \`ArrayList\` resizable with boxing cost for primitives unless specialized libraries used.
+Choose based on sizing uncertainty and API needs.
+
+### 9. Can you resize an array?
+**Answer:** No—create a new array and copy; \`Arrays.copyOf\` helps.
+That’s why dynamic collections exist.
+
+### 10. What is a typical time complexity for index access?
+**Answer:** O(1) random access by index.
+Insertion/deletion in the middle requires shifting—O(n).
+
 `,
   code: `// Real-Time: Complete Array Operations Demo
 // E-Commerce inventory management

@@ -452,54 +452,34 @@ Mastered Hibernate Mapping? Test your skills with our comprehensive [Hibernate M
 
 ### 1. What is entity mapping in practical terms?
 **Answer:** Entity mapping defines how class fields correspond to table columns, keys, constraints, and relation semantics in DB.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 2. Why is ID generation strategy important?
 **Answer:** It affects insert behavior, scalability, batching efficiency, and portability across databases.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 3. String enum vs ordinal enum mapping: which is safer?
 **Answer:** String mapping is safer for long-term maintainability because ordinal mapping breaks when enum order changes.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 4. When should transient fields be used?
 **Answer:** Use transient for computed or runtime-only fields that should not be persisted to database.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 5. What is embedded mapping best for?
 **Answer:** Embedded mapping is best for reusable value objects like Address or Money without separate table lifecycle.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 6. Why can default column mapping be risky?
 **Answer:** Implicit defaults may not match DB naming conventions, lengths, or constraints, causing schema drift and runtime exceptions.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 7. How do fetch and cascade settings interact with mapping?
 **Answer:** Fetch defines loading strategy while cascade defines operation propagation; incorrect combinations often cause heavy queries or unwanted deletes.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 8. Real-time scenario: profile module with address and preferences, how should mapping be designed?
 **Answer:** Use embedded value object for address-like fields and explicit relations for collections with conservative fetch defaults.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 9. What mapping mistake commonly causes startup failure?
 **Answer:** Incorrect relation ownership annotations or mismatched join column definitions often break metadata validation at startup.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 10. Interview summary for mapping?
 **Answer:** Good mapping is explicit, constraint-aware, and performance-conscious; it is the foundation that determines persistence correctness.
-Detailed Explanation: Mapping answers should connect annotation design to schema correctness, fetch behavior, and maintainability over time. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
-  `,
+`,
   code: `// Hibernate Mapping Example
 import javax.persistence.*;
 import java.math.BigDecimal;

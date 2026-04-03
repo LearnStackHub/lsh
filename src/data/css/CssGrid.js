@@ -354,7 +354,7 @@ Grid is perfect for complex two-dimensional layouts like page layouts, image gal
    ASCII-art **layout** maps (\`"header header"\`) assign **names** to **cells**; children use **\`grid-area: header\`**. Great for **prototypes** and **team** communication. Reflow by **renaming** areas at breakpoints.
 
 5. **What is the difference between \`justify-items\` and \`justify-self\`?**  
-   **-items** aligns **all** grid items **within** their **cells** (cross vs main depends on **writing mode**). **-self** overrides for **one** item. Analogous **align-** properties control the **other** axis.
+   In the default horizontal writing mode, **justify-*** aligns items along the **inline axis** (column direction) inside each **grid area**; **align-*** aligns along the **block axis** (row direction). **-items** sets the default for **all** cells; **-self** overrides **one** item. In vertical writing modes those axes swap—avoid confusing Grid with Flexbox “main/cross” unless you map axes explicitly.
 
 6. **What are implicit vs explicit grid tracks?**  
    **Explicit** tracks come from **template-rows/columns**. **Implicit** tracks are **auto-created** when you place **more** items than defined—sized with **grid-auto-rows/columns**. **Dense** packing (\`grid-auto-flow: row dense\`) fills **holes** but can reorder **visual** vs **DOM** reading order—**accessibility** caution.

@@ -320,6 +320,51 @@ Don't panic. These are the most common issues and their fixes:
 ## Test Your Knowledge
 
 Java environment set up? Test your Core Java knowledge with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering all Core Java topics!
+
+---
+
+## 10 Important JDK & Environment Setup Interview Questions
+
+### 1. What is \`JAVA_HOME\` and why do tools need it?
+**Answer:** It points to the JDK installation root so build tools (Maven, Gradle, IDEs) find compilers and libraries consistently.
+CI pipelines set \`JAVA_HOME\` explicitly to avoid picking up a random \`java\` from PATH.
+
+### 2. How do \`java -version\` and \`javac -version\` differ in what they tell you?
+**Answer:** They show the runtime and compiler versions; they can differ if multiple JDKs are installed and PATH is inconsistent.
+Mismatch errors often show up as “class file version” problems at runtime.
+
+### 3. What is the PATH variable’s role for Java commands?
+**Answer:** PATH lists directories where the shell searches for executables like \`java\` and \`javac\`.
+On Windows, installers sometimes add JDK \`bin\`; on Unix, \`sudo update-alternatives\` may manage versions.
+
+### 4. Why might you install both a full JDK and a JRE-only runtime?
+**Answer:** Developers need the JDK; some minimal production images only ship a runtime to reduce attack surface and size—if you use \`jlink\`, even smaller.
+Container base images often use slim JRE builds.
+
+### 5. What file name rule ties to \`public class\`?
+**Answer:** A public top-level class must live in a file named \`ClassName.java\`.
+This trips beginners when renaming classes without renaming files.
+
+### 6. How do IDEs relate to \`javac\` on the command line?
+**Answer:** IDEs invoke the same compiler APIs or fork \`javac\`; they add incremental compilation, indexing, and refactoring.
+“Works in IDE but not CI” usually means different JDK or encoding settings.
+
+### 7. What is a common Windows-specific pitfall when setting environment variables?
+**Answer:** Forgetting to restart the terminal/IDE after changes, or mixing user vs system PATH entries so the wrong Java wins.
+Document the exact steps for your team to avoid “works on my machine.”
+
+### 8. Scenario: CI says \`javac: command not found\` but your laptop builds fine.
+**Answer:** The CI image lacks a JDK, or PATH/\`JAVA_HOME\` isn’t set in the pipeline YAML.
+Fix by installing a JDK in the image or using an official setup-java action.
+
+### 9. Why verify \`javac\` and not only \`java\` for development machines?
+**Answer:** You can have a JRE \`java\` without a compiler; building requires \`javac\` from a JDK.
+Teams standardize on one JDK vendor (Temurin, Corretto, etc.) for support parity.
+
+### 10. What is one reason to pin an exact JDK version in a project?
+**Answer:** Reproducible builds and matching bytecode/features across dev, CI, and production; preview features and removed APIs vary by release.
+Use toolchains (Gradle) or \`.sdkman\`/\`asdf\` for developer alignment.
+
 `,
   code: `// Environment Verification Program
 // Run this to confirm your Java setup is working correctly.

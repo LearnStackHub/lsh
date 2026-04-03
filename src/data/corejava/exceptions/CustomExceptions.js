@@ -314,6 +314,51 @@ public class InsufficientFundsException extends Exception {
     // ...
 }
 \`\`\`
+
+---
+
+## 10 Important Custom Exceptions Interview Questions
+
+### 1. When create a custom checked exception?
+**Answer:** When callers should explicitly handle a recoverable domain failure—payment declined, inventory conflict.
+Avoid overusing checked for non-recoverable bugs.
+
+### 2. What should a custom exception include?
+**Answer:** Meaningful name, fields for error codes/context, constructors chaining message and cause—serialVersionUID if serializable.
+Avoid giant hierarchies without need.
+
+### 3. Should custom exceptions extend \`RuntimeException\` or \`Exception\`?
+**Answer:** \`RuntimeException\` if programming errors or everywhere propagation is acceptable; \`Exception\` if forcing handling.
+Team conventions vary—Spring favors unchecked data access.
+
+### 4. Scenario: multi-tenant SaaS—what extra data in exceptions?
+**Answer:** Tenant id, request id, safe operation name—never secrets—helps support correlate logs.
+Map to problem+json HTTP responses.
+
+### 5. How does internationalization interact with exceptions?
+**Answer:** Separate message keys from technical English logs—user-facing localized messages built at UI/API boundary.
+Don’t localize engineer-only stack traces.
+
+### 6. Is it OK to subclass library exceptions?
+**Answer:** Sometimes—e.g., \`DataAccessException\`—but avoid coupling your domain to vendor exceptions at API edges.
+Translate at boundaries.
+
+### 7. What is error code enum pattern?
+**Answer:** Enum implements interface with code + default HTTP status—consistent machine-readable errors for clients.
+Used in well-designed REST APIs.
+
+### 8. Should you override \`fillInStackTrace\`?
+**Answer:** Rare optimization for high-volume exceptions—default stacks are costly—only after profiling proves need.
+Security-sensitive code might strip stacks—be careful.
+
+### 9. Serialization of exceptions across services?
+**Answer:** Problematic—stack traces don’t serialize cleanly across processes—send structured error DTOs.
+gRPC/REST use status codes.
+
+### 10. Testing custom exceptions?
+**Answer:** Assert exception type and message fields with \`assertThrows\`—verify mapping from domain events.
+JUnit 5 patterns.
+
 `,
   code: `// Custom Exceptions Demo
 

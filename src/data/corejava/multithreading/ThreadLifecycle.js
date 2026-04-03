@@ -196,7 +196,52 @@ The thread lifecycle is the foundation for understanding concurrency. If you can
 - Learn [Thread Methods](/tutorial/thread-methods) (\`sleep\`, \`join\`, \`interrupt\`)
 - Continue with [Multithreading Introduction](/tutorial/thread-introduction)
 - Study [Synchronization](/tutorial/synchronization) to understand locks and thread safety
-  `,
+  
+---
+
+## 10 Important Thread Lifecycle Interview Questions
+
+### 1. What are thread states in \`Thread.State\`?
+**Answer:** NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED—JVM maps OS states into these categories.
+\`RUNNABLE\` includes ready and running.
+
+### 2. When is a thread BLOCKED?
+**Answer:** Waiting to enter synchronized block/method because monitor held by another thread—distinct from WAITING on \`wait\`.
+Thread dumps show “waiting to lock monitor.”
+
+### 3. What transitions to WAITING?
+**Answer:** \`Object.wait\`, \`join\` without timeout, \`LockSupport.park\`, \`Condition.await\`—until another thread signals.
+Must understand paired signal/notify.
+
+### 4. What is TIMED_WAITING?
+**Answer:** \`sleep\`, \`wait(timeout)\`, \`join(timeout)\`—wake after time or signal.
+Used for timeouts and polling.
+
+### 5. Scenario: thread stuck in BLOCKED—how diagnose?
+**Answer:** Thread dump—find lock owner—often deadlock or hot lock—reduce critical sections or reorder lock acquisition.
+Avoid lock ordering violations.
+
+### 6. Can you restart TERMINATED thread?
+**Answer:** No—create new Thread wrapping new or same Runnable.
+Lifecycle is one-way.
+
+### 7. What is spurious wakeup?
+**Answer:** \`wait\` may wake without notify—always re-check condition in loop.
+Official pattern in concurrency books.
+
+### 8. How do thread pools mask lifecycle details?
+**Answer:** Workers reuse threads across tasks—task failures shouldn’t kill worker thread—uncaught handlers log errors.
+Understand pool’s afterExecute hooks.
+
+### 9. What is \`j.u.c.\` \`Phaser\` / \`CyclicBarrier\` lifecycle?
+**Answer:** Coordinate phases of parallel tasks—advanced beyond basic thread states but interview for senior concurrency roles.
+Know they exist.
+
+### 10. JVM shutdown and thread lifecycle?
+**Answer:** Shutdown hooks run for orderly termination—daemon threads stop abruptly—ensure resources closed via try-with-resources and hooks.
+Containers send SIGTERM—handle gracefully.
+
+`,
   code: `public class ThreadLifecycleDemo {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("=== Thread Lifecycle Demo ===\\n");

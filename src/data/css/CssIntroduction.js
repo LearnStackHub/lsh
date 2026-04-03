@@ -844,10 +844,10 @@ Mastering CSS is essential for creating modern, professional web applications. C
    **CSS (Cascading Style Sheets)** describes how HTML should **look**: colors, fonts, spacing, layout, and responsive behavior—separate from **what** the content is. That **separation** lets one stylesheet style many pages, supports **themes**, and keeps HTML **semantic**. Browsers apply CSS rules to the **DOM** after HTML is parsed.
 
 2. **What does “cascade” mean in CSS?**  
-   When several rules target the same element, the **cascade** decides which **declaration** wins using **origin** (user, author, browser), **importance** (\`!important\`), **specificity**, and **source order**. Understanding the cascade prevents “random” overrides and explains why moving a rule **below** another can change the outcome.
+   When several rules target the same element, the **cascade** resolves conflicts in this order: **origin and importance** (browser defaults vs author vs user styles, and whether a declaration uses \`!important\`), then **specificity**, then **order of appearance** in the stylesheet. Understanding this prevents “random” overrides and explains why moving a rule **below** another can change the outcome.
 
 3. **How is CSS specificity calculated (at a high level)?**  
-   Specificity compares **inline styles** (highest), then **IDs**, then **classes, attributes, and pseudo-classes**, then **elements and pseudo-elements**. More specific selectors beat less specific ones; **equal** specificity defers to **later** rules in the stylesheet. **!important** breaks normal rules—use **sparingly**.
+   Among **normal** declarations, specificity compares **inline \`style\`** (beats any selector), then **IDs**, then **classes, attributes, and pseudo-classes**, then **elements and pseudo-elements**. More specific selectors beat less specific ones; **equal** specificity defers to **later** rules. **\`!important\`** interacts with **origin** in a separate step—so an author rule with \`!important\` can beat a **non-\`!important\`** inline style; use \`!important\` **sparingly**.
 
 4. **What are the three ways to include CSS, and which is preferred for large apps?**  
    **Inline** (\`style\` attribute), **internal** (\`<style>\` in HTML), and **external** (\`<link rel="stylesheet">\`). **External** CSS is preferred for **reuse**, **caching**, and **maintainability**; inline is for **one-off** or **dynamic** values only. **Critical CSS** can be inlined for **above-the-fold** performance, then load the rest async.

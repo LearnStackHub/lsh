@@ -195,7 +195,52 @@ Thread methods like \`start\`, \`sleep\`, \`join\`, and \`interrupt\` are founda
 - Learn [Thread Lifecycle](/tutorial/thread-lifecycle)
 - Continue with [Multithreading Introduction](/tutorial/thread-introduction)
 - Learn [Synchronization](/tutorial/synchronization)
-  `,
+  
+---
+
+## 10 Important Thread Methods Interview Questions
+
+### 1. What does \`sleep\` do?
+**Answer:** Pauses current thread without releasing locks—subject to interrupt—use \`TimeUnit\` for clarity.
+Not precise real-time guarantees.
+
+### 2. Difference between \`wait\` and \`sleep\`?
+**Answer:** \`wait\` releases monitor lock and must be called in synchronized block on same object; \`sleep\` holds locks.
+\`wait\` is for coordination; \`sleep\` for timing.
+
+### 3. What is \`join\`?
+**Answer:** Current thread waits for another thread to finish—timeouts available—useful for fork-join style tasks.
+Join ordering can deadlock if circular waits.
+
+### 4. What does \`interrupt\` mean?
+**Answer:** Sets interrupt flag—cooperative—blocking methods throw \`InterruptedException\` and clear flag—restore interrupt status if catching.
+Don’t ignore interrupted exception silently.
+
+### 5. Scenario: graceful shutdown—what sequence of methods?
+**Answer:** Signal threads interrupt, await termination with \`ExecutorService.awaitTermination\`, then force shutdown if needed—drain queues carefully.
+Spring Boot hooks use similar patterns.
+
+### 6. What is \`yield\`?
+**Answer:** Hint to scheduler—rarely needed—non-deterministic—testing concurrency with yield is flaky.
+Avoid for correctness.
+
+### 7. \`setDaemon\` purpose?
+**Answer:** Daemon threads don’t prevent JVM exit—background tasks like heartbeats—must set before \`start\`.
+User threads keep JVM alive.
+
+### 8. What is \`Thread.currentThread()\`?
+**Answer:** Returns reference to executing thread—useful for names, class loaders in frameworks.
+Don’t abuse for implicit globals.
+
+### 9. Priority \`setPriority\` reliable?
+**Answer:** Platform-dependent—don’t rely on priorities for correctness—use proper scheduling abstractions.
+Games/real-time systems tune carefully.
+
+### 10. What is \`holdsLock\` debugging aid?
+**Answer:** \`Thread.holdsLock\` asserts lock ownership in assertions—useful in custom locks debugging.
+Not for production control flow.
+
+`,
   code: `public class ThreadMethodsDemo {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("=== Thread Methods Demo ===\\n");

@@ -349,6 +349,51 @@ public class GameMenu {
 \`\`\`
 
 > **Industry Insight**: Switch statements are heavily used in state machines, menu systems, and protocol handlers. Netflix uses switch-based routing for their streaming quality selection based on network conditions.
+
+---
+
+## 10 Important switch Interview Questions
+
+### 1. What types can switch use (classic vs modern Java)?
+**Answer:** Historically integral types, enums, strings (Java 7+); pattern matching for types and sealed hierarchies evolves in newer versions.
+Know your team’s JDK for which switch features are allowed.
+
+### 2. Why is \`break\` important in switch cases?
+**Answer:** Without \`break\`, execution falls through to the next case—sometimes intentional, often a bug.
+Use comments when fall-through is deliberate.
+
+### 3. What does \`default\` do?
+**Answer:** Catches values not matched by cases—good for defensive handling or “impossible” states that log errors.
+Some style guides require \`default\` even if empty.
+
+### 4. How does switch on \`String\` work at compile time?
+**Answer:** Compiler translates to hash-based dispatch with equals checks—roughly similar to if-else chain but cleaner.
+Null \`String\` throws \`NullPointerException\` before matching.
+
+### 5. What is exhaustive switch with enums or sealed types?
+**Answer:** Compiler can require all variants covered—reduces missing cases when new enum values appear.
+Team process must update switches when enums grow.
+
+### 6. Scenario: routing HTTP methods or event types—why prefer switch?
+**Answer:** Clear mapping from discrete constants to handlers; pairs well with enums.
+Avoid giant switches that should be polymorphic handlers.
+
+### 7. When is polymorphism better than switch?
+**Answer:** When many cases share structure or new types are added frequently—Open/Closed principle.
+Switch suits stable, finite sets.
+
+### 8. What is the arrow syntax (\`case X ->\`) in modern switch?
+**Answer:** No fall-through by default; can yield values as expressions—reduces boilerplate.
+Improves readability for multi-case logic.
+
+### 9. Can you declare variables in case blocks?
+**Answer:** Yes, but brace scopes to avoid name clashes between cases in classic switch.
+Arrow syntax often avoids brace noise.
+
+### 10. What exception risks exist with switch on boxed types?
+**Answer:** Unboxing null throws \`NullPointerException\`; ensure nullable values are handled before switch.
+Validate inputs at system boundaries.
+
 `,
   code: `// Real-Time: Complete Payment Gateway System
 // Production-grade payment routing

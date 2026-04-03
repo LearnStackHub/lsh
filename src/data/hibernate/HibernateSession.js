@@ -605,54 +605,34 @@ Master the Session API, and you've mastered the core of Hibernate!
 
 ### 1. What is Session and why is it central in Hibernate?
 **Answer:** Session is the persistence context that manages entity states, first-level cache, and SQL synchronization for a unit of work.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 2. What are transient, persistent, and detached states?
 **Answer:** Transient objects are not tracked, persistent are tracked in session, and detached were tracked previously but are now outside active session scope.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 3. What is dirty checking in Session?
 **Answer:** Hibernate compares managed entity state changes and auto-generates update SQL during flush, reducing manual update calls.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 4. What is the difference between flush and commit?
 **Answer:** Flush sends SQL to DB but transaction may still rollback; commit finalizes transaction durability.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 5. Why can long Session scope be harmful?
 **Answer:** It increases memory usage, stale entity risk, and accidental writes due to large persistence context.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 6. When should clear or evict be used?
 **Answer:** In large loops or batch flows, clear or selective evict helps control memory and avoid managing too many entities.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 7. How does first-level cache affect repeated find calls?
 **Answer:** Within one session, repeated lookup of same ID returns cached managed object and avoids duplicate DB round-trips.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 8. Real-time scenario: checkout API handling high concurrent orders, what Session strategy is safe?
 **Answer:** Use short-lived session per request with explicit transaction and immediate close to avoid contention and stale context issues.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 9. What is Open Session in View and why is it debated?
 **Answer:** It simplifies lazy loading in views but can hide N+1 problems and leak persistence concerns into web layer.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 10. Interview summary for Session?
 **Answer:** Session must be treated as short unit-of-work context; correct scope, flush timing, and lifecycle handling determine stability and performance.
-Detailed Explanation: Session answers should emphasize persistence-context lifecycle, transaction timing, and avoiding long-lived session anti-patterns. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
-  `,
+`,
   code: `// Hibernate Session Example
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

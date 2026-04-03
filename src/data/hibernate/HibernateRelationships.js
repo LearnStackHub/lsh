@@ -553,54 +553,34 @@ This ensures orders can exist independently, items are deleted with orders, and 
 
 ### 1. Which relationship types are most common in Hibernate projects?
 **Answer:** One-to-one, one-to-many, many-to-one, and many-to-many are the four common relation models used in domain mapping.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 2. Why is owning side important in bidirectional relations?
 **Answer:** Owning side controls foreign key updates; ignoring this causes missing relation writes and inconsistent object graph state.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 3. When should many-to-many be replaced by join entity?
 **Answer:** When relation needs extra attributes like quantity, role, or timestamps, use explicit join entity instead of raw many-to-many.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 4. What causes infinite recursion in JSON serialization?
 **Answer:** Returning bidirectional entity graph directly without serialization control leads to recursive traversal issues.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 5. What is orphanRemoval and when is it correct?
 **Answer:** orphanRemoval deletes child rows removed from parent collection; use it only when child lifecycle strictly depends on parent.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 6. Why does relation fetch strategy impact API latency?
 **Answer:** Over-eager loading can fetch massive graphs; lazy with proper query planning avoids unnecessary joins and payload size.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 7. What is the most common relationship performance bug?
 **Answer:** N+1 select problem from lazy relations accessed in loops without fetch planning is the most common bug.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 8. Real-time scenario: order, order item, product model; what relation design is recommended?
 **Answer:** Model Order to OrderItem as one-to-many and OrderItem to Product as many-to-one to preserve quantity and price snapshots.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 9. How do you maintain both sides of bidirectional relation?
 **Answer:** Use helper methods that update parent collection and child reference together to keep object graph consistent.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 10. Interview summary for relationships?
 **Answer:** Correct relationship modeling needs clear ownership, controlled fetch, and lifecycle-safe cascade strategy to avoid data and performance issues.
-Detailed Explanation: Relationship answers should focus on ownership, cascade/fetch trade-offs, and preventing N+1 or recursion issues. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
-  `,
+`,
   code: `// Hibernate Relationships - Real-World Examples
 import javax.persistence.*;
 import java.math.BigDecimal;

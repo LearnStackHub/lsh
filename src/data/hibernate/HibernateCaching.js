@@ -518,54 +518,34 @@ Master caching, and your application will handle thousands of concurrent users w
 
 ### 1. What caching layers exist in Hibernate?
 **Answer:** First-level cache (session scope), second-level cache (session factory scope), and optional query cache are the main layers.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 2. Why is first-level cache always enabled?
 **Answer:** It ensures identity consistency within one session and reduces repeated database reads for same managed entity.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 3. When should second-level cache be enabled?
 **Answer:** Enable it for read-heavy, low-volatility entities where repeated cross-session reads are common.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 4. Why can query cache be dangerous if misused?
 **Answer:** Query cache can serve stale or inefficiently invalidated data if used broadly without understanding update patterns.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 5. What is cache eviction strategy and why is it important?
 **Answer:** Eviction strategy defines when cached entries are removed to balance freshness and performance; poor strategy causes stale data or cache churn.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 6. Which data should not be cached aggressively?
 **Answer:** Highly volatile transactional entities like live inventory counters or rapidly changing balances should be cached cautiously.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 7. How do you prove cache is helping?
 **Answer:** Track hit ratio, DB query reduction, and endpoint latency before and after enabling cache, not just anecdotal impressions.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 8. Real-time scenario: product catalog reads are high; what cache strategy would you apply?
 **Answer:** Cache mostly static catalog metadata and category trees, keep checkout-sensitive stock updates outside broad caching scope.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 9. What is a common production caching mistake?
 **Answer:** Enabling second-level cache globally for every entity without volatility analysis often creates stale-data incidents.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 10. Interview summary for caching?
 **Answer:** Hibernate caching is a selective optimization tool; scope and invalidation policy determine whether it improves performance safely.
-Detailed Explanation: Caching answers should balance speed gains with stale-data risk, eviction strategy, and measurable hit/miss outcomes. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
-  `,
+`,
   code: `// Hibernate Caching Examples
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

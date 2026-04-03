@@ -255,6 +255,51 @@ if (true) {
 - Use \`final\` for values that shouldn't change
 - Keep variable scope as small as possible
 - Follow naming conventions consistently
+
+---
+
+## 10 Important Java Variables Interview Questions
+
+### 1. What is the difference between declaration and initialization?
+**Answer:** Declaration introduces name and type; initialization assigns the first value; local variables must be assigned before read.
+The compiler performs definite assignment analysis.
+
+### 2. What are primitive types vs reference types?
+**Answer:** Primitives hold values directly; references hold addresses of objects on the heap.
+Primitives have fixed sizes; references’ footprint is JVM-dependent.
+
+### 3. What does \`final\` mean for a variable?
+**Answer:** The reference or value cannot be reassigned after initialization; for object references, the object may still mutate internally.
+Useful for immutable bindings and safe publication patterns.
+
+### 4. What is variable scope in Java?
+**Answer:** The region where a variable is visible—block, method, instance, or class (static)—determines lifetime and accessibility.
+Shadowing occurs when inner names hide outer ones—often a source of bugs.
+
+### 5. What is the default value for instance fields vs local variables?
+**Answer:** Instance fields get defaults (\`0\`, \`false\`, \`null\`); locals have no default and must be set explicitly.
+This distinction is a classic exam and interview question.
+
+### 6. What is widening and narrowing conversion?
+**Answer:** Widening promotes smaller numeric types to larger safely; narrowing casts may lose data and requires explicit cast.
+\`int\` to \`byte\` without cast is a compile error.
+
+### 7. Why might you use \`var\` for locals?
+**Answer:** It reduces repetition when the type is obvious from the right-hand side; still statically typed.
+Overusing \`var\` can hurt readability when the type isn’t clear.
+
+### 8. Scenario: a loop variable is declared inside \`for\` vs outside—what changes?
+**Answer:** Inside \`for (int i = 0; ...)\`, \`i\` is scoped to the loop; outside declarations persist across iterations.
+Choose based on whether you need the variable after the loop.
+
+### 9. What is the difference between instance variables and class (static) variables?
+**Answer:** Each object has its own instance fields; static fields are shared across all instances of the class.
+Thread-safety questions often follow static mutable state.
+
+### 10. How do constants differ from variables in team conventions?
+**Answer:** \`static final\` fields represent immutable configuration; naming is usually UPPER_SNAKE.
+Immutability reduces bugs in concurrent code.
+
 `,
   code: `// Variables Demo - Understanding different types of variables
 

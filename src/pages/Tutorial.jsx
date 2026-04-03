@@ -173,6 +173,22 @@ function Tutorial() {
   const isServletTopic = topicId.startsWith('servlet-') || topicId === 'http-request-response' || topicId === 'session-management' || topicId === 'filters-listeners' || topicId === 'tomcat-server';
   const isJdbcTopic = topicId.startsWith('jdbc-') || topicId === 'transaction-management' || topicId === 'crud-operations' || topicId === 'statement-interface' || topicId === 'preparedstatement-interface' || topicId === 'resultset-interface';
   const isHibernateTopic = topicId.startsWith('hibernate-');
+  const CORE_JAVA_TOPIC_IDS = new Set([
+    'java-introduction', 'java-features', 'java-environment-setup', 'java-syntax', 'java-variables',
+    'java-data-types', 'java-keywords', 'java-operators', 'java-methods',
+    'if-else', 'for-loop', 'while-loop', 'do-while-loop', 'switch-statement', 'break-continue',
+    'array-introduction', 'single-dimensional-array', 'multi-dimensional-array', 'array-methods',
+    'oops-introduction', 'classes-objects', 'constructors', 'encapsulation', 'inheritance',
+    'polymorphism', 'abstraction', 'interfaces',
+    'string-introduction', 'string-methods', 'string-builder', 'string-buffer',
+    'exception-introduction', 'try-catch-finally', 'throw-throws', 'custom-exceptions', 'global-exception-handling',
+    'thread-introduction', 'thread-creation', 'thread-methods', 'thread-lifecycle',
+    'collection-introduction', 'list-interface', 'set-interface', 'queue-interface', 'map-interface',
+    'serialization', 'synchronization'
+  ]);
+  const isCoreJavaTopic = CORE_JAVA_TOPIC_IDS.has(topicId);
+  const isHtmlCssTopic =
+    topicId.startsWith('html-') || topicId.startsWith('css-');
 
   const navigation = getNavigation(topicId);
   const fallbackLastUpdated = '2026-03-27';
@@ -208,11 +224,11 @@ function Tutorial() {
   const lastUpdatedDisplay = formatDate(lastUpdatedRaw);
 
   useEffect(() => {
-    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic) {
+    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && !isCoreJavaTopic && !isHtmlCssTopic) {
       setEditorCode(currentTopic.code);
       setOutput('Click "Run Code" to execute your code');
     }
-  }, [currentTopic, isMysqlTopic, isServletTopic, isJdbcTopic, isHibernateTopic]);
+  }, [currentTopic, isMysqlTopic, isServletTopic, isJdbcTopic, isHibernateTopic, isCoreJavaTopic, isHtmlCssTopic]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -278,7 +294,7 @@ function Tutorial() {
 
   // Lazy load CodeMirror only when code editor is needed (saves 100KB initial load)
   useEffect(() => {
-    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && !CodeMirrorComponent) {
+    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && !isCoreJavaTopic && !isHtmlCssTopic && !CodeMirrorComponent) {
       Promise.all([
         import('@uiw/react-codemirror'),
         import('@codemirror/lang-java')
@@ -287,7 +303,7 @@ function Tutorial() {
         setJavaLang(() => javaModule.java);
       });
     }
-  }, [currentTopic?.code, isMysqlTopic, isServletTopic, isJdbcTopic, isHibernateTopic, CodeMirrorComponent]);
+  }, [currentTopic?.code, isMysqlTopic, isServletTopic, isJdbcTopic, isHibernateTopic, isCoreJavaTopic, isHtmlCssTopic, CodeMirrorComponent]);
 
   const onChange = useCallback((value) => {
     setEditorCode(value);
@@ -891,7 +907,7 @@ function Tutorial() {
       </div>
 
       {/* Code Example (Java tutorials only; MySQL/Servlet tracks use article body examples) */}
-      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && (
+      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && !isCoreJavaTopic && !isHtmlCssTopic && (
         <div className="code-block">
           <div className="code-header">
             <div className="code-language">
@@ -924,7 +940,7 @@ function Tutorial() {
       )}
 
       {/* Try It Yourself Editor (Java-only; MySQL/Servlet lessons use static in-article examples) */}
-      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && (
+      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !isHibernateTopic && !isCoreJavaTopic && !isHtmlCssTopic && (
         <div className="try-it-section">
           <div className="try-it-header">
             <div className="try-it-title">

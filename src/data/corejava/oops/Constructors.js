@@ -304,6 +304,51 @@ public class User {
 \`\`\`
 
 Different constructors for different registration scenarios — that's constructor overloading in action!
+
+---
+
+## 10 Important Constructors Interview Questions
+
+### 1. What is a constructor’s purpose?
+**Answer:** Initialize new objects—same name as class, no return type; runs after superconstructor.
+Ensures invariants before methods are called.
+
+### 2. What is constructor overloading?
+**Answer:** Multiple constructors with different parameter lists—delegate with \`this(...)\` to centralize logic.
+Reduces duplication.
+
+### 3. What is a default constructor?
+**Answer:** Provided only if you declare no constructors—public no-arg if class is public.
+Once you define any constructor, the default is not inserted.
+
+### 4. Can constructors be \`final\`, \`static\`, or \`synchronized\`?
+**Answer:** No—constructors are not inherited and don’t follow those modifiers semantics.
+\`private\` constructors enforce factory patterns or singletons.
+
+### 5. What order must \`super(...)\` and \`this(...)\` appear?
+**Answer:** Must be the first statement in a constructor—exactly one of them.
+Ensures superclass is constructed before subclass fields rely on it.
+
+### 6. Scenario: immutable object—how do constructors help?
+**Answer:** Set all final fields once; reject invalid arguments; no setters afterward.
+Thread-safe publication easier with true immutability.
+
+### 7. What is constructor vs factory method?
+**Answer:** Factories can hide subclasses, cache instances, and handle failure without throwing from constructors—constructors must succeed or fail object creation awkwardly.
+Effective Java recommends considering static factories.
+
+### 8. Can a constructor throw checked exceptions?
+**Answer:** Yes, declare \`throws\`—callers must handle; object may be partially visible only in edge cases—be careful.
+Prefer validation before construction when possible.
+
+### 9. What happens if an exception escapes during construction?
+**Answer:** Object may not be fully constructed; finalize is unreliable—avoid heavy work in constructors.
+Use builders for complex setup.
+
+### 10. What is copy constructor pattern?
+**Answer:** Build new instance from existing—less idiomatic in Java than clone/builder; still appears in domain models.
+Ensure deep vs shallow copy clarity.
+
 `,
   code: `// Constructors Demo
 

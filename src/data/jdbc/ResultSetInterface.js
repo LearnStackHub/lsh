@@ -334,7 +334,7 @@ Mastered ResultSet interface? Test your JDBC skills with our comprehensive [JDBC
 **Answer:** Access by name is clearer and safer against select-list reorder changes, while index can be slightly faster but more error-prone. In most business code, readability and maintainability favor column names. Interviewers appreciate this trade-off explanation.
 
 ### 3. How do you correctly handle NULL values in ResultSet?
-**Answer:** Use getter methods carefully and call wasNull when needed for primitive getters, or use object getters where appropriate. Ignoring null handling can produce silent data bugs. This is a common mapping pitfall.
+**Answer:** Primitive getters (\`getInt\`, \`getLong\`, \`getBoolean\`, …) cannot return \`null\`; SQL NULL becomes \`0\` / \`false\`, so use \`wasNull()\` after the read when you must tell NULL from a real zero. For nullable columns, prefer \`getString\`, \`getBigDecimal\`, \`getObject\`, or JDBC 4.2+ \`getObject(n, Long.class)\` so SQL NULL maps to Java \`null\` where appropriate.
 
 ### 4. What are ResultSet types and why do they matter?
 **Answer:** ResultSet can be forward-only, scroll-insensitive, or scroll-sensitive, with varying navigation capabilities and cost. Choosing richer cursor types than needed may add overhead. Good answers connect capability choice with performance impact.

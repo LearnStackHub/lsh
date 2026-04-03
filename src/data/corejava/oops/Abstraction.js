@@ -243,6 +243,51 @@ DatabaseConnection db = new PostgreSQLConnection("localhost", 5432, "myapp");
 3. **A class with any abstract method must be abstract** — You can't have half-baked objects
 4. **Abstract classes can have constructors** — Called by subclass constructors
 5. **You can have an abstract class with no abstract methods** — Just to prevent instantiation
+
+---
+
+## 10 Important Abstraction Interview Questions
+
+### 1. What is abstraction in OOP?
+**Answer:** Hiding complexity and exposing only essentials—achieved via abstract classes and interfaces focusing on what, not how.
+Reduces cognitive load for API users.
+
+### 2. Abstract class vs interface—when choose which?
+**Answer:** Abstract class for shared state/implementation; interface for cross-cutting capabilities and multiple typing.
+Java records/sealed types influence modern choices.
+
+### 3. Can you instantiate an abstract class?
+**Answer:** No—must subclass and implement abstract methods (unless partially implemented by another abstract subclass).
+Concrete leaf classes complete the model.
+
+### 4. What is a pure abstract class vs interface with defaults?
+**Answer:** Similar roles—defaults on interfaces reduce abstract class usage for mixin-like behavior.
+Watch for accidental method collisions.
+
+### 5. Scenario: payment processing—how does abstraction help?
+**Answer:** Client code depends on \`PaymentGateway\` interface; Stripe/PayPal implementations swap without client changes.
+Critical for testing with fakes.
+
+### 6. How does abstraction relate to layered architecture?
+**Answer:** Each layer exposes narrow interfaces to upper layers—hides databases, transports, and frameworks.
+Violations leak SQL into UI—bad abstraction.
+
+### 7. What is leaking abstraction?
+**Answer:** When underlying details (SQL errors, HTTP codes) bubble up raw to callers who can’t handle them meaningfully.
+Map to domain exceptions at boundaries.
+
+### 8. Are \`abstract\` methods \`virtual\` by default?
+**Answer:** Instance methods are virtual by default in Java—subclasses override unless \`final\`.
+Contrast with C# \`virtual\` keyword.
+
+### 9. How do sealed classes relate to abstraction (newer Java)?
+**Answer:** Restrict which classes implement an abstraction—exhaustive pattern matching and safer domain modeling.
+Useful for AST-like hierarchies.
+
+### 10. Why too much abstraction hurts?
+**Answer:** Indirection without benefit obscures flow—balance with YAGNI; abstractions should track real variation points.
+Refactor when second implementation appears.
+
 `,
   code: `// Abstraction Demo
 

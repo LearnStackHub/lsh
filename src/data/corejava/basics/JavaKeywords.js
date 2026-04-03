@@ -261,6 +261,51 @@ String name = null;
 **Exceptions:** try, catch, finally, throw, throws
 **Modifiers:** static, final, abstract, synchronized
 **References:** this, super, null
+
+---
+
+## 10 Important Java Keywords Interview Questions
+
+### 1. What do access modifiers \`public\`, \`protected\`, default, and \`private\` control?
+**Answer:** Visibility of classes, methods, and fields across packages and inheritance hierarchies.
+Design APIs with the minimum necessary exposure.
+
+### 2. What does \`static\` mean for methods and fields?
+**Answer:** Belongs to the class, not instances; invoked as \`ClassName.method\` without an object (except through instances syntactically).
+Static state is shared and can be a concurrency bottleneck.
+
+### 3. What is \`final\` for classes, methods, and variables?
+**Answer:** Final class cannot be subclassed; final method cannot be overridden; final variable cannot be reassigned.
+Used for security-sensitive classes (\`String\`) and immutable patterns.
+
+### 4. What does \`abstract\` signify?
+**Answer:** Abstract classes/methods cannot be instantiated or called without implementation in subclasses.
+Defines templates for polymorphic hierarchies.
+
+### 5. What do \`extends\` and \`implements\` do?
+**Answer:** \`extends\` inherits one superclass; \`implements\` lists interfaces a class conforms to (multiple allowed).
+Java supports single inheritance of classes, multiple interfaces.
+
+### 6. What is \`synchronized\` used for?
+**Answer:** Provides mutual exclusion for blocks/methods so only one thread executes critical sections on a monitor at a time.
+Incorrect locking causes deadlocks or poor scalability.
+
+### 7. What is \`volatile\`’s role?
+**Answer:** Ensures visibility of updates across threads and restricts certain reorderings for the guarded variable.
+It does not replace atomic compound operations.
+
+### 8. What do \`break\` and \`continue\` do in loops?
+**Answer:** \`break\` exits the loop or labeled block; \`continue\` skips to the next iteration.
+Labeled breaks appear in nested loops.
+
+### 9. Scenario: a method is \`public\` in a package-private class—who can call it?
+**Answer:** Only code in the same package can access the class at all; other packages cannot reference the class, so \`public\` methods aren’t reachable from outside the package.
+Packaging and visibility interact.
+
+### 10. Why can’t you use reserved keywords as identifiers?
+**Answer:** The grammar reserves them for language constructs; compilers would be ambiguous otherwise.
+Some languages work around with backticks—Java does not.
+
 `,
   code: `// Java Keywords Demo - Understanding reserved words
 

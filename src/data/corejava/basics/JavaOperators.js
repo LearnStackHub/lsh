@@ -254,6 +254,51 @@ boolean isValid = username != null
     && password.length() >= 8
     && age >= 18;
 \`\`\`
+
+---
+
+## 10 Important Java Operators Interview Questions
+
+### 1. What is the difference between \`=\` and \`==\`?
+**Answer:** \`=\` is assignment; \`==\` compares primitives by value and references by identity.
+For strings, prefer \`equals\` for content.
+
+### 2. What do \`&&\`, \`||\`, and \`!\` short-circuit?
+**Answer:** \`&&\` stops if left is false; \`||\` stops if left is true; \`!\` negates boolean.
+Short-circuiting avoids evaluating side effects on the right when unnecessary.
+
+### 3. What is the difference between \`++i\` and \`i++\`?
+**Answer:** Prefix increments before value use; postfix uses then increments.
+Order matters in expressions with side effects—avoid clever one-liners in production code.
+
+### 4. What do bitwise operators \`&\`, \`|\`, \`^\`, \`~\` do?
+**Answer:** AND, OR, XOR, and complement on integer bits; also \`&\` and \`|\` for booleans without short-circuit.
+Common in flags, hashing, and low-level protocols.
+
+### 5. What is \`instanceof\` used for?
+**Answer:** Tests whether an object is an instance of a type or compatible subtype before casting.
+Pattern matching for \`instanceof\` reduces casts in modern Java.
+
+### 6. What is operator precedence and why care?
+**Answer:** Rules determine evaluation order without parentheses; misunderstandings cause bugs in arithmetic/boolean mixes.
+Use parentheses for clarity.
+
+### 7. What is ternary \`?:\` and when is it appropriate?
+**Answer:** Compact conditional expression; use when both branches are simple and side-effect free.
+Deeply nested ternaries harm readability.
+
+### 8. Scenario: \`a / b\` on two \`int\`s where \`b\` doesn’t divide evenly—what do you get?
+**Answer:** Integer division truncates toward zero; remainder needs \`%\`.
+For floating results, cast operands or use \`double\`.
+
+### 9. What is \`>>>\` vs \`>>\`?
+**Answer:** \`>>\` is signed right shift (sign-extends); \`>>>\` is unsigned right shift (fills with zeros).
+Important for low-level bit manipulation and hashing.
+
+### 10. How do compound assignments like \`+=\` behave with types?
+**Answer:** They cast implicitly as needed (\`byte b += 1\` is legal where \`b = b + 1\` might not be).
+Subtle widening rules apply.
+
 `,
   code: `// Operators Demo - All Java operators in action
 

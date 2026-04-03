@@ -359,54 +359,34 @@ Choose XML configuration for most cases, and use programmatic configuration when
 
 ### 1. What does Hibernate configuration control?
 **Answer:** It controls DB connectivity, dialect, schema behavior, SQL logging, batching, cache settings, and mapping registration.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 2. Why is wrong dialect configuration dangerous?
 **Answer:** Wrong dialect can generate incompatible SQL and subtle runtime failures even when code compiles and starts.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 3. What should hbm2ddl mode be in production?
 **Answer:** Production should usually use validate or none with migration tools, not create or create-drop, to avoid accidental schema loss.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 4. XML config vs programmatic config: when to choose each?
 **Answer:** XML is explicit and good for legacy clarity; programmatic/property-driven config is easier for profile-based modern deployments.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 5. Which settings matter most for performance tuning?
 **Answer:** Batch size, fetch size, SQL logging level, second-level cache toggles, and connection pool properties are high-impact settings.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 6. How should environments be separated?
 **Answer:** Use externalized profile configs for dev, test, and prod with different URLs, credentials, logging verbosity, and schema policies.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 7. What startup logs should you verify first?
 **Answer:** Dialect resolution, datasource connectivity, mapped entity count, and schema validation messages should be checked first.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 8. Real-time scenario: app works locally but fails in staging, where do you debug first?
 **Answer:** Compare env properties, driver versions, dialect, timezone settings, and credential injection path before touching business code.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 9. What common configuration mistake causes data bugs?
 **Answer:** Misconfigured timezone and collation settings can cause wrong date/time persistence or sorting inconsistencies across environments.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 10. Interview summary for configuration?
 **Answer:** Hibernate configuration is operational architecture; good configuration strategy prevents deployment failures and performance regressions before runtime incidents.
-Detailed Explanation: Configuration answers are strongest when they connect property choices to runtime behavior in dev, test, and production. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
-  `,
+`,
   code: `// Hibernate Configuration Example
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

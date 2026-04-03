@@ -432,6 +432,51 @@ public class BankingExceptionDemo {
 | **throws** | Declare exceptions method might throw |
 
 > **Industry Insight**: Exception handling is critical in enterprise applications. Banks use custom exceptions for business rules (InsufficientBalanceException), e-commerce uses them for inventory management (OutOfStockException), and all applications use them for graceful error recovery.
+
+---
+
+## 10 Important Exception Basics Interview Questions
+
+### 1. What is the hierarchy root for exceptions?
+**Answer:** \`Throwable\` → \`Error\` vs \`Exception\`—\`Error\` usually not caught; \`Exception\` splits checked/unchecked at \`RuntimeException\`.
+Interviewers draw this tree from memory.
+
+### 2. Checked vs unchecked—who decides?
+**Answer:** Subclasses of \`RuntimeException\` and \`Error\` are unchecked; other \`Exception\` subclasses are checked unless declared otherwise.
+API designers choose recoverability expectations.
+
+### 3. When should you catch \`Exception\` broadly?
+**Answer:** Sparingly—at top-level handlers, logging, or framework boundaries—avoid swallowing without rethrowing wrapped domain errors.
+Hides programming bugs if overused.
+
+### 4. What is the difference between \`throw\` and \`throws\`?
+**Answer:** \`throw\` emits an exception instance; \`throws\` declares checked exceptions a method may propagate.
+Callers must handle or declare checked types.
+
+### 5. Scenario: REST API—what exceptions should clients see?
+**Answer:** Mapped HTTP status with sanitized messages—never raw stack traces or SQL details to clients.
+Use \`@ControllerAdvice\` in Spring.
+
+### 6. Why not catch \`NullPointerException\` for control flow?
+**Answer:** It indicates bugs—fix the null with \`Optional\`, validation, or defaults—catching masks defects.
+Performance and clarity suffer.
+
+### 7. What is fail-fast vs fail-safe iterators related to exceptions?
+**Answer:** Concurrent modification throws quickly on structural change—different from catching exceptions for flow.
+Collections topic overlaps.
+
+### 8. Can constructors declare checked exceptions?
+**Answer:** Yes—callers must handle when constructing—sometimes prefer static factory returning \`Result\` types.
+Framework constructors (e.g., \`IOException\`) propagate.
+
+### 9. What information belongs in exception messages?
+**Answer:** Enough to diagnose (ids, operation) without secrets—PII and tokens must be redacted.
+Observability platforms parse structured errors.
+
+### 10. What is suppression and addSuppressed?
+**Answer:** Try-with-resources chains exceptions—primary exception holds suppressed ones from close failures—Java 7+.
+Important for resource cleanup debugging.
+
 `,
   code: `// Complete Exception Handling Demo
 // Understanding all exception concepts

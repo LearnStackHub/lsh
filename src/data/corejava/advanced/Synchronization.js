@@ -253,6 +253,51 @@ public class SessionSync {
 | Race Condition | Unsynchronized access | Proper synchronization |
 
 > **Industry Insight**: Amazon's inventory system uses optimistic locking with version numbers instead of pessimistic synchronization for better performance. Netflix uses lock-free data structures (ConcurrentHashMap) for their recommendation engine to handle millions of concurrent users.
+
+---
+
+## 10 Important Synchronization Interview Questions
+
+### 1. What problem does synchronization solve?
+**Answer:** Mutual exclusion and visibility—prevents data races on shared mutable state and ensures updates visible across threads.
+Without sync, stale reads occur.
+
+### 2. \`synchronized\` method vs block?
+**Answer:** Method locks \`this\` or class object for static; block can lock any object—finer granularity reduces contention.
+Prefer smaller critical sections.
+
+### 3. What is intrinsic lock / monitor?
+**Answer:** Every object has monitor—\`synchronized\` acquires/releases—one thread at a time per monitor.
+Reentrant locks allow same thread reentry.
+
+### 4. \`ReentrantLock\` vs \`synchronized\`?
+**Answer:** Lock offers tryLock, timed lock, fairness option, interruptible lock acquisition—more flexible—must unlock in finally.
+\`synchronized\` simpler and JVM optimized.
+
+### 5. Scenario: banking transfer between accounts—how to lock?
+**Answer:** Lock ordering—always acquire locks in global order to prevent deadlock—e.g., by account id sort—use \`Objects.hash\` ordering.
+Classic concurrency interview.
+
+### 6. What is \`ReadWriteLock\`?
+**Answer:** Multiple concurrent readers or single writer—good read-heavy caches—overhead if reads short—profile.
+\`StampedLock\` optimistic reads advanced.
+
+### 7. Does synchronization fix all concurrency bugs?
+**Answer:** No—atomicity of compound operations needs careful design—use \`java.util.concurrent.atomic\` or higher-level abstractions.
+Deadlocks still possible.
+
+### 8. What is lock contention symptom?
+**Answer:** Threads BLOCKED in dumps, low CPU but high latency—reduce critical section, split locks, or use concurrent collections.
+Metrics: blocked time in profilers.
+
+### 9. \`volatile\` vs synchronized for visibility?
+**Answer:** \`volatile\` ensures visibility and ordering for single variable—no mutual exclusion—compound operations still need locks or atomics.
+One-write many-read flags often volatile.
+
+### 10. Modern alternatives to manual synchronization?
+**Answer:** \`java.util.concurrent\` utilities, parallel streams cautiously, reactive APIs, immutable data—reduce shared mutable state first.
+Best synchronization is no synchronization.
+
 `,
   code: `// Real-Time: Complete Synchronization Demo
 // Banking system with thread safety

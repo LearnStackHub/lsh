@@ -228,7 +228,52 @@ m[0] = new int[2];
 - Practice [Single Dimensional Array](/tutorial/single-dimensional-array)
 - Learn [Array Methods](/tutorial/array-methods) for common utilities
 - Move to [Multithreading Introduction](/tutorial/thread-introduction) after mastering core data structures
-  `,
+  
+---
+
+## 10 Important Multi-Dimensional Array Interview Questions
+
+### 1. Are Java multidimensional arrays truly rectangular?
+**Answer:** Arrays of arrays—each row can have different lengths (jagged arrays).
+\`int[][]\` may have \`matrix[i].length\` vary per row.
+
+### 2. How do you allocate a 3×4 int matrix?
+**Answer:** \`int[][] m = new int[3][4];\` rectangular, or \`new int[3][]\` then assign each row.
+Memory layout is row-major in the flattened view of each row.
+
+### 3. What is the memory layout implication for iteration order?
+**Answer:** Traversing row-major sequentially caches better than jumping columns in naive 2D storage.
+Performance-sensitive matrix code aligns access patterns accordingly.
+
+### 4. Scenario: image represented as pixel[][]—what pitfalls appear?
+**Answer:** Jagged rows break assumptions; bounds checks per row; watch for \`NullPointerException\` if a row unset.
+Validate rectangular inputs at boundaries.
+
+### 5. How do you transpose a matrix?
+**Answer:** Swap \`i\` and \`j\` with extra storage or in-place for square matrices with index tricks.
+Rectangular transpose needs new array dimensions.
+
+### 6. What is spiral order traversal?
+**Answer:** Layer-by-layer from outside inward—four pointers or direction deltas.
+Common interview question—test empty and single-cell matrices.
+
+### 7. Can you pass \`int[][]\` to a method expecting varargs of arrays?
+**Answer:** Not directly as varargs of ints—varargs are 1D array parameters; 2D arrays are separate type.
+Know method signatures for APIs like image processing.
+
+### 8. What exceptions arise with bad indices in 2D?
+**Answer:** \`ArrayIndexOutOfBoundsException\` on either dimension; NPE if row array missing.
+Defensive checks on untrusted input.
+
+### 9. How does \`Arrays.deepEquals\` help?
+**Answer:** Compares nested arrays by content, not reference—useful for testing 2D equality.
+\`deepToString\` helps debug.
+
+### 10. When might you flatten 2D to 1D?
+**Answer:** Interop with native libraries, buffer APIs, or contiguous memory requirements.
+Track mapping formulas between (row,col) and flat index.
+
+`,
   code: `public class MultiDimensionalArrayDemo {
     public static void main(String[] args) {
         System.out.println("=== Multi-Dimensional Array ===\\n");

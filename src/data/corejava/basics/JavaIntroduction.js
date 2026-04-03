@@ -608,6 +608,51 @@ To reinforce your understanding:
 4. **Join Java Communities**: Participate in forums, Stack Overflow, and Java developer communities
 
 The journey to mastering Java requires consistent practice and hands-on coding. Each tutorial builds upon previous concepts, so ensure you understand each topic before moving forward. Start with [Java Environment Setup](/tutorial/java-environment-setup) to begin writing your first Java programs.
+
+---
+
+## 10 Important Java Introduction Interview Questions
+
+### 1. What does “Write Once, Run Anywhere” (WORA) mean in practice?
+**Answer:** You compile Java source to bytecode once; any OS with a compatible JVM can run that bytecode without recompiling for each platform.
+Interviewers want to hear that portability is achieved by the JVM abstracting the OS, not by shipping different binaries per platform. In production, teams still test on each target OS because native integrations, file paths, and fonts can differ.
+
+### 2. Explain JDK, JRE, and JVM and how they relate.
+**Answer:** The JVM executes bytecode; the JRE bundles the JVM plus libraries needed to run programs; the JDK is the JRE plus compilers and dev tools (\`javac\`, \`javadoc\`, etc.).
+A developer installs the JDK; a server that only runs apps might have just a JRE (or a trimmed runtime in modern distributions). Confusing JRE with JDK is a common junior mistake in interviews.
+
+### 3. Is Java compiled, interpreted, or both?
+**Answer:** Source is compiled to bytecode (\`javac\`); the JVM then interprets and/or JIT-compiles hot bytecode to native code at runtime.
+This hybrid model is why startup and warm-up behavior differ: first runs can be slower until the JIT optimizes frequently executed paths.
+
+### 4. Why use bytecode instead of distributing machine code?
+**Answer:** Bytecode is portable and compact; the JVM can optimize the same program differently per CPU while keeping one build artifact.
+Teams shipping to Linux servers and developer laptops benefit from one CI build. Security and sandboxing are also easier to reason about at the JVM layer.
+
+### 5. What is the correct signature of \`main\` and why each part?
+**Answer:** \`public static void main(String[] args)\` — public so the JVM can call it, static so it runs without an instance, \`String[] args\` for command-line arguments.
+Interview follow-ups often cover what happens if you change the signature (program won’t start) and how \`args\` maps to command-line tokens.
+
+### 6. How does a \`.java\` file become a running program?
+**Answer:** \`javac\` produces \`.class\` bytecode; \`java ClassName\` loads the class, resolves dependencies, and starts execution at \`main\`.
+In large apps, class loading, module path, and classpath issues dominate debugging—worth mentioning for senior roles.
+
+### 7. What is the difference between Java SE, Jakarta EE, and Java ME?
+**Answer:** SE is the core language and standard libraries; Jakarta EE (formerly Java EE) adds APIs for enterprise web, messaging, and persistence; ME targeted constrained devices (less common today).
+Job postings saying “Core Java” usually mean SE plus solid OOP; “Java EE/Jakarta” implies servlets, JPA, etc.
+
+### 8. Real-world scenario: your JAR runs on a developer laptop but fails on a Linux server with \`UnsupportedClassVersionError\`. What happened?
+**Answer:** The code was compiled with a newer \`javac\` (higher class file version) than the JVM on the server supports.
+Fix: align JDK used in CI with server JVM, or upgrade the server runtime. This appears constantly in deployment pipelines.
+
+### 9. Why is Java still widely used in banks and large enterprises?
+**Answer:** Mature tooling, strong typing, long-term support releases, observability, and a huge ecosystem reduce operational risk for long-lived systems.
+Mention operational concerns—monitoring, GC tuning, and backward compatibility—more than syntax features.
+
+### 10. What is one honest limitation of Java as a platform?
+**Answer:** JVM startup and memory footprint can be heavier than native runtimes, which matters for CLI tools and tiny edge devices unless you use custom runtimes or GraalVM native images.
+Pair that with a mitigation (containers with enough RAM, AOT compilation, or choosing a lighter stack where appropriate).
+
 `,
   code: `// Let's start with a simple program
 // This prints information about your Java environment

@@ -246,6 +246,51 @@ public class Order {
 \`\`\`
 
 This is how real applications are structured — multiple classes representing different concepts, working together.
+
+---
+
+## 10 Important Classes & Objects Interview Questions
+
+### 1. What is a class vs an object?
+**Answer:** A class is the blueprint; an object is an instance residing on the heap with its own state.
+Many objects can share one class definition.
+
+### 2. What is object identity vs equality?
+**Answer:** Identity (\`==\` on references) compares memory address; logical equality uses \`equals\` (when overridden).
+Contracts require consistent \`hashCode\` with \`equals\`.
+
+### 3. What is \`this\`?
+**Answer:** Reference to the current instance—disambiguates fields from parameters; passed implicitly to instance methods.
+In constructors, \`this(...)\` chains constructors.
+
+### 4. What are instance fields vs static fields?
+**Answer:** Instance fields per object; static fields shared across all instances of the class.
+Static members bind to class load time.
+
+### 5. Scenario: singleton service class—what object considerations matter?
+**Answer:** Thread-safety of mutable state, lazy vs eager initialization, and testability (often prefer dependency injection over hard singletons).
+Interviewers discuss Spring singleton scope vs plain static.
+
+### 6. What is an anonymous object?
+**Answer:** Created without storing reference—\`new Person().greet()\`—eligible for GC immediately after use if unreachable.
+Useful for one-shot helpers.
+
+### 7. How does the GC relate to objects?
+**Answer:** Unreachable objects are collected automatically; finalize is deprecated—use try-with-resources for cleanup.
+Don’t rely on prompt destruction.
+
+### 8. What is a POJO?
+**Answer:** Plain Old Java Object—simple data holder without framework inheritance requirements; often with accessors.
+JPA entities are annotated POJOs.
+
+### 9. Why avoid public mutable fields?
+**Answer:** Breaks encapsulation—callers can put objects in invalid states; use accessors with validation.
+Immutability reduces bugs.
+
+### 10. What is object initialization order?
+**Answer:** Superclass fields and constructors run before subclass; instance initializers and field defaults precede constructors.
+Understanding this explains subtle constructor bugs.
+
 `,
   code: `// Classes and Objects Demo
 

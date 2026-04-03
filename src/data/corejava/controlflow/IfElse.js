@@ -293,6 +293,51 @@ public String login(String username, String password) {
     return "Login successful";
 }
 \`\`\`
+
+---
+
+## 10 Important if-else Interview Questions
+
+### 1. When do you choose if-else over switch?
+**Answer:** Use if-else for ranges, compound boolean conditions, or non-constant predicates; switch fits discrete constants (especially enums) with clearer branching.
+If-else chains with duplicated conditions are a smell—extract methods.
+
+### 2. What is dangling else and how does Java bind else?
+**Answer:** An \`else\` binds to the nearest preceding \`if\` without an \`else\`; use braces to make intent explicit.
+Always brace multi-line branches to avoid maintenance bugs.
+
+### 3. How does \`boolean\` short-circuiting interact with if conditions?
+**Answer:** \`&&\` and \`||\` skip evaluating the right side when the result is fixed—useful to avoid null checks and expensive calls.
+Order conditions from cheapest/safest to heavier.
+
+### 4. Can you use \`if\` with assignment accidentally?
+**Answer:** Yes—\`if (x = y)\` is a compile-time error when the assignment does not produce a \`boolean\` (e.g. \`int\` operands). If both sides are \`boolean\`, it compiles and assigns \`y\` to \`x\`, which is often a logic bug mistaken for \`==\`.
+Use \`==\` for comparison and tools/review to catch suspicious assignments in conditions.
+
+### 5. What is the ternary operator vs if-else for returns?
+**Answer:** Ternary is an expression and can be assigned; if-else is statements—pick based on readability.
+Deep nesting of ternaries hurts clarity.
+
+### 6. How do you structure validation with if-else early returns?
+**Answer:** Guard clauses at the top reduce nesting (“fail fast”) and keep the happy path at the bottom.
+This pattern appears heavily in REST controllers and parsers.
+
+### 7. Scenario: feature flags control behavior—how does if-else scale?
+**Answer:** A few flags work with if-else; many combinations call for strategy pattern, polymorphism, or rule engines.
+Interviewers probe when simple branching becomes unmaintainable.
+
+### 8. What role does \`else if\` play?
+**Answer:** It chains mutually exclusive conditions after the first \`if\`; only one branch runs.
+Contrast with separate \`if\` statements where multiple could run.
+
+### 9. How does floating-point comparison affect if conditions?
+**Answer:** Never compare \`double\` with \`==\` for computed values; use epsilon ranges or \`BigDecimal\`.
+Financial rules often encode thresholds in configuration.
+
+### 10. What is a common readability guideline for nested ifs?
+**Answer:** Limit nesting depth (e.g., flatten with early returns or extract methods); cyclomatic complexity tools flag deep trees.
+Readable code reduces defect rates in reviews.
+
 `,
   code: `// If-Else Demo
 

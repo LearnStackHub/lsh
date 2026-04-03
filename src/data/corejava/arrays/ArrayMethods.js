@@ -222,7 +222,52 @@ The \`java.util.Arrays\` class is a must-know utility for writing clean and effi
 - Practice [Single Dimensional Array](/tutorial/single-dimensional-array)
 - Learn [Multi-Dimensional Array](/tutorial/multi-dimensional-array)
 - Learn [Collections](/tutorial/collection-introduction) for dynamic structures
-  `,
+  
+---
+
+## 10 Important Arrays Class Utilities Interview Questions
+
+### 1. What does \`java.util.Arrays\` provide?
+**Answer:** Static helpers: sort, binarySearch, fill, copyOf, equals, hashCode, stream, parallel operations, etc.
+Prefer these over hand-rolled loops for correctness.
+
+### 2. What is the difference between \`Arrays.sort\` for primitives vs objects?
+**Answer:** Primitives use dual-pivot quicksort/tuning; objects require \`Comparable\` or \`Comparator\` and may use TimSort—stable.
+Null elements in object arrays require comparator handling.
+
+### 3. When does \`binarySearch\` return a negative value?
+**Answer:** If key not found, returns \`-(insertion point) - 1\`—useful to find insertion index.
+Array must be sorted first or results are meaningless.
+
+### 4. What does \`Arrays.asList\` return?
+**Answer:** A fixed-size list backed by the array—structural changes that resize throw; element set still affects array.
+Wrapping, not copying.
+
+### 5. Scenario: you need immutable snapshot of an array for an API—what’s wrong with exposing \`Arrays.asList\` backing array?
+**Answer:** Callers can still mutate underlying array elements—copy defensively if needed.
+Immutability requires unmodifiable wrappers plus array clone for references.
+
+### 6. What is \`parallelSort\` good for?
+**Answer:** Large primitive arrays where fork/join overhead pays off; small arrays may be slower than \`sort\`.
+Measure on target hardware.
+
+### 7. How does \`Arrays.deepEquals\` differ from \`equals\` on arrays?
+**Answer:** \`equals\` on arrays compares references; \`deepEquals\` walks nested structure.
+Important in tests comparing 2D arrays.
+
+### 8. What is \`Arrays.setAll\` / \`parallelSetAll\`?
+**Answer:** Initialize elements by index with lambdas—concise for computed tables.
+Useful for benchmarks and functional-style setup.
+
+### 9. Can \`sort\` throw \`ClassCastException\`?
+**Answer:** If elements aren’t mutually comparable and comparator not provided—mixed incompatible types.
+Validate types before sort.
+
+### 10. What’s a pitfall with \`hashCode\` on arrays?
+**Answer:** Default array \`hashCode\` is identity-based—use \`Arrays.hashCode\` or \`Arrays.deepHashCode\` for content-based hashing.
+Impacts hash maps keyed on array content incorrectly.
+
+`,
   code: `import java.util.Arrays;
 
 public class ArrayMethodsDemo {

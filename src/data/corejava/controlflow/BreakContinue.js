@@ -312,6 +312,51 @@ public class InventoryScanner {
 \`\`\`
 
 > **Industry Insight**: Break and continue are essential in data processing pipelines. Netflix uses these to skip invalid data records (continue) or stop processing when critical errors occur (break) in their recommendation engine.
+
+---
+
+## 10 Important break & continue Interview Questions
+
+### 1. What is the difference between \`break\` and \`continue\`?
+**Answer:** \`break\` exits the nearest loop or \`switch\`; \`continue\` skips to the next loop iteration.
+Neither skips \`finally\` blocks.
+
+### 2. What are labeled \`break\` and \`continue\`?
+**Answer:** They target outer loops by label—\`break outer;\` exits nested loops; \`continue outer;\` advances the outer loop.
+Use sparingly—often refactor to methods is clearer.
+
+### 3. Can \`break\` exit a block that isn’t a loop?
+**Answer:** Only with labeled blocks—rare style; many teams prefer structured returns or flags.
+Know it for reading legacy code.
+
+### 4. How does \`break\` interact with \`try/finally\`?
+**Answer:** \`finally\` runs before the loop actually exits after \`break\`.
+Resource cleanup still happens.
+
+### 5. Scenario: searching a 2D matrix—when is labeled break useful?
+**Answer:** When you find an element and want to exit both row and column loops immediately.
+Alternatively use helper method with \`return\`.
+
+### 6. Does \`continue\` skip the increment clause in a for loop?
+**Answer:** In a traditional \`for\`, \`continue\` jumps to the update expression then condition—increment still runs.
+In \`while\`, you must ensure state advances to avoid infinite loops.
+
+### 7. What happens with \`continue\` inside \`try\` with \`finally\`?
+**Answer:** \`finally\` executes before the next iteration begins.
+Side effects in \`finally\` run every continue—watch performance.
+
+### 8. Why avoid \`continue\` in deeply nested code?
+**Answer:** It obscures control flow—extract loops or use stream operations with predicates.
+Readability beats micro-conciseness.
+
+### 9. Can switch use \`continue\`?
+**Answer:** In a loop, \`continue\` inside \`switch\` continues the enclosing loop, not the switch—common gotcha.
+Structure code to avoid confusion.
+
+### 10. What’s a safe alternative to multiple breaks?
+**Answer:** Extract method returning boolean success, or use \`Optional\` and short-circuit patterns.
+Tests become simpler with structured exits.
+
 `,
   code: `// Real-Time: Complete Fraud Detection System
 // Demonstrates break and continue in security systems

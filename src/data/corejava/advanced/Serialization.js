@@ -314,6 +314,51 @@ private static final long serialVersionUID = 1L;
 | Validate deserialized data | Prevent security vulnerabilities |
 
 > **Industry Insight**: Netflix uses Protocol Buffers for internal service communication (faster, smaller). Amazon uses Java serialization for session management in their distributed systems. Most REST APIs use JSON serialization (Jackson library) for cross-platform compatibility.
+
+---
+
+## 10 Important Serialization Interview Questions
+
+### 1. What is Java serialization?
+**Answer:** Converting object graphs to bytes via \`ObjectOutputStream\`—deserialization reconstructs objects—uses class metadata and \`serialVersionUID\`.
+Security-sensitive—validate inputs.
+
+### 2. What is \`serialVersionUID\`?
+**Answer:** Version fingerprint—mismatch causes \`InvalidClassException\`—declare explicitly to control compatibility across releases.
+Don’t rely on generated default across machines.
+
+### 3. What does \`transient\` mean?
+**Answer:** Field skipped from default serialization—recompute on deserialization or mark non-serializable collaborators.
+Secrets must be transient.
+
+### 4. Scenario: microservices—do teams use Java serialization for APIs?
+**Answer:** Rare—JSON/Protobuf preferred—Java serialization couples JVM versions and classes—security risks (gadget chains).
+Only trusted networks if used.
+
+### 5. What is \`Externalizable\`?
+**Answer:** Custom read/write control—performance and evolution—more work than \`Serializable\` defaults.
+Advanced use cases.
+
+### 6. Serialization vs JSON (Jackson)?
+**Answer:** JSON human-readable cross-language; Java serialization preserves Java-only object graph and types—different interoperability and security models.
+REST APIs almost always JSON.
+
+### 7. What is deserialization attack?
+**Answer:** Malicious bytes instantiate dangerous classes—gadget chains—use allowlists, avoid blind deserialization, prefer signing.
+OWASP guidance critical.
+
+### 8. Parent class serialization rules?
+**Answer:** Non-serializable superclass must have accessible no-arg constructor for deserialization subclass—careful hierarchy design.
+Inheritance complicates.
+
+### 9. \`readObject\` / \`writeObject\` hooks?
+**Answer:** Customize serialization for class—validate invariants, substitute proxies—careful with security.
+Used in libraries.
+
+### 10. Performance concerns?
+**Answer:** Slow, verbose bytes—use faster formats when possible—Kryo/Protobuf for internal high-throughput—measure.
+GC pressure from large graphs.
+
 `,
   code: `// Real-Time: Complete Serialization Demo
 // E-Commerce order persistence

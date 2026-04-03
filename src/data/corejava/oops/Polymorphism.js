@@ -261,6 +261,51 @@ Add a new payment method (Apple Pay, Google Pay)? Just create a new class. The \
 | Return type | Can differ | Same or covariant |
 | Access | Can differ | Same or wider |
 | Keyword | None | @Override |
+
+---
+
+## 10 Important Polymorphism Interview Questions
+
+### 1. What is compile-time vs runtime polymorphism?
+**Answer:** Overloading resolves at compile time; overriding resolves at runtime via virtual method dispatch on the actual object type.
+Interviewers love this distinction.
+
+### 2. How does JVM invoke virtual methods?
+**Answer:** Dynamic dispatch using class metadata—late binding allows subclass implementations to run through superclass references.
+Performance is optimized by JIT inline caches.
+
+### 3. What is upcasting and why is it safe?
+**Answer:** Assign subclass reference to superclass type—callers use abstract contracts; downcasting needs \`instanceof\` checks.
+Enables APIs accepting \`List<Shape>\` processing \`Circle\`, \`Square\`.
+
+### 4. Can polymorphism apply to static methods or fields?
+**Answer:** No virtual dispatch for statics—hidden by class; fields are not polymorphic—avoid “overriding” fields—use accessors.
+Common trick question.
+
+### 5. Scenario: plugin architecture—how does polymorphism help?
+**Answer:** Core code depends on interfaces; plugins supply implementations discovered at runtime (SPI, DI containers).
+Open/Closed principle in action.
+
+### 6. What is double dispatch?
+**Answer:** Technique to route operations based on two polymorphic types—visitor pattern solves expression problem.
+Advanced OOP topic for senior roles.
+
+### 7. How do generics interact with polymorphism?
+**Answer:** Generics are invariant (\`List<String>\` not subtype of \`List<Object>\`) to preserve type safety—use wildcards for flexibility.
+PECS principle guides bounds.
+
+### 8. What is covariant return types in overriding?
+**Answer:** Overriding method may return subtype of original return—allowed since Java 5.
+Improves API precision in hierarchies.
+
+### 9. Why is polymorphism hard with \`equals\` and \`hashCode\`?
+**Answer:** Symmetric equality across inheritance requires careful design—often use \`Composition\` or \`canEqual\` pattern.
+Broken contracts break hash-based collections.
+
+### 10. What’s a performance consideration with polymorphic megamorphic call sites?
+**Answer:** Too many implementation types can defeat inline caches—rare in business apps, relevant in language runtimes.
+Profile before optimizing dispatch.
+
 `,
   code: `// Polymorphism Demo
 

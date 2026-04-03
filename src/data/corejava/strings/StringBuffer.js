@@ -121,7 +121,52 @@ StringBuffer is a thread-safe mutable string class. Learn it to understand concu
 - Learn [StringBuilder](/tutorial/string-builder) for faster single-thread building
 - Learn [Thread Lifecycle](/tutorial/thread-lifecycle) to understand thread states
 - Learn [Synchronization](/tutorial/synchronization) for thread safety
-  `,
+  
+---
+
+## 10 Important StringBuffer Interview Questions
+
+### 1. When is \`StringBuffer\` still used?
+**Answer:** Legacy code or rare cases needing synchronized \`append\` across threads—most apps prefer external synchronization or \`StringBuilder\` per thread.
+Modern code rarely needs it.
+
+### 2. How does synchronization impact performance?
+**Answer:** Every method acquires monitor—contention kills throughput; avoid shared \`StringBuffer\` as global accumulator.
+Use thread-local \`StringBuilder\` instead.
+
+### 3. Is \`StringBuffer\` API compatible with \`StringBuilder\`?
+**Answer:** Nearly identical mutating API—easy swap when thread-safety requirement disappears.
+Refactor to \`StringBuilder\` after reviewing concurrency.
+
+### 4. Scenario: logging framework appends on shared buffer—good idea?
+**Answer:** Generally no—logging uses per-event builders or formatters; shared mutable buffers race.
+Log4j/SLF4J handle thread safety differently.
+
+### 5. What about \`append\` with primitives?
+**Answer:** Overloaded for efficiency—avoids boxing in many paths.
+Same as \`StringBuilder\`.
+
+### 6. Does \`reverse\` mutate in place?
+**Answer:** Yes—same object content reversed—useful for palindrome tricks rarely in production business logic.
+Know BigInteger uses strings differently.
+
+### 7. Why might interviewers still ask \`StringBuffer\`?
+**Answer:** To discuss synchronization, evolution of Java performance, and knowing when sharing mutable state is wrong.
+Signals multithreading awareness.
+
+### 8. Can you convert \`StringBuffer\` to \`StringBuilder\` cheaply?
+**Answer:** No direct shared conversion—copy via \`toString\` then new builder—implies allocation.
+Design choice at construction time matters.
+
+### 9. What is \`equals\` on \`StringBuffer\`?
+**Answer:** Inherits \`Object.equals\` identity—use \`toString().equals\` for content compare.
+Often surprises beginners.
+
+### 10. Memory considerations vs \`String\`?
+**Answer:** Both on heap; \`StringBuffer\` grows backing array—capacity tuning similar to \`StringBuilder\`.
+Monitor large XML/JSON string assembly.
+
+`,
   code: `public class StringBufferDemo {
     public static void main(String[] args) {
         System.out.println("=== StringBuffer Demo ===\\n");

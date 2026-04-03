@@ -173,7 +173,52 @@ String methods are essential for validation, parsing, formatting, and searching.
 - Learn [StringBuilder](/tutorial/string-builder) for efficient concatenation
 - Learn [StringBuffer](/tutorial/string-buffer) for thread-safe mutable strings
 - Continue with [Exception Handling](/tutorial/exception-introduction) for safe string parsing
-  `,
+  
+---
+
+## 10 Important String Methods Interview Questions
+
+### 1. What does \`substring\` do in modern Java regarding memory?
+**Answer:** Historically shared char array (leaks); now copies to avoid retaining huge backing arrays—still watch indices.
+Know start inclusive, end exclusive.
+
+### 2. How do \`replace\` vs \`replaceAll\` differ?
+**Answer:** \`replace\` char sequences literal; \`replaceAll\` uses regex patterns—metacharacters need escaping.
+Performance differs—regex costs more.
+
+### 3. What does \`split\` with regex pitfalls?
+**Answer:** Trailing empty strings may be dropped unless limit parameter used; regex special chars need escape.
+CSV parsing often better with dedicated libraries.
+
+### 4. What is \`strip\` vs \`trim\`?
+**Answer:** \`strip\` removes Unicode whitespace; \`trim\` only ≤ U+0020 space—prefer \`strip\` for user text.
+Older code may still use \`trim\`.
+
+### 5. Scenario: case-insensitive comparison for locale user names?
+**Answer:** Prefer \`String.CASE_INSENSITIVE_ORDER\` or \`equalsIgnoreCase\` for ASCII-like tokens; for natural language use \`Collator\` with locale.
+Turkish I problem matters globally.
+
+### 6. What does \`formatted\` / \`String.format\` do?
+**Answer:** Locale-aware formatting with placeholders—good for messages; avoid in tight loops without caching pattern.
+i18n uses \`MessageFormat\` or resource bundles.
+
+### 7. How does \`compareTo\` order strings?
+**Answer:** Lexicographic by Unicode values—sign indicates less/greater—not always human sorting order.
+Use \`Collator\` for locale rules.
+
+### 8. What is \`chars\` / \`codePoints\` for?
+**Answer:** Stream primitive char or Unicode code points—use code points for full Unicode iteration.
+Avoid splitting surrogate pairs incorrectly.
+
+### 9. Why \`isBlank\` vs \`isEmpty\`?
+**Answer:** \`isBlank\` true for whitespace-only; \`isEmpty\` only for length 0.
+Validation uses \`isBlank\` for forms.
+
+### 10. What about \`matches\` performance?
+**Answer:** Compiles regex each call—reuse \`Pattern\` for repeated checks.
+Micro-optimization but common in hot paths.
+
+`,
   code: `public class StringMethodsDemo {
     public static void main(String[] args) {
         System.out.println("=== String Methods Demo ===\\n");

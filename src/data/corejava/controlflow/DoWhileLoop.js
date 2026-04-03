@@ -287,6 +287,51 @@ public class CheckoutProcess {
 \`\`\`
 
 > **Industry Insight**: Do-while loops are perfect for menu systems and input validation where you need to show options or prompt at least once. Payment gateways use do-while for retry mechanisms when transactions fail.
+
+---
+
+## 10 Important do-while Interview Questions
+
+### 1. Why does do-while guarantee at least one iteration?
+**Answer:** The condition is evaluated after the body runs, so the body executes once before the first check.
+Use when the first computation supplies data for the condition.
+
+### 2. Give a realistic use case for do-while.
+**Answer:** Menu prompts (“Enter choice until quit”), retry loops that must attempt an operation once, or reading until valid input.
+Contrast with while when zero attempts should happen if already satisfied.
+
+### 3. What’s a common bug when translating while to do-while?
+**Answer:** Accidentally running an extra iteration or performing side effects when the while version would skip entirely.
+Revalidate invariants at loop end.
+
+### 4. How does do-while interact with \`continue\`?
+**Answer:** \`continue\` jumps to condition check—ensure state updates still occur or you might stall.
+Less common than in for loops; still test carefully.
+
+### 5. Scenario: retry with exponential backoff—do you use do-while?
+**Answer:** Often you attempt once then backoff in while; do-while fits “always try once” before checking whether to retry.
+Combine with max retry caps.
+
+### 6. Is do-while common in enterprise Java code?
+**Answer:** Less than while/for; appears in parsers, interactive CLIs, and some polling patterns.
+Readability matters—sometimes an infinite while with structured break is clearer.
+
+### 7. Can do-while be rewritten with while only?
+**Answer:** Yes—duplicate the body once before a while, or use flags—usually uglier.
+Choose the form that minimizes duplication.
+
+### 8. What about do-while with multiple exit conditions?
+**Answer:** Combine boolean expressions or use breaks with clear comments.
+Avoid deeply nested conditions inside the body.
+
+### 9. How do you unit test do-while loops?
+**Answer:** Force paths that exit on first condition check vs multiple iterations; mock I/O or predicates.
+Verify boundary when the body should run exactly once.
+
+### 10. Performance vs while?
+**Answer:** Negligible difference—choose based on semantics.
+Micro-optimizations belong after profiling.
+
 `,
   code: `// Real-Time: Complete User Registration with Validation
 // Multi-step form validation using do-while

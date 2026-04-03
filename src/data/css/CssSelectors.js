@@ -521,7 +521,7 @@ Selectors are the foundation of CSS. Understanding how to use them effectively i
    **\`h2 + p\`** selects a \`p\` **immediately** following an \`h2\`. **\`h2 ~ p\`** selects **all** \`p\` siblings that follow an \`h2\` (not necessarily adjacent). Useful for **typography** patterns without extra classes.
 
 4. **What is a pseudo-class vs a pseudo-element?**  
-   **Pseudo-classes** (\`:hover\`, \`:focus\`, \`:nth-child(3)\`) style elements based on **state** or **position** in the tree—syntax **one colon** (legacy \`:before\` allowed). **Pseudo-elements** (\`::before\`, \`::after\`, \`::first-line\`) target **parts** of an element or **generated** content—**double colon** in modern CSS. \`::before\`/\`::after\` need \`content\` (even \`''\`) to appear.
+   **Pseudo-classes** (\`:hover\`, \`:focus\`, \`:nth-child(3)\`) style elements based on **state** or **position** in the tree—syntax **one colon**. **Pseudo-elements** (\`::before\`, \`::after\`, \`::first-line\`) target **parts** of an element or **generated** content—**double colon** in modern CSS; legacy **single-colon** \`:before\` / \`:after\` still works for compatibility. \`::before\`/\`::after\` need \`content\` (even \`''\`) to appear.
 
 5. **How does \`:nth-child()\` differ from \`:nth-of-type()\`?**  
    **\`:nth-child(2)\`** counts **all** sibling elements; the second child must also match the element type in the full selector. **\`:nth-of-type(2)\`** counts only siblings of the **same element type**. Mixing tags in a list makes the distinction critical.

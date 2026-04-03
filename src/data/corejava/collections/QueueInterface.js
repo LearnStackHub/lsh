@@ -266,6 +266,51 @@ public class BrowserHistory {
 | Double-ended operations | ArrayDeque |
 | Thread-safe queue | ConcurrentLinkedQueue |
 | Blocking queue | LinkedBlockingQueue |
+
+---
+
+## 10 Important Queue Interface Interview Questions
+
+### 1. What operations does Queue add beyond Collection?
+**Answer:** \`offer/poll/peek\` (non-throwing) vs \`add/remove/element\` (throwing)—choose for bounded queues handling backpressure.
+Critical in producer-consumer systems.
+
+### 2. LinkedList as Queue—still recommended?
+**Answer:** Works but often \`ArrayDeque\` is faster for deque operations without null elements—prefer \`ArrayDeque\` as queue.
+LinkedList poor cache locality.
+
+### 3. What is PriorityQueue?
+**Answer:** Min-heap by natural order or comparator—head is least element—O(log n) insert/remove—unbounded.
+Not thread-safe—\`PriorityBlockingQueue\` for concurrency.
+
+### 4. Scenario: task scheduling by deadline—what queue fits?
+**Answer:** \`PriorityQueue\` or time-wheel structures for efficiency at scale—simple cases use \`PriorityQueue\` of tasks.
+Know delayed and scheduled executors built atop.
+
+### 5. BlockingQueue vs Queue?
+**Answer:** \`put/take\` block when full/empty—essential for backpressure—\`ArrayBlockingQueue\`, \`LinkedBlockingQueue\`.
+Producer-consumer pipelines.
+
+### 6. What is \`Deque\` double-ended queue?
+**Answer:** Add/remove both ends—stack (\`push/pop\`) and queue—\`ArrayDeque\` preferred over \`Stack\` class.
+Stack extends Vector—legacy.
+
+### 7. Why avoid \`Stack\` class?
+**Answer:** Legacy synchronized vector-based—use \`Deque\`—better performance and clearer API.
+Interview historical note.
+
+### 8. What is \`ConcurrentLinkedQueue\`?
+**Answer:** Lock-free non-blocking queue—high concurrency—weak consistency size—good for MPMC in some patterns.
+Understand memory ordering costs.
+
+### 9. Bounded vs unbounded queue risk?
+**Answer:** Unbounded queues hide overload—OOM risk—bounded with rejection policies or backpressure in reactive systems.
+Resilience engineering.
+
+### 10. FIFO guarantee always?
+**Answer:** \`PriorityQueue\` not FIFO by arrival—\`LinkedBlockingQueue\` FIFO—choose semantics carefully.
+Fairness vs priority trade-off.
+
 `,
   code: `// Queue Interface Demo
 

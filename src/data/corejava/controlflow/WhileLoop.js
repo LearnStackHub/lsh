@@ -328,6 +328,51 @@ public class RequestHandler {
 \`\`\`
 
 > **Industry Insight**: While loops are fundamental in server programming. Web servers like Apache Tomcat use while loops to continuously listen for incoming HTTP requests, process them, and send responses.
+
+---
+
+## 10 Important while-loop Interview Questions
+
+### 1. When do you pick \`while\` over \`for\`?
+**Answer:** When iterations aren’t counted upfront—event loops, reading streams until EOF, polling until a condition flips.
+For known ranges, \`for\` often reads clearer.
+
+### 2. What is the difference between \`while\` and \`do-while\`?
+**Answer:** \`while\` checks condition before first entry; \`do-while\` runs at least once then checks.
+Use \`do-while\` for menus that must execute once.
+
+### 3. What infinite loop risks exist with \`while (true)\`?
+**Answer:** Must guarantee a \`break\`, \`return\`, or exception path exits; otherwise CPU spins forever.
+Server loops often block on I/O inside to avoid burning cores.
+
+### 4. How do you avoid busy-waiting?
+**Answer:** Use blocking queues, \`wait/notify\`, \`LockSupport\`, or higher-level concurrency utilities instead of tight empty spins.
+Busy-wait is for specialized low-latency systems with care.
+
+### 5. Scenario: reading a \`ResultSet\` or \`BufferedReader\`—which loop fits?
+**Answer:** \`while (rs.next())\` or \`while ((line = br.readLine()) != null)\`—condition drives continuation until data ends.
+Classic JDBC and I/O interview patterns.
+
+### 6. What happens if the condition never becomes false?
+**Answer:** Infinite loop—often a logic bug; sometimes intentional servers with internal blocking.
+Add timeouts and watchdogs for production loops.
+
+### 7. Can \`while\` variables declared outside the loop create bugs?
+**Answer:** Yes—reusing mutable flags without reset between iterations or concurrent updates cause subtle errors.
+Prefer smaller scopes and immutable snapshots where possible.
+
+### 8. How does \`continue\` behave in \`while\`?
+**Answer:** Skips to next condition check—ensure increment steps still run or you may infinite-loop.
+Double-check \`continue\` placement vs update expressions.
+
+### 9. What is a sentinel-controlled loop?
+**Answer:** Repeats until a special value (sentinel) appears—common in CLI input parsing.
+Validate sentinel doesn’t collide with valid data.
+
+### 10. How do you test while-loops effectively?
+**Answer:** Cover zero iterations, one iteration, many iterations, and boundary where condition flips.
+Property-based tests help find edge cases.
+
 `,
   code: `// Real-Time: ATM Banking System
 // Complete ATM simulation with while loops

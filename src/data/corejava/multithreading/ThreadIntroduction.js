@@ -440,6 +440,51 @@ public class BankingMultithreading {
 | **Thread Priority** | 1 (MIN) to 10 (MAX), default 5 |
 
 > **Industry Insight**: Multithreading is essential in enterprise applications. E-commerce platforms use thread pools for order processing, banks use synchronized threads for transactions, and web servers use threads to handle concurrent requests. Understanding multithreading is crucial for building scalable applications.
+
+---
+
+## 10 Important Thread Introduction Interview Questions
+
+### 1. What is a thread vs a process?
+**Answer:** Process has isolated memory; threads share heap within a process—lighter context switch but needs synchronization for shared data.
+JVM maps Java threads to OS threads (mostly).
+
+### 2. What is preemptive multitasking?
+**Answer:** OS schedules threads—any thread can pause at arbitrary points—race conditions without locks.
+Explains why testing concurrency is hard.
+
+### 3. Why not create unbounded threads for each request?
+**Answer:** Threads consume memory and OS resources—thrashing and context switch overhead—use pools.
+Virtual threads change economics on JDK 21+.
+
+### 4. What is the main thread?
+**Answer:** JVM starts it to run \`main\`—if it exits and no non-daemon threads remain, JVM may terminate.
+Daemon threads don’t keep JVM alive.
+
+### 5. Scenario: GUI / Android—why main thread matters?
+**Answer:** UI toolkits require updates on EDT/main thread—long work on UI thread freezes—offload to background.
+Similar patterns in web with async servlets.
+
+### 6. What is context switching cost?
+**Answer:** Saving registers and caches—too many threads hurt throughput—profile before massive parallelism.
+CPU-bound vs IO-bound workloads differ.
+
+### 7. How does Java map threads to OS threads?
+**Answer:** 1:1 model on HotSpot—Project Loom adds lightweight virtual threads scheduled on carrier pool.
+Interviewers may ask JDK 21 features.
+
+### 8. What is a race condition?
+**Answer:** Outcome depends on scheduling order—two threads mutate shared state without coordination—undefined behavior.
+Fix with locks or atomic classes.
+
+### 9. Why learn happens-before and memory model later?
+**Answer:** Correct synchronization requires visibility guarantees beyond mutual exclusion—\`volatile\`, \`synchronized\`, concurrent collections establish happens-before.
+Junior interviews may stay at lock basics.
+
+### 10. What tools observe threads?
+**Answer:** JVisualVM, JMC, \`jstack\`, async-profiler—thread dumps show deadlocks and hot locks.
+Essential for production triage.
+
 `,
   code: `// Complete Multithreading Demo
 // Understanding threads, states, and methods

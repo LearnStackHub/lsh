@@ -276,6 +276,50 @@ public class SimpleCache<K, V> {
 | Need range queries | TreeMap |
 | LRU cache | LinkedHashMap (access order) |
 | Thread-safe | ConcurrentHashMap |
+
+---
+
+## 10 Important Map Interface Interview Questions
+
+### 1. Why doesn’t Map extend Collection?
+**Answer:** Different abstraction—key-value pairs vs elements—separate hierarchy with \`entrySet\`, \`keySet\`, \`values\` bridging views.
+Design clarity.
+
+### 2. HashMap vs Hashtable vs ConcurrentHashMap?
+**Answer:** HashMap unsynchronized null-friendly one null key; Hashtable legacy synchronized; CHM segmented locking/JDK8+ node locking for concurrency.
+Default new code: HashMap single-thread, CHM concurrent.
+
+### 3. What is load factor and resizing?
+**Answer:** When size/capacity exceeds load factor threshold, HashMap doubles capacity and rehashes—amortized cost—tune initial capacity if known size.
+Rehashing pauses can hurt latency spikes.
+
+### 4. Hash collision handling in HashMap?
+**Answer:** Separate chaining with linked lists → treeification for long chains—O(log n) worst per bucket after Java 8.
+Poor hash function degrades to trees.
+
+### 5. Scenario: cache with TTL—use HashMap alone?
+**Answer:** No—needs eviction—use Caffeine, Guava Cache, or Redis—HashMap grows unbounded leaks memory.
+Know off-heap and concurrent requirements.
+
+### 6. What is \`LinkedHashMap\` access order?
+**Answer:** Can maintain insertion or access order—basis for LRU caches with removeEldestEntry override.
+Simple LRU pattern.
+
+### 7. IdentityHashMap purpose?
+**Answer:** Reference identity (\`==\`) instead of equals—rare—framework internals, serialization tracking—don’t use for business keys normally.
+
+### 8. WeakHashMap vs HashMap?
+**Answer:** Keys held weakly—entries disappear when keys GC—useful for canonical registries without preventing GC—subtle lifecycle semantics.
+Not a general cache.
+
+### 9. Immutable maps in Java 9+?
+**Answer:** \`Map.of\` and \`Map.copyOf\`—compact immutable maps—fail on duplicate keys—null-prohibited.
+Prefer for static catalogs.
+
+### 10. Why \`equals\` and \`hashCode\` for keys critical?
+**Answer:** Buckets determined by hash—equal keys must land in same bucket—broken equals/hash loses entries or duplicates.
+Immutable keys strongly recommended.
+
 `,
   code: `// Map Interface Demo
 

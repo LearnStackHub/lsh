@@ -296,6 +296,51 @@ Add a new plugin? Just implement the interface. No changes to PluginManager need
 | Serializable | Object serialization |
 | Cloneable | Object cloning |
 | Iterable | For-each loop support |
+
+---
+
+## 10 Important Interfaces Interview Questions
+
+### 1. What can interfaces contain since Java 8?
+**Answer:** \`default\` methods, \`static\` methods, private methods—interfaces evolve without breaking implementors as easily.
+Still no instance fields (only \`public static final\` constants).
+
+### 2. Can a class implement multiple interfaces?
+**Answer:** Yes—Java supports multiple interface inheritance; resolve conflicts by overriding defaults explicitly.
+Diamond problem handled by compiler rules.
+
+### 3. What is a marker interface?
+**Answer:** Empty interface signaling capability—\`Serializable\`, \`Cloneable\`—behavior provided by JVM/reflection conventions.
+Consider annotations as modern alternative for metadata.
+
+### 4. How does \`implements\` differ from \`extends\`?
+**Answer:** \`implements\` lists interfaces; \`extends\` for one superclass—class can extend one class and implement many interfaces.
+Order: extends first, then implements.
+
+### 5. Scenario: repository layer—why define \`UserRepository\` interface?
+**Answer:** Services depend on interface; JPA or in-memory implementations swap for tests and different environments.
+Core Spring pattern.
+
+### 6. What is functional interface?
+**Answer:** Single abstract method interface—target for lambdas; \`@FunctionalInterface\` documents intent.
+\`Comparator\`, \`Runnable\` examples.
+
+### 7. Can interfaces extend other interfaces?
+**Answer:** Yes—inheritance chains combine contracts; implementors must satisfy all abstract methods.
+Combine small interfaces (Interface Segregation).
+
+### 8. What happens if two defaults conflict?
+**Answer:** Concrete class must override the conflicting method—compiler error until resolved.
+Design default methods carefully in library upgrades.
+
+### 9. Are interface methods implicitly \`public\`?
+**Answer:** Yes—abstract methods are public; before Java 9, no private methods allowed.
+Package-private not applicable to interface methods historically.
+
+### 10. Why prefer small interfaces?
+**Answer:** Interface Segregation Principle—clients shouldn’t depend on methods they don’t use—easier mocking and evolution.
+Fat interfaces resist change.
+
 `,
   code: `// Interfaces Demo
 

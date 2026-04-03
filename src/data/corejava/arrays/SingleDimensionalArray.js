@@ -214,7 +214,52 @@ A single dimensional array is a **core building block** for Java programming. Wh
 - Learn [Multi-Dimensional Arrays](/tutorial/multi-dimensional-array) for matrices
 - Learn [Array Methods](/tutorial/array-methods) for \`Arrays.sort\`, \`copyOf\`, \`binarySearch\`
 - Learn [Exception Handling](/tutorial/exception-introduction) to handle array errors safely
-  `,
+  
+---
+
+## 10 Important Single-Dimensional Array Interview Questions
+
+### 1. How do you declare and allocate a 1D array?
+**Answer:** \`int[] a = new int[10];\` or shorthand \`int[] a = {1,2,3};\`.
+Type notation \`int[]\` is idiomatic in Java.
+
+### 2. What algorithms commonly use 1D arrays?
+**Answer:** Sliding window, prefix sums, dynamic programming tables, counting sorts.
+Interview loops often ask for O(n) passes with O(1) extra space.
+
+### 3. How do you copy a 1D array efficiently?
+**Answer:** \`System.arraycopy\`, \`Arrays.copyOf\`, or \`clone\` for shallow copies of references.
+Deep copy requires per-element cloning for mutable objects.
+
+### 4. What is two-pointer technique on a sorted array?
+**Answer:** Place pointers at both ends to find pairs summing to target in O(n).
+Classic interview pattern.
+
+### 5. Scenario: rotating an array k steps—what’s the space-time tradeoff?
+**Answer:** Extra O(n) buffer is simple; in-place reversal tricks achieve O(1) extra space.
+Know both for interviews.
+
+### 6. How do you find min/max in one pass?
+**Answer:** Initialize with first element, iterate comparing—O(n) time, O(1) space.
+Be careful with empty arrays.
+
+### 7. What about parallel prefix operations?
+**Answer:** Useful for cumulative sums; can parallelize for large arrays with fork/join—overhead matters for small n.
+Big data pipelines use different frameworks.
+
+### 8. Can 1D arrays hold primitives without boxing?
+**Answer:** Yes—\`int[]\`, \`double[]\`, etc., avoid \`Integer\` overhead.
+Generics require boxed types or arrays of primitives carefully.
+
+### 9. What is binary search prerequisite?
+**Answer:** Array must be sorted (or partitioned monotonic) for standard binary search.
+Off-by-one in mid calculation is a common bug—use \`lo <= hi\` patterns consistently.
+
+### 10. How do you reverse an array in place?
+**Answer:** Swap elements from both ends moving inward until pointers cross—O(n/2) swaps.
+Tests should include odd/even lengths.
+
+`,
   code: `import java.util.Arrays;
 
 public class SingleDimensionalArrayDemo {

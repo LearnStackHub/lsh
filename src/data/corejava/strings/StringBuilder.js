@@ -167,7 +167,52 @@ StringBuilder is the standard tool for **fast string construction** in Java. Lea
 - Learn [StringBuffer](/tutorial/string-buffer) for thread-safe mutable strings
 - Learn [String Methods](/tutorial/string-methods) for common operations on String
 - Learn [Collections](/tutorial/collection-introduction) for storing many strings efficiently
-  `,
+  
+---
+
+## 10 Important StringBuilder Interview Questions
+
+### 1. Why use \`StringBuilder\` over \`String\` in loops?
+**Answer:** Mutable buffer avoids O(n²) object churn from repeated concatenation.
+Single-threaded editing of text.
+
+### 2. Is \`StringBuilder\` thread-safe?
+**Answer:** No—use \`StringBuffer\` if synchronization required (rare); otherwise \`StringBuilder\` faster.
+Concurrency on shared builder corrupts internal state.
+
+### 3. What is initial capacity and why set it?
+**Answer:** Reduces array resizing copies when you know approximate final size—constructor \`new StringBuilder(estimated)\`.
+Default 16 may realloc often for large text.
+
+### 4. How does \`append\` chain work?
+**Answer:** Returns \`this\` for fluent chaining—single object mutated.
+Watch for append order bugs in complex chains.
+
+### 5. Scenario: building SQL or HTML—what risks appear?
+**Answer:** Injection if concatenating untrusted input—use prepared statements and escaping, not string building alone.
+Security trumps micro-performance.
+
+### 6. What is \`toString\` cost?
+**Answer:** Allocates final immutable \`String\`—call once after building.
+Avoid repeated \`toString\` in intermediate steps unnecessarily.
+
+### 7. Does \`delete\` / \`insert\` shift contents?
+**Answer:** Yes—O(n) moves for arbitrary positions; frequent middle edits may suggest different structure (rope, chunks).
+Profile if editing large buffers.
+
+### 8. What JDK version changes matter (compact strings)?
+**Answer:** JVM may store bytes for Latin-1 strings internally—transparent to API but affects memory footprint.
+Still use APIs the same way.
+
+### 9. How to reuse \`StringBuilder\` safely?
+**Answer:** \`setLength(0)\` or new instance—reset clears content for pooling in tight loops—ensure not shared across threads.
+Some parsers recycle builders.
+
+### 10. Difference from \`StringJoiner\` / \`Collectors.joining\`?
+**Answer:** Higher-level joining with delimiters—use streams for collection-to-text pipelines.
+Pick based on readability.
+
+`,
   code: `public class StringBuilderDemo {
     public static void main(String[] args) {
         System.out.println("=== StringBuilder Demo ===\\n");

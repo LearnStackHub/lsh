@@ -257,6 +257,51 @@ list.add("D");  // UnsupportedOperationException!
 List<String> list = new ArrayList<>(Arrays.asList("A", "B", "C"));
 list.add("D");  // Works!
 \`\`\`
+
+---
+
+## 10 Important List Interface Interview Questions
+
+### 1. What does \`List\` guarantee over \`Collection\`?
+**Answer:** Positional access, search by index, iterators ordered by sequence—allows duplicates.
+Implementations differ in performance characteristics.
+
+### 2. When pick \`ArrayList\` over \`LinkedList\`?
+**Answer:** Almost always \`ArrayList\` for general-purpose—cache-friendly contiguous storage—LinkedList rare for deque operations without index access.
+Default choice in interviews.
+
+### 3. What is random access marker interface?
+**Answer:** \`RandomAccess\` flags lists supporting fast index—algorithms like \`Collections.binarySearch\` choose strategy based on it.
+Binary search requires sorted list anyway.
+
+### 4. Scenario: frequent inserts in middle of large list?
+**Answer:** Both ArrayList and LinkedList have pain—ArrayList shifts O(n); LinkedList find index O(n)—often rethink data structure (tree, gap buffer) or batch edits.
+Profile real workloads.
+
+### 5. What is subList view caution?
+**Answer:** Sublist backed by original—structural modifications to either may throw \`ConcurrentModificationException\`—modifications can surprise.
+Copy if you need independence.
+
+### 6. How does \`List.of\` differ from \`Arrays.asList\`?
+**Answer:** \`List.of\` returns immutable list—\`Arrays.asList\` fixed size mutable elements—neither supports structural add/remove semantics same way.
+Java 9+ prefers \`List.of\` for literals.
+
+### 7. Thread safety of ArrayList?
+**Answer:** Not synchronized—external sync or \`Collections.synchronizedList\` or use concurrent structures—often \`CopyOnWriteArrayList\` for read-heavy.
+Vector is legacy synchronized growable array.
+
+### 8. What is \`removeIf\` / \`replaceAll\`?
+**Answer:** Default methods mutating with predicates—can throw CME if not supported concurrently—use concurrent variants if needed.
+Functional-style bulk operations.
+
+### 9. How to sort List in place?
+**Answer:** \`Collections.sort\` or \`list.sort(Comparator)\`—TimSort stable O(n log n).
+Original list mutated.
+
+### 10. What about \`ListIterator\`?
+**Answer:** Bidirectional traversal, add/replace during iteration—useful for linked structures and safe removal during iteration.
+More powerful than basic Iterator.
+
 `,
   code: `// List Interface Demo
 

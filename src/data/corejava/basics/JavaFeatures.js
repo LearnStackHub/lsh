@@ -214,6 +214,51 @@ Source Code → Compiler → Bytecode → JVM Interpreter → Execution
 4. **Backward compatibility** — Old code still works
 5. **Performance** — Handles enterprise scale
 6. **Security** — Battle-tested in banking and government
+
+---
+
+## 10 Important Java Language Features Interview Questions
+
+### 1. What does “everything is an object” in Java really mean?
+**Answer:** It is a simplification: primitives are not objects, but most domain modeling uses objects on the heap with references.
+Interviewers check whether you know wrappers (\`Integer\`, \`Boolean\`) bridge primitives to APIs expecting objects.
+
+### 2. How does automatic garbage collection affect how you write Java?
+**Answer:** You don’t explicitly free memory, but you must avoid retaining references to large graphs, unregister listeners, and manage resources that aren’t memory (files, sockets).
+Memory leaks still happen through static caches and forgotten collections.
+
+### 3. What is the Java Collections Framework and why is it central?
+**Answer:** It provides reusable \`List\`, \`Set\`, \`Map\`, and \`Queue\` implementations with consistent iteration and algorithms.
+Almost every service layer uses collections; knowing time complexity of \`HashMap\` vs \`TreeMap\` is a frequent follow-up.
+
+### 4. Explain checked vs unchecked exceptions at a high level.
+**Answer:** Checked exceptions (\`IOException\`, etc.) must be declared or handled; \`RuntimeException\` and subclasses are unchecked.
+API design debates often cover whether checked exceptions help reliability or hurt maintainability.
+
+### 5. What is generics’ purpose in Java collections?
+**Answer:** Generics add compile-time type safety and remove casts when using collections and APIs like \`List<String>\`.
+Type erasure means runtime \`List\` doesn’t know \`String\`—reflection questions often follow.
+
+### 6. What is the module system (Java 9+) trying to solve?
+**Answer:** Strong encapsulation of packages, explicit dependencies, and smaller custom runtimes (\`jlink\`).
+Large products benefit from clearer boundaries; libraries must declare what they export.
+
+### 7. How do modern Java versions change the language without breaking old code?
+**Answer:** New features are added conservatively with preview/incubating stages; long-term support releases emphasize compatibility.
+Teams upgrade JDK versions on a schedule; preview features may require \`--enable-preview\`.
+
+### 8. Scenario: you need concurrency-safe shared counters. What language features come up?
+**Answer:** \`java.util.concurrent\` (atomic classes, locks), synchronized methods/blocks, and virtual threads (Project Loom) for blocking I/O at scale.
+Interview depth ranges from \`synchronized\` basics to \`j.u.c.\` abstractions.
+
+### 9. What is the value of interfaces and default methods?
+**Answer:** Interfaces define contracts; default methods let you evolve APIs without breaking every implementor.
+This interacts with multiple inheritance rules (diamond problem) and design of library upgrades.
+
+### 10. Name one feature you’d highlight for a performance-sensitive service.
+**Answer:** JIT compilation plus mature GCs (G1, ZGC) tuned for latency or throughput, together with profiling tools (JFR, async-profiler).
+Always tie features to measurement, not assumptions.
+
 `,
   code: `// Java Features Demo - Showcasing what makes Java special
 

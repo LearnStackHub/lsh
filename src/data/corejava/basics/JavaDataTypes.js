@@ -389,6 +389,51 @@ REMEMBER:
 ## Test Your Knowledge
 
 Mastered Java data types? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering data types, variables, and all Core Java topics!
+
+---
+
+## 10 Important Java Data Types Interview Questions
+
+### 1. List Java’s primitive types and their rough purposes.
+**Answer:** \`byte\`, \`short\`, \`int\`, \`long\` for integers; \`float\`, \`double\` for floating point; \`char\` for UTF-16 code units; \`boolean\` for truth values.
+Pick the smallest type that fits domain constraints and I/O formats.
+
+### 2. Why is \`char\` 16-bit and what limitation does that imply?
+**Answer:** \`char\` holds a UTF-16 code unit; supplementary characters use surrogate pairs, so one logical character may span two \`char\`s.
+Text processing should often use \`String\` or \`codePoint\` APIs, not raw \`char\` arrays alone.
+
+### 3. What is autoboxing and unboxing?
+**Answer:** Automatic conversion between primitives and wrapper objects (\`int\` ↔ \`Integer\`).
+It can hide \`NullPointerException\` and create unnecessary allocations in hot loops.
+
+### 4. Compare \`float\` vs \`double\` for money calculations.
+**Answer:** Neither is appropriate for exact decimal money; use \`BigDecimal\` or integer minor units.
+Floating point has rounding errors that accumulate in ledgers.
+
+### 5. What is the range of \`int\` and when do you move to \`long\`?
+**Answer:** \`int\` is 32-bit signed; use \`long\` when values exceed roughly ±2 billion—timestamps, large counters.
+Overflow silently wraps unless you use \`Math.*Exact\` methods.
+
+### 6. What is the difference between \`==\` on primitives vs references?
+**Answer:** For primitives, \`==\` compares values; for references, it compares object identity unless unboxing occurs.
+Use \`equals\` for logical equality of objects.
+
+### 7. What are wrapper classes used for besides collections?
+**Answer:** Reflection, generics, nullable representations, and APIs that only accept objects.
+\`Optional\` is preferred over null for explicit absence in newer code.
+
+### 8. Scenario: two \`Integer\` objects \`a\` and \`b\` both value 200; does \`a == b\` hold?
+**Answer:** Not guaranteed—small integers may be cached, larger values are different objects; always use \`equals\` for value comparison.
+This catches developers who rely on reference equality for boxed types.
+
+### 9. What is \`String\`’s type category?
+**Answer:** It is a reference type (class) with immutable character sequence behavior.
+String literals live in the string pool; \`new String("x")\` creates a distinct heap object.
+
+### 10. Why declare \`final\` fields when possible?
+**Answer:** Immutability of references makes reasoning and thread-safety easier; required for effective \`final\` fields in anonymous classes.
+Pair with defensive copies for mutable components.
+
 `,
   code: `// Data Types Demo - Understanding all Java data types
 

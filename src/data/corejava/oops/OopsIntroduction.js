@@ -452,6 +452,51 @@ Once you start seeing OOP everywhere, you'll truly understand it.
 ## Test Your Knowledge
 
 Mastered OOPs concepts? Test your Core Java skills with our comprehensive [Core Java MCQ Exam](/tutorial/core-java-mcq) covering OOPs, classes, objects, inheritance, polymorphism, and all Core Java topics!
+
+---
+
+## 10 Important OOP Introduction Interview Questions
+
+### 1. What are the four pillars of OOP in Java-centric interviews?
+**Answer:** Encapsulation, inheritance, polymorphism, abstraction—teams expect definitions plus trade-offs, not textbook-only lists.
+Relate each to maintenance and testing.
+
+### 2. Why bundle data and behavior in objects?
+**Answer:** Cohesion: invariants are enforced by methods instead of scattered procedural code mutating raw data.
+Reduces duplication and bugs in large codebases.
+
+### 3. How does OOP help with change?
+**Answer:** Stable interfaces with substitutable implementations (polymorphism) localize changes behind abstractions.
+Contrast with brittle global state.
+
+### 4. What is coupling vs cohesion?
+**Answer:** Coupling measures dependencies between modules; cohesion measures how focused a module’s responsibilities are.
+Good OOP aims for loose coupling and high cohesion.
+
+### 5. Scenario: a “God class” does everything—what OOP smell is that?
+**Answer:** Low cohesion and likely high coupling—refactor into smaller classes with clear roles.
+Interviewers probe refactoring experience.
+
+### 6. Is inheritance always the right reuse mechanism?
+**Answer:** No—composition often avoids fragile hierarchies and respects “favor composition over inheritance.”
+Java 8+ interfaces and default methods shift patterns.
+
+### 7. What role do interfaces play in OOP design?
+**Answer:** Define contracts decoupled from implementation—enables testing with mocks and swapping implementations.
+Key for Spring-style dependency injection.
+
+### 8. How does encapsulation improve security?
+**Answer:** Hide internal state, validate on setters, and prevent unauthorized mutation of sensitive fields.
+Critical for PCI/HIPAA-style domains.
+
+### 9. What is polymorphism in one sentence for interviews?
+**Answer:** Code written to a supertype can operate on many subtypes with different behaviors at runtime.
+Enables plug-in architectures.
+
+### 10. Why learn OOP before frameworks like Spring?
+**Answer:** Frameworks are OOP-heavy—beans, proxies, AOP, and lifecycle management assume solid class design fundamentals.
+Weak OOP leads to anemic models and spaghetti wiring.
+
 `,
   code: `// Let's see OOP in action with a simple example
 // We'll build a basic e-commerce product system

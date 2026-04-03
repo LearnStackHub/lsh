@@ -311,6 +311,51 @@ public class UserService {
     }
 }
 \`\`\`
+
+---
+
+## 10 Important throw & throws Interview Questions
+
+### 1. What does \`throws\` on a method communicate?
+**Answer:** Callers must handle or declare checked exceptions—part of the method contract alongside parameters and return type.
+Document recoverable failures.
+
+### 2. Can you throw checked exceptions inside lambdas freely?
+**Answer:** Functional interfaces don’t declare checked exceptions—must wrap in runtime or use custom functional interfaces throwing checked.
+Streams complicate this—try/catch inside or sneaky throw hacks (discouraged).
+
+### 3. What is exception chaining?
+**Answer:** Wrap low-level cause in high-level exception—\`new ServiceException("...", cause)\` preserves stack for root-cause analysis.
+Don’t lose the cause.
+
+### 4. Scenario: validating API input—throw \`IllegalArgumentException\` or custom?
+**Answer:** \`IllegalArgumentException\` for programmer misuse; domain-specific validation may use custom types with error codes for clients.
+Consistency across the API matters.
+
+### 5. Does \`throws\` list need to include unchecked exceptions?
+**Answer:** Optional—unchecked can be declared for documentation but not required.
+Some APIs declare \`RuntimeException\` for clarity.
+
+### 6. Can constructors throw?
+**Answer:** Yes—object may not be constructed; be careful with partially initialized observers.
+Factories can catch and translate.
+
+### 7. What is the difference between \`throw new\` vs rethrow?
+**Answer:** Rethrow passes same instance; wrapping adds context—choose based on abstraction layers.
+Java 7+ rethrow with refined typing in some cases.
+
+### 8. How many exceptions can \`throws\` list?
+**Answer:** Multiple comma-separated—implementors must declare compatible or narrower throws (subtypes) when overriding.
+Subclass can throw fewer checked types (contravariance rules).
+
+### 9. What is \`Error\` and should you throw it?
+**Answer:** Serious JVM issues—don’t throw application \`Error\`—use \`Exception\` hierarchy for app failures.
+\`OutOfMemoryError\` is not catch-and-recover usually.
+
+### 10. What is assert vs throw for invariants?
+**Answer:** Assertions disabled by default in production—use for internal invariants; public validation uses exceptions.
+Don’t rely on assert for security checks.
+
 `,
   code: `// Throw and Throws Demo
 

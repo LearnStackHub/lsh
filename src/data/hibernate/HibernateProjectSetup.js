@@ -640,54 +640,34 @@ If you must use manual JAR files (not recommended):
 
 ### 1. What dependencies are mandatory for a Hibernate project?
 **Answer:** Core Hibernate, Jakarta Persistence API, JDBC driver, and logging dependencies are mandatory for a functional setup.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 2. Why is Maven or Gradle preferred over manual JAR setup?
 **Answer:** Build tools provide reproducible dependency resolution, version control, and easier CI integration compared with manual classpath management.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 3. What configuration file mistakes break startup most often?
 **Answer:** Incorrect DB URL, wrong dialect, bad credentials, and missing mapped entity classes are frequent startup blockers.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 4. Why should SessionFactory creation be centralized?
 **Answer:** SessionFactory is heavy and should be initialized once; centralized utility avoids expensive duplicate bootstrap code.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 5. What DDL setting is safe during initial learning vs production?
 **Answer:** create or update can help learning quickly; production should rely on migration tools with validate or none-like safe modes.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 6. How do you verify setup correctness quickly?
 **Answer:** Run a simple persist and fetch test in one transaction and inspect SQL logs and commit behavior.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 7. What environment-specific setup should be externalized?
 **Answer:** URLs, credentials, pool size, logging levels, and schema mode should be externalized per dev, test, and prod profiles.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 8. Real-time scenario: CI pipeline passes but deployment fails with DB connection errors, what do you check first?
 **Answer:** Check environment variable injection, network access rules, SSL settings, dialect compatibility, and runtime driver version.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 9. What setup anti-pattern creates production incidents?
 **Answer:** Hardcoded credentials plus create-drop schema mode is a serious anti-pattern that can cause data loss and security issues.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
 
 ### 10. Interview summary for project setup?
 **Answer:** Hibernate setup quality determines runtime stability; reproducible dependencies, profile-safe config, and one-time SessionFactory bootstrap are essential.
-Detailed Explanation: Project setup answers should include dependency/version hygiene, environment profiles, and repeatable deployment readiness. This point is important in real systems because it influences correctness, performance, and debugging effort under production load.
-Implementation Insight: A strong interview response should include one concrete project example, one common failure mode, and one mitigation approach connected to this exact concept.
-  `,
+`,
   code: `// Hibernate Maven Project Setup Guide
 // Modern approach using Maven - No manual JAR downloads needed!
 

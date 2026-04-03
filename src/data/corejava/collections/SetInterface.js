@@ -247,6 +247,51 @@ public class Article {
 | Need sorted elements | TreeSet |
 | Need range queries | TreeSet |
 | Removing duplicates from list | HashSet |
+
+---
+
+## 10 Important Set Interface Interview Questions
+
+### 1. What is Set’s uniqueness contract?
+**Answer:** No duplicate elements per \`equals\`/\`hashCode\`—at most one null in implementations allowing null (avoid).
+Mathematical set abstraction.
+
+### 2. HashSet vs LinkedHashSet vs TreeSet?
+**Answer:** HashSet O(1) avg ops unordered; LinkedHashSet insertion order; TreeSet sorted per Comparable/Comparator O(log n).
+Pick ordering requirements first.
+
+### 3. Can you modify elements used in HashSet after insert?
+**Answer:** Dangerous—if fields affecting equals/hash change, set breaks—use immutable keys or remove/re-add consciously.
+Classic defect in interviews.
+
+### 4. Scenario: dedupe user IDs from stream—idiomatic approach?
+**Answer:** \`stream().collect(Collectors.toSet())\` or \`distinct()\` if hash based on equals—ensure stable equals for objects.
+Large datasets consider trove/openhash if primitives.
+
+### 5. What is \`EnumSet\`?
+**Answer:** Extremely efficient bit-vector set for enums—preferred when domain is enum universe.
+Faster than HashSet for enums.
+
+### 6. What is \`CopyOnWriteArraySet\`?
+**Answer:** Thread-safe copy-on-write—good read-heavy, rare writes—expensive writes—iterator snapshot.
+Event listener registries sometimes.
+
+### 7. Set equals/hashCode with other collections?
+**Answer:** Set equals another Set if same elements regardless of order—hashCode defined accordingly.
+Symmetry with List differs.
+
+### 8. Why TreeSet’s comparator must be consistent with equals?
+**Answer:** Otherwise Set contract breaks—equal elements might both exist if compare returns non-zero—subtle bugs.
+Document comparator assumptions.
+
+### 9. BitSet vs HashSet for integers?
+**Answer:** BitSet compact for dense integer ranges—specialized—not implementing Set interface fully same way—domain specific.
+Memory efficient cardinality.
+
+### 10. Performance of \`contains\` in HashSet?
+**Answer:** Average O(1)—depends on good hash function and load factor—resize costs amortized.
+Know initial capacity and load factor tuning.
+
 `,
   code: `// Set Interface Demo
 

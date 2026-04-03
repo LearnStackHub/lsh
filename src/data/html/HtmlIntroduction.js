@@ -1255,7 +1255,7 @@ Use these tutorials as you build the full stack after HTML: styling, backend, da
    The **doctype** tells the browser **which version of HTML** to assume and triggers **standards mode** (correct CSS layout) instead of **quirks mode** (legacy bug-compatible layout). For HTML5, the declaration is simply \`<!DOCTYPE html>\`. It must be the **first line** of the document (before \`<html>\`). If omitted, older browsers can render pages inconsistently.
 
 9. **Why is \`<meta charset="UTF-8">\` used?**  
-   It declares that the document’s **character encoding** is **UTF-8**, which supports **virtually all** languages and symbols. Without it, the browser may **guess** wrong and show **mojibake** (garbled text). UTF-8 is the **default** for the web today. Place it **early** in \`<head>\` (first 1024 bytes recommendation) so the parser picks it up quickly.
+   It declares that the document’s **character encoding** is **UTF-8**, which supports **virtually all** languages and symbols. Without it, the browser may **guess** wrong and show **mojibake** (garbled text). **UTF-8 is the standard on the modern web**—still declare it explicitly and send **\`charset=utf-8\`** from the server when you can. Place it **early** in \`<head>\` (first 1024 bytes recommendation) so the parser picks it up quickly.
 
 10. **Why validate HTML?**  
     **Validation** (e.g. W3C validator) checks markup against the **grammar** of HTML: unclosed tags, invalid nesting, duplicate IDs, obsolete attributes. Benefits: fewer **surprise** browser quirks, easier **debugging**, better **accessibility** (e.g. missing \`alt\`), and **cleaner** collaboration. It does not guarantee **visual** perfection—CSS and JS still matter—but it catches **structural** mistakes early.

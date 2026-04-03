@@ -316,6 +316,51 @@ public class UserAccount {
 \`\`\`
 
 This is how real applications protect sensitive data!
+
+---
+
+## 10 Important Encapsulation Interview Questions
+
+### 1. Define encapsulation in engineering terms.
+**Answer:** Hide internal representation and expose behavior through a controlled API—getters/setters, validation, invariants.
+Clients depend on interface, not layout of fields.
+
+### 2. Why not expose internal \`List\` via getter?
+**Answer:** Callers could modify the list breaking invariants—return unmodifiable view or copy.
+Defensive copying has performance cost—document policy.
+
+### 3. What is a JavaBean convention?
+**Answer:** Private fields, public accessors \`getX\`/\`setX\`, no-arg constructor—common in frameworks introspecting properties.
+Not always the best domain model—avoid anemic-only design.
+
+### 4. Scenario: account balance field—how does encapsulation prevent fraud bugs?
+**Answer:** Mutations go through methods that log, authorize, and validate—no direct negative deposits.
+Audit trails pair with encapsulation.
+
+### 5. How does encapsulation relate to testing?
+**Answer:** You can substitute collaborators behind interfaces; hidden state changes don’t ripple across the codebase if boundaries are clean.
+Mocks rely on clear contracts.
+
+### 6. What is package-private visibility’s role?
+**Answer:** Hide implementation details within a module while keeping public API minimal—Java 9 modules strengthen this.
+Reduces API surface for libraries.
+
+### 7. Can encapsulation hurt performance?
+**Answer:** Extra indirection and copying can matter in hot paths—profile before breaking encapsulation with public fields.
+Usually clarity wins until proven otherwise.
+
+### 8. What is property vs field?
+**Answer:** Field is storage; property is conceptual accessor-backed attribute in bean terms.
+Frameworks map columns to properties.
+
+### 9. How do records (Java 16+) relate to encapsulation?
+**Answer:** Immutable data carriers with generated accessors—less boilerplate while keeping invariants at construction.
+Good for DTOs.
+
+### 10. What’s a sign encapsulation is broken?
+**Answer:** Widespread \`getters\` returning mutable internals, or other classes switching on type fields of peers.
+Refactor toward Tell, Don’t Ask where appropriate.
+
 `,
   code: `// Encapsulation Demo
 

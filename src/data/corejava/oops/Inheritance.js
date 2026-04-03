@@ -498,6 +498,51 @@ Now that you understand inheritance, you're ready to explore related OOP concept
 - **[Java Introduction](/tutorial/java-introduction)**: Master Java fundamentals
 
 Inheritance is a powerful tool for building maintainable, extensible software. Continue learning about [Polymorphism](/tutorial/polymorphism) to see how inheritance enables flexible, dynamic behavior in your applications.
+
+---
+
+## 10 Important Inheritance Interview Questions
+
+### 1. Why does Java allow only single class inheritance?
+**Answer:** To avoid diamond ambiguity with state fields; multiple interface inheritance is allowed without duplicated state layout.
+Design patterns bridge gaps.
+
+### 2. What does \`super\` refer to?
+**Answer:** Superclass members—constructor chaining \`super(...)\`, method calls when overriding.
+Necessary when subclass hides names.
+
+### 3. What is method overriding vs overloading in inheritance?
+**Answer:** Overriding replaces superclass behavior with same signature; overloading adds variants in same class hierarchy context.
+\`@Override\` prevents accidental overloads.
+
+### 4. Can you override \`static\` methods?
+**Answer:** No true overriding—static methods hide by class; runtime dispatch doesn’t apply—avoid confusing hierarchies.
+Call with class name for clarity.
+
+### 5. What is Liskov Substitution Principle?
+**Answer:** Subtypes must be substitutable for supertypes without breaking expectations—overridden methods must honor contracts.
+Violations cause fragile polymorphism.
+
+### 6. Scenario: \`equals\` in inheritance—what breaks?
+**Answer:** Symmetry breaks if subclass adds fields without careful design—often prefer composition or \`getClass\` checks in strict equality.
+Effective Java discusses \`equals\` pitfalls.
+
+### 7. What is \`protected\` access?
+**Answer:** Visible to subclasses and same package—use for extension hooks, not as public API lightly.
+Framework templates use protected methods.
+
+### 8. When should you stop subclassing?
+**Answer:** When behavior varies along multiple axes—prefer composition or strategy pattern to avoid deep fragile trees.
+“Favor composition over inheritance.”
+
+### 9. What is abstract class vs interface for inheritance?
+**Answer:** Abstract classes share implementation and state; interfaces define behavior contracts—Java 8+ defaults blur lines.
+Choose based on is-a vs capability.
+
+### 10. How does \`Object\` fit into every class?
+**Answer:** All classes extend \`Object\` implicitly—\`toString\`, \`equals\`, \`hashCode\` contracts originate here.
+Override thoughtfully for value types.
+
 `,
   code: `// Inheritance Demo
 

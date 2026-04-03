@@ -256,6 +256,51 @@ public class ShoppingCart {
 \`\`\`
 
 Each method has a clear, single responsibility. The \`calculateTotal\` method orchestrates them all.
+
+---
+
+## 10 Important Java Methods Interview Questions
+
+### 1. What is the method signature vs method body?
+**Answer:** Signature includes name and parameter types (and generics); body contains implementation in braces.
+Overloading depends on signature differences; overriding matches superclass contracts.
+
+### 2. What is method overloading?
+**Answer:** Same method name, different parameter lists in one class; resolved at compile time.
+Return type alone is not enough to overload.
+
+### 3. What is method overriding?
+**Answer:** Subclass provides a new implementation for an inherited instance method with compatible signature and visibility.
+\`@Override\` catches mistakes at compile time.
+
+### 4. What does \`return\` do?
+**Answer:** Exits the method, optionally passing a value to the caller.
+\`void\` methods may use bare \`return\` to exit early.
+
+### 5. How is pass-by-value applied to Java arguments?
+**Answer:** Java passes copies of values—references are copied, not objects—so mutating object fields affects the shared object; reassigning the parameter doesn’t affect caller’s variable.
+This confuses many candidates—practice with diagrams.
+
+### 6. What are varargs (\`String... args\`)?
+**Answer:** Syntactic sugar for an array parameter; caller can pass zero or more arguments.
+Must be last in the parameter list.
+
+### 7. What is recursion and what risks does it pose?
+**Answer:** Method calls itself with a smaller problem; risks \`StackOverflowError\` if base case missing or depth huge.
+Iterative or tail-call friendly designs may be preferred.
+
+### 8. Scenario: you need to share expensive read-only data across calls—what options relate to methods?
+**Answer:** Pass references to immutable objects, use static final configuration, or cache with thread-safe structures.
+Avoid recreating large objects per call.
+
+### 9. What is the difference between static and instance methods?
+**Answer:** Static methods belong to the class and cannot access instance fields directly; instance methods run on \`this\`.
+Utility methods are often static when stateless.
+
+### 10. How do exceptions affect method contracts?
+**Answer:** Checked exceptions appear in \`throws\` clauses; callers must handle or declare; runtime exceptions can propagate without declaration.
+API design balances checked vs unchecked carefully.
+
 `,
   code: `// Methods Demo - Understanding Java methods
 

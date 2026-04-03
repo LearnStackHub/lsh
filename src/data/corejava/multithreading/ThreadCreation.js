@@ -232,6 +232,51 @@ catch (InterruptedException e) {
     Thread.currentThread().interrupt();
 }
 \`\`\`
+
+---
+
+## 10 Important Thread Creation Interview Questions
+
+### 1. What are two ways to create a thread?
+**Answer:** Extend \`Thread\` (less flexible) or implement \`Runnable\`/\`Callable\` and pass to \`new Thread(runnable)\`—prefer composition over extending Thread.
+Callable returns value and throws checked exceptions via \`Future\`.
+
+### 2. Why prefer \`Runnable\` over extending \`Thread\`?
+**Answer:** Separation of task from scheduling—same runnable can run on executors—inheritance not wasted on Thread.
+Better OOP.
+
+### 3. What is \`ExecutorService\` vs raw \`Thread\`?
+**Answer:** Pools reuse threads, queue tasks, handle lifecycle—raw threads are low-level—always use executors in apps.
+\`Executors\` factory methods with caution—bounded queues preferred.
+
+### 4. How do you stop a thread safely?
+**Answer:** Cooperative cancellation via \`volatile\` flag or interrupt—\`stop()\` deprecated unsafe.
+Interrupt blocking IO and waits to wake threads.
+
+### 5. Scenario: fire-and-forget logging thread—what’s wrong with endless new Thread per log?
+**Answer:** Resource exhaustion—use async appenders backed by bounded queues and thread pools.
+Logging libraries handle this.
+
+### 6. What is \`Callable\` and \`Future\`?
+**Answer:** Callable returns result; Future.get blocks for completion—timeouts prevent hangs.
+\`ExecutorService.submit\` returns Future.
+
+### 7. Can you start a thread twice?
+**Answer:** No—\`IllegalThreadStateException\`—create new Thread instance to rerun task.
+Thread object state machine enforces this.
+
+### 8. What is thread naming and why set it?
+**Answer:** \`setName\` aids thread dumps and JFR—meaningful names for pool threads via factory.
+Debugging production issues faster.
+
+### 9. What is \`ThreadGroup\`—still relevant?
+**Answer:** Mostly legacy—security manager removed—limited use in modern code.
+Know for reading old systems.
+
+### 10. How do virtual threads change creation advice?
+**Answer:** Cheap enough per task for blocking IO—still use structured concurrency APIs when available—don’t block carrier threads with CPU work.
+JDK 21+ ecosystem shift.
+
 `,
   code: `// Thread Creation Demo
 

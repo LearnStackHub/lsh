@@ -275,6 +275,51 @@ public List<String> readLines(String filename) {
     return lines;
 }
 \`\`\`
+
+---
+
+## 10 Important try-catch-finally Interview Questions
+
+### 1. Does \`finally\` always run?
+**Answer:** Almost always—even if \`try\` returns or throws—except JVM exit or infinite loop/thread death.
+Don’t return values from \`finally\`—overrides try/catch returns confusingly.
+
+### 2. What is try-with-resources?
+**Answer:** Auto-closes \`AutoCloseable\` resources—preferred over manual \`finally\` closes—suppresses close exceptions properly.
+Since Java 7.
+
+### 3. Can you have try-with-resources without catch?
+**Answer:** Yes—resources still close; exceptions propagate—often paired with \`throws\` on method.
+Cleaner than verbose finally.
+
+### 4. Scenario: closing JDBC Connection in finally—still needed with try-with-resources?
+**Answer:** Try-with-resources handles it—ensure JDBC 4+ drivers implement \`AutoCloseable\`.
+Legacy code may still show manual finally.
+
+### 5. What exception do you catch first—specific or general?
+**Answer:** Specific subclasses first—broader catches later—unreachable catch compile error if ordered wrong.
+Reflects recoverability tiers.
+
+### 6. What is exception translation?
+**Answer:** Catch low-level exception, wrap in domain exception, rethrow—preserves cause chain via \`initCause\` or constructor.
+Spring \`DataAccessException\` pattern.
+
+### 7. Can \`finally\` block throw?
+**Answer:** Yes—masks original exception from try—dangerous—keep finally minimal or catch within finally carefully.
+Suppressed exceptions mitigate in try-with-resources.
+
+### 8. What is multi-catch?
+**Answer:** \`catch (IOException | SQLException e)\`—single handler for disjoint types—must not be subclasses of each other.
+Reduces duplication.
+
+### 9. How does return in try interact with finally?
+**Answer:** Finally runs before return completes—finally’s return overrides try’s return value—avoid.
+Tricky interview puzzle.
+
+### 10. Why avoid empty catch blocks?
+**Answer:** Swallows errors silently—logging at minimum—even if “impossible.”
+Production incidents hide in empty catches.
+
 `,
   code: `// Try-Catch-Finally Demo
 
