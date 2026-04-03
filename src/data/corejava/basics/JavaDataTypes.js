@@ -163,7 +163,8 @@ byte → short → int → long → float → double
 
 \`\`\`java
 int myInt = 100;
-double myDouble = myInt;   // Automatic: 100 → 100.0 long myLong = myInt;       // Automatic: 100 → 100L  float myFloat = myInt;     // Automatic: 100 → 100.0f\`\`\`
+double myDouble = myInt;   // Automatic: 100 → 100.0 long myLong = myInt;       // Automatic: 100 → 100L  float myFloat = myInt;     // Automatic: 100 → 100.0f
+\`\`\`
 
 ### Manual (Narrowing) Conversion
 
@@ -303,7 +304,8 @@ System.out.println(a.add(b)); // 0.3 — correct
 long big = 3000000000;   // ERROR! Java thinks it's int — too large!
 long big = 3000000000L;  // CORRECT
 float f = 3.14;          // ERROR! Java sees 3.14 as double
-float f = 3.14f;         // CORRECT\`\`\`
+float f = 3.14f;         // CORRECT
+\`\`\`
 
 **4. Comparing floats with ==**
 \`\`\`java
@@ -311,7 +313,8 @@ double a = 0.1 + 0.2;
 double b = 0.3;
 System.out.println(a == b);  // false! Floating point imprecision
 // Fix:
-System.out.println(Math.abs(a - b) < 0.0001);  // true\`\`\`
+System.out.println(Math.abs(a - b) < 0.0001);  // true
+\`\`\`
 
 **5. Using == to compare Strings**
 \`\`\`java

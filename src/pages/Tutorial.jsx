@@ -731,6 +731,100 @@ function Tutorial() {
 
   const isJspTopic = topicId.startsWith('jsp-');
 
+  const tutorialInteractiveShowcases = (
+    <>
+      {topicId === 'java-introduction' && <JavaIntroductionShowcase />}
+      {topicId === 'java-features' && <JavaFeaturesShowcase />}
+      {topicId === 'java-syntax' && <JavaSyntaxShowcase />}
+      {topicId === 'java-variables' && <JavaVariablesShowcase />}
+      {topicId === 'java-operators' && <JavaOperatorsShowcase />}
+      {topicId === 'java-methods' && <JavaMethodsShowcase />}
+      {topicId === 'java-keywords' && <JavaKeywordsShowcase />}
+      {topicId === 'if-else' && <IfElseShowcase />}
+      {topicId === 'switch-statement' && <SwitchStatementShowcase />}
+      {topicId === 'for-loop' && <ForLoopShowcase />}
+      {topicId === 'while-loop' && <WhileLoopShowcase />}
+      {topicId === 'do-while-loop' && <DoWhileLoopShowcase />}
+      {topicId === 'break-continue' && <BreakContinueShowcase />}
+      {topicId === 'oops-introduction' && <OopsIntroductionShowcase />}
+      {topicId === 'classes-objects' && <ClassesObjectsShowcase />}
+      {topicId === 'constructors' && <ConstructorsShowcase />}
+      {topicId === 'inheritance' && <InheritanceShowcase />}
+      {topicId === 'polymorphism' && <PolymorphismShowcase />}
+      {topicId === 'abstraction' && <AbstractionShowcase />}
+      {topicId === 'encapsulation' && <EncapsulationShowcase />}
+      {topicId === 'interfaces' && <InterfacesShowcase />}
+      {topicId === 'string-introduction' && <StringIntroductionShowcase />}
+      {topicId === 'string-methods' && <StringMethodsShowcase />}
+      {topicId === 'string-buffer' && <StringBufferShowcase />}
+      {topicId === 'string-builder' && <StringBuilderShowcase />}
+      {topicId === 'array-introduction' && <ArrayIntroductionShowcase />}
+      {topicId === 'single-dimensional-array' && <SingleDimensionalArrayShowcase />}
+      {topicId === 'multi-dimensional-array' && <MultiDimensionalArrayShowcase />}
+      {topicId === 'array-methods' && <ArrayMethodsShowcase />}
+      {topicId === 'java-data-types' && <JavaDataTypesShowcase />}
+      {topicId === 'java-environment-setup' && <JavaEnvironmentSetupShowcase />}
+      {topicId === 'exception-introduction' && <ExceptionIntroductionShowcase />}
+      {topicId === 'try-catch-finally' && <TryCatchFinallyShowcase />}
+      {topicId === 'throw-throws' && <ThrowThrowsShowcase />}
+      {topicId === 'custom-exceptions' && <CustomExceptionsShowcase />}
+      {topicId === 'global-exception-handling' && <GlobalExceptionHandlingShowcase />}
+      {topicId === 'collection-introduction' && <CollectionIntroductionShowcase />}
+      {topicId === 'list-interface' && <ListInterfaceShowcase />}
+      {topicId === 'set-interface' && <SetInterfaceShowcase />}
+      {topicId === 'map-interface' && <MapInterfaceShowcase />}
+      {topicId === 'queue-interface' && <QueueInterfaceShowcase />}
+      {topicId === 'synchronization' && <SynchronizationShowcase />}
+      {topicId === 'serialization' && <SerializationShowcase />}
+      {topicId === 'thread-introduction' && <ThreadIntroductionShowcase />}
+      {topicId === 'thread-creation' && <ThreadCreationShowcase />}
+      {topicId === 'thread-lifecycle' && <ThreadLifecycleShowcase />}
+      {topicId === 'thread-methods' && <ThreadMethodsShowcase />}
+      {topicId === 'spring-boot-introduction' && <SpringBootIntroductionShowcase />}
+      {topicId === 'spring-boot-project-setup' && <SpringBootProjectSetupShowcase />}
+      {topicId === 'spring-boot-configuration' && <SpringBootConfigurationShowcase />}
+      {topicId === 'spring-boot-rest-api' && <SpringBootRestAPIShowcase />}
+      {topicId === 'spring-boot-jpa' && <SpringBootJPAShowcase />}
+      {topicId === 'spring-boot-exception-handling' && <SpringBootExceptionHandlingShowcase />}
+      {topicId === 'spring-boot-validation' && <SpringBootValidationShowcase />}
+      {topicId === 'spring-boot-security' && <SpringBootSecurityShowcase />}
+      {topicId === 'spring-boot-smtp' && <SpringBootSMTPShowcase />}
+      {topicId === 'spring-boot-postman-swagger' && <SpringBootPostmanSwaggerShowcase />}
+      {topicId === 'spring-boot-testing' && <SpringBootTestingShowcase />}
+      {topicId === 'spring-boot-deployment' && <SpringBootDeploymentShowcase />}
+      {topicId === 'spring-boot-actuator' && <SpringBootActuatorShowcase />}
+      {topicId === 'spring-boot-interview-questions' && <SpringBootInterviewQuestionsShowcase />}
+      {topicId === 'spring-introduction' && <SpringFrameworkIntroductionShowcase />}
+      {topicId === 'spring-ioc' && <SpringFrameworkIOCShowcase />}
+      {topicId === 'spring-di' && <SpringFrameworkDIShowcase />}
+      {topicId === 'spring-bean' && <SpringFrameworkBeanShowcase />}
+      {topicId === 'spring-applicationcontext' && <SpringFrameworkApplicationContextShowcase />}
+      {topicId === 'spring-configuration-xml' && <SpringFrameworkConfigurationXmlShowcase />}
+      {topicId === 'spring-configuration-annotation' && <SpringFrameworkConfigurationAnnotationShowcase />}
+      {topicId === 'spring-mvc-dispatcherservlet' && <SpringFrameworkDispatcherServletShowcase />}
+      {topicId === 'spring-mvc-controller' && <SpringFrameworkMVCControllerShowcase />}
+      {topicId === 'spring-mvc-viewresolver' && <SpringFrameworkMVCViewResolverShowcase />}
+      {topicId === 'spring-mvc-modelandview' && <SpringFrameworkMVCModelAndViewShowcase />}
+      {topicId === 'spring-project-login-student-crud' && <SpringFrameworkProjectCrudShowcase />}
+      {topicId === 'spring-data-introduction' && <SpringFrameworkDataIntroductionShowcase />}
+      {topicId === 'spring-data-repository-architecture' && <SpringFrameworkDataRepositoryArchitectureShowcase />}
+      {topicId === 'spring-jdbc-template' && <SpringFrameworkJdbcTemplateShowcase />}
+      {topicId === 'spring-data-custom-queries' && <SpringFrameworkDataCustomQueriesShowcase />}
+      {topicId === 'spring-aop-introduction' && <SpringFrameworkAOPIntroductionShowcase />}
+      {topicId === 'spring-aop-advanced-pointcuts' && <SpringFrameworkAOPAdvancedPointcutsShowcase />}
+      {topicId === 'spring-aop-custom-annotations' && <SpringFrameworkAOPCustomAnnotationsShowcase />}
+      {topicId === 'spring-aop-aspect-ordering' && <SpringFrameworkAOPAspectOrderingShowcase />}
+      {topicId === 'spring-aop-spring-boot' && <SpringFrameworkAOPWithSpringBootShowcase />}
+      {topicId === 'spring-interview-questions' && <SpringFrameworkInterviewQuestionsShowcase />}
+      {JDBC_SHOWCASE_TOPIC_IDS.has(topicId) && <JdbcShowcaseRouter topicId={topicId} />}
+      {SERVLET_SHOWCASE_TOPIC_IDS.has(topicId) && <ServletShowcaseRouter topicId={topicId} />}
+      {JSP_SHOWCASE_TOPIC_IDS.has(topicId) && <JspShowcaseRouter topicId={topicId} />}
+      {HIBERNATE_SHOWCASE_TOPIC_IDS.has(topicId) && <HibernateShowcaseRouter topicId={topicId} />}
+      {SPRING_CLOUD_SHOWCASE_TOPIC_IDS.has(topicId) && <SpringCloudShowcaseRouter topicId={topicId} />}
+      {HTTP_SHOWCASE_TOPIC_IDS.has(topicId) && <HttpShowcaseRouter topicId={topicId} />}
+    </>
+  );
+
   return (
     <div className={`tutorial-page fade-in${isMysqlTopic ? ' tutorial-page--mysql' : ''}${isJspTopic ? ' tutorial-page--jsp' : ''}${isJdbcTopic ? ' tutorial-page--jdbc' : ''}`}>
       <SEOHead topicId={topicId} />
@@ -802,96 +896,23 @@ function Tutorial() {
             <strong>10 topic-specific interview questions with full explanatory answers</strong>. Scroll near the end of the lesson or search for <strong>Interview Questions</strong> to jump directly.
           </div>
         )}
-        {topicId === 'java-introduction' && <JavaIntroductionShowcase />}
-        {topicId === 'java-features' && <JavaFeaturesShowcase />}
-        {topicId === 'java-syntax' && <JavaSyntaxShowcase />}
-        {topicId === 'java-variables' && <JavaVariablesShowcase />}
-        {topicId === 'java-operators' && <JavaOperatorsShowcase />}
-        {topicId === 'java-methods' && <JavaMethodsShowcase />}
-        {topicId === 'java-keywords' && <JavaKeywordsShowcase />}
-        {topicId === 'if-else' && <IfElseShowcase />}
-        {topicId === 'switch-statement' && <SwitchStatementShowcase />}
-        {topicId === 'for-loop' && <ForLoopShowcase />}
-        {topicId === 'while-loop' && <WhileLoopShowcase />}
-        {topicId === 'do-while-loop' && <DoWhileLoopShowcase />}
-        {topicId === 'break-continue' && <BreakContinueShowcase />}
-        {topicId === 'oops-introduction' && <OopsIntroductionShowcase />}
-        {topicId === 'classes-objects' && <ClassesObjectsShowcase />}
-        {topicId === 'constructors' && <ConstructorsShowcase />}
-        {topicId === 'inheritance' && <InheritanceShowcase />}
-        {topicId === 'polymorphism' && <PolymorphismShowcase />}
-        {topicId === 'abstraction' && <AbstractionShowcase />}
-        {topicId === 'encapsulation' && <EncapsulationShowcase />}
-        {topicId === 'interfaces' && <InterfacesShowcase />}
-        {topicId === 'string-introduction' && <StringIntroductionShowcase />}
-        {topicId === 'string-methods' && <StringMethodsShowcase />}
-        {topicId === 'string-buffer' && <StringBufferShowcase />}
-        {topicId === 'string-builder' && <StringBuilderShowcase />}
-        {topicId === 'array-introduction' && <ArrayIntroductionShowcase />}
-        {topicId === 'single-dimensional-array' && <SingleDimensionalArrayShowcase />}
-        {topicId === 'multi-dimensional-array' && <MultiDimensionalArrayShowcase />}
-        {topicId === 'array-methods' && <ArrayMethodsShowcase />}
-        {topicId === 'java-data-types' && <JavaDataTypesShowcase />}
-        {topicId === 'java-environment-setup' && <JavaEnvironmentSetupShowcase />}
-        {topicId === 'exception-introduction' && <ExceptionIntroductionShowcase />}
-        {topicId === 'try-catch-finally' && <TryCatchFinallyShowcase />}
-        {topicId === 'throw-throws' && <ThrowThrowsShowcase />}
-        {topicId === 'custom-exceptions' && <CustomExceptionsShowcase />}
-        {topicId === 'global-exception-handling' && <GlobalExceptionHandlingShowcase />}
-        {topicId === 'collection-introduction' && <CollectionIntroductionShowcase />}
-        {topicId === 'list-interface' && <ListInterfaceShowcase />}
-        {topicId === 'set-interface' && <SetInterfaceShowcase />}
-        {topicId === 'map-interface' && <MapInterfaceShowcase />}
-        {topicId === 'queue-interface' && <QueueInterfaceShowcase />}
-        {topicId === 'synchronization' && <SynchronizationShowcase />}
-        {topicId === 'serialization' && <SerializationShowcase />}
-        {topicId === 'thread-introduction' && <ThreadIntroductionShowcase />}
-        {topicId === 'thread-creation' && <ThreadCreationShowcase />}
-        {topicId === 'thread-lifecycle' && <ThreadLifecycleShowcase />}
-        {topicId === 'thread-methods' && <ThreadMethodsShowcase />}
-        {topicId === 'spring-boot-introduction' && <SpringBootIntroductionShowcase />}
-        {topicId === 'spring-boot-project-setup' && <SpringBootProjectSetupShowcase />}
-        {topicId === 'spring-boot-configuration' && <SpringBootConfigurationShowcase />}
-        {topicId === 'spring-boot-rest-api' && <SpringBootRestAPIShowcase />}
-        {topicId === 'spring-boot-jpa' && <SpringBootJPAShowcase />}
-        {topicId === 'spring-boot-exception-handling' && <SpringBootExceptionHandlingShowcase />}
-        {topicId === 'spring-boot-validation' && <SpringBootValidationShowcase />}
-        {topicId === 'spring-boot-security' && <SpringBootSecurityShowcase />}
-        {topicId === 'spring-boot-smtp' && <SpringBootSMTPShowcase />}
-        {topicId === 'spring-boot-postman-swagger' && <SpringBootPostmanSwaggerShowcase />}
-        {topicId === 'spring-boot-testing' && <SpringBootTestingShowcase />}
-        {topicId === 'spring-boot-deployment' && <SpringBootDeploymentShowcase />}
-        {topicId === 'spring-boot-actuator' && <SpringBootActuatorShowcase />}
-        {topicId === 'spring-boot-interview-questions' && <SpringBootInterviewQuestionsShowcase />}
-        {topicId === 'spring-introduction' && <SpringFrameworkIntroductionShowcase />}
-        {topicId === 'spring-ioc' && <SpringFrameworkIOCShowcase />}
-        {topicId === 'spring-di' && <SpringFrameworkDIShowcase />}
-        {topicId === 'spring-bean' && <SpringFrameworkBeanShowcase />}
-        {topicId === 'spring-applicationcontext' && <SpringFrameworkApplicationContextShowcase />}
-        {topicId === 'spring-configuration-xml' && <SpringFrameworkConfigurationXmlShowcase />}
-        {topicId === 'spring-configuration-annotation' && <SpringFrameworkConfigurationAnnotationShowcase />}
-        {topicId === 'spring-mvc-dispatcherservlet' && <SpringFrameworkDispatcherServletShowcase />}
-        {topicId === 'spring-mvc-controller' && <SpringFrameworkMVCControllerShowcase />}
-        {topicId === 'spring-mvc-viewresolver' && <SpringFrameworkMVCViewResolverShowcase />}
-        {topicId === 'spring-mvc-modelandview' && <SpringFrameworkMVCModelAndViewShowcase />}
-        {topicId === 'spring-project-login-student-crud' && <SpringFrameworkProjectCrudShowcase />}
-        {topicId === 'spring-data-introduction' && <SpringFrameworkDataIntroductionShowcase />}
-        {topicId === 'spring-data-repository-architecture' && <SpringFrameworkDataRepositoryArchitectureShowcase />}
-        {topicId === 'spring-jdbc-template' && <SpringFrameworkJdbcTemplateShowcase />}
-        {topicId === 'spring-data-custom-queries' && <SpringFrameworkDataCustomQueriesShowcase />}
-        {topicId === 'spring-aop-introduction' && <SpringFrameworkAOPIntroductionShowcase />}
-        {topicId === 'spring-aop-advanced-pointcuts' && <SpringFrameworkAOPAdvancedPointcutsShowcase />}
-        {topicId === 'spring-aop-custom-annotations' && <SpringFrameworkAOPCustomAnnotationsShowcase />}
-        {topicId === 'spring-aop-aspect-ordering' && <SpringFrameworkAOPAspectOrderingShowcase />}
-        {topicId === 'spring-aop-spring-boot' && <SpringFrameworkAOPWithSpringBootShowcase />}
-        {topicId === 'spring-interview-questions' && <SpringFrameworkInterviewQuestionsShowcase />}
-        {JDBC_SHOWCASE_TOPIC_IDS.has(topicId) && <JdbcShowcaseRouter topicId={topicId} />}
-        {SERVLET_SHOWCASE_TOPIC_IDS.has(topicId) && <ServletShowcaseRouter topicId={topicId} />}
-        {JSP_SHOWCASE_TOPIC_IDS.has(topicId) && <JspShowcaseRouter topicId={topicId} />}
-        {HIBERNATE_SHOWCASE_TOPIC_IDS.has(topicId) && <HibernateShowcaseRouter topicId={topicId} />}
-        {SPRING_CLOUD_SHOWCASE_TOPIC_IDS.has(topicId) && <SpringCloudShowcaseRouter topicId={topicId} />}
-        {HTTP_SHOWCASE_TOPIC_IDS.has(topicId) && <HttpShowcaseRouter topicId={topicId} />}
-        {renderContent(currentTopic.content)}
+        {isCoreJavaTopic && (
+          <div className="jdbc-interview-notice" role="note">
+            <strong>Interview prep on this page:</strong> each Core Java lesson includes{' '}
+            <strong>10 important interview questions with full answers</strong> in the article below. The full lesson text (including Q&amp;A) appears first; interactive code showcases follow after. Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
+          </div>
+        )}
+        {isCoreJavaTopic ? (
+          <>
+            {renderContent(currentTopic.content)}
+            {tutorialInteractiveShowcases}
+          </>
+        ) : (
+          <>
+            {tutorialInteractiveShowcases}
+            {renderContent(currentTopic.content)}
+          </>
+        )}
         
         {/* Internal Links Section */}
         <InternalLinks 
