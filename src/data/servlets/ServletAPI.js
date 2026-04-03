@@ -489,7 +489,41 @@ Now that you understand the Servlet API, you're ready to explore advanced servle
 - **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
 
 The Servlet API is the foundation of Java web development. Continue learning about [HttpServletRequest & Response](/tutorial/http-request-response) to master request handling.
-`,
+---
+
+## 10 Important Servlet API Interview Questions
+
+### 1. What is the Servlet API?
+**Answer:** A set of Java interfaces/classes to build server-side web components. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. Core hierarchy in servlet API?
+**Answer:** Servlet -> GenericServlet -> HttpServlet. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. Why use HttpServlet most often?
+**Answer:** It provides HTTP method handlers and convenient defaults. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. What are ServletRequest and ServletResponse?
+**Answer:** Protocol-agnostic base interfaces for incoming request and outgoing response. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. What are HTTP-specific request/response types?
+**Answer:** HttpServletRequest and HttpServletResponse. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. What is RequestDispatcher used for?
+**Answer:** Forwarding requests or including resources on server side. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. What is ServletException?
+**Answer:** Exception type used for servlet-related processing and lifecycle errors. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Difference between GenericServlet and HttpServlet?
+**Answer:** GenericServlet is protocol-independent; HttpServlet is HTTP-focused. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Is Servlet API only about request handling?
+**Answer:** No, it also includes sessions, context, config, filters, listeners, and async support. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Why should a Java developer know Servlet API?
+**Answer:** It is the low-level foundation behind major Java web frameworks. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// Servlet API Demo
 // Simulates core Servlet API components
 

@@ -488,7 +488,41 @@ Now that you understand session management, you're ready to explore advanced ser
 - **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
 
 Session management is essential for stateful web applications. Continue learning about [Servlet Security](/tutorial/servlet-security) to secure your sessions.
-`,
+---
+
+## 10 Important Session Management Interview Questions
+
+### 1. Why is session management needed in web apps?
+**Answer:** HTTP is stateless, so sessions preserve user state across multiple requests. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. What is HttpSession?
+**Answer:** A server-side store associated with a session ID (usually JSESSIONID). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. How is a session created?
+**Answer:** request.getSession() creates (or returns) current session. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. How do you store user data in a session?
+**Answer:** session.setAttribute("key", value) and retrieve with getAttribute. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Difference between session timeout and manual invalidation?
+**Answer:** Timeout expires automatically; session.invalidate() immediately destroys session. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. What is URL rewriting in session tracking?
+**Answer:** Appends session ID to URL when cookies are disabled. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Session vs cookie in one line?
+**Answer:** Session data is server-side; cookie data is stored on client browser. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. How to prevent session fixation?
+**Answer:** Regenerate session after login and invalidate old session ID. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Where should sensitive data be stored?
+**Answer:** Prefer server-side session or DB; avoid storing sensitive values in plain cookies. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Common production issue with sessions?
+**Answer:** Memory leaks from oversized session objects and missing session cleanup. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// Session Management Demo
 // Simulates servlet session behavior
 

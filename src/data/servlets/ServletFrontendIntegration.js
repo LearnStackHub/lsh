@@ -740,7 +740,41 @@ String safeOutput = escapeHtml(userInput);
 - CSS files are static resources in \`WebContent/\`
 
 This is the foundation of all web applications - HTML/CSS for presentation, Servlets for processing!
-`,
+---
+
+## 10 Important Servlet Frontend Integration Interview Questions
+
+### 1. How does HTML form data reach a servlet?
+**Answer:** Form action URL maps to servlet endpoint; browser submits via GET/POST. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. Why is POST preferred for login and registration?
+**Answer:** Sensitive data should not be exposed in URL query strings. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. How to read submitted form values?
+**Answer:** Use request.getParameter("fieldName"). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. Where should input validation happen?
+**Answer:** On both client-side (UX) and server-side (security/integrity). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Servlet generating HTML vs forwarding to JSP?
+**Answer:** JSP/templating is cleaner for UI; servlet should focus on controller logic. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. How to show validation errors back on page?
+**Answer:** Set request attributes and forward back to view/JSP for rendering. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. How does CSS fit in servlet apps?
+**Answer:** Static assets are served separately while servlet handles dynamic processing. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. How do redirects differ from forwards in frontend flow?
+**Answer:** Redirect changes browser URL/new request; forward keeps same request internally. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Typical security risk in form integration?
+**Answer:** Missing validation/escaping causing XSS, injection, and broken auth flows. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Interview-ready architecture statement?
+**Answer:** “Use servlet as controller, service layer for logic, and view layer for presentation.” In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// HTML/CSS Frontend with Servlets - Complete Integration
 // This shows how HTML forms connect with Servlet classes
 

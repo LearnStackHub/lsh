@@ -581,7 +581,41 @@ Now that you understand HttpServletRequest and HttpServletResponse, you're ready
 - **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
 
 Request and response handling is the core of servlet development. Continue learning about [Session Management](/tutorial/session-management) to maintain user state.
-`,
+---
+
+## 10 Important HttpServletRequest & HttpServletResponse Interview Questions
+
+### 1. What does HttpServletRequest represent?
+**Answer:** The incoming client request: params, headers, cookies, URI, method, and body. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. What does HttpServletResponse represent?
+**Answer:** The outgoing server response: status code, headers, cookies, and body. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. How do you read query/form parameters?
+**Answer:** Use request.getParameter() and getParameterValues() for multi-values. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. Difference between sendRedirect and forward?
+**Answer:** Redirect is client-side new request; forward is server-side internal dispatch. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. How do you set response type?
+**Answer:** Use response.setContentType("text/html") or JSON MIME type before writing output. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. How to set HTTP status code?
+**Answer:** Use response.setStatus(...) or sendError(...). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. How are headers read and written?
+**Answer:** Read from request.getHeader(...), write using response.setHeader(...). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. How do you handle file download response?
+**Answer:** Set content type, Content-Disposition, and stream bytes via response output stream. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Where should request validation happen?
+**Answer:** Immediately in servlet/service layer before business operations. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Why are request/response fundamentals critical?
+**Answer:** Every servlet operation is built on correct request parsing and response construction. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// HttpServletRequest & Response Demo
 // Simulates HTTP request/response handling
 

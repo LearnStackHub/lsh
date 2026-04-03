@@ -256,6 +256,41 @@ public class StatementExample {
 ## Test Your Knowledge
 
 Mastered Statement interface? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering Statement, PreparedStatement, and all JDBC topics!
+---
+
+
+## 10 Important Statement Interface Interview Questions
+
+### 1. What is the Statement interface in JDBC?
+**Answer:** Statement is the basic JDBC interface used to execute static SQL strings against the database. It supports query, update, and generic execution methods. It is useful for simple trusted SQL but less safe for user input.
+
+### 2. What is the difference between executeQuery, executeUpdate, and execute?
+**Answer:** executeQuery is for SELECT and returns ResultSet, executeUpdate is for INSERT/UPDATE/DELETE and returns affected row count, and execute handles mixed/unknown SQL types. Choosing the right method improves clarity and reduces bugs.
+
+### 3. Why is Statement risky with dynamic user input?
+**Answer:** Building SQL with string concatenation enables SQL injection and can break queries on escaping issues. This is why PreparedStatement is preferred for user-provided values. Interviewers expect this security distinction immediately.
+
+### 4. When is Statement still acceptable?
+**Answer:** It is acceptable for fixed, internal SQL where no user input is concatenated and query text is static. Examples include admin scripts or metadata queries. Even then, teams often standardize on PreparedStatement for consistency.
+
+### 5. How does batching work with Statement?
+**Answer:** addBatch and executeBatch allow multiple SQL statements to be sent together, reducing round-trips and improving throughput. Proper error handling is needed because partial failures can happen. Batch usage should align with transaction strategy.
+
+### 6. What Statement configuration options matter in practice?
+**Answer:** Fetch size, query timeout, result set type/concurrency, and max rows can influence behavior and performance. Misconfiguration can cause memory pressure or unexpected locking. Interviewers like concrete examples of trade-offs.
+
+### 7. How does Statement interact with transactions?
+**Answer:** Statement execution participates in the current connection transaction context. With auto-commit off, multiple statements can be committed or rolled back together. This is essential for consistent multi-step updates.
+
+### 8. What are common Statement-related performance issues?
+**Answer:** Repeated parsing of SQL, too many round-trips, and non-batched operations can hurt performance. PreparedStatement caching and batching usually provide better results under load. Mentioning DB-side indexing completes the performance picture.
+
+### 9. What are best practices when using Statement?
+**Answer:** Use only for trusted static SQL, close resources quickly, set sensible timeouts, and log failures with context. Avoid string-built user queries entirely. These practices reduce both security and reliability risks.
+
+### 10. How do you compare Statement vs PreparedStatement in interviews?
+**Answer:** Statement is simpler but less safe and less optimal for repeated parameterized operations. PreparedStatement is safer, clearer for parameters, and usually better for production workloads. This is the practical recommendation most teams follow.
+
 `,
   code: `// Statement Interface Demo
 // Demonstrates different execution methods and batch processing

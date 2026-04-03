@@ -7,6 +7,20 @@ export const generateSEOTitle = (topic) => {
   if (!topic) return 'LSH - LearnStackHub | Master Java Full Stack Development';
   
   const { title, courseTitle } = topic;
+  const sourceTitle = typeof title === 'string' ? title.trim() : '';
+  const sourceCourse = typeof courseTitle === 'string' ? courseTitle.trim() : '';
+  
+  const normalize = (value = '') =>
+    value
+      .toLowerCase()
+      .replace(/[|()[\]{}]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  
+  const toTitleCase = (value = '') =>
+    value.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
+  
+  const buildBrandTitle = (value) => `${value} | LearnStackHub`;
   
   // Map of topic titles to SEO-friendly long-tail keyword titles
   const seoTitles = {
@@ -278,24 +292,65 @@ export const generateSEOTitle = (topic) => {
     'Git Deployment & CI/CD': 'Git Deployment Tutorial - CI/CD Pipeline with Git',
   };
   
-  // Return SEO title if exists (case-insensitive match)
-  const titleKey = Object.keys(seoTitles).find(key => key.toLowerCase() === title.toLowerCase());
+  // Return SEO title if exact match exists (case-insensitive)
+  const normalizedTitle = normalize(sourceTitle);
+  const titleKey = Object.keys(seoTitles).find((key) => normalize(key) === normalizedTitle);
   if (titleKey) {
-    return seoTitles[titleKey];
+    return buildBrandTitle(seoTitles[titleKey].replace(/\s*\|\s*LSH\s*-\s*LearnStackHub\s*$/i, '').trim());
   }
   
-  // Generate SEO-friendly title with better fallback
-  const courseName = courseTitle || 'Java';
-  
-  // Remove common suffixes and create better title
-  let cleanTitle = title;
-  if (cleanTitle.endsWith(' Tutorial')) {
-    cleanTitle = cleanTitle.replace(' Tutorial', '');
+  // Fuzzy title match for near-identical headings
+  const fuzzyKey = Object.keys(seoTitles)
+    .filter((key) => {
+      const nk = normalize(key);
+      return normalizedTitle.includes(nk) || nk.includes(normalizedTitle);
+    })
+    .sort((a, b) => normalize(b).length - normalize(a).length)[0];
+  if (fuzzyKey) {
+    return buildBrandTitle(seoTitles[fuzzyKey].replace(/\s*\|\s*LSH\s*-\s*LearnStackHub\s*$/i, '').trim());
   }
   
-  // Generate long-tail keyword title with course context
-  // This ensures every page gets a unique, SEO-friendly title
-  return `${cleanTitle} Tutorial - ${courseName} with Examples & Code | LSH - LearnStackHub`;
+  // Intent-based title generation for stronger search alignment
+  const courseName = sourceCourse || 'Java';
+  const baseCourseName = courseName.replace(/\s*Tutorial\s*$/i, '').trim() || 'Java';
+  
+  let cleanTitle = sourceTitle
+    .replace(/\s*[-|:]\s*(Complete Guide|Step[- ]by[- ]Step Guide|Guide)\s*$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  
+  const lower = cleanTitle.toLowerCase();
+  const hasInterviewIntent = /\binterview\b/.test(lower);
+  const hasMcqIntent = /\bmcq\b|\bquiz\b|\bexam\b|\btest\b/.test(lower);
+  const hasSetupIntent = /\b(setup|installation|configure|configuration|project)\b/.test(lower);
+  const hasIntroIntent = /\bintroduction\b|\bwhat is\b/.test(lower);
+  
+  const ensureCourseInTitle = (value) => {
+    if (normalize(value).includes(normalize(baseCourseName))) return value;
+    return `${baseCourseName} ${value}`.trim();
+  };
+  
+  if (hasInterviewIntent) {
+    const interviewTopic = ensureCourseInTitle(cleanTitle.replace(/\s*[-:]\s*.*/, '').trim() || baseCourseName);
+    return buildBrandTitle(`${interviewTopic} Interview Questions and Answers (2026)`);
+  }
+  
+  if (hasMcqIntent) {
+    return buildBrandTitle(`${baseCourseName} MCQ Questions and Answers - Free Practice Test`);
+  }
+  
+  if (hasSetupIntent) {
+    const setupTopic = ensureCourseInTitle(cleanTitle);
+    return buildBrandTitle(`${setupTopic} Tutorial - Step-by-Step Setup with Examples`);
+  }
+  
+  if (hasIntroIntent) {
+    const introTopic = ensureCourseInTitle(cleanTitle.replace(/\bwhat is\b/gi, '').trim());
+    return buildBrandTitle(`${introTopic} Tutorial for Beginners with Real Examples`);
+  }
+  
+  const genericTopic = ensureCourseInTitle(cleanTitle || toTitleCase(baseCourseName));
+  return buildBrandTitle(`${genericTopic} Tutorial for Beginners with Examples`);
 };
 
 /**

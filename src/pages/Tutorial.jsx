@@ -170,6 +170,8 @@ function Tutorial() {
     : originalTopic;
 
   const isMysqlTopic = topicId.startsWith('mysql-');
+  const isServletTopic = topicId.startsWith('servlet-') || topicId === 'http-request-response' || topicId === 'session-management' || topicId === 'filters-listeners' || topicId === 'tomcat-server';
+  const isJdbcTopic = topicId.startsWith('jdbc-') || topicId === 'transaction-management' || topicId === 'crud-operations' || topicId === 'statement-interface' || topicId === 'preparedstatement-interface' || topicId === 'resultset-interface';
 
   const navigation = getNavigation(topicId);
   const fallbackLastUpdated = '2026-03-27';
@@ -205,11 +207,11 @@ function Tutorial() {
   const lastUpdatedDisplay = formatDate(lastUpdatedRaw);
 
   useEffect(() => {
-    if (currentTopic?.code && !isMysqlTopic) {
+    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic) {
       setEditorCode(currentTopic.code);
       setOutput('Click "Run Code" to execute your code');
     }
-  }, [currentTopic, isMysqlTopic]);
+  }, [currentTopic, isMysqlTopic, isServletTopic, isJdbcTopic]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -268,7 +270,7 @@ function Tutorial() {
 
   // Lazy load CodeMirror only when code editor is needed (saves 100KB initial load)
   useEffect(() => {
-    if (currentTopic?.code && !isMysqlTopic && !CodeMirrorComponent) {
+    if (currentTopic?.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && !CodeMirrorComponent) {
       Promise.all([
         import('@uiw/react-codemirror'),
         import('@codemirror/lang-java')
@@ -277,7 +279,7 @@ function Tutorial() {
         setJavaLang(() => javaModule.java);
       });
     }
-  }, [currentTopic?.code, isMysqlTopic, CodeMirrorComponent]);
+  }, [currentTopic?.code, isMysqlTopic, isServletTopic, isJdbcTopic, CodeMirrorComponent]);
 
   const onChange = useCallback((value) => {
     setEditorCode(value);
@@ -693,7 +695,7 @@ function Tutorial() {
   const isJspTopic = topicId.startsWith('jsp-');
 
   return (
-    <div className={`tutorial-page fade-in${isMysqlTopic ? ' tutorial-page--mysql' : ''}${isJspTopic ? ' tutorial-page--jsp' : ''}`}>
+    <div className={`tutorial-page fade-in${isMysqlTopic ? ' tutorial-page--mysql' : ''}${isJspTopic ? ' tutorial-page--jsp' : ''}${isJdbcTopic ? ' tutorial-page--jdbc' : ''}`}>
       <SEOHead topicId={topicId} />
       <StructuredData topicId={topicId} type="Article" />
       {/* Breadcrumb */}
@@ -708,7 +710,7 @@ function Tutorial() {
       </div>
 
       {/* Header */}
-      <div className={`tutorial-header${isMysqlTopic ? ' tutorial-header--mysql' : ''}${isJspTopic ? ' tutorial-header--jsp' : ''}`}>
+      <div className={`tutorial-header${isMysqlTopic ? ' tutorial-header--mysql' : ''}${isJspTopic ? ' tutorial-header--jsp' : ''}${isJdbcTopic ? ' tutorial-header--jdbc' : ''}`}>
         <div className="tutorial-header-top">
           <h1 className="tutorial-title">{generateSEOTitle(currentTopic)}</h1>
         </div>
@@ -744,7 +746,7 @@ function Tutorial() {
       </div>
 
       {/* Content */}
-      <div className={`tutorial-content${isMysqlTopic ? ' tutorial-content--mysql' : ''}${isJspTopic ? ' tutorial-content--jsp' : ''}`}>
+      <div className={`tutorial-content${isMysqlTopic ? ' tutorial-content--mysql' : ''}${isJspTopic ? ' tutorial-content--jsp' : ''}${isJdbcTopic ? ' tutorial-content--jdbc' : ''}`}>
         {isMysqlTopic && topicId !== 'mysql-mcq' && topicId !== 'mysql-interview-questions' && (
           <div className="mysql-interview-notice" role="note">
             <strong>Interview questions on this page:</strong> each MySQL lesson includes{' '}
@@ -755,6 +757,12 @@ function Tutorial() {
           <div className="jsp-interview-notice" role="note">
             <strong>Interview prep on this page:</strong> each JSP lesson ends with{' '}
             <strong>10 fresher-level interview Q&amp;As</strong> and a <strong>related tutorials</strong> table (with links). Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
+          </div>
+        )}
+        {isJdbcTopic && (
+          <div className="jdbc-interview-notice" role="note">
+            <strong>Interview prep on this page:</strong> each JDBC lesson includes{' '}
+            <strong>10 topic-specific interview questions with full explanatory answers</strong>. Scroll near the end of the lesson or search for <strong>Interview Questions</strong> to jump directly.
           </div>
         )}
         {topicId === 'java-introduction' && <JavaIntroductionShowcase />}
@@ -861,8 +869,8 @@ function Tutorial() {
         />
       </div>
 
-      {/* Code Example (Java tutorials only; MySQL uses SQL in the article body) */}
-      {currentTopic.code && !isMysqlTopic && (
+      {/* Code Example (Java tutorials only; MySQL/Servlet tracks use article body examples) */}
+      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && (
         <div className="code-block">
           <div className="code-header">
             <div className="code-language">
@@ -894,8 +902,8 @@ function Tutorial() {
         </div>
       )}
 
-      {/* Try It Yourself Editor (Java-only; MySQL lessons use static SQL examples) */}
-      {currentTopic.code && !isMysqlTopic && (
+      {/* Try It Yourself Editor (Java-only; MySQL/Servlet lessons use static in-article examples) */}
+      {currentTopic.code && !isMysqlTopic && !isServletTopic && !isJdbcTopic && (
         <div className="try-it-section">
           <div className="try-it-header">
             <div className="try-it-title">

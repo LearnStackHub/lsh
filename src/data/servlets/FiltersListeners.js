@@ -380,7 +380,41 @@ public class PerformanceFilter implements Filter {
     }
 }
 \`\`\`
-`,
+---
+
+## 10 Important Filters & Listeners Interview Questions
+
+### 1. What is a servlet filter?
+**Answer:** A component that intercepts requests/responses before or after servlet execution. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. Typical use cases for filters?
+**Answer:** Authentication, logging, CORS, compression, validation, and rate limiting. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. What is FilterChain?
+**Answer:** It passes control to next filter or target servlet via chain.doFilter(...). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. What happens if chain.doFilter is not called?
+**Answer:** Request processing stops; target servlet is never invoked. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. What is a listener in servlets?
+**Answer:** Event-driven component that reacts to app/session/request lifecycle events. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. Name common listener types.
+**Answer:** ServletContextListener, HttpSessionListener, and request attribute listeners. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Filter vs Listener difference?
+**Answer:** Filters handle request/response flow; listeners handle lifecycle/event callbacks. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Can filters modify request and response?
+**Answer:** Yes, directly or via wrapper classes before passing down the chain. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Why are filters important in architecture?
+**Answer:** They centralize cross-cutting concerns and keep servlet code cleaner. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Why are listeners useful in enterprise apps?
+**Answer:** They manage startup/shutdown tasks, monitoring, and session analytics hooks. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// Filters & Listeners Demo
 // Demonstrates request filtering and event handling
 

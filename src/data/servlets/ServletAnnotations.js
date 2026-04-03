@@ -497,7 +497,41 @@ Now that you understand servlet annotations, you're ready to explore advanced se
 - **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
 
 Servlet annotations modernize servlet development. Continue learning about [Filters & Listeners](/tutorial/filters-listeners) to master request interception.
-`,
+---
+
+## 10 Important Servlet Annotations Interview Questions
+
+### 1. Why are servlet annotations used?
+**Answer:** They replace much of XML config and keep mapping/config close to source code. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. What does @WebServlet do?
+**Answer:** Declares servlet metadata such as URL patterns and init params. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. How to map multiple URLs with annotations?
+**Answer:** Use @WebServlet(urlPatterns = {"/a", "/b"}). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. What is loadOnStartup in @WebServlet?
+**Answer:** It forces servlet initialization at server startup with priority order. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. What does @WebFilter provide?
+**Answer:** Annotation-based filter registration and URL mapping. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. What does @WebListener provide?
+**Answer:** Annotation-based registration for listener classes. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. When is XML still preferred over annotations?
+**Answer:** For centralized control, environment-specific overrides, or large legacy apps. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Can annotations and XML coexist?
+**Answer:** Yes, both can be used together in the same application. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Are annotations compile-time or runtime config?
+**Answer:** They are metadata read by container at deployment/runtime initialization. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Interview one-liner on annotations?
+**Answer:** “Use annotations for clean local config; use XML when centralized control is required.” In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// Servlet Annotations Demo
 // Demonstrates annotation-based configuration
 

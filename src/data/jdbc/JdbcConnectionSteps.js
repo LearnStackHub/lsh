@@ -279,6 +279,41 @@ public class DatabaseUtil {
 ## Test Your Knowledge
 
 Mastered JDBC connection steps? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering connection establishment, statements, and all JDBC topics!
+---
+
+
+## 10 Important JDBC Connection Steps Interview Questions
+
+### 1. What are the standard JDBC connection steps?
+**Answer:** The standard flow is load driver, create connection, create statement, execute SQL, process results, and close resources. Many people compress this mentally to five steps, but result processing and cleanup are equally critical. Interviewers expect lifecycle clarity from start to finish.
+
+### 2. Why is driver loading discussed even when auto-loading exists?
+**Answer:** Because troubleshooting older systems still requires understanding explicit loading behavior. If auto-discovery fails due to packaging issues, you need to reason about classpath and driver registration. This demonstrates practical debugging ability.
+
+### 3. What makes a good JDBC URL and connection configuration?
+**Answer:** A good configuration includes correct host/port/database, timezone/SSL options where needed, and credentials provided securely via environment config. Misconfigured URLs cause subtle runtime issues. Good answers mention both correctness and security.
+
+### 4. Why is try-with-resources important in the connection flow?
+**Answer:** It guarantees deterministic cleanup of Connection, Statement, and ResultSet, even during exceptions. This prevents leaks that can exhaust pool capacity in production. It is one of the highest-impact best practices in JDBC code.
+
+### 5. How do you handle connection failures in robust systems?
+**Answer:** Handle failures with clear error classification (network, auth, timeout), retries when appropriate, and useful logging for support teams. Blind retry loops are dangerous. A strong answer balances resilience with controlled behavior.
+
+### 6. Why should statements be created as late as possible?
+**Answer:** Creating statements only when needed reduces resource hold time and keeps transaction scopes cleaner. Long-lived statements can increase contention and memory footprint. Interviewers like when you discuss lifecycle minimization.
+
+### 7. What should happen immediately after query execution?
+**Answer:** You should process results carefully, map to domain objects, handle nulls/types correctly, and close result sets promptly. Data mapping errors are a frequent bug source. Strong answers include correctness and readability considerations.
+
+### 8. How does this flow change when using connection pooling?
+**Answer:** The coding flow is similar, but obtaining/closing a connection returns it to the pool instead of creating/destroying physical sockets each time. Pool settings then become central for throughput and latency. Mentioning this shows production awareness.
+
+### 9. What diagnostics help when JDBC connection steps fail?
+**Answer:** Useful diagnostics include SQL state/code, endpoint reachability, dependency verification, and DB-side logs. Clear context in logs shortens incident resolution time. Interviewers appreciate operational thinking here.
+
+### 10. How would you explain JDBC connection steps to a junior developer?
+**Answer:** Think of JDBC as a strict request lifecycle: connect, prepare, execute, read, and close safely every time. Following this pattern consistently avoids most beginner mistakes. This is the base habit that scales from small apps to enterprise services.
+
 `,
   code: `// JDBC Connection Steps Demo
 // Demonstrates the 5 steps to connect to a database

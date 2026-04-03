@@ -488,7 +488,41 @@ Now that you understand the servlet lifecycle, you're ready to explore advanced 
 - **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
 
 The servlet lifecycle is fundamental to understanding how servlets work. Continue learning about [ServletConfig & ServletContext](/tutorial/servlet-config) to master servlet configuration.
-`,
+---
+
+## 10 Important Servlet Lifecycle Interview Questions
+
+### 1. What are the main lifecycle methods of a servlet?
+**Answer:** init(), service() (or doGet/doPost), and destroy(). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. How many times is init() called?
+**Answer:** Once per servlet instance, after creation. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. How many times is destroy() called?
+**Answer:** Once, before the container unloads the servlet. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. When is service() called?
+**Answer:** For every incoming request mapped to that servlet. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Who controls lifecycle execution?
+**Answer:** The servlet container, not application code directly. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. Can lifecycle methods run concurrently?
+**Answer:** Request methods can run concurrently across threads; lifecycle init/destroy are controlled by container. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Where should expensive resource initialization happen?
+**Answer:** In init() (e.g., DB pools, caches, config loading). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Where should cleanup happen?
+**Answer:** In destroy() (close connections, stop schedulers, release resources). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. What is load-on-startup?
+**Answer:** It tells container to initialize servlet during startup instead of first request. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Why is servlet lifecycle important for interviews?
+**Answer:** It proves you understand performance, threading, resource management, and stability of web apps. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// Servlet Lifecycle Demo
 // Note: This is a simulation - actual servlets run in a container like Tomcat
 

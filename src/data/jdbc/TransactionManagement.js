@@ -311,6 +311,41 @@ public class OrderService {
 ## Test Your Knowledge
 
 Ready to test your transaction management skills? Take our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering ACID properties, commit, rollback, and isolation levels!
+---
+
+
+## 10 Important Transaction Management Interview Questions
+
+### 1. What is a transaction in JDBC?
+**Answer:** A transaction is a logical unit of work containing one or more SQL operations that must succeed or fail together. JDBC controls this at the Connection level. This guarantees consistency for multi-step business updates.
+
+### 2. What does auto-commit mean?
+**Answer:** Auto-commit means each SQL statement is committed immediately after execution. It is simple for independent operations but unsafe for dependent multi-step workflows. Turning it off is necessary for atomic business transactions.
+
+### 3. When should you disable auto-commit?
+**Answer:** Disable auto-commit when multiple operations must be treated as one business unit, such as money transfer or order placement. Then commit only after all steps succeed, otherwise rollback. This is a common interview scenario.
+
+### 4. What is rollback and why is it important?
+**Answer:** Rollback reverts all uncommitted changes in the current transaction after an error or validation failure. It prevents partial updates and protects data integrity. Robust systems always define clear rollback paths.
+
+### 5. What are savepoints and when do you use them?
+**Answer:** Savepoints are intermediate markers inside a transaction that let you roll back part of the work without discarding everything. They are useful in long workflows with optional steps. This provides finer-grained recovery control.
+
+### 6. What are transaction isolation levels?
+**Answer:** Isolation levels define how concurrent transactions see each other’s changes and control phenomena like dirty reads, non-repeatable reads, and phantom reads. Higher isolation improves correctness but may reduce concurrency. Choosing level is a business trade-off.
+
+### 7. Why are ACID properties important in interviews?
+**Answer:** ACID explains the guarantees transaction systems provide: atomicity, consistency, isolation, and durability. Interviewers use ACID to evaluate your conceptual depth in reliability and concurrency. Good answers tie ACID to practical examples.
+
+### 8. How do transaction boundaries affect application design?
+**Answer:** Boundaries should align with business operations, not arbitrary method calls. Incorrect boundaries cause lock contention, partial states, or long-running transactions. Clear boundaries improve correctness and throughput.
+
+### 9. What are common transaction management mistakes?
+**Answer:** Common mistakes include forgetting rollback in catch blocks, mixing unrelated work in one transaction, and holding transactions open during slow external calls. These mistakes hurt consistency and performance under load.
+
+### 10. How would you explain JDBC transaction management briefly?
+**Answer:** JDBC transaction management is explicit connection-level control of commit, rollback, savepoints, and isolation to guarantee consistent outcomes in concurrent systems. It is essential for financial, ordering, and inventory workflows where partial success is unacceptable.
+
 `,
   code: `// Transaction Management Demo
 // Demonstrates commit, rollback, and savepoints

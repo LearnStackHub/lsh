@@ -863,7 +863,43 @@ public class ServletBasicsDemo {
         
         System.out.println("Ready to build web apps with Java? Let's go!");
     }
-}`,
+}
+\`\`\`
+
+---
+
+## 10 Important Servlet Introduction Interview Questions
+
+### 1. What is a Servlet?
+**Answer:** A Servlet is a Java class that handles HTTP requests and produces dynamic HTTP responses on the server. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. What is a servlet container?
+**Answer:** It is the runtime (like Tomcat) that manages servlet lifecycle, URL mapping, threading, and request/response objects. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. Why extend HttpServlet instead of implementing Servlet directly?
+**Answer:** HttpServlet provides HTTP-specific methods (doGet, doPost, etc.) and reduces boilerplate. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. How does a servlet receive user input?
+**Answer:** Through request parameters, headers, cookies, and body content in HttpServletRequest. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Are servlets stateful by default?
+**Answer:** No. HTTP is stateless; state is maintained using sessions, cookies, or persistence layers. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. Is a servlet object created per request?
+**Answer:** No, usually one instance serves many concurrent requests using multiple threads. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Where are servlets used in enterprise apps?
+**Answer:** Authentication, form processing, API endpoints, file upload/download, and request routing. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. How are servlets configured?
+**Answer:** Using @WebServlet annotations or web.xml deployment descriptor mappings. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Servlet vs JSP in one line?
+**Answer:** Servlet is mainly controller/business logic; JSP is mainly view rendering. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Why learn servlets today?
+**Answer:** They are the foundation under modern Java web frameworks and help you understand request-processing internals. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+`,
   practiceQuestions: [
     {
       question: 'Create a simple Servlet that displays a welcome message',

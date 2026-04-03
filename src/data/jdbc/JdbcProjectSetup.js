@@ -698,6 +698,41 @@ For more JDBC patterns (CRUD, DAOs), see **[JDBC CRUD Operations](/tutorial/jdbc
 ## Test Your Knowledge
 
 JDBC project set up? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering project setup, drivers, connections, and all JDBC topics!
+---
+
+
+## 10 Important JDBC Project Setup Interview Questions
+
+### 1. What are the prerequisites for setting up a JDBC project?
+**Answer:** You need JDK, a database server, the correct JDBC driver dependency, and a build/runtime setup (IDE, Maven, or command line). Without matching driver/database versions, the application may compile but fail at runtime. This is why version alignment is a setup interview favorite.
+
+### 2. Why is dependency management important in JDBC project setup?
+**Answer:** Dependency management ensures the correct driver version is packaged and reproducible across environments. Tools like Maven avoid manual JAR drift and reduce classpath errors. Interviewers expect you to prefer managed builds over ad hoc copying of libraries.
+
+### 3. What is a common classpath issue during JDBC setup?
+**Answer:** A common issue is ClassNotFoundException or No suitable driver due to missing/incorrect driver JAR. This usually comes from wrong dependency scope, wrong artifact, or missing runtime path. A strong answer includes how to verify dependency resolution and startup logs.
+
+### 4. How does IDE setup differ from Maven setup in JDBC projects?
+**Answer:** IDE setup may work with manually added external JARs, but Maven setup provides portable and versioned dependency control for teams and CI. In interviews, mention that Maven is preferred for maintainability and consistency across developers.
+
+### 5. Why should configuration be externalized in JDBC apps?
+**Answer:** Database URL, username, password, and pool settings should be outside source code to support multiple environments safely. Hardcoded values cause security and deployment problems. External config also enables faster operations and safer credential rotation.
+
+### 6. What should a proper JDBC project structure include?
+**Answer:** A clean structure includes configuration, DAO/repository classes, model classes, service layer, and utility classes for connection handling. This separation keeps SQL centralized and testable. Interviewers often probe this to assess code organization maturity.
+
+### 7. How do you verify that JDBC setup is correct?
+**Answer:** Run a small connectivity test, execute a simple SELECT 1 query, and verify graceful close of resources. Also check logs for driver loading and DB connectivity latency. Verification should cover both correctness and operational visibility.
+
+### 8. What environment-specific setup challenges appear in teams?
+**Answer:** Teams often face different local DB ports, credentials, and OS-specific path issues. Containerized databases and shared config templates reduce these inconsistencies. Mentioning this shows practical team experience.
+
+### 9. Why is error handling important at setup stage itself?
+**Answer:** Setup-time errors provide early feedback for dependency, network, and credentials problems before business logic is implemented. Proper handling and clear messages speed up onboarding and debugging. Interviewers value proactive diagnostics.
+
+### 10. What is an interview-ready best-practice setup summary?
+**Answer:** Use managed dependencies, externalized config, environment-specific properties, quick connection health checks, and clear layering from day one. This keeps JDBC projects portable, secure, and easy to scale in teams. Good setup decisions prevent many runtime failures later.
+
   `,
   code: `// JDBC Project Setup Guide
 // This is a reference guide for JDBC project setup

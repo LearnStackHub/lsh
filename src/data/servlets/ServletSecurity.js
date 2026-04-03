@@ -373,7 +373,41 @@ public class InputValidator {
     }
 }
 \`\`\`
-`,
+---
+
+## 10 Important Servlet Security Interview Questions
+
+### 1. What are the core pillars of servlet security?
+**Answer:** Authentication, authorization, data protection, and input/output safety. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. Session security best practice after login?
+**Answer:** Regenerate session ID and set secure timeout to reduce session fixation risks. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. How to protect against SQL injection in servlet apps?
+**Answer:** Use prepared statements/ORM parameter binding; never concatenate user input. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. How to mitigate XSS in servlet responses?
+**Answer:** Validate input and HTML-escape untrusted output before rendering. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Why use HTTPS for servlet applications?
+**Answer:** Encrypts data in transit and protects credentials/session tokens. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. What is CSRF and basic defense?
+**Answer:** Unauthorized cross-site request execution; defend with anti-CSRF tokens and SameSite cookies. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Where should authorization checks happen?
+**Answer:** In filters/interceptors and service layer, not only in UI visibility. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. How can cookies be secured?
+**Answer:** Set HttpOnly, Secure, and appropriate SameSite attributes. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Why is centralized security filter useful?
+**Answer:** It enforces consistent security policy across all protected routes. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Common interview statement for servlet security?
+**Answer:** “I enforce layered security: validate input, secure session, check roles, and audit events.” In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// Servlet Security Demo
 // Demonstrates authentication, authorization, and security practices
 

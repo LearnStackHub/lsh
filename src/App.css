@@ -1763,6 +1763,95 @@ code {
   box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
 }
 
+/* JDBC course — page shell & prose (emerald / mint) */
+.tutorial-page--jdbc {
+  max-width: 920px;
+}
+
+.tutorial-header--jdbc {
+  border-bottom: none;
+  margin-bottom: 1.75rem;
+  padding: 1.2rem 1.35rem 1.45rem;
+  border-radius: 16px;
+  border: 1px solid rgba(5, 150, 105, 0.34);
+  background:
+    radial-gradient(ellipse 120% 80% at 0% 0%, rgba(16, 185, 129, 0.18), transparent 52%),
+    radial-gradient(ellipse 90% 70% at 100% 100%, rgba(45, 212, 191, 0.09), transparent 48%),
+    var(--bg-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 36px rgba(5, 150, 105, 0.14);
+}
+
+.tutorial-header--jdbc .tutorial-title {
+  color: #047857;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tutorial-header--jdbc .tutorial-meta {
+  color: var(--text-secondary);
+}
+
+.tutorial-header--jdbc .tutorial-meta svg {
+  color: #059669;
+  opacity: 0.95;
+}
+
+.tutorial-content--jdbc h1 {
+  border-bottom-color: #059669;
+  border-bottom-width: 3px;
+}
+
+.tutorial-content--jdbc h2 {
+  color: #047857;
+  border-left: 4px solid #10b981;
+  padding-left: 0.85rem;
+  margin-left: 0;
+}
+
+.tutorial-content--jdbc h3 {
+  color: var(--text-primary);
+}
+
+.tutorial-content--jdbc table {
+  border: 1px solid rgba(5, 150, 105, 0.24);
+  box-shadow: 0 10px 32px rgba(5, 150, 105, 0.12);
+}
+
+.tutorial-content--jdbc table thead tr:first-child th {
+  background: linear-gradient(90deg, #047857 0%, #059669 55%, #10b981 100%);
+  color: #ecfdf5;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.92rem;
+  border-bottom: none;
+}
+
+.tutorial-content--jdbc table tbody tr:hover td {
+  background: rgba(16, 185, 129, 0.09);
+}
+
+.tutorial-content--jdbc a {
+  color: #059669;
+  font-weight: 600;
+}
+
+.tutorial-content--jdbc a:hover {
+  color: #047857;
+}
+
+.tutorial-content--jdbc hr {
+  border: none;
+  border-top: 1px solid rgba(5, 150, 105, 0.24);
+  margin: 2.25rem 0;
+}
+
+.tutorial-content--jdbc pre {
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+}
+
 /* JSP — notice so readers find interview Q&A */
 .jsp-interview-notice {
   margin: 0 0 1.75rem;
@@ -7502,6 +7591,22 @@ code {
 
 .mysql-interview-notice strong {
   color: #0e7490;
+}
+
+/* JDBC — notice so readers find interview Q&A quickly */
+.jdbc-interview-notice {
+  margin: 0 0 1.75rem;
+  padding: 1rem 1.15rem;
+  border-radius: 12px;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.08) 100%);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.jdbc-interview-notice strong {
+  color: #047857;
 }
 
 /* MySQL tutorial showcases — teal / cyan (brand-adjacent to #00758F) */

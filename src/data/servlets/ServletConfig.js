@@ -564,7 +564,41 @@ Now that you understand ServletConfig and ServletContext, you're ready to explor
 - **[Web Development](/tutorial/web-development-introduction)**: Build complete web applications
 
 Configuration management is essential for maintainable servlet applications. Continue learning about [Servlet Annotations](/tutorial/servlet-annotations) to master modern servlet configuration.
-`,
+---
+
+## 10 Important ServletConfig & ServletContext Interview Questions
+
+### 1. What is ServletConfig?
+**Answer:** It stores initialization parameters specific to a single servlet. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. What is ServletContext?
+**Answer:** It is application-wide shared context for all servlets in the web app. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. Key difference between ServletConfig and ServletContext?
+**Answer:** Scope: servlet-level vs application-level. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. Where are ServletConfig params usually defined?
+**Answer:** In servlet annotation init params or init-param in web.xml. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Where are ServletContext params defined?
+**Answer:** In context-param entries in web.xml (or equivalent config). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. Can ServletContext share objects between servlets?
+**Answer:** Yes, using setAttribute/getAttribute, but thread safety must be handled. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Typical use of ServletConfig?
+**Answer:** Per-servlet values like page size, endpoint path, feature switch. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Typical use of ServletContext?
+**Answer:** App metadata, shared services, startup configuration, global resources. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Is ServletContext a good place for user session data?
+**Answer:** No. User-specific data belongs in HttpSession, not global context. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Why are these objects frequently asked in interviews?
+**Answer:** They test your understanding of scope, configuration design, and multi-servlet architecture. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+  `,
   code: `// ServletConfig & ServletContext Demo
 // Demonstrates configuration management in servlets
 

@@ -827,6 +827,41 @@ JDBC is the foundation of database connectivity in Java. Master JDBC fundamental
 ## Test Your Knowledge
 
 Ready to test your JDBC understanding? Take our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) with 20 randomly selected questions covering all JDBC topics. Perfect for practice and assessment!
+---
+
+
+## 10 Important JDBC Introduction Interview Questions
+
+### 1. What is JDBC and why is it important in Java development?
+**Answer:** JDBC is the standard Java API used to connect applications to relational databases and execute SQL. It is important because most enterprise systems need persistent data storage, and JDBC is the lowest-level, database-access foundation behind many frameworks. In interviews, a strong answer links JDBC to real flows such as login, order processing, and reporting.
+
+### 2. How does JDBC fit into a typical enterprise architecture?
+**Answer:** JDBC is usually used in the data access layer (DAO/repository) where SQL is executed and result rows are mapped to domain objects. Service layers call DAO methods, while controllers expose APIs or views. Explaining this separation shows you understand maintainable architecture, not just API calls.
+
+### 3. What are the core JDBC components a beginner should know first?
+**Answer:** The core pieces are Connection, Statement/PreparedStatement, ResultSet, DriverManager/DataSource, and SQLException handling. Each has a specific role in the execution lifecycle: connect, prepare, execute, read, and close. Interviewers look for this lifecycle clarity.
+
+### 4. What is the difference between Statement and PreparedStatement at a high level?
+**Answer:** Statement executes dynamic SQL strings, while PreparedStatement uses precompiled SQL with bind parameters. PreparedStatement is safer against SQL injection and better for repeated execution. In production systems, it is usually the default choice unless there is a specific reason not to use it.
+
+### 5. Why are resource management and closing important in JDBC?
+**Answer:** Unclosed connections, statements, and result sets can exhaust database resources and crash throughput under load. Proper closing with try-with-resources prevents leaks and keeps applications stable. Interviewers often ask this to check production-readiness mindset.
+
+### 6. What are common performance considerations in JDBC?
+**Answer:** Query design, indexing, batching, fetch size, network round-trips, and connection pooling all directly affect JDBC performance. Avoiding unnecessary object mapping and selecting only required columns also helps. Good answers mention measuring with logs/metrics instead of guessing.
+
+### 7. What security practices are essential when using JDBC?
+**Answer:** Use PreparedStatement for user input, never hardcode credentials, apply least-privilege DB users, and sanitize/validate input. You should also avoid exposing sensitive SQL errors directly to users. This demonstrates secure coding awareness beyond syntax.
+
+### 8. How does JDBC relate to ORM frameworks like Hibernate or JPA?
+**Answer:** ORM frameworks abstract SQL and mapping, but they ultimately use JDBC to communicate with the database driver. Understanding JDBC helps you debug ORM issues, tune performance, and reason about transaction boundaries. Interviewers value this foundational depth.
+
+### 9. What are common JDBC pitfalls in real projects?
+**Answer:** Frequent mistakes include string-concatenated SQL, missing transaction control, poor exception handling, and not using pooling. Another pitfall is ignoring slow query behavior in production data volumes. Mentioning both coding and operational pitfalls gives a complete answer.
+
+### 10. How would you summarize JDBC in one interview-ready statement?
+**Answer:** JDBC is Java’s core database connectivity API that enables secure, performant, and transactional SQL access from backend applications. It is foundational because even higher-level persistence tools rely on it. A good engineer knows both its API usage and production best practices.
+
 `,
   code: `// JDBC Basics Demo
 // This shows the fundamental concepts without needing a real database

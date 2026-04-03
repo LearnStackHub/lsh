@@ -266,6 +266,41 @@ try (Connection conn = DatabaseConfig.getConnection()) {
 ## Test Your Knowledge
 
 Mastered JDBC drivers? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering driver types, connections, and all JDBC topics!
+---
+
+
+## 10 Important JDBC Drivers Interview Questions
+
+### 1. What is a JDBC driver?
+**Answer:** A JDBC driver is the vendor implementation that translates JDBC API calls into database-specific protocol communication. Without the driver, Java cannot speak to the target database engine. This is why driver selection is a core JDBC concept.
+
+### 2. What are the four JDBC driver types?
+**Answer:** Type 1 (JDBC-ODBC bridge), Type 2 (native API), Type 3 (middleware), and Type 4 (pure Java direct-to-database). In modern systems, Type 4 is the standard due to portability and performance. Mentioning this historical context is often expected in interviews.
+
+### 3. Why are Type 4 drivers preferred today?
+**Answer:** Type 4 drivers are pure Java, easier to deploy, and avoid native middleware dependencies. They usually provide better performance and cleaner operational behavior in cloud/container environments. This directly reduces deployment complexity.
+
+### 4. What does “No suitable driver” typically mean?
+**Answer:** It usually means the driver class is missing, wrong dependency version is used, or JDBC URL does not match the driver format. The fix is to verify runtime classpath and URL correctness. This is one of the most common JDBC troubleshooting questions.
+
+### 5. How does driver loading work in modern JDBC?
+**Answer:** JDBC 4+ usually auto-loads drivers through service provider metadata when the JAR is present. Manual Class.forName is mostly legacy but still seen in older codebases. Knowing both helps in maintenance and debugging discussions.
+
+### 6. What should you compare when choosing a JDBC driver?
+**Answer:** Compare compatibility, stability, version support, performance characteristics, and security update cadence. Also evaluate vendor documentation and enterprise support quality. Interviewers like answers that include operational criteria, not only code criteria.
+
+### 7. How are JDBC URL formats related to drivers?
+**Answer:** Each driver expects a specific URL prefix and syntax (host, port, db name, options). Wrong format may silently fail or connect incorrectly. You should know your database-specific URL conventions and tuning flags.
+
+### 8. What are common production risks around drivers?
+**Answer:** Risks include unpatched vulnerabilities, incompatible upgrades, and subtle behavior changes across versions. Controlled upgrade testing and pinned dependency versions reduce these risks. This demonstrates release discipline.
+
+### 9. Do different drivers impact performance?
+**Answer:** Yes, driver implementations differ in protocol optimizations, metadata handling, and batching behavior. Performance differences become visible under high load and complex queries. You should benchmark in your own workload before final choice.
+
+### 10. How would you explain JDBC drivers in one line?
+**Answer:** JDBC drivers are database-vendor connectors that make Java’s standard JDBC calls executable against specific database engines. They are the runtime bridge between your application and actual data storage. Choosing and configuring them correctly is critical for reliability.
+
 `,
   code: `// JDBC Drivers Demo
 

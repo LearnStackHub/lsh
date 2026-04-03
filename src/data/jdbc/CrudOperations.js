@@ -341,6 +341,41 @@ public class UserDAO {
 ## Test Your Knowledge
 
 Mastered CRUD operations? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering all JDBC topics including CRUD operations!
+---
+
+
+## 10 Important CRUD Operations Interview Questions
+
+### 1. What does CRUD mean in JDBC context?
+**Answer:** CRUD stands for Create, Read, Update, and Delete database operations executed via SQL from Java code. It represents the core data access responsibilities in most backend systems. Interviewers use CRUD questions to test practical JDBC fluency.
+
+### 2. How should Create operations be implemented safely?
+**Answer:** Use PreparedStatement with parameter binding, validate inputs, and handle generated keys when needed. Safe insertion also includes proper error handling for constraint violations. This prevents both security and data integrity issues.
+
+### 3. What are best practices for Read operations?
+**Answer:** Select only required columns, use indexed filters, paginate large datasets, and map ResultSet carefully. Avoid SELECT * in production paths unless truly needed. Good answers include both query quality and mapping quality.
+
+### 4. What should be considered in Update operations?
+**Answer:** Updates should include clear predicates, validate affected row count, and optionally implement optimistic locking/version checks. Blind updates can overwrite concurrent changes. Interviewers like when you mention consistency control.
+
+### 5. What are common risks in Delete operations?
+**Answer:** Deletes can cause accidental data loss if predicates are wrong or too broad. Soft-delete patterns, foreign key awareness, and transaction boundaries reduce risk. Production-safe deletion is about control and recoverability.
+
+### 6. How do CRUD operations relate to DAO design?
+**Answer:** DAO methods should encapsulate SQL and return domain-focused results while keeping transaction boundaries explicit at service layer. This separation makes code testable and easier to evolve. It also avoids SQL scattering across business logic.
+
+### 7. How do transactions affect multi-step CRUD flows?
+**Answer:** When several CRUD actions must succeed together, disable auto-commit and commit only after all validations pass. On failure, rollback to maintain consistency. This is central to real business operations like checkout and payments.
+
+### 8. What performance techniques help CRUD-heavy services?
+**Answer:** Use batching for bulk operations, proper indexing, connection pooling, and efficient SQL plans. Minimize unnecessary round-trips and object allocations in tight loops. Performance tuning should be validated with realistic data volumes.
+
+### 9. How should CRUD errors be handled and surfaced?
+**Answer:** Capture SQL state/vendor codes, log context safely, and translate technical errors into meaningful service-level responses. Avoid exposing raw SQL internals to end users. Clear error strategy improves debuggability and user trust.
+
+### 10. How would you summarize CRUD interview expectations?
+**Answer:** Interviewers expect safe parameterized SQL, clean mapping, correct transaction handling, and production-aware error/performance practices. Showing only syntax is not enough; they look for end-to-end reliability thinking.
+
 `,
   code: `// CRUD Operations Demo
 

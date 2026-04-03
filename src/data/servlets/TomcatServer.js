@@ -516,6 +516,40 @@ Master Tomcat, and you can deploy any Java web application!
 - Configure Tomcat for production
 - Learn about Tomcat clustering
 - Explore Tomcat performance tuning
+---
+
+## 10 Important Apache Tomcat Interview Questions
+
+### 1. What is Apache Tomcat?
+**Answer:** An open-source servlet/JSP container used to run Java web applications. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. Is Tomcat a full Java EE application server?
+**Answer:** No. It focuses on servlet/JSP/web features, not full Jakarta EE stack. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. What are key Tomcat folders?
+**Answer:** bin, conf, webapps, logs, lib, and temp. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. How do you deploy a web application in Tomcat?
+**Answer:** Drop WAR into webapps or deploy via Manager app/CI pipeline. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. What is Tomcat context path?
+**Answer:** The base URL segment derived from app name/WAR name unless configured otherwise. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. Where to change default Tomcat port?
+**Answer:** In conf/server.xml, usually connector port 8080. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Where do startup/runtime logs appear?
+**Answer:** In logs directory (catalina.out/localhost.* depending on OS). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Difference between connector and engine/host?
+**Answer:** Connector handles protocol/port; engine/host/container route requests to apps. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Why is servlet-api.jar not bundled in app?
+**Answer:** Tomcat provides it; app should compile against it with provided scope. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. Typical production hardening for Tomcat?
+**Answer:** Disable default apps, secure manager, use HTTPS, tune threads, monitor logs/metrics. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
   `,
   code: `// Apache Tomcat Server Guide
 // This is a reference guide for Tomcat installation and configuration

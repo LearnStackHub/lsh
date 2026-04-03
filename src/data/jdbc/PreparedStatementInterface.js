@@ -323,6 +323,41 @@ public class UserService {
 ## Test Your Knowledge
 
 Mastered PreparedStatement? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering PreparedStatement, parameterized queries, and all JDBC topics!
+---
+
+
+## 10 Important PreparedStatement Interface Interview Questions
+
+### 1. What is PreparedStatement and why is it preferred?
+**Answer:** PreparedStatement is a precompiled, parameterized SQL execution interface in JDBC. It is preferred because it prevents SQL injection and improves readability for dynamic values. In repeated execution scenarios, it can also improve performance.
+
+### 2. How does PreparedStatement prevent SQL injection?
+**Answer:** SQL structure and parameter values are sent separately, so user input is treated as data, not executable SQL syntax. This blocks common injection attacks caused by string concatenation. Interviewers expect this security explanation clearly.
+
+### 3. What is the correct way to bind parameters?
+**Answer:** Use typed setter methods like setString, setInt, setTimestamp in the same order as placeholders. Consistent parameter indexing and type matching prevent runtime errors. Good answers mention both correctness and maintainability.
+
+### 4. Can PreparedStatement improve performance?
+**Answer:** Yes, especially for repeated SQL templates, because databases can reuse execution plans and reduce parsing overhead. Benefits vary by driver/database behavior, but performance is usually better than dynamic Statement strings. Benchmarking remains important.
+
+### 5. How does PreparedStatement support CRUD operations cleanly?
+**Answer:** You can keep SQL templates stable and inject operation-specific values per call, which makes create/read/update/delete code safer and easier to maintain. It also centralizes query intent and reduces accidental syntax errors.
+
+### 6. What are common mistakes with PreparedStatement?
+**Answer:** Common issues include wrong parameter order, missing parameter values, type mismatches, and forgetting to close resources. Another mistake is still concatenating SQL fragments for filters instead of using safe dynamic query construction patterns.
+
+### 7. How is batching done with PreparedStatement?
+**Answer:** Bind values repeatedly, call addBatch per row, then executeBatch. This is efficient for bulk inserts/updates and cuts network overhead. You should combine batching with transaction control for predictable failure behavior.
+
+### 8. How does PreparedStatement interact with transactions?
+**Answer:** It executes within the connection’s current transaction context. Multiple prepared statements can be committed or rolled back as one logical unit. This is essential for data consistency in multi-step business workflows.
+
+### 9. What are best practices for production PreparedStatement usage?
+**Answer:** Use try-with-resources, parameterized SQL only, clear exception handling, timeout settings where needed, and structured logging without leaking sensitive values. These habits improve security, stability, and supportability.
+
+### 10. How would you summarize PreparedStatement for interviews?
+**Answer:** PreparedStatement is the default-safe JDBC choice for parameterized SQL because it improves security, code quality, and often performance. It is central to production-grade Java database programming. Most interviewers expect this as your baseline recommendation.
+
 `,
   code: `// PreparedStatement Demo
 // Demonstrates safe, parameterized queries

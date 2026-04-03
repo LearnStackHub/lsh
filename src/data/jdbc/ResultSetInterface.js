@@ -322,6 +322,41 @@ public class ResultSetExample {
 ## Test Your Knowledge
 
 Mastered ResultSet interface? Test your JDBC skills with our comprehensive [JDBC MCQ Exam](/tutorial/jdbc-mcq) covering ResultSet, data retrieval, and all JDBC topics!
+---
+
+
+## 10 Important ResultSet Interface Interview Questions
+
+### 1. What is ResultSet in JDBC?
+**Answer:** ResultSet is the tabular cursor object that represents rows returned by a SELECT query. It lets you iterate row by row and extract typed column values. Understanding cursor behavior is fundamental for correct data mapping.
+
+### 2. What is the difference between accessing columns by name and index?
+**Answer:** Access by name is clearer and safer against select-list reorder changes, while index can be slightly faster but more error-prone. In most business code, readability and maintainability favor column names. Interviewers appreciate this trade-off explanation.
+
+### 3. How do you correctly handle NULL values in ResultSet?
+**Answer:** Use getter methods carefully and call wasNull when needed for primitive getters, or use object getters where appropriate. Ignoring null handling can produce silent data bugs. This is a common mapping pitfall.
+
+### 4. What are ResultSet types and why do they matter?
+**Answer:** ResultSet can be forward-only, scroll-insensitive, or scroll-sensitive, with varying navigation capabilities and cost. Choosing richer cursor types than needed may add overhead. Good answers connect capability choice with performance impact.
+
+### 5. What is ResultSet concurrency mode?
+**Answer:** Concurrency modes define whether rows are read-only or updatable through the ResultSet. Most applications use read-only result sets for clarity and efficiency. Updatable result sets are less common and require careful usage.
+
+### 6. What is ResultSetMetaData used for?
+**Answer:** It provides column-level metadata such as names, types, and counts, useful for generic mappers and dynamic reporting tools. It is especially helpful when schema or selected columns vary at runtime.
+
+### 7. What are common ResultSet performance issues?
+**Answer:** Fetching too many columns, large unbounded result sets, and poor fetch-size settings can increase memory and latency. Limiting selected columns and paginating queries are practical optimization techniques. Mentioning these shows production awareness.
+
+### 8. How should ResultSet be mapped to domain objects?
+**Answer:** Mapping should be explicit, type-safe, and centralized so conversion logic is easy to test and maintain. Avoid scattered inline mapping in large methods. Structured mapping reduces long-term maintenance cost.
+
+### 9. What are lifecycle best practices for ResultSet?
+**Answer:** Process rows promptly, avoid holding cursors longer than necessary, and always close ResultSet/Statement/Connection reliably. Cursor leaks can become severe under concurrency. Try-with-resources is the recommended pattern.
+
+### 10. How would you explain ResultSet in an interview one-liner?
+**Answer:** ResultSet is JDBC’s row cursor abstraction used to safely and efficiently read SQL query results into application models. Correct navigation, null handling, and cleanup are critical for reliable data access code.
+
 `,
   code: `// ResultSet Interface Demo
 // Demonstrates reading and navigating query results

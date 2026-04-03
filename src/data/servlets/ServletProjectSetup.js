@@ -772,6 +772,40 @@ Now you're ready to build web applications with Servlets!
 - Understand **Request & Response** objects
 - Explore **Session Management**
 - Build a complete **CRUD application**
+---
+
+## 10 Important Servlet Project Setup Interview Questions
+
+### 1. What are the basic prerequisites for a Servlet project?
+**Answer:** JDK, a servlet container (Tomcat), IDE/build tool, and servlet API dependency. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 2. Why is servlet-api usually marked as provided in Maven?
+**Answer:** Because Tomcat supplies it at runtime; bundling it in WAR can cause conflicts. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 3. What is the role of web.xml in setup?
+**Answer:** It defines deployment metadata like servlet/filter mappings and startup config. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 4. Annotation config vs XML config in setup?
+**Answer:** Annotations are faster for simple apps; XML helps centralize complex mappings. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 5. Difference between WAR and exploded deployment?
+**Answer:** WAR is packaged archive; exploded is unpacked directory useful during development. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 6. Where do third-party JARs go in a web app?
+**Answer:** In WEB-INF/lib (or managed through Maven/Gradle build output). In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 7. Common cause of 404 after deploy?
+**Answer:** Wrong context path or wrong servlet URL mapping. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 8. Common cause of ClassNotFoundException in servlet app?
+**Answer:** Missing dependency or wrong packaging/build scope. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 9. Why configure server runtime in IDE?
+**Answer:** IDE needs Tomcat runtime to compile against servlet APIs and deploy correctly. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
+### 10. What should be verified after first run?
+**Answer:** Server starts cleanly, app deploys, servlet URL responds, and logs show no startup errors. In real projects, this directly impacts design decisions, maintainability, and runtime behavior, so interviewers expect both definition and correct usage context. A strong response should include one practical example, one common pitfall, and one best-practice recommendation.
+
   `,
   code: `// Servlet Project Setup Guide
 // This is a reference guide - actual setup is done in IDE
