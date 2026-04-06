@@ -22,6 +22,16 @@ async function fetchChatReply(messages) {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error(
+        'Chat API missing (404). This host is probably static-only (e.g. GitHub Pages uploads only dist/). ' +
+          'Deploy on Vercel from this repo so `api/ollama-chat.js` runs, and point your domain there—or use a second Vercel project for the same repo.',
+      );
+    }
+    if (res.status === 503) {
+      const err = typeof data.error === 'string' ? data.error : 'Service unavailable';
+      throw new Error(err);
+    }
     const err = typeof data.error === 'string' ? data.error : res.statusText || 'Request failed';
     throw new Error(err);
   }
