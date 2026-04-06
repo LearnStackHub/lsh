@@ -129,6 +129,7 @@ import { JSP_SHOWCASE_TOPIC_IDS, JspShowcaseRouter } from '../components/jsp/sho
 import { HIBERNATE_SHOWCASE_TOPIC_IDS, HibernateShowcaseRouter } from '../components/hibernate/showcases';
 import { SPRING_CLOUD_SHOWCASE_TOPIC_IDS, SpringCloudShowcaseRouter } from '../components/springcloud/showcases';
 import { HTTP_SHOWCASE_TOPIC_IDS, HttpShowcaseRouter } from '../components/http/showcases';
+import { MYSQL_SHOWCASE_TOPIC_IDS, MySQLShowcaseRouter } from '../components/mysql/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
 
@@ -822,6 +823,7 @@ function Tutorial() {
       {HIBERNATE_SHOWCASE_TOPIC_IDS.has(topicId) && <HibernateShowcaseRouter topicId={topicId} />}
       {SPRING_CLOUD_SHOWCASE_TOPIC_IDS.has(topicId) && <SpringCloudShowcaseRouter topicId={topicId} />}
       {HTTP_SHOWCASE_TOPIC_IDS.has(topicId) && <HttpShowcaseRouter topicId={topicId} />}
+      {MYSQL_SHOWCASE_TOPIC_IDS.has(topicId) && <MySQLShowcaseRouter topicId={topicId} />}
     </>
   );
 
@@ -899,13 +901,13 @@ function Tutorial() {
         {isCoreJavaTopic && (
           <div className="jdbc-interview-notice" role="note">
             <strong>Interview prep on this page:</strong> each Core Java lesson includes{' '}
-            <strong>10 important interview questions with full answers</strong> in the article below. The full lesson text (including Q&amp;A) appears first; interactive code showcases follow after. Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
+            <strong>10 important interview questions with full answers</strong> in the article below. Interactive code showcases appear first; the full lesson text (including Q&amp;A) follows. Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
           </div>
         )}
         {isCoreJavaTopic ? (
           <>
-            {renderContent(currentTopic.content)}
             {tutorialInteractiveShowcases}
+            {renderContent(currentTopic.content)}
           </>
         ) : (
           <>

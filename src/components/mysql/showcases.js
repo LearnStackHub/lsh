@@ -7,4 +7,4 @@ export { default as MySQLTransactionsShowcase } from './MySQLTransactionsShowcas
 export { default as MySQLInsertUpdateDeleteShowcase } from './MySQLInsertUpdateDeleteShowcase';
 export { default as MySQLInterviewQuestionsShowcase } from './MySQLInterviewQuestionsShowcase';
 export { default as MySQLTopicRuntimeShowcase } from './MySQLTopicRuntimeShowcase';
-export { default as MySQLShowcaseRouter } from './MySQLShowcaseRouter';
+export { default as MySQLShowcaseRouter, MYSQL_SHOWCASE_TOPIC_IDS } from './MySQLShowcaseRouter';

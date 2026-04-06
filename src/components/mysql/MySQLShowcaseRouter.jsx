@@ -8,26 +8,36 @@ import MySQLInsertUpdateDeleteShowcase from './MySQLInsertUpdateDeleteShowcase';
 import MySQLInterviewQuestionsShowcase from './MySQLInterviewQuestionsShowcase';
 import MySQLTopicRuntimeShowcase from './MySQLTopicRuntimeShowcase';
 
-const RUNTIME_TOPIC_IDS = [
+/** All MySQL course topics that should render a showcase above the article */
+export const MYSQL_SHOWCASE_TOPIC_IDS = new Set([
+  'mysql-introduction',
   'mysql-installation',
   'mysql-data-types',
   'mysql-create-database',
   'mysql-ddl',
+  'mysql-dql',
   'mysql-select',
   'mysql-clauses',
   'mysql-constraints',
   'mysql-aggregate-functions',
   'mysql-scalar-functions',
+  'mysql-insert-update-delete',
+  'mysql-joins',
+  'mysql-indexes',
+  'mysql-transactions',
   'mysql-views',
   'mysql-stored-procedures',
   'mysql-triggers',
   'mysql-subqueries',
   'mysql-privileges',
+  'mysql-interview-questions',
   'mysql-mcq'
-];
+]);
 
 /** Renders the appropriate real-time scenario showcase for any MySQL tutorial topic */
 export default function MySQLShowcaseRouter({ topicId }) {
+  if (!MYSQL_SHOWCASE_TOPIC_IDS.has(topicId)) return null;
+
   switch (topicId) {
     case 'mysql-introduction':
       return <MySQLIntroductionShowcase />;
@@ -46,9 +56,6 @@ export default function MySQLShowcaseRouter({ topicId }) {
     case 'mysql-interview-questions':
       return <MySQLInterviewQuestionsShowcase />;
     default:
-      if (RUNTIME_TOPIC_IDS.includes(topicId)) {
-        return <MySQLTopicRuntimeShowcase topicId={topicId} />;
-      }
-      return null;
+      return <MySQLTopicRuntimeShowcase topicId={topicId} />;
   }
 }
