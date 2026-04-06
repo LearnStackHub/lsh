@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Shield, Lock, Eye, FileText, Cookie } from 'lucide-react';
+import SEOHead from '../components/SEOHead';
 
 function PrivacyPolicy() {
   useEffect(() => {
@@ -9,6 +10,10 @@ function PrivacyPolicy() {
 
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
+      <SEOHead
+        title="Privacy Policy | LearnStackHub"
+        description="Learn how LearnStackHub collects, uses, and protects data, including cookies, analytics, ads, and chat-related privacy practices."
+      />
       <h1 className="tutorial-title">Privacy Policy</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
         Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

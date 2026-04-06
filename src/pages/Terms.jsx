@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Scale, AlertTriangle, Book, Code, Shield } from 'lucide-react';
+import SEOHead from '../components/SEOHead';
 
 function Terms() {
   useEffect(() => {
@@ -9,6 +10,10 @@ function Terms() {
 
   return (
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
+      <SEOHead
+        title="Terms of Service | LearnStackHub"
+        description="Read LearnStackHub terms of service, disclaimers, usage policy, and legal conditions for using tutorials and platform features."
+      />
       <h1 className="tutorial-title">Terms of Service & Disclaimer</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
         Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

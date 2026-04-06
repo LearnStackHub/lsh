@@ -112,6 +112,41 @@ function Home() {
         <article><CheckCircle size={16} /> Practice Lab: AI tutor chat &amp; audio/video interview coach</article>
       </section>
 
+      <section className="courses-section">
+        <div className="section-header">
+          <h2 className="section-title-main">What is LearnStackHub?</h2>
+        </div>
+        <p className="home-section-subtitle" style={{ marginTop: '-0.35rem' }}>
+          LearnStackHub is a 100% free learning platform for Java and backend preparation.
+          You get structured tutorials, AI chat interview practice, and mock interview rehearsal in one place.
+          No subscription, no paywall, and no hidden course fee.
+        </p>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '1rem',
+            marginTop: '1rem',
+          }}
+        >
+          <article className="landing-guide-card" style={{ cursor: 'default' }}>
+            <h3>What you will learn</h3>
+            <p>From basics to advanced</p>
+            <span>Core Java, SQL, JDBC, Spring, HTTP, Git, and more interview-ready backend topics.</span>
+          </article>
+          <article className="landing-guide-card" style={{ cursor: 'default' }}>
+            <h3>Why this site is useful</h3>
+            <p>Learn + practice together</p>
+            <span>Read tutorials, run code, take MCQs, then sharpen answers with AI chat and mock interviews.</span>
+          </article>
+          <article className="landing-guide-card" style={{ cursor: 'default' }}>
+            <h3>What we offer</h3>
+            <p>100% free platform</p>
+            <span>Free tutorials, free AI chat, and free mock interview practice with audio/video rehearsal.</span>
+          </article>
+        </div>
+      </section>
+
       <section className="courses-section landing-practice-lab">
         <div className="section-header">
           <h2 className="section-title-main">Practice Lab</h2>
