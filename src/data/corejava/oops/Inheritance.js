@@ -542,6 +542,30 @@ Choose based on is-a vs capability.
 ### 10. How does \`Object\` fit into every class?
 **Answer:** All classes extend \`Object\` implicitly—\`toString\`, \`equals\`, \`hashCode\` contracts originate here.
 Override thoughtfully for value types.
+---
+
+## Topic-Focused Practice for Inheritance
+
+### Real-World Scenarios
+
+1. Build one mini exercise focused on **is-a relationships** and explain why your chosen approach is correct.
+2. Add a second variation where **method overriding** changes the expected output or system behavior.
+3. Document one production caution related to **super keyword** and how you would monitor it.
+
+### Page-Specific Interview Questions
+
+1. In Inheritance, how do you decide between approaches related to **is-a relationships** when requirements conflict?
+2. What debugging steps would you follow if **method overriding** behaves differently in development vs production?
+3. Which performance or maintainability risks are introduced by **super keyword**, and how would you reduce them?
+4. What is one real incident where misunderstanding **is-a relationships** can cause bugs or outages?
+5. If you had to teach this topic to a fresher, how would you explain **method overriding** with a simple example?
+
+### Implementation Checklist
+
+- Verify functional correctness with at least two valid and two invalid input cases.
+- Add one code example that highlights **is-a relationships** and one that highlights **method overriding**.
+- Record typical errors around **super keyword** and add prevention notes in your project docs.
+- Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
 `,
   code: `// Inheritance Demo

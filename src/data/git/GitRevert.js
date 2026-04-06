@@ -402,6 +402,26 @@ You've learned:
 | **After bad deploy** | [Git Deployment](/tutorial/git-deployment) |
 | **Protected history policies** | [Git Branch Protection](/tutorial/git-branch-protection) |
 
+## Undo Decision Matrix (Use the Right Tool)
+
+Use this quick selector:
+
+- **Need to undo on shared branch:** \`git revert\`
+- **Need to unstage file only:** \`git restore --staged <file>\`
+- **Need to discard local file edits:** \`git restore <file>\`
+- **Need to rewrite local unpushed history:** \`git reset --soft|--mixed|--hard\`
+
+If branch is already pushed and teammates are using it, default to **revert**.
+
+## Incident Example: Bad Commit in Production
+
+1. Identify bad commit hash via \`git log --oneline\`.
+2. Run \`git revert <hash>\` on protected release branch.
+3. Push and trigger deployment pipeline.
+4. Open a follow-up issue for root cause and prevention.
+
+This pattern keeps history transparent and team-safe.
+
 Remember: When in doubt, use revert. It's safer and preserves history!
 `
 };

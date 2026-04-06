@@ -305,6 +305,30 @@ Packaging and visibility interact.
 ### 10. Why can’t you use reserved keywords as identifiers?
 **Answer:** The grammar reserves them for language constructs; compilers would be ambiguous otherwise.
 Some languages work around with backticks—Java does not.
+---
+
+## Topic-Focused Practice for Java Keywords
+
+### Real-World Scenarios
+
+1. Build one mini exercise focused on **reserved words** and explain why your chosen approach is correct.
+2. Add a second variation where **modifier usage** changes the expected output or system behavior.
+3. Document one production caution related to **control-flow meaning** and how you would monitor it.
+
+### Page-Specific Interview Questions
+
+1. In Java Keywords, how do you decide between approaches related to **reserved words** when requirements conflict?
+2. What debugging steps would you follow if **modifier usage** behaves differently in development vs production?
+3. Which performance or maintainability risks are introduced by **control-flow meaning**, and how would you reduce them?
+4. What is one real incident where misunderstanding **reserved words** can cause bugs or outages?
+5. If you had to teach this topic to a fresher, how would you explain **modifier usage** with a simple example?
+
+### Implementation Checklist
+
+- Verify functional correctness with at least two valid and two invalid input cases.
+- Add one code example that highlights **reserved words** and one that highlights **modifier usage**.
+- Record typical errors around **control-flow meaning** and add prevention notes in your project docs.
+- Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
 `,
   code: `// Java Keywords Demo - Understanding reserved words

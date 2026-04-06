@@ -300,6 +300,30 @@ Utility methods are often static when stateless.
 ### 10. How do exceptions affect method contracts?
 **Answer:** Checked exceptions appear in \`throws\` clauses; callers must handle or declare; runtime exceptions can propagate without declaration.
 API design balances checked vs unchecked carefully.
+---
+
+## Topic-Focused Practice for Methods in Java
+
+### Real-World Scenarios
+
+1. Build one mini exercise focused on **method signatures** and explain why your chosen approach is correct.
+2. Add a second variation where **parameter passing** changes the expected output or system behavior.
+3. Document one production caution related to **return type design** and how you would monitor it.
+
+### Page-Specific Interview Questions
+
+1. In Methods in Java, how do you decide between approaches related to **method signatures** when requirements conflict?
+2. What debugging steps would you follow if **parameter passing** behaves differently in development vs production?
+3. Which performance or maintainability risks are introduced by **return type design**, and how would you reduce them?
+4. What is one real incident where misunderstanding **method signatures** can cause bugs or outages?
+5. If you had to teach this topic to a fresher, how would you explain **parameter passing** with a simple example?
+
+### Implementation Checklist
+
+- Verify functional correctness with at least two valid and two invalid input cases.
+- Add one code example that highlights **method signatures** and one that highlights **parameter passing**.
+- Record typical errors around **return type design** and add prevention notes in your project docs.
+- Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
 `,
   code: `// Methods Demo - Understanding Java methods

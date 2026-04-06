@@ -372,6 +372,24 @@ You've learned:
 | **Secure account & tokens** | [GitHub Security](/tutorial/github-security) |
 | **REST APIs (GitHub is HTTP-based)** | [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
 
+## Remote Collaboration Checklist (Daily Use)
+
+Before opening a PR, do this every time:
+
+1. \`git fetch origin\` and sync your branch with target branch.
+2. Run tests locally.
+3. Push latest commits and verify CI status on GitHub.
+4. Add a PR description: what changed, why, and how tested.
+5. Link issue/ticket IDs for traceability.
+
+This improves review speed and reduces back-and-forth comments.
+
+## HTTPS vs SSH: Quick Decision
+
+- **Use HTTPS + PAT** if you are a beginner or restricted corporate environment.
+- **Use SSH** if you want smoother frequent pushes and key-based auth.
+- In both cases, never hardcode tokens/keys in repository files.
+
 Your code is now safely backed up and shareable on GitHub!
 `
 };

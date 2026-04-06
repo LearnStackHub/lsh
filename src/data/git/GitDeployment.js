@@ -426,6 +426,27 @@ You've learned:
 | **Workflow & branches** | [Git Workflow](/tutorial/git-workflow) |
 | **HTTP basics (webhooks/APIs)** | [HTTP Introduction](/tutorial/http-introduction) |
 
+## Deployment Readiness Checklist (Before Production)
+
+- CI green on main branch
+- Security checks pass (dependency and secret scanning)
+- Version/tag created for traceability
+- Rollback command documented and tested
+- Health checks and smoke tests defined
+- On-call owner identified for release window
+
+## Rollback Runbook (Fast Recovery)
+
+When a release fails:
+
+1. Stop traffic or disable the risky feature flag.
+2. Redeploy previous known-good artifact/tag.
+3. Verify critical endpoints with smoke tests.
+4. Announce status in team channel.
+5. Open post-incident action items.
+
+A reliable rollback process is as important as deployment automation.
+
 Automated deployment saves time and reduces errors. Start with simple workflows and expand as needed!
 `
 };

@@ -362,6 +362,26 @@ You've learned:
 | **Using GitHub** | [GitHub Basics](/tutorial/github-basics) |
 | **Org permissions** | [GitHub Teams](/tutorial/github-teams) |
 
+## If a Secret Leaks: Response Plan
+
+If a token or key is exposed in a commit:
+
+1. Revoke token/key immediately in GitHub or cloud provider.
+2. Rotate credentials in all dependent systems.
+3. Remove secret from codebase and history remediation process if required.
+4. Force new deployment with clean credentials.
+5. Record incident and prevention action items.
+
+Speed matters more than blame in security events.
+
+## Security Baseline for Student/Team Projects
+
+- Enable 2FA for all maintainers.
+- Use fine-grained PATs with expiration.
+- Prefer SSH keys with passphrases.
+- Enable secret scanning and Dependabot alerts.
+- Review collaborator/admin access monthly.
+
 Securing your GitHub account protects your code and your reputation. Take security seriously!
 `
 };

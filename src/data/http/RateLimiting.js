@@ -279,7 +279,32 @@ Rate limiting is essential for:
 ### 10. Should I rate limit by IP or user?
 
 **By user** (API key/user ID) for authenticated APIs. **By IP** for public endpoints. **Both** for maximum protection.
-  `,
+---
+
+## Topic-Focused Practice for API Rate Limiting - Throttling and Quotas
+
+### Real-World Scenarios
+
+1. Build one mini exercise focused on **request throttling** and explain why your chosen approach is correct.
+2. Add a second variation where **token bucket style controls** changes the expected output or system behavior.
+3. Document one production caution related to **abuse protection** and how you would monitor it.
+
+### Page-Specific Interview Questions
+
+1. In API Rate Limiting - Throttling and Quotas, how do you decide between approaches related to **request throttling** when requirements conflict?
+2. What debugging steps would you follow if **token bucket style controls** behaves differently in development vs production?
+3. Which performance or maintainability risks are introduced by **abuse protection**, and how would you reduce them?
+4. What is one real incident where misunderstanding **request throttling** can cause bugs or outages?
+5. If you had to teach this topic to a fresher, how would you explain **token bucket style controls** with a simple example?
+
+### Implementation Checklist
+
+- Verify functional correctness with at least two valid and two invalid input cases.
+- Add one code example that highlights **request throttling** and one that highlights **token bucket style controls**.
+- Record typical errors around **abuse protection** and add prevention notes in your project docs.
+- Revisit related lessons and connect this concept to a complete end-to-end workflow.
+
+`,
   code: `// Rate Limiting - Complete Examples
 
 // Example 1: Java - Bucket4j

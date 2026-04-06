@@ -379,6 +379,25 @@ You've learned:
 | **Java build output to ignore** | [Maven Project Structure](/tutorial/maven-project-structure) |
 | **Team workflow** | [Git Workflow](/tutorial/git-workflow) |
 
+## 30-Minute Practice Drill (Hands-on)
+
+Use this quick routine to turn commands into muscle memory:
+
+1. Create repo + first commit (\`git init\`, \`git add\`, \`git commit\`).
+2. Edit the same file twice and create two separate commits with clear messages.
+3. Add a second file, but stage only one file first; then commit the second file separately.
+4. Run \`git log --oneline --graph\` and explain your history in plain words.
+5. Create a \`.gitignore\` and verify ignored files are excluded from \`git status\`.
+
+**Expected outcome:** You can clearly explain staging vs commit and produce clean commit history.
+
+## Beginner Mistakes and Quick Fixes
+
+- **Accidentally staged too much:** use \`git restore --staged <file>\`.
+- **Wrong commit message:** use \`git commit --amend\` before pushing.
+- **Forgot to track a new file:** check \`git status\` and run \`git add <file>\`.
+- **Committed build/generated files:** update \`.gitignore\` and remove from index with \`git rm --cached <file>\`.
+
 Keep practicing these commands - they're the foundation of everything in Git!
 `
 };

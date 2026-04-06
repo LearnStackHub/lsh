@@ -368,6 +368,25 @@ You've learned:
 | **PRs from branches** | [GitHub Pull Requests](/tutorial/github-pull-requests) |
 | **Daily team habits** | [Git Workflow](/tutorial/git-workflow) |
 
+## Branch Naming Standard (Team Friendly)
+
+Use predictable names so automation and humans both understand intent:
+
+- \`feature/<ticket>-<short-name>\` (e.g., \`feature/JIRA-214-login-api\`)
+- \`bugfix/<ticket>-<short-name>\`
+- \`hotfix/<ticket>-<short-name>\`
+- \`release/<version>\`
+
+This improves traceability from commits to tickets and makes release notes easier.
+
+## Branch Hygiene Checklist
+
+- Rebase/merge from \`main\` regularly to reduce conflict spikes
+- Keep PR size small (single concern)
+- Delete merged branches quickly
+- Avoid long-lived feature branches unless required
+- Open draft PRs early for feedback
+
 Branches are essential for professional development - master them!
 `
 };

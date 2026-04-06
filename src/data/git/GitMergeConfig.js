@@ -373,6 +373,25 @@ You've learned:
 | **Protected branches** | [Git Branch Protection](/tutorial/git-branch-protection) |
 | **Daily habits** | [Git Workflow](/tutorial/git-workflow) |
 
+## Conflict Resolution Playbook (Practical)
+
+When a merge conflict appears, use this flow:
+
+1. Read both sides and identify business intent (not only syntax).
+2. Resolve the smallest conflicted file first.
+3. Build + run tests immediately after key resolutions.
+4. Use \`git diff\` to verify final merged content.
+5. Commit with a clear message describing what was kept and why.
+
+## Choosing a Merge Style by Team Goal
+
+- **Need audit trail of feature branches:** use \`--no-ff\`
+- **Need very clean main history:** use squash merge
+- **Need exact branch history preserved:** use standard merge commits
+- **Need strict linear history:** use rebase workflow + protected branch rules
+
+Pick one standard per repository to keep history predictable and review-friendly.
+
 Understanding merge configurations helps you work more effectively with teams and maintain clean project history!
 `
 };

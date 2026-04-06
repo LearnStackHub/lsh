@@ -448,6 +448,29 @@ You've learned:
 | **Automation & deploy** | [Git Deployment](/tutorial/git-deployment) |
 | **Software lifecycle** | [SDLC Introduction](/tutorial/sdlc-introduction) |
 
+## Team Workflow Contract (What to Standardize)
+
+Document these repo-level conventions so everyone works the same way:
+
+- Branch naming pattern (\`feature/\`, \`bugfix/\`, \`hotfix/\`)
+- PR size target (for example, < 400 changed lines when possible)
+- Required checks before merge (build, tests, lint, security)
+- Commit message format (\`feat:\`, \`fix:\`, \`docs:\` etc.)
+- Merge strategy (squash vs merge commit vs rebase)
+
+Consistency reduces onboarding time and production mistakes.
+
+## Weekly Workflow Health Review
+
+Track these signals:
+
+- PR review turnaround time
+- Number of stale branches older than 14 days
+- Reopened bugs linked to recent merges
+- Failed CI rate on default branch
+
+Use metrics to improve process instead of adding random rules.
+
 A good workflow makes development smoother and more professional!
 `
 };

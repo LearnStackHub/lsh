@@ -335,6 +335,31 @@ You've successfully:
 | **Project + build files** | [Maven Introduction](/tutorial/maven-introduction) |
 | **SSH keys (later, for GitHub)** | [GitHub Security](/tutorial/github-security) |
 
+## Enterprise-Ready Setup (After Basic Install)
+
+Once Git works locally, add these quality-of-life settings:
+
+\`\`\`bash
+git config --global pull.rebase false
+git config --global fetch.prune true
+git config --global rerere.enabled true
+git config --global core.autocrlf true   # Windows only
+\`\`\`
+
+- **fetch.prune** removes stale remote-tracking branches.
+- **rerere** remembers conflict resolutions for repeated merges.
+- Proper line-ending settings reduce cross-OS noise in commits.
+
+## Verification Commands to Save
+
+\`\`\`bash
+git --version
+git config --global --list
+git config --show-origin --list
+\`\`\`
+
+If these commands look clean, your machine is ready for real team projects.
+
 Ready to start using Git? Let's move forward!
 `
 };

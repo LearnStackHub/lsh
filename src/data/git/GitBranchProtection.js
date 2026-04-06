@@ -383,6 +383,25 @@ You've learned:
 | **Workflow context** | [Git Workflow](/tutorial/git-workflow) |
 | **CI/CD pipelines** | [Git Deployment](/tutorial/git-deployment) |
 
+## Production Baseline Policy (Recommended)
+
+Use this baseline for most teams:
+
+- Protect \`main\` and \`release/*\`
+- Require PR + at least 2 approvals
+- Require CI checks: build, test, lint, security scan
+- Require branch up-to-date before merge
+- Restrict force-push and deletion to admins only
+- Enable "include administrators" for strict governance
+
+This gives strong quality gates without excessive process overhead.
+
+## Real Interview Scenario
+
+**Question:** "A bug reached production even though branch protection exists. What likely failed?"
+
+**Strong answer:** Rules may be incomplete: missing required checks, admin bypass enabled, stale approvals not dismissed, or CODEOWNERS not enforced. Fix by tightening merge prerequisites and auditing branch rule settings regularly.
+
 Protecting your branches ensures code quality and prevents accidental changes to important code!
 `
 };

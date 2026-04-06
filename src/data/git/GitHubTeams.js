@@ -348,6 +348,28 @@ You've learned:
 | **Workflow** | [Git Workflow](/tutorial/git-workflow) |
 | **SDLC context** | [SDLC Introduction](/tutorial/sdlc-introduction) |
 
+## Suggested Team Topology (Example)
+
+For a typical product org:
+
+- \`platform-team\` (CI/CD, infrastructure)
+- \`backend-team\` (APIs, database services)
+- \`frontend-team\` (UI, accessibility)
+- \`qa-team\` (test strategy, release sign-off)
+- \`security-team\` (policies, secret handling)
+
+Map each team to repository paths with CODEOWNERS for automatic review routing.
+
+## Monthly Team Access Audit Checklist
+
+- Remove inactive users.
+- Review admin permissions.
+- Validate team-to-repo access is still needed.
+- Confirm CODEOWNERS is aligned with actual ownership.
+- Check branch protection still matches team structure.
+
+This prevents permission drift as organization size grows.
+
 Teams make collaboration easier and permissions management simpler. Use them to organize your organization effectively!
 `
 };

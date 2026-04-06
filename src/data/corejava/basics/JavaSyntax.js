@@ -344,6 +344,30 @@ Dynamic typing is not Java’s model.
 ### 10. What happens if you forget a semicolon?
 **Answer:** The compiler reports an error near the next token; cascading errors can appear until fixed.
 IDEs usually highlight the exact statement.
+---
+
+## Topic-Focused Practice for Java Syntax
+
+### Real-World Scenarios
+
+1. Build one mini exercise focused on **class structure** and explain why your chosen approach is correct.
+2. Add a second variation where **statement syntax** changes the expected output or system behavior.
+3. Document one production caution related to **compile-time rules** and how you would monitor it.
+
+### Page-Specific Interview Questions
+
+1. In Java Syntax, how do you decide between approaches related to **class structure** when requirements conflict?
+2. What debugging steps would you follow if **statement syntax** behaves differently in development vs production?
+3. Which performance or maintainability risks are introduced by **compile-time rules**, and how would you reduce them?
+4. What is one real incident where misunderstanding **class structure** can cause bugs or outages?
+5. If you had to teach this topic to a fresher, how would you explain **statement syntax** with a simple example?
+
+### Implementation Checklist
+
+- Verify functional correctness with at least two valid and two invalid input cases.
+- Add one code example that highlights **class structure** and one that highlights **statement syntax**.
+- Record typical errors around **compile-time rules** and add prevention notes in your project docs.
+- Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
 `,
   code: `// Java Syntax Demo - Understanding Java code structure
