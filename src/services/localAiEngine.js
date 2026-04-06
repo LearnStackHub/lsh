@@ -252,15 +252,26 @@ export const INTERVIEW_TRACKS = [
 ];
 
 /**
+ * @param {string} track
+ * @returns {number}
+ */
+export function getInterviewPoolSize(track) {
+  const pool = INTERVIEW_BANK[track] || INTERVIEW_BANK.java;
+  return pool.length;
+}
+
+/**
  * @param {{ track: string, usedIds: Set<string> }} params
  * @returns {{ id: string, text: string } | null}
  */
 export function nextInterviewQuestion({ track, usedIds }) {
   const pool = INTERVIEW_BANK[track] || INTERVIEW_BANK.java;
   const fresh = pool.filter((q) => !usedIds.has(q.id));
-  const source = fresh.length ? fresh : pool;
-  const pick = source[Math.floor(Math.random() * source.length)];
-  return pick ? { id: pick.id, text: pick.text } : null;
+  if (fresh.length === 0) {
+    return null;
+  }
+  const pick = fresh[Math.floor(Math.random() * fresh.length)];
+  return { id: pick.id, text: pick.text };
 }
 
 /**

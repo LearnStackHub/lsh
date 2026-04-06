@@ -190,6 +190,31 @@ function About() {
               </p>
             </div>
           </div>
+          <div
+            style={{
+              marginTop: '1.5rem',
+              padding: '1rem 1.1rem',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+            }}
+          >
+            <h3 style={{ margin: '0 0 0.65rem', fontSize: '1rem' }}>Practice Lab highlights</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.2rem', lineHeight: 1.6 }}>
+              <li>
+                <strong>AI chat interview practice:</strong> ask backend and Java interview questions, get structured
+                answers, and revise quickly before interviews.
+              </li>
+              <li>
+                <strong>Audio/video interview practice:</strong> answer questions using camera + mic, rehearse delivery,
+                and review your speaking flow.
+              </li>
+            </ul>
+            <p style={{ margin: '0.75rem 0 0', fontSize: '0.9rem' }}>
+              Open directly: <Link to="/ai-lab/chat">AI chat practice</Link> and{' '}
+              <Link to="/ai-lab/interview">Audio/video interview practice</Link>.
+            </p>
+          </div>
           <p style={{ marginTop: '1.5rem', textAlign: 'center' }}>
             <Link to="/ai-lab" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
               Go to Practice Lab

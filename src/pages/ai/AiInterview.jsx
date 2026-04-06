@@ -6,6 +6,7 @@ import {
   INTERVIEW_TRACKS,
   nextInterviewQuestion,
   coachAfterAnswer,
+  getInterviewPoolSize,
 } from '../../services/localAiEngine';
 import './ai-lab.css';
 
@@ -33,10 +34,13 @@ function speakQuestion(text) {
 
 function AiInterview() {
   const [track, setTrack] = useState('java');
-  const [_usedQuestionIds, setUsedQuestionIds] = useState(() => new Set());
+  const [usedQuestionIds, setUsedQuestionIds] = useState(() => new Set());
   const [current, setCurrent] = useState(null);
   const [notes, setNotes] = useState('');
   const [coachLine, setCoachLine] = useState('');
+  const [coachTipsUsed, setCoachTipsUsed] = useState(0);
+  const [sessionComplete, setSessionComplete] = useState(false);
+  const [sessionDurationMs, setSessionDurationMs] = useState(null);
   const [streamOn, setStreamOn] = useState(false);
   const [recording, setRecording] = useState(false);
   const [lastBlobUrl, setLastBlobUrl] = useState(null);
@@ -46,6 +50,7 @@ function AiInterview() {
   const streamRef = useRef(null);
   const recorderRef = useRef(null);
   const chunksRef = useRef([]);
+  const sessionStartRef = useRef(null);
 
   const stopStream = useCallback(() => {
     if (streamRef.current) {
@@ -67,18 +72,46 @@ function AiInterview() {
     return undefined;
   }, [lastBlobUrl]);
 
+  const poolSize = getInterviewPoolSize(track);
+
+  const resetRound = useCallback(() => {
+    setUsedQuestionIds(new Set());
+    setCurrent(null);
+    setSessionComplete(false);
+    setSessionDurationMs(null);
+    setCoachLine('');
+    setNotes('');
+    setCoachTipsUsed(0);
+    sessionStartRef.current = null;
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+  }, []);
+
   const handleNextQuestion = useCallback(() => {
     setCoachLine('');
     setNotes('');
     setUsedQuestionIds((prev) => {
       const next = nextInterviewQuestion({ track, usedIds: prev });
-      if (!next) return prev;
+      if (!next) {
+        setSessionComplete(true);
+        if (sessionStartRef.current != null) {
+          setSessionDurationMs(Date.now() - sessionStartRef.current);
+        } else {
+          setSessionDurationMs(null);
+        }
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+        }
+        return prev;
+      }
+      if (prev.size === 0) {
+        sessionStartRef.current = Date.now();
+      }
       const copy = new Set(prev);
       copy.add(next.id);
-      queueMicrotask(() => {
-        setCurrent(next);
-        speakQuestion(next.text);
-      });
+      setCurrent(next);
+      queueMicrotask(() => speakQuestion(next.text));
       return copy;
     });
   }, [track]);
@@ -138,6 +171,15 @@ function AiInterview() {
   function handleCoach() {
     if (!current) return;
     setCoachLine(coachAfterAnswer(current.text, notes));
+    setCoachTipsUsed((n) => n + 1);
+  }
+
+  const answeredCount = usedQuestionIds.size;
+
+  function formatDuration(ms) {
+    if (ms == null) return '';
+    if (ms >= 60000) return `${Math.max(1, Math.round(ms / 60000))} min`;
+    return `${Math.round(ms / 1000)} sec`;
   }
 
   return (
@@ -211,13 +253,7 @@ function AiInterview() {
             onChange={(e) => {
               const next = e.target.value;
               setTrack(next);
-              setUsedQuestionIds(new Set());
-              setCurrent(null);
-              setCoachLine('');
-              setNotes('');
-              if (typeof window !== 'undefined' && window.speechSynthesis) {
-                window.speechSynthesis.cancel();
-              }
+              resetRound();
             }}
           >
             {INTERVIEW_TRACKS.map((t) => (
@@ -226,12 +262,67 @@ function AiInterview() {
               </option>
             ))}
           </select>
-          <div className="ai-question-box" style={{ marginTop: '1rem' }}>
-            {current ? current.text : 'Click “Next question” to begin. Answer out loud as if in a real interview.'}
-          </div>
+          {sessionComplete ? (
+            <div
+              className="ai-coach"
+              style={{
+                marginTop: '1rem',
+                padding: '1rem 1.1rem',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border-color)',
+              }}
+            >
+              <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.05rem' }}>Round complete</h3>
+              <p style={{ margin: '0 0 0.75rem', color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
+                You finished every question in this track for this round. This practice mode does not score answers—it
+                helps you rehearse. Use coach tips and your notes to reflect on clarity and structure.
+              </p>
+              <ul style={{ margin: '0 0 1rem', paddingLeft: '1.25rem', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                <li>
+                  <strong>Questions completed:</strong> {answeredCount} / {poolSize}
+                </li>
+                <li>
+                  <strong>Coach tips used:</strong> {coachTipsUsed}
+                </li>
+                {sessionDurationMs != null && (
+                  <li>
+                    <strong>Approx. session time:</strong> {formatDuration(sessionDurationMs)}
+                  </li>
+                )}
+              </ul>
+              <button type="button" className="ai-btn" onClick={resetRound}>
+                Start new round
+              </button>
+            </div>
+          ) : (
+            <>
+              {answeredCount > 0 && (
+                <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                  Question {answeredCount} of {poolSize} in this track (no repeats until you start a new round).
+                </p>
+              )}
+              <div className="ai-question-box" style={{ marginTop: '1rem' }}>
+                {current
+                  ? current.text
+                  : 'Click “Next question” to begin. Answer out loud as if in a real interview.'}
+              </div>
+            </>
+          )}
+          {sessionComplete && current && (
+            <div className="ai-question-box" style={{ marginTop: '0.75rem', opacity: 0.95 }}>
+              <strong style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Last question</strong>
+              <div style={{ marginTop: '0.35rem' }}>{current.text}</div>
+            </div>
+          )}
           <div className="ai-toolbar">
-            <button type="button" className="ai-btn" onClick={handleNextQuestion}>
-              Next question
+            <button
+              type="button"
+              className="ai-btn"
+              onClick={handleNextQuestion}
+              disabled={sessionComplete}
+            >
+              {sessionComplete ? 'Round finished' : 'Next question'}
             </button>
             <button
               type="button"
@@ -251,8 +342,14 @@ function AiInterview() {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Short summary of your answer..."
+            disabled={sessionComplete}
           />
-          <button type="button" className="ai-btn secondary" onClick={handleCoach} disabled={!current}>
+          <button
+            type="button"
+            className="ai-btn secondary"
+            onClick={handleCoach}
+            disabled={!current || sessionComplete}
+          >
             Get coach tip
           </button>
           {coachLine ? <p className="ai-coach">{coachLine}</p> : null}
