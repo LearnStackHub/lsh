@@ -162,6 +162,11 @@
   color: var(--text-primary);
 }
 
+.ai-chat-bubble.ai-chat-pending {
+  opacity: 0.85;
+  font-style: italic;
+}
+
 .ai-chat-hint {
   font-size: 0.8rem;
   color: var(--text-muted);

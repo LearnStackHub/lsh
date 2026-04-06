@@ -8,6 +8,12 @@ const GENERIC_HELP =
 
 const RULES = [
   {
+    patterns: [/what\s+is\s+java\b|define\s+java\b|java\s+language\b/i],
+    reply:
+      'Java is a statically typed, object-oriented language: source compiles to bytecode, and the JVM runs that bytecode with garbage collection and a strong standard library. ' +
+      'It is widely used for backends, Android (historically), and enterprise apps.',
+  },
+  {
     patterns: [/jvm|java virtual machine/i],
     reply:
       'The JVM runs bytecode, manages memory (heap, metaspace, GC), and provides portability. ' +
@@ -37,6 +43,13 @@ const RULES = [
     patterns: [/immutable|string\s*pool|intern/i],
     reply:
       'Strings are immutable; the pool deduplicates literals. Use StringBuilder for heavy concatenation; intern() sparingly.',
+  },
+  {
+    patterns: [/string\s+in\s+java|strings?\s+in\s+java|about\s+strings?\s+in\s+java|what\s+(is|are)\s+(a\s+)?string/i],
+    reply:
+      'In Java, String is an immutable type for text: each change creates a new object. Use equals() for value comparison, not ==. ' +
+      'Literals may be interned in the string pool. For repeated concatenation in loops, use StringBuilder or StringBuffer (thread-safe). ' +
+      'charAt, substring, and length are common; String also implements CharSequence.',
   },
   {
     patterns: [/arraylist|linkedlist|hashmap|concurrenthashmap|collections?|treemap|treeset/i],
@@ -104,9 +117,9 @@ const RULES = [
       'Servlets handle HTTP; filters cross-cut. Sessions are server-side; JWTs carry claims client-side for APIs.',
   },
   {
-    patterns: [/mysql|sql\b|index|explain|join|normali[sz]ation/i],
+    patterns: [/mysql|sql\b|database\s+index|inner\s+join|left\s+join|normali[sz]ation|\bexplain\s+select/i],
     reply:
-      'Indexes speed reads; EXPLAIN plans. Normalize to reduce redundancy; denormalize selectively. Know JOIN types.',
+      'Indexes speed reads; use EXPLAIN on real SQL to see the plan. Normalize to reduce redundancy; denormalize selectively. Know INNER vs LEFT JOIN.',
   },
   {
     patterns: [/maven|pom|lifecycle/i],
