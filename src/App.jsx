@@ -25,6 +25,9 @@ const SpringMCQ = lazy(() => import('./pages/SpringMCQ'));
 const SpringBootMCQ = lazy(() => import('./pages/SpringBootMCQ'));
 const HibernateMCQ = lazy(() => import('./pages/HibernateMCQ'));
 const MicroservicesMCQ = lazy(() => import('./pages/MicroservicesMCQ'));
+const AiLab = lazy(() => import('./pages/ai/AiLab'));
+const AiChat = lazy(() => import('./pages/ai/AiChat'));
+const AiInterview = lazy(() => import('./pages/ai/AiInterview'));
 
 // Minimal loading fallback
 const LoadingFallback = () => null;
@@ -90,6 +93,9 @@ function AppWithTracking() {
         <Route path="spring-boot-mcq" element={<SpringBootMCQ />} />
         <Route path="hibernate-mcq" element={<HibernateMCQ />} />
         <Route path="microservices-mcq" element={<MicroservicesMCQ />} />
+        <Route path="ai-lab" element={<AiLab />} />
+        <Route path="ai-lab/chat" element={<AiChat />} />
+        <Route path="ai-lab/interview" element={<AiInterview />} />
       </Route>
     </Routes>
     </Suspense>

@@ -372,6 +372,12 @@ code {
   min-width: fit-content;
 }
 
+@media (max-width: 640px) {
+  .header-ai-lab-text {
+    display: none;
+  }
+}
+
 /* Search Box */
 .header-search {
   position: relative;

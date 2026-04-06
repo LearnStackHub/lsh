@@ -4,6 +4,7 @@ import {
   Search, Menu, X, BookOpen,
   FileCode, Palette, Code, Database, Server, FileText, Layers, 
   Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud,
+  Sparkles,
 } from 'lucide-react';
 import { useContributions } from '../context/ContributionContext';
 import ConsentBanner from './ConsentBanner';
@@ -179,6 +180,28 @@ function Layout() {
         </div>
 
         <div className="header-right">
+          <Link
+            to="/ai-lab"
+            className="header-ai-lab-link"
+            title="Local practice: chat and interview"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              marginRight: '0.75rem',
+              padding: '0.4rem 0.65rem',
+              borderRadius: 'var(--radius-md)',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: 'var(--accent-primary)',
+              textDecoration: 'none',
+              border: '1px solid var(--border-color)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <Sparkles size={16} aria-hidden />
+            <span className="header-ai-lab-text">Practice Lab</span>
+          </Link>
           <div className="header-search">
             <Search size={18} className="search-icon" />
             <input
@@ -368,6 +391,7 @@ function Layout() {
             <div className="footer-topics-grid">
               <ul>
                 <li><Link to="/">Home</Link></li>
+                <li><Link to="/ai-lab">Practice Lab (local AI)</Link></li>
                 <li><Link to="/tutorial/html-introduction">HTML</Link></li>
                 <li><Link to="/tutorial/css-introduction">CSS</Link></li>
                 <li><Link to="/tutorial/java-introduction">Core Java</Link></li>
