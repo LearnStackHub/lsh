@@ -1,12 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Bot, User, Send, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import SEOHead from '../../components/SEOHead';
 import './ai-lab.css';
 
+const chatMarkdownComponents = {
+  a: ({ href, children, ...props }) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  ),
+};
+
 const WELCOME =
-  'Ask Java and backend interview questions. Replies come from an AI model via a secure server route (Ollama Cloud). ' +
-  'Plain `npm run dev` cannot call `/api`—use the deployed site or run `vercel dev` with `OLLAMA_API_KEY` set.';
+  'Ask Java and backend interview questions—JVM, OOP, Spring, SQL, concurrency, and more. ' +
+  'Replies are AI-generated for learning; double-check anything you rely on for interviews or work.';
 
 function toApiMessages(rows) {
   return rows
@@ -24,21 +34,51 @@ async function fetchChatReply(messages) {
   if (!res.ok) {
     if (res.status === 404) {
       throw new Error(
-        'Chat API missing (404). This host is probably static-only (e.g. GitHub Pages uploads only dist/). ' +
-          'Deploy on Vercel from this repo so `api/ollama-chat.js` runs, and point your domain there—or use a second Vercel project for the same repo.',
+        'Chat is not available here. Open this page from the main site, or try again later.',
       );
     }
     if (res.status === 503) {
       const err = typeof data.error === 'string' ? data.error : 'Service unavailable';
       throw new Error(err);
     }
-    const err = typeof data.error === 'string' ? data.error : res.statusText || 'Request failed';
+    const err =
+      typeof data.error === 'string' ? data.error : 'Something went wrong. Please try again.';
     throw new Error(err);
   }
   if (typeof data.reply !== 'string' || !data.reply.trim()) {
-    throw new Error('Empty reply from server');
+    throw new Error('No answer came back. Please try again.');
   }
   return data.reply.trim();
+}
+
+function ChatRow({ role, text, pending }) {
+  const isUser = role === 'user';
+  return (
+    <div className={`ai-chat-row ${isUser ? 'ai-chat-row--user' : 'ai-chat-row--assistant'}`}>
+      <div className="ai-chat-avatar" aria-hidden="true">
+        {isUser ? <User size={18} strokeWidth={2} /> : <Bot size={18} strokeWidth={2} />}
+      </div>
+      <div className="ai-chat-row-main">
+        <span className="ai-chat-row-label">{isUser ? 'You' : 'Tutor'}</span>
+        <div className={`ai-chat-row-bubble ${pending ? 'ai-chat-row-bubble--pending' : ''}`}>
+          {pending ? (
+            <span className="ai-chat-thinking">
+              <Loader2 className="ai-chat-spin" size={18} aria-hidden />
+              Thinking…
+            </span>
+          ) : isUser ? (
+            <div className="ai-chat-row-text ai-chat-row-text--user">{text}</div>
+          ) : (
+            <div className="ai-chat-markdown">
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={chatMarkdownComponents}>
+                {text}
+              </ReactMarkdown>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function AiChat() {
@@ -70,8 +110,7 @@ function AiChat() {
         {
           role: 'assistant',
           text:
-            `Could not get an AI reply: ${msg}\n\n` +
-            'If you are on localhost, run `vercel dev` with `OLLAMA_API_KEY`, or test on your Vercel deployment.',
+            `Could not get a reply: ${msg}\n\nPlease try again in a moment. If it keeps failing, check your connection or try later.`,
         },
       ]);
     } finally {
@@ -80,51 +119,55 @@ function AiChat() {
   }
 
   return (
-    <div className="ai-lab-page">
+    <div className="ai-lab-page ai-chat-page">
       <SEOHead
         title="Chat Practice | LearnStackHub"
-        description="Java and backend interview chat powered by Ollama Cloud through a serverless API route."
+        description="Java and backend interview chat with an AI tutor on LearnStackHub."
       />
       <Link to="/ai-lab" className="ai-lab-back">
         <ArrowLeft size={16} aria-hidden />
         Back to Practice Lab
       </Link>
-      <div className="ai-lab-hero" style={{ textAlign: 'left', marginBottom: '1.25rem' }}>
-        <h1>Chat practice</h1>
-        <p style={{ margin: 0 }}>
-          Model and prompts are configured on the server (<code>OLLAMA_API_KEY</code>, optional{' '}
-          <code>OLLAMA_MODEL</code>). See <code>api/ollama-chat.js</code>.
-        </p>
-      </div>
-      <div className="ai-panel">
-        <div className="ai-chat-log" ref={logRef} role="log" aria-live="polite">
-          <div className="ai-chat-bubble assistant">{WELCOME}</div>
+
+      <section className="ai-chat-shell" aria-labelledby="ai-chat-title">
+        <header className="ai-chat-topbar">
+          <div className="ai-chat-topbar-text">
+            <h1 id="ai-chat-title">Chat practice</h1>
+            <p className="ai-chat-tagline">Java &amp; backend interview prep with an AI tutor</p>
+          </div>
+        </header>
+
+        <div className="ai-chat-scroll" ref={logRef} role="log" aria-live="polite">
+          <ChatRow role="assistant" text={WELCOME} />
           {messages.map((m, i) => (
-            <div key={i} className={`ai-chat-bubble ${m.role}`}>
-              {m.text}
-            </div>
+            <ChatRow key={i} role={m.role} text={m.text} />
           ))}
-          {loading && (
-            <div className="ai-chat-bubble assistant ai-chat-pending" aria-busy="true">
-              Thinking…
-            </div>
-          )}
+          {loading && <ChatRow role="assistant" pending />}
         </div>
-        <form className="ai-chat-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask a Java or backend interview question..."
-            aria-label="Your message"
-            autoComplete="off"
-            disabled={loading}
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? 'Wait…' : 'Send'}
-          </button>
+
+        <form className="ai-chat-footer" onSubmit={handleSubmit}>
+          <div className="ai-chat-input-wrap">
+            <input
+              type="text"
+              className="ai-chat-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask a Java or backend interview question…"
+              aria-label="Your message"
+              autoComplete="off"
+              disabled={loading}
+            />
+            <button
+              type="submit"
+              className="ai-chat-send"
+              disabled={loading}
+              aria-label={loading ? 'Sending' : 'Send message'}
+            >
+              {loading ? <Loader2 className="ai-chat-spin" size={20} aria-hidden /> : <Send size={20} aria-hidden />}
+            </button>
+          </div>
         </form>
-      </div>
+      </section>
     </div>
   );
 }

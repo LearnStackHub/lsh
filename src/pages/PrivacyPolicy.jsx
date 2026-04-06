@@ -34,9 +34,8 @@ function PrivacyPolicy() {
             <li>Content you submit, such as tutorial contributions or comments</li>
             <li>Feedback and communications you send to us</li>
             <li>
-              Text you type in <strong>Practice Lab → Chat practice</strong>: it is sent to our hosting provider’s
-              serverless function and then to <strong>Ollama</strong> (a third-party AI service) to generate a reply.
-              Do not enter sensitive personal data in chat.
+              Text you type in <strong>Practice Lab → Chat practice</strong>: it is sent to our systems and then to a
+              third-party AI provider to generate a reply. Do not enter sensitive personal data in chat.
             </li>
           </ul>
 
@@ -128,16 +127,12 @@ function PrivacyPolicy() {
             <li><strong>Google AdSense:</strong> For advertising services</li>
             <li><strong>Piston API:</strong> For code execution (no personal data collected)</li>
             <li>
-              <strong>Vercel:</strong> For hosting the Site and running optional server-side features (for example, the
-              Practice Lab chat API route). See Vercel’s privacy policy for how they process requests.
+              <strong>Hosting and infrastructure providers:</strong> For serving the Site and optional server-side
+              features (such as chat). Their privacy policies describe how they process network requests.
             </li>
             <li>
-              <strong>GitHub Pages:</strong> May be used for hosting or deployment workflows; your browser may load the
-              Site from Vercel, GitHub Pages, or both depending on our configuration.
-            </li>
-            <li>
-              <strong>Ollama (Ollama Cloud):</strong> When you use Chat practice, prompts are processed by Ollama to
-              produce answers. Ollama’s terms and privacy policy apply to that processing.
+              <strong>AI providers:</strong> When you use Chat practice, your prompts are processed by a third-party AI
+              service to produce answers. That provider’s terms and privacy policy apply to that processing.
             </li>
           </ul>
           <p>

@@ -4,7 +4,8 @@ const MAX_TOTAL_CHARS = 14000;
 
 const DEFAULT_SYSTEM =
   'You are a concise interview-prep tutor for Java and backend (JVM, OOP, collections, concurrency, JDBC, Spring, SQL, HTTP). ' +
-  'Prefer short paragraphs and bullet points. Give accurate, practical answers; if unsure, say so.';
+  'Prefer short paragraphs and bullet points. Give accurate, practical answers; if unsure, say so. ' +
+  'Format every answer in Markdown: use ### headings, bullet lists, **bold** for important terms, horizontal rules --- between major sections, and fenced ``` code blocks for code or config snippets.';
 
 export const config = {
   maxDuration: 60,
@@ -35,8 +36,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.OLLAMA_API_KEY;
   if (!apiKey) {
     res.status(503).json({
-      error:
-        'Chat is not configured. Set OLLAMA_API_KEY (and optionally OLLAMA_MODEL) in your Vercel project environment.',
+      error: 'Chat is temporarily unavailable. Please try again later.',
     });
     return;
   }
@@ -92,28 +92,26 @@ export default async function handler(req, res) {
 
     const rawText = await upstream.text();
     if (!upstream.ok) {
-      let detail = rawText;
-      try {
-        const j = JSON.parse(rawText);
-        detail = j.error || j.message || rawText;
-      } catch {
-        /* keep rawText */
-      }
       const code = upstream.status >= 500 ? 502 : 422;
-      res.status(code).json({ error: typeof detail === 'string' ? detail : 'Upstream request failed' });
+      res.status(code).json({
+        error: 'We could not complete that request. Please try again in a moment.',
+      });
       return;
     }
 
     const data = JSON.parse(rawText);
     const reply = data.message?.content;
     if (!reply || typeof reply !== 'string') {
-      res.status(502).json({ error: 'Empty or invalid model response' });
+      res.status(502).json({
+        error: 'We could not get an answer right now. Please try again.',
+      });
       return;
     }
 
     res.status(200).json({ reply: reply.trim() });
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : 'Request failed';
-    res.status(502).json({ error: msg });
+  } catch {
+    res.status(502).json({
+      error: 'Something went wrong. Please try again in a moment.',
+    });
   }
 }
