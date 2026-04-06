@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
   BookOpen, Code, Play, ArrowRight, Clock, FileText, Rocket, Target,
-  FileCode, Palette, Database, Server, Layers, Box, Globe, GitBranch, Package, CheckCircle
+  FileCode, Palette, Database, Server, Layers, Box, Globe, GitBranch, Package, CheckCircle,
+  ClipboardList, Cloud, MessageSquare, Video
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
@@ -10,12 +11,14 @@ import StructuredData from '../components/StructuredData';
 function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
   const [totalTopics, setTotalTopics] = useState(0);
+  const [trackCount, setTrackCount] = useState(0);
 
   useEffect(() => {
     const loadData = () => {
       import('../data').then((module) => {
         setCourseStructure(module.courseStructure);
         setTotalTopics(module.getAllTopics().length);
+        setTrackCount(Object.keys(module.courseStructure).length);
       });
     };
 
@@ -27,17 +30,25 @@ function Home() {
   }, []);
 
   const courseDescriptions = {
-    corejava: 'Master variables, OOP, collections, exception handling, and multithreading.',
-    mysql: 'Learn relational data modeling, SQL querying, joins, optimization, and transactions.',
-    jdbc: 'Build robust Java-to-database connectivity with prepared statements and transaction control.',
-    servlets: 'Understand request lifecycle, session management, filters, and web integration.',
-    jsp: 'Create dynamic server-rendered pages with JSP tags, EL, and JSTL.',
-    hibernate: 'Learn ORM mapping, relationships, HQL, caching, and enterprise persistence patterns.',
-    git: 'Use Git and GitHub workflows for professional team collaboration.',
-    maven: 'Automate Java builds, dependencies, plugins, and multi-module project structure.'
+    sdlc: 'Software development lifecycle models, phases, and how teams ship quality software.',
+    html: 'Semantic structure, forms, media, accessibility, and modern HTML5 patterns.',
+    css: 'Selectors, layout with Flexbox and Grid, responsive design, and animations.',
+    corejava: 'Variables through multithreading: OOP, collections, exceptions, and interview depth.',
+    mysql: 'Relational modeling, SQL, joins, indexes, transactions, and database design.',
+    jdbc: 'Java database connectivity, prepared statements, and transaction control.',
+    servlets: 'Request lifecycle, sessions, filters, listeners, and servlet architecture.',
+    jsp: 'Dynamic pages with JSP, EL, JSTL, and MVC-style web patterns.',
+    hibernate: 'ORM mapping, relationships, HQL, caching, and persistence best practices.',
+    git: 'Version control, branching, pull requests, and team workflows with GitHub.',
+    maven: 'Build lifecycle, dependencies, plugins, and multi-module Java projects.',
+    spring: 'IoC, beans, AOP, JDBC templates, and the Spring Framework ecosystem.',
+    springboot: 'Auto-configuration, starters, REST APIs, data access, and production-ready apps.',
+    springcloud: 'Microservices patterns, discovery, config, resilience, and distributed systems.',
+    http: 'Methods, status codes, headers, REST principles, and how the web really works.'
   };
 
   const courseIcons = {
+    sdlc: ClipboardList,
     html: FileCode,
     css: Palette,
     corejava: Code,
@@ -48,6 +59,7 @@ function Home() {
     hibernate: Layers,
     spring: Box,
     springboot: Rocket,
+    springcloud: Cloud,
     http: Globe,
     git: GitBranch,
     maven: Package
@@ -68,10 +80,12 @@ function Home() {
       <StructuredData type="WebSite" />
 
       <section className="landing-hero">
-        <span className="landing-chip">LearnStackHub Professional Learning Path</span>
+        <span className="landing-chip">Free learning platform</span>
         <h1>Learn Java Full Stack Development with Clarity and Depth</h1>
         <p>
-          Study with structured tutorials, practical code examples, and topic-wise learning tracks designed for real interview and project outcomes.
+          <strong>LearnStackHub is free to use</strong>—study with structured tutorials, a browser code runner, topic-wise
+          MCQs, and a Practice Lab for AI chat and interview-style practice. Built for real interviews and project-ready
+          skills, with no paywall.
         </p>
         <div className="landing-actions">
           <Link to="/tutorial/java-introduction" className="btn btn-primary">
@@ -85,16 +99,41 @@ function Home() {
         </div>
         <div className="landing-stats">
           <div><strong>{totalTopics}+</strong><span>Tutorials</span></div>
-          <div><strong>13</strong><span>Tracks</span></div>
+          <div><strong>{trackCount || '—'}</strong><span>Tracks</span></div>
           <div><strong>150+</strong><span>Examples</span></div>
-          <div><strong>Free</strong><span>Learning</span></div>
+          <div><strong>100% free</strong><span>Platform</span></div>
         </div>
       </section>
 
       <section className="landing-quality">
         <article><CheckCircle size={16} /> Structured beginner-to-advanced progression</article>
-        <article><CheckCircle size={16} /> Concept + code + practical context</article>
-        <article><CheckCircle size={16} /> Interview-oriented revision and MCQs</article>
+        <article><CheckCircle size={16} /> Concept + runnable code + practical context</article>
+        <article><CheckCircle size={16} /> Topic-wise MCQs and interview-style revision</article>
+        <article><CheckCircle size={16} /> Practice Lab: AI tutor chat &amp; audio/video interview coach</article>
+      </section>
+
+      <section className="courses-section landing-practice-lab">
+        <div className="section-header">
+          <h2 className="section-title-main">Practice Lab</h2>
+          <p className="home-section-subtitle">
+            Go beyond reading: ask interview-style questions in chat and rehearse answers with camera, mic, and optional
+            recording—all in your browser.
+          </p>
+        </div>
+        <div className="landing-guides landing-practice-lab-cards">
+          <Link to="/ai-lab/chat" className="landing-guide-card">
+            <h3><MessageSquare size={20} style={{ verticalAlign: 'middle', marginRight: '0.35rem' }} /> Chat practice</h3>
+            <p>AI tutor</p>
+            <span>Java &amp; backend Q&amp;A</span>
+            <em>Open chat <ArrowRight size={14} /></em>
+          </Link>
+          <Link to="/ai-lab/interview" className="landing-guide-card">
+            <h3><Video size={20} style={{ verticalAlign: 'middle', marginRight: '0.35rem' }} /> Interview practice</h3>
+            <p>Audio &amp; video</p>
+            <span>Questions &amp; local coaching</span>
+            <em>Start session <ArrowRight size={14} /></em>
+          </Link>
+        </div>
       </section>
 
       <section className="courses-section">
@@ -146,22 +185,26 @@ function Home() {
       </section>
 
       <section className="landing-editorial">
-        <h2>Editorial Standards and Content Quality</h2>
+        <h2>What you get on LearnStackHub</h2>
         <p>
-          Every tutorial is written for clarity, checked for technical correctness, and organized to reduce confusion for learners.
-          We focus on practical implementation, not just definitions.
+          Deep-dive tutorials from SDLC, HTML/CSS, and Core Java through JDBC, web stacks, Hibernate, Spring, Spring Boot,
+          HTTP, Maven, Git, and cloud-style microservices topics—each with examples you can relate to interviews and real
+          projects. <strong>Everything here is free</strong>—no sign-up fee or paywall for the core experience.
         </p>
         <ul>
-          <li>Clear objective and topic scope</li>
-          <li>Code examples with explanation</li>
-          <li>Concept-first and real-world context</li>
-          <li>Internal linking for continuous learning</li>
+          <li>Clear scope per topic, with diagrams and showcases where they help</li>
+          <li>Runnable Java in the browser (where the lesson supports it) and copy-paste-friendly snippets</li>
+          <li>MCQ pages on major tracks for quick self-checks</li>
+          <li>Practice Lab for conversational prep and spoken interview practice</li>
         </ul>
       </section>
 
       <section className="landing-cta">
         <h2>Build Consistent Progress Every Week</h2>
-        <p>Start with fundamentals and move step by step to Spring Boot and production-grade backend development.</p>
+        <p>
+          Start with fundamentals and move step by step to Spring Boot and production-grade backend development—on a{' '}
+          <strong>free platform</strong> built for learners.
+        </p>
         <Link to="/tutorial/java-introduction" className="btn btn-primary">
           <Play size={20} />
           Begin Learning

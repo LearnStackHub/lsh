@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Target, Users, BookOpen, Code, Rocket, Heart, Award } from 'lucide-react';
+import { Target, Users, BookOpen, Code, Heart, Award, MessageSquare, Video, ClipboardCheck } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 
@@ -13,12 +13,13 @@ function About() {
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead 
         title="About Us - LearnStackHub" 
-        description="Learn about LearnStackHub - a free platform for learning Java Full Stack Development with interactive tutorials and live code execution."
+        description="LearnStackHub is a free platform: Java full-stack tutorials, browser code practice, MCQs, Practice Lab (AI chat & interview prep), and tracks from SDLC to Spring Boot—no paywall."
       />
       <StructuredData type="Organization" />
       <h1 className="tutorial-title">About LearnStackHub</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1.1rem' }}>
-        Your complete journey from Core Java fundamentals to cloud-ready full-stack development
+        <strong style={{ color: 'var(--text-primary)' }}>A free platform</strong> — tutorials, hands-on code, MCQs, and a
+        Practice Lab, from SDLC and web basics through Spring Boot and modern backend skills. No subscription required.
       </p>
 
       <div className="tutorial-content">
@@ -65,9 +66,11 @@ function About() {
         <section style={{ marginBottom: '3rem' }}>
           <h2>What is LearnStackHub?</h2>
           <p style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
-            LearnStackHub is a comprehensive, interactive learning platform designed to take you from Java fundamentals 
-            all the way to building cloud-ready applications. Whether you're just starting your programming journey or 
-            looking to expand your skills, we provide step-by-step tutorials, real-world examples, and hands-on practice.
+            LearnStackHub is a <strong>free</strong>, interactive learning platform for Java and backend careers. You get
+            structured tutorials across multiple tracks, a browser-based code runner for Java where lessons support it,
+            topic-wise MCQs for revision, and a <strong>Practice Lab</strong> with an AI tutor chat (interview topics)
+            plus an audio and video interview mode with local coaching hints—so you can read, run, and rehearse in one
+            place at no cost.
           </p>
           <div style={{
             background: 'var(--bg-tertiary)',
@@ -88,16 +91,15 @@ function About() {
               you for real-world projects. LearnStackHub is our solution to these problems.
             </p>
             <p style={{ margin: 0 }}>
-              Today, LearnStackHub serves thousands of learners worldwide, providing free, comprehensive Java education 
-              that rivals paid platforms. We're committed to maintaining this mission as we continue to grow and expand 
-              our curriculum.
+              Today, LearnStackHub continues to grow its curriculum with new topics and clearer paths—always with the
+              goal of keeping professional-grade Java and backend education free and accessible.
             </p>
           </div>
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
           <h2>What We Offer</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
             <div style={{
               background: 'var(--bg-card)',
               border: '1px solid var(--border-color)',
@@ -106,9 +108,10 @@ function About() {
               textAlign: 'center'
             }}>
               <BookOpen size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.5rem' }}>Comprehensive Tutorials</h3>
+              <h3 style={{ marginBottom: '0.5rem' }}>Structured learning tracks</h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
-                Step-by-step guides covering Core Java, JDBC, Servlets, and JSP with clear explanations
+                Organized paths from SDLC, HTML/CSS, and Core Java through JDBC, web stacks, Hibernate, Spring, Spring Boot,
+                HTTP, Maven, Git, and microservices-style topics
               </p>
             </div>
 
@@ -120,9 +123,10 @@ function About() {
               textAlign: 'center'
             }}>
               <Code size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.5rem' }}>Live Code Editor</h3>
+              <h3 style={{ marginBottom: '0.5rem' }}>Runnable Java &amp; examples</h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
-                Write and execute Java code directly in your browser - no setup or installation required
+                In-browser code execution where the lesson supports it, plus copy-paste-friendly snippets and diagrams on
+                many topics
               </p>
             </div>
 
@@ -133,10 +137,41 @@ function About() {
               padding: '1.5rem',
               textAlign: 'center'
             }}>
-              <Rocket size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.5rem' }}>Cloud-Focused</h3>
+              <ClipboardCheck size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
+              <h3 style={{ marginBottom: '0.5rem' }}>MCQs &amp; interview depth</h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
-                Learn concepts that prepare you for cloud deployment and modern development practices
+                Topic-wise multiple-choice quizzes on major tracks and interview-oriented explanations alongside core
+                lessons
+              </p>
+            </div>
+
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              textAlign: 'center'
+            }}>
+              <MessageSquare size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
+              <h3 style={{ marginBottom: '0.5rem' }}>Practice Lab — chat</h3>
+              <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
+                Ask Java and backend interview-style questions and get AI-generated answers formatted for learning
+                (verify important details for your own interviews)
+              </p>
+            </div>
+
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              textAlign: 'center'
+            }}>
+              <Video size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
+              <h3 style={{ marginBottom: '0.5rem' }}>Practice Lab — interview</h3>
+              <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
+                Audio and video practice with your camera and microphone, optional recording, and local coaching hints—no
+                substitute for real interviews, but a safe place to rehearse
               </p>
             </div>
 
@@ -148,12 +183,18 @@ function About() {
               textAlign: 'center'
             }}>
               <Heart size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.5rem' }}>100% Free</h3>
+              <h3 style={{ marginBottom: '0.5rem' }}>Free platform—always</h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
-                Quality education accessible to everyone, forever free with no hidden costs
+                Tutorials, MCQs, code practice, and Practice Lab tools are free to use: no paywall, no subscription, no
+                course fee—our mission is open access to quality learning
               </p>
             </div>
           </div>
+          <p style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            <Link to="/ai-lab" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+              Go to Practice Lab
+            </Link>
+          </p>
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
@@ -164,34 +205,45 @@ function About() {
             to keep up with industry trends and technologies.
           </p>
           <p style={{ marginTop: '1rem' }}>
-            Currently, we cover:
+            Tracks and topics currently include:
           </p>
           <ul style={{ paddingLeft: '1.5rem' }}>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>HTML & CSS:</strong> Build the foundation of web development with modern HTML5 and CSS3
+              <strong>SDLC:</strong> Software development lifecycle concepts and how teams deliver software
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>Core Java:</strong> Master the fundamentals - variables, OOP, collections, multithreading, and more
+              <strong>HTML &amp; CSS:</strong> Structure, layout, responsive design, and modern front-end foundations
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>JDBC:</strong> Learn database connectivity with Java Database Connectivity
+              <strong>Core Java:</strong> Syntax through collections, exceptions, multithreading, and interview-focused material
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>MySQL:</strong> Comprehensive database management and SQL queries
+              <strong>MySQL:</strong> SQL, modeling, joins, indexes, transactions, and database skills for backends
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>Servlets:</strong> Build dynamic web applications with Java Servlets
+              <strong>JDBC:</strong> Connecting Java applications to databases with solid patterns
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>JSP:</strong> Create powerful server-side web pages with JavaServer Pages
+              <strong>Servlets &amp; JSP:</strong> Java web foundations—requests, sessions, and server-rendered pages
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <strong>Hibernate:</strong> Master ORM (Object-Relational Mapping) for efficient database operations
+              <strong>Hibernate:</strong> ORM, mappings, and persistence for enterprise-style apps
+            </li>
+            <li style={{ marginBottom: '0.75rem' }}>
+              <strong>Git &amp; Maven:</strong> Version control and builds the way teams use them day to day
+            </li>
+            <li style={{ marginBottom: '0.75rem' }}>
+              <strong>Spring &amp; Spring Boot:</strong> Core framework concepts through production-style REST and data access
+            </li>
+            <li style={{ marginBottom: '0.75rem' }}>
+              <strong>HTTP:</strong> How APIs and the web stack behave—methods, status codes, and REST thinking
+            </li>
+            <li style={{ marginBottom: '0.75rem' }}>
+              <strong>Spring Cloud / microservices:</strong> Distributed-system topics aligned with modern backend interviews
             </li>
           </ul>
           <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>
-            And we're constantly adding more! Our platform grows with your learning needs, covering new frameworks, 
-            tools, and best practices as they emerge in the industry.
+            We keep expanding and refining topics—follow the tracks on the home page for the latest sequence.
           </p>
         </section>
 
@@ -224,7 +276,8 @@ function About() {
                 Hands-On Practice
               </h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-                Every tutorial includes code examples you can run immediately. Practice makes perfect!
+                Tutorials include runnable examples where supported, plus the Practice Lab for chat and spoken interview
+                rehearsal when you want to go beyond reading.
               </p>
             </div>
 
