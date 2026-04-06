@@ -8,7 +8,7 @@ function AiLab() {
     <div className="ai-lab-page">
       <SEOHead
         title="Local AI Practice Lab | LearnStackHub"
-        description="Chat via Ollama Cloud; interview mode uses local question banks—no LearnStackHub server."
+        description="Practice Lab: local chat rules and interview questions—static site, no backend."
       />
       <div className="ai-lab-hero">
         <h1>Practice Lab</h1>
@@ -18,8 +18,8 @@ function AiLab() {
         </p>
       </div>
       <p className="ai-lab-disclaimer">
-        Chat uses Ollama Cloud from the browser when <code>VITE_OLLAMA_API_KEY</code> is set at build time (e.g.
-        Vercel). Interview mode uses question lists in the app—no LearnStackHub backend.
+        Chat uses keyword rules in the app bundle only. Interview mode uses in-app question lists. No server or
+        external AI APIs for this feature.
       </p>
       <div className="ai-lab-cards">
         <Link to="/ai-lab/chat" className="ai-lab-card">
@@ -27,7 +27,7 @@ function AiLab() {
             <MessageSquare size={22} />
           </span>
           <h2>Chat practice</h2>
-          <p>Ollama Cloud only—set <code>VITE_OLLAMA_API_KEY</code> when you build/deploy.</p>
+          <p>Pattern-matched answers from <code>localAiEngine.js</code>—runs entirely in your browser.</p>
           <span className="ai-lab-card-cta">Open chat →</span>
         </Link>
         <Link to="/ai-lab/interview" className="ai-lab-card">

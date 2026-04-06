@@ -1,7 +1,162 @@
 /**
- * Practice Lab — interview question banks and local coach hints only.
- * Chat at /ai-lab/chat uses Ollama Cloud from the browser (see AiChat.jsx).
+ * Practice Lab — rule-based chat, interview banks, and coach hints. All in the browser; no server.
  */
+
+const GENERIC_HELP =
+  'I match keywords and answer from a fixed knowledge base. Try JVM, OOP, collections, StringBuilder, JDBC, ' +
+  'Spring Boot, REST, threads, MySQL, or Git. For spoken practice, use Audio & Video interview.';
+
+const RULES = [
+  {
+    patterns: [/jvm|java virtual machine/i],
+    reply:
+      'The JVM runs bytecode, manages memory (heap, metaspace, GC), and provides portability. ' +
+      'Pieces: classloaders, runtime data areas, execution engine, JNI.',
+  },
+  {
+    patterns: [/jdk|jre/i],
+    reply:
+      'The JDK includes javac and tools plus a JRE. The JRE is the runtime (JVM + libraries) to execute Java programs.',
+  },
+  {
+    patterns: [/oop|encapsulation|inheritance|polymorphism|abstraction/i],
+    reply:
+      'OOP: encapsulation (hide state), inheritance (reuse/specialize), polymorphism (one interface, many behaviors), abstraction (what not how).',
+  },
+  {
+    patterns: [/equals|hashcode|hash code/i],
+    reply:
+      'equals is logical equality; hashCode must stay consistent with equals for hash maps. Override both together when equality is custom.',
+  },
+  {
+    patterns: [/stringbuilder|string\s*builder|stringbuffer|string\s*buffer|difference between string/i],
+    reply:
+      'String is immutable. StringBuilder is mutable, not synchronized—good for single-thread assembly. StringBuffer is synchronized. Avoid += in tight loops.',
+  },
+  {
+    patterns: [/immutable|string\s*pool|intern/i],
+    reply:
+      'Strings are immutable; the pool deduplicates literals. Use StringBuilder for heavy concatenation; intern() sparingly.',
+  },
+  {
+    patterns: [/arraylist|linkedlist|hashmap|concurrenthashmap|collections?|treemap|treeset/i],
+    reply:
+      'ArrayList: array-backed, fast index access. LinkedList: good inserts at ends. HashMap: buckets, load factor. ConcurrentHashMap for concurrent maps. TreeMap/TreeSet: sorted.',
+  },
+  {
+    patterns: [/generics?|wildcard|\? extends|\? super/i],
+    reply:
+      'Generics add compile-time safety. PECS: Producer Extends, Consumer Super for wildcards.',
+  },
+  {
+    patterns: [/stream\b|optional\b/i],
+    reply:
+      'Streams: lazy pipelines; terminal ops like collect/forEach. Optional models absence without null.',
+  },
+  {
+    patterns: [/exception|try\s*catch|try\s*with\s*resources|checked|unchecked/i],
+    reply:
+      'Checked exceptions must be handled or declared; RuntimeException is unchecked. Prefer try-with-resources for AutoCloseable.',
+  },
+  {
+    patterns: [/thread|executor|synchroni|volatile|concurrent/i],
+    reply:
+      'Prefer java.util.concurrent over raw threads. volatile gives visibility, not atomicity for compound updates.',
+  },
+  {
+    patterns: [/jdbc|preparedstatement|connection pool|hikari/i],
+    reply:
+      'JDBC: use PreparedStatement for parameters (SQL injection safe), manage transactions, close resources. Pools reuse connections.',
+  },
+  {
+    patterns: [/transaction|isolation|acid/i],
+    reply:
+      'ACID: atomicity, consistency, isolation, durability. Isolation levels trade consistency vs concurrency.',
+  },
+  {
+    patterns: [/spring boot|autoconfig|starter/i],
+    reply:
+      'Spring Boot: starters, auto-configuration, @SpringBootApplication. Actuator for health/metrics.',
+  },
+  {
+    patterns: [/spring\s*ioc|@autowired|bean/i],
+    reply:
+      'IoC container wires dependencies. Prefer constructor injection. Beans are often singleton by default.',
+  },
+  {
+    patterns: [/@transactional|propagation/i],
+    reply:
+      '@Transactional uses proxies—self-invocation skips AOP. Know propagation and rollback rules.',
+  },
+  {
+    patterns: [/@restcontroller|@getmapping|responseentity/i],
+    reply:
+      '@RestController = @Controller + @ResponseBody. Map verbs with *Mapping; ResponseEntity for status + body.',
+  },
+  {
+    patterns: [/jpa|hibernate|lazy|n\+1/i],
+    reply:
+      'JPA/Hibernate: mind lazy loading and N+1; use fetch joins or @EntityGraph where appropriate.',
+  },
+  {
+    patterns: [/servlet|filter|session|cookie|jwt/i],
+    reply:
+      'Servlets handle HTTP; filters cross-cut. Sessions are server-side; JWTs carry claims client-side for APIs.',
+  },
+  {
+    patterns: [/mysql|sql\b|index|explain|join|normali[sz]ation/i],
+    reply:
+      'Indexes speed reads; EXPLAIN plans. Normalize to reduce redundancy; denormalize selectively. Know JOIN types.',
+  },
+  {
+    patterns: [/maven|pom|lifecycle/i],
+    reply:
+      'Maven: POM coordinates, dependencies, plugins; lifecycle phases compile/test/package/install.',
+  },
+  {
+    patterns: [/git\b|merge|rebase|branch/i],
+    reply:
+      'Git: branches are pointers; merge vs rebase changes history shape; resolve conflicts carefully.',
+  },
+  {
+    patterns: [/rest|http|idempotent/i],
+    reply:
+      'REST maps resources to URIs/verbs. GET safe; PUT/DELETE often idempotent. Use meaningful status codes.',
+  },
+  {
+    patterns: [/microservice|gateway|circuit/i],
+    reply:
+      'Microservices: independent deploys, more ops complexity. Gateways route; circuit breakers limit cascade failures.',
+  },
+  {
+    patterns: [/hello|hi\b|hey\b/i],
+    reply: 'Hello. Ask a Java or backend question, or try Audio & Video interview for practice.',
+  },
+  {
+    patterns: [/thank/i],
+    reply: 'You are welcome. Keep practicing.',
+  },
+];
+
+/**
+ * @param {string} userMessage
+ * @returns {string}
+ */
+export function getChatReply(userMessage) {
+  const text = (userMessage || '').trim();
+  if (!text) {
+    return 'Type a question to get a local answer—no server or external AI.';
+  }
+  for (const rule of RULES) {
+    if (rule.patterns.some((re) => re.test(text))) {
+      return rule.reply;
+    }
+  }
+  if (text.length < 4) {
+    return 'Could you add a bit more detail?';
+  }
+  return GENERIC_HELP;
+}
 
 const INTERVIEW_BANK = {
   java: [
