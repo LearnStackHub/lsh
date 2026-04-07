@@ -95,7 +95,7 @@ function Contact() {
             <h3 style={{ marginBottom: '1rem' }}>Follow Us</h3>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <a 
-                href="https://github.com/Dattakumar369/learnstackhub" 
+                href="https://github.com/LearnStackHub" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 style={{
