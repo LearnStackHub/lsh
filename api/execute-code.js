@@ -1,13 +1,11 @@
-const PISTON_URL = 'https://emkc.org/api/v2/piston/execute';
+const JUDGE0_URL = 'https://ce.judge0.com/submissions?base64_encoded=false&wait=true';
 const MAX_CODE_CHARS = 20000;
 const MAX_STDIN_CHARS = 8000;
 
-const FILE_NAMES = {
-  java: 'Main.java',
-  javascript: 'main.js',
-  python: 'main.py',
-  cpp: 'main.cpp',
-  c: 'main.c',
+const LANGUAGE_IDS = {
+  java: 62,
+  javascript: 63,
+  python: 71,
 };
 
 function parseBody(req) {
@@ -46,7 +44,7 @@ export default async function handler(req, res) {
   const code = String(body.code || '');
   const stdin = String(body.input || '');
 
-  if (!language || !FILE_NAMES[language]) {
+  if (!language || !LANGUAGE_IDS[language]) {
     res.status(400).json({ error: 'Unsupported language' });
     return;
   }
@@ -64,21 +62,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const upstream = await fetch(PISTON_URL, {
+    const upstream = await fetch(JUDGE0_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        language,
-        version: '*',
+        source_code: code,
+        language_id: LANGUAGE_IDS[language],
         stdin,
-        files: [
-          {
-            name: FILE_NAMES[language],
-            content: code,
-          },
-        ],
       }),
     });
 
@@ -87,20 +79,24 @@ export default async function handler(req, res) {
 
     if (!upstream.ok) {
       res.status(502).json({
-        error: data?.message || `Execution provider error (${upstream.status})`,
+        error: data?.error || data?.message || `Execution provider error (${upstream.status})`,
       });
       return;
     }
 
-    const compileErr = (data?.compile?.stderr || '').trim();
-    const runtimeErr = (data?.run?.stderr || '').trim();
-    const stdout = data?.run?.stdout || data?.run?.output || '';
+    const compileErr = (data?.compile_output || '').trim();
+    const runtimeErr = (data?.stderr || '').trim();
+    const messageErr = (data?.message || '').trim();
+    const statusDesc = (data?.status?.description || '').trim();
+    const stdout = data?.stdout || '';
+    const errorText = [compileErr, runtimeErr, messageErr].filter(Boolean).join('\n');
+    const success = data?.status?.id === 3;
 
     res.status(200).json({
-      success: data?.run?.code === 0,
+      success,
       output: stdout,
-      error: [compileErr, runtimeErr].filter(Boolean).join('\n'),
-      executionTime: 0,
+      error: errorText || (!success && statusDesc ? statusDesc : ''),
+      executionTime: Number(data?.time) || 0,
     });
   } catch {
     res.status(502).json({
