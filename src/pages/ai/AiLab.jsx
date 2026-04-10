@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MessageSquare, Video } from 'lucide-react';
+import { Code2, MessageSquare, Video } from 'lucide-react';
 import SEOHead from '../../components/SEOHead';
 import './ai-lab.css';
 
@@ -8,7 +8,7 @@ function AiLab() {
     <div className="ai-lab-page">
       <SEOHead
         title="Practice Lab | LearnStackHub"
-        description="Practice Lab: AI chat and in-browser interview practice for Java and backend prep."
+        description="Practice Lab: AI chat, live code editor, and in-browser interview practice for Java and backend prep."
       />
       <div className="ai-lab-hero">
         <h1>Practice Lab</h1>
@@ -31,6 +31,17 @@ function AiLab() {
           <h2>Chat practice</h2>
           <p>Natural-language answers from an AI tutor—ask anything about Java and backend interviews.</p>
           <span className="ai-lab-card-cta">Open chat →</span>
+        </Link>
+        <Link to="/ai-lab/code-editor" className="ai-lab-card">
+          <span className="ai-lab-card-icon" aria-hidden>
+            <Code2 size={22} />
+          </span>
+          <h2>Live code editor</h2>
+          <p>
+            Write and run Java, JavaScript, or Python snippets in-browser with live output, just like a mini coding
+            playground.
+          </p>
+          <span className="ai-lab-card-cta">Open editor →</span>
         </Link>
         <Link to="/ai-lab/interview" className="ai-lab-card">
           <span className="ai-lab-card-icon" aria-hidden>

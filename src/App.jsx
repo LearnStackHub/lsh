@@ -28,6 +28,7 @@ const MicroservicesMCQ = lazy(() => import('./pages/MicroservicesMCQ'));
 const AiLab = lazy(() => import('./pages/ai/AiLab'));
 const AiChat = lazy(() => import('./pages/ai/AiChat'));
 const AiInterview = lazy(() => import('./pages/ai/AiInterview'));
+const AiCodeEditor = lazy(() => import('./pages/ai/AiCodeEditor'));
 
 // Minimal loading fallback
 const LoadingFallback = () => null;
@@ -96,6 +97,7 @@ function AppWithTracking() {
         <Route path="ai-lab" element={<AiLab />} />
         <Route path="ai-lab/chat" element={<AiChat />} />
         <Route path="ai-lab/interview" element={<AiInterview />} />
+        <Route path="ai-lab/code-editor" element={<AiCodeEditor />} />
       </Route>
     </Routes>
     </Suspense>

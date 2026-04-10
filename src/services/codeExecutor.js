@@ -135,35 +135,39 @@ function evaluateExpression(expr, code) {
   return expr;
 }
 
-// Alternative: Use Piston API (free, no key required)
-export async function executeWithPiston(code, language = 'java') {
+export async function executeWithPiston(code, language = 'java', input = '') {
   try {
-    const response = await fetch('https://emkc.org/api/v2/piston/execute', {
+    const response = await fetch('/api/execute-code', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        language: language,
-        version: '*',
-        files: [{
-          name: 'Main.java',
-          content: code
-        }]
+        language,
+        code,
+        input,
       })
     });
-    
-    const data = await response.json();
-    
-    if (data.run) {
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
       return {
-        success: data.run.code === 0,
-        output: data.run.stdout || data.run.output,
-        error: data.run.stderr,
+        success: false,
+        output: '',
+        error: data.message || `Execution API error (${response.status})`,
         executionTime: 0
       };
     }
-    
+
+    if (typeof data.success === 'boolean') {
+      return {
+        success: data.success,
+        output: data.output || '',
+        error: data.error || '',
+        executionTime: data.executionTime || 0
+      };
+    }
+
     return {
       success: false,
       output: '',
@@ -171,8 +175,14 @@ export async function executeWithPiston(code, language = 'java') {
       executionTime: 0
     };
   } catch (error) {
-    // Fallback to simulation if API fails
-    return simulateJavaExecution(code);
+    return {
+      success: false,
+      output: '',
+      error:
+        `Could not reach the execution service. ${error.message || 'Network request failed.'} ` +
+        'Please check your internet and try again.',
+      executionTime: 0
+    };
   }
 }
 

@@ -181,6 +181,28 @@ function Layout() {
 
         <div className="header-right">
           <Link
+            to="/ai-lab/code-editor"
+            className="header-ai-lab-link"
+            title="Open live code editor"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              marginRight: '0.5rem',
+              padding: '0.4rem 0.65rem',
+              borderRadius: 'var(--radius-md)',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: '#fff',
+              textDecoration: 'none',
+              background: 'var(--gradient-primary)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <Code size={16} aria-hidden />
+            <span className="header-ai-lab-text">Run Live Code</span>
+          </Link>
+          <Link
             to="/ai-lab"
             className="header-ai-lab-link"
             title="Local practice: chat and interview"

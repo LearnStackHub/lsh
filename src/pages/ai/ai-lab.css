@@ -587,6 +587,103 @@
   margin-top: 0.5rem;
 }
 
+/* —— Live code editor (AiCodeEditor) —— */
+.ai-code-page {
+  max-width: 1100px;
+}
+
+.ai-code-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.ai-code-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.ai-code-subtitle {
+  margin: 0.35rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.87rem;
+}
+
+.ai-code-controls {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ai-code-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.ai-code-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 960px) {
+  .ai-code-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.ai-code-label {
+  display: block;
+  margin: 0.5rem 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.ai-code-editor,
+.ai-code-input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Fira Code', ui-monospace, monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  padding: 0.75rem 0.85rem;
+  resize: vertical;
+}
+
+.ai-code-editor {
+  min-height: 300px;
+}
+
+.ai-code-input {
+  min-height: 86px;
+}
+
+.ai-code-output {
+  min-height: 425px;
+  margin: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: 'Fira Code', ui-monospace, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  padding: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+}
+
 .ai-recording-dot {
   display: inline-block;
   width: 8px;
