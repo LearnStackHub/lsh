@@ -376,6 +376,41 @@ Mastered CRUD operations? Test your JDBC skills with our comprehensive [JDBC MCQ
 ### 10. How would you summarize CRUD interview expectations?
 **Answer:** Interviewers expect safe parameterized SQL, clean mapping, correct transaction handling, and production-aware error/performance practices. Showing only syntax is not enough; they look for end-to-end reliability thinking.
 
+---
+
+## Deep Theory: CRUD as State Transition Model
+
+CRUD is not merely four SQL verbs. It is the application-level state lifecycle of domain entities in persistent storage.
+
+### Theoretical Framing
+
+- Create introduces a new persistent identity.
+- Read materializes state into application memory.
+- Update performs controlled state transition.
+- Delete removes or retires identity based on retention policy.
+
+Each operation must preserve integrity constraints and transactional guarantees.
+
+### Consistency and Isolation
+
+In real systems, CRUD runs under concurrent access. Correct CRUD design must account for:
+
+- atomicity of multi-statement operations,
+- isolation level impact on stale or phantom reads,
+- idempotency for retry-safe behavior in distributed systems.
+
+### Layered Responsibility
+
+JDBC code should not only execute SQL; it should:
+
+- bind parameters safely,
+- map data deterministically,
+- translate low-level failures into domain-level outcomes.
+
+### Practical Insight
+
+Most production CRUD defects are not syntax errors; they are semantic errors: wrong transaction boundaries, weak predicates, and unhandled concurrency assumptions.
+
 `,
   code: `// CRUD Operations Demo
 

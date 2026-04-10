@@ -359,6 +359,35 @@ gRPC/REST use status codes.
 **Answer:** Assert exception type and message fields with \`assertThrows\`—verify mapping from domain events.
 JUnit 5 patterns.
 
+---
+
+## Deep Theory: Exceptions as Domain Error Semantics
+
+Custom exceptions encode business meaning into failure paths. They transform low-level technical failures into semantically rich signals that upper layers can reason about.
+
+### Why Custom Exceptions Exist
+
+Generic exceptions answer "something failed." Domain exceptions answer:
+
+- what failed,
+- why it failed in business terms,
+- whether caller can recover.
+
+This distinction is critical in service architecture and API contract design.
+
+### Checked vs Unchecked from Design Perspective
+
+This is a coupling decision:
+
+- checked exceptions force caller-level acknowledgment,
+- unchecked exceptions prioritize flow simplicity and central handling.
+
+The right choice depends on whether recovery is expected at call sites.
+
+### Architectural Benefit
+
+Custom exceptions improve observability, error translation, and policy enforcement, especially when mapping backend errors to HTTP/API responses.
+
 `,
   code: `// Custom Exceptions Demo
 

@@ -399,6 +399,30 @@ Use this quick routine to turn commands into muscle memory:
 - **Committed build/generated files:** update \`.gitignore\` and remove from index with \`git rm --cached <file>\`.
 
 Keep practicing these commands - they're the foundation of everything in Git!
+
+---
+
+## Deep Theory: Git as Snapshot Graph, Not File Backup
+
+Git fundamentals are graph theory plus content addressing:
+
+- each commit is a snapshot node,
+- edges represent parent relationships,
+- branch names are movable pointers to graph tips.
+
+Understanding this model is more important than memorizing commands.
+
+### Staging Area Theory
+
+The index is a deliberate snapshot constructor. It allows partial construction of the next commit state, which is why logical commit design is possible.
+
+### Commit Quality Principle
+
+A good commit is semantically atomic: one intent, one reversible unit. This property improves review quality, bisect effectiveness, and rollback safety.
+
+### Why Freshers Struggle
+
+Beginners see Git as "save files." Professionals use it as "model history." Once this mental shift happens, commands become predictable.
 `
 };
 

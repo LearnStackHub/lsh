@@ -267,6 +267,39 @@ Validate types before sort.
 **Answer:** Default array \`hashCode\` is identity-based—use \`Arrays.hashCode\` or \`Arrays.deepHashCode\` for content-based hashing.
 Impacts hash maps keyed on array content incorrectly.
 
+---
+
+## Deep Theory: Arrays Utility Design in Java
+
+The Arrays class exists to standardize high-frequency operations on contiguous memory structures. It prevents ad-hoc loop logic from becoming a source of subtle correctness and performance bugs.
+
+### Core Theoretical Idea
+
+Primitive arrays are low-level data structures with no behavior attached. Arrays adds algorithmic behavior around them:
+
+- ordering behavior (sort, parallelSort),
+- lookup behavior (binarySearch),
+- equality and hashing semantics,
+- transformation and copying semantics.
+
+This makes array code deterministic and testable across teams.
+
+### Algorithmic Perspective
+
+- Sorting gives canonical order representation.
+- Binary search assumes sorted order and trades preprocessing cost for fast repeated lookups.
+- Copy operations enforce boundary-safe memory slices.
+
+From theory, many array operations are about preserving invariants: sortedness, length, index safety, and value identity.
+
+### Why This Matters in Production
+
+Manual loops often mix business logic with index management. Arrays utilities isolate index mechanics so business logic stays expressive.
+
+### Practical Trade-off
+
+Arrays APIs increase correctness and readability, but developers must understand preconditions (for example, binarySearch on unsorted data gives invalid meaning). Theory first, then API usage.
+
 `,
   code: `import java.util.Arrays;
 

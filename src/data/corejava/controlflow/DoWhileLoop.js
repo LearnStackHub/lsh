@@ -332,6 +332,26 @@ Verify boundary when the body should run exactly once.
 **Answer:** Negligible difference—choose based on semantics.
 Micro-optimizations belong after profiling.
 
+---
+
+## Deep Theory: Post-Test Iteration Semantics
+
+do-while is a post-condition loop: body executes before guard evaluation. This encodes a specific semantic promise:
+
+"run once, then decide whether repetition is required."
+
+### When It Is Theoretically Correct
+
+Use do-while when first execution is mandatory for system correctness, such as input prompting, initial sampling, or first-attempt operations.
+
+### Distinction from while
+
+while is pre-condition guarded and may execute zero times. Choosing do-while is not style preference; it is behavioral specification.
+
+### Common Failure Mode
+
+Developers misuse do-while with unstable termination conditions, causing infinite loops. Proper state progression and explicit invariants are required.
+
 `,
   code: `// Real-Time: Complete User Registration with Validation
 // Multi-step form validation using do-while

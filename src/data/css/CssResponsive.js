@@ -406,6 +406,30 @@ Use these alongside CSS when you move into backend services, databases, and APIs
 | **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
 | **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
 
+---
+
+## Deep Theory: Responsive Design as Adaptive Constraint Design
+
+Responsive design is not just "fit to screen." It is adaptation of information architecture under changing viewport, input mode, and device capability constraints.
+
+### Foundational Principle
+
+A layout is responsive when meaning remains stable while presentation adapts. The same content must preserve hierarchy, readability, and interaction quality across contexts.
+
+### Technical Model
+
+- fluid sizing handles continuous change,
+- breakpoints handle discontinuous structural change,
+- media and container queries decide where adaptation is triggered.
+
+### Why Mobile-First Is Preferred
+
+Mobile-first optimizes baseline experience under strict constraints, then progressively enhances. This generally leads to cleaner cascade logic and lower CSS complexity.
+
+### Quality Criterion
+
+True responsiveness is measured by task success and readability, not by matching device names.
+
 `,
   code: `// CSS Responsive Design
 

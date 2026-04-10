@@ -288,6 +288,46 @@ Useful for AST-like hierarchies.
 **Answer:** Indirection without benefit obscures flow—balance with YAGNI; abstractions should track real variation points.
 Refactor when second implementation appears.
 
+---
+
+## Deep Theory: What Abstraction Really Solves
+
+Abstraction is a complexity-control mechanism. In object-oriented design, systems fail not because classes cannot be written, but because behavior is tightly coupled to concrete details. Abstraction separates:
+
+- what the system promises (contract),
+- from how each implementation fulfills that promise (mechanism).
+
+This separation lets large systems evolve without forcing global rewrites.
+
+### Conceptual Model
+
+Think in layers:
+
+1. Contract layer: stable operations expected by callers.
+2. Policy layer: shared rules that apply to all implementations.
+3. Implementation layer: provider-specific logic.
+
+In Java, abstract classes and interfaces encode this model. Abstract classes are useful when you need both shared state/logic and mandatory specialized behavior.
+
+### Why It Matters in Architecture
+
+Without abstraction, service code directly depends on concrete classes, creating ripple effects when business rules change. With abstraction, change is localized:
+
+- New implementation added: caller code often unchanged.
+- Existing implementation replaced: integration impact minimized.
+- Testing improved: mock/fake implementations become straightforward.
+
+### Common Misunderstanding
+
+Abstraction is not "hiding code"; it is "stabilizing contracts under change." A good abstraction is judged by long-term maintainability, not by fewer lines today.
+
+### Trade-offs
+
+- Too little abstraction: duplication and tight coupling.
+- Too much abstraction: indirection overhead and cognitive load.
+
+Good engineers introduce abstraction where variation is expected and keep it concrete where variation is unlikely.
+
 `,
   code: `// Abstraction Demo
 

@@ -388,6 +388,28 @@ This improves traceability from commits to tickets and makes release notes easie
 - Open draft PRs early for feedback
 
 Branches are essential for professional development - master them!
+
+---
+
+## Deep Theory: Branches as Isolated Lines of Evolution
+
+A branch is not a folder copy; it is a named reference to a commit trajectory. Branching enables parallel hypothesis development while preserving integration control.
+
+### Theoretical Value
+
+Branches reduce coupling between concurrent tasks. Work can evolve independently until integration criteria are met.
+
+### Merge Implication
+
+Branch divergence accumulates semantic distance. The longer branches live, the harder integration becomes. This is why modern workflows prefer short-lived branches with frequent synchronization.
+
+### Organizational Meaning
+
+Branch strategy reflects team coordination model:
+
+- feature branches optimize review isolation,
+- long-lived integration branches optimize release orchestration,
+- trunk-centric models optimize flow speed.
 `
 };
 

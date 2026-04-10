@@ -393,6 +393,29 @@ Use these alongside CSS when you move into backend services, databases, and APIs
 | **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
 | **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
 
+---
+
+## Deep Theory: Grid as Two-Dimensional Constraint System
+
+CSS Grid is a declarative spatial model for arranging content in both rows and columns simultaneously. Unlike Flexbox, Grid solves macro layout composition.
+
+### Structural Concepts
+
+- tracks: row/column sizing units,
+- lines: boundaries used for placement,
+- areas: named logical regions,
+- implicit grid: auto-generated structure when placement exceeds explicit definition.
+
+Grid lets layout be expressed in terms of relationships rather than absolute coordinates.
+
+### Why Grid Matters
+
+Page-level systems often require alignment across both axes. Grid minimizes layout coupling and enables strong visual rhythm with fewer media-query overrides.
+
+### Theoretical Advantage
+
+Grid separates content order from visual placement while preserving semantic HTML order. This supports maintainability and progressive enhancement when used carefully.
+
 `,
   code: `// CSS Grid
 

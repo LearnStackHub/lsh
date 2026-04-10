@@ -448,6 +448,35 @@ When a release fails:
 A reliable rollback process is as important as deployment automation.
 
 Automated deployment saves time and reduces errors. Start with simple workflows and expand as needed!
+
+---
+
+## Deep Theory: Deployment as Controlled State Promotion
+
+Deployment is the promotion of a software artifact across trust boundaries: source state to build state to runtime state.
+
+### CI/CD Conceptual Pipeline
+
+1. Integration validation: prove artifact correctness under automated checks.
+2. Delivery validation: prove deployability under environment constraints.
+3. Runtime validation: prove operational stability under live traffic.
+
+Each stage reduces uncertainty before the next trust boundary is crossed.
+
+### Why Git Is Central
+
+Git commit identity provides traceability:
+
+- what code is running,
+- when it changed,
+- who approved it,
+- how to roll back.
+
+Without this lineage, operational incidents become harder to diagnose and recover.
+
+### Reliability Principle
+
+A mature deployment system optimizes for reversible change, not just fast change.
 `
 };
 

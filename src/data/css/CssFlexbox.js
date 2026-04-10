@@ -381,6 +381,29 @@ Use these alongside CSS when you move into backend services, databases, and APIs
 | **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
 | **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
 
+---
+
+## Deep Theory: Flex Formatting Context
+
+Flexbox is a one-dimensional layout algorithm that resolves free space distribution along a chosen axis under constraints.
+
+### Core Mental Model
+
+Flex layout has two axes:
+
+- main axis: where items are laid out and space is distributed,
+- cross axis: perpendicular alignment and sizing behavior.
+
+The flex algorithm measures item intrinsic sizes, applies grow/shrink factors, and resolves final dimensions based on available container space.
+
+### Why Flexbox Exists
+
+Before Flexbox, alignment required float hacks and fragile percentage math. Flexbox introduces constraint-based alignment semantics so components can adapt to unknown content sizes.
+
+### Design Strength
+
+Flexbox is best for component-level layout where order, spacing, and alignment must remain stable even as content length changes.
+
 `,
   code: `// CSS Flexbox
 

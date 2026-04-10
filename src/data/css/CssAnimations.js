@@ -497,6 +497,31 @@ Use these alongside CSS when you move into backend services, databases, and APIs
 | **HTTP & HTTPS** | [HTTP Introduction](/tutorial/http-introduction) · [HTTPS Security](/tutorial/https-security) |
 | **APIs** | [API Introduction](/tutorial/api-introduction) · [REST API Fundamentals](/tutorial/rest-api-fundamentals) |
 
+---
+
+## Deep Theory: Motion as Perception and State Communication
+
+CSS animation is a communication layer between interface state and human perception. It should encode causality:
+
+- what changed,
+- where it changed,
+- how important the change is.
+
+### Transition vs Animation Theory
+
+- transition is event-driven interpolation between two computed states.
+- animation is timeline-driven progression through keyframe-defined states.
+
+Transitions are ideal for direct interaction feedback. Animations are suitable for sequence storytelling or repeated system signals.
+
+### Rendering Pipeline Awareness
+
+Not all properties animate equally. Properties that trigger layout recalculation can degrade frame stability. Transform and opacity are preferred because they usually avoid layout reflow and align better with compositor pipelines.
+
+### UX and Accessibility Dimension
+
+Motion intensity influences cognitive load. Good motion reduces uncertainty; excessive motion increases fatigue. Reduced-motion support is not optional in inclusive design theory.
+
 `,
   code: `// CSS Animations & Transitions
 

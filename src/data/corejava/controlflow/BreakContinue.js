@@ -357,6 +357,37 @@ Structure code to avoid confusion.
 **Answer:** Extract method returning boolean success, or use \`Optional\` and short-circuit patterns.
 Tests become simpler with structured exits.
 
+---
+
+## Deep Theory: Loop Control as Flow Semantics
+
+break and continue are not shortcuts; they are control-flow operators that alter loop state transitions.
+
+- continue moves execution to the next iteration boundary.
+- break exits the loop state machine entirely.
+
+### Formal View
+
+Every loop has three phases: enter condition, execute body, transition state. break and continue modify transition behavior:
+
+- continue preserves loop lifecycle but skips remainder of current body.
+- break terminates lifecycle at current depth.
+
+In nested loops, labeled forms affect which lifecycle level is terminated or advanced.
+
+### Design Implication
+
+These operators encode algorithm intent:
+
+- continue expresses filtering semantics.
+- break expresses early termination semantics.
+
+Correct usage can reduce unnecessary work from O(n) full scans to short-circuit behavior in best-case scenarios.
+
+### Risk
+
+Overuse causes hidden control paths and weak readability. Strong code uses break and continue where they model genuine algorithmic meaning, not as patchwork for poor loop design.
+
 `,
   code: `// Real-Time: Complete Fraud Detection System
 // Demonstrates break and continue in security systems

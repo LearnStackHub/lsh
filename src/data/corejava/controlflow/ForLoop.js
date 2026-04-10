@@ -515,6 +515,28 @@ Cache lengths or iterator state when appropriate.
 **Answer:** Enhanced for compiles to iterator or array index loops depending on type.
 Understanding this explains CME and performance of raw arrays vs lists.
 
+---
+
+## Deep Theory: for-loop as Controlled Iteration Contract
+
+for-loop represents bounded iteration where initialization, guard, and state transition are co-located. This structure improves reasoning about termination and complexity.
+
+### Formal Components
+
+- initializer defines starting state,
+- condition defines continuation invariant,
+- update defines deterministic progression.
+
+Together they express loop correctness in one compact control header.
+
+### Why It Matters
+
+Many algorithmic bugs are off-by-one or termination faults. for-loop centralizes loop mechanics and reduces accidental divergence between loop body logic and iteration state.
+
+### Complexity Lens
+
+for-loops are often the visible source of time complexity. Single loop typically maps to O(n), nested loops to O(n*m), unless early termination alters average behavior.
+
 `,
   code: `// For Loop Demo
 
