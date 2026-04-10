@@ -38,7 +38,7 @@ function AiLab() {
           </span>
           <h2>Live code editor</h2>
           <p>
-            Write and run Java, JavaScript, or Python snippets in-browser with live output, just like a mini coding
+            Write and run Java, HTML, and MySQL snippets in-browser with live output, just like a mini coding
             playground.
           </p>
           <span className="ai-lab-card-cta">Open editor →</span>
