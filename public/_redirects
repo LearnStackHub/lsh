@@ -1,3 +1,6 @@
+# Canonical host redirect: non-www -> www
+https://learnstackhub.com/*     https://www.learnstackhub.com/:splat     301!
+
 # Redirect old/incorrect tutorial URLs to correct ones (permanent)
 /tutorial/servlet-architecture   /tutorial/servlet-introduction   301
 /tutorial/servlet-filter         /tutorial/filters-listeners      301
