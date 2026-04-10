@@ -4,7 +4,8 @@ import { getTopicById, getAllTopics } from '../data';
 
 function StructuredData({ topicId, type = 'WebSite' }) {
   const location = useLocation();
-  const baseUrl = 'https://learnstackhub.com';
+  // Keep a single canonical host across all SEO signals.
+  const baseUrl = 'https://www.learnstackhub.com';
 
   useEffect(() => {
     // Remove existing structured data
@@ -21,9 +22,10 @@ function StructuredData({ topicId, type = 'WebSite' }) {
       structuredData = {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
         name: 'LearnStackHub',
-        alternateName: ['LSH', 'Learn Stack Hub', 'LearnStack', 'Learn Hub', 'Stack Hub', 'Learn Java Full Stack Development'],
-        description: 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Free Java Full Stack Development tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP & APIs, React, and AWS. Learn Java programming step-by-step with interactive tutorials and live code execution.',
+        alternateName: ['LSH', 'Learn Stack Hub'],
+        description: 'LearnStackHub (LSH) provides free Java full stack tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP APIs, React, and AWS with practical examples.',
         url: baseUrl,
         keywords: 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, learnstackhub, learnstack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java tutorial hyderabad, java training hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad',
         inLanguage: 'en-US',
@@ -37,6 +39,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         },
         publisher: {
           '@type': 'Organization',
+          '@id': `${baseUrl}/#organization`,
           name: 'LearnStackHub',
           url: baseUrl,
           logo: {
@@ -46,9 +49,10 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         },
         mainEntity: {
           '@type': ['EducationalOrganization', 'LocalBusiness'],
+          '@id': `${baseUrl}/#organization`,
           name: 'LearnStackHub',
-          alternateName: ['LSH', 'Learn Stack Hub', 'LearnStack', 'Learn Hub', 'Stack Hub'],
-          description: 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Free online Java Full Stack Development tutorials and courses. Learn Java, Spring Boot, and Full Stack development with interactive tutorials.',
+          alternateName: ['LSH', 'Learn Stack Hub'],
+          description: 'LearnStackHub (LSH) is a free online Java full stack learning platform with practical tutorials and interview-focused content.',
           teaches: ['Java Programming', 'Java Web Development', 'JDBC', 'Servlets', 'JSP', 'Hibernate', 'MySQL', 'Spring Framework', 'Spring Boot', 'HTTP & APIs', 'React', 'AWS'],
           educationalCredentialAwarded: 'Certificate of Completion',
           address: {
@@ -70,6 +74,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         structuredData = {
           '@context': 'https://schema.org',
           '@type': 'Article',
+          '@id': `${baseUrl}/tutorial/${topic.id}#article`,
           headline: topic.title,
           description: topic.description || `Learn ${topic.title} with step-by-step tutorials, code examples, and real-world scenarios. Complete ${topic.courseTitle || 'Java'} tutorial for beginners and advanced developers.`,
           url: `${baseUrl}/tutorial/${topic.id}`,
@@ -87,6 +92,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
           },
           publisher: {
             '@type': 'Organization',
+            '@id': `${baseUrl}/#organization`,
             name: 'LearnStackHub',
             url: baseUrl,
             logo: {
@@ -174,10 +180,11 @@ function StructuredData({ topicId, type = 'WebSite' }) {
       structuredData = {
         '@context': 'https://schema.org',
         '@type': ['Organization', 'LocalBusiness', 'EducationalOrganization'],
+        '@id': `${baseUrl}/#organization`,
         name: 'LearnStackHub',
-        alternateName: ['LSH', 'Learn Stack Hub', 'LearnStack', 'Learn Hub', 'Stack Hub'],
+        alternateName: ['LSH', 'Learn Stack Hub'],
         url: baseUrl,
-        description: 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Free Java Full Stack Development Tutorials. Comprehensive Java, Spring Boot, and Full Stack training with interactive tutorials.',
+        description: 'LearnStackHub (LSH) is a free Java full stack tutorial platform with comprehensive Java, Spring Boot, and backend learning resources.',
         logo: {
           '@type': 'ImageObject',
           url: `${baseUrl}/LSH.png`
