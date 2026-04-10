@@ -12,7 +12,10 @@
     "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^6.20.1",
     "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/lang-python": "^6.2.1",
     "@emailjs/browser": "^4.4.1",
     "@uiw/react-codemirror": "^4.25.4",
     "lucide-react": "^0.564.0",

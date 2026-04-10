@@ -1,6 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Loader2, Play } from 'lucide-react';
+import { ArrowLeft, Loader2, Maximize2, Minimize2, Play } from 'lucide-react';
+import CodeMirror from '@uiw/react-codemirror';
+import { autocompletion } from '@codemirror/autocomplete';
+import { java } from '@codemirror/lang-java';
+import { javascript } from '@codemirror/lang-javascript';
+import { python } from '@codemirror/lang-python';
 import SEOHead from '../../components/SEOHead';
 import { executeWithPiston } from '../../services/codeExecutor';
 import './ai-lab.css';
@@ -36,8 +41,18 @@ function AiCodeEditor() {
   const [running, setRunning] = useState(false);
   const [autoRun, setAutoRun] = useState(false);
   const [runError, setRunError] = useState('');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const shellRef = useRef(null);
 
   const output = useMemo(() => getOutputText(result), [result]);
+  const editorExtensions = useMemo(() => {
+    const langExt = {
+      java: java(),
+      javascript: javascript(),
+      python: python(),
+    }[language];
+    return [langExt, autocompletion()];
+  }, [language]);
 
   useEffect(() => {
     setCode(STARTER[language]);
@@ -72,6 +87,33 @@ function AiCodeEditor() {
     return () => window.clearTimeout(id);
   }, [autoRun, code, customInput]);
 
+  useEffect(() => {
+    function onFullscreenChange() {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    }
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isFullscreen) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isFullscreen]);
+
+  async function toggleFullscreen() {
+    if (!document.fullscreenElement && shellRef.current?.requestFullscreen) {
+      await shellRef.current.requestFullscreen();
+      return;
+    }
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+    }
+  }
+
   return (
     <div className="ai-lab-page ai-code-page">
       <SEOHead
@@ -83,7 +125,7 @@ function AiCodeEditor() {
         Back to Practice Lab
       </Link>
 
-      <section className="ai-panel">
+      <section ref={shellRef} className={`ai-panel ai-code-shell ${isFullscreen ? 'ai-code-shell--fullscreen' : ''}`}>
         <div className="ai-code-topbar">
           <div>
             <h1 className="ai-code-title">Live code editor</h1>
@@ -117,6 +159,10 @@ function AiCodeEditor() {
                 </>
               )}
             </button>
+            <button type="button" className="ai-btn secondary" onClick={toggleFullscreen}>
+              {isFullscreen ? <Minimize2 size={16} aria-hidden /> : <Maximize2 size={16} aria-hidden />}
+              {isFullscreen ? 'Exit full screen' : 'Full screen'}
+            </button>
           </div>
         </div>
 
@@ -125,12 +171,21 @@ function AiCodeEditor() {
             <label htmlFor="ai-code-editor" className="ai-code-label">
               Source code
             </label>
-            <textarea
-              id="ai-code-editor"
-              className="ai-code-editor"
+            <CodeMirror
               value={code}
-              onChange={(e) => setCode(e.target.value)}
-              spellCheck={false}
+              height={isFullscreen ? 'calc(100vh - 260px)' : '560px'}
+              theme="dark"
+              extensions={editorExtensions}
+              onChange={(value) => setCode(value)}
+              basicSetup={{
+                lineNumbers: true,
+                foldGutter: true,
+                autocompletion: true,
+                bracketMatching: true,
+                closeBrackets: true,
+                highlightSelectionMatches: true,
+              }}
+              className="ai-code-editor-cm"
             />
             <label htmlFor="ai-code-input" className="ai-code-label">
               Optional stdin input
