@@ -601,6 +601,18 @@ Use these tutorials as you build the full stack after HTML: styling, backend, da
 10. **Why is header association important?**  
     When users **cannot see** the grid, assistive tech must read **“this number is for Product X in March”** by linking **\`<td>\`** to the right **\`<th>\`**. **scope**, **headers/id**, and **caption** provide that **programmatic** relationship. Without it, a table becomes a **wall of numbers**—a serious **accessibility** failure for data-heavy apps.
 
+---
+
+## Deep Understanding: When a Table Is Correct HTML
+
+A table is not just rows and columns. In semantic HTML, a table represents relational data where each value is meaningful only with its row and column context. This is why header associations matter. Screen readers, exports, and automation tools rely on this structure to understand data correctly.
+
+A table should include clear headers, consistent cell meaning, and stable ordering. If content is only for visual layout, using table tags harms accessibility and maintainability. Modern UI layouts should use CSS Grid or Flexbox; tables should remain for actual data relationships.
+
+## Real Production Mistake to Avoid
+
+Many freshers build dashboards with visually correct tables but skip caption and header scope. It looks fine, but assistive technology reads cells without context. The page becomes unusable for keyboard and screen-reader users. High-quality table design means visual clarity plus machine-readable structure.
+
 `,
   code: `// HTML Tables
 

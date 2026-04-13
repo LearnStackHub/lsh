@@ -758,6 +758,18 @@ If headers are too large:
 - Record typical errors around **content negotiation** and add prevention notes in your project docs.
 - Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
+---
+
+## Deep Understanding: Headers as Protocol Metadata Contracts
+
+HTTP headers are contract metadata between client and server. They do not carry business payload directly, but they control how payload is interpreted, cached, secured, compressed, and routed. In production systems, many defects are header defects, not JSON defects.
+
+Request headers express caller capabilities and intent, while response headers express server policy and state. Caching headers influence latency and cost. Security headers reduce browser-side attack surface. Content negotiation headers decide representation format and language.
+
+## Practical Architecture Insight
+
+If body is the "data", headers are the "rules of transfer". Strong API design defines both clearly. Freshers who learn headers deeply debug distributed systems much faster because they can reason about behavior across proxies, CDNs, browsers, and gateways.
+
 `,
   code: `// HTTP Headers - Complete Examples
 

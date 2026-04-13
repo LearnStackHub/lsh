@@ -369,6 +369,24 @@ IDEs usually highlight the exact statement.
 - Record typical errors around **compile-time rules** and add prevention notes in your project docs.
 - Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
+---
+
+## Deep Understanding: Syntax Is the Compiler Contract
+
+Java syntax is the formal grammar that maps source text to valid program structure. It is not cosmetic. Correct syntax allows the compiler to build a consistent abstract model of your program.
+
+Semicolons, braces, declarations, and type annotations together provide unambiguous structure. This strictness is why Java catches many defects before runtime.
+
+## Theory to Practice
+
+When freshers treat syntax as memorization, they struggle with debugging. When they treat syntax as a structure language, errors become easier to reason about:
+
+- scope errors become visibility mistakes,
+- token errors become grammar mistakes,
+- type errors become contract mismatches.
+
+Mastering syntax means mastering how Java thinks, not just how Java looks.
+
 `,
   code: `// Java Syntax Demo - Understanding Java code structure
 

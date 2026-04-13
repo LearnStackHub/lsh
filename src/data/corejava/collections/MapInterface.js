@@ -344,6 +344,24 @@ Immutable keys strongly recommended.
 - Record typical errors around **iteration patterns** and add prevention notes in your project docs.
 - Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
+---
+
+## Deep Understanding: Map as Key-Based Lookup Model
+
+Map is a data model for association, not sequence. It optimizes retrieval by key identity, replacing expensive linear scans with key-based access strategies.
+
+Different Map implementations encode different guarantees:
+
+- HashMap: average fast lookup, no ordering,
+- LinkedHashMap: insertion order stability,
+- TreeMap: sorted key order with logarithmic operations.
+
+## Why This Matters in Backend Systems
+
+Caching, deduplication, indexing, and aggregation all rely on map semantics. Bugs usually come from weak key design, mutable keys, or misunderstood ordering guarantees.
+
+Use Map when identity lookup is central to the problem, not when order is the primary concern.
+
 `,
   code: `// Map Interface Demo
 

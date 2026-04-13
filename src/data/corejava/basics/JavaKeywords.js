@@ -330,6 +330,20 @@ Some languages work around with backticks—Java does not.
 - Record typical errors around **control-flow meaning** and add prevention notes in your project docs.
 - Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
+---
+
+## Deep Understanding: Keywords as Language-Level Constraints
+
+Java keywords are not vocabulary to memorize blindly. They define what the compiler and runtime are allowed to do. In other words, keywords are policy switches built into the language grammar.
+
+For example, access modifiers define visibility boundaries, final controls mutability and extension, and static changes ownership from object instance to class-level memory. If these are chosen incorrectly, bugs appear as security leaks, test instability, or hidden coupling.
+
+Strong Java code uses keywords intentionally to express design intent: who can access this, who can modify this, and where state should live.
+
+## Practical Engineering Perspective
+
+Freshers often write code that compiles but is hard to evolve. Keyword choice is a major reason. Treat every keyword as an architectural decision, not syntax decoration.
+
 `,
   code: `// Java Keywords Demo - Understanding reserved words
 

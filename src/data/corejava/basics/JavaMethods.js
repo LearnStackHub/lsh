@@ -325,6 +325,20 @@ API design balances checked vs unchecked carefully.
 - Record typical errors around **return type design** and add prevention notes in your project docs.
 - Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
+---
+
+## Deep Understanding: Methods as Behavioral Contracts
+
+A Java method is a contract boundary between caller and implementation. Signature defines input and output expectations; body defines execution behavior.
+
+Method quality is judged by cohesion, clarity, and side-effect control. Small, focused methods are easier to test and compose. Overloaded methods improve API ergonomics when names remain semantically consistent. Poor method design causes hidden dependency chains and brittle code.
+
+## Why This Matters in Real Systems
+
+In enterprise codebases, methods become reusable units across services, controllers, and utilities. If contracts are vague, integration defects grow. If contracts are clear, refactoring becomes safer and onboarding becomes faster.
+
+Think of methods as units of business intent, not just blocks of code.
+
 `,
   code: `// Methods Demo - Understanding Java methods
 

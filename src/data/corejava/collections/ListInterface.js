@@ -326,6 +326,23 @@ More powerful than basic Iterator.
 - Record typical errors around **ArrayList vs LinkedList** and add prevention notes in your project docs.
 - Revisit related lessons and connect this concept to a complete end-to-end workflow.
 
+---
+
+## Deep Understanding: List as Ordered Sequence Abstraction
+
+List represents a position-aware sequence where duplicates are valid and order is meaningful. This makes it ideal for workflows where index, insertion order, or traversal order affects business logic.
+
+ArrayList and LinkedList implement the same abstraction with different internal trade-offs. ArrayList favors random access and cache locality. LinkedList favors frequent edge insertions/removals but has higher traversal overhead.
+
+## Design-Level Insight
+
+Choosing List implementation is a workload decision, not a habit:
+
+- read-heavy random access: ArrayList,
+- queue-like structural changes: LinkedList.
+
+Understanding this prevents performance surprises in large data flows.
+
 `,
   code: `// List Interface Demo
 
