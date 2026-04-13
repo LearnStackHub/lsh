@@ -361,34 +361,44 @@ You've learned:
 ## 10 Important Git Revert / Reset Interview Questions
 
 1. **What does \`git revert\` do?**  
-   Creates a **new commit** that **undoes** a previous commit’s changes—**history stays**; **safe** for **shared** branches because you **don’t** rewrite old commits.
+   **Short Answer:** Revert creates a new commit that reverses an earlier commit while preserving full history.  
+   **Detailed Explanation:** Revert is the safest undo method for shared branches because it does not erase or rewrite existing commits. Instead, it adds a new commit that applies opposite changes of the selected commit. This keeps audit trail intact and avoids disrupting teammates who already pulled history. Interviewers often prefer hearing revert as default for production or team branches. It supports transparent debugging because both original mistake and correction remain visible. Mentioning this workflow shows collaborative awareness and release safety thinking. Revert is especially useful when bad code is already pushed and must be fixed without history rewrite risk.
 
 2. **What does \`git reset --hard\` do?**  
-   Moves **branch pointer** and **discards** working tree changes to match that commit—**destructive**. **Never** on **pushed shared** history without team agreement.
+   **Short Answer:** Hard reset moves branch pointer and discards staged and working changes to match target commit exactly.  
+   **Detailed Explanation:** Hard reset is powerful but destructive because it rewinds branch history and removes local modifications not represented in target commit. It is fine for local cleanup when you are certain changes are disposable or backed up. On shared branches, it can create serious collaboration issues because history divergence requires force push and teammate recovery steps. Interviewers expect caution here, not fear but control. A good answer explains when it is acceptable, when it is dangerous, and why revert is safer on shared history. This demonstrates responsible source control practice and understanding of distributed workflows.
 
 3. **Difference between \`reset --soft\`, \`--mixed\`, \`--hard\`?**  
-   **soft:** move HEAD, **keep** staging + working changes. **mixed (default):** move HEAD, **unstage**, keep working files. **hard:** **wipe** staging and working tree to match commit.
+   **Short Answer:** Soft keeps changes staged, mixed keeps changes unstaged, and hard discards changes completely.  
+   **Detailed Explanation:** These modes differ by how much state they preserve after moving branch pointer. Soft reset is best when you want to rewrite commit history but keep all edits ready for recommit. Mixed reset unstages files while keeping content in working directory, useful for reorganizing commits. Hard reset wipes both staging and working area to match target commit exactly. Interviewers ask this to test practical undo judgment. A solid answer includes mental model of commit pointer, index, and working tree. Understanding those layers helps choose safe command behavior and avoid accidental data loss.
 
 4. **When would you use \`git restore\`?**  
-   **Discard** local changes in a file (**before commit**) or **restore** from index—**safer** mental model than some **checkout** uses in modern Git.
+   **Short Answer:** Use restore for file-level undo, such as discarding local edits or unstaging files safely.  
+   **Detailed Explanation:** Restore provides focused, modern syntax for manipulating file states without affecting branch history. It is commonly used to remove unwanted local edits in specific files or move staged files back to unstaged state. Compared with older overloaded checkout usage, restore improves command intent clarity. Interviewers like candidates who choose safer, readable commands for routine operations. Mention that restore is ideal before commit and should be used carefully when discarding edits because that action is irreversible unless recoverable from other history. This shows practical command selection and user-safety awareness.
 
 5. **Can you undo a \`git push\`?**  
-   Technically **\`git push --force\`** can **rewrite** remote history—**dangerous** if others **pulled**. Prefer **\`git revert\`** on shared branches.
+   **Short Answer:** Yes, but safest shared-branch undo is revert; force push should be reserved for coordinated exceptional cases.  
+   **Detailed Explanation:** Once commits are pushed, they become part of shared remote history. You can technically rewrite that history with force push after reset or rebase, but this may break teammate branches and CI references. Safer approach is creating a revert commit that undoes bad changes while keeping timeline stable. Interviewers look for this team-safe mindset. Mention that force push can be acceptable on private feature branches where no one else depends on history, especially before pull request. Distinguishing branch context and collaboration impact demonstrates mature understanding of remote undo strategies and operational risk.
 
 6. **What is \`git reflog\`?**  
-   **Local** log of **where HEAD moved**—helps **recover** “lost” commits after reset **if** you haven’t garbage-collected. **Lifeline** when you mess up **locally**.
+   **Short Answer:** Reflog is a local movement history of HEAD and references, used to recover commits after mistakes.  
+   **Detailed Explanation:** Reflog records where branch heads and HEAD pointed over time, even for operations that rewrite history. This makes it a recovery lifeline after accidental reset, branch deletion, or detached work loss. Unlike normal commit log, reflog is local and temporary, so it should be used quickly before cleanup expires old entries. Interviewers appreciate candidates who know recovery options rather than panic after mistakes. Mention practical flow: inspect reflog, locate desired commit, create branch at that reference. This demonstrates confidence and deeper Git troubleshooting capability beyond routine commands.
 
 7. **How do you revert a merge commit?**  
-   **\`git revert -m 1 <merge-commit>\`** (choose **mainline parent**)—**tricky**; read docs or ask **senior** first. Wrong **\-m** picks wrong parent tree.
+   **Short Answer:** Reverting a merge requires specifying mainline parent so Git knows which side to treat as baseline.  
+   **Detailed Explanation:** Merge commits have multiple parents, so revert needs extra context to decide which parent history should remain. Mainline option provides that context, usually selecting the branch into which merge was made. This operation can be confusing and risky if parent choice is wrong, so interviewers often use it to test conceptual depth. A safe answer includes caution: verify commit graph, test locally, and involve team if branch is shared. Mention that reverting merge does not erase history but creates a compensating commit. This shows careful handling of advanced undo scenarios.
 
 8. **Why is “force push to main” a red flag?**  
-   **Rewrites** **public** history—teammates’ branches **break**, **CI** tags may **misalign**. **Policy** usually **forbids** except **admin** maintenance.
+   **Short Answer:** It rewrites shared history and can disrupt teammates, automation, and audit reliability.  
+   **Detailed Explanation:** Main branch is typically source of truth for production and collaboration, so rewriting it breaks assumptions for everyone consuming that history. Team branches may diverge unexpectedly, pull requests become harder to reason about, and deployment pipelines may reference missing commit ids. Interviewers expect you to call this high-risk and policy-controlled. While force push has valid uses in isolated contexts, using it on protected shared branches should be exceptional and documented. A mature answer emphasizes prevention through branch protection and safe undo via revert. This demonstrates both technical caution and teamwork awareness.
 
 9. **What is the safe default for freshers fixing a bad commit already on GitHub?**  
-   **\`git revert <bad-commit>\`** and **push**—transparent undo everyone can **understand**.
+   **Short Answer:** Use revert on the bad commit and push the revert commit so history stays clear and safe.  
+   **Detailed Explanation:** For beginners working on shared repositories, revert is the most reliable default because it avoids rewriting existing remote history. The process is straightforward: identify bad commit, create revert commit, run tests, and push. Teammates can pull normally without branch repair steps. Interviewers like this answer because it prioritizes collaboration safety and traceability. It also aligns with branch protection policies common in professional teams. Mentioning communication with reviewers and linking revert to incident context further strengthens answer quality. This approach keeps recovery transparent and minimizes additional operational risk.
 
 10. **What is interactive rebase (\`git rebase -i\`)?**  
-    **Rewrite** your **local** commit series (squash, reword, reorder)—**powerful** for **clean** history **before** PR; **do not** rebase **others’** commits.
+    **Short Answer:** Interactive rebase rewrites local commit sequence to edit, reorder, squash, or reword commits before sharing.  
+    **Detailed Explanation:** Interactive rebase is a history editing tool used mainly on local branches before pushing or before opening pull requests. It helps transform messy incremental commits into clear logical units that reviewers can understand easily. Common actions include squashing related commits, correcting message quality, and dropping accidental commits. Interviewers expect you to acknowledge power and risk: rewritten commits get new ids, so rebasing already shared commits can break collaborators. A strong answer highlights responsible usage boundaries and benefits to review quality. Mastering interactive rebase reflects advanced but disciplined Git workflow capability.
 
 ---
 

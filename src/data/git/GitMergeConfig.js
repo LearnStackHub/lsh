@@ -332,34 +332,44 @@ You've learned:
 ## 10 Important Git Merge Interview Questions
 
 1. **What is a three-way merge?**  
-   Git finds a **common ancestor** commit and **two** tips (e.g. \`main\` and \`feature\`), then **combines** changes. If the **same lines** changed both sides → **conflict**.
+   **Short Answer:** A three-way merge compares both branch tips and their common ancestor to combine changes safely.  
+   **Detailed Explanation:** Three-way merge is the standard integration model when branches have diverged. Git uses the common base commit to understand what changed independently on each side, then attempts to apply both sets of changes into one result. If modifications do not overlap, merge is automatic. If they do overlap, conflict markers are produced for manual resolution. Interviewers ask this to confirm conceptual understanding beyond command memorization. A strong answer explains why base commit matters and how Git determines conflict. This knowledge helps developers resolve merges confidently and avoid confusion during pull request integration.
 
 2. **What is fast-forward vs no-fast-forward (\`--no-ff\`)?**  
-   **Fast-forward:** simply moves the branch pointer—**no** merge commit. **\`--no-ff\`:** always creates a **merge commit** to **record** that a feature branch existed—clearer history for **release** archaeology.
+   **Short Answer:** Fast-forward moves pointer without merge commit, while no-fast-forward always records an explicit merge commit.  
+   **Detailed Explanation:** Fast-forward occurs when target branch has no unique commits since branching, so Git can simply advance pointer. No-fast-forward forces merge commit even when fast-forward is possible, preserving branch context. Teams choose based on history style and audit needs. Interviewers often expect you to mention tradeoff: fast-forward gives clean linear history, while no-fast-forward makes feature integration points more visible. Neither is universally correct. Mature teams standardize one policy so history remains predictable. Mentioning policy consistency and review clarity demonstrates practical project experience, not only command familiarity.
 
 3. **What does \`git merge --squash\` do?**  
-   Applies **all** changes from a branch as **uncommitted** staged changes on your current branch—one **single** commit when you commit. **Flattens** feature commits; **different** from **GitHub squash merge** UI but similar idea.
+   **Short Answer:** It combines all branch changes into staged state so you can create one consolidated commit.  
+   **Detailed Explanation:** Squash merge applies the final diff from source branch onto target branch without preserving individual commit history from that branch. After squash, you create one new commit manually. This is useful when feature branch has many small work-in-progress commits and team wants clean main history. In interviews, mention downside too: detailed internal progression of feature branch is not preserved in main branch timeline. That may reduce traceability of intermediate decisions. Teams using squash should write strong pull request descriptions and commit messages to preserve context. Understanding this balance reflects practical merge strategy awareness.
 
 4. **What is \`ours\` vs \`theirs\` during conflicts?**  
-   In a merge, **“ours”** is usually **your current branch**, **“theirs”** is the **branch being merged** (can feel reversed during **rebase**—**be careful**). Prefer **manual** resolution over blind **\`--ours\`** unless you’re sure.
+   **Short Answer:** Ours means current branch version, and theirs means incoming branch version during merge conflict resolution.  
+   **Detailed Explanation:** Conflict labels are context-dependent and often misunderstood by beginners. During merge, ours refers to checked-out branch and theirs refers to merged branch. During rebase contexts, interpretation can feel reversed because replay direction differs. Interviewers value caution here: blind acceptance of one side can silently drop important logic. Good practice is reading both changes, understanding business intent, and producing a combined correct result where needed. Mention that automated options are useful for generated files or known preference patterns, but manual review remains safest for core logic files. This shows responsible conflict-handling mindset.
 
 5. **How do you abort a bad merge?**  
-   **\`git merge --abort\`** (if merge in progress). Returns you to **pre-merge** state—safe when you’re confused.
+   **Short Answer:** Use merge abort command to return repository to pre-merge state if merge is in progress.  
+   **Detailed Explanation:** When conflicts become messy or you realize the merge should not continue yet, aborting is safer than forcing uncertain resolutions. Merge abort restores index and working tree to the state before merge started, allowing you to retry later with cleaner preparation. In interviews, mention that abort works only while merge process is active. This command is valuable for beginners who are still learning conflict resolution and want to avoid accidental incorrect commits. Good workflow includes pulling latest changes, syncing branches, and then retrying merge after understanding the conflict context properly.
 
 6. **What is \`git mergetool\`?**  
-   Opens a **visual** diff/merge tool (Beyond Compare, VS Code) to resolve conflicts **faster** than raw text markers.
+   **Short Answer:** It launches a configured visual merge tool to help resolve conflicts more clearly and efficiently.  
+   **Detailed Explanation:** Mergetool integrates external graphical or editor-based conflict resolvers with Git. Instead of manually editing conflict markers in plain text, developers can compare base, local, and incoming versions side by side and choose final result interactively. Interviewers like hearing this because it shows practical productivity awareness in real-world conflict-heavy repositories. However, tool assistance does not replace understanding; developers still must validate resulting logic and run tests. Mention that configuring a standard team tool can reduce confusion and speed onboarding. This demonstrates both technical and collaboration-oriented thinking.
 
 7. **Rebase vs merge (when to use which)?**  
-   **Merge** preserves **true** parallel history. **Rebase** **replays** commits for a **linear** log—nice on **private** feature branches; **dangerous** if you **rebase shared** history others already pulled.
+   **Short Answer:** Merge is safer for shared history; rebase is cleaner for private branch cleanup before integration.  
+   **Detailed Explanation:** Merge keeps original commit graph intact and is straightforward for collaboration because commit identities remain unchanged. Rebase rewrites commits by replaying them on a new base, producing linear history but changing commit hashes. Interviewers expect safety rule awareness: do not rebase shared public history unless team explicitly coordinates. Rebase is powerful for polishing local feature branch before creating pull request, while merge is preferred when preserving exact timeline matters. A balanced answer shows you understand tradeoffs instead of treating one method as always superior. Team policy and repository standards should guide final choice.
 
 8. **What is an octopus merge?**  
-   Merging **more than two** parents at once—**rare** manually; Git uses it internally in some cases. **Fresher:** know the **name**; you’ll mostly see **two-parent** merges.
+   **Short Answer:** It is a merge that combines more than two branches in one merge commit.  
+   **Detailed Explanation:** Octopus merge supports integrating multiple branches simultaneously, creating a commit with several parents. It is less common in day-to-day feature workflows because conflict handling becomes complex and less readable. Interviewers usually ask this as conceptual awareness rather than expected frequent use. You can mention it may be useful for batching independent topic branches that do not conflict. In most modern teams, sequential pull request merges remain preferred for review clarity and easier rollback. Showing this practical perspective demonstrates that you know advanced terms while still applying sensible workflow discipline.
 
 9. **Why run tests after resolving conflicts?**  
-   Conflict resolution can **drop** logic or **duplicate** lines. **Compile + tests** catch mistakes **before** push.
+   **Short Answer:** Because conflict resolution is manual and can introduce subtle bugs even when merge appears successful.  
+   **Detailed Explanation:** A conflict-free file is not always a correct file. During manual resolution, developers may accidentally remove required logic, duplicate calls, break imports, or violate assumptions in nearby code. Running tests and at least a build check after conflict resolution confirms behavior remains correct. Interviewers appreciate candidates who treat merge as code change requiring validation, not just text operation. This mindset reduces post-merge defects and protects main branch stability. Mentioning test execution and quick smoke verification after conflict resolution demonstrates strong engineering hygiene and reliability awareness.
 
 10. **What is \`.gitattributes\` for merges?**  
-    Can set **merge strategies** per file type (e.g. **binary**, **union**). Advanced—**enterprises** use it for **generated** files.
+    **Short Answer:** It defines file-specific behavior, including merge strategy rules for certain paths and file types.  
+    **Detailed Explanation:** Gitattributes lets teams customize how Git treats files during diff, merge, and normalization operations. For merge workflows, it can specify custom strategies for generated files, lock-step files, binaries, or language-specific cases where default line-based merge is not ideal. Interviewers rarely expect deep syntax, but they appreciate awareness that merge behavior is configurable at repository policy level. This is especially useful in enterprise repositories with mixed file types and large teams. Mentioning gitattributes shows broader Git maturity and understanding that good merge outcomes depend on both workflow habits and repository configuration design.
 
 ---
 

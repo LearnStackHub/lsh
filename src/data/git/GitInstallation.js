@@ -294,34 +294,44 @@ You've successfully:
 ## 10 Important Git Installation Interview Questions
 
 1. **How do you check if Git is already installed?**  
-   Open a terminal and run **\`git --version\`**. If you see a version (e.g. \`git version 2.43\`), Git is installed. If you get “command not found,” install Git for your OS.
+   **Short Answer:** Run git version command in terminal; if a version appears, Git is installed correctly.  
+   **Detailed Explanation:** The standard verification method after installation is checking version output from terminal. If the command returns a valid version string, Git executable is available in your shell path and ready to use. If command is not recognized, either installation failed or environment path is not configured. In interviews, mention that opening a new terminal session is often required after install so path changes apply. Also explain that verification should be done in the same shell you plan to use daily, such as PowerShell, Command Prompt, or Bash. This confirms practical readiness, not just that installer completed.
 
 2. **What is the difference between Git and Git GUI tools?**  
-   **Git** is the **command-line** program. GUIs (GitHub Desktop, IDE plugins) call the same Git underneath. **Interviews** still expect you to know basic **CLI** commands.
+   **Short Answer:** Git is the core version-control engine, while GUI tools are interfaces built on top of Git commands.  
+   **Detailed Explanation:** GUI clients make common operations easier through buttons and visual flows, but the underlying version control logic still comes from Git itself. That means commit history, branches, merges, and remotes behave the same whether you use terminal or UI. Interviewers usually expect command-line familiarity because it shows deeper understanding and works in any environment, including servers and CI pipelines. A good answer says GUIs improve convenience, especially for beginners, but core concepts remain command-based. Knowing both is valuable: CLI for precision and troubleshooting, GUI for quick visualization and daily usability.
 
 3. **Why set \`user.name\` and \`user.email\`?**  
-   Every **commit** records **who** made it. Git uses **\`git config --global user.name "..."\`** and **\`user.email\`**. Use the **same email** as your GitHub account (or your company email) so commits **link** to your profile.
+   **Short Answer:** These values identify commit authorship, so every commit is correctly attributed to you.  
+   **Detailed Explanation:** Git stores author name and email metadata in each commit object. Without proper configuration, commits may appear under incorrect identity, making collaboration and audit history confusing. In professional teams, accurate authorship supports accountability, review communication, release tracing, and compliance requirements. Interviewers often expect candidates to know both global and repository-specific identity setup, especially when using separate work and personal accounts. Mentioning this distinction shows practical experience. Proper identity configuration should be one of the first steps after installation, before creating repositories, so all future commits carry correct attribution from day one.
 
 4. **What does \`--global\` mean in \`git config\`?**  
-   Settings apply to **all repositories** on your machine (stored in your home directory). **Without** \`--global\`, config applies **only** to the **current** repo (useful for work vs personal on one PC).
+   **Short Answer:** Global means the setting applies to all repositories on your machine for that user account.  
+   **Detailed Explanation:** Git configuration can exist at multiple levels: system, global user, and local repository. Global level is ideal for preferences you want everywhere, such as your default name, email, editor, and color output. Local configuration overrides global values for a specific project, useful when project requirements differ. In interviews, explaining precedence order demonstrates strong fundamentals. You can describe global as personal defaults and local as project-specific customization. This distinction matters in real work, especially when one machine is used for multiple organizations with different policies or identities. Proper scope selection avoids accidental misconfiguration.
 
 5. **How do you see your Git configuration?**  
-   **\`git config --list\`** shows all settings. **\`git config user.email\`** shows one value. Use this when debugging “wrong author on commits.”
+   **Short Answer:** Use config list and targeted config queries to inspect active values and troubleshoot setup issues.  
+   **Detailed Explanation:** Configuration inspection is important when Git behaves unexpectedly, such as wrong author, incorrect editor, or pull strategy confusion. Listing all values gives broad visibility, while querying one key confirms precise settings. In advanced troubleshooting, showing value origin helps identify whether a setting comes from system, global, or local config. Interviewers appreciate candidates who know how to debug environment issues instead of reinstalling blindly. A practical answer includes verifying configuration immediately after setting it and rechecking before first commit in a new machine setup. This prevents repeated mistakes and saves team onboarding time.
 
 6. **What is the default branch name—\`main\` or \`master\`?**  
-   New Git versions often default to **\`main\`**. Older tutorials say **\`master\`**. Both are just **names**; teams pick one and stay consistent. You can set **\`init.defaultBranch\`** in config.
+   **Short Answer:** Modern setups generally use main, while older repos may still use master depending on historical defaults.  
+   **Detailed Explanation:** Branch naming default changed in many tools to main, but older repositories and legacy tutorials may still reference master. Technically, both names work because branch names are conventions, not functional differences. Interviewers look for adaptability: you should recognize either branch and follow project standards. Good practice is setting default branch preference in your local Git configuration to avoid creating inconsistent branch names in new repositories. In team settings, consistency matters more than personal preference because scripts, CI, and documentation often depend on expected branch names. Clear branch naming avoids onboarding and automation confusion.
 
 7. **On Windows, why use Git Bash vs PowerShell?**  
-   **Git Bash** provides Unix-like commands and paths many tutorials assume. **PowerShell** works too with Git for Windows. Pick one terminal and learn **\`cd\`** into your project folder before running Git.
+   **Short Answer:** Git Bash offers Unix-style behavior many tutorials use, while PowerShell integrates better with native Windows workflows.  
+   **Detailed Explanation:** Both terminals can run Git, but they differ in command syntax, path style, and ecosystem familiarity. Git Bash is useful when following cross-platform tutorials that assume Unix commands. PowerShell is excellent for Windows-native scripting and system administration tasks. Interviewers may ask this to assess practical tool awareness rather than preference. A strong answer is that you can work effectively in either shell as long as you understand navigation, path handling, and environment behavior. Team consistency can also matter, especially for onboarding docs and scripts. Choose one primary shell and be comfortable with the other when needed.
 
 8. **What if \`git\` is not recognized after install?**  
-   **PATH** is wrong or terminal wasn’t restarted. Re-run the installer with “Add Git to PATH,” or add **\`.../Git/cmd\`** manually to **PATH**, then **open a new** terminal.
+   **Short Answer:** Usually the path is not set or terminal session is stale, so restart shell and verify executable path configuration.  
+   **Detailed Explanation:** Command-not-recognized issues are typically environment setup problems rather than Git functionality bugs. The shell cannot locate Git binary because install path was not added or current session has not refreshed environment variables. Restarting terminal is first fix, followed by checking path entries and reinstalling with command-line integration option if needed. Interviewers like candidates who follow systematic troubleshooting: verify install location, verify path, then retest. Mention that corporate endpoint policies can also restrict installation paths. This shows practical awareness of real machine setup constraints beyond ideal tutorial environments.
 
 9. **Should you install Git as administrator?**  
-   On Windows, **admin** can help with PATH for all users. For learning, per-user install is fine. **Avoid** running every Git command as admin day-to-day.
+   **Short Answer:** Administrator install may help system-wide setup, but daily Git use should generally run as normal user.  
+   **Detailed Explanation:** Installing with elevated privileges can configure tools for all users on a machine and reduce permission issues in shared environments. However, running routine Git operations as administrator is unnecessary and increases risk of unintended system-level changes. In interviews, emphasize principle of least privilege: use admin only when required, then operate normally for development work. Per-user installation is often sufficient for personal machines and learning setups. Knowing this balance demonstrates security awareness and practical system administration judgment. Teams value developers who avoid over-privileged workflows while still understanding when elevated access is justified.
 
 10. **What’s the next step after installation?**  
-    Run **\`git config --global --list\`**, create a test folder, **\`git init\`**, **\`git status\`**—confirm nothing errors. Then follow **[Git Basics](/tutorial/git-basics)**.
+    **Short Answer:** Configure identity, verify setup with a small test repository, and confirm basic add, commit, and status flow works.  
+    **Detailed Explanation:** Installation is only the starting point; the real validation is completing an end-to-end mini workflow. After setting name and email, create a test folder, initialize repository, create a file, stage it, commit, and inspect history. This confirms your shell, Git config, and filesystem permissions are all functioning correctly. Interviewers appreciate candidates who verify through practical workflow rather than assuming success after installer completion. Mentioning this sequence shows readiness for real project work. Once the local flow is successful, you can proceed to remote setup with confidence and fewer setup-related interruptions.
 
 ---
 

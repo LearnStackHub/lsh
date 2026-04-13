@@ -320,44 +320,44 @@ public class InsufficientFundsException extends Exception {
 ## 10 Important Custom Exceptions Interview Questions
 
 ### 1. When create a custom checked exception?
-**Answer:** When callers should explicitly handle a recoverable domain failure—payment declined, inventory conflict.
-Avoid overusing checked for non-recoverable bugs.
+**Short Answer:** Use a custom checked exception when callers can recover and should be forced to handle the case.
+**Detailed Explanation:** A custom checked exception is useful when the failure is part of normal business flow and the caller can do something meaningful in response. For example, a payment can be retried, an input can be corrected, or a missing record can be requested again. In those cases, forcing explicit handling improves reliability and makes intent visible in method signatures. At the same time, not every failure should be checked. Programming bugs and infrastructure crashes usually do not benefit from mandatory catch blocks. Interviewers expect you to treat checked exceptions as a contract tool, not a default choice for every problem in Java applications.
 
 ### 2. What should a custom exception include?
-**Answer:** Meaningful name, fields for error codes/context, constructors chaining message and cause—serialVersionUID if serializable.
-Avoid giant hierarchies without need.
+**Short Answer:** Include a clear name, useful context fields, and constructors for both message and root cause.
+**Detailed Explanation:** A well-designed custom exception should communicate both meaning and debugging context. Use a descriptive class name, a human-readable message, and optional fields like error code, entity id, or operation name. Also provide constructors that accept message and cause so stack traces preserve original failure chains. Keep the hierarchy practical and shallow unless the domain truly requires multiple specialized categories. In this tutorial context, custom exceptions are part of clean error communication, not decorative classes. A strong interview answer highlights balance: enough structure for logging and API mapping, but not so much complexity that developers struggle to maintain or correctly use the exception model.
 
 ### 3. Should custom exceptions extend \`RuntimeException\` or \`Exception\`?
-**Answer:** \`RuntimeException\` if programming errors or everywhere propagation is acceptable; \`Exception\` if forcing handling.
-Team conventions vary—Spring favors unchecked data access.
+**Short Answer:** Extend RuntimeException for unchecked flow, and Exception when explicit caller handling is required.
+**Detailed Explanation:** Choosing between RuntimeException and Exception is an architectural decision. RuntimeException is common in modern frameworks where centralized handlers translate failures into API responses, reducing repeated try-catch blocks. Exception is better when the API should force callers to handle recoverable situations directly. Neither option is always right. The decision should depend on team conventions, service boundaries, and expected recovery behavior. In interview discussions, strong candidates explain the trade-off in readability, method signatures, and error propagation. This tutorial page supports that mindset by showing custom exceptions as part of system design, not just Java syntax preference.
 
 ### 4. Scenario: multi-tenant SaaS—what extra data in exceptions?
-**Answer:** Tenant id, request id, safe operation name—never secrets—helps support correlate logs.
-Map to problem+json HTTP responses.
+**Short Answer:** Include tenant-safe metadata like tenant id and request id, but never store secrets.
+**Detailed Explanation:** In a multi-tenant system, debugging without context is very difficult. Custom exceptions should carry safe identifiers such as tenant id, request correlation id, and operation name so support teams can quickly trace incidents. However, sensitive data like passwords, tokens, card numbers, or private payloads must never be included in exception messages or fields. This balance improves observability without creating security risk. In this tutorial and interview context, the key point is production readiness. Great answers connect exception design with logging strategy and structured error responses, showing that exceptions are part of both software correctness and operational safety in real-world SaaS platforms.
 
 ### 5. How does internationalization interact with exceptions?
-**Answer:** Separate message keys from technical English logs—user-facing localized messages built at UI/API boundary.
-Don’t localize engineer-only stack traces.
+**Short Answer:** Keep internal exception semantics stable and localize user-facing messages at the boundary layer.
+**Detailed Explanation:** Exception classes should primarily carry technical meaning, stable error codes, and developer-focused diagnostics. Localization should usually happen in API or UI layers where user language preferences are available. This keeps logs and monitoring consistent for engineering teams while still delivering friendly translated messages to end users. If you localize too early inside core exceptions, troubleshooting becomes inconsistent across environments. In this page’s interview framing, the best answer shows separation of concerns: domain exceptions describe failure type, while presentation layers convert that failure into localized text. This approach improves maintainability, supports global applications, and avoids mixing developer diagnostics with user communication concerns.
 
 ### 6. Is it OK to subclass library exceptions?
-**Answer:** Sometimes—e.g., \`DataAccessException\`—but avoid coupling your domain to vendor exceptions at API edges.
-Translate at boundaries.
+**Short Answer:** It can be fine internally, but avoid leaking library-specific exceptions into domain or public API contracts.
+**Detailed Explanation:** Subclassing framework exceptions can be practical in infrastructure layers, especially when integrating with existing transaction or data-access behaviors. The problem appears when those framework types leak upward into domain services or outward to client-facing APIs. That creates tight coupling and makes technology changes expensive. A cleaner design translates low-level exceptions into domain-specific exceptions at boundaries such as repositories or adapters. In interview terms, this shows architectural maturity. This tutorial aligns with that idea by treating custom exceptions as a domain language. A strong answer explains how translation protects maintainability, testability, and long-term flexibility while still allowing useful framework integration where appropriate.
 
 ### 7. What is error code enum pattern?
-**Answer:** Enum implements interface with code + default HTTP status—consistent machine-readable errors for clients.
-Used in well-designed REST APIs.
+**Short Answer:** It is a standardized enum-based system for stable machine-readable error identification.
+**Detailed Explanation:** The error code enum pattern defines a fixed catalog of domain errors, often including fields like code, default status, and severity. Custom exceptions reference these codes so handlers can produce consistent responses for clients and logs. This helps frontend and integration systems react predictably without parsing free-text messages. In this tutorial context, the pattern bridges Java exception handling with API design quality. Interviewers value this because it demonstrates structured thinking, not ad-hoc error strings. A complete answer should mention governance benefits too: easier analytics, safer refactoring, and clearer communication between backend, frontend, and support teams when diagnosing incidents.
 
 ### 8. Should you override \`fillInStackTrace\`?
-**Answer:** Rare optimization for high-volume exceptions—default stacks are costly—only after profiling proves need.
-Security-sensitive code might strip stacks—be careful.
+**Short Answer:** Rarely, and only when profiling proves stack-trace creation is a measurable bottleneck.
+**Detailed Explanation:** Overriding fillInStackTrace can reduce exception overhead in very high-frequency paths, but it removes valuable debugging information. For most business applications, keeping full stack traces is the right choice because operational diagnosis matters more than minor micro-optimizations. This technique should be considered only after profiling shows exceptions are a real performance hotspot and not just a suspected issue. Even then, it should be applied narrowly and documented clearly. In interview settings, this question checks your engineering judgment. A strong response shows that you prioritize correctness and observability first, then optimize carefully based on evidence from production-like workloads.
 
 ### 9. Serialization of exceptions across services?
-**Answer:** Problematic—stack traces don’t serialize cleanly across processes—send structured error DTOs.
-gRPC/REST use status codes.
+**Short Answer:** Do not send raw exception objects across services; send structured error payloads instead.
+**Detailed Explanation:** Raw exception objects are not a stable cross-service contract because they depend on language runtime and internal class structure. They can also expose sensitive implementation details through stack traces and internal messages. A better approach is to translate exceptions into structured error responses with fields like code, message, request id, and optional details. This works consistently in REST and gRPC ecosystems and keeps boundaries clean. In this tutorial interview context, the key idea is contract-driven communication. Strong candidates explain that exceptions stay internal, while external systems receive standardized, secure, machine-readable error information that supports retries, user messaging, and monitoring.
 
 ### 10. Testing custom exceptions?
-**Answer:** Assert exception type and message fields with \`assertThrows\`—verify mapping from domain events.
-JUnit 5 patterns.
+**Short Answer:** Test type, context fields, and translation behavior from internal exceptions to outward responses.
+**Detailed Explanation:** Effective exception testing goes beyond checking that something throws. You should verify the exact exception type, important metadata fields, and expected error code or message key. Also test boundary translation, such as converting repository failures into domain exceptions and then into API responses. This ensures consistency from internal logic to client-facing behavior. In the context of this page, exception tests protect both correctness and maintainability as code evolves. Interviewers appreciate answers that include negative-path testing and clear assertions for diagnostic data. Good tests make refactoring safer and help teams trust that failure handling remains predictable under real-world scenarios.
 
 ---
 
