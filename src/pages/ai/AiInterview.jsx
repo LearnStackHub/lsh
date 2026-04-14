@@ -9,7 +9,12 @@ import './ai-lab.css';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 const INTERVIEW_DURATION_MS = 30 * 60 * 1000;
-const MODEL_TARGET_QUESTIONS = 15;
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 function speakQuestion(text) {
   if (!text || typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -20,17 +25,25 @@ function speakQuestion(text) {
 }
 
 async function callInterviewApi(payload) {
-  const res = await fetch('/api/gemini-interview', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const res = await fetch('/api/gemini-interview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) return data;
+
+    if (res.status === 429 && attempt < maxAttempts) {
+      await sleep(1000 * attempt);
+      continue;
+    }
+
     const message = typeof data.error === 'string' ? data.error : 'Interview request failed.';
     throw new Error(message);
   }
-  return data;
+  throw new Error('Interview request failed.');
 }
 
 async function extractPdfText(file) {
@@ -242,7 +255,7 @@ function AiInterview() {
         action: 'start',
         role: 'resume-based',
         resumeText: cleanResume,
-        maxQuestions: MODEL_TARGET_QUESTIONS,
+        maxQuestions: 1,
       });
       const q = String(data.question || '').trim();
       if (!q) throw new Error('AI did not return a starting question.');
@@ -274,7 +287,7 @@ function AiInterview() {
         action: 'answer',
         role: 'resume-based',
         resumeText: resumeText.trim(),
-        maxQuestions: MODEL_TARGET_QUESTIONS,
+        maxQuestions: 1,
         currentQuestion,
         answer,
         history,
@@ -331,7 +344,7 @@ function AiInterview() {
         role: 'resume-based',
         resumeText: resumeText.trim(),
         history,
-        maxQuestions: MODEL_TARGET_QUESTIONS,
+        maxQuestions: 1,
       });
       setFinalReport({
         status: String(data.status || 'Needs Improvement'),

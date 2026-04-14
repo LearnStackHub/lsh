@@ -116,7 +116,7 @@ function interviewContext({ role, resumeText, history, maxQuestions }) {
     : [];
   return [
     `Role track: ${cleanText(role, 80) || 'general software engineer'}`,
-    `Target questions count: ${Math.min(Math.max(Number(maxQuestions) || 5, 3), 8)}`,
+    `Target questions count: ${Math.min(Math.max(Number(maxQuestions) || 1, 1), 1)}`,
     `Resume text:\n${cleanText(resumeText, 9000)}`,
     `Interview history JSON:\n${JSON.stringify(safeHistory)}`,
   ].join('\n\n');
@@ -145,7 +145,7 @@ export default async function handler(req, res) {
   const role = cleanText(body.role, 80);
   const resumeText = cleanText(body.resumeText, 9000);
   const history = Array.isArray(body.history) ? body.history : [];
-  const maxQuestions = Math.min(Math.max(Number(body.maxQuestions) || 5, 3), 8);
+  const maxQuestions = 1;
 
   if (!resumeText || resumeText.length < 100) {
     res.status(400).json({ error: 'Resume text is too short. Please paste at least 100 characters.' });
@@ -158,7 +158,8 @@ export default async function handler(req, res) {
     instruction = [
       'You are an interview engine. Return strict JSON only.',
       interviewContext({ role, resumeText, history: [], maxQuestions }),
-      'Task: generate the first interview question tailored to the resume and role.',
+      'Task: generate exactly ONE first interview question tailored to the resume and role.',
+      'Do not generate multiple questions. Do not include extra text.',
       'Return this JSON schema exactly:',
       '{"question":"string","focus":"string","difficulty":"easy|medium|hard"}',
     ].join('\n\n');
@@ -174,7 +175,8 @@ export default async function handler(req, res) {
       interviewContext({ role, resumeText, history, maxQuestions }),
       `Current question: ${currentQuestion}`,
       `Candidate answer: ${answer}`,
-      'Score the answer from 0 to 10, give concise feedback, then ask the next question.',
+      'Score the answer from 0 to 10, give concise feedback, then ask exactly ONE next question.',
+      'Do not generate a list of questions. Keep nextQuestion to one interview question.',
       'If interview should end now, set done=true and nextQuestion empty.',
       'Return this JSON schema exactly:',
       '{"score":0,"feedback":"string","nextQuestion":"string","done":false}',
