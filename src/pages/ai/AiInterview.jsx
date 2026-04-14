@@ -1,28 +1,15 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import mammoth from 'mammoth';
+import * as pdfjsLib from 'pdfjs-dist';
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import SEOHead from '../../components/SEOHead';
-import {
-  INTERVIEW_TRACKS,
-  nextInterviewQuestion,
-  coachAfterAnswer,
-  getInterviewPoolSize,
-} from '../../services/localAiEngine';
 import './ai-lab.css';
 
-function pickMimeType() {
-  const types = [
-    'video/webm;codecs=vp9,opus',
-    'video/webm;codecs=vp8,opus',
-    'video/webm',
-  ];
-  for (const t of types) {
-    if (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported(t)) {
-      return t;
-    }
-  }
-  return '';
-}
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+const INTERVIEW_DURATION_MS = 30 * 60 * 1000;
+const MODEL_TARGET_QUESTIONS = 15;
 
 function speakQuestion(text) {
   if (!text || typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -32,25 +19,96 @@ function speakQuestion(text) {
   window.speechSynthesis.speak(u);
 }
 
+async function callInterviewApi(payload) {
+  const res = await fetch('/api/gemini-interview', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const message = typeof data.error === 'string' ? data.error : 'Interview request failed.';
+    throw new Error(message);
+  }
+  return data;
+}
+
+async function extractPdfText(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+  const pdf = await loadingTask.promise;
+  const parts = [];
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
+    const page = await pdf.getPage(pageNum);
+    const content = await page.getTextContent();
+    const pageText = content.items
+      .map((item) => ('str' in item ? item.str : ''))
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (pageText) parts.push(pageText);
+  }
+  return parts.join('\n\n').trim();
+}
+
+async function extractDocxText(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const result = await mammoth.extractRawText({ arrayBuffer });
+  return String(result.value || '').replace(/\s+\n/g, '\n').trim();
+}
+
+async function extractResumeTextFromFile(file) {
+  const lower = (file?.name || '').toLowerCase();
+  if (!file) return '';
+  if (/\.(txt|md|rtf|json)$/i.test(lower)) {
+    return (await file.text()).trim();
+  }
+  if (/\.pdf$/i.test(lower)) {
+    return extractPdfText(file);
+  }
+  if (/\.docx$/i.test(lower)) {
+    return extractDocxText(file);
+  }
+  throw new Error('Unsupported file. Upload PDF, DOCX, TXT, MD, or RTF.');
+}
+
+async function requestFullscreenForInterview(container) {
+  if (!container) return false;
+  if (!document.fullscreenEnabled) return false;
+  if (document.fullscreenElement) return true;
+  try {
+    await container.requestFullscreen();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function AiInterview() {
-  const [track, setTrack] = useState('java');
-  const [usedQuestionIds, setUsedQuestionIds] = useState(() => new Set());
-  const [current, setCurrent] = useState(null);
-  const [notes, setNotes] = useState('');
-  const [coachLine, setCoachLine] = useState('');
-  const [coachTipsUsed, setCoachTipsUsed] = useState(0);
+  const [resumeText, setResumeText] = useState('');
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState('');
+  const [answerDraft, setAnswerDraft] = useState('');
+  const [lastFeedback, setLastFeedback] = useState('');
+  const [lastScore, setLastScore] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [finalReport, setFinalReport] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [parsingResume, setParsingResume] = useState(false);
+  const [error, setError] = useState('');
+  const [tabSwitchCount, setTabSwitchCount] = useState(0);
+  const [fullscreenLocked, setFullscreenLocked] = useState(false);
+  const [violationMessage, setViolationMessage] = useState('');
   const [sessionComplete, setSessionComplete] = useState(false);
   const [sessionDurationMs, setSessionDurationMs] = useState(null);
+  const [remainingMs, setRemainingMs] = useState(INTERVIEW_DURATION_MS);
   const [streamOn, setStreamOn] = useState(false);
-  const [recording, setRecording] = useState(false);
-  const [lastBlobUrl, setLastBlobUrl] = useState(null);
-  const [recordingFilename, setRecordingFilename] = useState('lsh-practice.webm');
 
   const videoRef = useRef(null);
+  const rootRef = useRef(null);
   const streamRef = useRef(null);
-  const recorderRef = useRef(null);
-  const chunksRef = useRef([]);
   const sessionStartRef = useRef(null);
+  const sessionDeadlineRef = useRef(null);
 
   const stopStream = useCallback(() => {
     if (streamRef.current) {
@@ -65,56 +123,229 @@ function AiInterview() {
 
   useEffect(() => () => stopStream(), [stopStream]);
 
-  useEffect(() => {
-    if (lastBlobUrl) {
-      return () => URL.revokeObjectURL(lastBlobUrl);
-    }
-    return undefined;
-  }, [lastBlobUrl]);
-
-  const poolSize = getInterviewPoolSize(track);
-
   const resetRound = useCallback(() => {
-    setUsedQuestionIds(new Set());
-    setCurrent(null);
+    setQuestionNumber(0);
+    setCurrentQuestion('');
+    setAnswerDraft('');
+    setLastFeedback('');
+    setLastScore(null);
+    setHistory([]);
+    setFinalReport(null);
+    setError('');
+    setViolationMessage('');
+    setTabSwitchCount(0);
+    setFullscreenLocked(false);
     setSessionComplete(false);
     setSessionDurationMs(null);
-    setCoachLine('');
-    setNotes('');
-    setCoachTipsUsed(0);
+    setRemainingMs(INTERVIEW_DURATION_MS);
     sessionStartRef.current = null;
+    sessionDeadlineRef.current = null;
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
   }, []);
 
-  const handleNextQuestion = useCallback(() => {
-    setCoachLine('');
-    setNotes('');
-    setUsedQuestionIds((prev) => {
-      const next = nextInterviewQuestion({ track, usedIds: prev });
-      if (!next) {
+  const interviewStarted = questionNumber > 0 && Boolean(currentQuestion);
+  const strictModeActive = interviewStarted && !sessionComplete;
+
+  useEffect(() => {
+    if (!strictModeActive) return undefined;
+
+    function endForViolation(message) {
+      setViolationMessage(message);
+      setSessionComplete(true);
+      setCurrentQuestion('');
+      if (sessionStartRef.current != null) {
+        setSessionDurationMs(Date.now() - sessionStartRef.current);
+      }
+    }
+
+    function onVisibilityChange() {
+      if (document.hidden) {
+        setTabSwitchCount((n) => n + 1);
+        endForViolation('Interview ended: tab/app switch detected.');
+      }
+    }
+
+    function onWindowBlur() {
+      setTabSwitchCount((n) => n + 1);
+      endForViolation('Interview ended: focus left the interview window.');
+    }
+
+    function onFullscreenChange() {
+      const hasFs = Boolean(document.fullscreenElement);
+      setFullscreenLocked(hasFs);
+      if (!hasFs) {
+        endForViolation('Interview ended: full screen exited.');
+      }
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('blur', onWindowBlur);
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('blur', onWindowBlur);
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
+    };
+  }, [strictModeActive]);
+
+  useEffect(() => {
+    if (!strictModeActive) return undefined;
+    const id = window.setInterval(() => {
+      if (!sessionDeadlineRef.current) return;
+      const left = Math.max(0, sessionDeadlineRef.current - Date.now());
+      setRemainingMs(left);
+      if (left <= 0) {
+        setViolationMessage('Interview ended: 30-minute time limit reached.');
         setSessionComplete(true);
+        setCurrentQuestion('');
         if (sessionStartRef.current != null) {
           setSessionDurationMs(Date.now() - sessionStartRef.current);
-        } else {
-          setSessionDurationMs(null);
         }
-        if (typeof window !== 'undefined' && window.speechSynthesis) {
-          window.speechSynthesis.cancel();
+      }
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, [strictModeActive]);
+
+  async function startInterview() {
+    if (busy) return;
+    const cleanResume = resumeText.trim();
+    if (cleanResume.length < 100) {
+      setError('Please paste your resume text (at least 100 characters).');
+      return;
+    }
+    if (!streamOn || !streamRef.current) {
+      setError('Camera and microphone are mandatory. Enable camera & mic before starting.');
+      return;
+    }
+    const hasLiveAudio = streamRef.current
+      .getAudioTracks()
+      .some((trackItem) => trackItem.readyState === 'live' && trackItem.enabled);
+    const hasLiveVideo = streamRef.current
+      .getVideoTracks()
+      .some((trackItem) => trackItem.readyState === 'live' && trackItem.enabled);
+    if (!hasLiveAudio || !hasLiveVideo) {
+      setError('Both camera and microphone must stay enabled to start.');
+      return;
+    }
+
+    setBusy(true);
+    setError('');
+    try {
+      const enteredFullscreen = await requestFullscreenForInterview(rootRef.current);
+      if (!enteredFullscreen) {
+        throw new Error('Fullscreen permission is required to start this interview.');
+      }
+      setFullscreenLocked(true);
+      const data = await callInterviewApi({
+        action: 'start',
+        role: 'resume-based',
+        resumeText: cleanResume,
+        maxQuestions: MODEL_TARGET_QUESTIONS,
+      });
+      const q = String(data.question || '').trim();
+      if (!q) throw new Error('AI did not return a starting question.');
+      resetRound();
+      sessionStartRef.current = Date.now();
+      sessionDeadlineRef.current = Date.now() + INTERVIEW_DURATION_MS;
+      setRemainingMs(INTERVIEW_DURATION_MS);
+      setCurrentQuestion(q);
+      setQuestionNumber(1);
+      queueMicrotask(() => speakQuestion(q));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not start AI interview.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function submitAnswer() {
+    if (busy || !currentQuestion || sessionComplete) return;
+    const answer = answerDraft.trim();
+    if (!answer) {
+      setError('Please enter your answer before continuing.');
+      return;
+    }
+    setBusy(true);
+    setError('');
+    try {
+      const data = await callInterviewApi({
+        action: 'answer',
+        role: 'resume-based',
+        resumeText: resumeText.trim(),
+        maxQuestions: MODEL_TARGET_QUESTIONS,
+        currentQuestion,
+        answer,
+        history,
+      });
+      const score = Number.isFinite(data.score) ? Number(data.score) : null;
+      const feedback = String(data.feedback || '').trim();
+      const nextQuestion = String(data.nextQuestion || '').trim();
+      const timeOver = sessionDeadlineRef.current != null && Date.now() >= sessionDeadlineRef.current;
+      const doneFlag = Boolean(data.done) || !nextQuestion || timeOver;
+
+      const nextHistory = [
+        ...history,
+        {
+          question: currentQuestion,
+          answer,
+          score,
+          feedback,
+        },
+      ];
+      setHistory(nextHistory);
+      setLastScore(score);
+      setLastFeedback(feedback || 'No feedback returned.');
+      setAnswerDraft('');
+
+      if (doneFlag) {
+        setSessionComplete(true);
+        setCurrentQuestion('');
+        if (timeOver) {
+          setViolationMessage('Interview ended: 30-minute time limit reached.');
         }
-        return prev;
+        if (sessionStartRef.current != null) {
+          setSessionDurationMs(Date.now() - sessionStartRef.current);
+        }
+        return;
       }
-      if (prev.size === 0) {
-        sessionStartRef.current = Date.now();
-      }
-      const copy = new Set(prev);
-      copy.add(next.id);
-      setCurrent(next);
-      queueMicrotask(() => speakQuestion(next.text));
-      return copy;
-    });
-  }, [track]);
+
+      setCurrentQuestion(nextQuestion);
+      setQuestionNumber((n) => n + 1);
+      queueMicrotask(() => speakQuestion(nextQuestion));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not evaluate answer.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function generateFinalReport() {
+    if (busy || !sessionComplete || finalReport) return;
+    setBusy(true);
+    setError('');
+    try {
+      const data = await callInterviewApi({
+        action: 'finalize',
+        role: 'resume-based',
+        resumeText: resumeText.trim(),
+        history,
+        maxQuestions: MODEL_TARGET_QUESTIONS,
+      });
+      setFinalReport({
+        status: String(data.status || 'Needs Improvement'),
+        overallScore: Number.isFinite(data.overallScore) ? Number(data.overallScore) : null,
+        strengths: Array.isArray(data.strengths) ? data.strengths.slice(0, 4) : [],
+        improvements: Array.isArray(data.improvements) ? data.improvements.slice(0, 4) : [],
+        summary: String(data.summary || ''),
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not generate final report.');
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function startCamera() {
     if (streamRef.current) return;
@@ -131,50 +362,22 @@ function AiInterview() {
     }
   }
 
-  function stopRecordingInternal() {
-    if (recorderRef.current && recorderRef.current.state !== 'inactive') {
-      recorderRef.current.stop();
+  async function loadResumeFile(file) {
+    if (!file) return;
+    setParsingResume(true);
+    setError('');
+    try {
+      const text = await extractResumeTextFromFile(file);
+      if (!text || text.length < 80) {
+        throw new Error('Could not extract enough text from this file. Try another resume file.');
+      }
+      setResumeText((prev) => (prev ? `${prev}\n\n${text}` : text));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not parse resume file.');
+    } finally {
+      setParsingResume(false);
     }
-    recorderRef.current = null;
-    setRecording(false);
   }
-
-  function startRecording() {
-    const stream = streamRef.current;
-    if (!stream || typeof MediaRecorder === 'undefined') return;
-    if (lastBlobUrl) {
-      URL.revokeObjectURL(lastBlobUrl);
-      setLastBlobUrl(null);
-    }
-    chunksRef.current = [];
-    const mime = pickMimeType();
-    const rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
-    rec.ondataavailable = (e) => {
-      if (e.data.size) chunksRef.current.push(e.data);
-    };
-    rec.onstop = () => {
-      const blob = new Blob(chunksRef.current, { type: rec.mimeType || 'video/webm' });
-      const url = URL.createObjectURL(blob);
-      setLastBlobUrl(url);
-      setRecordingFilename(`lsh-practice-${Date.now()}.webm`);
-      chunksRef.current = [];
-    };
-    rec.start(200);
-    recorderRef.current = rec;
-    setRecording(true);
-  }
-
-  function stopRecording() {
-    stopRecordingInternal();
-  }
-
-  function handleCoach() {
-    if (!current) return;
-    setCoachLine(coachAfterAnswer(current.text, notes));
-    setCoachTipsUsed((n) => n + 1);
-  }
-
-  const answeredCount = usedQuestionIds.size;
 
   function formatDuration(ms) {
     if (ms == null) return '';
@@ -182,11 +385,18 @@ function AiInterview() {
     return `${Math.round(ms / 1000)} sec`;
   }
 
+  function formatCountdown(ms) {
+    const totalSec = Math.max(0, Math.ceil(ms / 1000));
+    const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
+    const ss = String(totalSec % 60).padStart(2, '0');
+    return `${mm}:${ss}`;
+  }
+
   return (
-    <div className="ai-lab-page">
+    <div className="ai-lab-page ai-interview-page" ref={rootRef}>
       <SEOHead
-        title="Audio & Video Interview Practice | LearnStackHub"
-        description="Practice interviews with camera, microphone, local questions, and optional recording—no third-party AI APIs."
+        title="AI Resume Interview | LearnStackHub"
+        description="Resume-based AI interview with Gemini on Vercel, with camera practice and final hiring status."
       />
       <Link to="/ai-lab" className="ai-lab-back">
         <ArrowLeft size={16} aria-hidden />
@@ -195,8 +405,8 @@ function AiInterview() {
       <div className="ai-lab-hero" style={{ textAlign: 'left', marginBottom: '1.25rem' }}>
         <h1>Audio &amp; video interview</h1>
         <p style={{ margin: 0 }}>
-          Questions and coaching use the same local engine as chat. Voice uses your browser&apos;s built-in
-          speech synthesis (not a cloud AI).
+          Resume-based interview questions are generated by Gemini through your Vercel API route. Your browser still
+          handles camera preview and optional recording. This is a fixed 30-minute interview with mandatory camera/mic.
         </p>
       </div>
 
@@ -214,55 +424,100 @@ function AiInterview() {
             <button type="button" className="ai-btn secondary" onClick={startCamera} disabled={streamOn}>
               Enable camera &amp; mic
             </button>
-            <button type="button" className="ai-btn secondary" onClick={stopStream} disabled={!streamOn}>
-              Stop camera
-            </button>
-            <button
-              type="button"
-              className="ai-btn"
-              onClick={recording ? stopRecording : startRecording}
-              disabled={!streamOn}
-            >
-              {recording ? (
-                <>
-                  <span className="ai-recording-dot" aria-hidden />
-                  Stop recording
-                </>
-              ) : (
-                'Start recording'
-              )}
-            </button>
           </div>
-          {lastBlobUrl && (
-            <p style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
-              <a href={lastBlobUrl} download={recordingFilename}>
-                Download last take
-              </a>
-            </p>
-          )}
+          <p className="ai-interview-rule-note">
+            Rules: fixed 30-minute interview, camera + mic mandatory, fullscreen mandatory, tab/app switching ends
+            interview.
+          </p>
         </div>
 
         <div className="ai-panel">
-          <label htmlFor="ai-track" className="sr-only">
-            Interview track
-          </label>
-          <select
-            id="ai-track"
-            className="ai-select"
-            value={track}
-            onChange={(e) => {
-              const next = e.target.value;
-              setTrack(next);
-              resetRound();
-            }}
-          >
-            {INTERVIEW_TRACKS.map((t) => (
-              <option key={t.key} value={t.key}>
-                {t.label}
-              </option>
-            ))}
-          </select>
-          {sessionComplete ? (
+          {!interviewStarted && !sessionComplete && (
+            <>
+              <label htmlFor="ai-resume" style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem' }}>
+                Add resume (paste text or upload PDF/DOCX)
+              </label>
+              <textarea
+                id="ai-resume"
+                className="ai-notes"
+                value={resumeText}
+                onChange={(e) => setResumeText(e.target.value)}
+                placeholder="Paste resume content here..."
+                disabled={busy || parsingResume}
+                style={{ minHeight: '130px' }}
+              />
+              <div className="ai-toolbar" style={{ marginTop: 0 }}>
+                <input
+                  type="file"
+                  accept=".pdf,.docx,.txt,.md,.rtf,.json"
+                  onChange={(e) => loadResumeFile(e.target.files?.[0])}
+                  disabled={busy || parsingResume}
+                />
+              </div>
+              <button
+                type="button"
+                className="ai-btn"
+                onClick={startInterview}
+                disabled={busy || parsingResume || !streamOn}
+              >
+                {parsingResume ? 'Parsing resume...' : busy ? 'Starting...' : 'Start AI interview'}
+              </button>
+            </>
+          )}
+
+          {(interviewStarted || sessionComplete) && (
+            <>
+              {!sessionComplete && (
+                <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                  Question {questionNumber} | Time left: {formatCountdown(remainingMs)}
+                </p>
+              )}
+
+              {!sessionComplete && (
+                <div className="ai-question-box" style={{ marginTop: '1rem' }}>
+                  {currentQuestion}
+                </div>
+              )}
+
+              <div className="ai-toolbar">
+                <button
+                  type="button"
+                  className="ai-btn secondary"
+                  onClick={() => currentQuestion && speakQuestion(currentQuestion)}
+                  disabled={!currentQuestion || sessionComplete}
+                >
+                  Read question aloud
+                </button>
+              </div>
+
+              {!sessionComplete && (
+                <>
+                  <label htmlFor="ai-answer" style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem' }}>
+                    Your answer
+                  </label>
+                  <textarea
+                    id="ai-answer"
+                    className="ai-notes"
+                    value={answerDraft}
+                    onChange={(e) => setAnswerDraft(e.target.value)}
+                    placeholder="Type your answer summary..."
+                    disabled={busy}
+                  />
+                  <button type="button" className="ai-btn" onClick={submitAnswer} disabled={busy}>
+                    {busy ? 'Evaluating...' : 'Submit answer'}
+                  </button>
+                </>
+              )}
+            </>
+          )}
+
+          {lastFeedback ? (
+            <div className="ai-coach" style={{ marginTop: '0.75rem' }}>
+              <strong>AI feedback{lastScore != null ? ` (score: ${lastScore}/10)` : ''}:</strong> {lastFeedback}
+            </div>
+          ) : null}
+
+          {sessionComplete && (
             <div
               className="ai-coach"
               style={{
@@ -273,17 +528,21 @@ function AiInterview() {
                 border: '1px solid var(--border-color)',
               }}
             >
-              <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.05rem' }}>Round complete</h3>
-              <p style={{ margin: '0 0 0.75rem', color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
-                You finished every question in this track for this round. This practice mode does not score answers—it
-                helps you rehearse. Use coach tips and your notes to reflect on clarity and structure.
-              </p>
+              <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.05rem' }}>Interview complete</h3>
+              {violationMessage ? (
+                <p style={{ margin: '0 0 0.75rem', color: 'var(--accent-danger)', fontSize: '0.9rem' }}>
+                  {violationMessage}
+                </p>
+              ) : null}
               <ul style={{ margin: '0 0 1rem', paddingLeft: '1.25rem', fontSize: '0.9rem', lineHeight: 1.5 }}>
                 <li>
-                  <strong>Questions completed:</strong> {answeredCount} / {poolSize}
+                  <strong>Questions completed:</strong> {history.length}
                 </li>
                 <li>
-                  <strong>Coach tips used:</strong> {coachTipsUsed}
+                  <strong>Tab switch events:</strong> {tabSwitchCount}
+                </li>
+                <li>
+                  <strong>Fullscreen lock:</strong> {fullscreenLocked ? 'Active' : 'Exited'}
                 </li>
                 {sessionDurationMs != null && (
                   <li>
@@ -291,68 +550,56 @@ function AiInterview() {
                   </li>
                 )}
               </ul>
-              <button type="button" className="ai-btn" onClick={resetRound}>
-                Start new round
-              </button>
-            </div>
-          ) : (
-            <>
-              {answeredCount > 0 && (
-                <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Question {answeredCount} of {poolSize} in this track (no repeats until you start a new round).
-                </p>
+              {!finalReport ? (
+                <button type="button" className="ai-btn" onClick={generateFinalReport} disabled={busy}>
+                  {busy ? 'Generating report...' : 'Generate final status'}
+                </button>
+              ) : (
+                <div style={{ fontSize: '0.92rem', lineHeight: 1.55 }}>
+                  <p style={{ margin: '0 0 0.4rem' }}>
+                    <strong>Status:</strong> {finalReport.status}
+                  </p>
+                  <p style={{ margin: '0 0 0.7rem' }}>
+                    <strong>Overall score:</strong>{' '}
+                    {finalReport.overallScore != null ? `${finalReport.overallScore}/10` : 'N/A'}
+                  </p>
+                  {finalReport.summary ? <p style={{ margin: '0 0 0.6rem' }}>{finalReport.summary}</p> : null}
+                  {finalReport.strengths.length > 0 && (
+                    <p style={{ margin: '0 0 0.45rem' }}>
+                      <strong>Strengths:</strong> {finalReport.strengths.join('; ')}
+                    </p>
+                  )}
+                  {finalReport.improvements.length > 0 && (
+                    <p style={{ margin: 0 }}>
+                      <strong>Improvements:</strong> {finalReport.improvements.join('; ')}
+                    </p>
+                  )}
+                </div>
               )}
-              <div className="ai-question-box" style={{ marginTop: '1rem' }}>
-                {current
-                  ? current.text
-                  : 'Click “Next question” to begin. Answer out loud as if in a real interview.'}
+
+              <div className="ai-toolbar">
+                <button
+                  type="button"
+                  className="ai-btn secondary"
+                  onClick={async () => {
+                    if (document.fullscreenElement) {
+                      await document.exitFullscreen().catch(() => {});
+                    }
+                    resetRound();
+                  }}
+                  disabled={busy}
+                >
+                  Start new interview
+                </button>
               </div>
-            </>
-          )}
-          {sessionComplete && current && (
-            <div className="ai-question-box" style={{ marginTop: '0.75rem', opacity: 0.95 }}>
-              <strong style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Last question</strong>
-              <div style={{ marginTop: '0.35rem' }}>{current.text}</div>
             </div>
           )}
-          <div className="ai-toolbar">
-            <button
-              type="button"
-              className="ai-btn"
-              onClick={handleNextQuestion}
-              disabled={sessionComplete}
-            >
-              {sessionComplete ? 'Round finished' : 'Next question'}
-            </button>
-            <button
-              type="button"
-              className="ai-btn secondary"
-              onClick={() => current && speakQuestion(current.text)}
-              disabled={!current}
-            >
-              Read question aloud
-            </button>
-          </div>
-          <label htmlFor="ai-notes" style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem' }}>
-            Optional: jot what you said (for local coaching)
-          </label>
-          <textarea
-            id="ai-notes"
-            className="ai-notes"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Short summary of your answer..."
-            disabled={sessionComplete}
-          />
-          <button
-            type="button"
-            className="ai-btn secondary"
-            onClick={handleCoach}
-            disabled={!current || sessionComplete}
-          >
-            Get coach tip
-          </button>
-          {coachLine ? <p className="ai-coach">{coachLine}</p> : null}
+
+          {error ? (
+            <p className="ai-coach" style={{ marginTop: '0.75rem', color: 'var(--accent-danger)' }}>
+              {error}
+            </p>
+          ) : null}
         </div>
       </div>
     </div>
