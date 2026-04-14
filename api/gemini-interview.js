@@ -70,7 +70,14 @@ async function callGemini({ apiKey, instruction }) {
 
     const looksLikeSizeIssue =
       /token|too large|request size|payload|maximum context|invalid argument|too many/i.test(upstreamMessage);
-    const code = upstream.status >= 500 ? 502 : 422;
+    const code =
+      upstream.status === 429
+        ? 429
+        : upstream.status >= 500
+          ? 502
+          : upstream.status >= 400
+            ? upstream.status
+            : 422;
     let message = 'Interview service failed. Please try again.';
     if (upstream.status === 429) {
       message = 'Rate limit reached. Please retry in a moment.';
