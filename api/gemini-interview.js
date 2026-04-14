@@ -25,6 +25,10 @@ function cleanText(value, max = 12000) {
     .slice(0, max);
 }
 
+function normalizeWhitespace(text) {
+  return String(text || '').replace(/\s+/g, ' ').trim();
+}
+
 function extractJson(text) {
   if (!text) return null;
   try {
@@ -56,8 +60,25 @@ async function callGemini({ apiKey, instruction }) {
 
   const rawText = await upstream.text();
   if (!upstream.ok) {
+    let upstreamMessage = '';
+    try {
+      const parsedError = JSON.parse(rawText);
+      upstreamMessage = normalizeWhitespace(parsedError?.error?.message || '');
+    } catch {
+      upstreamMessage = normalizeWhitespace(rawText);
+    }
+
+    const looksLikeSizeIssue =
+      /token|too large|request size|payload|maximum context|invalid argument|too many/i.test(upstreamMessage);
     const code = upstream.status >= 500 ? 502 : 422;
-    const message = upstream.status === 429 ? 'Rate limit reached. Please retry in a moment.' : 'Interview service failed. Please try again.';
+    let message = 'Interview service failed. Please try again.';
+    if (upstream.status === 429) {
+      message = 'Rate limit reached. Please retry in a moment.';
+    } else if (looksLikeSizeIssue) {
+      message = 'Resume/interview context is too large. Try a shorter resume or restart interview.';
+    } else if (upstreamMessage) {
+      message = upstreamMessage.slice(0, 220);
+    }
     return { ok: false, code, error: message };
   }
 
@@ -78,18 +99,18 @@ async function callGemini({ apiKey, instruction }) {
 function interviewContext({ role, resumeText, history, maxQuestions }) {
   const safeHistory = Array.isArray(history)
     ? history
-        .slice(0, 20)
+        .slice(-8)
         .map((item) => ({
-          question: cleanText(item?.question, 500),
-          answer: cleanText(item?.answer, 2000),
+          question: cleanText(item?.question, 260),
+          answer: cleanText(item?.answer, 600),
           score: Number.isFinite(item?.score) ? item.score : null,
-          feedback: cleanText(item?.feedback, 1200),
+          feedback: cleanText(item?.feedback, 280),
         }))
     : [];
   return [
     `Role track: ${cleanText(role, 80) || 'general software engineer'}`,
     `Target questions count: ${Math.min(Math.max(Number(maxQuestions) || 5, 3), 8)}`,
-    `Resume text:\n${cleanText(resumeText, 15000)}`,
+    `Resume text:\n${cleanText(resumeText, 9000)}`,
     `Interview history JSON:\n${JSON.stringify(safeHistory)}`,
   ].join('\n\n');
 }
@@ -115,7 +136,7 @@ export default async function handler(req, res) {
 
   const action = cleanText(body.action, 32).toLowerCase();
   const role = cleanText(body.role, 80);
-  const resumeText = cleanText(body.resumeText, 15000);
+  const resumeText = cleanText(body.resumeText, 9000);
   const history = Array.isArray(body.history) ? body.history : [];
   const maxQuestions = Math.min(Math.max(Number(body.maxQuestions) || 5, 3), 8);
 
