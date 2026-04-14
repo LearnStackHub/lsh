@@ -9,6 +9,8 @@ import './ai-lab.css';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 const INTERVIEW_DURATION_MS = 30 * 60 * 1000;
+const MIN_API_GAP_MS = 2000;
+let lastApiCallAt = 0;
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -24,9 +26,32 @@ function speakQuestion(text) {
   window.speechSynthesis.speak(u);
 }
 
+function summarizeResume(raw) {
+  const text = String(raw || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  const lines = String(raw || '')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  const skillLine = lines.find((line) => /skills?|technical|stack|technologies/i.test(line)) || '';
+  const expLine = lines.find((line) => /(years|experience|developer|engineer)/i.test(line)) || '';
+  const projectLine = lines.find((line) => /(project|microservices|spring|java|aws|mysql|oracle)/i.test(line)) || '';
+
+  const pieces = [expLine, skillLine, projectLine, text.slice(0, 900)].filter(Boolean);
+  return pieces.join(' | ').replace(/\s+/g, ' ').slice(0, 1200).trim();
+}
+
 async function callInterviewApi(payload) {
+  const now = Date.now();
+  const elapsed = now - lastApiCallAt;
+  if (elapsed < MIN_API_GAP_MS) {
+    await sleep(MIN_API_GAP_MS - elapsed);
+  }
+
   const maxAttempts = 3;
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    lastApiCallAt = Date.now();
     const res = await fetch('/api/gemini-interview', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -99,6 +124,7 @@ async function requestFullscreenForInterview(container) {
 
 function AiInterview() {
   const [resumeText, setResumeText] = useState('');
+  const [resumeSummary, setResumeSummary] = useState('');
   const [questionNumber, setQuestionNumber] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [answerDraft, setAnswerDraft] = useState('');
@@ -139,6 +165,7 @@ function AiInterview() {
   const resetRound = useCallback(() => {
     setQuestionNumber(0);
     setCurrentQuestion('');
+    setResumeSummary('');
     setAnswerDraft('');
     setLastFeedback('');
     setLastScore(null);
@@ -228,6 +255,11 @@ function AiInterview() {
       setError('Please paste your resume text (at least 100 characters).');
       return;
     }
+    const compactResume = summarizeResume(cleanResume);
+    if (!compactResume || compactResume.length < 80) {
+      setError('Resume summary is too short. Please add clearer experience and skills details.');
+      return;
+    }
     if (!streamOn || !streamRef.current) {
       setError('Camera and microphone are mandatory. Enable camera & mic before starting.');
       return;
@@ -254,7 +286,7 @@ function AiInterview() {
       const data = await callInterviewApi({
         action: 'start',
         role: 'resume-based',
-        resumeText: cleanResume,
+        resumeText: compactResume,
         maxQuestions: 1,
       });
       const q = String(data.question || '').trim();
@@ -263,6 +295,7 @@ function AiInterview() {
       sessionStartRef.current = Date.now();
       sessionDeadlineRef.current = Date.now() + INTERVIEW_DURATION_MS;
       setRemainingMs(INTERVIEW_DURATION_MS);
+      setResumeSummary(compactResume);
       setCurrentQuestion(q);
       setQuestionNumber(1);
       queueMicrotask(() => speakQuestion(q));
@@ -286,7 +319,7 @@ function AiInterview() {
       const data = await callInterviewApi({
         action: 'answer',
         role: 'resume-based',
-        resumeText: resumeText.trim(),
+        resumeText: resumeSummary || summarizeResume(resumeText),
         maxQuestions: 1,
         currentQuestion,
         answer,
@@ -342,7 +375,7 @@ function AiInterview() {
       const data = await callInterviewApi({
         action: 'finalize',
         role: 'resume-based',
-        resumeText: resumeText.trim(),
+        resumeText: resumeSummary || summarizeResume(resumeText),
         history,
         maxQuestions: 1,
       });
@@ -475,6 +508,9 @@ function AiInterview() {
               >
                 {parsingResume ? 'Parsing resume...' : busy ? 'Starting...' : 'Start AI interview'}
               </button>
+              <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                To avoid rate limits, only a compact resume summary is sent to AI.
+              </p>
             </>
           )}
 
