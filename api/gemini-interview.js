@@ -1,4 +1,4 @@
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const OLLAMA_URL = process.env.OLLAMA_API_URL || 'https://ollama.com/api/chat';
 
 export const config = {
   maxDuration: 60,
@@ -44,17 +44,24 @@ function extractJson(text) {
   }
 }
 
-async function callGemini({ apiKey, instruction }) {
-  const url = `${GEMINI_URL}?key=${encodeURIComponent(apiKey)}`;
-  const upstream = await fetch(url, {
+async function callOllama({ apiKey, model, instruction }) {
+  const upstream = await fetch(OLLAMA_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
     body: JSON.stringify({
-      generationConfig: {
-        temperature: 0.4,
-        responseMimeType: 'application/json',
-      },
-      contents: [{ role: 'user', parts: [{ text: instruction }] }],
+      model,
+      stream: false,
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are an interview engine API. Return only strict JSON with no markdown fences or extra prose.',
+        },
+        { role: 'user', content: instruction },
+      ],
     }),
   });
 
@@ -93,9 +100,9 @@ async function callGemini({ apiKey, instruction }) {
   try {
     data = JSON.parse(rawText);
   } catch {
-    return { ok: false, code: 502, error: 'Invalid AI response format.' };
+    return { ok: false, code: 502, error: 'Invalid Ollama response format.' };
   }
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  const text = data?.message?.content || '';
   const parsed = extractJson(text);
   if (!parsed || typeof parsed !== 'object') {
     return { ok: false, code: 502, error: 'Could not parse interview response.' };
@@ -129,9 +136,10 @@ export default async function handler(req, res) {
     return;
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.OLLAMA_API_KEY;
+  const model = process.env.OLLAMA_MODEL || 'llama3.2';
   if (!apiKey) {
-    res.status(503).json({ error: 'Missing GEMINI_API_KEY in server environment.' });
+    res.status(503).json({ error: 'Missing OLLAMA_API_KEY in server environment.' });
     return;
   }
 
@@ -196,7 +204,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const result = await callGemini({ apiKey, instruction });
+    const result = await callOllama({ apiKey, model, instruction });
     if (!result.ok) {
       res.status(result.code).json({ error: result.error });
       return;
