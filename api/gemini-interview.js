@@ -44,6 +44,68 @@ function extractJson(text) {
   }
 }
 
+function clamp(num, min, max) {
+  return Math.min(max, Math.max(min, num));
+}
+
+function round1(num) {
+  return Math.round(num * 10) / 10;
+}
+
+function toWords(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w.length >= 3);
+}
+
+function toKeywordSet(text) {
+  const stop = new Set([
+    'with', 'from', 'that', 'this', 'have', 'your', 'about', 'what', 'when', 'where', 'which', 'using', 'used',
+    'into', 'over', 'under', 'than', 'they', 'them', 'were', 'been', 'being', 'there', 'their', 'will', 'would',
+  ]);
+  return new Set(toWords(text).filter((w) => !stop.has(w)));
+}
+
+function computeRubric(question, answer) {
+  const qSet = toKeywordSet(question);
+  const aSet = toKeywordSet(answer);
+
+  let qHit = 0;
+  for (const w of qSet) {
+    if (aSet.has(w)) qHit += 1;
+  }
+  const relevance = qSet.size ? qHit / qSet.size : 0;
+
+  const answerLen = cleanText(answer, 5000).length;
+  const depth = clamp(answerLen / 550, 0, 1);
+  const hasStructure = /\b(first|second|because|therefore|result|impact|trade[- ]off|for example)\b/i.test(answer);
+  const clarity = hasStructure ? 0.9 : 0.6;
+
+  const weighted = relevance * 0.6 + depth * 0.3 + clarity * 0.1;
+
+  const score = round1(clamp(weighted * 10, 0, 10));
+  return {
+    score,
+    rubric: {
+      relevance: round1(relevance * 10),
+      depth: round1(depth * 10),
+      clarity: round1(clarity * 10),
+    },
+    evidence: {
+      questionKeywordHits: qHit,
+      questionKeywords: qSet.size,
+      answerLength: answerLen,
+    },
+  };
+}
+
+function combineScores(aiScore, rubricScore) {
+  if (!Number.isFinite(aiScore)) return rubricScore;
+  return round1(clamp(aiScore * 0.35 + rubricScore * 0.65, 0, 10));
+}
+
 async function callOllama({ apiKey, model, instruction }) {
   const upstream = await fetch(OLLAMA_URL, {
     method: 'POST',
@@ -183,17 +245,25 @@ export default async function handler(req, res) {
       interviewContext({ role, resumeText, history, maxQuestions }),
       `Current question: ${currentQuestion}`,
       `Candidate answer: ${answer}`,
-      'Score the answer from 0 to 10, give concise feedback, then ask exactly ONE next question.',
+      'Use a grounded rubric: relevance to question, technical depth, and clarity/structure.',
+      'Score the answer from 0 to 10 based on the rubric, give concise feedback with one reason for score.',
+      'Avoid generic praise; mention one missing point if relevant.',
+      'Then ask exactly ONE next question.',
       'Do not generate a list of questions. Keep nextQuestion to one interview question.',
       'If interview should end now, set done=true and nextQuestion empty.',
       'Return this JSON schema exactly:',
       '{"score":0,"feedback":"string","nextQuestion":"string","done":false}',
     ].join('\n\n');
   } else if (action === 'finalize') {
+    if (!Array.isArray(history) || history.length === 0) {
+      res.status(400).json({ error: 'At least one answered question is required before finalizing.' });
+      return;
+    }
     instruction = [
       'You are an interview final reviewer. Return strict JSON only.',
       interviewContext({ role, resumeText, history, maxQuestions }),
-      'Create final decision and summary.',
+      'Create final decision and summary based mainly on candidate answers and their quality across asked questions.',
+      'Do not give high rating from resume alone. If answers are weak/vague, lower the decision accordingly.',
       'Status rules: score >= 8 => "Strong Hire", score 6-7.9 => "Borderline", below 6 => "Needs Improvement".',
       'Return this JSON schema exactly:',
       '{"status":"Strong Hire|Borderline|Needs Improvement","overallScore":0,"strengths":[""],"improvements":[""],"summary":"string"}',
@@ -209,6 +279,40 @@ export default async function handler(req, res) {
       res.status(result.code).json({ error: result.error });
       return;
     }
+    if (action === 'answer') {
+      const currentQuestion = cleanText(body.currentQuestion, 500);
+      const answer = cleanText(body.answer, 3000);
+      const aiScore = Number(result.data?.score);
+      const rubric = computeRubric(currentQuestion, answer);
+      const finalScore = combineScores(aiScore, rubric.score);
+      res.status(200).json({
+        ...result.data,
+        score: finalScore,
+        rubric: rubric.rubric,
+        evidence: rubric.evidence,
+      });
+      return;
+    }
+
+    if (action === 'finalize') {
+      const scored = history
+        .map((h) => Number(h?.score))
+        .filter((n) => Number.isFinite(n));
+      const avg = scored.length ? round1(scored.reduce((a, b) => a + b, 0) / scored.length) : null;
+      const modelOverall = Number(result.data?.overallScore);
+      const overallScore = Number.isFinite(modelOverall)
+        ? (avg == null ? round1(clamp(modelOverall, 0, 10)) : round1(clamp(modelOverall * 0.15 + avg * 0.85, 0, 10)))
+        : (avg ?? 0);
+      const status =
+        overallScore >= 8 ? 'Strong Hire' : overallScore >= 6 ? 'Borderline' : 'Needs Improvement';
+      res.status(200).json({
+        ...result.data,
+        overallScore,
+        status,
+      });
+      return;
+    }
+
     res.status(200).json(result.data);
   } catch {
     res.status(502).json({ error: 'Unexpected interview service error.' });

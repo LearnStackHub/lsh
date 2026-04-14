@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Mic, Square } from 'lucide-react';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
@@ -148,12 +148,15 @@ function AiInterview() {
   const [sessionDurationMs, setSessionDurationMs] = useState(null);
   const [remainingMs, setRemainingMs] = useState(INTERVIEW_DURATION_MS);
   const [streamOn, setStreamOn] = useState(false);
+  const [listeningSupported, setListeningSupported] = useState(false);
+  const [listening, setListening] = useState(false);
 
   const videoRef = useRef(null);
   const rootRef = useRef(null);
   const streamRef = useRef(null);
   const sessionStartRef = useRef(null);
   const sessionDeadlineRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   const stopStream = useCallback(() => {
     if (streamRef.current) {
@@ -167,6 +170,41 @@ function AiInterview() {
   }, []);
 
   useEffect(() => () => stopStream(), [stopStream]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setListeningSupported(false);
+      return undefined;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.onresult = (event) => {
+      let finalText = '';
+      for (let i = event.resultIndex; i < event.results.length; i += 1) {
+        if (event.results[i].isFinal) finalText += `${event.results[i][0].transcript} `;
+      }
+      if (finalText.trim()) {
+        setAnswerDraft((prev) => `${prev} ${finalText.trim()}`.trim());
+      }
+    };
+    recognition.onend = () => setListening(false);
+    recognition.onerror = () => setListening(false);
+    recognitionRef.current = recognition;
+    setListeningSupported(true);
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.onend = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
 
   const resetRound = useCallback(() => {
     setQuestionNumber(0);
@@ -184,6 +222,8 @@ function AiInterview() {
     setSessionComplete(false);
     setSessionDurationMs(null);
     setRemainingMs(INTERVIEW_DURATION_MS);
+    if (recognitionRef.current) recognitionRef.current.stop();
+    setListening(false);
     sessionStartRef.current = null;
     sessionDeadlineRef.current = null;
     if (typeof window !== 'undefined' && window.speechSynthesis) {
@@ -384,6 +424,10 @@ function AiInterview() {
 
   async function generateFinalReport() {
     if (busy || !sessionComplete || finalReport) return;
+    if (history.length === 0) {
+      setError('No answers were submitted, so final status cannot be generated.');
+      return;
+    }
     setBusy(true);
     setError('');
     try {
@@ -427,6 +471,24 @@ function AiInterview() {
     }
   }
 
+  function startVoiceAnswer() {
+    if (!recognitionRef.current || listening || busy || sessionComplete) return;
+    setError('');
+    try {
+      recognitionRef.current.start();
+      setListening(true);
+    } catch {
+      setListening(false);
+      setError('Could not start voice input. Please allow microphone and try again.');
+    }
+  }
+
+  function stopVoiceAnswer() {
+    if (!recognitionRef.current || !listening) return;
+    recognitionRef.current.stop();
+    setListening(false);
+  }
+
   async function loadResumeFile(file) {
     if (!file) return;
     setParsingResume(true);
@@ -461,7 +523,7 @@ function AiInterview() {
     <div className="ai-lab-page ai-interview-page" ref={rootRef}>
       <SEOHead
         title="AI Resume Interview | LearnStackHub"
-        description="Resume-based AI interview with Gemini on Vercel, with camera practice and final hiring status."
+        description="Resume-based AI interview with Ollama on Vercel, with camera practice and final hiring status."
       />
       <Link to="/ai-lab" className="ai-lab-back">
         <ArrowLeft size={16} aria-hidden />
@@ -576,6 +638,26 @@ function AiInterview() {
                     placeholder="Type your answer summary..."
                     disabled={busy}
                   />
+                  <div className="ai-toolbar" style={{ marginTop: 0, marginBottom: '0.5rem' }}>
+                    <button
+                      type="button"
+                      className="ai-btn secondary"
+                      onClick={listening ? stopVoiceAnswer : startVoiceAnswer}
+                      disabled={!listeningSupported || busy || sessionComplete}
+                    >
+                      {listening ? (
+                        <>
+                          <Square size={14} aria-hidden />
+                          Stop voice input
+                        </>
+                      ) : (
+                        <>
+                          <Mic size={14} aria-hidden />
+                          Speak answer
+                        </>
+                      )}
+                    </button>
+                  </div>
                   <button type="button" className="ai-btn" onClick={submitAnswer} disabled={busy}>
                     {busy ? 'Evaluating...' : 'Submit answer'}
                   </button>
@@ -623,10 +705,14 @@ function AiInterview() {
                   </li>
                 )}
               </ul>
-              {!finalReport ? (
+              {!finalReport && history.length > 0 ? (
                 <button type="button" className="ai-btn" onClick={generateFinalReport} disabled={busy}>
                   {busy ? 'Generating report...' : 'Generate final status'}
                 </button>
+              ) : history.length === 0 ? (
+                <p style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                  No answers were submitted. Final status is unavailable.
+                </p>
               ) : (
                 <div style={{ fontSize: '0.92rem', lineHeight: 1.55 }}>
                   <p style={{ margin: '0 0 0.4rem' }}>
