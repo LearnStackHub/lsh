@@ -9,6 +9,17 @@ function SEOHead({ title, description, keywords, topicId, noindex = false }) {
   const baseUrl = 'https://www.learnstackhub.com';
   
   useEffect(() => {
+    const normalizedPath = location.pathname.replace(/\/+$/, '') || '/';
+    const utilityNoindexPaths = new Set([
+      '/ai-lab/chat',
+      '/ai-lab/code-editor',
+      '/ai-lab/interview',
+    ]);
+    const isUtilityOrExamRoute =
+      utilityNoindexPaths.has(normalizedPath) ||
+      /(?:^|\/)[a-z0-9-]+-(mcq|exam)$/.test(normalizedPath);
+    const shouldNoindex = noindex || isUtilityOrExamRoute;
+
     // Get topic data if topicId is provided
     let pageTitle = title || 'LSH - Learn Java Full Stack Development | Free Java Tutorials | LearnStackHub';
     let pageDescription = description || 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform for Java Full Stack Development. Learn Java, Spring, React, AWS and more for free. Complete tutorials with code examples and live execution. Perfect for beginners and advanced developers. Learn, Stack, Hub - Your complete learning destination.';
@@ -48,7 +59,12 @@ function SEOHead({ title, description, keywords, topicId, noindex = false }) {
     if (pageKeywords) {
       updateMetaTag('keywords', pageKeywords);
     }
-    updateMetaTag('robots', noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    updateMetaTag(
+      'robots',
+      shouldNoindex
+        ? 'noindex, follow'
+        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    );
     
     // Open Graph tags
     updateMetaTag('og:title', pageTitle, true);

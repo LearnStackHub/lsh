@@ -45,14 +45,16 @@ const staticPages = [
   { url: '/privacy', priority: '0.5', changefreq: 'yearly' },
   { url: '/terms', priority: '0.5', changefreq: 'yearly' },
   { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
-  { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
-  { url: '/mysql-mcq', priority: '0.8', changefreq: 'weekly' },
-  { url: '/jdbc-mcq', priority: '0.8', changefreq: 'weekly' },
-  { url: '/spring-mcq', priority: '0.8', changefreq: 'weekly' },
-  { url: '/spring-boot-mcq', priority: '0.8', changefreq: 'weekly' },
-  { url: '/hibernate-mcq', priority: '0.8', changefreq: 'weekly' },
-  { url: '/microservices-mcq', priority: '0.8', changefreq: 'weekly' },
+  // Keep only indexable utility hub page; chat/editor/interview paths are noindex.
+  { url: '/ai-lab', priority: '0.6', changefreq: 'weekly' },
 ];
+
+function isIndexableTopicId(topicId) {
+  if (!topicId || typeof topicId !== 'string') return false;
+  // Match noindex policy used in SEOHead and avoid low-value exam/runner pages in sitemap.
+  if (/(?:^|[-/])(mcq|exam)$/.test(topicId)) return false;
+  return true;
+}
 
 // Function to read existing sitemap and extract old dates
 function readExistingSitemap(sitemapPath) {
@@ -124,7 +126,9 @@ async function generateSitemap() {
     const existingDates = readExistingSitemap(existingSitemapPath);
     
     // Create tutorial pages - preserve old dates, only update new pages
-    allTopicIds.forEach(topicId => {
+    allTopicIds
+      .filter(isIndexableTopicId)
+      .forEach(topicId => {
       const url = `/tutorial/${topicId}`;
       let lastmod;
       

@@ -133,6 +133,15 @@ function Layout() {
 
   const courseTopics = getCurrentCourseTopics();
 
+  // Disable ads on utility/tool and exam-runner pages to satisfy AdSense inventory-value policy.
+  const adBlockedPaths = new Set([
+    '/ai-lab/chat',
+    '/ai-lab/code-editor',
+    '/ai-lab/interview',
+  ]);
+  const isExamRunnerRoute = /(?:^|\/)[a-z0-9-]+-(mcq|exam)$/.test(location.pathname);
+  const shouldHideAds = adBlockedPaths.has(location.pathname) || isExamRunnerRoute;
+
   // Map course keys to lucide-react icons
   const courseIcons = {
     sdlc: ClipboardList,
@@ -348,25 +357,29 @@ function Layout() {
         )}
 
         {/* Sidebar Ad */}
-        <div className="sidebar-ad">
-          <AdSense 
-            adSlot={ADSENSE_CONFIG.adSlots.sidebar}
-            adFormat="rectangle"
-            className="sidebar-ad-unit"
-            style={{ margin: '1rem' }}
-          />
-        </div>
+        {!shouldHideAds && (
+          <div className="sidebar-ad">
+            <AdSense 
+              adSlot={ADSENSE_CONFIG.adSlots.sidebar}
+              adFormat="rectangle"
+              className="sidebar-ad-unit"
+              style={{ margin: '1rem' }}
+            />
+          </div>
+        )}
       </aside>
 
       {/* Top Banner Ad */}
-      <div className="top-banner-ad">
-        <AdSense 
-          adSlot={ADSENSE_CONFIG.adSlots.topBanner}
-          adFormat="horizontal"
-          className="banner-ad-unit"
-          style={{ margin: '1rem auto', maxWidth: '728px' }}
-        />
-      </div>
+      {!shouldHideAds && (
+        <div className="top-banner-ad">
+          <AdSense 
+            adSlot={ADSENSE_CONFIG.adSlots.topBanner}
+            adFormat="horizontal"
+            className="banner-ad-unit"
+            style={{ margin: '1rem auto', maxWidth: '728px' }}
+          />
+        </div>
+      )}
 
       {/* Main Content */}
       <main className="main-content">
@@ -374,14 +387,16 @@ function Layout() {
       </main>
 
       {/* Bottom Banner Ad */}
-      <div className="bottom-banner-ad">
-        <AdSense 
-          adSlot={ADSENSE_CONFIG.adSlots.bottomBanner}
-          adFormat="horizontal"
-          className="banner-ad-unit"
-          style={{ margin: '1rem auto', maxWidth: '728px' }}
-        />
-      </div>
+      {!shouldHideAds && (
+        <div className="bottom-banner-ad">
+          <AdSense 
+            adSlot={ADSENSE_CONFIG.adSlots.bottomBanner}
+            adFormat="horizontal"
+            className="banner-ad-unit"
+            style={{ margin: '1rem auto', maxWidth: '728px' }}
+          />
+        </div>
+      )}
 
 
       {/* Click outside to close search */}

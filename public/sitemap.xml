@@ -52,46 +52,10 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/core-java-mcq</loc>
+    <loc>https://www.learnstackhub.com/ai-lab</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/mysql-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/jdbc-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/spring-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/spring-boot-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/hibernate-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/microservices-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/abstraction</loc>
@@ -173,12 +137,6 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/cookies-sessions</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/tutorial/core-java-mcq</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -377,7 +335,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/global-exception-handling-http</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -431,12 +389,6 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/hibernate-mapping</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/tutorial/hibernate-mcq</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -587,7 +539,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/http-status-codes</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -635,7 +587,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/java-interview-questions</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -659,6 +611,12 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/java-operators</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/tutorial/java-string-reverse</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -689,12 +647,6 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/jdbc-introduction</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/tutorial/jdbc-mcq</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -892,12 +844,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/microservices-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://www.learnstackhub.com/tutorial/multi-dimensional-array</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -977,12 +923,6 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/mysql-joins</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/tutorial/mysql-mcq</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -1211,91 +1151,85 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-actuator</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-configuration</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-deployment</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-exception-handling</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-interview-questions</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-introduction</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-jpa</loc>
-    <lastmod>2026-03-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/tutorial/spring-boot-mcq</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-postman-swagger</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-project-setup</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-rest-api</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-security</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-smtp</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-testing</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-boot-validation</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -1337,7 +1271,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-cloud-microservices</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -1421,12 +1355,6 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-jdbc-template</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.learnstackhub.com/tutorial/spring-mcq</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

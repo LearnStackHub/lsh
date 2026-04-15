@@ -15,17 +15,7 @@ export const generateSitemap = () => {
     { url: '/terms', priority: '0.5', changefreq: 'yearly' },
     { url: '/disclaimer', priority: '0.5', changefreq: 'yearly' },
     { url: '/careers', priority: '0.8', changefreq: 'monthly' },
-  ];
-
-  // Exam pages
-  const examPages = [
-    { url: '/core-java-mcq', priority: '0.8', changefreq: 'weekly' },
-    { url: '/mysql-mcq', priority: '0.8', changefreq: 'weekly' },
-    { url: '/jdbc-mcq', priority: '0.8', changefreq: 'weekly' },
-    { url: '/spring-mcq', priority: '0.8', changefreq: 'weekly' },
-    { url: '/spring-boot-mcq', priority: '0.8', changefreq: 'weekly' },
-    { url: '/hibernate-mcq', priority: '0.8', changefreq: 'weekly' },
-    { url: '/microservices-mcq', priority: '0.8', changefreq: 'weekly' },
+    { url: '/ai-lab', priority: '0.6', changefreq: 'weekly' },
   ];
 
   // New pages added today - update with today's date
@@ -36,7 +26,9 @@ export const generateSitemap = () => {
 
   // Tutorial pages
   const allTopics = getAllTopics();
-  const tutorialPages = allTopics.map(topic => {
+  const tutorialPages = allTopics
+    .filter((topic) => topic?.id && !/(?:^|[-/])(mcq|exam)$/.test(topic.id))
+    .map(topic => {
     // Use today's date for new pages, otherwise use current date (which is today for all)
     // This allows us to track which pages were added/updated today
     const lastmod = newPagesToday.includes(topic.id) ? currentDate : currentDate;
@@ -50,7 +42,7 @@ export const generateSitemap = () => {
   });
 
   // Combine all pages
-  const allPages = [...staticPages, ...examPages, ...tutorialPages];
+  const allPages = [...staticPages, ...tutorialPages];
 
   // Generate XML
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
