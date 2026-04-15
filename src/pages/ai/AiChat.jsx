@@ -17,6 +17,12 @@ const chatMarkdownComponents = {
 const WELCOME =
   'Ask Java and backend interview questions—JVM, OOP, Spring, SQL, concurrency, and more. ' +
   'Replies are AI-generated for learning; double-check anything you rely on for interviews or work.';
+const PROMPT_SUGGESTIONS = [
+  'Explain Spring Boot auto-configuration in simple words',
+  'Top 10 Java interview questions for 2 years experience',
+  'Difference between synchronized block and ReentrantLock',
+  'How to optimize a slow MySQL query in production?',
+];
 
 function toApiMessages(rows) {
   return rows
@@ -134,7 +140,21 @@ function AiChat() {
           <div className="ai-chat-topbar-text">
             <h1 id="ai-chat-title">Chat practice</h1>
             <p className="ai-chat-tagline">Java &amp; backend interview prep with an AI tutor</p>
+            <div className="ai-chat-suggestions" aria-label="Suggested prompts">
+              {PROMPT_SUGGESTIONS.map((prompt) => (
+                <button
+                  key={prompt}
+                  type="button"
+                  className="ai-chat-suggestion-chip"
+                  onClick={() => setInput(prompt)}
+                  disabled={loading}
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
           </div>
+          <span className="ai-chat-status">Live AI tutor</span>
         </header>
 
         <div className="ai-chat-scroll" ref={logRef} role="log" aria-live="polite">

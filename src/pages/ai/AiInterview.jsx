@@ -519,6 +519,11 @@ function AiInterview() {
     return `${mm}:${ss}`;
   }
 
+  const progressPercent = Math.min(
+    100,
+    Math.max(0, ((INTERVIEW_DURATION_MS - remainingMs) / INTERVIEW_DURATION_MS) * 100),
+  );
+
   return (
     <div className="ai-lab-page ai-interview-page" ref={rootRef}>
       <SEOHead
@@ -529,12 +534,26 @@ function AiInterview() {
         <ArrowLeft size={16} aria-hidden />
         Back to Practice Lab
       </Link>
-      <div className="ai-lab-hero" style={{ textAlign: 'left', marginBottom: '1.25rem' }}>
+      <div className="ai-lab-hero ai-interview-hero">
         <h1>Audio &amp; video interview</h1>
-        <p style={{ margin: 0 }}>
+        <p>
           AI conducts a fixed 30-minute interview. Camera and microphone are mandatory, full-screen stays on, and your
           answers are evaluated question by question to generate the final status.
         </p>
+      </div>
+      <div className="ai-interview-overview">
+        <div className="ai-overview-card">
+          <span className="ai-overview-label">Format</span>
+          <strong>Strict mock interview</strong>
+        </div>
+        <div className="ai-overview-card">
+          <span className="ai-overview-label">Duration</span>
+          <strong>30 minutes</strong>
+        </div>
+        <div className="ai-overview-card">
+          <span className="ai-overview-label">Current state</span>
+          <strong>{sessionComplete ? 'Completed' : interviewStarted ? 'In progress' : 'Ready to start'}</strong>
+        </div>
       </div>
 
       <div className="ai-interview-layout">
@@ -561,7 +580,7 @@ function AiInterview() {
         <div className="ai-panel">
           {!interviewStarted && !sessionComplete && (
             <>
-              <label htmlFor="ai-resume" style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem' }}>
+              <label htmlFor="ai-resume" className="ai-field-label">
                 Add resume (paste text or upload PDF/DOCX)
               </label>
               <textarea
@@ -573,8 +592,9 @@ function AiInterview() {
                 disabled={busy || parsingResume}
                 style={{ minHeight: '130px' }}
               />
-              <div className="ai-toolbar" style={{ marginTop: 0 }}>
+              <div className="ai-toolbar ai-toolbar--tight">
                 <input
+                  className="ai-file-input"
                   type="file"
                   accept=".pdf,.docx,.txt,.md,.rtf,.json"
                   onChange={(e) => loadResumeFile(e.target.files?.[0])}
@@ -589,11 +609,11 @@ function AiInterview() {
               >
                 {parsingResume ? 'Parsing resume...' : busy ? 'Starting...' : 'Start AI interview'}
               </button>
-              <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              <p className="ai-hint">
                 To avoid rate limits, only a compact resume summary is sent to AI.
               </p>
               {inCooldown ? (
-                <p style={{ marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--accent-danger)' }}>
+                <p className="ai-hint ai-hint--danger">
                   Rate limited. Please wait about 30 seconds and try again.
                 </p>
               ) : null}
@@ -603,13 +623,23 @@ function AiInterview() {
           {(interviewStarted || sessionComplete) && (
             <>
               {!sessionComplete && (
-                <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Question {questionNumber} | Time left: {formatCountdown(remainingMs)}
-                </p>
+                <div className="ai-interview-meta">
+                  <span className="ai-pill">Question {questionNumber}</span>
+                  <span className="ai-pill ai-pill--accent">Time left: {formatCountdown(remainingMs)}</span>
+                </div>
+              )}
+              {!sessionComplete && (
+                <div className="ai-progress">
+                  <span
+                    className="ai-progress-bar"
+                    style={{ width: `${progressPercent.toFixed(1)}%` }}
+                    aria-hidden
+                  />
+                </div>
               )}
 
               {!sessionComplete && (
-                <div className="ai-question-box" style={{ marginTop: '1rem' }}>
+                <div className="ai-question-box">
                   {currentQuestion}
                 </div>
               )}
@@ -627,7 +657,7 @@ function AiInterview() {
 
               {!sessionComplete && (
                 <>
-                  <label htmlFor="ai-answer" style={{ display: 'block', marginTop: '1rem', fontSize: '0.875rem' }}>
+                  <label htmlFor="ai-answer" className="ai-field-label">
                     Your answer
                   </label>
                   <textarea
@@ -638,7 +668,7 @@ function AiInterview() {
                     placeholder="Type your answer summary..."
                     disabled={busy}
                   />
-                  <div className="ai-toolbar" style={{ marginTop: 0, marginBottom: '0.5rem' }}>
+                  <div className="ai-toolbar ai-toolbar--tight ai-toolbar--spaced-bottom">
                     <button
                       type="button"
                       className="ai-btn secondary"
@@ -667,29 +697,20 @@ function AiInterview() {
           )}
 
           {lastFeedback ? (
-            <div className="ai-coach" style={{ marginTop: '0.75rem' }}>
+            <div className="ai-coach ai-coach--feedback">
               <strong>AI feedback{lastScore != null ? ` (score: ${lastScore}/10)` : ''}:</strong> {lastFeedback}
             </div>
           ) : null}
 
           {sessionComplete && (
-            <div
-              className="ai-coach"
-              style={{
-                marginTop: '1rem',
-                padding: '1rem 1.1rem',
-                background: 'var(--bg-tertiary)',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--border-color)',
-              }}
-            >
-              <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.05rem' }}>Interview complete</h3>
+            <div className="ai-coach ai-interview-complete">
+              <h3>Interview complete</h3>
               {violationMessage ? (
-                <p style={{ margin: '0 0 0.75rem', color: 'var(--accent-danger)', fontSize: '0.9rem' }}>
+                <p className="ai-interview-warning">
                   {violationMessage}
                 </p>
               ) : null}
-              <ul style={{ margin: '0 0 1rem', paddingLeft: '1.25rem', fontSize: '0.9rem', lineHeight: 1.5 }}>
+              <ul className="ai-interview-summary-list">
                 <li>
                   <strong>Questions completed:</strong> {history.length}
                 </li>
@@ -710,26 +731,26 @@ function AiInterview() {
                   {busy ? 'Generating report...' : 'Generate final status'}
                 </button>
               ) : history.length === 0 ? (
-                <p style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                <p className="ai-interview-empty-note">
                   No answers were submitted. Final status is unavailable.
                 </p>
               ) : (
-                <div style={{ fontSize: '0.92rem', lineHeight: 1.55 }}>
-                  <p style={{ margin: '0 0 0.4rem' }}>
+                <div className="ai-final-report">
+                  <p>
                     <strong>Status:</strong> {finalReport.status}
                   </p>
-                  <p style={{ margin: '0 0 0.7rem' }}>
+                  <p>
                     <strong>Overall score:</strong>{' '}
                     {finalReport.overallScore != null ? `${finalReport.overallScore}/10` : 'N/A'}
                   </p>
-                  {finalReport.summary ? <p style={{ margin: '0 0 0.6rem' }}>{finalReport.summary}</p> : null}
+                  {finalReport.summary ? <p>{finalReport.summary}</p> : null}
                   {finalReport.strengths.length > 0 && (
-                    <p style={{ margin: '0 0 0.45rem' }}>
+                    <p>
                       <strong>Strengths:</strong> {finalReport.strengths.join('; ')}
                     </p>
                   )}
                   {finalReport.improvements.length > 0 && (
-                    <p style={{ margin: 0 }}>
+                    <p>
                       <strong>Improvements:</strong> {finalReport.improvements.join('; ')}
                     </p>
                   )}

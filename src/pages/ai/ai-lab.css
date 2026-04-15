@@ -19,7 +19,22 @@
 
 .ai-lab-hero {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.ai-lab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--border-color));
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .ai-lab-hero h1 {
@@ -33,9 +48,35 @@
 
 .ai-lab-hero p {
   color: var(--text-secondary);
-  max-width: 36rem;
+  max-width: 40rem;
   margin: 0 auto;
   line-height: 1.55;
+}
+
+.ai-lab-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.ai-lab-highlight {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 0.75rem 0.8rem;
+}
+
+.ai-lab-highlight strong {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.22rem;
+}
+
+.ai-lab-highlight span {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 .ai-lab-disclaimer {
@@ -60,18 +101,19 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 1.25rem;
-  background: var(--bg-card);
+  background: linear-gradient(180deg, var(--bg-card), color-mix(in srgb, var(--bg-card) 85%, var(--bg-secondary)));
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   text-decoration: none;
   color: inherit;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
 .ai-lab-card:hover {
   border-color: var(--accent-primary);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .ai-lab-card-icon {
@@ -142,8 +184,12 @@
 }
 
 .ai-chat-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
   padding: 1.1rem 1.25rem;
-  background: var(--bg-tertiary);
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-card));
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -161,6 +207,42 @@
   font-size: 0.8125rem;
   color: var(--text-muted);
   line-height: 1.45;
+}
+
+.ai-chat-status {
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--border-color));
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.ai-chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.ai-chat-suggestion-chip {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+
+.ai-chat-suggestion-chip:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
 .ai-chat-scroll {
@@ -233,6 +315,7 @@
   font-size: 0.9375rem;
   line-height: 1.55;
   max-width: min(100%, 34rem);
+  box-shadow: var(--shadow-sm);
 }
 
 .ai-chat-row--assistant .ai-chat-row-bubble {
@@ -505,6 +588,43 @@
   gap: 1.25rem;
 }
 
+.ai-interview-hero {
+  text-align: left;
+  margin-bottom: 1.25rem;
+}
+
+.ai-interview-hero p {
+  margin: 0;
+}
+
+.ai-interview-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.ai-overview-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 0.7rem 0.8rem;
+}
+
+.ai-overview-card strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.ai-overview-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
 .ai-interview-page:fullscreen {
   max-width: none;
   width: 100vw;
@@ -557,6 +677,84 @@
   margin-top: 0.75rem;
 }
 
+.ai-toolbar--tight {
+  margin-top: 0;
+}
+
+.ai-toolbar--spaced-bottom {
+  margin-bottom: 0.5rem;
+}
+
+.ai-field-label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.ai-file-input {
+  width: 100%;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.65rem;
+  background: var(--bg-primary);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.ai-hint {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.ai-hint--danger {
+  margin-top: 0.35rem;
+  color: var(--accent-danger);
+}
+
+.ai-interview-meta {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.ai-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+}
+
+.ai-pill--accent {
+  color: var(--accent-primary);
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, var(--border-color));
+}
+
+.ai-progress {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+}
+
+.ai-progress-bar {
+  display: block;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+}
+
 .ai-select {
   padding: 0.5rem 0.65rem;
   border-radius: var(--radius-md);
@@ -571,6 +769,11 @@
   line-height: 1.55;
   color: var(--text-primary);
   margin-bottom: 0.75rem;
+  margin-top: 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 0.9rem;
 }
 
 .ai-notes {
@@ -594,6 +797,54 @@
   padding: 0.65rem 0.85rem;
   border-radius: var(--radius-md);
   margin-top: 0.5rem;
+}
+
+.ai-coach--feedback {
+  margin-top: 0.75rem;
+}
+
+.ai-interview-complete {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border-color);
+}
+
+.ai-interview-complete h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.ai-interview-warning {
+  margin: 0 0 0.75rem;
+  color: var(--accent-danger);
+  font-size: 0.9rem;
+}
+
+.ai-interview-summary-list {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.ai-interview-empty-note {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.ai-final-report {
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.ai-final-report p {
+  margin: 0 0 0.5rem;
+}
+
+.ai-final-report p:last-child {
+  margin-bottom: 0;
 }
 
 .ai-interview-rule-note {
