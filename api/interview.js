@@ -229,9 +229,11 @@ export default async function handler(req, res) {
       'You are an interview engine. Return strict JSON only.',
       interviewContext({ role, resumeText, history: [], maxQuestions }),
       'Task: generate exactly ONE first interview question tailored to the resume and role.',
+      'The question MUST explicitly anchor to a concrete item from the resume (technology, project, domain, or responsibility).',
+      'Prefer deep follow-up style, not textbook generic questions.',
       'Do not generate multiple questions. Do not include extra text.',
       'Return this JSON schema exactly:',
-      '{"question":"string","focus":"string","difficulty":"easy|medium|hard"}',
+      '{"question":"string","focus":"string","difficulty":"easy|medium|hard","resumeAnchor":"string"}',
     ].join('\n\n');
   } else if (action === 'answer') {
     const currentQuestion = cleanText(body.currentQuestion, 500);
@@ -249,10 +251,12 @@ export default async function handler(req, res) {
       'Score the answer from 0 to 10 based on the rubric, give concise feedback with one reason for score.',
       'Avoid generic praise; mention one missing point if relevant.',
       'Then ask exactly ONE next question.',
+      'The next question should continue from either: (a) the same resume anchor, or (b) a nearby resume item, or (c) a weakness seen in this answer.',
+      'Avoid generic unrelated questions.',
       'Do not generate a list of questions. Keep nextQuestion to one interview question.',
       'If interview should end now, set done=true and nextQuestion empty.',
       'Return this JSON schema exactly:',
-      '{"score":0,"feedback":"string","nextQuestion":"string","done":false}',
+      '{"score":0,"feedback":"string","nextQuestion":"string","done":false,"resumeAnchor":"string"}',
     ].join('\n\n');
   } else if (action === 'finalize') {
     if (!Array.isArray(history) || history.length === 0) {

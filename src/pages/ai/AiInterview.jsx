@@ -28,21 +28,41 @@ function speakQuestion(text) {
 
 function summarizeResume(raw) {
   const text = String(raw || '')
-    .replace(/\s+/g, ' ')
-    .replace(/[^\x20-\x7E]/g, ' ')
+    .replace(/[^\x20-\x7E\r\n]/g, ' ')
+    .replace(/[ \t]+/g, ' ')
     .trim();
   if (!text) return '';
-  const compact = text.slice(0, 350);
-  const skillsMatch = text.match(
-    /\b(java|spring boot|spring|microservices|aws|docker|mysql|oracle|hibernate|rest)\b/gi,
-  );
-  const uniqSkills = [...new Set((skillsMatch || []).map((s) => s.toLowerCase()))].slice(0, 8);
-  const yearsMatch = text.match(/(\d+)\+?\s*years?/i);
+
+  const lines = text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const flat = text.replace(/\s+/g, ' ');
+
+  const yearsMatch = flat.match(/(\d+)\+?\s*years?/i);
   const years = yearsMatch ? yearsMatch[0] : '';
-  const roleMatch = text.match(/(senior java developer|java developer|software engineer|backend developer)/i);
+  const roleMatch = flat.match(/(senior java developer|java developer|software engineer|backend developer)/i);
   const role = roleMatch ? roleMatch[0] : 'Software developer';
-  const skillPart = uniqSkills.length ? `Skills: ${uniqSkills.join(', ')}` : '';
-  return `${role}${years ? `, ${years} experience` : ''}. ${skillPart}. ${compact}`.slice(0, 520).trim();
+
+  const skillLine = lines.find((line) => /skills?|technical skills?|technologies/i.test(line)) || '';
+  const stackMatches = flat.match(
+    /\b(java|spring boot|spring mvc|spring|microservices|aws|docker|kubernetes|mysql|oracle|hibernate|rest|redis|junit|maven|jenkins|git)\b/gi,
+  );
+  const stack = [...new Set((stackMatches || []).map((s) => s.toLowerCase()))].slice(0, 14);
+
+  const projectHints = lines
+    .filter((line) => /project|client|portal|system|platform|bank|exam|billing|payment|otp|cloud/i.test(line))
+    .slice(0, 6);
+
+  const summaryBits = [
+    `${role}${years ? ` with ${years} experience` : ''}`,
+    skillLine || '',
+    stack.length ? `Core stack: ${stack.join(', ')}` : '',
+    projectHints.length ? `Project highlights: ${projectHints.join(' | ')}` : '',
+    `Resume context: ${flat.slice(0, 700)}`,
+  ].filter(Boolean);
+
+  return summaryBits.join('\n').slice(0, 1500).trim();
 }
 
 async function callInterviewApi(payload) {
