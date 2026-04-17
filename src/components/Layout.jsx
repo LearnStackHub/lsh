@@ -166,14 +166,18 @@ function Layout() {
       {/* Header */}
       <header className="header" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
         <div className="header-left">
-          <button 
+          <button
+            type="button"
             className="mobile-menu-btn"
+            aria-label={sidebarOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={sidebarOpen}
+            aria-controls="app-sidebar"
             onClick={() => setSidebarOpen(!sidebarOpen)}
           >
-            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            {sidebarOpen ? <X size={22} strokeWidth={2.25} /> : <Menu size={22} strokeWidth={2.25} />}
           </button>
           
-          <Link to="/" className="logo">
+          <Link to="/" className="logo" aria-label="LearnStackHub home">
             <img 
               src={logoImage} 
               alt="LearnStackHub Logo" 
@@ -297,7 +301,7 @@ function Layout() {
       </nav>
 
       {/* Sidebar - Toggleable on mobile */}
-      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`} id="app-sidebar">
         {/* Course Title Header */}
         <div className="sidebar-header" style={{ '--course-color': currentCourse?.color }}>
           <span className="sidebar-header-icon">

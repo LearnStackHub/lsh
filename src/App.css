@@ -227,7 +227,7 @@ code {
   gap: 1.5rem;
   flex: 1;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Logo */
@@ -5443,18 +5443,45 @@ code {
     margin-top: calc(var(--header-height) + 44px);
   }
   
-  /* Mobile menu button visible */
+  /* Mobile menu button visible — keep left cluster from clipping under header-right */
+  .header-left {
+    flex: 0 0 auto;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .header-right {
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
   .mobile-menu-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border: 2px solid var(--accent-primary);
     border-radius: var(--radius-md);
-    padding: 0.5rem;
-    color: var(--text-primary);
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    color: var(--accent-primary);
     cursor: pointer;
     flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(59, 130, 246, 0.22);
+    z-index: 2;
+  }
+
+  .mobile-menu-btn:hover {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: var(--accent-primary);
+  }
+
+  .mobile-menu-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.25;
   }
   
   .header-search {
@@ -5671,13 +5698,14 @@ code {
     gap: 0.5rem;
   }
   
+  /* Wordmark competes with search + actions; icon is enough in the bar */
   .logo span {
-    font-size: 1rem;
+    display: none;
   }
   
   .logo-image {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
   
   .course-nav {

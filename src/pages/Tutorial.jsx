@@ -313,7 +313,7 @@ function Tutorial() {
   const authorProfile = {
     name: 'Dattakumar Pandi',
     role: 'Founder of LearnStackHub',
-    expertise: 'Backend Developer (Java, Spring Boot)',
+    expertise: 'Backend Developer (Java)',
   };
 
   if (!currentTopic) {
