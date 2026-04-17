@@ -98,6 +98,53 @@ function About() {
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
+          <h2>Ownership &amp; Company Details</h2>
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '1.5rem',
+            marginTop: '1rem'
+          }}>
+            <p style={{ marginTop: 0, marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+              LearnStackHub publishes these details for user trust, policy compliance, and partner/reviewer verification.
+            </p>
+            <ul style={{ margin: 0, paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+              <li>
+                <strong>Domain:</strong> learnstackhub.com (canonical host: www.learnstackhub.com)
+              </li>
+              <li>
+                <strong>Website owner and operator:</strong> Dattakumar Pandi
+              </li>
+              <li>
+                <strong>Brand:</strong> LearnStackHub
+              </li>
+              <li>
+                <strong>Official live launch date:</strong> 15 Feb 2026
+              </li>
+              <li>
+                <strong>Primary contact email:</strong>{' '}
+                <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--accent-primary)' }}>
+                  careers@learnstackhub.com
+                </a>
+              </li>
+              <li>
+                <strong>About page:</strong>{' '}
+                <a href="https://www.learnstackhub.com/about" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  https://www.learnstackhub.com/about
+                </a>
+              </li>
+              <li>
+                <strong>Contact page:</strong>{' '}
+                <a href="https://www.learnstackhub.com/contact" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  https://www.learnstackhub.com/contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section style={{ marginBottom: '3rem' }}>
           <h2>What We Offer</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
             <div style={{
