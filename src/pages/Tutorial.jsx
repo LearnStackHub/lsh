@@ -29,6 +29,7 @@ import { ImageGif, ImageCard3D } from '../components/ImageGif';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import FAQSection from '../components/FAQSection';
+import TutorialFloatingChat from '../components/TutorialFloatingChat';
 import InternalLinks from '../components/InternalLinks';
 import JavaDataTypesShowcase from '../components/JavaDataTypesShowcase';
 import JavaEnvironmentSetupShowcase from '../components/JavaEnvironmentSetupShowcase';
@@ -505,24 +506,24 @@ function Tutorial() {
                     style={{
                       display: 'inline-block',
                       padding: '1rem 2.5rem',
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: 'var(--gradient-primary)',
                       color: 'white',
                       textDecoration: 'none',
                       borderRadius: '12px',
                       fontWeight: '700',
                       fontSize: '1.1rem',
                       transition: 'all 0.3s ease',
-                      boxShadow: '0 8px 25px rgba(102, 126, 234, 0.4)',
+                      boxShadow: '0 8px 25px rgba(59, 130, 246, 0.35)',
                       border: 'none',
                       cursor: 'pointer'
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
-                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(102, 126, 234, 0.5)';
+                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(59, 130, 246, 0.45)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.4)';
+                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.35)';
                     }}
                   >
                     🚀 {text}
@@ -653,24 +654,24 @@ function Tutorial() {
               style={{
                 display: 'inline-block',
                 padding: '1rem 2.5rem',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'var(--gradient-primary)',
                 color: 'white',
                 textDecoration: 'none',
                 borderRadius: '12px',
                 fontWeight: '700',
                 fontSize: '1.1rem',
                 transition: 'all 0.3s ease',
-                boxShadow: '0 8px 25px rgba(102, 126, 234, 0.4)',
+                boxShadow: '0 8px 25px rgba(59, 130, 246, 0.35)',
                 border: 'none',
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 12px 35px rgba(102, 126, 234, 0.5)';
+                e.currentTarget.style.boxShadow = '0 12px 35px rgba(59, 130, 246, 0.45)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.4)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.35)';
               }}
             >
               🚀 {linkText}
@@ -1120,6 +1121,11 @@ function Tutorial() {
         ) : <div />}
       </div>
 
+      <TutorialFloatingChat
+        topicId={topicId}
+        topicTitle={currentTopic.title}
+        courseTitle={currentTopic.courseTitle || 'Tutorial'}
+      />
     </div>
   );
 }

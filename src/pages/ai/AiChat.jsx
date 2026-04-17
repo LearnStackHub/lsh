@@ -1,18 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Bot, User, Send, Loader2 } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { ArrowLeft, Send, Loader2 } from 'lucide-react';
 import SEOHead from '../../components/SEOHead';
+import { fetchChatReply } from '../../utils/chatApi';
+import { ChatMessageRow } from '../../components/ai/ChatMessageRow';
 import './ai-lab.css';
-
-const chatMarkdownComponents = {
-  a: ({ href, children, ...props }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-      {children}
-    </a>
-  ),
-};
 
 const WELCOME =
   'Ask Java and backend interview questions—JVM, OOP, Spring, SQL, concurrency, and more. ' +
@@ -23,69 +15,6 @@ const PROMPT_SUGGESTIONS = [
   'Difference between synchronized block and ReentrantLock',
   'How to optimize a slow MySQL query in production?',
 ];
-
-function toApiMessages(rows) {
-  return rows
-    .filter((m) => m.role === 'user' || m.role === 'assistant')
-    .map((m) => ({ role: m.role, content: m.text }));
-}
-
-async function fetchChatReply(messages) {
-  const res = await fetch('/api/ollama-chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ messages: toApiMessages(messages) }),
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    if (res.status === 404) {
-      throw new Error(
-        'Chat is not available here. Open this page from the main site, or try again later.',
-      );
-    }
-    if (res.status === 503) {
-      const err = typeof data.error === 'string' ? data.error : 'Service unavailable';
-      throw new Error(err);
-    }
-    const err =
-      typeof data.error === 'string' ? data.error : 'Something went wrong. Please try again.';
-    throw new Error(err);
-  }
-  if (typeof data.reply !== 'string' || !data.reply.trim()) {
-    throw new Error('No answer came back. Please try again.');
-  }
-  return data.reply.trim();
-}
-
-function ChatRow({ role, text, pending }) {
-  const isUser = role === 'user';
-  return (
-    <div className={`ai-chat-row ${isUser ? 'ai-chat-row--user' : 'ai-chat-row--assistant'}`}>
-      <div className="ai-chat-avatar" aria-hidden="true">
-        {isUser ? <User size={18} strokeWidth={2} /> : <Bot size={18} strokeWidth={2} />}
-      </div>
-      <div className="ai-chat-row-main">
-        <span className="ai-chat-row-label">{isUser ? 'You' : 'Tutor'}</span>
-        <div className={`ai-chat-row-bubble ${pending ? 'ai-chat-row-bubble--pending' : ''}`}>
-          {pending ? (
-            <span className="ai-chat-thinking">
-              <Loader2 className="ai-chat-spin" size={18} aria-hidden />
-              Thinking…
-            </span>
-          ) : isUser ? (
-            <div className="ai-chat-row-text ai-chat-row-text--user">{text}</div>
-          ) : (
-            <div className="ai-chat-markdown">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={chatMarkdownComponents}>
-                {text}
-              </ReactMarkdown>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function AiChat() {
   const [messages, setMessages] = useState([]);
@@ -158,11 +87,11 @@ function AiChat() {
         </header>
 
         <div className="ai-chat-scroll" ref={logRef} role="log" aria-live="polite">
-          <ChatRow role="assistant" text={WELCOME} />
+          <ChatMessageRow role="assistant" text={WELCOME} />
           {messages.map((m, i) => (
-            <ChatRow key={i} role={m.role} text={m.text} />
+            <ChatMessageRow key={i} role={m.role} text={m.text} />
           ))}
-          {loading && <ChatRow role="assistant" pending />}
+          {loading && <ChatMessageRow role="assistant" pending />}
         </div>
 
         <form className="ai-chat-footer" onSubmit={handleSubmit}>

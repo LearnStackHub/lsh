@@ -165,7 +165,7 @@ function Home() {
           <Link to="/ai-lab/interview" className="landing-guide-card">
             <h3><Video size={20} style={{ verticalAlign: 'middle', marginRight: '0.35rem' }} /> Interview practice</h3>
             <p>Audio &amp; video</p>
-            <span>Questions &amp; local coaching</span>
+            <span>Questions &amp; guided coaching</span>
             <em>Start session <ArrowRight size={14} /></em>
           </Link>
         </div>

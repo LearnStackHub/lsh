@@ -218,7 +218,7 @@ function Layout() {
           <Link
             to="/ai-lab"
             className="header-ai-lab-link"
-            title="Local practice: chat and interview"
+            title="Practice Lab — AI chat and interview prep"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -228,9 +228,9 @@ function Layout() {
               borderRadius: 'var(--radius-md)',
               fontSize: '0.875rem',
               fontWeight: 600,
-              color: 'var(--accent-primary)',
+              color: '#fff',
               textDecoration: 'none',
-              border: '1px solid var(--border-color)',
+              background: 'var(--gradient-primary)',
               whiteSpace: 'nowrap',
             }}
           >
@@ -432,7 +432,7 @@ function Layout() {
             <div className="footer-topics-grid">
               <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/ai-lab">Practice Lab (local AI)</Link></li>
+                <li><Link to="/ai-lab">Practice Lab</Link></li>
                 <li><Link to="/tutorial/html-introduction">HTML</Link></li>
                 <li><Link to="/tutorial/css-introduction">CSS</Link></li>
                 <li><Link to="/tutorial/java-introduction">Core Java</Link></li>

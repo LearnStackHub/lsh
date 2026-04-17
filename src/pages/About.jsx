@@ -69,7 +69,7 @@ function About() {
             LearnStackHub is a <strong>free</strong>, interactive learning platform for Java and backend careers. You get
             structured tutorials across multiple tracks, a browser-based code runner for Java where lessons support it,
             topic-wise MCQs for revision, and a <strong>Practice Lab</strong> with an AI tutor chat (interview topics)
-            plus an audio and video interview mode with local coaching hints—so you can read, run, and rehearse in one
+            plus an audio and video interview mode with guided coaching hints—so you can read, run, and rehearse in one
             place at no cost.
           </p>
           <div style={{
@@ -170,7 +170,7 @@ function About() {
               <Video size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
               <h3 style={{ marginBottom: '0.5rem' }}>Practice Lab — interview</h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
-                Audio and video practice with your camera and microphone, optional recording, and local coaching hints—no
+                Audio and video practice with your camera and microphone, optional recording, and guided coaching hints—no
                 substitute for real interviews, but a safe place to rehearse
               </p>
             </div>

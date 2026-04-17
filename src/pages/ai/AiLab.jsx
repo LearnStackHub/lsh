@@ -1,14 +1,24 @@
 import { Link } from 'react-router-dom';
-import { Code2, MessageSquare, Sparkles, Video } from 'lucide-react';
+import { Code2, MessageSquare, Sparkles, Video, ListChecks } from 'lucide-react';
 import SEOHead from '../../components/SEOHead';
 import './ai-lab.css';
+
+const MCQ_EXAMS = [
+  { topicId: 'core-java-mcq', label: 'Core Java' },
+  { topicId: 'jdbc-mcq', label: 'JDBC' },
+  { topicId: 'mysql-mcq', label: 'MySQL' },
+  { topicId: 'spring-mcq', label: 'Spring Framework' },
+  { topicId: 'spring-boot-mcq', label: 'Spring Boot' },
+  { topicId: 'hibernate-mcq', label: 'Hibernate' },
+  { topicId: 'microservices-mcq', label: 'Microservices' },
+];
 
 function AiLab() {
   return (
     <div className="ai-lab-page">
       <SEOHead
         title="Practice Lab | LearnStackHub"
-        description="Practice Lab: AI chat, live code editor, and in-browser interview practice for Java and backend prep."
+        description="Practice Lab: AI chat, live code editor, interview practice, and timed MCQ exams for Java and backend prep."
       />
       <div className="ai-lab-hero">
         <span className="ai-lab-eyebrow">
@@ -74,6 +84,33 @@ function AiLab() {
           <span className="ai-lab-card-cta">Start interview →</span>
         </Link>
       </div>
+
+      <section className="ai-lab-mcq-section" id="mcq-exams" aria-labelledby="ai-lab-mcq-heading">
+        <div className="ai-lab-mcq-section-head">
+          <span className="ai-lab-mcq-section-icon" aria-hidden>
+            <ListChecks size={22} />
+          </span>
+          <div>
+            <h2 id="ai-lab-mcq-heading">MCQ exams</h2>
+            <p className="ai-lab-mcq-lead">
+              Timed multiple-choice quizzes (20 questions, 10 minutes) — open the lesson for rules and tips, then start
+              the exam when you are ready. Same exams as elsewhere on the site; listed here for quick access from
+              Practice Lab.
+            </p>
+          </div>
+        </div>
+        <ul className="ai-lab-mcq-grid">
+          {MCQ_EXAMS.map(({ topicId, label }) => (
+            <li key={topicId}>
+              <Link to={`/tutorial/${topicId}`} className="ai-lab-mcq-link">
+                <span className="ai-lab-mcq-link-title">{label}</span>
+                <span className="ai-lab-mcq-link-meta">MCQ exam</span>
+                <span className="ai-lab-mcq-link-cta">Open →</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
