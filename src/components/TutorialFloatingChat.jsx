@@ -135,7 +135,7 @@ function TutorialFloatingChat({ topicId, topicTitle, courseTitle }) {
                 onClick={close}
                 aria-label="Close doubt chat"
               >
-                <X size={20} aria-hidden />
+                <X size={22} strokeWidth={2.5} aria-hidden />
               </button>
             </header>
 

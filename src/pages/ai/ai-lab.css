@@ -1272,20 +1272,34 @@
 
 .tutorial-float-chat-close {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  background: var(--bg-card);
-  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  /* Force readable icon (index/tailwind can leave buttons inheriting light text on light cards) */
+  color: var(--text-primary);
   cursor: pointer;
+}
+
+.tutorial-float-chat-close svg {
+  display: block;
+  flex-shrink: 0;
+  stroke: var(--text-primary);
+  color: var(--text-primary);
 }
 
 .tutorial-float-chat-close:hover {
   border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: var(--bg-card);
+}
+
+.tutorial-float-chat-close:hover svg {
+  stroke: var(--accent-primary);
   color: var(--accent-primary);
 }
 
