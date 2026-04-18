@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Target, Users, BookOpen, Code, Heart, Award, MessageSquare, Video, ClipboardCheck } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import SocialOfficialLinks from '../components/SocialOfficialLinks';
 import StructuredData from '../components/StructuredData';
 
 function About() {
@@ -519,7 +520,25 @@ function About() {
         </section>
       </div>
 
-      <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '2px solid var(--border-color)' }}>
+      <section
+        style={{
+          marginTop: '3rem',
+          paddingTop: '2rem',
+          borderTop: '2px solid var(--border-color)',
+          textAlign: 'center',
+        }}
+        aria-labelledby="about-social-heading"
+      >
+        <h2 id="about-social-heading" style={{ fontSize: '1.35rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+          Official social accounts
+        </h2>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: '36rem', marginLeft: 'auto', marginRight: 'auto' }}>
+          Updates, tips, and announcements on LinkedIn, Facebook, and Instagram.
+        </p>
+        <SocialOfficialLinks showLabels className="about-social-links" />
+      </section>
+
+      <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--border-color)' }}>
         <Link to="/" className="btn btn-primary">
           ← Back to Home
         </Link>

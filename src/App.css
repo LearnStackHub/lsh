@@ -6260,10 +6260,52 @@ code {
   text-align: center;
 }
 
+.footer-social-heading {
+  margin: 0 0 0.75rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--text-muted) !important;
+}
+
+.footer-bottom .social-official-links {
+  margin-bottom: 1.25rem;
+}
+
 .footer-bottom p {
   color: var(--text-secondary);
   margin: 0.5rem 0;
   font-size: 0.9rem;
+}
+
+/* Official social links (About, Contact, footer) */
+.social-official-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem 1.15rem;
+}
+
+.social-official-links__a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.social-official-links__a:hover {
+  color: var(--accent-primary);
+}
+
+.about-social-links,
+.contact-social-links {
+  justify-content: center;
 }
 
 @media (max-width: 768px) {

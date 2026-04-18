@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useContributions } from '../context/ContributionContext';
 import ConsentBanner from './ConsentBanner';
+import SocialOfficialLinks from './SocialOfficialLinks';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
 import { trackSearch } from '../config/analytics';
@@ -485,6 +486,8 @@ function Layout() {
         </div>
         
         <div className="footer-bottom">
+          <p className="footer-social-heading">Follow us</p>
+          <SocialOfficialLinks />
           <p>&copy; {new Date().getFullYear()} LearnStackHub. All rights reserved.</p>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
             Made with ☁️ for developers worldwide

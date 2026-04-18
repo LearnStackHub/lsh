@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, MessageSquare, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MessageSquare, Send, Github } from 'lucide-react';
+import SocialOfficialLinks from '../components/SocialOfficialLinks';
 import SEOHead from '../components/SEOHead';
 import { sendContactEmail } from '../config/emailjs';
 
@@ -92,22 +93,27 @@ function Contact() {
           </div>
 
           <div>
-            <h3 style={{ marginBottom: '1rem' }}>Follow Us</h3>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <h3 style={{ marginBottom: '1rem' }}>Follow us</h3>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.95rem' }}>
+              Official pages: LinkedIn, Facebook, and Instagram.
+            </p>
+            <SocialOfficialLinks showLabels className="contact-social-links" />
+            <div style={{ marginTop: '1.25rem' }}>
               <a 
                 href="https://github.com/LearnStackHub" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 style={{
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
                   color: 'var(--accent-primary)',
-                  textDecoration: 'none'
+                  textDecoration: 'none',
+                  fontWeight: 600,
                 }}
               >
-                <Github size={20} />
-                GitHub
+                <Github size={20} aria-hidden />
+                GitHub (open source)
               </a>
             </div>
           </div>
