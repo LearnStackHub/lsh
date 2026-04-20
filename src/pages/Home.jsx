@@ -173,6 +173,112 @@ function Home() {
 
       <section className="courses-section">
         <div className="section-header">
+          <h2 className="section-title-main">How to Use the AI Lab</h2>
+          <p className="home-section-subtitle">
+            Quick steps for students: open Practice Lab, choose a mode, ask/answer naturally, then review and improve.
+          </p>
+        </div>
+        <div className="landing-guides">
+          <article className="landing-guide-card" style={{ cursor: 'default' }}>
+            <h3>1) Open Practice Lab</h3>
+            <p>Start from one place</p>
+            <span>Go to the Practice Lab and pick Chat practice or Interview practice.</span>
+            <em>
+              <Link to="/ai-lab" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                Open Practice Lab
+              </Link>
+            </em>
+          </article>
+          <article className="landing-guide-card" style={{ cursor: 'default' }}>
+            <h3>2) Ask your doubt clearly</h3>
+            <p>Get focused help</p>
+            <span>Share your exact question, topic name, and what part confused you.</span>
+            <em>
+              <Link to="/ai-lab/chat" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                Start Chat Practice
+              </Link>
+            </em>
+          </article>
+          <article className="landing-guide-card" style={{ cursor: 'default' }}>
+            <h3>3) Rehearse interview answers</h3>
+            <p>Practice like real interviews</p>
+            <span>Use camera/mic mode, answer questions, then improve from guided coaching feedback.</span>
+            <em>
+              <Link to="/ai-lab/interview" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                Start Interview Practice
+              </Link>
+            </em>
+          </article>
+        </div>
+      </section>
+
+      <section className="courses-section">
+        <div className="section-header">
+          <h2 className="section-title-main">What is LearnStackHub?</h2>
+        </div>
+        <p className="home-section-subtitle" style={{ marginTop: '-0.35rem' }}>
+          LearnStackHub is a free, interactive learning platform for Java and backend careers. You get structured tutorials
+          across multiple tracks, a browser-based code runner for Java where lessons support it, topic-wise MCQs for
+          revision, and a Practice Lab with an AI tutor chat (interview topics) plus an audio and video interview mode with
+          guided coaching hints-so you can read, run, and rehearse in one place at no cost.
+        </p>
+      </section>
+
+      <section className="courses-section">
+        <div className="section-header">
+          <h2 className="section-title-main">Our Story</h2>
+        </div>
+        <p className="home-section-subtitle" style={{ marginTop: '-0.35rem' }}>
+          LearnStackHub was founded with a simple yet powerful vision: to break down barriers in technology education. We
+          recognized that quality Java full-stack education was often locked behind expensive courses or scattered across
+          multiple sources, making it difficult for aspiring developers to build comprehensive skills.
+        </p>
+        <p className="home-section-subtitle" style={{ marginTop: '0.75rem' }}>
+          Our platform was built by developers who understand the challenges of learning enterprise Java development. We have
+          experienced the frustration of incomplete tutorials, outdated examples, and courses that do not prepare you for
+          real-world projects. LearnStackHub is our solution to these problems.
+        </p>
+        <p className="home-section-subtitle" style={{ marginTop: '0.75rem' }}>
+          Today, LearnStackHub continues to grow its curriculum with new topics and clearer paths-always with the goal of
+          keeping professional-grade Java and backend education free and accessible.
+        </p>
+      </section>
+
+      <section className="courses-section">
+        <div className="section-header">
+          <h2 className="section-title-main">Ownership &amp; Company Details</h2>
+          <p className="home-section-subtitle">LearnStackHub publishes these details for user trust, policy compliance, and partner/reviewer verification.</p>
+        </div>
+        <div
+          className="landing-guide-card"
+          style={{
+            cursor: 'default',
+            maxWidth: '760px',
+            margin: '0 auto',
+          }}
+        >
+          <span><strong>Domain:</strong> learnstackhub.com (canonical host: www.learnstackhub.com)</span>
+          <span><strong>Website owner and operator:</strong> Dattakumar Pandi</span>
+          <span><strong>Brand:</strong> LearnStackHub</span>
+          <span><strong>Official live launch date:</strong> 15 Feb 2026</span>
+          <span><strong>Primary contact email:</strong> careers@learnstackhub.com</span>
+          <span>
+            <strong>About page:</strong>{' '}
+            <a href="https://www.learnstackhub.com/about" target="_blank" rel="noopener noreferrer">
+              https://www.learnstackhub.com/about
+            </a>
+          </span>
+          <span>
+            <strong>Contact page:</strong>{' '}
+            <a href="https://www.learnstackhub.com/contact" target="_blank" rel="noopener noreferrer">
+              https://www.learnstackhub.com/contact
+            </a>
+          </span>
+        </div>
+      </section>
+
+      <section className="courses-section">
+        <div className="section-header">
           <h2 className="section-title-main">Start Here</h2>
           <p className="home-section-subtitle">Recommended tutorials to build a strong base quickly.</p>
         </div>
