@@ -5,6 +5,8 @@ const encapsulation = {
   content: `
 # Encapsulation - Protecting Data and Hiding Implementation Details
 
+![Encapsulation](/corejava/oops/encapsulation.png)
+
 Encapsulation is a fundamental object-oriented programming principle that combines data and methods that operate on that data into a single unit (class) while restricting direct access to internal implementation details. Encapsulation protects data integrity by preventing unauthorized access and modification, ensuring that data can only be accessed through controlled interfaces.
 
 In enterprise applications, encapsulation is critical for maintaining data security, preventing bugs, and enabling code maintainability. By hiding implementation details, encapsulation allows developers to modify internal code without affecting other parts of the system, following the principle of information hiding.

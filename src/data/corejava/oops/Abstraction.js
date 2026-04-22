@@ -5,6 +5,8 @@ const abstraction = {
   content: `
 # Abstraction - Hiding Complexity and Showing Only What Matters
 
+![Abstraction](/corejava/oops/abstraction.png)
+
 Abstraction is a fundamental object-oriented programming principle that simplifies complex systems by hiding implementation details and exposing only essential features to users. Abstraction allows developers to work with high-level concepts without needing to understand low-level implementation complexities. In Java, abstraction is achieved through abstract classes and interfaces, enabling developers to define contracts that classes must follow while hiding the specific implementation details.
 
 Abstraction is essential for building maintainable, scalable software systems. Enterprise applications use abstraction to create flexible architectures where implementation details can change without affecting dependent code. Database frameworks abstract SQL complexity, UI frameworks abstract rendering details, and API frameworks abstract protocol implementations. Understanding abstraction is crucial for designing robust software architectures.

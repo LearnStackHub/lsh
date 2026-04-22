@@ -5,6 +5,8 @@ const oopsIntroduction = {
   content: `
 # Object-Oriented Programming (OOP)
 
+![OOP Concept Roadmap](/corejava/oops/oops%20concept%20roadmap.png)
+
 Object-Oriented Programming (OOP) is a programming paradigm that organizes software design around objects rather than functions and logic. Core concepts like encapsulation, inheritance, polymorphism, and abstraction form the foundation of modern software development, enabling developers to build maintainable, scalable, and reusable code.
 
 OOP principles provide a structured approach to modeling real-world entities and their relationships in software applications.

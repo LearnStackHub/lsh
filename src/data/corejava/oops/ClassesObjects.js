@@ -5,6 +5,8 @@ const classesObjects = {
   content: `
 # Classes and Objects - The Foundation of Object-Oriented Programming
 
+![Class and Objects](/corejava/oops/class%20and%20objects.png)
+
 Classes and objects are the fundamental building blocks of object-oriented programming in Java. A **class** is a blueprint or template that defines the structure and behavior of objects, while an **object** is a specific instance of a class with actual data values. Understanding classes and objects is essential for mastering Java programming and object-oriented design principles.
 
 Classes encapsulate data (attributes) and behavior (methods) into a single unit, enabling code organization, reusability, and maintainability. Objects represent real-world entities in software, allowing developers to model complex systems using familiar concepts. Enterprise applications extensively use classes and objects to organize code, manage state, and implement business logic.

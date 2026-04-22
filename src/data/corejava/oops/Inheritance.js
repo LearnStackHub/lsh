@@ -5,6 +5,8 @@ const inheritance = {
   content: `
 # Inheritance - Building New Classes from Existing Ones
 
+![Inheritance](/corejava/oops/inheritance.png)
+
 Inheritance is a fundamental object-oriented programming concept that enables developers to create new classes based on existing classes, promoting code reuse and establishing hierarchical relationships between classes. When multiple classes share common properties and behaviors, inheritance allows you to define these commonalities in a base class and have derived classes inherit them automatically.
 
 Inheritance establishes an "is-a" relationship between classes, where a derived class (subclass) is a specialized version of its base class (superclass). This relationship enables polymorphism, code organization, and maintainability in large-scale software development. Enterprise applications extensively use inheritance to model real-world hierarchies, such as employee management systems, vehicle classifications, and user role hierarchies.

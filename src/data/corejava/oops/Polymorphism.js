@@ -5,6 +5,8 @@ const polymorphism = {
   content: `
 # Polymorphism - One Interface, Many Implementations
 
+![Polymorphism](/corejava/oops/polymorphism.png)
+
 Polymorphism is a fundamental object-oriented programming concept that enables objects of different types to be treated through the same interface. The term derives from Greek: "poly" (many) + "morph" (form), meaning "many forms." In Java, polymorphism allows the same method call to produce different behaviors depending on the actual object type at runtime.
 
 Polymorphism is essential for building flexible, extensible software systems. It enables developers to write code that works with base class types while automatically utilizing derived class implementations. Enterprise applications extensively use polymorphism for plugin architectures, framework design, and creating maintainable code that can be extended without modification.
