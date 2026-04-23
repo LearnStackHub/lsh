@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { 
-  GraduationCap, Briefcase, Users, Target, CheckCircle, Mail, ArrowRight, Code, Rocket, Award,
-  Clock, DollarSign, BookOpen, TrendingUp, Zap, Gift, Shield, Calendar, Phone
+  Briefcase, CheckCircle, Mail, Rocket, Clock, Zap, Phone
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
@@ -54,8 +53,8 @@ function Careers() {
   return (
     <div className="tutorial-page" style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead 
-        title="Register for Training - Java Full Stack Course with Placements | LearnStackHub" 
-        description="Register now for professional Java Full Stack training with guaranteed placements. Join our comprehensive course with live projects, internships, and 100% placement assistance."
+        title="Apply for Internship | LearnStackHub" 
+        description="Apply for internship opportunities at LearnStackHub. Final-year students and recent graduates can submit their application."
       />
       <StructuredData type="Organization" />
       
@@ -102,7 +101,7 @@ function Careers() {
               fontWeight: '600'
             }}>
               <Zap size={16} />
-              Limited Seats Available - Register Now!
+              Internship Applications Open
             </div>
             <h1 style={{ 
               color: 'white', 
@@ -111,7 +110,7 @@ function Careers() {
               fontWeight: '800',
               lineHeight: '1.2'
             }}>
-              Start Your Tech Career Today
+              Apply for Internship
             </h1>
             <p style={{ 
               fontSize: '1.4rem', 
@@ -121,8 +120,7 @@ function Careers() {
               fontWeight: '500',
               opacity: 0.95
             }}>
-              Join our comprehensive Java Full Stack training program with <strong>100% placement assistance</strong>, 
-              real-world projects, and internship opportunities. Transform from student to professional developer.
+              This page is only for internship applications. <strong>Final-year students and recent graduates</strong> can apply.
             </p>
             <div style={{ 
               display: 'flex', 
@@ -152,7 +150,7 @@ function Careers() {
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
                 <Rocket size={24} />
-                Register Now - Free Consultation
+                Apply Now
               </a>
               <a 
                 href="tel:8466932302" 
@@ -185,15 +183,15 @@ function Careers() {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <CheckCircle size={18} />
-                <span>100% Placement Support</span>
+                <span>Internship Role</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <CheckCircle size={18} />
-                <span>Live Projects</span>
+                <span>Final-Year Students</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <CheckCircle size={18} />
-                <span>Industry Mentors</span>
+                <span>Recent Graduates</span>
               </div>
             </div>
           </div>
@@ -203,7 +201,7 @@ function Careers() {
       <div className="tutorial-content">
         <section style={{ marginBottom: '3rem' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem' }}>
-            Why Students Choose Our Training Program
+            Internship Eligibility
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             <div style={{
@@ -225,13 +223,12 @@ function Careers() {
                 fontSize: '0.75rem',
                 fontWeight: '700'
               }}>
-                GUARANTEED
+                ELIGIBLE
               </div>
               <Briefcase size={48} style={{ color: '#f59e0b', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.75rem', color: '#92400e' }}>100% Placement Assistance</h3>
+              <h3 style={{ marginBottom: '0.75rem', color: '#92400e' }}>Final-Year Students</h3>
               <p style={{ color: '#78350f', margin: 0, fontSize: '0.95rem', lineHeight: '1.7' }}>
-                We don't just train you - we place you! Our dedicated placement team works with top companies to ensure 
-                you get your dream job. <strong>Placement guarantee for eligible students.</strong>
+                Students currently in the final year of graduation can apply for internship opportunities.
               </p>
             </div>
 
@@ -254,13 +251,12 @@ function Careers() {
                 fontSize: '0.75rem',
                 fontWeight: '700'
               }}>
-                REAL PROJECTS
+                ELIGIBLE
               </div>
-              <Code size={48} style={{ color: '#3b82f6', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.75rem', color: '#1e40af' }}>Live Industry Projects</h3>
+              <Briefcase size={48} style={{ color: '#3b82f6', marginBottom: '1rem' }} />
+              <h3 style={{ marginBottom: '0.75rem', color: '#1e40af' }}>Recent Graduates</h3>
               <p style={{ color: '#1e3a8a', margin: 0, fontSize: '0.95rem', lineHeight: '1.7' }}>
-                Work on real client projects during training. Build a portfolio that impresses employers. 
-                <strong> 5+ portfolio projects included in the course.</strong>
+                Candidates who recently completed graduation can apply for internship opportunities.
               </p>
             </div>
 
@@ -283,122 +279,57 @@ function Careers() {
                 fontSize: '0.75rem',
                 fontWeight: '700'
               }}>
-                INTERNSHIP
+                NOTE
               </div>
-              <Users size={48} style={{ color: '#ec4899', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.75rem', color: '#9f1239' }}>Paid Internship Opportunities</h3>
+              <Briefcase size={48} style={{ color: '#ec4899', marginBottom: '1rem' }} />
+              <h3 style={{ marginBottom: '0.75rem', color: '#9f1239' }}>Internship Applications Only</h3>
               <p style={{ color: '#831843', margin: 0, fontSize: '0.95rem', lineHeight: '1.7' }}>
-                Get placed in paid internships with our partner companies. Gain real-world experience while earning. 
-                <strong> 80% of interns get full-time offers.</strong>
+                Internship applications are open for final-year students and recent graduates.
               </p>
             </div>
           </div>
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>What You'll Master in Our Training</h2>
-          <div style={{
-            background: 'var(--bg-card)',
-            border: '2px solid var(--accent-primary)',
-            borderRadius: '20px',
-            padding: '2.5rem',
-            boxShadow: '0 10px 30px rgba(59, 130, 246, 0.1)'
-          }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-              <div>
-                <h3 style={{ 
-                  marginBottom: '1rem', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.75rem',
-                  color: 'var(--accent-primary)'
-                }}>
-                  <Code size={24} />
-                  Core Java & Advanced
-                </h3>
-                <ul style={{ margin: 0, paddingLeft: '1.5rem', color: 'var(--text-secondary)', lineHeight: '2' }}>
-                  <li>Object-Oriented Programming</li>
-                  <li>Collections & Generics</li>
-                  <li>Multithreading & Concurrency</li>
-                  <li>Exception Handling</li>
-                  <li>Java 8+ Features</li>
-                </ul>
-              </div>
-              <div>
-                <h3 style={{ 
-                  marginBottom: '1rem', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.75rem',
-                  color: 'var(--accent-primary)'
-                }}>
-                  <Rocket size={24} />
-                  Web Development
-                </h3>
-                <ul style={{ margin: 0, paddingLeft: '1.5rem', color: 'var(--text-secondary)', lineHeight: '2' }}>
-                  <li>Servlets & JSP</li>
-                  <li>Spring Framework</li>
-                  <li>Spring Boot & REST APIs</li>
-                  <li>Microservices Architecture</li>
-                  <li>Cloud Deployment</li>
-                </ul>
-              </div>
-              <div>
-                <h3 style={{ 
-                  marginBottom: '1rem', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.75rem',
-                  color: 'var(--accent-primary)'
-                }}>
-                  <Award size={24} />
-                  Database & Tools
-                </h3>
-                <ul style={{ margin: 0, paddingLeft: '1.5rem', color: 'var(--text-secondary)', lineHeight: '2' }}>
-                  <li>MySQL Database</li>
-                  <li>JDBC & Hibernate ORM</li>
-                  <li>Git & GitHub</li>
-                  <li>Maven Build Tool</li>
-                  <li>Docker & CI/CD</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section style={{ marginBottom: '3rem' }}>
-          <div style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            borderRadius: '20px',
-            padding: '3rem',
-            color: 'white',
-            textAlign: 'center'
-          }}>
-            <h2 style={{ color: 'white', marginBottom: '2rem', fontSize: '2rem' }}>
-              Join Our Success Stories
-            </h2>
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-              gap: '2rem',
-              marginTop: '2rem'
+          <h2 style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '2rem' }}>
+            Quick Career Info
+          </h2>
+          <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+            A short overview of what happens after you apply.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '14px',
+              padding: '1.5rem'
             }}>
-              <div>
-                <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>500+</div>
-                <div style={{ fontSize: '1.1rem', opacity: 0.9 }}>Students Trained</div>
-              </div>
-              <div>
-                <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>85%</div>
-                <div style={{ fontSize: '1.1rem', opacity: 0.9 }}>Placement Rate</div>
-              </div>
-              <div>
-                <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>200+</div>
-                <div style={{ fontSize: '1.1rem', opacity: 0.9 }}>Companies Connected</div>
-              </div>
-              <div>
-                <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>4.8★</div>
-                <div style={{ fontSize: '1.1rem', opacity: 0.9 }}>Student Rating</div>
-              </div>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>Application Review</h3>
+              <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.7' }}>
+                Our team checks your details and profile after form submission.
+              </p>
+            </div>
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '14px',
+              padding: '1.5rem'
+            }}>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>Shortlisting</h3>
+              <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.7' }}>
+                Eligible final-year students and recent graduates are shortlisted.
+              </p>
+            </div>
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '14px',
+              padding: '1.5rem'
+            }}>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>Contact Update</h3>
+              <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.7' }}>
+                Shortlisted candidates are contacted with next-step details.
+              </p>
             </div>
           </div>
         </section>
@@ -413,7 +344,7 @@ function Careers() {
           }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
               <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>
-                Register for Training Program
+                Apply for Internship
               </h2>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
                 Fill out the form below and our team will contact you within 24 hours
@@ -430,10 +361,10 @@ function Careers() {
               }}>
                 <CheckCircle size={64} style={{ color: '#22c55e', marginBottom: '1rem' }} />
                 <h3 style={{ color: '#166534', marginBottom: '0.5rem', fontSize: '1.5rem' }}>
-                  Registration Successful!
+                  Application Submitted!
                 </h3>
                 <p style={{ color: '#166534', fontSize: '1.1rem', marginBottom: '1rem' }}>
-                  Thank you for registering! Our team will contact you within 24 hours to discuss your training program.
+                  Thank you for applying. Our team will review your application and contact you within 24 hours.
                 </p>
                 <p style={{ color: '#166534', fontSize: '0.95rem' }}>
                   Check your email for confirmation. You can also reach us at{' '}
@@ -513,7 +444,7 @@ function Careers() {
 
                   <div className="form-group">
                     <label htmlFor="course">
-                      <strong>Course Interest *</strong>
+                      <strong>Applicant Type *</strong>
                     </label>
                     <select
                       id="course"
@@ -523,12 +454,9 @@ function Careers() {
                       required
                       style={{ padding: '0.75rem', fontSize: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}
                     >
-                      <option value="">Select a course</option>
-                      <option value="java-fullstack">Java Full Stack Development</option>
-                      <option value="core-java">Core Java</option>
-                      <option value="spring-boot">Spring Boot</option>
-                      <option value="internship">Internship Program</option>
-                      <option value="placement">Placement Assistance Only</option>
+                      <option value="">Select applicant type</option>
+                      <option value="final-year">Final-Year Student</option>
+                      <option value="recent-graduate">Recent Graduate</option>
                     </select>
                   </div>
                 </div>
@@ -574,7 +502,7 @@ function Careers() {
                   ) : (
                     <>
                       <Rocket size={24} />
-                      Register Now - Get Free Consultation
+                      Submit Internship Application
                     </>
                   )}
                 </button>
@@ -585,7 +513,7 @@ function Careers() {
                   color: 'var(--text-secondary)',
                   fontSize: '0.9rem'
                 }}>
-                  By registering, you agree to receive communication from LearnStackHub about training programs and opportunities.
+                  By submitting, you agree to receive communication from LearnStackHub about your internship application.
                 </p>
               </form>
             )}
@@ -593,7 +521,7 @@ function Careers() {
         </section>
 
         <section style={{ marginBottom: '3rem' }}>
-          <h2>Complete Training Program Details</h2>
+          <h2>Internship Information</h2>
           <div style={{ display: 'grid', gap: '1.5rem', marginTop: '1.5rem' }}>
             <div style={{
               background: 'var(--bg-card)',
@@ -602,32 +530,24 @@ function Careers() {
               padding: '2rem'
             }}>
               <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Calendar size={24} style={{ color: 'var(--accent-primary)' }} />
-                Program Duration & Schedule
+                <Briefcase size={24} style={{ color: 'var(--accent-primary)' }} />
+                Who Can Apply
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div>
                   <strong style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>
-                    Duration
+                    Final-Year Students
                   </strong>
                   <p style={{ margin: 0, color: 'var(--text-secondary)' }}>
-                    3-6 months intensive training program
+                    Students currently in their final year can apply.
                   </p>
                 </div>
                 <div>
                   <strong style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>
-                    Schedule
+                    Recent Graduates
                   </strong>
                   <p style={{ margin: 0, color: 'var(--text-secondary)' }}>
-                    Flexible: Weekday/Weekend batches available
-                  </p>
-                </div>
-                <div>
-                  <strong style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>
-                    Mode
-                  </strong>
-                  <p style={{ margin: 0, color: 'var(--text-secondary)' }}>
-                    Online, Offline, or Hybrid options
+                    Students who passed out recently can apply.
                   </p>
                 </div>
               </div>
@@ -640,61 +560,16 @@ function Careers() {
               padding: '2rem'
             }}>
               <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Gift size={24} style={{ color: 'var(--accent-primary)' }} />
-                What's Included in the Program
+                <Briefcase size={24} style={{ color: 'var(--accent-primary)' }} />
+                Important Note
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
                   <CheckCircle size={20} style={{ color: 'var(--accent-success)', flexShrink: 0, marginTop: '0.25rem' }} />
                   <div>
-                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Live Training Sessions</strong>
+                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Internship Applications Only</strong>
                     <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      Interactive live classes with industry experts
-                    </p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
-                  <CheckCircle size={20} style={{ color: 'var(--accent-success)', flexShrink: 0, marginTop: '0.25rem' }} />
-                  <div>
-                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>5+ Real Projects</strong>
-                    <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      Build portfolio with industry-standard projects
-                    </p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
-                  <CheckCircle size={20} style={{ color: 'var(--accent-success)', flexShrink: 0, marginTop: '0.25rem' }} />
-                  <div>
-                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Placement Support</strong>
-                    <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      Resume building, mock interviews, job referrals
-                    </p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
-                  <CheckCircle size={20} style={{ color: 'var(--accent-success)', flexShrink: 0, marginTop: '0.25rem' }} />
-                  <div>
-                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Certification</strong>
-                    <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      Industry-recognized certificate upon completion
-                    </p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
-                  <CheckCircle size={20} style={{ color: 'var(--accent-success)', flexShrink: 0, marginTop: '0.25rem' }} />
-                  <div>
-                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Lifetime Access</strong>
-                    <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      Access to all course materials and updates
-                    </p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
-                  <CheckCircle size={20} style={{ color: 'var(--accent-success)', flexShrink: 0, marginTop: '0.25rem' }} />
-                  <div>
-                    <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Mentorship</strong>
-                    <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                      1-on-1 mentorship sessions with industry experts
+                      Internship applications are open for final-year students and recent graduates.
                     </p>
                   </div>
                 </div>
@@ -703,237 +578,6 @@ function Careers() {
           </div>
         </section>
 
-        <section style={{ marginBottom: '3rem' }}>
-          <h2>Our Placement Process</h2>
-          <p style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
-            We guide you through every step of your job search journey:
-          </p>
-          
-          <div style={{ display: 'grid', gap: '1rem', marginTop: '1.5rem' }}>
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '1.5rem',
-              display: 'flex',
-              alignItems: 'start',
-              gap: '1rem'
-            }}>
-              <div style={{
-                background: 'var(--accent-primary)',
-                color: 'white',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                fontWeight: 'bold'
-              }}>
-                1
-              </div>
-              <div>
-                <h3 style={{ marginBottom: '0.5rem' }}>Resume & Portfolio Building</h3>
-                <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-                  Our experts help you create a standout resume and portfolio that highlights your skills and projects effectively.
-                </p>
-              </div>
-            </div>
-
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '1.5rem',
-              display: 'flex',
-              alignItems: 'start',
-              gap: '1rem'
-            }}>
-              <div style={{
-                background: 'var(--accent-primary)',
-                color: 'white',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                fontWeight: 'bold'
-              }}>
-                2
-              </div>
-              <div>
-                <h3 style={{ marginBottom: '0.5rem' }}>Interview Preparation</h3>
-                <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-                  Mock interviews, technical round preparation, coding practice, and HR interview guidance. We prepare you for every stage.
-                </p>
-              </div>
-            </div>
-
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '1.5rem',
-              display: 'flex',
-              alignItems: 'start',
-              gap: '1rem'
-            }}>
-              <div style={{
-                background: 'var(--accent-primary)',
-                color: 'white',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                fontWeight: 'bold'
-              }}>
-                3
-              </div>
-              <div>
-                <h3 style={{ marginBottom: '0.5rem' }}>Job Referrals & Connections</h3>
-                <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-                  Direct referrals to our partner companies. We connect you with hiring managers and help you navigate the application process.
-                </p>
-              </div>
-            </div>
-
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '1.5rem',
-              display: 'flex',
-              alignItems: 'start',
-              gap: '1rem'
-            }}>
-              <div style={{
-                background: 'var(--accent-primary)',
-                color: 'white',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                fontWeight: 'bold'
-              }}>
-                4
-              </div>
-              <div>
-                <h3 style={{ marginBottom: '0.5rem' }}>Ongoing Support</h3>
-                <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-                  Even after placement, we continue to support your career growth with mentorship and skill updates.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section style={{ 
-          marginTop: '3rem', 
-          paddingTop: '2rem', 
-          borderTop: '2px solid var(--border-color)',
-          textAlign: 'center'
-        }}>
-          <div style={{
-            background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-            borderRadius: '24px',
-            padding: '4rem 3rem',
-            color: 'white',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              position: 'absolute',
-              top: '-100px',
-              right: '-100px',
-              width: '300px',
-              height: '300px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: '50%',
-              zIndex: 0
-            }} />
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2.5rem', fontWeight: '800' }}>
-                Don't Wait - Start Your Career Today!
-              </h2>
-              <p style={{ fontSize: '1.3rem', marginBottom: '2rem', opacity: 0.95, maxWidth: '700px', margin: '0 auto 2rem' }}>
-                Limited seats available for the next batch. Register now and get a <strong>free career consultation</strong> 
-                worth ₹2,000. Our placement team is ready to help you land your dream job.
-              </p>
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
-                <a 
-                  href="#register-form" 
-                  className="btn btn-primary"
-                  style={{ 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    gap: '0.75rem',
-                    background: 'white',
-                    color: '#3b82f6',
-                    textDecoration: 'none',
-                    padding: '1.25rem 3rem',
-                    borderRadius: '12px',
-                    fontWeight: '700',
-                    fontSize: '1.2rem',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)'
-                  }}
-                >
-                  <Rocket size={24} />
-                  Register Now - Free Consultation
-                </a>
-                <a 
-                  href="mailto:careers@learnstackhub.com" 
-                  className="btn"
-                  style={{ 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    gap: '0.75rem',
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    color: 'white',
-                    textDecoration: 'none',
-                    padding: '1.25rem 2.5rem',
-                    borderRadius: '12px',
-                    fontWeight: '600',
-                    fontSize: '1.1rem',
-                    border: '2px solid white'
-                  }}
-                >
-                  <Mail size={22} />
-                  Email Us
-                </a>
-              </div>
-              <div style={{
-                display: 'flex',
-                gap: '2rem',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                fontSize: '1rem',
-                opacity: 0.9
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Shield size={20} />
-                  <span>100% Placement Support</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Clock size={20} />
-                  <span>24/7 Support Available</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <TrendingUp size={20} />
-                  <span>Career Growth Guaranteed</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <section style={{ marginBottom: '3rem' }}>
           <div style={{
@@ -951,7 +595,7 @@ function Careers() {
             }}>
               <div>
                 <Mail size={32} style={{ color: 'var(--accent-primary)', marginBottom: '0.75rem' }} />
-                <h4 style={{ marginBottom: '0.5rem' }}>Email Us</h4>
+                <h4 style={{ marginBottom: '0.5rem' }}>Email</h4>
                 <a href="mailto:careers@learnstackhub.com" style={{ 
                   color: 'var(--accent-primary)', 
                   textDecoration: 'none',

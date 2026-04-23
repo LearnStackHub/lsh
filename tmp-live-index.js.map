@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>LSH - Learn Java Full Stack Development | Free Java Tutorials | LearnStackHub</title>
+    <meta name="description" content="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform for Java Full Stack Development. Learn Java, Spring, React, AWS and more for free. Complete tutorials with code examples and live execution. Perfect for beginners and advanced developers. Learn, Stack, Hub - Your complete learning destination." />
+    <meta name="keywords" content="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, LearnStackHub, learnstackhub, Java tutorial, Java full stack, free Java tutorials, Spring Boot, React, AWS, programming tutorial" />
+    <meta name="author" content="LearnStackHub" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://www.learnstackhub.com/" />
+    <!-- Preferred domain: www -->
+    
+    <!-- Content Security Policy - AdSense, Analytics, gstatic (CSI); chat uses same-origin /api -->
+    <!-- Note: frame-ancestors can only be set via HTTP headers, not meta tags -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com https://*.googleapis.com https://*.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: http:; frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.doubleclick.net https://*.adtrafficquality.google https://api.emailjs.com; media-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.learnstackhub.com/" />
+    <meta property="og:title" content="LSH - LearnStackHub | Master Java Full Stack Development" />
+    <meta property="og:description" content="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform. Learn Java Full Stack Development for free with interactive tutorials and live code execution." />
+    <meta property="og:image" content="https://www.learnstackhub.com/LSH.png" />
+    <meta property="og:site_name" content="LearnStackHub" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.learnstackhub.com/" />
+    <meta property="twitter:title" content="LSH - LearnStackHub | Master Java Full Stack Development" />
+    <meta property="twitter:description" content="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform. Learn Java Full Stack Development for free with interactive tutorials and live code execution." />
+    <meta property="twitter:image" content="https://www.learnstackhub.com/LSH.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/LSH.png" />
+    <link rel="apple-touch-icon" href="/LSH.png" />
+    
+    <!-- Preload critical logo image for LCP -->
+    <link rel="preload" href="/LSH.png" as="image" type="image/png" fetchpriority="high" />
+    
+    <!-- Google Fonts - Preconnect and load with font-display: swap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload critical Poppins font for hero title -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" as="style" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+    
+    <!-- Google AdSense - Deferred loading (safe for review, still optimized) -->
+    <script>
+      // Load AdSense script after page load to improve performance
+      // Script tag remains in HTML for AdSense review compliance
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176490979231754';
+          script.crossOrigin = 'anonymous';
+          document.head.appendChild(script);
+        }, 2000); // 2 second delay after page load
+      });
+    </script>
+    
+    <!-- Google Analytics - Load ONLY after user interaction (saves 60KB on initial load) -->
+    <script>
+      // Defer analytics loading until user actually interacts
+      var analyticsLoaded = false;
+      var loadAnalytics = function() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
+        
+        // Additional delay even after interaction
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JDCPS7ENJ6';
+          document.head.appendChild(script);
+          
+          script.onload = function() {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JDCPS7ENJ6', {
+              page_path: window.location.pathname
+            });
+            window.gtag = gtag;
+          };
+        }, 2000); // 2 second delay even after interaction
+      };
+      
+      // Load on user interaction (scroll, click, touchstart, mousemove)
+      ['scroll', 'click', 'touchstart', 'mousemove', 'keydown'].forEach(function(event) {
+        window.addEventListener(event, loadAnalytics, { once: true, passive: true });
+      });
+      
+      // Fallback: load after 10 seconds (much longer delay)
+      setTimeout(loadAnalytics, 10000);
+    </script>
+    <script type="module" crossorigin src="/assets/js/index-DPfmkdLE.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/js/syntax-highlighter-BdjCFMbj.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/vendor-DLJOSeAC.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/code-editor-CqsUDnG7.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/react-vendor-B3aTV7P5.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-html-BNCVXk9w.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-css-0p2f-gL4.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-basics-BP0dQ_vB.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-controlflow-Bd_6EL-f.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-oops-OGJHJov-.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-strings-DzVB-rjH.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-arrays-DUabll76.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-exceptions-WAfIEYX3.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-collections-CZmEWXEt.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-advanced-CQJOuqDm.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-multithreading-iyl2nWx7.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-corejava-interview-BttuauMT.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-mysql-CTaVPegn.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-jdbc-AuaFnX2_.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-servlets-BB6FZY_w.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-jsp-D2-KR5s5.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-hibernate-BOwdS1Bf.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-git-YnQRmJoP.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-maven-CqWzzh_v.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-http-kZSCzycG.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-springboot-CP29KnsG.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-springcloud-CX8vrKx0.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-sdlc-1gBjkPvI.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-spring-C3AdNglM.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/data-other-Basy6_qV.js">
+    <link rel="stylesheet" crossorigin href="/assets/css/index-DGgXJXKM.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+
