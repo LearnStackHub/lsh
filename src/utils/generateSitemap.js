@@ -1,5 +1,6 @@
 // Generate sitemap.xml for SEO
 import { getAllTopics } from '../data';
+import { getTopicPath } from './topicRoutes';
 
 export const generateSitemap = () => {
   const baseUrl = 'https://www.learnstackhub.com';
@@ -34,7 +35,7 @@ export const generateSitemap = () => {
     const lastmod = newPagesToday.includes(topic.id) ? currentDate : currentDate;
     
     return {
-      url: `/tutorial/${topic.id}`,
+      url: getTopicPath(topic.id),
       priority: '0.9',
       changefreq: 'weekly',
       lastmod: lastmod

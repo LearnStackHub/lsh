@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ContributionProvider } from './context/ContributionContext';
@@ -32,6 +32,11 @@ const AiCodeEditor = lazy(() => import('./pages/ai/AiCodeEditor'));
 
 // Minimal loading fallback
 const LoadingFallback = () => null;
+
+function LegacyKafkaRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/kafka/${topicSlug}`} replace />;
+}
 
 // URL redirects mapping for old incorrect URLs to correct ones
 const urlRedirects = {
@@ -72,6 +77,10 @@ function AppWithTracking() {
         path="/tutorial/jdbc-architecture" 
         element={<Navigate to="/tutorial/jdbc-introduction" replace />} 
       />
+      <Route
+        path="/tutorial/kafka-:topicSlug"
+        element={<LegacyKafkaRouteRedirect />}
+      />
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         {/* Redirect index.html to home */}
@@ -80,6 +89,7 @@ function AppWithTracking() {
           element={<Navigate to="/" replace />} 
         />
         <Route path="tutorial/:topicId" element={<Tutorial />} />
+        <Route path="kafka/:topicSlug" element={<Tutorial />} />
         <Route path="privacy" element={<PrivacyPolicy />} />
         <Route path="terms" element={<Terms />} />
         <Route path="contact" element={<Contact />} />

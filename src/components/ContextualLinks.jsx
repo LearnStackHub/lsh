@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getAllTopics, getTopicById } from '../data';
 import { findRelatedTopicsByKeywords } from '../utils/contentEnhancer';
 import { BookOpen, ExternalLink } from 'lucide-react';
+import { getTopicPath } from '../utils/topicRoutes';
 
 function ContextualLinks({ currentTopicId, sectionContent, maxLinks = 5 }) {
   const allTopics = getAllTopics();
@@ -50,7 +51,7 @@ function ContextualLinks({ currentTopicId, sectionContent, maxLinks = 5 }) {
         {relatedTopics.map(topic => (
           <Link
             key={topic.id}
-            to={`/tutorial/${topic.id}`}
+            to={getTopicPath(topic.id)}
             style={{
               display: 'inline-flex',
               alignItems: 'center',

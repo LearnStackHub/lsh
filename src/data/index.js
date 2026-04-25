@@ -271,6 +271,26 @@ import {
 // SDLC
 import { sdlcIntroduction } from './sdlc';
 
+// Kafka
+import kafkaIntroduction from './kafka/KafkaIntroduction';
+import kafkaArchitecture from './kafka/KafkaArchitecture';
+import kafkaCoreComponents from './kafka/KafkaCoreComponents';
+import kafkaTopicsPartitions from './kafka/KafkaTopicsPartitions';
+import kafkaProducersDeepDive from './kafka/KafkaProducersDeepDive';
+import kafkaConsumersDeepDive from './kafka/KafkaConsumersDeepDive';
+import kafkaMessageDeliverySemantics from './kafka/KafkaMessageDeliverySemantics';
+import kafkaStorageRetention from './kafka/KafkaStorageRetention';
+import kafkaPerformanceScaling from './kafka/KafkaPerformanceScaling';
+import kafkaFaultToleranceReplication from './kafka/KafkaFaultToleranceReplication';
+import kafkaApis from './kafka/KafkaApis';
+import kafkaWithSpringBoot from './kafka/KafkaWithSpringBoot';
+import kafkaStreams from './kafka/KafkaStreams';
+import kafkaConnect from './kafka/KafkaConnect';
+import kafkaSecurity from './kafka/KafkaSecurity';
+import kafkaMonitoringTools from './kafka/KafkaMonitoringTools';
+import kafkaRealWorldUseCases from './kafka/KafkaRealWorldUseCases';
+import kafkaInterviewQuestions from './kafka/KafkaInterviewQuestions';
+
 // Spring Framework
 import {
   springIntroduction,
@@ -1098,6 +1118,121 @@ export const courseStructure = {
         title: "Exception Handling",
         topics: [
           globalExceptionHandlingHttp
+        ]
+      }
+    }
+  },
+  kafka: {
+    title: "Kafka",
+    icon: "🧩",
+    color: "#231F20",
+    sections: {
+      introduction: {
+        title: "Introduction to Kafka",
+        topics: [
+          kafkaIntroduction
+        ]
+      },
+      springBootIntegration: {
+        title: "Kafka with Spring Boot",
+        topics: [
+          kafkaWithSpringBoot
+        ]
+      },
+      architecture: {
+        title: "Kafka Architecture",
+        topics: [
+          kafkaArchitecture
+        ]
+      },
+      coreComponents: {
+        title: "Core Components",
+        topics: [
+          kafkaCoreComponents
+        ]
+      },
+      topicsPartitions: {
+        title: "Topics and Partitions",
+        topics: [
+          kafkaTopicsPartitions
+        ]
+      },
+      producersDeepDive: {
+        title: "Producers Deep Dive",
+        topics: [
+          kafkaProducersDeepDive
+        ]
+      },
+      consumersDeepDive: {
+        title: "Consumers Deep Dive",
+        topics: [
+          kafkaConsumersDeepDive
+        ]
+      },
+      deliverySemantics: {
+        title: "Message Delivery Semantics",
+        topics: [
+          kafkaMessageDeliverySemantics
+        ]
+      },
+      storageRetention: {
+        title: "Kafka Storage and Retention",
+        topics: [
+          kafkaStorageRetention
+        ]
+      },
+      performanceScaling: {
+        title: "Performance and Scaling",
+        topics: [
+          kafkaPerformanceScaling
+        ]
+      },
+      faultToleranceReplication: {
+        title: "Fault Tolerance and Replication",
+        topics: [
+          kafkaFaultToleranceReplication
+        ]
+      },
+      apis: {
+        title: "Kafka APIs",
+        topics: [
+          kafkaApis
+        ]
+      },
+      streams: {
+        title: "Kafka Streams",
+        topics: [
+          kafkaStreams
+        ]
+      },
+      connect: {
+        title: "Kafka Connect",
+        topics: [
+          kafkaConnect
+        ]
+      },
+      security: {
+        title: "Security in Kafka",
+        topics: [
+          kafkaSecurity
+        ]
+      },
+      monitoringTools: {
+        title: "Monitoring and Tools",
+        topics: [
+          kafkaMonitoringTools
+        ]
+      },
+      realWorldUseCases: {
+        title: "Real-world Use Cases",
+        topics: [
+          kafkaRealWorldUseCases
+        ]
+      },
+      interview: {
+        title: "Common Interview Questions",
+        topics: [
+          kafkaInterviewQuestions
         ]
       }
     }

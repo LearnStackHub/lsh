@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
+import { getTopicPath } from '../utils/topicRoutes';
 
 function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
@@ -44,7 +45,8 @@ function Home() {
     spring: 'IoC, beans, AOP, JDBC templates, and the Spring Framework ecosystem.',
     springboot: 'Auto-configuration, starters, REST APIs, data access, and production-ready apps.',
     springcloud: 'Microservices patterns, discovery, config, resilience, and distributed systems.',
-    http: 'Methods, status codes, headers, REST principles, and how the web really works.'
+    http: 'Methods, status codes, headers, REST principles, and how the web really works.',
+    kafka: 'Event streaming fundamentals, partitions, consumer groups, delivery guarantees, and reliability.'
   };
 
   const courseIcons = {
@@ -61,6 +63,7 @@ function Home() {
     springboot: Rocket,
     springcloud: Cloud,
     http: Globe,
+    kafka: MessageSquare,
     git: GitBranch,
     maven: Package
   };
@@ -284,7 +287,7 @@ function Home() {
         </div>
         <div className="landing-guides">
           {starterGuides.map((guide) => (
-            <Link key={guide.id} to={`/tutorial/${guide.id}`} className="landing-guide-card">
+            <Link key={guide.id} to={getTopicPath(guide.id)} className="landing-guide-card">
               <h3>{guide.title}</h3>
               <p>{guide.level}</p>
               <span><Clock size={14} /> {guide.time}</span>
@@ -307,7 +310,7 @@ function Home() {
             return (
               <Link
                 key={courseKey}
-                to={firstTopic ? `/tutorial/${firstTopic.id}` : '/'}
+                to={firstTopic ? getTopicPath(firstTopic.id) : '/'}
                 className="course-card"
                 data-course={courseKey}
                 style={{ '--card-accent': course.color }}

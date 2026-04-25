@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getTopicById, getAllTopics } from '../data';
+import { getTopicPath } from '../utils/topicRoutes';
 
 function StructuredData({ topicId, type = 'WebSite' }) {
   const location = useLocation();
@@ -71,13 +72,14 @@ function StructuredData({ topicId, type = 'WebSite' }) {
       // Tutorial page - Article schema
       const topic = getTopicById(topicId);
       if (topic) {
+        const topicPath = getTopicPath(topic.id);
         structuredData = {
           '@context': 'https://schema.org',
           '@type': 'Article',
-          '@id': `${baseUrl}/tutorial/${topic.id}#article`,
+          '@id': `${baseUrl}${topicPath}#article`,
           headline: topic.title,
           description: topic.description || `Learn ${topic.title} with step-by-step tutorials, code examples, and real-world scenarios. Complete ${topic.courseTitle || 'Java'} tutorial for beginners and advanced developers.`,
-          url: `${baseUrl}/tutorial/${topic.id}`,
+          url: `${baseUrl}${topicPath}`,
           author: {
             '@type': 'Person',
             name: 'Dattakumar Pandi',
@@ -104,7 +106,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
           dateModified: new Date().toISOString().split('T')[0],
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `${baseUrl}/tutorial/${topic.id}`
+            '@id': `${baseUrl}${topicPath}`
           },
           articleSection: topic.courseTitle || 'Java Tutorial',
           keywords: `${topic.title}, ${topic.title} tutorial, learn ${topic.title}, ${topic.title} for beginners, ${topic.title} example, ${topic.courseTitle || 'Java'} tutorial, ${topic.courseTitle || 'Java'} programming, free ${topic.title} tutorial, ${topic.title} step by step, ${topic.title} complete guide`,
@@ -132,19 +134,19 @@ function StructuredData({ topicId, type = 'WebSite' }) {
               '@type': 'ListItem',
               position: 2,
               name: topic.courseTitle || 'Core Java',
-              item: `${baseUrl}/tutorial/${topic.id}`
+              item: `${baseUrl}${topicPath}`
             },
             {
               '@type': 'ListItem',
               position: 3,
               name: topic.sectionTitle || 'Tutorial',
-              item: `${baseUrl}/tutorial/${topic.id}`
+              item: `${baseUrl}${topicPath}`
             },
             {
               '@type': 'ListItem',
               position: 4,
               name: topic.title,
-              item: `${baseUrl}/tutorial/${topic.id}`
+              item: `${baseUrl}${topicPath}`
             }
           ]
         };
@@ -156,7 +158,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         breadcrumbScript.textContent = JSON.stringify(breadcrumbData, null, 2);
         document.head.appendChild(breadcrumbScript);
       }
-    } else if (type === 'Course' || location.pathname.includes('/tutorial/')) {
+    } else if (type === 'Course' || location.pathname.includes('/tutorial/') || location.pathname.includes('/kafka/')) {
       // Course schema for tutorial pages
       const topic = topicId ? getTopicById(topicId) : null;
       if (topic) {

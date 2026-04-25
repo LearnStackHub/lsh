@@ -4,7 +4,7 @@ import {
   Search, Menu, X, BookOpen,
   FileCode, Palette, Code, Database, Server, FileText, Layers, 
   Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud,
-  Sparkles,
+  Sparkles, MessageSquare,
 } from 'lucide-react';
 import { useContributions } from '../context/ContributionContext';
 import ConsentBanner from './ConsentBanner';
@@ -12,6 +12,7 @@ import SocialOfficialLinks from './SocialOfficialLinks';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
 import { trackSearch } from '../config/analytics';
+import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug } from '../utils/topicRoutes';
 import logoImage from '../assets/LSH.png';
 
 function Layout() {
@@ -93,6 +94,9 @@ function Layout() {
     if (topicId?.includes('mcq') || topicId?.includes('exam')) {
       return location.pathname === `/${topicId}` || location.pathname === `/tutorial/${topicId}`;
     }
+    if (isKafkaTopicId(topicId)) {
+      return location.pathname === `/kafka/${kafkaTopicIdToSlug(topicId)}`;
+    }
     return location.pathname.includes(topicId);
   };
 
@@ -106,7 +110,7 @@ function Layout() {
       const firstSection = Object.values(course.sections)[0];
       if (firstSection && firstSection.topics.length > 0) {
         const firstTopic = firstSection.topics[0];
-        navigate(`/tutorial/${firstTopic.id}`);
+        navigate(getTopicPath(firstTopic.id));
       }
     }
   };
@@ -158,6 +162,7 @@ function Layout() {
     springboot: Rocket,
     springcloud: Cloud,
     http: Globe,
+    kafka: MessageSquare,
     git: GitBranch,
     maven: Package
   };
@@ -252,7 +257,7 @@ function Layout() {
                 {filteredTopics.slice(0, 8).map(topic => (
                   <Link
                     key={topic.id}
-                    to={`/tutorial/${topic.id}`}
+                    to={getTopicPath(topic.id)}
                     className="search-result-item"
                     onClick={() => setSearchQuery('')}
                   >
@@ -280,7 +285,7 @@ function Layout() {
             return (
               <Link
                 key={courseKey}
-                to={firstTopic ? `/tutorial/${firstTopic.id}` : '/'}
+                to={firstTopic ? getTopicPath(firstTopic.id) : '/'}
                 className={`main-topic-link ${activeCourse === courseKey ? 'active' : ''}`}
                 onClick={() => {
                   setActiveCourse(courseKey);
@@ -324,7 +329,7 @@ function Layout() {
             ) : (
               <Link
                 key={item.id}
-                to={item.id?.includes('mcq') || item.id?.includes('exam') ? `/${item.id}` : `/tutorial/${item.id}`}
+                to={getTopicPath(item.id)}
                 className={`sidebar-link ${isTopicActive(item.id) ? 'active' : ''} ${item.id?.includes('mcq') || item.id?.includes('exam') ? 'exam-link' : ''}`}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -348,7 +353,7 @@ function Layout() {
             {userContributions.map(contrib => (
               <Link
                 key={contrib.id}
-                to={`/tutorial/${contrib.id}`}
+                to={getTopicPath(contrib.id)}
                 className={`sidebar-link ${isTopicActive(contrib.id) ? 'active' : ''}`}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -447,6 +452,7 @@ function Layout() {
                 <li><Link to="/tutorial/spring-introduction">Spring Framework</Link></li>
                 <li><Link to="/tutorial/spring-boot-introduction">Spring Boot</Link></li>
                 <li><Link to="/tutorial/http-status-codes">HTTP & APIs</Link></li>
+                <li><Link to="/kafka/introduction">Kafka</Link></li>
               </ul>
               <ul>
                 <li><Link to="/tutorial/git-introduction">Git & GitHub</Link></li>

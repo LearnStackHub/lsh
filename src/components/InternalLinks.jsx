@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { getAllTopics, getTopicById } from '../data';
 import { ArrowRight, BookOpen } from 'lucide-react';
+import { getTopicPath } from '../utils/topicRoutes';
 
 function InternalLinks({ currentTopicId, courseTitle }) {
   // Get all topics in the same course
@@ -66,7 +67,7 @@ function InternalLinks({ currentTopicId, courseTitle }) {
             Continue Learning:
           </h3>
           <Link 
-            to={`/tutorial/${nextTopic.id}`}
+            to={getTopicPath(nextTopic.id)}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -114,7 +115,7 @@ function InternalLinks({ currentTopicId, courseTitle }) {
             {relatedTopics.map(topic => (
               <li key={topic.id}>
                 <Link
-                  to={`/tutorial/${topic.id}`}
+                  to={getTopicPath(topic.id)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',

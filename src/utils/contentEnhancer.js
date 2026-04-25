@@ -2,7 +2,7 @@
 // Automatically adds internal links and improves content quality
 
 import { getAllTopics, getTopicById } from '../data';
-import { Link } from 'react-router-dom';
+import { getTopicPath } from './topicRoutes';
 
 /**
  * Find related topics by keywords in content
@@ -109,7 +109,7 @@ export const enhanceTextWithLinks = (text, currentTopicId) => {
       if (backticksBefore % 2 === 0) { // Not inside code block
         enhancedText = enhancedText.replace(regex, (match) => {
           usedLinks.add(topicId);
-          return `[${match}](/tutorial/${topicId})`;
+          return `[${match}](${getTopicPath(topicId)})`;
         });
       }
     }
