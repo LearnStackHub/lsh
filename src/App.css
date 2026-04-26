@@ -8977,3 +8977,199 @@ code {
 .flowchart-pro-springcloud-scenario .flowchart-pro-svg {
   min-height: min(300px, 56vh);
 }
+
+/* ---------- Generic Tutorial Diagram Styles (Lean + Clear) ---------- */
+.diagram-container {
+  margin: 1.1rem 0 1.4rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+}
+
+.diagram-title {
+  margin: 0 0 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.diagram {
+  width: 100%;
+}
+
+/* Flow diagrams: simple vertical pipeline */
+.flow-diagram {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.flow-step {
+  display: grid;
+  justify-items: start;
+}
+
+.flow-node {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 52px;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.flow-number {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 35%, var(--border-color));
+  flex-shrink: 0;
+}
+
+.flow-content {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.flow-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.flow-label {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.flow-arrow {
+  margin: 0.15rem 0 0.2rem 1.45rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.1rem;
+}
+
+.arrow-line {
+  width: 2px;
+  height: 16px;
+  background: var(--border-color);
+}
+
+.arrow-head {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+/* Tree diagrams: clean hierarchy cards */
+.tree-root {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.tree-node {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+}
+
+.root-node {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.tree-children {
+  border-left: 2px solid var(--border-color);
+  margin-left: 0.65rem;
+  padding-left: 0.85rem;
+}
+
+.tree-branches {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.tree-branch .child-node {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.node-label {
+  color: var(--text-primary);
+}
+
+.node-desc {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+}
+
+.sub-children {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.45rem;
+}
+
+.sub-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+/* Layer diagrams: simple stacked blocks */
+.layers-diagram {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.layer {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-card);
+  padding: 0.65rem 0.8rem;
+}
+
+.layer-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.layer-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.layer-tech {
+  margin-left: auto;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.layer-connector {
+  margin-top: 0.35rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}

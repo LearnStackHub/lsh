@@ -38,6 +38,11 @@ function LegacyKafkaRouteRedirect() {
   return <Navigate to={`/kafka/${topicSlug}`} replace />;
 }
 
+function LegacyDockerRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/docker/${topicSlug}`} replace />;
+}
+
 // URL redirects mapping for old incorrect URLs to correct ones
 const urlRedirects = {
   'servlet-architecture': 'servlet-introduction',
@@ -81,6 +86,10 @@ function AppWithTracking() {
         path="/tutorial/kafka-:topicSlug"
         element={<LegacyKafkaRouteRedirect />}
       />
+      <Route
+        path="/tutorial/docker-:topicSlug"
+        element={<LegacyDockerRouteRedirect />}
+      />
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         {/* Redirect index.html to home */}
@@ -90,6 +99,7 @@ function AppWithTracking() {
         />
         <Route path="tutorial/:topicId" element={<Tutorial />} />
         <Route path="kafka/:topicSlug" element={<Tutorial />} />
+        <Route path="docker/:topicSlug" element={<Tutorial />} />
         <Route path="privacy" element={<PrivacyPolicy />} />
         <Route path="terms" element={<Terms />} />
         <Route path="contact" element={<Contact />} />

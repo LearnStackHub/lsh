@@ -291,6 +291,25 @@ import kafkaMonitoringTools from './kafka/KafkaMonitoringTools';
 import kafkaRealWorldUseCases from './kafka/KafkaRealWorldUseCases';
 import kafkaInterviewQuestions from './kafka/KafkaInterviewQuestions';
 
+// Docker
+import dockerIntroduction from './docker/DockerIntroduction';
+import dockerArchitecture from './docker/DockerArchitecture';
+import dockerInstallation from './docker/DockerInstallation';
+import dockerImages from './docker/DockerImages';
+import dockerContainers from './docker/DockerContainers';
+import dockerfileBasics from './docker/DockerfileBasics';
+import dockerBuildRun from './docker/DockerBuildRun';
+import dockerPortMappingNetworking from './docker/DockerPortMappingNetworking';
+import dockerVolumes from './docker/DockerVolumes';
+import dockerNetworking from './docker/DockerNetworking';
+import dockerWithDatabase from './docker/DockerWithDatabase';
+import dockerCompose from './docker/DockerCompose';
+import dockerHubPushImage from './docker/DockerHubPushImage';
+import dockerDebuggingLogs from './docker/DockerDebuggingLogs';
+import dockerProductionConcepts from './docker/DockerProductionConcepts';
+import dockerInterviewQuestions from './docker/DockerInterviewQuestions';
+import dockerRealProject from './docker/DockerRealProject';
+
 // Spring Framework
 import {
   springIntroduction,
@@ -1233,6 +1252,115 @@ export const courseStructure = {
         title: "Common Interview Questions",
         topics: [
           kafkaInterviewQuestions
+        ]
+      }
+    }
+  },
+  docker: {
+    title: "Docker",
+    icon: "🐳",
+    color: "#2496ED",
+    sections: {
+      foundation: {
+        title: "Foundation",
+        topics: [
+          dockerIntroduction
+        ]
+      },
+      architecture: {
+        title: "Docker Architecture",
+        topics: [
+          dockerArchitecture
+        ]
+      },
+      setup: {
+        title: "Installation",
+        topics: [
+          dockerInstallation
+        ]
+      },
+      images: {
+        title: "Images",
+        topics: [
+          dockerImages
+        ]
+      },
+      containers: {
+        title: "Containers",
+        topics: [
+          dockerContainers
+        ]
+      },
+      dockerfile: {
+        title: "Dockerfile",
+        topics: [
+          dockerfileBasics
+        ]
+      },
+      buildRun: {
+        title: "Build & Run",
+        topics: [
+          dockerBuildRun
+        ]
+      },
+      portsAndNetwork: {
+        title: "Ports & Networking Basics",
+        topics: [
+          dockerPortMappingNetworking
+        ]
+      },
+      volumes: {
+        title: "Volumes & Persistence",
+        topics: [
+          dockerVolumes
+        ]
+      },
+      networking: {
+        title: "Container Networking",
+        topics: [
+          dockerNetworking
+        ]
+      },
+      database: {
+        title: "Docker with Database",
+        topics: [
+          dockerWithDatabase
+        ]
+      },
+      compose: {
+        title: "Docker Compose",
+        topics: [
+          dockerCompose
+        ]
+      },
+      dockerHub: {
+        title: "Docker Hub",
+        topics: [
+          dockerHubPushImage
+        ]
+      },
+      debugging: {
+        title: "Debugging & Logs",
+        topics: [
+          dockerDebuggingLogs
+        ]
+      },
+      production: {
+        title: "Production Concepts",
+        topics: [
+          dockerProductionConcepts
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          dockerInterviewQuestions
+        ]
+      },
+      realProject: {
+        title: "Real Project",
+        topics: [
+          dockerRealProject
         ]
       }
     }

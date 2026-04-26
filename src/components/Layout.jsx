@@ -3,7 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Search, Menu, X, BookOpen,
   FileCode, Palette, Code, Database, Server, FileText, Layers, 
-  Box, Rocket, Globe, GitBranch, Package, Wrench, ClipboardList, Cloud,
+  Box, Rocket, Globe, GitBranch, Package, ClipboardList, Cloud,
   Sparkles, MessageSquare,
 } from 'lucide-react';
 import { useContributions } from '../context/ContributionContext';
@@ -12,7 +12,7 @@ import SocialOfficialLinks from './SocialOfficialLinks';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
 import { trackSearch } from '../config/analytics';
-import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug } from '../utils/topicRoutes';
+import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug } from '../utils/topicRoutes';
 import logoImage from '../assets/LSH.png';
 
 function Layout() {
@@ -58,7 +58,7 @@ function Layout() {
     if (!dataLoaded) return;
     const currentPath = location.pathname;
     const allTopics = window.__getAllTopics();
-    const currentTopic = allTopics.find(t => currentPath.includes(t.id));
+    const currentTopic = allTopics.find(t => currentPath === getTopicPath(t.id) || currentPath.includes(t.id));
     
     if (currentTopic) {
       setActiveCourse(currentTopic.courseKey);
@@ -96,6 +96,9 @@ function Layout() {
     }
     if (isKafkaTopicId(topicId)) {
       return location.pathname === `/kafka/${kafkaTopicIdToSlug(topicId)}`;
+    }
+    if (isDockerTopicId(topicId)) {
+      return location.pathname === `/docker/${dockerTopicIdToSlug(topicId)}`;
     }
     return location.pathname.includes(topicId);
   };
@@ -163,6 +166,7 @@ function Layout() {
     springcloud: Cloud,
     http: Globe,
     kafka: MessageSquare,
+    docker: Layers,
     git: GitBranch,
     maven: Package
   };
@@ -453,6 +457,7 @@ function Layout() {
                 <li><Link to="/tutorial/spring-boot-introduction">Spring Boot</Link></li>
                 <li><Link to="/tutorial/http-status-codes">HTTP & APIs</Link></li>
                 <li><Link to="/kafka/introduction">Kafka</Link></li>
+                <li><Link to="/docker/introduction">Docker</Link></li>
               </ul>
               <ul>
                 <li><Link to="/tutorial/git-introduction">Git & GitHub</Link></li>

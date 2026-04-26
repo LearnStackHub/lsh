@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
 import { github as codeTheme } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -133,7 +133,7 @@ import { HTTP_SHOWCASE_TOPIC_IDS, HttpShowcaseRouter } from '../components/http/
 import { MYSQL_SHOWCASE_TOPIC_IDS, MySQLShowcaseRouter } from '../components/mysql/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
-import { getTopicPath, kafkaSlugToTopicId } from '../utils/topicRoutes';
+import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId } from '../utils/topicRoutes';
 
 SyntaxHighlighter.registerLanguage('java', java);
 
@@ -146,7 +146,12 @@ function topicContentToString(content) {
 
 function Tutorial() {
   const { topicId, topicSlug } = useParams();
-  const resolvedTopicId = topicId || kafkaSlugToTopicId(topicSlug);
+  const location = useLocation();
+  const resolvedTopicId = topicId || (
+    location.pathname.startsWith('/docker/')
+      ? dockerSlugToTopicId(topicSlug)
+      : kafkaSlugToTopicId(topicSlug)
+  );
   const [copiedBlockId, setCopiedBlockId] = useState(null);
   const [editorCode, setEditorCode] = useState('');
   const [output, setOutput] = useState('Click "Run Code" to execute your code');

@@ -46,7 +46,8 @@ function Home() {
     springboot: 'Auto-configuration, starters, REST APIs, data access, and production-ready apps.',
     springcloud: 'Microservices patterns, discovery, config, resilience, and distributed systems.',
     http: 'Methods, status codes, headers, REST principles, and how the web really works.',
-    kafka: 'Event streaming fundamentals, partitions, consumer groups, delivery guarantees, and reliability.'
+    kafka: 'Event streaming fundamentals, partitions, consumer groups, delivery guarantees, and reliability.',
+    docker: 'Containers, images, Dockerfile, Compose, networking, production patterns, and interview preparation.'
   };
 
   const courseIcons = {
@@ -64,6 +65,7 @@ function Home() {
     springcloud: Cloud,
     http: Globe,
     kafka: MessageSquare,
+    docker: Layers,
     git: GitBranch,
     maven: Package
   };

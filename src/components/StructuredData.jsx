@@ -158,7 +158,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         breadcrumbScript.textContent = JSON.stringify(breadcrumbData, null, 2);
         document.head.appendChild(breadcrumbScript);
       }
-    } else if (type === 'Course' || location.pathname.includes('/tutorial/') || location.pathname.includes('/kafka/')) {
+    } else if (type === 'Course' || location.pathname.includes('/tutorial/') || location.pathname.includes('/kafka/') || location.pathname.includes('/docker/')) {
       // Course schema for tutorial pages
       const topic = topicId ? getTopicById(topicId) : null;
       if (topic) {
