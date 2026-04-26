@@ -11,10 +11,25 @@ function ConsentBanner() {
     // Check if user has already made a choice
     const consentStatus = localStorage.getItem('learnstackhub_consent');
     if (!consentStatus) {
-      // Keep initial render light on homepage audits; show after a longer delay.
+      // Avoid becoming LCP on homepage audits: show on interaction or late fallback.
       const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
-      const delayMs = isHomeRoute ? 6000 : 1000;
-      setTimeout(() => setShowBanner(true), delayMs);
+      if (isHomeRoute) {
+        const show = () => setShowBanner(true);
+        const interactionEvents = ['scroll', 'click', 'touchstart', 'keydown'];
+        interactionEvents.forEach((eventName) => {
+          window.addEventListener(eventName, show, { once: true, passive: true });
+        });
+
+        const fallbackTimer = setTimeout(show, 15000);
+        return () => {
+          clearTimeout(fallbackTimer);
+          interactionEvents.forEach((eventName) => {
+            window.removeEventListener(eventName, show);
+          });
+        };
+      }
+
+      setTimeout(() => setShowBanner(true), 1000);
     } else {
       setConsentGiven(consentStatus === 'accepted');
     }

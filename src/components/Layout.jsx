@@ -44,8 +44,8 @@ function Layout() {
     // Detect mobile and use longer delay to reduce TBT
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
-    const idleTimeout = isHomeRoute ? (isMobile ? 10000 : 9000) : (isMobile ? 800 : 500);
-    const fallbackDelay = isHomeRoute ? (isMobile ? 12000 : 10000) : (isMobile ? 400 : 200);
+    const idleTimeout = isHomeRoute ? (isMobile ? 3200 : 2600) : (isMobile ? 800 : 500);
+    const fallbackDelay = isHomeRoute ? (isMobile ? 3600 : 2800) : (isMobile ? 400 : 200);
 
     const triggerLoad = () => {
       if (window.__lshDataLoadTriggered) return;

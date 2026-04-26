@@ -42,9 +42,9 @@ function Home() {
     });
 
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(triggerLoad, { timeout: 9000 });
+      requestIdleCallback(triggerLoad, { timeout: 3200 });
     } else {
-      setTimeout(triggerLoad, 10000);
+      setTimeout(triggerLoad, 2800);
     }
 
     return () => {
@@ -103,10 +103,6 @@ function Home() {
     { id: 'http-introduction', title: 'HTTP Introduction', time: '2h', level: 'Beginner' }
   ];
 
-  const belowFoldStyle = {
-    contentVisibility: 'auto',
-    containIntrinsicSize: '1px 1000px',
-  };
 
   return (
     <div className="home-page landing-page">
@@ -188,7 +184,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="courses-section landing-practice-lab" style={belowFoldStyle}>
+      <section className="courses-section landing-practice-lab">
         <div className="section-header">
           <h2 className="section-title-main">Practice Lab</h2>
           <p className="home-section-subtitle">
@@ -212,7 +208,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="courses-section" style={belowFoldStyle}>
+      <section className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">How to Use the AI Lab</h2>
           <p className="home-section-subtitle">
@@ -253,7 +249,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="courses-section" style={belowFoldStyle}>
+      <section className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">Our Story</h2>
         </div>
@@ -273,7 +269,7 @@ function Home() {
         </p>
       </section>
 
-      <section className="courses-section" style={belowFoldStyle}>
+      <section className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">Ownership &amp; Company Details</h2>
           <p className="home-section-subtitle">LearnStackHub publishes these details for user trust, policy compliance, and partner/reviewer verification.</p>
@@ -306,7 +302,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="courses-section" style={belowFoldStyle}>
+      <section className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">Start Here</h2>
           <p className="home-section-subtitle">Recommended tutorials to build a strong base quickly.</p>
@@ -323,7 +319,7 @@ function Home() {
         </div>
       </section>
 
-      <section id="courses" className="courses-section" style={belowFoldStyle}>
+      <section id="courses" className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">Learning Tracks</h2>
           <p className="home-section-subtitle">Choose a track and follow the complete sequence topic by topic.</p>
@@ -354,7 +350,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="landing-editorial" style={belowFoldStyle}>
+      <section className="landing-editorial">
         <h2>What you get on LearnStackHub</h2>
         <p>
           Deep-dive tutorials from SDLC, HTML/CSS, and Core Java through JDBC, web stacks, Hibernate, Spring, Spring Boot,
@@ -369,7 +365,7 @@ function Home() {
         </ul>
       </section>
 
-      <section className="landing-cta" style={belowFoldStyle}>
+      <section className="landing-cta">
         <h2>Build Consistent Progress Every Week</h2>
         <p>
           Start with fundamentals and move step by step to Spring Boot and production-grade backend development—on a{' '}
