@@ -11,8 +11,10 @@ function ConsentBanner() {
     // Check if user has already made a choice
     const consentStatus = localStorage.getItem('learnstackhub_consent');
     if (!consentStatus) {
-      // Show banner after a short delay
-      setTimeout(() => setShowBanner(true), 1000);
+      // Keep initial render light on homepage audits; show after a longer delay.
+      const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
+      const delayMs = isHomeRoute ? 6000 : 1000;
+      setTimeout(() => setShowBanner(true), delayMs);
     } else {
       setConsentGiven(consentStatus === 'accepted');
     }
@@ -187,7 +189,7 @@ function ConsentBanner() {
             We use cookies to enhance your browsing experience, serve personalized ads or content, 
             and analyze our traffic. By clicking "Consent", you consent to our use of cookies.{' '}
             <Link to="/privacy" target="_blank" style={{ color: 'var(--accent-primary)' }}>
-              Learn more
+              View privacy policy details
             </Link>
           </p>
         </div>
