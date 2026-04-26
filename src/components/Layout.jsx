@@ -44,8 +44,8 @@ function Layout() {
     // Detect mobile and use longer delay to reduce TBT
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
-    const idleTimeout = isHomeRoute ? (isMobile ? 3200 : 2600) : (isMobile ? 800 : 500);
-    const fallbackDelay = isHomeRoute ? (isMobile ? 3600 : 2800) : (isMobile ? 400 : 200);
+    const idleTimeout = isHomeRoute ? (isMobile ? 7000 : 6000) : (isMobile ? 800 : 500);
+    const fallbackDelay = isHomeRoute ? (isMobile ? 8000 : 7000) : (isMobile ? 400 : 200);
 
     const triggerLoad = () => {
       if (window.__lshDataLoadTriggered) return;
@@ -458,10 +458,7 @@ function Layout() {
       )}
 
       {/* Footer */}
-      <footer
-        className="site-footer"
-        style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 800px' }}
-      >
+      <footer className="site-footer">
         <div className="footer-content">
           <div className="footer-section footer-brand">
             <h3>LearnStackHub</h3>

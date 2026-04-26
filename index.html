@@ -37,13 +37,7 @@
     <!-- Preload critical logo image for LCP -->
     <link rel="preload" href="/LSH.png" as="image" type="image/png" fetchpriority="high" />
     
-    <!-- Google Fonts - Preconnect and load with font-display: swap -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Preload critical Poppins font for hero title -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" as="style" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <!-- Use system fonts for faster first paint on mobile audits. -->
     
     <!-- Google AdSense - Deferred loading (safe for review, still optimized) -->
     <script>
@@ -56,7 +50,7 @@
           script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176490979231754';
           script.crossOrigin = 'anonymous';
           document.head.appendChild(script);
-        }, 2000); // 2 second delay after page load
+        }, 8000); // delay third-party ad script to protect initial rendering
       });
     </script>
     
@@ -87,8 +81,8 @@
         }, 2000); // 2 second delay even after interaction
       };
       
-      // Load on user interaction (scroll, click, touchstart, mousemove)
-      ['scroll', 'click', 'touchstart', 'mousemove', 'keydown'].forEach(function(event) {
+      // Load on user interaction (avoid mousemove to reduce accidental early loads)
+      ['scroll', 'click', 'touchstart', 'keydown'].forEach(function(event) {
         window.addEventListener(event, loadAnalytics, { once: true, passive: true });
       });
       

@@ -42,9 +42,9 @@ function Home() {
     });
 
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(triggerLoad, { timeout: 3200 });
+      requestIdleCallback(triggerLoad, { timeout: 6000 });
     } else {
-      setTimeout(triggerLoad, 2800);
+      setTimeout(triggerLoad, 7000);
     }
 
     return () => {
