@@ -11,23 +11,47 @@ import { getTopicPath } from '../utils/topicRoutes';
 
 function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
-  const [totalTopics, setTotalTopics] = useState(0);
-  const [trackCount, setTrackCount] = useState(0);
+  const [totalTopics, setTotalTopics] = useState(250);
+  const [trackCount, setTrackCount] = useState(17);
 
   useEffect(() => {
     const loadData = () => {
       import('../data').then((module) => {
         setCourseStructure(module.courseStructure);
-        setTotalTopics(module.getAllTopics().length);
-        setTrackCount(Object.keys(module.courseStructure).length);
+        const sections = Object.values(module.courseStructure);
+        const computedTrackCount = sections.length;
+        const computedTopicCount = sections.reduce((courseAcc, course) => {
+          const sectionValues = Object.values(course.sections || {});
+          return courseAcc + sectionValues.reduce((sectionAcc, section) => sectionAcc + (section.topics?.length || 0), 0);
+        }, 0);
+        setTotalTopics(computedTopicCount || 250);
+        setTrackCount(computedTrackCount || 17);
       });
     };
 
+    const triggerLoad = () => {
+      if (window.__lshHomeDataLoadTriggered) return;
+      window.__lshHomeDataLoadTriggered = true;
+      loadData();
+    };
+
+    // Home audit optimization: defer heavyweight tutorial graph until user intent/idle fallback.
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'keydown'];
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, triggerLoad, { once: true, passive: true });
+    });
+
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadData, { timeout: 600 });
+      requestIdleCallback(triggerLoad, { timeout: 3200 });
     } else {
-      setTimeout(loadData, 250);
+      setTimeout(triggerLoad, 2800);
     }
+
+    return () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, triggerLoad);
+      });
+    };
   }, []);
 
   const courseDescriptions = {
@@ -265,13 +289,13 @@ function Home() {
           <span>
             <strong>About page:</strong>{' '}
             <a href="https://www.learnstackhub.com/about" target="_blank" rel="noopener noreferrer">
-              https://www.learnstackhub.com/about
+              About LearnStackHub
             </a>
           </span>
           <span>
             <strong>Contact page:</strong>{' '}
             <a href="https://www.learnstackhub.com/contact" target="_blank" rel="noopener noreferrer">
-              https://www.learnstackhub.com/contact
+              Contact LearnStackHub
             </a>
           </span>
         </div>

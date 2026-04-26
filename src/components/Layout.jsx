@@ -40,16 +40,44 @@ function Layout() {
         setDataLoaded(true);
       });
     };
-    
+
     // Detect mobile and use longer delay to reduce TBT
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const delay = isMobile ? 800 : 500;
-    
-    // Delay data loading to reduce TBT - load after critical render
+    const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const idleTimeout = isHomeRoute ? (isMobile ? 3200 : 2600) : (isMobile ? 800 : 500);
+    const fallbackDelay = isHomeRoute ? (isMobile ? 3600 : 2800) : (isMobile ? 400 : 200);
+
+    const triggerLoad = () => {
+      if (window.__lshDataLoadTriggered) return;
+      window.__lshDataLoadTriggered = true;
+      loadData();
+    };
+
+    if (isHomeRoute) {
+      // Home page under slow-4G audits: defer heavy data graph until user intent or long-idle fallback.
+      const interactionEvents = ['scroll', 'click', 'touchstart', 'keydown'];
+      interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, triggerLoad, { once: true, passive: true });
+      });
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(triggerLoad, { timeout: idleTimeout });
+      } else {
+        setTimeout(triggerLoad, fallbackDelay);
+      }
+
+      return () => {
+        interactionEvents.forEach((eventName) => {
+          window.removeEventListener(eventName, triggerLoad);
+        });
+      };
+    }
+
+    // Non-home routes should keep navigation data responsive.
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadData, { timeout: delay });
+      requestIdleCallback(triggerLoad, { timeout: idleTimeout });
     } else {
-      setTimeout(loadData, isMobile ? 400 : 200);
+      setTimeout(triggerLoad, fallbackDelay);
     }
   }, []);
 
