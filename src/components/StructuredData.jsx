@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getTopicById, getAllTopics } from '../data';
 import { getTopicPath } from '../utils/topicRoutes';
 
-function StructuredData({ topicId, type = 'WebSite' }) {
+function StructuredData({ topicId, topic, type = 'WebSite' }) {
   const location = useLocation();
   // Keep a single canonical host across all SEO signals.
   const baseUrl = 'https://www.learnstackhub.com';
@@ -19,7 +18,6 @@ function StructuredData({ topicId, type = 'WebSite' }) {
 
     if (type === 'WebSite' || location.pathname === '/') {
       // Homepage - WebSite schema
-      const allTopics = getAllTopics();
       structuredData = {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
@@ -70,15 +68,15 @@ function StructuredData({ topicId, type = 'WebSite' }) {
       };
     } else if (type === 'Article' && topicId) {
       // Tutorial page - Article schema
-      const topic = getTopicById(topicId);
-      if (topic) {
-        const topicPath = getTopicPath(topic.id);
+      const resolvedTopic = topic;
+      if (resolvedTopic) {
+        const topicPath = getTopicPath(resolvedTopic.id);
         structuredData = {
           '@context': 'https://schema.org',
           '@type': 'Article',
           '@id': `${baseUrl}${topicPath}#article`,
-          headline: topic.title,
-          description: topic.description || `Learn ${topic.title} with step-by-step tutorials, code examples, and real-world scenarios. Complete ${topic.courseTitle || 'Java'} tutorial for beginners and advanced developers.`,
+          headline: resolvedTopic.title,
+          description: resolvedTopic.description || `Learn ${resolvedTopic.title} with step-by-step tutorials, code examples, and real-world scenarios. Complete ${resolvedTopic.courseTitle || 'Java'} tutorial for beginners and advanced developers.`,
           url: `${baseUrl}${topicPath}`,
           author: {
             '@type': 'Person',
@@ -108,15 +106,15 @@ function StructuredData({ topicId, type = 'WebSite' }) {
             '@type': 'WebPage',
             '@id': `${baseUrl}${topicPath}`
           },
-          articleSection: topic.courseTitle || 'Java Tutorial',
-          keywords: `${topic.title}, ${topic.title} tutorial, learn ${topic.title}, ${topic.title} for beginners, ${topic.title} example, ${topic.courseTitle || 'Java'} tutorial, ${topic.courseTitle || 'Java'} programming, free ${topic.title} tutorial, ${topic.title} step by step, ${topic.title} complete guide`,
+          articleSection: resolvedTopic.courseTitle || 'Java Tutorial',
+          keywords: `${resolvedTopic.title}, ${resolvedTopic.title} tutorial, learn ${resolvedTopic.title}, ${resolvedTopic.title} for beginners, ${resolvedTopic.title} example, ${resolvedTopic.courseTitle || 'Java'} tutorial, ${resolvedTopic.courseTitle || 'Java'} programming, free ${resolvedTopic.title} tutorial, ${resolvedTopic.title} step by step, ${resolvedTopic.title} complete guide`,
           about: {
             '@type': 'Thing',
-            name: topic.courseTitle || 'Java Programming'
+            name: resolvedTopic.courseTitle || 'Java Programming'
           },
           educationalLevel: 'Beginner to Advanced',
           learningResourceType: 'Tutorial',
-          teaches: topic.title
+          teaches: resolvedTopic.title
         };
         
         // Add BreadcrumbList structured data for tutorial pages
@@ -133,19 +131,19 @@ function StructuredData({ topicId, type = 'WebSite' }) {
             {
               '@type': 'ListItem',
               position: 2,
-              name: topic.courseTitle || 'Core Java',
+              name: resolvedTopic.courseTitle || 'Core Java',
               item: `${baseUrl}${topicPath}`
             },
             {
               '@type': 'ListItem',
               position: 3,
-              name: topic.sectionTitle || 'Tutorial',
+              name: resolvedTopic.sectionTitle || 'Tutorial',
               item: `${baseUrl}${topicPath}`
             },
             {
               '@type': 'ListItem',
               position: 4,
-              name: topic.title,
+              name: resolvedTopic.title,
               item: `${baseUrl}${topicPath}`
             }
           ]
@@ -160,21 +158,21 @@ function StructuredData({ topicId, type = 'WebSite' }) {
       }
     } else if (type === 'Course' || location.pathname.includes('/tutorial/') || location.pathname.includes('/kafka/') || location.pathname.includes('/docker/')) {
       // Course schema for tutorial pages
-      const topic = topicId ? getTopicById(topicId) : null;
-      if (topic) {
+      const resolvedTopic = topic;
+      if (resolvedTopic) {
         structuredData = {
           '@context': 'https://schema.org',
           '@type': 'Course',
-          name: topic.title,
-          description: topic.description || `Learn ${topic.title}`,
+          name: resolvedTopic.title,
+          description: resolvedTopic.description || `Learn ${resolvedTopic.title}`,
           provider: {
             '@type': 'Organization',
             name: 'LearnStackHub',
             url: baseUrl
           },
-          courseCode: topic.id,
+          courseCode: resolvedTopic.id,
           educationalLevel: 'Beginner to Advanced',
-          teaches: topic.title
+          teaches: resolvedTopic.title
         };
       }
     } else if (type === 'Organization' || location.pathname === '/about') {
@@ -247,7 +245,7 @@ function StructuredData({ topicId, type = 'WebSite' }) {
         breadcrumbScript.remove();
       }
     };
-  }, [location.pathname, topicId, type]);
+  }, [location.pathname, topicId, topic, type]);
 
   return null;
 }

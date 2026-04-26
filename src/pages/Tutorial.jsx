@@ -844,8 +844,8 @@ function Tutorial() {
 
   return (
     <div className={`tutorial-page fade-in${isMysqlTopic ? ' tutorial-page--mysql' : ''}${isJspTopic ? ' tutorial-page--jsp' : ''}${isJdbcTopic ? ' tutorial-page--jdbc' : ''}`}>
-      <SEOHead topicId={resolvedTopicId} />
-      <StructuredData topicId={resolvedTopicId} type="Article" />
+      <SEOHead topicId={resolvedTopicId} topic={currentTopic} />
+      <StructuredData topicId={resolvedTopicId} topic={currentTopic} type="Article" />
       {/* Breadcrumb */}
       <div className="tutorial-breadcrumb">
         <Link to="/">Home</Link>

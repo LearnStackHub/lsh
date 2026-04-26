@@ -498,7 +498,7 @@ function Layout() {
         
         <div className="footer-bottom">
           <p className="footer-social-heading">Follow us</p>
-          <SocialOfficialLinks />
+          <SocialOfficialLinks showLabels />
           <p>&copy; {new Date().getFullYear()} LearnStackHub. All rights reserved.</p>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
             Made with ☁️ for developers worldwide

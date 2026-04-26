@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getAllTopics, getTopicById } from '../data';
 import { generateSEOTitle, generateSEODescription, generateSEOKeywords } from '../utils/seoHelpers';
 
-function SEOHead({ title, description, keywords, topicId, noindex = false }) {
+function SEOHead({ title, description, keywords, topicId, topic, noindex = false }) {
   const location = useLocation();
   // Use www domain as canonical to match Vercel primary redirect target.
   const baseUrl = 'https://www.learnstackhub.com';
@@ -28,14 +27,31 @@ function SEOHead({ title, description, keywords, topicId, noindex = false }) {
     let pageUrl = baseUrl + location.pathname;
     let pageImage = baseUrl + '/LSH.png';
 
-    if (topicId) {
-      const topic = getTopicById(topicId);
-      if (topic) {
+    if (topic) {
+      // Use SEO helper functions for better titles and descriptions
+      pageTitle = generateSEOTitle(topic);
+      pageDescription = description || generateSEODescription(topic);
+      pageKeywords = keywords || generateSEOKeywords(topic);
+    } else if (topicId) {
+      // Graceful fallback when only topicId is passed.
+      // Keep this lightweight to avoid importing full data graph on initial render.
+      import('../data').then((module) => {
+        const resolvedTopic = module.getTopicById(topicId);
+        if (!resolvedTopic) return;
         // Use SEO helper functions for better titles and descriptions
-        pageTitle = generateSEOTitle(topic);
-        pageDescription = description || generateSEODescription(topic);
-        pageKeywords = keywords || generateSEOKeywords(topic);
-      }
+        const nextTitle = generateSEOTitle(resolvedTopic);
+        const nextDescription = description || generateSEODescription(resolvedTopic);
+        const nextKeywords = keywords || generateSEOKeywords(resolvedTopic);
+        document.title = nextTitle;
+        updateMetaTag('description', nextDescription);
+        if (nextKeywords) updateMetaTag('keywords', nextKeywords);
+        updateMetaTag('og:title', nextTitle, true);
+        updateMetaTag('og:description', nextDescription, true);
+        updateMetaTag('twitter:title', nextTitle);
+        updateMetaTag('twitter:description', nextDescription);
+      }).catch(() => {
+        // No-op: keep base metadata if async lookup fails.
+      });
     }
 
     // Update document title
@@ -89,7 +105,7 @@ function SEOHead({ title, description, keywords, topicId, noindex = false }) {
     }
     canonical.setAttribute('href', pageUrl);
 
-  }, [location.pathname, title, description, keywords, topicId, noindex]);
+  }, [location.pathname, title, description, keywords, topicId, topic, noindex]);
 
   return null; // This component doesn't render anything
 }

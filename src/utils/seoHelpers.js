@@ -313,6 +313,8 @@ export const generateSEOTitle = (topic) => {
   // Intent-based title generation for stronger search alignment
   const courseName = sourceCourse || 'Java';
   const baseCourseName = courseName.replace(/\s*Tutorial\s*$/i, '').trim() || 'Java';
+  const topicId = typeof topic.id === 'string' ? topic.id.trim().toLowerCase() : '';
+  const sectionName = typeof topic.sectionTitle === 'string' ? topic.sectionTitle.trim() : '';
   
   let cleanTitle = sourceTitle
     .replace(/\s*[-|:]\s*(Complete Guide|Step[- ]by[- ]Step Guide|Guide)\s*$/i, '')
@@ -322,35 +324,99 @@ export const generateSEOTitle = (topic) => {
   const lower = cleanTitle.toLowerCase();
   const hasInterviewIntent = /\binterview\b/.test(lower);
   const hasMcqIntent = /\bmcq\b|\bquiz\b|\bexam\b|\btest\b/.test(lower);
-  const hasSetupIntent = /\b(setup|installation|configure|configuration|project)\b/.test(lower);
+  const hasSetupIntent = /\b(setup|installation|install|configure|configuration|project)\b/.test(lower);
   const hasIntroIntent = /\bintroduction\b|\bwhat is\b/.test(lower);
+  const hasArchitectureIntent = /\barchitecture\b/.test(lower);
+  const hasSecurityIntent = /\bsecurity\b|\bauth\b|\bauthorization\b|\bauthentication\b/.test(lower);
+  const hasTroubleshootingIntent = /\bdebug\b|\blog\b|\berror\b|\btroubleshoot\b|\bfix\b/.test(lower);
+  const hasHandsOnIntent = /\b(build|run|compose|dockerfile|api|crud|deployment|deploy)\b/.test(lower);
+  const hasConceptIntent = /\b(concepts?|fundamentals?|basics?|overview)\b/.test(lower);
   
   const ensureCourseInTitle = (value) => {
     if (normalize(value).includes(normalize(baseCourseName))) return value;
     return `${baseCourseName} ${value}`.trim();
   };
+
+  const courseLabelByKey = {
+    corejava: 'Java',
+    html: 'HTML',
+    css: 'CSS',
+    mysql: 'MySQL',
+    jdbc: 'JDBC',
+    servlets: 'Servlet',
+    jsp: 'JSP',
+    hibernate: 'Hibernate',
+    spring: 'Spring Framework',
+    springboot: 'Spring Boot',
+    springcloud: 'Spring Cloud',
+    http: 'HTTP API',
+    maven: 'Maven',
+    git: 'Git',
+    kafka: 'Kafka',
+    docker: 'Docker',
+    sdlc: 'SDLC'
+  };
+
+  const normalizedCourse = normalize(baseCourseName);
+  const courseKey = Object.keys(courseLabelByKey).find((key) => normalizedCourse.includes(normalize(courseLabelByKey[key])));
+  const primaryCourseLabel = courseKey ? courseLabelByKey[courseKey] : baseCourseName;
+  const topicPhrase = cleanTitle || toTitleCase(primaryCourseLabel);
+  const titleRoot = ensureCourseInTitle(topicPhrase);
+
+  // Avoid duplicate "Tutorial Tutorial" strings from pre-labeled headings
+  const normalizeSuffix = (value) =>
+    value
+      .replace(/\s+Tutorial\s+Tutorial/gi, ' Tutorial')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
   
   if (hasInterviewIntent) {
     const interviewTopic = ensureCourseInTitle(cleanTitle.replace(/\s*[-:]\s*.*/, '').trim() || baseCourseName);
-    return buildBrandTitle(`${interviewTopic} Interview Questions and Answers (2026)`);
+    return buildBrandTitle(normalizeSuffix(`${interviewTopic} Interview Questions and Answers (2026)`));
   }
   
   if (hasMcqIntent) {
-    return buildBrandTitle(`${baseCourseName} MCQ Questions and Answers - Free Practice Test`);
+    return buildBrandTitle(normalizeSuffix(`${primaryCourseLabel} MCQ Questions and Answers - Free Practice Test`));
   }
   
   if (hasSetupIntent) {
-    const setupTopic = ensureCourseInTitle(cleanTitle);
-    return buildBrandTitle(`${setupTopic} Tutorial - Step-by-Step Setup with Examples`);
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Setup Guide - Installation and Configuration Steps`));
   }
   
   if (hasIntroIntent) {
-    const introTopic = ensureCourseInTitle(cleanTitle.replace(/\bwhat is\b/gi, '').trim());
-    return buildBrandTitle(`${introTopic} Tutorial for Beginners with Real Examples`);
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Explained - Beginner Guide with Real Examples`));
   }
-  
-  const genericTopic = ensureCourseInTitle(cleanTitle || toTitleCase(baseCourseName));
-  return buildBrandTitle(`${genericTopic} Tutorial for Beginners with Examples`);
+
+  if (hasArchitectureIntent) {
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Architecture - Components, Flow and Real Use Cases`));
+  }
+
+  if (hasSecurityIntent) {
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Security Guide - Best Practices and Examples`));
+  }
+
+  if (hasTroubleshootingIntent) {
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Troubleshooting Guide - Debugging Steps and Fixes`));
+  }
+
+  if (hasHandsOnIntent) {
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Tutorial - Hands-On Examples and Real Scenarios`));
+  }
+
+  if (hasConceptIntent) {
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Fundamentals - Core Concepts with Examples`));
+  }
+
+  // Use section/topic identity to vary the final pattern across all tutorials
+  const sectionSignal = normalize(sectionName || topicId || topicPhrase);
+  const patternIndex = sectionSignal.length % 3;
+  if (patternIndex === 0) {
+    return buildBrandTitle(normalizeSuffix(`${titleRoot} Tutorial - Complete Guide with Examples`));
+  }
+  if (patternIndex === 1) {
+    return buildBrandTitle(normalizeSuffix(`Learn ${titleRoot} - Practical Guide for Beginners`));
+  }
+  return buildBrandTitle(normalizeSuffix(`${titleRoot} Explained - Concepts, Use Cases and Best Practices`));
 };
 
 /**
