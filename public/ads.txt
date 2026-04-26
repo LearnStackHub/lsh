@@ -1,17 +1,1 @@
-# ads.txt file for learnstackhub.com
-# This file authorizes Google AdSense to serve ads on this domain
-# 
-# Format: google.com, pub-XXXXXXXXXX, DIRECT, f08c47fec0942fa0
-# 
-# ⚠️ IMPORTANT: Replace the pub-XXXXXXXXXX with your actual Publisher ID
-# Get the exact line from: AdSense Dashboard → Account → Ads.txt
-# 
-# Current Publisher ID: ca-pub-2176490979231754
-# 
-# The line should look like:
-# google.com, pub-2176490979231754, DIRECT, f08c47fec0942fa0
-#
-# Copy the EXACT line from your AdSense dashboard and replace this entire file content
-
 google.com, pub-2176490979231754, DIRECT, f08c47fec0942fa0
-

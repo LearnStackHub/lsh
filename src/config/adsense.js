@@ -3,6 +3,9 @@
 // See ADSENSE_SETUP_GUIDE.md for step-by-step instructions
 
 export const ADSENSE_CONFIG = {
+  // Temporary review mode: reduce ad density while fixing policy feedback.
+  reviewMode: true,
+
   // Your AdSense Publisher ID (from AdSense dashboard)
   // Format: ca-pub-XXXXXXXXXX
   publisherId: 'ca-pub-2176490979231754', // ✅ Already configured

@@ -117,6 +117,13 @@ function Home() {
         <article><CheckCircle size={16} /> Practice Lab: AI tutor chat &amp; audio/video interview coach</article>
       </section>
 
+      <section className="courses-section" style={{ paddingTop: '1rem' }}>
+        <p className="home-section-subtitle" style={{ marginTop: '-0.2rem' }}>
+          <strong>Quality &amp; trust:</strong> tutorials are reviewed and updated regularly for clarity and practical relevance.
+          For support or corrections, contact <a href="mailto:careers@learnstackhub.com">careers@learnstackhub.com</a>.
+        </p>
+      </section>
+
       <section className="courses-section">
         <div className="section-header">
           <h2 className="section-title-main">What is LearnStackHub?</h2>
@@ -215,18 +222,6 @@ function Home() {
             </em>
           </article>
         </div>
-      </section>
-
-      <section className="courses-section">
-        <div className="section-header">
-          <h2 className="section-title-main">What is LearnStackHub?</h2>
-        </div>
-        <p className="home-section-subtitle" style={{ marginTop: '-0.35rem' }}>
-          LearnStackHub is a free, interactive learning platform for Java and backend careers. You get structured tutorials
-          across multiple tracks, a browser-based code runner for Java where lessons support it, topic-wise MCQs for
-          revision, and a Practice Lab with an AI tutor chat (interview topics) plus an audio and video interview mode with
-          guided coaching hints-so you can read, run, and rehearse in one place at no cost.
-        </p>
       </section>
 
       <section className="courses-section">

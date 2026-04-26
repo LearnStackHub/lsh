@@ -148,7 +148,7 @@ function Layout() {
     '/ai-lab/interview',
   ]);
   const isExamRunnerRoute = /(?:^|\/)[a-z0-9-]+-(mcq|exam)$/.test(location.pathname);
-  const shouldHideAds = adBlockedPaths.has(location.pathname) || isExamRunnerRoute;
+  const shouldHideAds = ADSENSE_CONFIG.reviewMode || adBlockedPaths.has(location.pathname) || isExamRunnerRoute;
 
   // Map course keys to lucide-react icons
   const courseIcons = {

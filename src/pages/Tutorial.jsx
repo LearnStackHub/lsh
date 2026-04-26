@@ -198,6 +198,7 @@ function Tutorial() {
   const isCoreJavaTopic = CORE_JAVA_TOPIC_IDS.has(resolvedTopicId);
   const isHtmlCssTopic =
     resolvedTopicId?.startsWith('html-') || resolvedTopicId?.startsWith('css-');
+  const shouldShowInContentAds = !ADSENSE_CONFIG.reviewMode;
 
   const navigation = getNavigation(resolvedTopicId);
   const fallbackLastUpdated = '2026-03-27';
@@ -883,14 +884,16 @@ function Tutorial() {
       )}
 
       {/* In-Content Ad - Top */}
-      <div className="in-content-ad-top">
-        <AdSense 
-          adSlot={ADSENSE_CONFIG.adSlots.inContentTop}
-          adFormat="horizontal"
-          className="in-content-ad-unit"
-          style={{ margin: '2rem auto', maxWidth: '728px' }}
-        />
-      </div>
+      {shouldShowInContentAds && (
+        <div className="in-content-ad-top">
+          <AdSense 
+            adSlot={ADSENSE_CONFIG.adSlots.inContentTop}
+            adFormat="horizontal"
+            className="in-content-ad-unit"
+            style={{ margin: '2rem auto', maxWidth: '728px' }}
+          />
+        </div>
+      )}
 
       {/* Content */}
       <div className={`tutorial-content${isMysqlTopic ? ' tutorial-content--mysql' : ''}${isJspTopic ? ' tutorial-content--jsp' : ''}${isJdbcTopic ? ' tutorial-content--jdbc' : ''}`}>
@@ -1090,14 +1093,16 @@ function Tutorial() {
       )}
 
       {/* In-Content Ad - Bottom */}
-      <div className="in-content-ad-bottom">
-        <AdSense 
-          adSlot={ADSENSE_CONFIG.adSlots.inContentBottom}
-          adFormat="horizontal"
-          className="in-content-ad-unit"
-          style={{ margin: '2rem auto', maxWidth: '728px' }}
-        />
-      </div>
+      {shouldShowInContentAds && (
+        <div className="in-content-ad-bottom">
+          <AdSense 
+            adSlot={ADSENSE_CONFIG.adSlots.inContentBottom}
+            adFormat="horizontal"
+            className="in-content-ad-unit"
+            style={{ margin: '2rem auto', maxWidth: '728px' }}
+          />
+        </div>
+      )}
 
       {/* Navigation */}
       <div className="tutorial-navigation">
