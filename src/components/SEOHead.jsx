@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { generateSEOTitle, generateSEODescription, generateSEOKeywords } from '../utils/seoHelpers';
+import { getIndexableTopicSet, isStrictIndexingPolicyEnabled } from '../config/indexingPolicy';
 
 function SEOHead({ title, description, keywords, topicId, topic, noindex = false }) {
   const location = useLocation();
@@ -14,10 +15,15 @@ function SEOHead({ title, description, keywords, topicId, topic, noindex = false
       '/ai-lab/code-editor',
       '/ai-lab/interview',
     ]);
+    const tutorialPathMatch = normalizedPath.match(/^\/tutorial\/([a-z0-9-]+)$/);
+    const tutorialId = tutorialPathMatch?.[1] || null;
+    const strictPolicyEnabled = isStrictIndexingPolicyEnabled();
+    const indexableTopicSet = getIndexableTopicSet();
+    const isTutorialExcludedFromIndex = strictPolicyEnabled && Boolean(tutorialId) && !indexableTopicSet.has(tutorialId);
     const isUtilityOrExamRoute =
       utilityNoindexPaths.has(normalizedPath) ||
       /(?:^|\/)[a-z0-9-]+-(mcq|exam)$/.test(normalizedPath);
-    const shouldNoindex = noindex || isUtilityOrExamRoute;
+    const shouldNoindex = noindex || isUtilityOrExamRoute || isTutorialExcludedFromIndex;
 
     // Get topic data if topicId is provided
     let pageTitle = title || 'LSH - Learn Java Full Stack Development | Free Java Tutorials | LearnStackHub';
