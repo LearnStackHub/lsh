@@ -5,7 +5,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createRequire } from 'module';
+import indexingCandidates from '../src/config/indexingCandidates.json' with { type: 'json' };
+import indexingOverrides from '../src/config/indexingOverrides.json' with { type: 'json' };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,11 +50,16 @@ const staticPages = [
   { url: '/ai-lab', priority: '0.6', changefreq: 'weekly' },
 ];
 
+const indexableTopicSet = new Set([
+  ...(indexingCandidates.indexableTopicIds || []),
+  ...(indexingOverrides.forceIndexTopicIds || []),
+]);
+const strictPolicyEnabled = process.env.STRICT_INDEXING_POLICY === '1';
+
 function isIndexableTopicId(topicId) {
   if (!topicId || typeof topicId !== 'string') return false;
-  // Match noindex policy used in SEOHead and avoid low-value exam/runner pages in sitemap.
-  if (/(?:^|[-/])(mcq|exam)$/.test(topicId)) return false;
-  return true;
+  if (!strictPolicyEnabled) return !/(?:^|[-/])(mcq|exam)$/.test(topicId);
+  return indexableTopicSet.has(topicId);
 }
 
 // Function to read existing sitemap and extract old dates
@@ -208,6 +214,8 @@ async function generateSitemap() {
     console.log(`📊 Total URLs: ${allPages.length}`);
     console.log(`   - Static pages: ${staticPages.length}`);
     console.log(`   - Tutorial pages: ${tutorialPages.length}`);
+    console.log(`   - Strict indexing policy: ${strictPolicyEnabled ? 'enabled' : 'disabled'}`);
+    console.log(`   - Excluded from sitemap (quality policy): ${Math.max(0, allTopicIds.length - tutorialPages.length)}`);
     
   } catch (error) {
     console.error('❌ Error generating sitemap:', error);

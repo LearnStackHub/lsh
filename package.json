@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist",
-    "generate-sitemap": "node scripts/generate-sitemap.js"
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "build-indexing-candidates": "node scripts/build-indexing-candidates.js",
+    "generate-sitemap:review": "STRICT_INDEXING_POLICY=1 node scripts/generate-sitemap.js",
+    "recheck-review-readiness": "STRICT_INDEXING_POLICY=1 node scripts/recheck-review-readiness.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.1",

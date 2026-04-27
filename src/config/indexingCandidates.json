@@ -1,0 +1,2253 @@
+{
+  "generatedAt": "2026-04-27T18:31:12.882Z",
+  "minimumApproxWordCount": 1500,
+  "totalTopicsScanned": 280,
+  "indexableTopicsCount": 135,
+  "excludedTopicsCount": 145,
+  "indexableTopicIds": [
+    "abstraction",
+    "api-introduction",
+    "collection-introduction",
+    "cookies-sessions",
+    "cors",
+    "crud-operations",
+    "css-animations",
+    "css-introduction",
+    "custom-exceptions",
+    "for-loop",
+    "git-basics",
+    "git-branch-protection",
+    "git-branches",
+    "git-deployment",
+    "git-installation",
+    "git-merge-config",
+    "git-revert",
+    "git-workflow",
+    "github-basics",
+    "github-security",
+    "github-teams",
+    "global-exception-handling",
+    "global-exception-handling-http",
+    "hibernate-batch-processing",
+    "hibernate-caching",
+    "hibernate-configuration",
+    "hibernate-hql",
+    "hibernate-interview-questions",
+    "hibernate-introduction",
+    "hibernate-locking",
+    "hibernate-mapping",
+    "hibernate-project-setup",
+    "hibernate-relationships",
+    "hibernate-session",
+    "html-best-practices",
+    "html-iframe",
+    "html-images",
+    "html-interview-questions",
+    "html-introduction",
+    "html-links",
+    "html-lists",
+    "html-marquee",
+    "html-semantic-elements",
+    "html-structure",
+    "html-tables",
+    "http-caching",
+    "http-headers",
+    "http-introduction",
+    "http-methods",
+    "http-request-response",
+    "http-request-structure",
+    "http-response-structure",
+    "http-status-codes",
+    "https-security",
+    "inheritance",
+    "java-data-types",
+    "java-environment-setup",
+    "java-interview-questions",
+    "java-introduction",
+    "jdbc-introduction",
+    "jdbc-project-setup",
+    "jsp-introduction",
+    "jsp-project-setup",
+    "kafka-introduction",
+    "kafka-with-spring-boot",
+    "maven-best-practices",
+    "maven-build-lifecycle",
+    "maven-commands",
+    "maven-common-errors",
+    "maven-dependency-management",
+    "maven-installation",
+    "maven-introduction",
+    "maven-multi-module",
+    "maven-plugins",
+    "maven-pom-xml",
+    "maven-project-structure",
+    "maven-repositories",
+    "maven-spring-boot",
+    "maven-why",
+    "microservices-architecture-fundamentals",
+    "microservices-interview-questions",
+    "mysql-aggregate-functions",
+    "mysql-clauses",
+    "mysql-constraints",
+    "mysql-create-database",
+    "mysql-data-types",
+    "mysql-ddl",
+    "mysql-dql",
+    "mysql-indexes",
+    "mysql-insert-update-delete",
+    "mysql-installation",
+    "mysql-interview-questions",
+    "mysql-introduction",
+    "mysql-joins",
+    "mysql-privileges",
+    "mysql-scalar-functions",
+    "mysql-select",
+    "mysql-stored-procedures",
+    "mysql-subqueries",
+    "mysql-transactions",
+    "mysql-triggers",
+    "mysql-views",
+    "oops-introduction",
+    "rest-api-fundamentals",
+    "restful-api-design",
+    "sdlc-introduction",
+    "serialization",
+    "servlet-annotations",
+    "servlet-api",
+    "servlet-config",
+    "servlet-frontend-integration",
+    "servlet-introduction",
+    "servlet-lifecycle",
+    "servlet-project-setup",
+    "session-management",
+    "spring-boot-interview-questions",
+    "spring-boot-introduction",
+    "spring-boot-jpa",
+    "spring-boot-postman-swagger",
+    "spring-boot-rest-api",
+    "spring-boot-smtp",
+    "spring-boot-validation",
+    "spring-cloud-api-gateway",
+    "spring-cloud-config-server",
+    "spring-cloud-eureka",
+    "spring-cloud-microservices",
+    "spring-cloud-microservices-project",
+    "spring-cloud-openfeign",
+    "spring-cloud-resilience4j",
+    "spring-cloud-security",
+    "spring-interview-questions",
+    "spring-introduction",
+    "spring-project-login-student-crud",
+    "thread-introduction",
+    "tomcat-server"
+  ],
+  "excludedTopicIds": [
+    "advanced-api-concepts",
+    "api-documentation",
+    "api-security-best-practices",
+    "api-testing-tools",
+    "array-introduction",
+    "array-methods",
+    "authentication-authorization",
+    "break-continue",
+    "classes-objects",
+    "constructors",
+    "core-java-mcq",
+    "css-box-model",
+    "css-colors-backgrounds",
+    "css-display-positioning",
+    "css-flexbox",
+    "css-grid",
+    "css-responsive",
+    "css-selectors",
+    "css-text-fonts",
+    "do-while-loop",
+    "docker-architecture",
+    "docker-build-run-custom-image",
+    "docker-compose",
+    "docker-containers",
+    "docker-debugging-logs",
+    "docker-dockerfile",
+    "docker-hub-push-image",
+    "docker-images",
+    "docker-installation",
+    "docker-interview-questions",
+    "docker-introduction",
+    "docker-networking",
+    "docker-port-mapping-networking",
+    "docker-production-concepts",
+    "docker-real-project-springboot-mysql-compose",
+    "docker-volumes",
+    "docker-with-database",
+    "encapsulation",
+    "exception-introduction",
+    "filters-listeners",
+    "git-introduction",
+    "github-pull-requests",
+    "hibernate-architecture",
+    "hibernate-mcq",
+    "html-dom",
+    "html-forms",
+    "html-media",
+    "if-else",
+    "interfaces",
+    "java-features",
+    "java-keywords",
+    "java-methods",
+    "java-operators",
+    "java-string-reverse",
+    "java-syntax",
+    "java-variables",
+    "jdbc-connection-steps",
+    "jdbc-drivers",
+    "jdbc-mcq",
+    "jsp-action-tags",
+    "jsp-architecture",
+    "jsp-custom-tags",
+    "jsp-directives",
+    "jsp-expression-language",
+    "jsp-implicit-objects",
+    "jsp-jstl",
+    "jsp-scripting-elements",
+    "kafka-apis",
+    "kafka-architecture",
+    "kafka-connect",
+    "kafka-consumers-deep-dive",
+    "kafka-core-components",
+    "kafka-fault-tolerance-replication",
+    "kafka-interview-questions",
+    "kafka-message-delivery-semantics",
+    "kafka-monitoring-tools",
+    "kafka-performance-scaling",
+    "kafka-producers-deep-dive",
+    "kafka-real-world-use-cases",
+    "kafka-security",
+    "kafka-storage-retention",
+    "kafka-streams",
+    "kafka-topics-partitions",
+    "list-interface",
+    "map-interface",
+    "maven-create-project",
+    "maven-vs-gradle",
+    "microservices-apis",
+    "microservices-mcq",
+    "multi-dimensional-array",
+    "mysql-mcq",
+    "polymorphism",
+    "prepared-statement",
+    "queue-interface",
+    "rate-limiting",
+    "request-response-formats",
+    "resultset-interface",
+    "servlet-security",
+    "set-interface",
+    "single-dimensional-array",
+    "spring-aop-advanced-pointcuts",
+    "spring-aop-aspect-ordering",
+    "spring-aop-custom-annotations",
+    "spring-aop-introduction",
+    "spring-aop-spring-boot",
+    "spring-applicationcontext",
+    "spring-bean",
+    "spring-boot-actuator",
+    "spring-boot-configuration",
+    "spring-boot-deployment",
+    "spring-boot-exception-handling",
+    "spring-boot-mcq",
+    "spring-boot-project-setup",
+    "spring-boot-security",
+    "spring-boot-testing",
+    "spring-cloud-distributed-tracing",
+    "spring-cloud-elk",
+    "spring-cloud-load-balancing",
+    "spring-configuration-annotation",
+    "spring-configuration-xml",
+    "spring-data-custom-queries",
+    "spring-data-introduction",
+    "spring-data-repository-architecture",
+    "spring-di",
+    "spring-ioc",
+    "spring-jdbc-template",
+    "spring-mcq",
+    "spring-mvc-controller",
+    "spring-mvc-dispatcherservlet",
+    "spring-mvc-modelandview",
+    "spring-mvc-viewresolver",
+    "statement-interface",
+    "string-buffer",
+    "string-builder",
+    "string-introduction",
+    "string-methods",
+    "switch-statement",
+    "synchronization",
+    "thread-creation",
+    "thread-lifecycle",
+    "thread-methods",
+    "throw-throws",
+    "transaction-management",
+    "try-catch-finally",
+    "while-loop"
+  ],
+  "details": [
+    {
+      "id": "abstraction",
+      "file": "src/data/corejava/oops/Abstraction.js",
+      "approxWordCount": 2222,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "advanced-api-concepts",
+      "file": "src/data/http/AdvancedApiConcepts.js",
+      "approxWordCount": 592,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "api-documentation",
+      "file": "src/data/http/ApiDocumentation.js",
+      "approxWordCount": 770,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "api-introduction",
+      "file": "src/data/http/ApiIntroduction.js",
+      "approxWordCount": 1812,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "api-security-best-practices",
+      "file": "src/data/http/ApiSecurityBestPractices.js",
+      "approxWordCount": 614,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "api-testing-tools",
+      "file": "src/data/http/ApiTestingTools.js",
+      "approxWordCount": 1150,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "array-introduction",
+      "file": "src/data/corejava/arrays/ArrayIntroduction.js",
+      "approxWordCount": 1195,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "array-methods",
+      "file": "src/data/corejava/arrays/ArrayMethods.js",
+      "approxWordCount": 1214,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "authentication-authorization",
+      "file": "src/data/http/AuthenticationAuthorization.js",
+      "approxWordCount": 1328,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "break-continue",
+      "file": "src/data/corejava/controlflow/BreakContinue.js",
+      "approxWordCount": 1432,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "classes-objects",
+      "file": "src/data/corejava/oops/ClassesObjects.js",
+      "approxWordCount": 935,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "collection-introduction",
+      "file": "src/data/corejava/collections/CollectionIntroduction.js",
+      "approxWordCount": 1933,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "constructors",
+      "file": "src/data/corejava/oops/Constructors.js",
+      "approxWordCount": 1012,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "cookies-sessions",
+      "file": "src/data/http/CookiesSessions.js",
+      "approxWordCount": 1692,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "core-java-mcq",
+      "file": "src/data/corejava/basics/CoreJavaMCQ.js",
+      "approxWordCount": 287,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "cors",
+      "file": "src/data/http/Cors.js",
+      "approxWordCount": 4339,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "crud-operations",
+      "file": "src/data/jdbc/CrudOperations.js",
+      "approxWordCount": 2319,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-animations",
+      "file": "src/data/css/CssAnimations.js",
+      "approxWordCount": 2328,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-box-model",
+      "file": "src/data/css/CssBoxModel.js",
+      "approxWordCount": 1229,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-colors-backgrounds",
+      "file": "src/data/css/CssColorsBackgrounds.js",
+      "approxWordCount": 1362,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-display-positioning",
+      "file": "src/data/css/CssDisplayPositioning.js",
+      "approxWordCount": 1242,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-flexbox",
+      "file": "src/data/css/CssFlexbox.js",
+      "approxWordCount": 1281,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-grid",
+      "file": "src/data/css/CssGrid.js",
+      "approxWordCount": 1453,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-introduction",
+      "file": "src/data/css/CssIntroduction.js",
+      "approxWordCount": 3607,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-responsive",
+      "file": "src/data/css/CssResponsive.js",
+      "approxWordCount": 1292,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-selectors",
+      "file": "src/data/css/CssSelectors.js",
+      "approxWordCount": 1438,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "css-text-fonts",
+      "file": "src/data/css/CssTextFonts.js",
+      "approxWordCount": 1278,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "custom-exceptions",
+      "file": "src/data/corejava/exceptions/CustomExceptions.js",
+      "approxWordCount": 2044,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "do-while-loop",
+      "file": "src/data/corejava/controlflow/DoWhileLoop.js",
+      "approxWordCount": 1379,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-architecture",
+      "file": "src/data/docker/DockerArchitecture.js",
+      "approxWordCount": 1159,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-build-run-custom-image",
+      "file": "src/data/docker/DockerBuildRun.js",
+      "approxWordCount": 1150,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-compose",
+      "file": "src/data/docker/DockerCompose.js",
+      "approxWordCount": 1190,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-containers",
+      "file": "src/data/docker/DockerContainers.js",
+      "approxWordCount": 1105,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-debugging-logs",
+      "file": "src/data/docker/DockerDebuggingLogs.js",
+      "approxWordCount": 1106,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-dockerfile",
+      "file": "src/data/docker/DockerfileBasics.js",
+      "approxWordCount": 1036,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-hub-push-image",
+      "file": "src/data/docker/DockerHubPushImage.js",
+      "approxWordCount": 1079,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-images",
+      "file": "src/data/docker/DockerImages.js",
+      "approxWordCount": 1118,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-installation",
+      "file": "src/data/docker/DockerInstallation.js",
+      "approxWordCount": 1107,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-interview-questions",
+      "file": "src/data/docker/DockerInterviewQuestions.js",
+      "approxWordCount": 1022,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-introduction",
+      "file": "src/data/docker/DockerIntroduction.js",
+      "approxWordCount": 1249,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-networking",
+      "file": "src/data/docker/DockerNetworking.js",
+      "approxWordCount": 1140,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-port-mapping-networking",
+      "file": "src/data/docker/DockerPortMappingNetworking.js",
+      "approxWordCount": 1116,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-production-concepts",
+      "file": "src/data/docker/DockerProductionConcepts.js",
+      "approxWordCount": 1037,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-real-project-springboot-mysql-compose",
+      "file": "src/data/docker/DockerRealProject.js",
+      "approxWordCount": 877,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-volumes",
+      "file": "src/data/docker/DockerVolumes.js",
+      "approxWordCount": 1108,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "docker-with-database",
+      "file": "src/data/docker/DockerWithDatabase.js",
+      "approxWordCount": 1164,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "encapsulation",
+      "file": "src/data/corejava/oops/Encapsulation.js",
+      "approxWordCount": 989,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "exception-introduction",
+      "file": "src/data/corejava/exceptions/ExceptionIntroduction.js",
+      "approxWordCount": 1456,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "filters-listeners",
+      "file": "src/data/servlets/FiltersListeners.js",
+      "approxWordCount": 1403,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "for-loop",
+      "file": "src/data/corejava/controlflow/ForLoop.js",
+      "approxWordCount": 2336,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-basics",
+      "file": "src/data/git/GitBasics.js",
+      "approxWordCount": 2674,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-branch-protection",
+      "file": "src/data/git/GitBranchProtection.js",
+      "approxWordCount": 2406,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-branches",
+      "file": "src/data/git/GitBranches.js",
+      "approxWordCount": 2350,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-deployment",
+      "file": "src/data/git/GitDeployment.js",
+      "approxWordCount": 2462,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-installation",
+      "file": "src/data/git/GitInstallation.js",
+      "approxWordCount": 2175,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-introduction",
+      "file": "src/data/git/GitIntroduction.js",
+      "approxWordCount": 1334,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-merge-config",
+      "file": "src/data/git/GitMergeConfig.js",
+      "approxWordCount": 2256,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-revert",
+      "file": "src/data/git/GitRevert.js",
+      "approxWordCount": 2325,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "git-workflow",
+      "file": "src/data/git/GitWorkflow.js",
+      "approxWordCount": 2445,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "github-basics",
+      "file": "src/data/git/GitHubBasics.js",
+      "approxWordCount": 2223,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "github-pull-requests",
+      "file": "src/data/git/GitHubPullRequests.js",
+      "approxWordCount": 1325,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "github-security",
+      "file": "src/data/git/GitHubSecurity.js",
+      "approxWordCount": 2309,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "github-teams",
+      "file": "src/data/git/GitHubTeams.js",
+      "approxWordCount": 2178,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "global-exception-handling",
+      "file": "src/data/corejava/exceptions/GlobalExceptionHandling.js",
+      "approxWordCount": 2374,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "global-exception-handling-http",
+      "file": "src/data/http/GlobalExceptionHandling.js",
+      "approxWordCount": 2147,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-architecture",
+      "file": "src/data/hibernate/HibernateArchitecture.js",
+      "approxWordCount": 1261,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-batch-processing",
+      "file": "src/data/hibernate/HibernateBatchProcessing.js",
+      "approxWordCount": 2386,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-caching",
+      "file": "src/data/hibernate/HibernateCaching.js",
+      "approxWordCount": 1615,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-configuration",
+      "file": "src/data/hibernate/HibernateConfiguration.js",
+      "approxWordCount": 2344,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-hql",
+      "file": "src/data/hibernate/HibernateHQL.js",
+      "approxWordCount": 2722,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-interview-questions",
+      "file": "src/data/hibernate/HibernateInterviewQuestions.js",
+      "approxWordCount": 1539,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-introduction",
+      "file": "src/data/hibernate/HibernateIntroduction.js",
+      "approxWordCount": 1975,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-locking",
+      "file": "src/data/hibernate/HibernateLocking.js",
+      "approxWordCount": 1971,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-mapping",
+      "file": "src/data/hibernate/HibernateMapping.js",
+      "approxWordCount": 2322,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-mcq",
+      "file": "src/data/hibernate/HibernateMCQ.js",
+      "approxWordCount": 304,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "hibernate-project-setup",
+      "file": "src/data/hibernate/HibernateProjectSetup.js",
+      "approxWordCount": 2064,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-relationships",
+      "file": "src/data/hibernate/HibernateRelationships.js",
+      "approxWordCount": 1569,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "hibernate-session",
+      "file": "src/data/hibernate/HibernateSession.js",
+      "approxWordCount": 1836,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-best-practices",
+      "file": "src/data/html/HtmlBestPractices.js",
+      "approxWordCount": 3057,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-dom",
+      "file": "src/data/html/HtmlDOM.js",
+      "approxWordCount": 1469,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-forms",
+      "file": "src/data/html/HtmlForms.js",
+      "approxWordCount": 569,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-iframe",
+      "file": "src/data/html/HtmlIframe.js",
+      "approxWordCount": 1909,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-images",
+      "file": "src/data/html/HtmlImages.js",
+      "approxWordCount": 1856,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-interview-questions",
+      "file": "src/data/html/HtmlInterviewQuestions.js",
+      "approxWordCount": 1855,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-introduction",
+      "file": "src/data/html/HtmlIntroduction.js",
+      "approxWordCount": 5999,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-links",
+      "file": "src/data/html/HtmlLinks.js",
+      "approxWordCount": 2479,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-lists",
+      "file": "src/data/html/HtmlLists.js",
+      "approxWordCount": 2399,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-marquee",
+      "file": "src/data/html/HtmlMarquee.js",
+      "approxWordCount": 2048,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-media",
+      "file": "src/data/html/HtmlMedia.js",
+      "approxWordCount": 1149,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-semantic-elements",
+      "file": "src/data/html/HtmlSemanticElements.js",
+      "approxWordCount": 1751,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-structure",
+      "file": "src/data/html/HtmlStructure.js",
+      "approxWordCount": 1984,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "html-tables",
+      "file": "src/data/html/HtmlTables.js",
+      "approxWordCount": 1953,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-caching",
+      "file": "src/data/http/HttpCaching.js",
+      "approxWordCount": 1910,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-headers",
+      "file": "src/data/http/HttpHeaders.js",
+      "approxWordCount": 2287,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-introduction",
+      "file": "src/data/http/HttpIntroduction.js",
+      "approxWordCount": 2027,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-methods",
+      "file": "src/data/http/HttpMethods.js",
+      "approxWordCount": 2237,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-request-response",
+      "file": "src/data/servlets/HttpServletRequestResponse.js",
+      "approxWordCount": 2302,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-request-structure",
+      "file": "src/data/http/HttpRequestStructure.js",
+      "approxWordCount": 2353,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-response-structure",
+      "file": "src/data/http/HttpResponseStructure.js",
+      "approxWordCount": 2492,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "http-status-codes",
+      "file": "src/data/http/HttpStatusCodes.js",
+      "approxWordCount": 3451,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "https-security",
+      "file": "src/data/http/HttpsSecurity.js",
+      "approxWordCount": 1713,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "if-else",
+      "file": "src/data/corejava/controlflow/IfElse.js",
+      "approxWordCount": 931,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "inheritance",
+      "file": "src/data/corejava/oops/Inheritance.js",
+      "approxWordCount": 2424,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "interfaces",
+      "file": "src/data/corejava/oops/Interfaces.js",
+      "approxWordCount": 1204,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-data-types",
+      "file": "src/data/corejava/basics/JavaDataTypes.js",
+      "approxWordCount": 1679,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-environment-setup",
+      "file": "src/data/corejava/basics/JavaEnvironmentSetup.js",
+      "approxWordCount": 2009,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-features",
+      "file": "src/data/corejava/basics/JavaFeatures.js",
+      "approxWordCount": 1062,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-interview-questions",
+      "file": "src/data/corejava/interview/JavaInterviewQuestions.js",
+      "approxWordCount": 2917,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-introduction",
+      "file": "src/data/corejava/basics/JavaIntroduction.js",
+      "approxWordCount": 5074,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-keywords",
+      "file": "src/data/corejava/basics/JavaKeywords.js",
+      "approxWordCount": 1248,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-methods",
+      "file": "src/data/corejava/basics/JavaMethods.js",
+      "approxWordCount": 1328,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-operators",
+      "file": "src/data/corejava/basics/JavaOperators.js",
+      "approxWordCount": 924,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-string-reverse",
+      "file": "src/data/editorPracticePrograms.js",
+      "approxWordCount": 338,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-syntax",
+      "file": "src/data/corejava/basics/JavaSyntax.js",
+      "approxWordCount": 1285,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "java-variables",
+      "file": "src/data/corejava/basics/JavaVariables.js",
+      "approxWordCount": 1313,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jdbc-connection-steps",
+      "file": "src/data/jdbc/JdbcConnectionSteps.js",
+      "approxWordCount": 1161,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jdbc-drivers",
+      "file": "src/data/jdbc/JdbcDrivers.js",
+      "approxWordCount": 1386,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jdbc-introduction",
+      "file": "src/data/jdbc/JdbcIntroduction.js",
+      "approxWordCount": 4290,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jdbc-mcq",
+      "file": "src/data/jdbc/JDBCMCQ.js",
+      "approxWordCount": 305,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "jdbc-project-setup",
+      "file": "src/data/jdbc/JdbcProjectSetup.js",
+      "approxWordCount": 3555,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-action-tags",
+      "file": "src/data/jsp/JspActionTags.js",
+      "approxWordCount": 1433,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-architecture",
+      "file": "src/data/jsp/JspArchitecture.js",
+      "approxWordCount": 1387,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-custom-tags",
+      "file": "src/data/jsp/JspCustomTags.js",
+      "approxWordCount": 1361,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-directives",
+      "file": "src/data/jsp/JspDirectives.js",
+      "approxWordCount": 1364,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-expression-language",
+      "file": "src/data/jsp/JspExpressionLanguage.js",
+      "approxWordCount": 1417,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-implicit-objects",
+      "file": "src/data/jsp/JspImplicitObjects.js",
+      "approxWordCount": 1260,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-introduction",
+      "file": "src/data/jsp/JspIntroduction.js",
+      "approxWordCount": 4030,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-jstl",
+      "file": "src/data/jsp/JspJSTL.js",
+      "approxWordCount": 1495,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-project-setup",
+      "file": "src/data/jsp/JspProjectSetup.js",
+      "approxWordCount": 3995,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "jsp-scripting-elements",
+      "file": "src/data/jsp/JspScriptingElements.js",
+      "approxWordCount": 1462,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-apis",
+      "file": "src/data/kafka/KafkaApis.js",
+      "approxWordCount": 918,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-architecture",
+      "file": "src/data/kafka/KafkaArchitecture.js",
+      "approxWordCount": 512,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-connect",
+      "file": "src/data/kafka/KafkaConnect.js",
+      "approxWordCount": 1065,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-consumers-deep-dive",
+      "file": "src/data/kafka/KafkaConsumersDeepDive.js",
+      "approxWordCount": 451,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-core-components",
+      "file": "src/data/kafka/KafkaCoreComponents.js",
+      "approxWordCount": 380,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-fault-tolerance-replication",
+      "file": "src/data/kafka/KafkaFaultToleranceReplication.js",
+      "approxWordCount": 468,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-interview-questions",
+      "file": "src/data/kafka/KafkaInterviewQuestions.js",
+      "approxWordCount": 1457,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-introduction",
+      "file": "src/data/kafka/KafkaIntroduction.js",
+      "approxWordCount": 1700,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-message-delivery-semantics",
+      "file": "src/data/kafka/KafkaMessageDeliverySemantics.js",
+      "approxWordCount": 441,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-monitoring-tools",
+      "file": "src/data/kafka/KafkaMonitoringTools.js",
+      "approxWordCount": 375,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-performance-scaling",
+      "file": "src/data/kafka/KafkaPerformanceScaling.js",
+      "approxWordCount": 424,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-producers-deep-dive",
+      "file": "src/data/kafka/KafkaProducersDeepDive.js",
+      "approxWordCount": 422,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-real-world-use-cases",
+      "file": "src/data/kafka/KafkaRealWorldUseCases.js",
+      "approxWordCount": 677,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-security",
+      "file": "src/data/kafka/KafkaSecurity.js",
+      "approxWordCount": 362,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-storage-retention",
+      "file": "src/data/kafka/KafkaStorageRetention.js",
+      "approxWordCount": 417,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-streams",
+      "file": "src/data/kafka/KafkaStreams.js",
+      "approxWordCount": 404,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-topics-partitions",
+      "file": "src/data/kafka/KafkaTopicsPartitions.js",
+      "approxWordCount": 437,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "kafka-with-spring-boot",
+      "file": "src/data/kafka/KafkaWithSpringBoot.js",
+      "approxWordCount": 1540,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "list-interface",
+      "file": "src/data/corejava/collections/ListInterface.js",
+      "approxWordCount": 1185,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "map-interface",
+      "file": "src/data/corejava/collections/MapInterface.js",
+      "approxWordCount": 1265,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-best-practices",
+      "file": "src/data/maven/MavenBestPractices.js",
+      "approxWordCount": 1594,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-build-lifecycle",
+      "file": "src/data/maven/MavenBuildLifecycle.js",
+      "approxWordCount": 1686,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-commands",
+      "file": "src/data/maven/MavenCommands.js",
+      "approxWordCount": 1552,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-common-errors",
+      "file": "src/data/maven/MavenCommonErrors.js",
+      "approxWordCount": 2066,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-create-project",
+      "file": "src/data/maven/MavenCreateProject.js",
+      "approxWordCount": 1460,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-dependency-management",
+      "file": "src/data/maven/MavenDependencyManagement.js",
+      "approxWordCount": 1732,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-installation",
+      "file": "src/data/maven/MavenInstallation.js",
+      "approxWordCount": 1546,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-introduction",
+      "file": "src/data/maven/MavenIntroduction.js",
+      "approxWordCount": 1504,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-multi-module",
+      "file": "src/data/maven/MavenMultiModule.js",
+      "approxWordCount": 2515,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-plugins",
+      "file": "src/data/maven/MavenPlugins.js",
+      "approxWordCount": 1575,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-pom-xml",
+      "file": "src/data/maven/MavenPomXml.js",
+      "approxWordCount": 1764,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-project-structure",
+      "file": "src/data/maven/MavenProjectStructure.js",
+      "approxWordCount": 1553,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-repositories",
+      "file": "src/data/maven/MavenRepositories.js",
+      "approxWordCount": 1636,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-spring-boot",
+      "file": "src/data/maven/MavenSpringBoot.js",
+      "approxWordCount": 1695,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-vs-gradle",
+      "file": "src/data/maven/MavenVsGradle.js",
+      "approxWordCount": 1285,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "maven-why",
+      "file": "src/data/maven/MavenWhy.js",
+      "approxWordCount": 1724,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "microservices-apis",
+      "file": "src/data/http/MicroservicesApis.js",
+      "approxWordCount": 671,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "microservices-architecture-fundamentals",
+      "file": "src/data/springcloud/MicroservicesArchitectureFundamentals.js",
+      "approxWordCount": 2556,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "microservices-interview-questions",
+      "file": "src/data/springcloud/MicroservicesInterviewQuestions.js",
+      "approxWordCount": 1510,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "microservices-mcq",
+      "file": "src/data/springcloud/MicroservicesMCQ.js",
+      "approxWordCount": 524,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "multi-dimensional-array",
+      "file": "src/data/corejava/arrays/MultiDimensionalArray.js",
+      "approxWordCount": 1071,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-aggregate-functions",
+      "file": "src/data/mysql/MySQLAggregateFunctions.js",
+      "approxWordCount": 3093,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-clauses",
+      "file": "src/data/mysql/MySQLClauses.js",
+      "approxWordCount": 3074,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-constraints",
+      "file": "src/data/mysql/MySQLConstraints.js",
+      "approxWordCount": 3576,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-create-database",
+      "file": "src/data/mysql/MySQLCreateDatabase.js",
+      "approxWordCount": 2045,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-data-types",
+      "file": "src/data/mysql/MySQLDataTypes.js",
+      "approxWordCount": 3349,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-ddl",
+      "file": "src/data/mysql/MySQLDDL.js",
+      "approxWordCount": 2673,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-dql",
+      "file": "src/data/mysql/MySQLDQL.js",
+      "approxWordCount": 2458,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-indexes",
+      "file": "src/data/mysql/MySQLIndexes.js",
+      "approxWordCount": 3055,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-insert-update-delete",
+      "file": "src/data/mysql/MySQLInsertUpdateDelete.js",
+      "approxWordCount": 3035,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-installation",
+      "file": "src/data/mysql/MySQLInstallation.js",
+      "approxWordCount": 2030,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-interview-questions",
+      "file": "src/data/mysql/MySQLInterviewQuestions.js",
+      "approxWordCount": 1900,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-introduction",
+      "file": "src/data/mysql/MySQLIntroduction.js",
+      "approxWordCount": 2524,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-joins",
+      "file": "src/data/mysql/MySQLJoins.js",
+      "approxWordCount": 3308,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-mcq",
+      "file": "src/data/mysql/MySQLMCQ.js",
+      "approxWordCount": 525,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "mysql-privileges",
+      "file": "src/data/mysql/MySQLPrivileges.js",
+      "approxWordCount": 2506,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-scalar-functions",
+      "file": "src/data/mysql/MySQLScalarFunctions.js",
+      "approxWordCount": 3051,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-select",
+      "file": "src/data/mysql/MySQLSelect.js",
+      "approxWordCount": 3125,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-stored-procedures",
+      "file": "src/data/mysql/MySQLStoredProcedures.js",
+      "approxWordCount": 2874,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-subqueries",
+      "file": "src/data/mysql/MySQLSubqueries.js",
+      "approxWordCount": 2951,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-transactions",
+      "file": "src/data/mysql/MySQLTransactions.js",
+      "approxWordCount": 2450,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-triggers",
+      "file": "src/data/mysql/MySQLTriggers.js",
+      "approxWordCount": 3169,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "mysql-views",
+      "file": "src/data/mysql/MySQLViews.js",
+      "approxWordCount": 2838,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "oops-introduction",
+      "file": "src/data/corejava/oops/OopsIntroduction.js",
+      "approxWordCount": 2214,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "polymorphism",
+      "file": "src/data/corejava/oops/Polymorphism.js",
+      "approxWordCount": 1156,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "prepared-statement",
+      "file": "src/data/jdbc/PreparedStatementInterface.js",
+      "approxWordCount": 1427,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "queue-interface",
+      "file": "src/data/corejava/collections/QueueInterface.js",
+      "approxWordCount": 1054,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "rate-limiting",
+      "file": "src/data/http/RateLimiting.js",
+      "approxWordCount": 948,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "request-response-formats",
+      "file": "src/data/http/RequestResponseFormats.js",
+      "approxWordCount": 1408,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "rest-api-fundamentals",
+      "file": "src/data/http/RestApiFundamentals.js",
+      "approxWordCount": 1871,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "restful-api-design",
+      "file": "src/data/http/RestfulApiDesign.js",
+      "approxWordCount": 1717,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "resultset-interface",
+      "file": "src/data/jdbc/ResultSetInterface.js",
+      "approxWordCount": 1204,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "sdlc-introduction",
+      "file": "src/data/sdlc/SDLCIntroduction.js",
+      "approxWordCount": 5583,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "serialization",
+      "file": "src/data/corejava/advanced/Serialization.js",
+      "approxWordCount": 1750,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-annotations",
+      "file": "src/data/servlets/ServletAnnotations.js",
+      "approxWordCount": 2024,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-api",
+      "file": "src/data/servlets/ServletAPI.js",
+      "approxWordCount": 2135,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-config",
+      "file": "src/data/servlets/ServletConfig.js",
+      "approxWordCount": 2119,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-frontend-integration",
+      "file": "src/data/servlets/ServletFrontendIntegration.js",
+      "approxWordCount": 2784,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-introduction",
+      "file": "src/data/servlets/ServletIntroduction.js",
+      "approxWordCount": 3396,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-lifecycle",
+      "file": "src/data/servlets/ServletLifecycle.js",
+      "approxWordCount": 2159,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-project-setup",
+      "file": "src/data/servlets/ServletProjectSetup.js",
+      "approxWordCount": 3287,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "servlet-security",
+      "file": "src/data/servlets/ServletSecurity.js",
+      "approxWordCount": 1380,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "session-management",
+      "file": "src/data/servlets/SessionManagement.js",
+      "approxWordCount": 2041,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "set-interface",
+      "file": "src/data/corejava/collections/SetInterface.js",
+      "approxWordCount": 892,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "single-dimensional-array",
+      "file": "src/data/corejava/arrays/SingleDimensionalArray.js",
+      "approxWordCount": 1104,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-aop-advanced-pointcuts",
+      "file": "src/data/spring/SpringAOPAdvancedPointcuts.js",
+      "approxWordCount": 1000,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-aop-aspect-ordering",
+      "file": "src/data/spring/SpringAOPAspectOrdering.js",
+      "approxWordCount": 986,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-aop-custom-annotations",
+      "file": "src/data/spring/SpringAOPCustomAnnotations.js",
+      "approxWordCount": 1057,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-aop-introduction",
+      "file": "src/data/spring/SpringAOPIntroduction.js",
+      "approxWordCount": 1251,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-aop-spring-boot",
+      "file": "src/data/spring/SpringAOPWithSpringBoot.js",
+      "approxWordCount": 969,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-applicationcontext",
+      "file": "src/data/spring/SpringApplicationContext.js",
+      "approxWordCount": 998,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-bean",
+      "file": "src/data/spring/SpringBean.js",
+      "approxWordCount": 1066,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-actuator",
+      "file": "src/data/springboot/SpringBootActuator.js",
+      "approxWordCount": 528,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-configuration",
+      "file": "src/data/springboot/SpringBootConfiguration.js",
+      "approxWordCount": 1071,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-deployment",
+      "file": "src/data/springboot/SpringBootDeployment.js",
+      "approxWordCount": 789,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-exception-handling",
+      "file": "src/data/springboot/SpringBootExceptionHandling.js",
+      "approxWordCount": 1160,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-interview-questions",
+      "file": "src/data/springboot/SpringBootInterviewQuestions.js",
+      "approxWordCount": 3670,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-introduction",
+      "file": "src/data/springboot/SpringBootIntroduction.js",
+      "approxWordCount": 3566,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-jpa",
+      "file": "src/data/springboot/SpringBootJPA.js",
+      "approxWordCount": 3018,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-mcq",
+      "file": "src/data/springboot/SpringBootMCQ.js",
+      "approxWordCount": 314,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "spring-boot-postman-swagger",
+      "file": "src/data/springboot/SpringBootPostmanSwagger.js",
+      "approxWordCount": 2219,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-project-setup",
+      "file": "src/data/springboot/SpringBootProjectSetup.js",
+      "approxWordCount": 1145,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-rest-api",
+      "file": "src/data/springboot/SpringBootRestAPI.js",
+      "approxWordCount": 2796,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-security",
+      "file": "src/data/springboot/SpringBootSecurity.js",
+      "approxWordCount": 1238,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-smtp",
+      "file": "src/data/springboot/SpringBootSMTP.js",
+      "approxWordCount": 5410,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-testing",
+      "file": "src/data/springboot/SpringBootTesting.js",
+      "approxWordCount": 1001,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-boot-validation",
+      "file": "src/data/springboot/SpringBootValidation.js",
+      "approxWordCount": 2593,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-api-gateway",
+      "file": "src/data/springcloud/SpringCloudApiGateway.js",
+      "approxWordCount": 1851,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-config-server",
+      "file": "src/data/springcloud/SpringCloudConfigServer.js",
+      "approxWordCount": 1823,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-distributed-tracing",
+      "file": "src/data/springcloud/SpringCloudDistributedTracing.js",
+      "approxWordCount": 1388,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-elk",
+      "file": "src/data/springcloud/SpringCloudELK.js",
+      "approxWordCount": 1390,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-eureka",
+      "file": "src/data/springcloud/SpringCloudEureka.js",
+      "approxWordCount": 1917,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-load-balancing",
+      "file": "src/data/springcloud/SpringCloudLoadBalancing.js",
+      "approxWordCount": 1380,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-microservices",
+      "file": "src/data/springcloud/SpringCloudMicroservices.js",
+      "approxWordCount": 2536,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-microservices-project",
+      "file": "src/data/springcloud/SpringCloudMicroservicesProject.js",
+      "approxWordCount": 2066,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-openfeign",
+      "file": "src/data/springcloud/SpringCloudOpenFeign.js",
+      "approxWordCount": 1529,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-resilience4j",
+      "file": "src/data/springcloud/SpringCloudResilience4j.js",
+      "approxWordCount": 1541,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-cloud-security",
+      "file": "src/data/springcloud/SpringCloudSecurity.js",
+      "approxWordCount": 1654,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-configuration-annotation",
+      "file": "src/data/spring/SpringConfigurationAnnotation.js",
+      "approxWordCount": 1072,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-configuration-xml",
+      "file": "src/data/spring/SpringConfigurationXML.js",
+      "approxWordCount": 915,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-data-custom-queries",
+      "file": "src/data/spring/SpringDataCustomQueries.js",
+      "approxWordCount": 833,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-data-introduction",
+      "file": "src/data/spring/SpringDataIntroduction.js",
+      "approxWordCount": 1106,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-data-repository-architecture",
+      "file": "src/data/spring/SpringDataRepositoryArchitecture.js",
+      "approxWordCount": 1181,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-di",
+      "file": "src/data/spring/SpringDI.js",
+      "approxWordCount": 1158,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-interview-questions",
+      "file": "src/data/spring/SpringInterviewQuestions.js",
+      "approxWordCount": 1508,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-introduction",
+      "file": "src/data/spring/SpringIntroduction.js",
+      "approxWordCount": 1603,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-ioc",
+      "file": "src/data/spring/SpringIOC.js",
+      "approxWordCount": 1072,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-jdbc-template",
+      "file": "src/data/spring/SpringJDBCTemplate.js",
+      "approxWordCount": 1377,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-mcq",
+      "file": "src/data/spring/SpringMCQ.js",
+      "approxWordCount": 304,
+      "shouldIndex": false,
+      "excludedByPattern": true
+    },
+    {
+      "id": "spring-mvc-controller",
+      "file": "src/data/spring/SpringMVCController.js",
+      "approxWordCount": 1090,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-mvc-dispatcherservlet",
+      "file": "src/data/spring/SpringMVCDispatcherServlet.js",
+      "approxWordCount": 1070,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-mvc-modelandview",
+      "file": "src/data/spring/SpringMVCModelAndView.js",
+      "approxWordCount": 867,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-mvc-viewresolver",
+      "file": "src/data/spring/SpringMVCViewResolver.js",
+      "approxWordCount": 837,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "spring-project-login-student-crud",
+      "file": "src/data/spring/SpringProjectLoginStudentCRUD.js",
+      "approxWordCount": 2958,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "statement-interface",
+      "file": "src/data/jdbc/StatementInterface.js",
+      "approxWordCount": 1081,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "string-buffer",
+      "file": "src/data/corejava/strings/StringBuffer.js",
+      "approxWordCount": 830,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "string-builder",
+      "file": "src/data/corejava/strings/StringBuilder.js",
+      "approxWordCount": 831,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "string-introduction",
+      "file": "src/data/corejava/strings/StringIntroduction.js",
+      "approxWordCount": 1385,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "string-methods",
+      "file": "src/data/corejava/strings/StringMethods.js",
+      "approxWordCount": 816,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "switch-statement",
+      "file": "src/data/corejava/controlflow/SwitchStatement.js",
+      "approxWordCount": 1397,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "synchronization",
+      "file": "src/data/corejava/advanced/Synchronization.js",
+      "approxWordCount": 1395,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "thread-creation",
+      "file": "src/data/corejava/multithreading/ThreadCreation.js",
+      "approxWordCount": 788,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "thread-introduction",
+      "file": "src/data/corejava/multithreading/ThreadIntroduction.js",
+      "approxWordCount": 1640,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "thread-lifecycle",
+      "file": "src/data/corejava/multithreading/ThreadLifecycle.js",
+      "approxWordCount": 949,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "thread-methods",
+      "file": "src/data/corejava/multithreading/ThreadMethods.js",
+      "approxWordCount": 916,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "throw-throws",
+      "file": "src/data/corejava/exceptions/ThrowThrows.js",
+      "approxWordCount": 926,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "tomcat-server",
+      "file": "src/data/servlets/TomcatServer.js",
+      "approxWordCount": 2054,
+      "shouldIndex": true,
+      "excludedByPattern": false
+    },
+    {
+      "id": "transaction-management",
+      "file": "src/data/jdbc/TransactionManagement.js",
+      "approxWordCount": 1212,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "try-catch-finally",
+      "file": "src/data/corejava/exceptions/TryCatchFinally.js",
+      "approxWordCount": 821,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    },
+    {
+      "id": "while-loop",
+      "file": "src/data/corejava/controlflow/WhileLoop.js",
+      "approxWordCount": 1326,
+      "shouldIndex": false,
+      "excludedByPattern": false
+    }
+  ]
+}
