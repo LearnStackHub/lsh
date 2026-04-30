@@ -7,6 +7,18 @@ function SEOHead({ title, description, keywords, topicId, topic, noindex = false
   const location = useLocation();
   // Use www domain as canonical to match Vercel primary redirect target.
   const baseUrl = 'https://www.learnstackhub.com';
+
+  const clampTitle = (value = '') => {
+    const clean = value.replace(/\s+/g, ' ').trim();
+    if (clean.length <= 60) return clean;
+    return `${clean.slice(0, 57).trimEnd()}...`;
+  };
+
+  const clampDescription = (value = '') => {
+    const clean = value.replace(/\s+/g, ' ').trim();
+    if (clean.length <= 160) return clean;
+    return `${clean.slice(0, 157).trimEnd()}...`;
+  };
   
   useEffect(() => {
     const normalizedPath = location.pathname.replace(/\/+$/, '') || '/';
@@ -26,8 +38,8 @@ function SEOHead({ title, description, keywords, topicId, topic, noindex = false
     const shouldNoindex = noindex || isUtilityOrExamRoute || isTutorialExcludedFromIndex;
 
     // Get topic data if topicId is provided
-    let pageTitle = title || 'LSH - Learn Java Full Stack Development | Free Java Tutorials | LearnStackHub';
-    let pageDescription = description || 'LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Your ultimate learning platform for Java Full Stack Development. Learn Java, Spring, React, AWS and more for free. Complete tutorials with code examples and live execution. Perfect for beginners and advanced developers. Learn, Stack, Hub - Your complete learning destination.';
+    let pageTitle = title || 'Learn Java Full Stack Development | LearnStackHub';
+    let pageDescription = description || 'Learn Java full stack development with free tutorials, practical examples, interview prep, and guided learning paths on LearnStackHub.';
     let pageKeywords = keywords || 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, LearnStackHub, learnstackhub, LSH tutorial, LSH java, learn stack hub tutorial, learnstack hub, learn hub java, stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, spring framework tutorial, spring boot tutorial, http apis tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java online, java training, java certification, java web development, spring boot tutorial, java backend, java frontend, java database, java mysql, java servlet, java jsp, java jdbc, java hibernate, java react, java aws, java cloud, java microservices, java tutorial hyderabad, java training hyderabad, java course hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad';
     // Keep canonical URLs on the same www host used by production redirects.
     let pageUrl = baseUrl + location.pathname;
@@ -45,8 +57,8 @@ function SEOHead({ title, description, keywords, topicId, topic, noindex = false
         const resolvedTopic = module.getTopicById(topicId);
         if (!resolvedTopic) return;
         // Use SEO helper functions for better titles and descriptions
-        const nextTitle = generateSEOTitle(resolvedTopic);
-        const nextDescription = description || generateSEODescription(resolvedTopic);
+        const nextTitle = clampTitle(generateSEOTitle(resolvedTopic));
+        const nextDescription = clampDescription(description || generateSEODescription(resolvedTopic));
         const nextKeywords = keywords || generateSEOKeywords(resolvedTopic);
         document.title = nextTitle;
         updateMetaTag('description', nextDescription);
@@ -61,6 +73,8 @@ function SEOHead({ title, description, keywords, topicId, topic, noindex = false
     }
 
     // Update document title
+    pageTitle = clampTitle(pageTitle);
+    pageDescription = clampDescription(pageDescription);
     document.title = pageTitle;
 
     // Update or create meta tags
