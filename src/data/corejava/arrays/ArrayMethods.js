@@ -219,9 +219,9 @@ System.out.println(Arrays.toString(matrix)); // prints references
 The \`java.util.Arrays\` class is a must-know utility for writing clean and efficient Java code. Mastering these methods reduces bugs and improves performance in everyday development.
 
 ### Next steps
-- Practice [Single Dimensional Array](/tutorial/single-dimensional-array)
-- Learn [Multi-Dimensional Array](/tutorial/multi-dimensional-array)
-- Learn [Collections](/tutorial/collection-introduction) for dynamic structures
+- Practice [Single Dimensional Array](/corejava/single-dimensional-array)
+- Learn [Multi-Dimensional Array](/corejava/multi-dimensional-array)
+- Learn [Collections](/corejava/collection-introduction) for dynamic structures
   
 ---
 

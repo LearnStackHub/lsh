@@ -647,10 +647,10 @@ Now that you understand if-else statements, you're ready to explore other contro
 
 ### Immediate Next Steps
 
-1. **[Switch Statement](/tutorial/switch-statement)**: Learn multi-way branching for discrete values
-2. **[For Loop](/tutorial/for-loop)**: Understand iteration with known count
-3. **[While Loop](/tutorial/while-loop)**: Learn conditional iteration
-4. **[Break Continue](/tutorial/break-continue)**: Master loop control statements
+1. **[Switch Statement](/corejava/switch-statement)**: Learn multi-way branching for discrete values
+2. **[For Loop](/corejava/for-loop)**: Understand iteration with known count
+3. **[While Loop](/corejava/while-loop)**: Learn conditional iteration
+4. **[Break Continue](/corejava/break-continue)**: Master loop control statements
 
 ### Advanced Topics
 
@@ -662,11 +662,11 @@ Now that you understand if-else statements, you're ready to explore other contro
 ### Related Tutorials
 
 - **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
-- **[Java Operators](/tutorial/java-operators)**: Understand comparison and logical operators
-- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
-- **[Exception Handling](/tutorial/exception-introduction)**: Learn conditional error handling
+- **[Java Operators](/corejava/java-operators)**: Understand comparison and logical operators
+- **[Java Basics](/corejava/java-introduction)**: Master Java fundamentals
+- **[Exception Handling](/corejava/exception-introduction)**: Learn conditional error handling
 
-If-else statements are essential for building interactive, decision-making applications. Continue learning about [Switch Statement](/tutorial/switch-statement) for handling multiple discrete values efficiently.
+If-else statements are essential for building interactive, decision-making applications. Continue learning about [Switch Statement](/corejava/switch-statement) for handling multiple discrete values efficiently.
 `,
   practiceQuestions: [
     {

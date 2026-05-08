@@ -352,10 +352,10 @@ Subqueries enable:
 Master subqueries, and you can solve any query problem!
 
 **Related Topics:**
-- Combine with [MySQL Joins](/tutorial/mysql-joins) for complex queries
-- Use [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) in subqueries
-- Learn [MySQL Clauses](/tutorial/mysql-clauses) for filtering subquery results
-- Practice with [MySQL SELECT](/tutorial/mysql-select) queries
+- Combine with [MySQL Joins](/mysql/mysql-joins) for complex queries
+- Use [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) in subqueries
+- Learn [MySQL Clauses](/mysql/mysql-clauses) for filtering subquery results
+- Practice with [MySQL SELECT](/mysql/mysql-select) queries
 
 ---
 
@@ -483,7 +483,7 @@ This is useful for including calculated values in results.
 
 ### What's the difference between IN and EXISTS?
 
-IN checks if a value exists in a list of values from subquery results. EXISTS checks if the subquery returns any rows. EXISTS is often more efficient, especially with correlated subqueries, as it stops at the first match. Use IN for value lists, EXISTS for existence checks. Learn about [MySQL Joins](/tutorial/mysql-joins) as an alternative to IN/EXISTS.
+IN checks if a value exists in a list of values from subquery results. EXISTS checks if the subquery returns any rows. EXISTS is often more efficient, especially with correlated subqueries, as it stops at the first match. Use IN for value lists, EXISTS for existence checks. Learn about [MySQL Joins](/mysql/mysql-joins) as an alternative to IN/EXISTS.
 
 ### Can I use aggregate functions in subqueries?
 
@@ -550,10 +550,10 @@ Now that you understand subqueries, you're ready to explore advanced MySQL topic
 
 ### Immediate Next Steps
 
-1. **[MySQL Joins](/tutorial/mysql-joins)**: Learn alternatives to subqueries using JOINs
-2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Use aggregates in subqueries
-3. **[MySQL Views](/tutorial/mysql-views)**: Simplify complex subqueries with views
-4. **[MySQL Select](/tutorial/mysql-select)**: Combine subqueries with SELECT
+1. **[MySQL Joins](/mysql/mysql-joins)**: Learn alternatives to subqueries using JOINs
+2. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Use aggregates in subqueries
+3. **[MySQL Views](/mysql/mysql-views)**: Simplify complex subqueries with views
+4. **[MySQL Select](/mysql/mysql-select)**: Combine subqueries with SELECT
 
 ### Advanced Topics
 
@@ -564,12 +564,12 @@ Now that you understand subqueries, you're ready to explore advanced MySQL topic
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Clauses](/tutorial/mysql-clauses)**: Understand WHERE, HAVING with subqueries
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Clauses](/mysql/mysql-clauses)**: Understand WHERE, HAVING with subqueries
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute subqueries from Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles complex queries
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA handles complex queries
 
-Subqueries are essential for complex data retrieval. Continue learning about [MySQL Views](/tutorial/mysql-views) to simplify complex subquery logic.
+Subqueries are essential for complex data retrieval. Continue learning about [MySQL Views](/mysql/mysql-views) to simplify complex subquery logic.
 
 ---
 
@@ -621,17 +621,17 @@ Subqueries are essential for complex data retrieval. Continue learning about [My
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
-| **DQL** | [MySQL DQL](/tutorial/mysql-dql) |
-| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
-| **JPQL / Criteria** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+| **Joins** | [MySQL Joins](/mysql/mysql-joins) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
+| **DQL** | [MySQL DQL](/mysql/mysql-dql) |
+| **Clauses** | [MySQL Clauses](/mysql/mysql-clauses) |
+| **JPQL / Criteria** | [Spring Boot JPA](/springboot/spring-boot-jpa) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL subqueries? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering subqueries, JOINs, and all MySQL topics!
+Mastered MySQL subqueries? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering subqueries, JOINs, and all MySQL topics!
   `,
   code: `-- MySQL Subqueries Examples
 

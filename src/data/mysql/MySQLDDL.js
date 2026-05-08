@@ -483,10 +483,10 @@ Now that you understand DDL, you're ready to explore advanced MySQL topics:
 
 ### Immediate Next Steps
 
-1. **[MySQL Create Database](/tutorial/mysql-create-database)**: Learn to create tables and databases
-2. **[MySQL Constraints](/tutorial/mysql-constraints)**: Add constraints using ALTER
-3. **[MySQL Indexes](/tutorial/mysql-indexes)**: Create and manage indexes with DDL
-4. **[MySQL Insert Update Delete](/tutorial/mysql-insert-update-delete)**: Understand DML operations
+1. **[MySQL Create Database](/mysql/mysql-create-database)**: Learn to create tables and databases
+2. **[MySQL Constraints](/mysql/mysql-constraints)**: Add constraints using ALTER
+3. **[MySQL Indexes](/mysql/mysql-indexes)**: Create and manage indexes with DDL
+4. **[MySQL Insert Update Delete](/mysql/mysql-insert-update-delete)**: Understand DML operations
 
 ### Advanced Topics
 
@@ -497,12 +497,12 @@ Now that you understand DDL, you're ready to explore advanced MySQL topics:
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Data Types](/tutorial/mysql-data-types)**: Choose types for DDL operations
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Data Types](/mysql/mysql-data-types)**: Choose types for DDL operations
 - **[Database Administration](/tutorial/database-administration)**: Master DDL for administration
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates DDL
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA generates DDL
 
-DDL is essential for database structure management. Continue learning about [MySQL Constraints](/tutorial/mysql-constraints) to understand how to add constraints using ALTER statements.
+DDL is essential for database structure management. Continue learning about [MySQL Constraints](/mysql/mysql-constraints) to understand how to add constraints using ALTER statements.
 
 ---
 
@@ -554,17 +554,17 @@ DDL is essential for database structure management. Continue learning about [MyS
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Create DB & tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
-| **Data types** | [MySQL Data Types](/tutorial/mysql-data-types) |
-| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
-| **Indexes** | [MySQL Indexes](/tutorial/mysql-indexes) |
-| **Hibernate mapping** | [Hibernate Mapping](/tutorial/hibernate-mapping) |
+| **Create DB & tables** | [Creating Databases and Tables](/mysql/mysql-create-database) |
+| **Data types** | [MySQL Data Types](/mysql/mysql-data-types) |
+| **Constraints** | [MySQL Constraints](/mysql/mysql-constraints) |
+| **Indexes** | [MySQL Indexes](/mysql/mysql-indexes) |
+| **Hibernate mapping** | [Hibernate Mapping](/hibernate/hibernate-mapping) |
 
 ---
 
 ## Test Your Knowledge
 
-Ready to test your MySQL DDL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering DDL, DML, DQL, and all MySQL topics!
+Ready to test your MySQL DDL understanding? Take our comprehensive [MySQL MCQ Exam](/mysql-mcq) with 20 randomly selected questions covering DDL, DML, DQL, and all MySQL topics!
   `,
   code: `-- MySQL DDL Examples
 

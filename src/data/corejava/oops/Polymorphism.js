@@ -795,7 +795,7 @@ public void display() {
 
 ### What is polymorphism and why is it important?
 
-Polymorphism allows objects of different types to be treated through the same interface, enabling the same method call to produce different behaviors based on the actual object type. It's important because it enables code flexibility, extensibility, and maintainability. Polymorphism is one of the four pillars of OOP along with [Inheritance](/tutorial/inheritance), [Encapsulation](/tutorial/encapsulation), and [Abstraction](/tutorial/abstraction).
+Polymorphism allows objects of different types to be treated through the same interface, enabling the same method call to produce different behaviors based on the actual object type. It's important because it enables code flexibility, extensibility, and maintainability. Polymorphism is one of the four pillars of OOP along with [Inheritance](/corejava/inheritance), [Encapsulation](/corejava/encapsulation), and [Abstraction](/corejava/abstraction).
 
 ### What's the difference between compile-time and runtime polymorphism?
 
@@ -803,11 +803,11 @@ Compile-time polymorphism (method overloading) is resolved by the compiler based
 
 ### How does inheritance relate to polymorphism?
 
-Inheritance enables polymorphism by allowing derived classes to override base class methods. When a method is called on a base class reference that points to a derived class object, the overridden method in the derived class is executed. This is runtime polymorphism. Learn about [Inheritance](/tutorial/inheritance) to understand the foundation.
+Inheritance enables polymorphism by allowing derived classes to override base class methods. When a method is called on a base class reference that points to a derived class object, the overridden method in the derived class is executed. This is runtime polymorphism. Learn about [Inheritance](/corejava/inheritance) to understand the foundation.
 
 ### Can I achieve polymorphism without inheritance?
 
-Yes, polymorphism can be achieved through interfaces as well. A class implementing an interface can be treated as that interface type, enabling polymorphism. Interfaces provide even more flexibility than inheritance for polymorphism. Learn about [Interfaces](/tutorial/interfaces) for interface-based polymorphism.
+Yes, polymorphism can be achieved through interfaces as well. A class implementing an interface can be treated as that interface type, enabling polymorphism. Interfaces provide even more flexibility than inheritance for polymorphism. Learn about [Interfaces](/corejava/interfaces) for interface-based polymorphism.
 
 ### What is method overriding?
 
@@ -856,10 +856,10 @@ Now that you understand polymorphism, you're ready to explore related OOP concep
 
 ### Immediate Next Steps
 
-1. **[Inheritance](/tutorial/inheritance)**: Understand how inheritance enables polymorphism
-2. **[Encapsulation](/tutorial/encapsulation)**: Learn data protection and access control
-3. **[Abstraction](/tutorial/abstraction)**: Discover how to hide complexity
-4. **[Interfaces](/tutorial/interfaces)**: Learn interface-based polymorphism
+1. **[Inheritance](/corejava/inheritance)**: Understand how inheritance enables polymorphism
+2. **[Encapsulation](/corejava/encapsulation)**: Learn data protection and access control
+3. **[Abstraction](/corejava/abstraction)**: Discover how to hide complexity
+4. **[Interfaces](/corejava/interfaces)**: Learn interface-based polymorphism
 
 ### Advanced Topics
 
@@ -870,12 +870,12 @@ Now that you understand polymorphism, you're ready to explore related OOP concep
 
 ### Related Tutorials
 
-- **[OOPs Introduction](/tutorial/oops-introduction)**: Review object-oriented programming fundamentals
-- **[Classes and Objects](/tutorial/classes-objects)**: Understand the foundation of polymorphism
-- **[Java Introduction](/tutorial/java-introduction)**: Master Java fundamentals
-- **[Spring Framework](/tutorial/spring-introduction)**: See polymorphism in enterprise frameworks
+- **[OOPs Introduction](/corejava/oops-introduction)**: Review object-oriented programming fundamentals
+- **[Classes and Objects](/corejava/classes-objects)**: Understand the foundation of polymorphism
+- **[Java Introduction](/corejava/java-introduction)**: Master Java fundamentals
+- **[Spring Framework](/spring/spring-introduction)**: See polymorphism in enterprise frameworks
 
-Polymorphism is essential for building flexible, maintainable software. Continue learning about [Inheritance](/tutorial/inheritance) to understand how polymorphism is enabled through class hierarchies.
+Polymorphism is essential for building flexible, maintainable software. Continue learning about [Inheritance](/corejava/inheritance) to understand how polymorphism is enabled through class hierarchies.
 
 ---
 
@@ -883,20 +883,20 @@ Polymorphism is essential for building flexible, maintainable software. Continue
 
 Master these related OOPs concepts:
 
-1. **[Inheritance](/tutorial/inheritance)** — Build on existing classes
-2. **[Encapsulation](/tutorial/encapsulation)** — Data hiding and access control
-3. **[Abstraction](/tutorial/abstraction)** — Hide complexity, show essentials
-4. **[Interfaces](/tutorial/interfaces)** — Define contracts for classes
-5. **[Classes and Objects](/tutorial/classes-objects)** — Create and use objects
-6. **[Constructors](/tutorial/constructors)** — Initialize objects properly
+1. **[Inheritance](/corejava/inheritance)** — Build on existing classes
+2. **[Encapsulation](/corejava/encapsulation)** — Data hiding and access control
+3. **[Abstraction](/corejava/abstraction)** — Hide complexity, show essentials
+4. **[Interfaces](/corejava/interfaces)** — Define contracts for classes
+5. **[Classes and Objects](/corejava/classes-objects)** — Create and use objects
+6. **[Constructors](/corejava/constructors)** — Initialize objects properly
 
 **Prerequisites:**
-- Complete [OOPs Introduction](/tutorial/oops-introduction) first
-- Understand [Inheritance](/tutorial/inheritance) for method overriding
+- Complete [OOPs Introduction](/corejava/oops-introduction) first
+- Understand [Inheritance](/corejava/inheritance) for method overriding
 
 **Next Level:**
-- Use polymorphism in [Spring Framework](/tutorial/spring-framework-introduction)
-- Build applications with [Spring Boot](/tutorial/spring-boot-introduction)
+- Use polymorphism in [Spring Framework](/spring/spring-introduction)
+- Build applications with [Spring Boot](/springboot/spring-boot-introduction)
 `
     }
   ]

@@ -622,11 +622,11 @@ A do-while loop executes a block of code at least once, then repeatedly executes
 
 ### What's the difference between while and do-while?
 
-A while loop checks the condition before execution, so it may not execute at all. A do-while loop executes at least once and checks the condition after execution. Use while when execution might not be needed, do-while when you need guaranteed execution. Learn about [While Loop](/tutorial/while-loop) for comparison.
+A while loop checks the condition before execution, so it may not execute at all. A do-while loop executes at least once and checks the condition after execution. Use while when execution might not be needed, do-while when you need guaranteed execution. Learn about [While Loop](/corejava/while-loop) for comparison.
 
 ### Can I use break and continue in do-while loops?
 
-Yes, both \`break\` and \`continue\` work in do-while loops. \`break\` exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to check the condition again. These are useful for early termination and skipping iterations. Learn about [Break Continue](/tutorial/break-continue) for detailed usage.
+Yes, both \`break\` and \`continue\` work in do-while loops. \`break\` exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to check the condition again. These are useful for early termination and skipping iterations. Learn about [Break Continue](/corejava/break-continue) for detailed usage.
 
 ### Why do I need a semicolon after while in do-while?
 
@@ -679,10 +679,10 @@ Now that you understand do-while loops, you're ready to explore related control 
 
 ### Immediate Next Steps
 
-1. **[While Loop](/tutorial/while-loop)**: Learn condition-checked loops
-2. **[For Loop](/tutorial/for-loop)**: Understand iteration with known count
-3. **[If-Else Statements](/tutorial/if-else)**: Master conditional execution
-4. **[Switch Statement](/tutorial/switch-statement)**: Learn multi-way branching
+1. **[While Loop](/corejava/while-loop)**: Learn condition-checked loops
+2. **[For Loop](/corejava/for-loop)**: Understand iteration with known count
+3. **[If-Else Statements](/corejava/if-else)**: Master conditional execution
+4. **[Switch Statement](/corejava/switch-statement)**: Learn multi-way branching
 
 ### Advanced Topics
 
@@ -694,11 +694,11 @@ Now that you understand do-while loops, you're ready to explore related control 
 ### Related Tutorials
 
 - **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
-- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
-- **[Exception Handling](/tutorial/exception-introduction)**: Handle errors in loops
+- **[Java Basics](/corejava/java-introduction)**: Master Java fundamentals
+- **[Exception Handling](/corejava/exception-introduction)**: Handle errors in loops
 - **[User Input](/tutorial/user-input)**: Process user input with loops
 
-Do-while loops are essential for scenarios requiring guaranteed execution. Continue learning about [Switch Statement](/tutorial/switch-statement) for handling multiple discrete values efficiently.
+Do-while loops are essential for scenarios requiring guaranteed execution. Continue learning about [Switch Statement](/corejava/switch-statement) for handling multiple discrete values efficiently.
 `,
   practiceQuestions: [
     {

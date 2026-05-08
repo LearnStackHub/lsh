@@ -46,7 +46,7 @@ Enterprise applications built with Java include customer relationship management
 ### 4. Strong Foundation for Software Development
 
 Java provides an excellent learning path for software development because it:
-- **Teaches Object-Oriented Programming**: Java's OOP implementation helps developers understand fundamental programming concepts like [classes and objects](/tutorial/classes-objects), [inheritance](/tutorial/inheritance), [polymorphism](/tutorial/polymorphism), and [encapsulation](/tutorial/encapsulation)
+- **Teaches Object-Oriented Programming**: Java's OOP implementation helps developers understand fundamental programming concepts like [classes and objects](/corejava/classes-objects), [inheritance](/corejava/inheritance), [polymorphism](/corejava/polymorphism), and [encapsulation](/corejava/encapsulation)
 - **Eliminates Low-Level Complexity**: Unlike C++, Java handles memory management automatically through garbage collection, allowing developers to focus on application logic
 - **Promotes Best Practices**: Java's syntax and conventions encourage clean, maintainable code
 - **Provides Comprehensive Standard Library**: The Java API offers extensive functionality for common programming tasks
@@ -191,7 +191,7 @@ JVM = Runtime Execution Engine
 - **JRE** = The car with engine (can run Java programs)
 - **JDK** = The car with engine plus tools (can develop and run Java programs)
 
-For learning Java and building applications, you need to install the JDK. Most modern Java development environments automatically include the JDK. To get started, follow our [Java Environment Setup](/tutorial/java-environment-setup) guide.
+For learning Java and building applications, you need to install the JDK. Most modern Java development environments automatically include the JDK. To get started, follow our [Java Environment Setup](/corejava/java-environment-setup) guide.
 
 ---
 
@@ -289,7 +289,7 @@ Enterprise applications built with Java must handle complex business logic, inte
 
 Java powers backend infrastructure for many web applications and services:
 
-- **RESTful APIs**: Java frameworks like [Spring Boot](/tutorial/spring-boot-introduction) enable rapid development of REST APIs
+- **RESTful APIs**: Java frameworks like [Spring Boot](/springboot/spring-boot-introduction) enable rapid development of REST APIs
 - **Microservices**: Java is widely used for building microservices architectures in cloud environments
 - **Content Management Systems**: Enterprise CMS platforms use Java for content delivery and management
 - **Social Media Platforms**: Backend services for social networking platforms often use Java
@@ -324,7 +324,7 @@ Java Enterprise Edition, now maintained as Jakarta EE by the Eclipse Foundation,
 - **Web Services**: SOAP and RESTful web service development
 - **Enterprise Features**: Transaction management, security, messaging, and concurrency utilities
 
-**When to use Jakarta EE**: Use for enterprise applications requiring distributed computing, transaction management, and complex business logic. However, many developers now use [Spring Framework](/tutorial/spring-introduction) and [Spring Boot](/tutorial/spring-boot-introduction) as alternatives to traditional Java EE.
+**When to use Jakarta EE**: Use for enterprise applications requiring distributed computing, transaction management, and complex business logic. However, many developers now use [Spring Framework](/spring/spring-introduction) and [Spring Boot](/springboot/spring-boot-introduction) as alternatives to traditional Java EE.
 
 ### Java ME (Micro Edition)
 
@@ -341,10 +341,10 @@ Java Micro Edition targets resource-constrained devices and embedded systems:
 
 For new Java developers, the recommended learning path is:
 
-1. **Start with Java SE**: Master core Java concepts including [variables](/tutorial/java-variables), [data types](/tutorial/java-data-types), [control flow](/tutorial/if-else), [OOPs concepts](/tutorial/oops-introduction), and [collections](/tutorial/collection-introduction)
+1. **Start with Java SE**: Master core Java concepts including [variables](/corejava/java-variables), [data types](/corejava/java-data-types), [control flow](/corejava/if-else), [OOPs concepts](/corejava/oops-introduction), and [collections](/corejava/collection-introduction)
 2. **Learn Web Development**: Progress to [Servlets](/tutorial/servlet-introduction) and [JSP](/tutorial/jsp-introduction) for server-side development
-3. **Master Frameworks**: Learn [Spring Framework](/tutorial/spring-introduction) and [Spring Boot](/tutorial/spring-boot-introduction) for modern enterprise development
-4. **Database Integration**: Learn [JDBC](/tutorial/jdbc-introduction) and [Hibernate](/tutorial/hibernate-introduction) for database operations
+3. **Master Frameworks**: Learn [Spring Framework](/spring/spring-introduction) and [Spring Boot](/springboot/spring-boot-introduction) for modern enterprise development
+4. **Database Integration**: Learn [JDBC](/tutorial/jdbc-introduction) and [Hibernate](/hibernate/hibernate-introduction) for database operations
 
 Java SE provides the foundation for all Java development, making it the essential starting point for any Java learning journey.
 
@@ -491,7 +491,7 @@ ArrayList<String> list = new ArrayList<>();  // Error if import missing
 
 **Best Practice**: Use import statements for cleaner code. IDEs can automatically add required imports.
 
-Understanding and avoiding these common mistakes accelerates the learning process and helps developers write correct Java code from the beginning. For more detailed guidance, refer to our [Java Syntax](/tutorial/java-syntax) and [Java Environment Setup](/tutorial/java-environment-setup) tutorials.
+Understanding and avoiding these common mistakes accelerates the learning process and helps developers write correct Java code from the beginning. For more detailed guidance, refer to our [Java Syntax](/corejava/java-syntax) and [Java Environment Setup](/corejava/java-environment-setup) tutorials.
 
 ---
 
@@ -503,7 +503,7 @@ Java is a high-level, object-oriented programming language created in 1995. You 
 
 ### Is Java difficult to learn for beginners?
 
-Java has a moderate learning curve. It's easier than C++ (no pointers, automatic memory management) but more complex than Python. However, Java teaches good programming habits and object-oriented thinking, which are valuable skills. Start with [Java Basics](/tutorial/java-introduction) and progress gradually through [Control Flow](/tutorial/if-else), [OOPs Concepts](/tutorial/oops-introduction), and [Collections](/tutorial/collection-introduction).
+Java has a moderate learning curve. It's easier than C++ (no pointers, automatic memory management) but more complex than Python. However, Java teaches good programming habits and object-oriented thinking, which are valuable skills. Start with [Java Basics](/corejava/java-introduction) and progress gradually through [Control Flow](/corejava/if-else), [OOPs Concepts](/corejava/oops-introduction), and [Collections](/corejava/collection-introduction).
 
 ### What's the difference between Java and JavaScript?
 
@@ -515,7 +515,7 @@ They serve different purposes and are used together in full-stack development.
 
 ### Do I need to learn Java for web development?
 
-For backend web development, Java is excellent. It's used with frameworks like [Spring Boot](/tutorial/spring-boot-introduction) to build REST APIs and web applications. For frontend, you'd use HTML, CSS, and JavaScript. Many developers learn both: Java for backend and JavaScript for frontend.
+For backend web development, Java is excellent. It's used with frameworks like [Spring Boot](/springboot/spring-boot-introduction) to build REST APIs and web applications. For frontend, you'd use HTML, CSS, and JavaScript. Many developers learn both: Java for backend and JavaScript for frontend.
 
 ### What is JVM and why is it important?
 
@@ -528,11 +528,11 @@ Yes! Java is the primary language for Android app development (along with Kotlin
 ### What should I learn after Java basics?
 
 After mastering Java fundamentals, you should learn:
-1. **Object-Oriented Programming** - [OOPs Concepts](/tutorial/oops-introduction), [Inheritance](/tutorial/inheritance), [Polymorphism](/tutorial/polymorphism)
-2. **Collections Framework** - [Collections Introduction](/tutorial/collection-introduction) for data structures
-3. **Exception Handling** - [Exception Handling](/tutorial/exception-introduction) for error management
+1. **Object-Oriented Programming** - [OOPs Concepts](/corejava/oops-introduction), [Inheritance](/corejava/inheritance), [Polymorphism](/corejava/polymorphism)
+2. **Collections Framework** - [Collections Introduction](/corejava/collection-introduction) for data structures
+3. **Exception Handling** - [Exception Handling](/corejava/exception-introduction) for error management
 4. **Database Connectivity** - [JDBC](/tutorial/jdbc-introduction) to connect to databases
-5. **Web Development** - [Servlets](/tutorial/servlet-introduction) and [Spring Boot](/tutorial/spring-boot-introduction) for web applications
+5. **Web Development** - [Servlets](/tutorial/servlet-introduction) and [Spring Boot](/springboot/spring-boot-introduction) for web applications
 
 ### Is Java still relevant in 2026?
 
@@ -543,18 +543,18 @@ Absolutely! Java remains one of the most popular programming languages. It's use
 It depends on your background and practice time:
 - **Complete beginner**: 3-6 months of consistent practice
 - **Has programming experience**: 1-3 months
-- **To become job-ready**: 6-12 months including frameworks like [Spring Boot](/tutorial/spring-boot-introduction)
+- **To become job-ready**: 6-12 months including frameworks like [Spring Boot](/springboot/spring-boot-introduction)
 
-The key is consistent practice and building projects. Start with basics, then move to [Spring Boot](/tutorial/spring-boot-introduction) for real-world applications.
+The key is consistent practice and building projects. Start with basics, then move to [Spring Boot](/springboot/spring-boot-introduction) for real-world applications.
 
 ### What are the best resources to learn Java?
 
 1. **This platform** - Complete Java tutorials from basics to advanced
 2. **Practice coding** - Use the code editor on each tutorial page
-3. **Build projects** - Start with simple programs, then build web applications with [Spring Boot](/tutorial/spring-boot-introduction)
+3. **Build projects** - Start with simple programs, then build web applications with [Spring Boot](/springboot/spring-boot-introduction)
 4. **Join communities** - Java forums, Reddit r/learnjava, Stack Overflow
 
-Start with [Java Environment Setup](/tutorial/java-environment-setup) and follow the tutorial sequence to build a strong foundation.
+Start with [Java Environment Setup](/corejava/java-environment-setup) and follow the tutorial sequence to build a strong foundation.
 
 ---
 
@@ -575,19 +575,19 @@ Now that you understand Java's fundamentals, architecture, and real-world applic
 
 ### Immediate Next Steps
 
-1. **[Java Environment Setup](/tutorial/java-environment-setup)**: Install JDK, configure your development environment, and verify your installation
-2. **[Java Syntax](/tutorial/java-syntax)**: Learn Java syntax rules, naming conventions, and code structure
-3. **[Java Variables](/tutorial/java-variables)**: Understand variable declaration, initialization, and scope
-4. **[Java Data Types](/tutorial/java-data-types)**: Master primitive and reference data types in Java
+1. **[Java Environment Setup](/corejava/java-environment-setup)**: Install JDK, configure your development environment, and verify your installation
+2. **[Java Syntax](/corejava/java-syntax)**: Learn Java syntax rules, naming conventions, and code structure
+3. **[Java Variables](/corejava/java-variables)**: Understand variable declaration, initialization, and scope
+4. **[Java Data Types](/corejava/java-data-types)**: Master primitive and reference data types in Java
 
 ### Foundation Building
 
 After mastering the basics, progress through these essential topics:
 
-- **[Control Flow Statements](/tutorial/if-else)**: Learn conditional statements and loops
-- **[Object-Oriented Programming](/tutorial/oops-introduction)**: Master classes, objects, inheritance, and polymorphism
-- **[Collections Framework](/tutorial/collection-introduction)**: Understand data structures like lists, sets, and maps
-- **[Exception Handling](/tutorial/exception-introduction)**: Learn to handle errors and exceptions gracefully
+- **[Control Flow Statements](/corejava/if-else)**: Learn conditional statements and loops
+- **[Object-Oriented Programming](/corejava/oops-introduction)**: Master classes, objects, inheritance, and polymorphism
+- **[Collections Framework](/corejava/collection-introduction)**: Understand data structures like lists, sets, and maps
+- **[Exception Handling](/corejava/exception-introduction)**: Learn to handle errors and exceptions gracefully
 
 ### Advanced Learning Path
 
@@ -595,8 +595,8 @@ Once you've built a strong foundation:
 
 - **[JDBC](/tutorial/jdbc-introduction)**: Connect Java applications to databases
 - **[Servlets](/tutorial/servlet-introduction)**: Build server-side web applications
-- **[Spring Framework](/tutorial/spring-introduction)**: Learn enterprise application development
-- **[Spring Boot](/tutorial/spring-boot-introduction)**: Build production-ready applications rapidly
+- **[Spring Framework](/spring/spring-introduction)**: Learn enterprise application development
+- **[Spring Boot](/springboot/spring-boot-introduction)**: Build production-ready applications rapidly
 
 ### Practice Recommendations
 
@@ -607,7 +607,7 @@ To reinforce your understanding:
 3. **Read Java Documentation**: Familiarize yourself with the official Java API documentation
 4. **Join Java Communities**: Participate in forums, Stack Overflow, and Java developer communities
 
-The journey to mastering Java requires consistent practice and hands-on coding. Each tutorial builds upon previous concepts, so ensure you understand each topic before moving forward. Start with [Java Environment Setup](/tutorial/java-environment-setup) to begin writing your first Java programs.
+The journey to mastering Java requires consistent practice and hands-on coding. Each tutorial builds upon previous concepts, so ensure you understand each topic before moving forward. Start with [Java Environment Setup](/corejava/java-environment-setup) to begin writing your first Java programs.
 
 ---
 

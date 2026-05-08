@@ -269,10 +269,10 @@ management.endpoint.health.show-details=when-authorized
 Monitoring helps you keep your application healthy.
 
 **Related Topics:**
-- Configure actuator with [Spring Boot Configuration](/tutorial/spring-boot-configuration)
-- Deploy and monitor with [Spring Boot Deployment](/tutorial/spring-boot-deployment)
-- Secure actuator endpoints with [Spring Boot Security](/tutorial/spring-boot-security)
-- Test actuator endpoints with [Spring Boot Testing](/tutorial/spring-boot-testing)
+- Configure actuator with [Spring Boot Configuration](/springboot/spring-boot-configuration)
+- Deploy and monitor with [Spring Boot Deployment](/springboot/spring-boot-deployment)
+- Secure actuator endpoints with [Spring Boot Security](/springboot/spring-boot-security)
+- Test actuator endpoints with [Spring Boot Testing](/springboot/spring-boot-testing)
 `,
   code: `// Spring Boot Actuator Examples
 

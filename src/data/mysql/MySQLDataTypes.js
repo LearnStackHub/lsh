@@ -5,7 +5,7 @@ const mysqlDataTypes = {
   content: `
 # MySQL Data Types - Choosing the Right Type for Your Data
 
-MySQL data types define the kind of data that can be stored in table columns, determining storage requirements, value ranges, and operations that can be performed. Choosing the correct data type is crucial for database design, affecting storage efficiency, query performance, data integrity, and application functionality. MySQL provides comprehensive data type options for numeric, string, date/time, JSON, and binary data. After learning data types, explore [MySQL Constraints](/tutorial/mysql-constraints) to add data validation rules.
+MySQL data types define the kind of data that can be stored in table columns, determining storage requirements, value ranges, and operations that can be performed. Choosing the correct data type is crucial for database design, affecting storage efficiency, query performance, data integrity, and application functionality. MySQL provides comprehensive data type options for numeric, string, date/time, JSON, and binary data. After learning data types, explore [MySQL Constraints](/mysql/mysql-constraints) to add data validation rules.
 
 Enterprise applications require careful data type selection to optimize storage, ensure data accuracy, and maintain performance at scale. Understanding data types enables developers to design efficient schemas, prevent data overflow, and leverage MySQL's type-specific features. Proper data type selection is fundamental to building robust, performant database applications.
 
@@ -46,7 +46,7 @@ Enterprise applications require careful data type selection to optimize storage,
 
 ## 1. Numeric Types
 
-Understanding numeric types is essential before creating tables. Learn about [Creating Databases and Tables](/tutorial/mysql-create-database) to apply these data types.
+Understanding numeric types is essential before creating tables. Learn about [Creating Databases and Tables](/mysql/mysql-create-database) to apply these data types.
 
 ### Integer Types
 
@@ -584,10 +584,10 @@ Now that you understand MySQL data types, you're ready to explore advanced MySQL
 
 ### Immediate Next Steps
 
-1. **[MySQL Constraints](/tutorial/mysql-constraints)**: Combine data types with constraints
-2. **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables with proper types
-3. **[MySQL Insert Update Delete](/tutorial/mysql-insert-update-delete)**: Work with different data types
-4. **[MySQL Select](/tutorial/mysql-select)**: Query data of various types
+1. **[MySQL Constraints](/mysql/mysql-constraints)**: Combine data types with constraints
+2. **[MySQL Create Database](/mysql/mysql-create-database)**: Create tables with proper types
+3. **[MySQL Insert Update Delete](/mysql/mysql-insert-update-delete)**: Work with different data types
+4. **[MySQL Select](/mysql/mysql-select)**: Query data of various types
 
 ### Advanced Topics
 
@@ -598,12 +598,12 @@ Now that you understand MySQL data types, you're ready to explore advanced MySQL
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Work with data types in Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA maps Java types to MySQL types
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA maps Java types to MySQL types
 - **[Java Data Types](/tutorial/java-data-types)**: Understand Java type system
 
-Data types are fundamental to database design. Continue learning about [MySQL Constraints](/tutorial/mysql-constraints) to combine types with data integrity rules.
+Data types are fundamental to database design. Continue learning about [MySQL Constraints](/mysql/mysql-constraints) to combine types with data integrity rules.
 
 ---
 
@@ -655,17 +655,17 @@ Data types are fundamental to database design. Continue learning about [MySQL Co
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **DDL & table design** | [MySQL DDL](/tutorial/mysql-ddl) |
-| **Create tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
-| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
-| **Indexes & types** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **DDL & table design** | [MySQL DDL](/mysql/mysql-ddl) |
+| **Create tables** | [Creating Databases and Tables](/mysql/mysql-create-database) |
+| **Constraints** | [MySQL Constraints](/mysql/mysql-constraints) |
+| **Indexes & types** | [MySQL Indexes](/mysql/mysql-indexes) |
 | **JDBC types** | [JDBC Introduction](/tutorial/jdbc-introduction) |
 
 ---
 
 ## Test Your Knowledge
 
-Ready to test your MySQL data types knowledge? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering data types, DDL, DML, and all MySQL topics!
+Ready to test your MySQL data types knowledge? Take our comprehensive [MySQL MCQ Exam](/mysql-mcq) with 20 randomly selected questions covering data types, DDL, DML, and all MySQL topics!
   `,
   code: `-- MySQL Data Types Examples
 

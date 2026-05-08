@@ -511,7 +511,7 @@ This was just the introduction. In the upcoming lessons, we'll cover:
 
 **Next Level:**
 - Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
-- Learn [Hibernate](/tutorial/hibernate-introduction) for ORM
+- Learn [Hibernate](/hibernate/hibernate-introduction) for ORM
 
 ---
 

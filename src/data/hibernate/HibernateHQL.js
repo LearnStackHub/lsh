@@ -435,7 +435,7 @@ Master HQL, and you can query your database in an object-oriented way!
 
 ## Test Your Knowledge
 
-Mastered Hibernate HQL? Test your skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering HQL, Criteria API, named queries, and all Hibernate topics!
+Mastered Hibernate HQL? Test your skills with our comprehensive [Hibernate MCQ Exam](/hibernate-mcq) covering HQL, Criteria API, named queries, and all Hibernate topics!
 
 ---
 

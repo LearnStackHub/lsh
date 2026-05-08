@@ -473,16 +473,16 @@ function Layout() {
                 <li><Link to="/ai-lab">Practice Lab</Link></li>
                 <li><Link to="/tutorial/html-introduction">HTML</Link></li>
                 <li><Link to="/tutorial/css-introduction">CSS</Link></li>
-                <li><Link to="/tutorial/java-introduction">Core Java</Link></li>
-                <li><Link to="/tutorial/mysql-introduction">MySQL</Link></li>
+                <li><Link to="/corejava/java-introduction">Core Java</Link></li>
+                <li><Link to="/mysql/mysql-introduction">MySQL</Link></li>
                 <li><Link to="/tutorial/jdbc-introduction">JDBC</Link></li>
               </ul>
               <ul>
                 <li><Link to="/tutorial/servlet-introduction">Servlets</Link></li>
                 <li><Link to="/tutorial/jsp-introduction">JSP</Link></li>
-                <li><Link to="/tutorial/hibernate-introduction">Hibernate</Link></li>
-                <li><Link to="/tutorial/spring-introduction">Spring Framework</Link></li>
-                <li><Link to="/tutorial/spring-boot-introduction">Spring Boot</Link></li>
+                <li><Link to="/hibernate/hibernate-introduction">Hibernate</Link></li>
+                <li><Link to="/spring/spring-introduction">Spring Framework</Link></li>
+                <li><Link to="/springboot/spring-boot-introduction">Spring Boot</Link></li>
                 <li><Link to="/tutorial/http-status-codes">HTTP & APIs</Link></li>
                 <li><Link to="/kafka/introduction">Kafka</Link></li>
                 <li><Link to="/docker/introduction">Docker</Link></li>

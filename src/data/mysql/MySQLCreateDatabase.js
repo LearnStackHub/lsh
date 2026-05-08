@@ -554,17 +554,17 @@ CREATE TABLE comments (
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Data types** | [MySQL Data Types](/tutorial/mysql-data-types) |
-| **DDL deep dive** | [MySQL DDL](/tutorial/mysql-ddl) |
-| **DQL basics** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
+| **Data types** | [MySQL Data Types](/mysql/mysql-data-types) |
+| **DDL deep dive** | [MySQL DDL](/mysql/mysql-ddl) |
+| **DQL basics** | [MySQL SELECT](/mysql/mysql-select) |
+| **Constraints** | [MySQL Constraints](/mysql/mysql-constraints) |
 | **Maven + JDBC project** | [JDBC Project Setup](/tutorial/jdbc-project-setup) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered creating databases and tables? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering CREATE, ALTER, DROP, and all MySQL topics!
+Mastered creating databases and tables? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering CREATE, ALTER, DROP, and all MySQL topics!
   `,
   code: `-- MySQL Database and Table Creation Examples
 

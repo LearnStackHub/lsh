@@ -5,7 +5,7 @@ const springBootIntroduction = {
   content: `
 # Spring Boot Introduction - Enterprise Java Application Framework
 
-Spring Boot is an open-source Java framework built on top of the [Spring Framework](/tutorial/spring-introduction) that simplifies the development of production-ready, enterprise-grade Java applications. It eliminates the need for extensive XML configuration and boilerplate code, allowing developers to focus on business logic rather than infrastructure setup.
+Spring Boot is an open-source Java framework built on top of the [Spring Framework](/spring/spring-introduction) that simplifies the development of production-ready, enterprise-grade Java applications. It eliminates the need for extensive XML configuration and boilerplate code, allowing developers to focus on business logic rather than infrastructure setup.
 
 Spring Boot was created by Pivotal Software (now part of VMware) to address the complexity and configuration overhead associated with traditional Spring Framework applications. It provides opinionated defaults and auto-configuration capabilities that significantly reduce development time and configuration complexity.
 
@@ -21,7 +21,7 @@ Spring Boot is a convention-over-configuration framework that provides:
 - **Production-Ready Features**: Built-in metrics, health checks, and externalized configuration
 - **No Code Generation**: No XML configuration required; uses Java-based configuration
 
-Spring Boot extends the [Spring Framework](/tutorial/spring-introduction) by providing a streamlined development experience. While Spring Framework offers dependency injection and aspect-oriented programming through [Spring IOC](/tutorial/spring-ioc) and [Spring DI](/tutorial/spring-di), Spring Boot adds convenience layers that eliminate traditional configuration requirements.
+Spring Boot extends the [Spring Framework](/spring/spring-introduction) by providing a streamlined development experience. While Spring Framework offers dependency injection and aspect-oriented programming through [Spring IOC](/spring/spring-ioc) and [Spring DI](/spring/spring-di), Spring Boot adds convenience layers that eliminate traditional configuration requirements.
 
 ---
 
@@ -149,7 +149,7 @@ Starter dependencies are curated sets of dependencies that provide everything ne
 **Common Spring Boot Starters:**
 
 - **spring-boot-starter-web**: Includes Spring MVC, embedded Tomcat, Jackson for JSON, and validation libraries
-- **spring-boot-starter-data-jpa**: Includes JPA, Hibernate, and database connectivity for [MySQL](/tutorial/mysql-introduction) and other databases
+- **spring-boot-starter-data-jpa**: Includes JPA, Hibernate, and database connectivity for [MySQL](/mysql/mysql-introduction) and other databases
 - **spring-boot-starter-security**: Includes Spring Security for authentication and authorization
 - **spring-boot-starter-test**: Includes JUnit, Mockito, and testing utilities
 
@@ -481,7 +481,7 @@ public class StudentController {
 
 **Advanced Controller Features:**
 
-- **@Autowired**: Spring Boot's dependency injection automatically provides a StudentService instance. This demonstrates [Spring's Dependency Injection](/tutorial/spring-di) in action
+- **@Autowired**: Spring Boot's dependency injection automatically provides a StudentService instance. This demonstrates [Spring's Dependency Injection](/spring/spring-di) in action
 - **@RequestMapping("/api/students")**: Sets a base path for all methods in this controller, following REST API best practices
 - **@PathVariable**: Extracts path variables from the URL (e.g., \`/api/students/1\` extracts ID as 1)
 - **@RequestBody**: Automatically deserializes JSON request body into Java objects using Jackson
@@ -536,7 +536,7 @@ Spring Boot's auto-configuration mechanism:
 - Configures properties with sensible defaults
 
 **Step 4: Dependency Injection**
-Using [Spring's Dependency Injection](/tutorial/spring-di) mechanism:
+Using [Spring's Dependency Injection](/spring/spring-di) mechanism:
 - Spring Boot creates bean instances for discovered components
 - Resolves dependencies between beans
 - Injects dependencies using \`@Autowired\` or constructor injection
@@ -589,7 +589,7 @@ spring.application.name=Student Management
 logging.level.com.example=DEBUG
 \`\`\`
 
-Spring Boot reads this file automatically. No code needed. For a complete guide on configuration, including YAML files and advanced settings, see our [Spring Boot Configuration](/tutorial/spring-boot-configuration) tutorial.
+Spring Boot reads this file automatically. No code needed. For a complete guide on configuration, including YAML files and advanced settings, see our [Spring Boot Configuration](/springboot/spring-boot-configuration) tutorial.
 
 ---
 
@@ -601,7 +601,7 @@ Spring Boot is a framework that simplifies Java enterprise application developme
 
 ### Do I need to know Spring Framework before learning Spring Boot?
 
-While not strictly required, understanding [Spring Framework](/tutorial/spring-introduction) fundamentals significantly helps. Spring Boot builds on Spring Framework concepts like [Inversion of Control (IoC)](/tutorial/spring-ioc) and [Dependency Injection (DI)](/tutorial/spring-di). Spring Boot hides much of the configuration complexity, but understanding the underlying Spring concepts helps when you need to customize behavior or troubleshoot issues. We recommend learning [Spring Framework basics](/tutorial/spring-introduction) before diving deep into Spring Boot.
+While not strictly required, understanding [Spring Framework](/spring/spring-introduction) fundamentals significantly helps. Spring Boot builds on Spring Framework concepts like [Inversion of Control (IoC)](/spring/spring-ioc) and [Dependency Injection (DI)](/spring/spring-di). Spring Boot hides much of the configuration complexity, but understanding the underlying Spring concepts helps when you need to customize behavior or troubleshoot issues. We recommend learning [Spring Framework basics](/spring/spring-introduction) before diving deep into Spring Boot.
 
 ### What's the difference between Spring Framework and Spring Boot?
 
@@ -613,7 +613,7 @@ While not strictly required, understanding [Spring Framework](/tutorial/spring-i
 - Embeds servers (Tomcat, Jetty) for standalone applications
 - Offers production-ready features out of the box
 
-Think of Spring Framework as a toolkit and Spring Boot as a pre-configured, ready-to-use solution built on that toolkit. Learn more about the [Spring Framework](/tutorial/spring-introduction) to understand the foundation.
+Think of Spring Framework as a toolkit and Spring Boot as a pre-configured, ready-to-use solution built on that toolkit. Learn more about the [Spring Framework](/spring/spring-introduction) to understand the foundation.
 
 ### Can I use Spring Boot without Maven or Gradle?
 
@@ -641,9 +641,9 @@ The embedded server approach (JAR deployment) is preferred for modern microservi
 
 Spring Boot supports all major relational and NoSQL databases through auto-configuration:
 
-- **Relational Databases**: MySQL (learn [MySQL Introduction](/tutorial/mysql-introduction)), PostgreSQL, Oracle, SQL Server, H2 (for testing)
+- **Relational Databases**: MySQL (learn [MySQL Introduction](/mysql/mysql-introduction)), PostgreSQL, Oracle, SQL Server, H2 (for testing)
 - **NoSQL Databases**: MongoDB, Redis, Cassandra, Elasticsearch
-- **Database Access**: Use [JDBC](/tutorial/jdbc-introduction) for direct database access or [Spring Boot JPA](/tutorial/spring-boot-jpa) for object-relational mapping
+- **Database Access**: Use [JDBC](/tutorial/jdbc-introduction) for direct database access or [Spring Boot JPA](/springboot/spring-boot-jpa) for object-relational mapping
 
 Spring Boot automatically configures data sources when it detects database drivers on the classpath.
 
@@ -679,13 +679,13 @@ For example, if Spring Boot detects MySQL driver on the classpath, it automatica
 ### What should I learn after Spring Boot basics?
 
 After mastering Spring Boot fundamentals:
-1. **Database Integration**: Learn [Spring Boot JPA](/tutorial/spring-boot-jpa) for database operations
+1. **Database Integration**: Learn [Spring Boot JPA](/springboot/spring-boot-jpa) for database operations
 2. **REST API Development**: Build RESTful services with Spring Boot
 3. **Security**: Implement authentication and authorization with Spring Security
 4. **Testing**: Learn unit and integration testing for Spring Boot applications
 5. **Advanced Topics**: Microservices with Spring Cloud, reactive programming with WebFlux, and production deployment strategies
 
-Start with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) to begin building applications.
+Start with [Spring Boot Project Setup](/springboot/spring-boot-project-setup) to begin building applications.
 
 ---
 
@@ -698,7 +698,7 @@ Before proceeding to hands-on development, ensure you understand these fundament
 - **Embedded Servers**: Built-in servers enable standalone application deployment without external server setup
 - **Convention over Configuration**: Sensible defaults reduce configuration requirements
 - **Production-Ready**: Built-in features for monitoring, health checks, and externalized configuration
-- **Framework Extension**: Spring Boot extends [Spring Framework](/tutorial/spring-introduction) with convenience layers
+- **Framework Extension**: Spring Boot extends [Spring Framework](/spring/spring-introduction) with convenience layers
 
 ## What's Next?
 
@@ -706,9 +706,9 @@ Now that you understand Spring Boot's architecture, features, and benefits, you'
 
 ### Immediate Next Steps
 
-1. **[Spring Boot Project Setup](/tutorial/spring-boot-project-setup)**: Learn to create Spring Boot projects using Spring Initializr, Maven, or IDE wizards
-2. **[Spring Boot Configuration](/tutorial/spring-boot-configuration)**: Master application.properties, YAML configuration, and profile management
-3. **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Integrate databases using Spring Data JPA for object-relational mapping
+1. **[Spring Boot Project Setup](/springboot/spring-boot-project-setup)**: Learn to create Spring Boot projects using Spring Initializr, Maven, or IDE wizards
+2. **[Spring Boot Configuration](/springboot/spring-boot-configuration)**: Master application.properties, YAML configuration, and profile management
+3. **[Spring Boot JPA](/springboot/spring-boot-jpa)**: Integrate databases using Spring Data JPA for object-relational mapping
 
 ### Building REST APIs
 
@@ -718,7 +718,7 @@ Now that you understand Spring Boot's architecture, features, and benefits, you'
 
 ### Advanced Topics
 
-7. **Database Integration**: Connect to [MySQL](/tutorial/mysql-introduction) or other databases using [JDBC](/tutorial/jdbc-introduction) or JPA
+7. **Database Integration**: Connect to [MySQL](/mysql/mysql-introduction) or other databases using [JDBC](/tutorial/jdbc-introduction) or JPA
 8. **Security Implementation**: Add authentication and authorization to protect your APIs
 9. **Testing**: Write unit and integration tests for Spring Boot applications
 10. **Production Deployment**: Learn deployment strategies for cloud platforms and containers
@@ -727,24 +727,24 @@ Now that you understand Spring Boot's architecture, features, and benefits, you'
 
 Before diving into Spring Boot development, ensure you have:
 - Strong [Java fundamentals](/tutorial/java-introduction) including [OOPs concepts](/tutorial/oops-introduction)
-- Understanding of [Spring Framework](/tutorial/spring-introduction) basics ([Spring IOC](/tutorial/spring-ioc), [Spring DI](/tutorial/spring-di))
+- Understanding of [Spring Framework](/spring/spring-introduction) basics ([Spring IOC](/spring/spring-ioc), [Spring DI](/spring/spring-di))
 - Knowledge of [Maven](/tutorial/maven-introduction) or Gradle for dependency management
 - Familiarity with [REST API concepts](/tutorial/http-request-response) and HTTP methods
 
 ### Learning Path Recommendation
 
-1. **Foundation**: Master [Java basics](/tutorial/java-introduction) and [Spring Framework](/tutorial/spring-introduction)
-2. **Database Skills**: Learn [MySQL](/tutorial/mysql-introduction) and [JDBC](/tutorial/jdbc-introduction) for data persistence
-3. **Spring Boot**: Start with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) and build progressively complex applications
+1. **Foundation**: Master [Java basics](/corejava/java-introduction) and [Spring Framework](/spring/spring-introduction)
+2. **Database Skills**: Learn [MySQL](/mysql/mysql-introduction) and [JDBC](/tutorial/jdbc-introduction) for data persistence
+3. **Spring Boot**: Start with [Spring Boot Project Setup](/springboot/spring-boot-project-setup) and build progressively complex applications
 4. **Practice**: Build real projects like a student management system, e-commerce API, or blog application
 
-Spring Boot simplifies enterprise Java development, but understanding the underlying concepts from [Spring Framework](/tutorial/spring-introduction) and [Java fundamentals](/tutorial/java-introduction) ensures you can effectively use and customize Spring Boot applications. Begin with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup) to create your first Spring Boot application.
+Spring Boot simplifies enterprise Java development, but understanding the underlying concepts from [Spring Framework](/spring/spring-introduction) and [Java fundamentals](/corejava/java-introduction) ensures you can effectively use and customize Spring Boot applications. Begin with [Spring Boot Project Setup](/springboot/spring-boot-project-setup) to create your first Spring Boot application.
 
 ---
 
 ## Test Your Knowledge
 
-Ready to test your Spring Boot understanding? Take our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) with 20 randomly selected questions covering Auto-configuration, Starters, Actuator, JPA, Security, and all Spring Boot topics. Perfect for practice and assessment!
+Ready to test your Spring Boot understanding? Take our comprehensive [Spring Boot MCQ Exam](/spring-boot-mcq) with 20 randomly selected questions covering Auto-configuration, Starters, Actuator, JPA, Security, and all Spring Boot topics. Perfect for practice and assessment!
 `,
   code: `// Complete Spring Boot Application Example
 // This is a working example you can run

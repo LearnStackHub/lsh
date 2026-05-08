@@ -378,10 +378,10 @@ spring.datasource.url=jdbc:mysql://prod-server:3306/proddb
 Configuration is powerful. Use it wisely.
 
 **Next Steps:**
-- Set up your first project with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup)
-- Learn to send emails with [Spring Boot SMTP](/tutorial/spring-boot-smtp) (uses configuration)
-- Deploy your application with [Spring Boot Deployment](/tutorial/spring-boot-deployment) (uses profiles)
-- Monitor your app with [Spring Boot Actuator](/tutorial/spring-boot-actuator) (uses configuration)
+- Set up your first project with [Spring Boot Project Setup](/springboot/spring-boot-project-setup)
+- Learn to send emails with [Spring Boot SMTP](/springboot/spring-boot-smtp) (uses configuration)
+- Deploy your application with [Spring Boot Deployment](/springboot/spring-boot-deployment) (uses profiles)
+- Monitor your app with [Spring Boot Actuator](/springboot/spring-boot-actuator) (uses configuration)
 `,
   code: `// Spring Boot Configuration Examples
 
@@ -485,7 +485,7 @@ spring.datasource.password=\\$\\{DB_PASSWORD:password\\}
 
 ## Test Your Knowledge
 
-Mastered Spring Boot Configuration? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) covering application.properties, YAML, profiles, @ConfigurationProperties, and all Spring Boot topics!
+Mastered Spring Boot Configuration? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/spring-boot-mcq) covering application.properties, YAML, profiles, @ConfigurationProperties, and all Spring Boot topics!
   `,
   practiceQuestions: [
     {

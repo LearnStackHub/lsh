@@ -156,7 +156,17 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
         breadcrumbScript.textContent = JSON.stringify(breadcrumbData, null, 2);
         document.head.appendChild(breadcrumbScript);
       }
-    } else if (type === 'Course' || location.pathname.includes('/tutorial/') || location.pathname.includes('/kafka/') || location.pathname.includes('/docker/')) {
+    } else if (
+      type === 'Course'
+      || location.pathname.includes('/tutorial/')
+      || location.pathname.includes('/corejava/')
+      || location.pathname.includes('/mysql/')
+      || location.pathname.includes('/spring/')
+      || location.pathname.includes('/springboot/')
+      || location.pathname.includes('/hibernate/')
+      || location.pathname.includes('/kafka/')
+      || location.pathname.includes('/docker/')
+    ) {
       // Course schema for tutorial pages
       const resolvedTopic = topic;
       if (resolvedTopic) {

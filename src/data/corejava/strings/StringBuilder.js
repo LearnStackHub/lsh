@@ -164,9 +164,9 @@ StringBuilder is not thread-safe. If multiple threads need to mutate a shared st
 StringBuilder is the standard tool for **fast string construction** in Java. Learn to use it whenever you build output repeatedly, especially inside loops.
 
 ### Next steps
-- Learn [StringBuffer](/tutorial/string-buffer) for thread-safe mutable strings
-- Learn [String Methods](/tutorial/string-methods) for common operations on String
-- Learn [Collections](/tutorial/collection-introduction) for storing many strings efficiently
+- Learn [StringBuffer](/corejava/string-buffer) for thread-safe mutable strings
+- Learn [String Methods](/corejava/string-methods) for common operations on String
+- Learn [Collections](/corejava/collection-introduction) for storing many strings efficiently
   
 ---
 

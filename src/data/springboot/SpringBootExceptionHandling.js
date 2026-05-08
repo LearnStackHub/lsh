@@ -402,9 +402,9 @@ public class GlobalExceptionHandler {
 Exception handling makes your API professional and user-friendly. Handle errors gracefully.
 
 **Related Topics:**
-- Learn to build REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
-- Add input validation with [Spring Boot Validation](/tutorial/spring-boot-validation)
-- Test your exception handling with [Spring Boot Testing](/tutorial/spring-boot-testing)
+- Learn to build REST APIs with [Spring Boot REST API](/springboot/spring-boot-rest-api)
+- Add input validation with [Spring Boot Validation](/springboot/spring-boot-validation)
+- Test your exception handling with [Spring Boot Testing](/springboot/spring-boot-testing)
 - Understand HTTP status codes with [HTTP Status Codes](/tutorial/http-status-codes)
 `,
   code: `// Complete Exception Handling Example

@@ -154,7 +154,7 @@ for (int i = 0; i < arr.length; i++) {
 | Insert/Delete | Costly (shift) | Easier (but still may shift) |
 | Best for | Fixed-size data, performance | Flexible collections |
 
-For dynamic collections, learn [Java Collections Framework](/tutorial/collection-introduction).
+For dynamic collections, learn [Java Collections Framework](/corejava/collection-introduction).
 
 ---
 
@@ -198,7 +198,7 @@ Arrays use \`arr.length\` (field), not \`arr.length()\`.
 ### Q5: How do I copy an array safely?
 
 **A:** Use \`Arrays.copyOf\`, \`Arrays.copyOfRange\`, or \`System.arraycopy\`.\n
-Learn more in [Array Methods](/tutorial/array-methods).
+Learn more in [Array Methods](/corejava/array-methods).
 
 ### Q6: How to find the max/min in an array?
 
@@ -211,9 +211,9 @@ Learn more in [Array Methods](/tutorial/array-methods).
 A single dimensional array is a **core building block** for Java programming. When you understand indexing, traversal, searching, and reversing, you can implement many algorithms and data structures efficiently.
 
 ### Next steps
-- Learn [Multi-Dimensional Arrays](/tutorial/multi-dimensional-array) for matrices
-- Learn [Array Methods](/tutorial/array-methods) for \`Arrays.sort\`, \`copyOf\`, \`binarySearch\`
-- Learn [Exception Handling](/tutorial/exception-introduction) to handle array errors safely
+- Learn [Multi-Dimensional Arrays](/corejava/multi-dimensional-array) for matrices
+- Learn [Array Methods](/corejava/array-methods) for \`Arrays.sort\`, \`copyOf\`, \`binarySearch\`
+- Learn [Exception Handling](/corejava/exception-introduction) to handle array errors safely
   
 ---
 

@@ -320,10 +320,10 @@ java -Xmx2048m -jar my-app.jar
 Deployment is the final step. Make it smooth and reliable.
 
 **Related Topics:**
-- Learn configuration with [Spring Boot Configuration](/tutorial/spring-boot-configuration) (uses profiles)
-- Monitor your deployed app with [Spring Boot Actuator](/tutorial/spring-boot-actuator)
-- Set up your project with [Spring Boot Project Setup](/tutorial/spring-boot-project-setup)
-- Secure your deployment with [Spring Boot Security](/tutorial/spring-boot-security)
+- Learn configuration with [Spring Boot Configuration](/springboot/spring-boot-configuration) (uses profiles)
+- Monitor your deployed app with [Spring Boot Actuator](/springboot/spring-boot-actuator)
+- Set up your project with [Spring Boot Project Setup](/springboot/spring-boot-project-setup)
+- Secure your deployment with [Spring Boot Security](/springboot/spring-boot-security)
 `,
   code: `// Deployment Configuration Examples
 

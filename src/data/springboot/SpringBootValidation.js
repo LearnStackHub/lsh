@@ -464,10 +464,10 @@ curl -X POST http://localhost:8080/api/students \\
 Validation protects your application from bad data. Use it everywhere.
 
 **Related Topics:**
-- Build REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api) (uses validation)
-- Handle validation errors with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
-- Work with database entities in [Spring Boot JPA](/tutorial/spring-boot-jpa)
-- Test validation logic with [Spring Boot Testing](/tutorial/spring-boot-testing)
+- Build REST APIs with [Spring Boot REST API](/springboot/spring-boot-rest-api) (uses validation)
+- Handle validation errors with [Spring Boot Exception Handling](/springboot/spring-boot-exception-handling)
+- Work with database entities in [Spring Boot JPA](/springboot/spring-boot-jpa)
+- Test validation logic with [Spring Boot Testing](/springboot/spring-boot-testing)
 
 ---
 

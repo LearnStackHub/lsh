@@ -526,7 +526,7 @@ Now that you understand AOP basics, you can learn:
 
 ## Test Your Knowledge
 
-Mastered Spring AOP? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) covering AOP, Aspects, Advice, Pointcuts, and all Spring topics!
+Mastered Spring AOP? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/spring-mcq) covering AOP, Aspects, Advice, Pointcuts, and all Spring topics!
 
 > **Key Takeaway:** AOP allows you to separate cross-cutting concerns (logging, transactions, security) from business logic. Write the code once in an Aspect, and it automatically applies to multiple methods. This makes your code cleaner, more maintainable, and easier to understand.
 `,

@@ -1197,13 +1197,13 @@ This shows all registered endpoints.
 Remember: Interviewers are not trying to trick you. They want to see if you can work with them. Be confident, be honest, and show your passion for learning.
 
 **Prepare for Your Interview:**
-- Master the basics with [Spring Boot Introduction](/tutorial/spring-boot-introduction)
-- Understand configuration in [Spring Boot Configuration](/tutorial/spring-boot-configuration)
-- Build REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
-- Learn database integration with [Spring Boot JPA](/tutorial/spring-boot-jpa)
-- Understand security with [Spring Boot Security](/tutorial/spring-boot-security)
-- Learn testing with [Spring Boot Testing](/tutorial/spring-boot-testing)
-- Master deployment with [Spring Boot Deployment](/tutorial/spring-boot-deployment)
+- Master the basics with [Spring Boot Introduction](/springboot/spring-boot-introduction)
+- Understand configuration in [Spring Boot Configuration](/springboot/spring-boot-configuration)
+- Build REST APIs with [Spring Boot REST API](/springboot/spring-boot-rest-api)
+- Learn database integration with [Spring Boot JPA](/springboot/spring-boot-jpa)
+- Understand security with [Spring Boot Security](/springboot/spring-boot-security)
+- Learn testing with [Spring Boot Testing](/springboot/spring-boot-testing)
+- Master deployment with [Spring Boot Deployment](/springboot/spring-boot-deployment)
 
 Good luck with your interview!
 `

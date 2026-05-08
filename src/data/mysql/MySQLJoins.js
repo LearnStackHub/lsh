@@ -5,7 +5,7 @@ const mysqlJoins = {
   content: `
 # MySQL Joins - Combining Data from Multiple Tables
 
-MySQL joins are fundamental SQL operations that enable retrieval of data from multiple related tables in a single query. Joins combine rows from different tables based on relationships defined by [foreign keys](/tutorial/mysql-constraints), allowing developers to query normalized databases efficiently. Understanding joins is essential for working with relational databases and building complex data retrieval queries. Master [SELECT queries](/tutorial/mysql-select) before learning JOINs.
+MySQL joins are fundamental SQL operations that enable retrieval of data from multiple related tables in a single query. Joins combine rows from different tables based on relationships defined by [foreign keys](/mysql/mysql-constraints), allowing developers to query normalized databases efficiently. Understanding joins is essential for working with relational databases and building complex data retrieval queries. Master [SELECT queries](/mysql/mysql-select) before learning JOINs.
 
 Enterprise applications extensively use joins to combine data from normalized database tables. E-commerce platforms join products with categories and inventory, financial systems join accounts with transactions, and content management systems join articles with authors and categories. Mastery of joins is critical for database developers and backend engineers working with relational data.
 
@@ -473,7 +473,7 @@ RIGHT JOIN returns all rows from the right table and matching rows from the left
 
 ### Can I join more than two tables?
 
-Yes, you can join multiple tables in a single query. Join them sequentially, ensuring each join has a proper ON condition. Be careful with performance - joining many large tables can be slow. Learn about [MySQL Subqueries](/tutorial/mysql-subqueries) as an alternative for complex queries.
+Yes, you can join multiple tables in a single query. Join them sequentially, ensuring each join has a proper ON condition. Be careful with performance - joining many large tables can be slow. Learn about [MySQL Subqueries](/mysql/mysql-subqueries) as an alternative for complex queries.
 
 ### What is a self-join?
 
@@ -481,7 +481,7 @@ A self-join is when a table is joined with itself. It's useful for hierarchical 
 
 ### How do I optimize join performance?
 
-Optimize joins by: (1) creating indexes on join columns, (2) selecting only needed columns instead of SELECT *, (3) using WHERE to filter early, (4) ensuring join columns have the same data type, and (5) avoiding unnecessary joins. Learn about [MySQL Indexes](/tutorial/mysql-indexes) for performance optimization.
+Optimize joins by: (1) creating indexes on join columns, (2) selecting only needed columns instead of SELECT *, (3) using WHERE to filter early, (4) ensuring join columns have the same data type, and (5) avoiding unnecessary joins. Learn about [MySQL Indexes](/mysql/mysql-indexes) for performance optimization.
 
 ### What happens if I join tables without a condition?
 
@@ -497,7 +497,7 @@ Comma-separated tables (FROM table1, table2) create an implicit join, but it's l
 
 ### How do joins relate to foreign keys?
 
-Foreign keys define relationships between tables, and joins use these relationships to combine data. While you can join tables without foreign keys, foreign keys ensure referential integrity and make join relationships explicit. Foreign keys also help with query optimization. Learn about [MySQL Constraints](/tutorial/mysql-constraints) for foreign key setup.
+Foreign keys define relationships between tables, and joins use these relationships to combine data. While you can join tables without foreign keys, foreign keys ensure referential integrity and make join relationships explicit. Foreign keys also help with query optimization. Learn about [MySQL Constraints](/mysql/mysql-constraints) for foreign key setup.
 
 ---
 
@@ -523,10 +523,10 @@ Now that you understand MySQL joins, you're ready to explore advanced MySQL topi
 
 ### Immediate Next Steps
 
-1. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Learn nested queries as an alternative to joins
-2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Combine joins with aggregate functions
-3. **[MySQL Clauses](/tutorial/mysql-clauses)**: Master WHERE, GROUP BY, HAVING with joins
-4. **[MySQL Constraints](/tutorial/mysql-constraints)**: Understand foreign keys that enable joins
+1. **[MySQL Subqueries](/mysql/mysql-subqueries)**: Learn nested queries as an alternative to joins
+2. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Combine joins with aggregate functions
+3. **[MySQL Clauses](/mysql/mysql-clauses)**: Master WHERE, GROUP BY, HAVING with joins
+4. **[MySQL Constraints](/mysql/mysql-constraints)**: Understand foreign keys that enable joins
 
 ### Advanced Topics
 
@@ -537,12 +537,12 @@ Now that you understand MySQL joins, you're ready to explore advanced MySQL topi
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Select](/tutorial/mysql-select)**: Master basic data retrieval
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Select](/mysql/mysql-select)**: Master basic data retrieval
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Use joins in Java applications
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Understand how JPA handles joins automatically
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: Understand how JPA handles joins automatically
 
-Joins are essential for working with relational databases. Continue learning about [MySQL Subqueries](/tutorial/mysql-subqueries) to understand alternative approaches for combining data from multiple tables.
+Joins are essential for working with relational databases. Continue learning about [MySQL Subqueries](/mysql/mysql-subqueries) to understand alternative approaches for combining data from multiple tables.
 
 ---
 
@@ -550,15 +550,15 @@ Joins are essential for working with relational databases. Continue learning abo
 
 Master these related MySQL topics:
 
-1. **[MySQL Subqueries](/tutorial/mysql-subqueries)** - Nested queries for complex data retrieval
-2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
-3. **[MySQL Clauses](/tutorial/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
-4. **[MySQL Constraints](/tutorial/mysql-constraints)** - PRIMARY KEY, FOREIGN KEY, UNIQUE
-5. **[MySQL Indexes](/tutorial/mysql-indexes)** - Improve query performance
+1. **[MySQL Subqueries](/mysql/mysql-subqueries)** - Nested queries for complex data retrieval
+2. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
+3. **[MySQL Clauses](/mysql/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+4. **[MySQL Constraints](/mysql/mysql-constraints)** - PRIMARY KEY, FOREIGN KEY, UNIQUE
+5. **[MySQL Indexes](/mysql/mysql-indexes)** - Improve query performance
 
 **Connect to Java:**
 - Use joins in [JDBC](/tutorial/jdbc-introduction) queries
-- Spring Boot JPA handles joins automatically - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Spring Boot JPA handles joins automatically - see [Spring Boot JPA](/springboot/spring-boot-jpa)
 
 ---
 
@@ -610,17 +610,17 @@ Master these related MySQL topics:
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
-| **Constraints / FK** | [MySQL Constraints](/tutorial/mysql-constraints) |
-| **Indexes** | [MySQL Indexes](/tutorial/mysql-indexes) |
-| **Hibernate relationships** | [Hibernate Relationships](/tutorial/hibernate-relationships) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
+| **Subqueries** | [MySQL Subqueries](/mysql/mysql-subqueries) |
+| **Constraints / FK** | [MySQL Constraints](/mysql/mysql-constraints) |
+| **Indexes** | [MySQL Indexes](/mysql/mysql-indexes) |
+| **Hibernate relationships** | [Hibernate Relationships](/hibernate/hibernate-relationships) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL Joins? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering INNER JOIN, LEFT JOIN, RIGHT JOIN, and more!
+Mastered MySQL Joins? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering INNER JOIN, LEFT JOIN, RIGHT JOIN, and more!
   `,
   code: `-- MySQL Joins Examples
 

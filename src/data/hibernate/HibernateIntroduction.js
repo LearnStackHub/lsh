@@ -395,7 +395,7 @@ In the next tutorials, we'll dive deeper into Hibernate configuration, mapping, 
 
 ## Test Your Knowledge
 
-Ready to test your Hibernate understanding? Take our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) with 20 randomly selected questions covering all Hibernate topics. Perfect for practice and assessment!
+Ready to test your Hibernate understanding? Take our comprehensive [Hibernate MCQ Exam](/hibernate-mcq) with 20 randomly selected questions covering all Hibernate topics. Perfect for practice and assessment!
 
 ---
 

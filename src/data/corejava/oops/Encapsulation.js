@@ -828,7 +828,7 @@ private final String id;  // Cannot be changed after initialization
 
 ### What is encapsulation and why is it important?
 
-Encapsulation is an OOP principle that combines data and methods into a single unit while restricting direct access to internal details. It's important because it protects data integrity, prevents unauthorized access, enables validation, and improves code maintainability. Encapsulation is one of the four pillars of OOP along with [Inheritance](/tutorial/inheritance), [Polymorphism](/tutorial/polymorphism), and [Abstraction](/tutorial/abstraction).
+Encapsulation is an OOP principle that combines data and methods into a single unit while restricting direct access to internal details. It's important because it protects data integrity, prevents unauthorized access, enables validation, and improves code maintainability. Encapsulation is one of the four pillars of OOP along with [Inheritance](/corejava/inheritance), [Polymorphism](/corejava/polymorphism), and [Abstraction](/corejava/abstraction).
 
 ### What's the difference between private, protected, and public access modifiers?
 
@@ -889,10 +889,10 @@ Now that you understand encapsulation, you're ready to explore related OOP conce
 
 ### Immediate Next Steps
 
-1. **[Inheritance](/tutorial/inheritance)**: Learn how inheritance works with encapsulation
-2. **[Polymorphism](/tutorial/polymorphism)**: Understand how encapsulation enables polymorphism
-3. **[Abstraction](/tutorial/abstraction)**: Discover how to hide complexity
-4. **[Interfaces](/tutorial/interfaces)**: Learn to define contracts for classes
+1. **[Inheritance](/corejava/inheritance)**: Learn how inheritance works with encapsulation
+2. **[Polymorphism](/corejava/polymorphism)**: Understand how encapsulation enables polymorphism
+3. **[Abstraction](/corejava/abstraction)**: Discover how to hide complexity
+4. **[Interfaces](/corejava/interfaces)**: Learn to define contracts for classes
 
 ### Advanced Topics
 
@@ -903,12 +903,12 @@ Now that you understand encapsulation, you're ready to explore related OOP conce
 
 ### Related Tutorials
 
-- **[OOPs Introduction](/tutorial/oops-introduction)**: Review object-oriented programming fundamentals
-- **[Classes and Objects](/tutorial/classes-objects)**: Understand the foundation of encapsulation
-- **[Java Introduction](/tutorial/java-introduction)**: Master Java fundamentals
-- **[Spring Framework](/tutorial/spring-introduction)**: See encapsulation in enterprise frameworks
+- **[OOPs Introduction](/corejava/oops-introduction)**: Review object-oriented programming fundamentals
+- **[Classes and Objects](/corejava/classes-objects)**: Understand the foundation of encapsulation
+- **[Java Introduction](/corejava/java-introduction)**: Master Java fundamentals
+- **[Spring Framework](/spring/spring-introduction)**: See encapsulation in enterprise frameworks
 
-Encapsulation is essential for building secure, maintainable software. Continue learning about [Inheritance](/tutorial/inheritance) to understand how encapsulation works in class hierarchies.
+Encapsulation is essential for building secure, maintainable software. Continue learning about [Inheritance](/corejava/inheritance) to understand how encapsulation works in class hierarchies.
 
 ---
 
@@ -916,20 +916,20 @@ Encapsulation is essential for building secure, maintainable software. Continue 
 
 Master these related OOPs concepts:
 
-1. **[Inheritance](/tutorial/inheritance)** — Build on existing classes
-2. **[Polymorphism](/tutorial/polymorphism)** — One interface, many implementations
-3. **[Abstraction](/tutorial/abstraction)** — Hide complexity, show essentials
-4. **[Interfaces](/tutorial/interfaces)** — Define contracts for classes
-5. **[Classes and Objects](/tutorial/classes-objects)** — Create and use objects
-6. **[Constructors](/tutorial/constructors)** — Initialize objects properly
+1. **[Inheritance](/corejava/inheritance)** — Build on existing classes
+2. **[Polymorphism](/corejava/polymorphism)** — One interface, many implementations
+3. **[Abstraction](/corejava/abstraction)** — Hide complexity, show essentials
+4. **[Interfaces](/corejava/interfaces)** — Define contracts for classes
+5. **[Classes and Objects](/corejava/classes-objects)** — Create and use objects
+6. **[Constructors](/corejava/constructors)** — Initialize objects properly
 
 **Prerequisites:**
-- Complete [OOPs Introduction](/tutorial/oops-introduction) first
-- Understand [Java Classes and Objects](/tutorial/classes-objects) basics
+- Complete [OOPs Introduction](/corejava/oops-introduction) first
+- Understand [Java Classes and Objects](/corejava/classes-objects) basics
 
 **Next Level:**
-- Use encapsulation in [Spring Framework](/tutorial/spring-framework-introduction)
-- Build applications with [Spring Boot](/tutorial/spring-boot-introduction)
+- Use encapsulation in [Spring Framework](/spring/spring-introduction)
+- Build applications with [Spring Boot](/springboot/spring-boot-introduction)
 `
     }
   ]

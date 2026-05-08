@@ -43,6 +43,31 @@ function LegacyDockerRouteRedirect() {
   return <Navigate to={`/docker/${topicSlug}`} replace />;
 }
 
+function LegacyHibernateRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/hibernate/hibernate-${topicSlug}`} replace />;
+}
+
+function LegacySpringRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/spring/spring-${topicSlug}`} replace />;
+}
+
+function LegacySpringBootRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/springboot/spring-boot-${topicSlug}`} replace />;
+}
+
+function LegacyMySQLRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/mysql/mysql-${topicSlug}`} replace />;
+}
+
+function LegacyCoreJavaRouteRedirect() {
+  const { topicSlug } = useParams();
+  return <Navigate to={`/corejava/java-${topicSlug}`} replace />;
+}
+
 // URL redirects mapping for old incorrect URLs to correct ones
 const urlRedirects = {
   'servlet-architecture': 'servlet-introduction',
@@ -90,6 +115,26 @@ function AppWithTracking() {
         path="/tutorial/docker-:topicSlug"
         element={<LegacyDockerRouteRedirect />}
       />
+      <Route
+        path="/tutorial/hibernate-:topicSlug"
+        element={<LegacyHibernateRouteRedirect />}
+      />
+      <Route
+        path="/tutorial/spring-:topicSlug"
+        element={<LegacySpringRouteRedirect />}
+      />
+      <Route
+        path="/tutorial/spring-boot-:topicSlug"
+        element={<LegacySpringBootRouteRedirect />}
+      />
+      <Route
+        path="/tutorial/mysql-:topicSlug"
+        element={<LegacyMySQLRouteRedirect />}
+      />
+      <Route
+        path="/tutorial/java-:topicSlug"
+        element={<LegacyCoreJavaRouteRedirect />}
+      />
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         {/* Redirect index.html to home */}
@@ -98,6 +143,11 @@ function AppWithTracking() {
           element={<Navigate to="/" replace />} 
         />
         <Route path="tutorial/:topicId" element={<Tutorial />} />
+        <Route path="corejava/:topicId" element={<Tutorial />} />
+        <Route path="mysql/:topicId" element={<Tutorial />} />
+        <Route path="spring/:topicId" element={<Tutorial />} />
+        <Route path="springboot/:topicId" element={<Tutorial />} />
+        <Route path="hibernate/:topicId" element={<Tutorial />} />
         <Route path="kafka/:topicSlug" element={<Tutorial />} />
         <Route path="docker/:topicSlug" element={<Tutorial />} />
         <Route path="privacy" element={<PrivacyPolicy />} />

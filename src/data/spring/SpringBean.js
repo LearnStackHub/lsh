@@ -403,14 +403,14 @@ Answer: Nothing. They're the same thing.
 
 Now that you understand beans, continue learning:
 
-1. **[ApplicationContext](/tutorial/spring-application-context)** - The container that manages all beans
-2. **[Configuration with Annotations](/tutorial/spring-configuration-annotation)** - How to configure beans
-3. **[Spring MVC DispatcherServlet](/tutorial/spring-mvc-dispatcher-servlet)** - Build web applications with Spring
-4. **[Spring Boot Introduction](/tutorial/spring-boot-introduction)** - Simplified Spring development
+1. **[ApplicationContext](/spring/spring-application-context)** - The container that manages all beans
+2. **[Configuration with Annotations](/spring/spring-configuration-annotation)** - How to configure beans
+3. **[Spring MVC DispatcherServlet](/spring/spring-mvc-dispatcher-servlet)** - Build web applications with Spring
+4. **[Spring Boot Introduction](/springboot/spring-boot-introduction)** - Simplified Spring development
 
 **Related Topics:**
-- Understand how beans are created with [Spring IOC](/tutorial/spring-ioc)
-- Learn how beans get dependencies with [Spring DI](/tutorial/spring-di)
+- Understand how beans are created with [Spring IOC](/spring/spring-ioc)
+- Learn how beans get dependencies with [Spring DI](/spring/spring-di)
 
 > **Key Takeaway:** A bean is just a Spring-managed object. You mark a class with @Component (or @Service, @Repository, @Controller), and Spring creates and manages instances of that class. That's all there is to it.
 `,

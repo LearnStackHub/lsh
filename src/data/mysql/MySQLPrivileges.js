@@ -528,9 +528,9 @@ Now that you understand DCL and privileges, you're ready to explore advanced MyS
 
 ### Immediate Next Steps
 
-1. **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-2. **[MySQL Create Database](/tutorial/mysql-create-database)**: Create databases for user access
-3. **[MySQL Security Best Practices](/tutorial/mysql-security)**: Master database security
+1. **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+2. **[MySQL Create Database](/mysql/mysql-create-database)**: Create databases for user access
+3. **[MySQL Security Best Practices](/mysql/mysql-security)**: Master database security
 4. **[Database Administration](/tutorial/database-administration)**: Learn administration tasks
 
 ### Advanced Topics
@@ -542,12 +542,12 @@ Now that you understand DCL and privileges, you're ready to explore advanced MyS
 
 ### Related Tutorials
 
-- **[MySQL Constraints](/tutorial/mysql-constraints)**: Understand data integrity alongside security
-- **[Spring Boot Security](/tutorial/spring-boot-security)**: See application-level security
+- **[MySQL Constraints](/mysql/mysql-constraints)**: Understand data integrity alongside security
+- **[Spring Boot Security](/springboot/spring-boot-security)**: See application-level security
 - **[Database Design](/tutorial/database-design)**: Design secure database schemas
 - **[System Administration](/tutorial/system-administration)**: Master server-level security
 
-DCL and privileges are essential for database security. Continue learning about [MySQL Security Best Practices](/tutorial/mysql-security) to implement comprehensive database security.
+DCL and privileges are essential for database security. Continue learning about [MySQL Security Best Practices](/mysql/mysql-security) to implement comprehensive database security.
 
 ---
 
@@ -599,8 +599,8 @@ DCL and privileges are essential for database security. Continue learning about 
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Installation / users** | [MySQL Installation](/tutorial/mysql-installation) |
-| **DDL (object ownership)** | [MySQL DDL](/tutorial/mysql-ddl) |
+| **Installation / users** | [MySQL Installation](/mysql/mysql-installation) |
+| **DDL (object ownership)** | [MySQL DDL](/mysql/mysql-ddl) |
 | **App security** | [Servlet Security](/tutorial/servlet-security) |
 | **API auth** | [Authentication & Authorization](/tutorial/authentication-authorization) |
 | **HTTPS** | [HTTPS Security](/tutorial/https-security) |
@@ -609,7 +609,7 @@ DCL and privileges are essential for database security. Continue learning about 
 
 ## Test Your Knowledge
 
-Mastered MySQL privileges? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering privileges, security, and all MySQL topics!
+Mastered MySQL privileges? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering privileges, security, and all MySQL topics!
   `,
   code: `-- MySQL Privileges & Security Examples
 

@@ -398,9 +398,9 @@ Stored procedures provide:
 Master stored procedures, and you can build powerful database logic!
 
 **Related Topics:**
-- Learn [MySQL Triggers](/tutorial/mysql-triggers) for automated actions
-- Use [MySQL Functions](/tutorial/mysql-scalar-functions) within procedures
-- Combine with [MySQL Transactions](/tutorial/mysql-transactions) for data integrity
+- Learn [MySQL Triggers](/mysql/mysql-triggers) for automated actions
+- Use [MySQL Functions](/mysql/mysql-scalar-functions) within procedures
+- Combine with [MySQL Transactions](/mysql/mysql-transactions) for data integrity
 - Call from Java using [JDBC PreparedStatement](/tutorial/jdbc-prepared-statement)
 
 ---
@@ -555,7 +555,7 @@ A stored procedure is precompiled SQL code stored in the database that can be ex
 
 ### What's the difference between stored procedures and functions?
 
-Stored procedures can return multiple result sets, perform DML operations, and don't have to return values. Functions must return a single value, can be used in SQL expressions, and are typically used for calculations. Use procedures for operations, functions for calculations. Learn about [MySQL Functions](/tutorial/mysql-scalar-functions) for function details.
+Stored procedures can return multiple result sets, perform DML operations, and don't have to return values. Functions must return a single value, can be used in SQL expressions, and are typically used for calculations. Use procedures for operations, functions for calculations. Learn about [MySQL Functions](/mysql/mysql-scalar-functions) for function details.
 
 ### Can stored procedures call other stored procedures?
 
@@ -613,9 +613,9 @@ Now that you understand stored procedures, you're ready to explore advanced MySQ
 
 ### Immediate Next Steps
 
-1. **[MySQL Triggers](/tutorial/mysql-triggers)**: Learn automated database actions
-2. **[MySQL Transactions](/tutorial/mysql-transactions)**: Understand transaction management in procedures
-3. **[MySQL Functions](/tutorial/mysql-scalar-functions)**: Compare procedures with functions
+1. **[MySQL Triggers](/mysql/mysql-triggers)**: Learn automated database actions
+2. **[MySQL Transactions](/mysql/mysql-transactions)**: Understand transaction management in procedures
+3. **[MySQL Functions](/mysql/mysql-scalar-functions)**: Compare procedures with functions
 4. **[JDBC Introduction](/tutorial/jdbc-introduction)**: Call procedures from Java applications
 
 ### Advanced Topics
@@ -627,12 +627,12 @@ Now that you understand stored procedures, you're ready to explore advanced MySQ
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Views](/tutorial/mysql-views)**: Compare views with procedures
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA works with procedures
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Views](/mysql/mysql-views)**: Compare views with procedures
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA works with procedures
 - **[Database Design](/tutorial/database-design)**: Design databases with procedures in mind
 
-Stored procedures are essential for complex database logic. Continue learning about [MySQL Triggers](/tutorial/mysql-triggers) to understand automated database actions.
+Stored procedures are essential for complex database logic. Continue learning about [MySQL Triggers](/mysql/mysql-triggers) to understand automated database actions.
 
 ---
 
@@ -684,17 +684,17 @@ Stored procedures are essential for complex database logic. Continue learning ab
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Triggers** | [MySQL Triggers](/tutorial/mysql-triggers) |
-| **Transactions** | [MySQL Transactions](/tutorial/mysql-transactions) |
-| **Views** | [MySQL Views](/tutorial/mysql-views) |
+| **Triggers** | [MySQL Triggers](/mysql/mysql-triggers) |
+| **Transactions** | [MySQL Transactions](/mysql/mysql-transactions) |
+| **Views** | [MySQL Views](/mysql/mysql-views) |
 | **JDBC CallableStatement** | [JDBC Introduction](/tutorial/jdbc-introduction) |
-| **Spring Data custom queries** | [Spring Data Custom Queries](/tutorial/spring-data-custom-queries) |
+| **Spring Data custom queries** | [Spring Data Custom Queries](/spring/spring-data-custom-queries) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered stored procedures? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering stored procedures, triggers, views, and all MySQL topics!
+Mastered stored procedures? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering stored procedures, triggers, views, and all MySQL topics!
   `,
   code: `-- MySQL Stored Procedures Examples
 

@@ -5,7 +5,7 @@ const mysqlInsertUpdateDelete = {
   content: `
 # INSERT, UPDATE, DELETE - Modifying Data in MySQL
 
-INSERT, UPDATE, and DELETE are the three fundamental Data Manipulation Language (DML) commands in MySQL that enable you to add, modify, and remove data from database tables. These commands are essential for maintaining database content, supporting all CRUD (Create, Read, Update, Delete) operations that applications require. Understanding these commands is crucial for database administration and application development. Learn about [MySQL Data Types](/tutorial/mysql-data-types), [Creating Tables](/tutorial/mysql-create-database), and [MySQL Constraints](/tutorial/mysql-constraints) before using DML.
+INSERT, UPDATE, and DELETE are the three fundamental Data Manipulation Language (DML) commands in MySQL that enable you to add, modify, and remove data from database tables. These commands are essential for maintaining database content, supporting all CRUD (Create, Read, Update, Delete) operations that applications require. Understanding these commands is crucial for database administration and application development. Learn about [MySQL Data Types](/mysql/mysql-data-types), [Creating Tables](/mysql/mysql-create-database), and [MySQL Constraints](/mysql/mysql-constraints) before using DML.
 
 Enterprise applications extensively use INSERT for data creation, UPDATE for data modification, and DELETE for data removal. These operations are typically executed within transactions to ensure data consistency and atomicity. Mastery of INSERT, UPDATE, and DELETE, combined with proper transaction management, is essential for building reliable database applications.
 
@@ -19,7 +19,7 @@ Enterprise applications extensively use INSERT for data creation, UPDATE for dat
 
 ## INSERT - Adding Data
 
-Learn about [Creating Tables](/tutorial/mysql-create-database) and [MySQL DDL](/tutorial/mysql-ddl) to understand table structure before inserting data.
+Learn about [Creating Tables](/mysql/mysql-create-database) and [MySQL DDL](/mysql/mysql-ddl) to understand table structure before inserting data.
 
 ### Basic INSERT Syntax
 
@@ -79,7 +79,7 @@ WHERE age > 25;
 
 ## UPDATE - Modifying Data
 
-Use [SELECT queries](/tutorial/mysql-select) to verify updates and [WHERE clause](/tutorial/mysql-clauses) for filtering rows to update.
+Use [SELECT queries](/mysql/mysql-select) to verify updates and [WHERE clause](/mysql/mysql-clauses) for filtering rows to update.
 
 ### Basic UPDATE Syntax
 
@@ -137,7 +137,7 @@ WHERE c.email = ' Dattu@example.com';
 
 ## DELETE - Removing Data
 
-Learn about [MySQL Transactions](/tutorial/mysql-transactions) to safely delete data with rollback capability. Use [SELECT](/tutorial/mysql-select) to preview data before deleting.
+Learn about [MySQL Transactions](/mysql/mysql-transactions) to safely delete data with rollback capability. Use [SELECT](/mysql/mysql-select) to preview data before deleting.
 
 ### Basic DELETE Syntax
 
@@ -346,9 +346,9 @@ WHERE order_date < DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR);
 - Consider soft deletes for important data
 
 **Related Topics:**
-- Learn [MySQL SELECT](/tutorial/mysql-select) to query the data you insert
-- Understand [MySQL Constraints](/tutorial/mysql-constraints) that affect INSERT/UPDATE/DELETE
-- Use [MySQL Transactions](/tutorial/mysql-transactions) for safe data modifications
+- Learn [MySQL SELECT](/mysql/mysql-select) to query the data you insert
+- Understand [MySQL Constraints](/mysql/mysql-constraints) that affect INSERT/UPDATE/DELETE
+- Use [MySQL Transactions](/mysql/mysql-transactions) for safe data modifications
 - Connect from Java with [JDBC CRUD Operations](/tutorial/jdbc-crud-operations)
 
 **Key Points:**
@@ -485,7 +485,7 @@ DELETE FROM users WHERE id = 1;  -- Data lost forever
 
 ### What is the difference between INSERT, UPDATE, and DELETE?
 
-INSERT adds new rows to a table, UPDATE modifies existing row data, and DELETE removes rows from a table. INSERT creates new records, UPDATE changes existing records, and DELETE removes records. All three are DML (Data Manipulation Language) commands that modify table data. Learn about [MySQL Select](/tutorial/mysql-select) for reading data.
+INSERT adds new rows to a table, UPDATE modifies existing row data, and DELETE removes rows from a table. INSERT creates new records, UPDATE changes existing records, and DELETE removes records. All three are DML (Data Manipulation Language) commands that modify table data. Learn about [MySQL Select](/mysql/mysql-select) for reading data.
 
 ### Can I insert multiple rows in a single INSERT statement?
 
@@ -594,10 +594,10 @@ Now that you understand INSERT, UPDATE, and DELETE, you're ready to explore adva
 
 ### Immediate Next Steps
 
-1. **[MySQL Transactions](/tutorial/mysql-transactions)**: Learn to group DML operations for consistency
-2. **[MySQL Select](/tutorial/mysql-select)**: Master data retrieval to complement data modification
-3. **[MySQL Constraints](/tutorial/mysql-constraints)**: Understand how constraints affect DML operations
-4. **[MySQL Joins](/tutorial/mysql-joins)**: Use joins in UPDATE and DELETE statements
+1. **[MySQL Transactions](/mysql/mysql-transactions)**: Learn to group DML operations for consistency
+2. **[MySQL Select](/mysql/mysql-select)**: Master data retrieval to complement data modification
+3. **[MySQL Constraints](/mysql/mysql-constraints)**: Understand how constraints affect DML operations
+4. **[MySQL Joins](/mysql/mysql-joins)**: Use joins in UPDATE and DELETE statements
 
 ### Advanced Topics
 
@@ -608,12 +608,12 @@ Now that you understand INSERT, UPDATE, and DELETE, you're ready to explore adva
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables for DML operations
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Create Database](/mysql/mysql-create-database)**: Create tables for DML operations
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute DML from Java applications
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles DML operations
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA handles DML operations
 
-INSERT, UPDATE, and DELETE are essential for data management. Continue learning about [MySQL Transactions](/tutorial/mysql-transactions) to ensure data consistency across multiple operations.
+INSERT, UPDATE, and DELETE are essential for data management. Continue learning about [MySQL Transactions](/mysql/mysql-transactions) to ensure data consistency across multiple operations.
 
 ---
 
@@ -665,17 +665,17 @@ INSERT, UPDATE, and DELETE are essential for data management. Continue learning 
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Transactions** | [MySQL Transactions](/tutorial/mysql-transactions) |
-| **Constraints & FK** | [MySQL Constraints](/tutorial/mysql-constraints) |
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
+| **Transactions** | [MySQL Transactions](/mysql/mysql-transactions) |
+| **Constraints & FK** | [MySQL Constraints](/mysql/mysql-constraints) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
 | **JDBC CRUD** | [CRUD Operations](/tutorial/crud-operations) |
-| **Spring Data JPA** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+| **Spring Data JPA** | [Spring Boot JPA](/springboot/spring-boot-jpa) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered DML operations? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering INSERT, UPDATE, DELETE, and all MySQL topics!
+Mastered DML operations? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering INSERT, UPDATE, DELETE, and all MySQL topics!
   `,
   code: `-- MySQL INSERT, UPDATE, DELETE Examples
 

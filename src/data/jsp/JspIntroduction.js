@@ -73,7 +73,7 @@ E-commerce platforms use JSP to dynamically render product information:
 \`\`\`
 
 **Process Flow:**
-1. [Servlet](/tutorial/servlet-introduction) retrieves product data from database using [JDBC](/tutorial/jdbc-introduction) or [Hibernate](/tutorial/hibernate-introduction)
+1. [Servlet](/tutorial/servlet-introduction) retrieves product data from database using [JDBC](/tutorial/jdbc-introduction) or [Hibernate](/hibernate/hibernate-introduction)
 2. Servlet stores product object in request attributes
 3. Servlet forwards request to JSP page using RequestDispatcher
 4. JSP accesses product data from request attributes

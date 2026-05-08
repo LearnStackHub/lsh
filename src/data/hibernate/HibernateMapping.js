@@ -428,7 +428,7 @@ Master these annotations, and you can map any Java object to any database table!
 
 ## Test Your Knowledge
 
-Mastered Hibernate Mapping? Test your skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering Entity mapping, relationships, annotations, and all Hibernate topics!
+Mastered Hibernate Mapping? Test your skills with our comprehensive [Hibernate MCQ Exam](/hibernate-mcq) covering Entity mapping, relationships, annotations, and all Hibernate topics!
 
 ---
 

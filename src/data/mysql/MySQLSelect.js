@@ -5,7 +5,7 @@ const mysqlSelect = {
   content: `
 # SELECT Query — Retrieving Data from Database
 
-The SELECT statement is the most frequently used SQL command. It retrieves data from one or more tables. Mastering SELECT is essential for working with databases. Before learning SELECT, understand [MySQL Data Types](/tutorial/mysql-data-types) and [Creating Databases](/tutorial/mysql-create-database).
+The SELECT statement is the most frequently used SQL command. It retrieves data from one or more tables. Mastering SELECT is essential for working with databases. Before learning SELECT, understand [MySQL Data Types](/mysql/mysql-data-types) and [Creating Databases](/mysql/mysql-create-database).
 
 ---
 
@@ -47,7 +47,7 @@ WHERE age > 25;
 
 ## WHERE Clause
 
-Filters rows based on conditions. Learn more about [MySQL Clauses](/tutorial/mysql-clauses) for advanced filtering techniques including GROUP BY, HAVING, and ORDER BY.
+Filters rows based on conditions. Learn more about [MySQL Clauses](/mysql/mysql-clauses) for advanced filtering techniques including GROUP BY, HAVING, and ORDER BY.
 
 ### Comparison Operators
 
@@ -538,7 +538,7 @@ The SELECT statement is used to retrieve data from one or more database tables. 
 
 ### What's the difference between WHERE and HAVING?
 
-WHERE filters rows before grouping, while HAVING filters groups after grouping. Use WHERE for row-level conditions (e.g., \`WHERE age > 25\`). Use HAVING for group-level conditions with aggregate functions (e.g., \`HAVING COUNT(*) > 10\`). WHERE is more efficient as it filters data earlier in the query execution. Learn about [MySQL Clauses](/tutorial/mysql-clauses) for detailed clause usage.
+WHERE filters rows before grouping, while HAVING filters groups after grouping. Use WHERE for row-level conditions (e.g., \`WHERE age > 25\`). Use HAVING for group-level conditions with aggregate functions (e.g., \`HAVING COUNT(*) > 10\`). WHERE is more efficient as it filters data earlier in the query execution. Learn about [MySQL Clauses](/mysql/mysql-clauses) for detailed clause usage.
 
 ### When should I use SELECT *?
 
@@ -546,11 +546,11 @@ SELECT * should be avoided in production code. Use it only during development or
 
 ### How do I optimize SELECT queries?
 
-Optimize SELECT queries by: (1) selecting only needed columns, (2) using WHERE to filter early, (3) creating indexes on frequently queried columns, (4) using LIMIT for large result sets, (5) avoiding functions in WHERE clauses when possible, and (6) using appropriate JOIN types. Learn about [MySQL Indexes](/tutorial/mysql-indexes) for performance optimization.
+Optimize SELECT queries by: (1) selecting only needed columns, (2) using WHERE to filter early, (3) creating indexes on frequently queried columns, (4) using LIMIT for large result sets, (5) avoiding functions in WHERE clauses when possible, and (6) using appropriate JOIN types. Learn about [MySQL Indexes](/mysql/mysql-indexes) for performance optimization.
 
 ### What are aggregate functions?
 
-Aggregate functions perform calculations on groups of rows and return a single value. Common aggregate functions include COUNT (count rows), SUM (sum values), AVG (average), MIN (minimum), MAX (maximum). They're used with GROUP BY to aggregate data by groups. Learn about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) for detailed usage.
+Aggregate functions perform calculations on groups of rows and return a single value. Common aggregate functions include COUNT (count rows), SUM (sum values), AVG (average), MIN (minimum), MAX (maximum). They're used with GROUP BY to aggregate data by groups. Learn about [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) for detailed usage.
 
 ### What's the difference between COUNT(*) and COUNT(column)?
 
@@ -586,7 +586,7 @@ SELECT * FROM products LIMIT 10 OFFSET 20;
 
 ### Can I use SELECT with multiple tables?
 
-Yes, you can retrieve data from multiple tables using JOINs. JOINs combine rows from different tables based on related columns. Learn about [MySQL Joins](/tutorial/mysql-joins) to understand how to combine data from multiple tables effectively. JOINs work with [foreign keys](/tutorial/mysql-constraints) to establish table relationships.
+Yes, you can retrieve data from multiple tables using JOINs. JOINs combine rows from different tables based on related columns. Learn about [MySQL Joins](/mysql/mysql-joins) to understand how to combine data from multiple tables effectively. JOINs work with [foreign keys](/mysql/mysql-constraints) to establish table relationships.
 
 ---
 
@@ -612,10 +612,10 @@ Now that you understand SELECT queries, you're ready to explore advanced MySQL t
 
 ### Immediate Next Steps
 
-1. **[MySQL Joins](/tutorial/mysql-joins)**: Learn to combine data from multiple tables
-2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Master COUNT, SUM, AVG, MIN, MAX
-3. **[MySQL Clauses](/tutorial/mysql-clauses)**: Deep dive into WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
-4. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Learn nested queries for complex data retrieval
+1. **[MySQL Joins](/mysql/mysql-joins)**: Learn to combine data from multiple tables
+2. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Master COUNT, SUM, AVG, MIN, MAX
+3. **[MySQL Clauses](/mysql/mysql-clauses)**: Deep dive into WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+4. **[MySQL Subqueries](/mysql/mysql-subqueries)**: Learn nested queries for complex data retrieval
 
 ### Advanced Topics
 
@@ -626,12 +626,12 @@ Now that you understand SELECT queries, you're ready to explore advanced MySQL t
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Data Types](/tutorial/mysql-data-types)**: Understand column types
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Data Types](/mysql/mysql-data-types)**: Understand column types
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Use SELECT in Java applications
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Simplify queries with JPA
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: Simplify queries with JPA
 
-SELECT is the foundation of data retrieval. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to combine data from multiple tables and build more powerful queries.
+SELECT is the foundation of data retrieval. Continue learning about [MySQL Joins](/mysql/mysql-joins) to combine data from multiple tables and build more powerful queries.
 
 ---
 
@@ -683,17 +683,17 @@ SELECT is the foundation of data retrieval. Continue learning about [MySQL Joins
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **DQL overview** | [MySQL DQL](/tutorial/mysql-dql) |
-| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
-| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
-| **Aggregates** | [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) |
+| **DQL overview** | [MySQL DQL](/mysql/mysql-dql) |
+| **Clauses** | [MySQL Clauses](/mysql/mysql-clauses) |
+| **Joins** | [MySQL Joins](/mysql/mysql-joins) |
+| **Aggregates** | [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) |
 | **PreparedStatement** | [Prepared Statement](/tutorial/prepared-statement) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered SELECT queries? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering all MySQL topics including SELECT, WHERE, JOINs, and more!
+Mastered SELECT queries? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering all MySQL topics including SELECT, WHERE, JOINs, and more!
 
 ---
 
@@ -720,15 +720,15 @@ LIMIT 5;
 
 Master these related MySQL topics:
 
-1. **[MySQL Joins](/tutorial/mysql-joins)** - Combine data from multiple tables
-2. **[MySQL Clauses](/tutorial/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
-3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
-4. **[MySQL Subqueries](/tutorial/mysql-subqueries)** - Nested queries for complex data
-5. **[MySQL Views](/tutorial/mysql-views)** - Simplify complex SELECT queries
+1. **[MySQL Joins](/mysql/mysql-joins)** - Combine data from multiple tables
+2. **[MySQL Clauses](/mysql/mysql-clauses)** - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+3. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)** - COUNT, SUM, AVG, MIN, MAX
+4. **[MySQL Subqueries](/mysql/mysql-subqueries)** - Nested queries for complex data
+5. **[MySQL Views](/mysql/mysql-views)** - Simplify complex SELECT queries
 
 **Connect to Java:**
 - Use SELECT in [JDBC](/tutorial/jdbc-introduction) to retrieve data
-- Spring Boot JPA simplifies queries - see [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Spring Boot JPA simplifies queries - see [Spring Boot JPA](/springboot/spring-boot-jpa)
   `,
   code: `-- MySQL SELECT Query Examples
 

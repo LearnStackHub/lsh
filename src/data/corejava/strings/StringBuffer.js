@@ -118,9 +118,9 @@ StringBuffer only synchronizes its methods. Your full workflow (multiple operati
 StringBuffer is a thread-safe mutable string class. Learn it to understand concurrency and legacy Java, but in most modern code, prefer StringBuilder (single-thread) and avoid sharing mutable strings across threads.
 
 ### Next steps
-- Learn [StringBuilder](/tutorial/string-builder) for faster single-thread building
-- Learn [Thread Lifecycle](/tutorial/thread-lifecycle) to understand thread states
-- Learn [Synchronization](/tutorial/synchronization) for thread safety
+- Learn [StringBuilder](/corejava/string-builder) for faster single-thread building
+- Learn [Thread Lifecycle](/corejava/thread-lifecycle) to understand thread states
+- Learn [Synchronization](/corejava/synchronization) for thread safety
   
 ---
 

@@ -225,9 +225,9 @@ m[0] = new int[2];
 2D arrays are essential for representing **grid and table data** in Java. Once you understand traversal, transpose, diagonal operations, and jagged arrays, you can solve many real-world and interview problems efficiently.
 
 ### Next steps
-- Practice [Single Dimensional Array](/tutorial/single-dimensional-array)
-- Learn [Array Methods](/tutorial/array-methods) for common utilities
-- Move to [Multithreading Introduction](/tutorial/thread-introduction) after mastering core data structures
+- Practice [Single Dimensional Array](/corejava/single-dimensional-array)
+- Learn [Array Methods](/corejava/array-methods) for common utilities
+- Move to [Multithreading Introduction](/corejava/thread-introduction) after mastering core data structures
   
 ---
 

@@ -192,9 +192,9 @@ Worker:                         run task -------------------------- done
 Thread methods like \`start\`, \`sleep\`, \`join\`, and \`interrupt\` are foundational for concurrency. Learn them well, and then move to higher-level concurrency utilities that are safer and easier to manage in production.
 
 ### Next steps
-- Learn [Thread Lifecycle](/tutorial/thread-lifecycle)
-- Continue with [Multithreading Introduction](/tutorial/thread-introduction)
-- Learn [Synchronization](/tutorial/synchronization)
+- Learn [Thread Lifecycle](/corejava/thread-lifecycle)
+- Continue with [Multithreading Introduction](/corejava/thread-introduction)
+- Learn [Synchronization](/corejava/synchronization)
   
 ---
 

@@ -648,7 +648,7 @@ Use a for loop when you know the number of iterations in advance (iterating arra
 
 ### What's the difference between while and do-while?
 
-A while loop checks the condition before executing, so it may not execute at all. A do-while loop executes at least once and checks the condition after execution. Use do-while when you need the loop body to execute at least once. Learn about [Do While Loop](/tutorial/do-while-loop) for details.
+A while loop checks the condition before executing, so it may not execute at all. A do-while loop executes at least once and checks the condition after execution. Use do-while when you need the loop body to execute at least once. Learn about [Do While Loop](/corejava/do-while-loop) for details.
 
 ### How do I avoid infinite loops?
 
@@ -656,7 +656,7 @@ Avoid infinite loops by: (1) ensuring the loop variable is updated inside the lo
 
 ### Can I use break and continue in while loops?
 
-Yes, both \`break\` and \`continue\` work in while loops. \`break\` exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to check the condition again. These are useful for early termination and skipping iterations. Learn about [Break Continue](/tutorial/break-continue) for detailed usage.
+Yes, both \`break\` and \`continue\` work in while loops. \`break\` exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to check the condition again. These are useful for early termination and skipping iterations. Learn about [Break Continue](/corejava/break-continue) for detailed usage.
 
 ### When should I use a while loop vs for loop?
 
@@ -719,10 +719,10 @@ Now that you understand while loops, you're ready to explore related control flo
 
 ### Immediate Next Steps
 
-1. **[Do While Loop](/tutorial/do-while-loop)**: Learn loops that execute at least once
-2. **[For Loop](/tutorial/for-loop)**: Understand iteration with known count
-3. **[If-Else Statements](/tutorial/if-else)**: Master conditional execution
-4. **[Break Continue](/tutorial/break-continue)**: Learn loop control statements
+1. **[Do While Loop](/corejava/do-while-loop)**: Learn loops that execute at least once
+2. **[For Loop](/corejava/for-loop)**: Understand iteration with known count
+3. **[If-Else Statements](/corejava/if-else)**: Master conditional execution
+4. **[Break Continue](/corejava/break-continue)**: Learn loop control statements
 
 ### Advanced Topics
 
@@ -734,11 +734,11 @@ Now that you understand while loops, you're ready to explore related control flo
 ### Related Tutorials
 
 - **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
-- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
-- **[Exception Handling](/tutorial/exception-introduction)**: Handle errors in loops
-- **[Collections](/tutorial/collection-introduction)**: Iterate collections with while loops
+- **[Java Basics](/corejava/java-introduction)**: Master Java fundamentals
+- **[Exception Handling](/corejava/exception-introduction)**: Handle errors in loops
+- **[Collections](/corejava/collection-introduction)**: Iterate collections with while loops
 
-While loops are essential for handling dynamic, condition-based repetition. Continue learning about [Do While Loop](/tutorial/do-while-loop) to understand loops that guarantee at least one execution.
+While loops are essential for handling dynamic, condition-based repetition. Continue learning about [Do While Loop](/corejava/do-while-loop) to understand loops that guarantee at least one execution.
 `,
   practiceQuestions: [
     {

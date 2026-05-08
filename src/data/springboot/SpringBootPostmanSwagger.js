@@ -550,10 +550,10 @@ public class CorsConfig {
 
 Now that you know how to test and document your APIs:
 
-1. Learn [Spring Boot REST API](/tutorial/spring-boot-rest-api) to build more endpoints
-2. Use [Spring Boot JPA](/tutorial/spring-boot-jpa) to connect your APIs to databases
-3. Learn [Hibernate](/tutorial/hibernate-introduction) to work with database entities
-4. Explore [Spring Boot Security](/tutorial/spring-boot-security) to secure your APIs
+1. Learn [Spring Boot REST API](/springboot/spring-boot-rest-api) to build more endpoints
+2. Use [Spring Boot JPA](/springboot/spring-boot-jpa) to connect your APIs to databases
+3. Learn [Hibernate](/hibernate/hibernate-introduction) to work with database entities
+4. Explore [Spring Boot Security](/springboot/spring-boot-security) to secure your APIs
 5. Practice building CRUD operations and testing them with Postman
 
 Remember, Postman and Swagger are tools that make your life easier. Use them regularly as you build REST APIs, especially when working with Hibernate and database operations.

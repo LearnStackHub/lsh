@@ -381,7 +381,7 @@ A for loop is a control flow statement that repeats a block of code a specific n
 
 ### What's the difference between for loop and while loop?
 
-A for loop is used when you know the number of iterations in advance, while a while loop is used when the number of iterations depends on a condition that may change during execution. For loops are more concise for counting iterations, while while loops are better for condition-based repetition. Learn about [While Loop](/tutorial/while-loop) to understand the differences.
+A for loop is used when you know the number of iterations in advance, while a while loop is used when the number of iterations depends on a condition that may change during execution. For loops are more concise for counting iterations, while while loops are better for condition-based repetition. Learn about [While Loop](/corejava/while-loop) to understand the differences.
 
 ### What is an enhanced for loop (for-each)?
 
@@ -389,7 +389,7 @@ The enhanced for loop (for-each) is a simplified syntax introduced in Java 5 for
 
 ### Can I use break and continue in for loops?
 
-Yes, both \`break\` and \`continue\` work in for loops. The \`break\` statement exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to the next iteration. These are useful for early termination and skipping specific iterations based on conditions. Learn about [Break Continue](/tutorial/break-continue) for detailed usage.
+Yes, both \`break\` and \`continue\` work in for loops. The \`break\` statement exits the loop immediately, while \`continue\` skips the rest of the current iteration and proceeds to the next iteration. These are useful for early termination and skipping specific iterations based on conditions. Learn about [Break Continue](/corejava/break-continue) for detailed usage.
 
 ### How do nested for loops work?
 
@@ -450,10 +450,10 @@ Now that you understand for loops, you're ready to explore other control flow st
 
 ### Immediate Next Steps
 
-1. **[While Loop](/tutorial/while-loop)**: Learn condition-based repetition
-2. **[Do While Loop](/tutorial/do-while-loop)**: Understand loops that execute at least once
-3. **[If-Else Statements](/tutorial/if-else)**: Master conditional execution
-4. **[Switch Statement](/tutorial/switch-statement)**: Learn multi-way branching
+1. **[While Loop](/corejava/while-loop)**: Learn condition-based repetition
+2. **[Do While Loop](/corejava/do-while-loop)**: Understand loops that execute at least once
+3. **[If-Else Statements](/corejava/if-else)**: Master conditional execution
+4. **[Switch Statement](/corejava/switch-statement)**: Learn multi-way branching
 
 ### Advanced Topics
 
@@ -465,11 +465,11 @@ Now that you understand for loops, you're ready to explore other control flow st
 ### Related Tutorials
 
 - **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
-- **[Arrays](/tutorial/single-dimensional-array)**: Practice for loops with arrays
-- **[Collections](/tutorial/collection-introduction)**: Learn to iterate collections
-- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
+- **[Arrays](/corejava/single-dimensional-array)**: Practice for loops with arrays
+- **[Collections](/corejava/collection-introduction)**: Learn to iterate collections
+- **[Java Basics](/corejava/java-introduction)**: Master Java fundamentals
 
-For loops are essential for processing data and implementing algorithms. Continue learning about [While Loop](/tutorial/while-loop) to understand condition-based repetition and expand your control flow knowledge.
+For loops are essential for processing data and implementing algorithms. Continue learning about [While Loop](/corejava/while-loop) to understand condition-based repetition and expand your control flow knowledge.
 
 ---
 

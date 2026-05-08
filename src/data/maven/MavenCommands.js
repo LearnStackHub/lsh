@@ -538,7 +538,7 @@ Continue learning the full Java stack alongside Maven.
 | **JDBC** | [JDBC Introduction](/tutorial/jdbc-introduction) |
 | **Servlets** | [Servlet Introduction](/tutorial/servlet-introduction) |
 | **JSP** | [JSP Introduction](/tutorial/jsp-introduction) |
-| **Hibernate** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **Hibernate** | [Hibernate Introduction](/hibernate/hibernate-introduction) |
 | **Spring Framework** | [Spring Introduction](/tutorial/spring-introduction) |
 | **Spring Boot** | [Spring Boot Introduction](/tutorial/spring-boot-introduction) |
 | **Spring Cloud** | [Spring Cloud & Microservices](/tutorial/spring-cloud-microservices) |

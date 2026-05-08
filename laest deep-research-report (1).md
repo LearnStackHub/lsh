@@ -22,7 +22,7 @@ https://www.learnstackhub.com/about
 https://www.learnstackhub.com/contact
 https://www.learnstackhub.com/tutorial/constructors
 https://www.learnstackhub.com/tutorial/core-java-mcq
-https://www.learnstackhub.com/tutorial/hibernate-mcq
+https://www.learnstackhub.com/hibernate-mcq
 https://www.learnstackhub.com/tutorial/spring-mvc-dispatcherservlet
 https://www.learnstackhub.com/tutorial/maven-introduction
 https://www.learnstackhub.com/sitemap.xml
@@ -50,7 +50,7 @@ Representative tutorial URLs successfully reached (but body text not extractable
 - `/tutorial/maven-introduction` citeturn9view3  
 - `/tutorial/spring-mvc-dispatcherservlet` citeturn9view2  
 - `/tutorial/core-java-mcq` (suggests quizzes/question bank) citeturn9view0  
-- `/tutorial/hibernate-mcq` (suggests quizzes/question bank) citeturn9view1  
+- `/hibernate-mcq` (suggests quizzes/question bank) citeturn9view1
 
 ### Sitemap and robots.txt status
 

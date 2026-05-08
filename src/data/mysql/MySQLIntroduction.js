@@ -305,7 +305,7 @@ MySQL is a powerful, open-source relational database management system that serv
 - **Column (Field)**: Data attribute defining the type of information stored
 - **Relationship**: Logical connection between tables using foreign keys
 
-Understanding these concepts is essential before learning [MySQL Data Types](/tutorial/mysql-data-types), [Creating Databases](/tutorial/mysql-create-database), and [SQL Queries](/tutorial/mysql-select).
+Understanding these concepts is essential before learning [MySQL Data Types](/mysql/mysql-data-types), [Creating Databases](/mysql/mysql-create-database), and [SQL Queries](/mysql/mysql-select).
 
 ---
 
@@ -345,20 +345,20 @@ Yes! MySQL is completely free and open-source. You can download, use, and modify
 - MySQL: Relational (SQL), structured data, tables and rows
 - MongoDB: NoSQL, document-based, flexible schema
 
-For Java development, MySQL is the most popular choice. Learn [MySQL Introduction](/tutorial/mysql-introduction) first, then explore others if needed.
+For Java development, MySQL is the most popular choice. Learn [MySQL Introduction](/mysql/mysql-introduction) first, then explore others if needed.
 
 ### Do I need to know SQL before learning MySQL?
 
-It helps to understand basic SQL concepts, but you can learn both together. MySQL uses SQL (Structured Query Language) to interact with data. Start with [MySQL Introduction](/tutorial/mysql-introduction), then learn [MySQL SELECT](/tutorial/mysql-select) for querying data. SQL is intuitive and you'll pick it up quickly.
+It helps to understand basic SQL concepts, but you can learn both together. MySQL uses SQL (Structured Query Language) to interact with data. Start with [MySQL Introduction](/mysql/mysql-introduction), then learn [MySQL SELECT](/mysql/mysql-select) for querying data. SQL is intuitive and you'll pick it up quickly.
 
 ### How do I connect MySQL to Java applications?
 
 You can connect MySQL to Java in several ways:
 1. **JDBC** - Direct database connection (learn [JDBC Introduction](/tutorial/jdbc-introduction))
-2. **Spring Boot JPA** - Easier ORM approach (learn [Spring Boot JPA](/tutorial/spring-boot-jpa))
-3. **Hibernate** - Popular ORM framework (learn [Hibernate Introduction](/tutorial/hibernate-introduction))
+2. **Spring Boot JPA** - Easier ORM approach (learn [Spring Boot JPA](/springboot/spring-boot-jpa))
+3. **Hibernate** - Popular ORM framework (learn [Hibernate Introduction](/hibernate/hibernate-introduction))
 
-For beginners, start with [JDBC](/tutorial/jdbc-introduction), then move to [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier development.
+For beginners, start with [JDBC](/tutorial/jdbc-introduction), then move to [Spring Boot JPA](/springboot/spring-boot-jpa) for easier development.
 
 ### What is the difference between MySQL and SQL?
 
@@ -372,34 +372,34 @@ Absolutely! MySQL is used by major companies handling millions of users:
 - **YouTube** - Uses MySQL for video metadata
 - **Wikipedia** - Uses MySQL for article storage
 
-MySQL is highly scalable and can handle enterprise-level applications. Learn about [MySQL Indexes](/tutorial/mysql-indexes) and [MySQL Performance](/tutorial/mysql-introduction) for optimization.
+MySQL is highly scalable and can handle enterprise-level applications. Learn about [MySQL Indexes](/mysql/mysql-indexes) and [MySQL Performance](/mysql/mysql-introduction) for optimization.
 
 ### What should I learn after MySQL basics?
 
 After mastering MySQL fundamentals:
-1. **Advanced Queries** - [MySQL Joins](/tutorial/mysql-joins), [Subqueries](/tutorial/mysql-subqueries), [Aggregate Functions](/tutorial/mysql-aggregate-functions)
-2. **Database Design** - [MySQL Constraints](/tutorial/mysql-constraints), [Indexes](/tutorial/mysql-indexes)
-3. **Advanced Features** - [Stored Procedures](/tutorial/mysql-stored-procedures), [Triggers](/tutorial/mysql-triggers), [Views](/tutorial/mysql-views)
-4. **Java Integration** - [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/tutorial/spring-boot-jpa)
+1. **Advanced Queries** - [MySQL Joins](/mysql/mysql-joins), [Subqueries](/mysql/mysql-subqueries), [Aggregate Functions](/mysql/mysql-aggregate-functions)
+2. **Database Design** - [MySQL Constraints](/mysql/mysql-constraints), [Indexes](/mysql/mysql-indexes)
+3. **Advanced Features** - [Stored Procedures](/mysql/mysql-stored-procedures), [Triggers](/mysql/mysql-triggers), [Views](/mysql/mysql-views)
+4. **Java Integration** - [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/springboot/spring-boot-jpa)
 
 ### Is MySQL suitable for beginners?
 
 Yes! MySQL is one of the easiest databases to learn. It has:
-- Simple installation process (learn [MySQL Installation](/tutorial/mysql-installation))
+- Simple installation process (learn [MySQL Installation](/mysql/mysql-installation))
 - Intuitive SQL syntax
 - Excellent documentation
 - Large community support
 - Free and open-source
 
-Start with [MySQL Introduction](/tutorial/mysql-introduction) and [MySQL Installation](/tutorial/mysql-installation), then practice with [MySQL SELECT](/tutorial/mysql-select) queries.
+Start with [MySQL Introduction](/mysql/mysql-introduction) and [MySQL Installation](/mysql/mysql-installation), then practice with [MySQL SELECT](/mysql/mysql-select) queries.
 
 ### How do I practice MySQL?
 
 The best way to practice MySQL:
-1. **Install MySQL** - Follow [MySQL Installation](/tutorial/mysql-installation) guide
-2. **Create a database** - Learn [MySQL Create Database](/tutorial/mysql-create-database)
-3. **Write queries** - Practice with [MySQL SELECT](/tutorial/mysql-select) and [MySQL Joins](/tutorial/mysql-joins)
-4. **Build projects** - Create a simple application using [JDBC](/tutorial/jdbc-introduction) or [Spring Boot JPA](/tutorial/spring-boot-jpa)
+1. **Install MySQL** - Follow [MySQL Installation](/mysql/mysql-installation) guide
+2. **Create a database** - Learn [MySQL Create Database](/mysql/mysql-create-database)
+3. **Write queries** - Practice with [MySQL SELECT](/mysql/mysql-select) and [MySQL Joins](/mysql/mysql-joins)
+4. **Build projects** - Create a simple application using [JDBC](/tutorial/jdbc-introduction) or [Spring Boot JPA](/springboot/spring-boot-jpa)
 5. **Solve problems** - Practice with real-world scenarios
 
 ---
@@ -408,15 +408,15 @@ The best way to practice MySQL:
 
 Now that you understand MySQL basics:
 
-1. **[MySQL Installation and Setup](/tutorial/mysql-installation)** - Install MySQL on your system
-2. **[MySQL Data Types](/tutorial/mysql-data-types)** - Learn all data types
-3. **[Creating Databases and Tables](/tutorial/mysql-create-database)** - Create your first database
-4. **[SELECT Query](/tutorial/mysql-select)** - Retrieve data from tables
-5. **[MySQL Joins](/tutorial/mysql-joins)** - Combine data from multiple tables
+1. **[MySQL Installation and Setup](/mysql/mysql-installation)** - Install MySQL on your system
+2. **[MySQL Data Types](/mysql/mysql-data-types)** - Learn all data types
+3. **[Creating Databases and Tables](/mysql/mysql-create-database)** - Create your first database
+4. **[SELECT Query](/mysql/mysql-select)** - Retrieve data from tables
+5. **[MySQL Joins](/mysql/mysql-joins)** - Combine data from multiple tables
 
 **Connect MySQL to Java:**
 - Learn [JDBC Introduction](/tutorial/jdbc-introduction) to connect Java with MySQL
-- Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
+- Use [Spring Boot JPA](/springboot/spring-boot-jpa) for easier database operations
 
 ---
 
@@ -468,18 +468,18 @@ Now that you understand MySQL basics:
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Install MySQL** | [MySQL Installation](/tutorial/mysql-installation) |
-| **Create DB & tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
+| **Install MySQL** | [MySQL Installation](/mysql/mysql-installation) |
+| **Create DB & tables** | [Creating Databases and Tables](/mysql/mysql-create-database) |
 | **Connect from Java** | [JDBC Introduction](/tutorial/jdbc-introduction) |
-| **ORM with Spring** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
-| **Hibernate mapping** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **ORM with Spring** | [Spring Boot JPA](/springboot/spring-boot-jpa) |
+| **Hibernate mapping** | [Hibernate Introduction](/hibernate/hibernate-introduction) |
 | **Software lifecycle context** | [SDLC Introduction](/tutorial/sdlc-introduction) |
 
 ---
 
 ## Test Your Knowledge
 
-Ready to test your MySQL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering all MySQL topics. Perfect for practice and assessment!
+Ready to test your MySQL understanding? Take our comprehensive [MySQL MCQ Exam](/mysql-mcq) with 20 randomly selected questions covering all MySQL topics. Perfect for practice and assessment!
   `,
   code: `-- MySQL Introduction Examples
 

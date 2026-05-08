@@ -507,17 +507,17 @@ Your MySQL installation is complete and ready for database development.
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **MySQL concepts** | [MySQL Introduction](/tutorial/mysql-introduction) |
-| **DDL: create objects** | [MySQL DDL](/tutorial/mysql-ddl) |
-| **Create DB & tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
-| **Users & GRANT** | [MySQL Privileges](/tutorial/mysql-privileges) |
+| **MySQL concepts** | [MySQL Introduction](/mysql/mysql-introduction) |
+| **DDL: create objects** | [MySQL DDL](/mysql/mysql-ddl) |
+| **Create DB & tables** | [Creating Databases and Tables](/mysql/mysql-create-database) |
+| **Users & GRANT** | [MySQL Privileges](/mysql/mysql-privileges) |
 | **Java connection** | [JDBC Connection Steps](/tutorial/jdbc-connection-steps) |
 
 ---
 
 ## Test Your Knowledge
 
-MySQL installed successfully? Test your MySQL knowledge with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering installation, setup, and all MySQL topics!
+MySQL installed successfully? Test your MySQL knowledge with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering installation, setup, and all MySQL topics!
   `,
   code: `-- MySQL Installation Verification
 

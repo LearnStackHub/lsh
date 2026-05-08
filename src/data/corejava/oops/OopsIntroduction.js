@@ -429,21 +429,21 @@ See how clean that is? Each piece has a clear responsibility. That's the power o
 ## What's Next?
 
 Now that you understand the concepts, it's time to dive deeper into each one. In the next lessons, we'll explore:
-- **[Classes and Objects](/tutorial/classes-objects)** — Create and use objects
-- **[Constructors](/tutorial/constructors)** — Initialize objects properly
-- **[Inheritance](/tutorial/inheritance)** — Build on existing classes
-- **[Polymorphism](/tutorial/polymorphism)** — One interface, many forms
-- **[Encapsulation](/tutorial/encapsulation)** — Data hiding and access control
-- **[Abstraction](/tutorial/abstraction)** — Hide complexity, show essentials
-- **[Interfaces](/tutorial/interfaces)** — Define contracts for classes
+- **[Classes and Objects](/corejava/classes-objects)** — Create and use objects
+- **[Constructors](/corejava/constructors)** — Initialize objects properly
+- **[Inheritance](/corejava/inheritance)** — Build on existing classes
+- **[Polymorphism](/corejava/polymorphism)** — One interface, many forms
+- **[Encapsulation](/corejava/encapsulation)** — Data hiding and access control
+- **[Abstraction](/corejava/abstraction)** — Hide complexity, show essentials
+- **[Interfaces](/corejava/interfaces)** — Define contracts for classes
 
 **Prerequisites:**
-- Learn [Java Introduction](/tutorial/java-introduction) basics
-- Understand [Java Variables](/tutorial/java-variables) and [Java Methods](/tutorial/java-methods)
+- Learn [Java Introduction](/corejava/java-introduction) basics
+- Understand [Java Variables](/corejava/java-variables) and [Java Methods](/corejava/java-methods)
 
 **Next Level:**
-- Use OOPs in [Spring Framework](/tutorial/spring-framework-introduction)
-- Build applications with [Spring Boot](/tutorial/spring-boot-introduction)
+- Use OOPs in [Spring Framework](/spring/spring-introduction)
+- Build applications with [Spring Boot](/springboot/spring-boot-introduction)
 
 But before you move on, try to identify OOP concepts in apps you use daily. That Instagram post? It's probably an object with properties like image, caption, likes. The like button? Polymorphism — same button, different behavior for posts vs stories.
 

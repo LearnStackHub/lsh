@@ -251,9 +251,9 @@ Use transactions for operations that must succeed together!
 
 **Related Topics:**
 - Learn [JDBC Transaction Management](/tutorial/jdbc-transaction-management) for Java
-- Use transactions in [Spring Boot JPA](/tutorial/spring-boot-jpa)
-- Understand [Hibernate Transactions](/tutorial/hibernate-session) for ORM
-- Master [MySQL DML](/tutorial/mysql-insert-update-delete) operations
+- Use transactions in [Spring Boot JPA](/springboot/spring-boot-jpa)
+- Understand [Hibernate Transactions](/hibernate/hibernate-session) for ORM
+- Master [MySQL DML](/mysql/mysql-insert-update-delete) operations
 
 ---
 
@@ -447,9 +447,9 @@ Now that you understand transactions, you're ready to explore advanced MySQL top
 
 ### Immediate Next Steps
 
-1. **[MySQL Insert Update Delete](/tutorial/mysql-insert-update-delete)**: Use transactions with DML operations
-2. **[MySQL Constraints](/tutorial/mysql-constraints)**: Understand how constraints work with transactions
-3. **[MySQL Stored Procedures](/tutorial/mysql-stored-procedures)**: Implement transaction logic in procedures
+1. **[MySQL Insert Update Delete](/mysql/mysql-insert-update-delete)**: Use transactions with DML operations
+2. **[MySQL Constraints](/mysql/mysql-constraints)**: Understand how constraints work with transactions
+3. **[MySQL Stored Procedures](/mysql/mysql-stored-procedures)**: Implement transaction logic in procedures
 4. **[JDBC Introduction](/tutorial/jdbc-introduction)**: Handle transactions in Java applications
 
 ### Advanced Topics
@@ -461,12 +461,12 @@ Now that you understand transactions, you're ready to explore advanced MySQL top
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA manages transactions
-- **[Spring Transaction Management](/tutorial/spring-transaction-management)**: Understand Spring's transaction support
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA manages transactions
+- **[Spring Transaction Management](/spring/spring-transaction-management)**: Understand Spring's transaction support
 - **[Database Design](/tutorial/database-design)**: Design databases with transactions in mind
 
-Transactions are essential for data integrity. Continue learning about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) to implement transaction logic in database procedures.
+Transactions are essential for data integrity. Continue learning about [MySQL Stored Procedures](/mysql/mysql-stored-procedures) to implement transaction logic in database procedures.
 
 ---
 
@@ -518,17 +518,17 @@ Transactions are essential for data integrity. Continue learning about [MySQL St
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **DML** | [MySQL INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete) |
-| **Locks & concurrency** | [Hibernate Locking](/tutorial/hibernate-locking) |
+| **DML** | [MySQL INSERT, UPDATE, DELETE](/mysql/mysql-insert-update-delete) |
+| **Locks & concurrency** | [Hibernate Locking](/hibernate/hibernate-locking) |
 | **JDBC transactions** | [Transaction Management (JDBC)](/tutorial/transaction-management) |
-| **Spring @Transactional** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
-| **Indexes & contention** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **Spring @Transactional** | [Spring Boot JPA](/springboot/spring-boot-jpa) |
+| **Indexes & contention** | [MySQL Indexes](/mysql/mysql-indexes) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL transactions? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering transactions, ACID properties, isolation levels, and all MySQL topics!
+Mastered MySQL transactions? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering transactions, ACID properties, isolation levels, and all MySQL topics!
   `,
   code: `-- MySQL Transactions Examples
 

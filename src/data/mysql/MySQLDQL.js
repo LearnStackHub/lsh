@@ -445,7 +445,7 @@ FROM products p
 JOIN categories c ON p.category_id = c.id;
 \`\`\`
 
-JOINs enable combining data from related tables. Learn about [MySQL Joins](/tutorial/mysql-joins) for details.
+JOINs enable combining data from related tables. Learn about [MySQL Joins](/mysql/mysql-joins) for details.
 
 ### How do I filter data in SELECT queries?
 
@@ -509,11 +509,11 @@ FROM products
 GROUP BY category;
 \`\`\`
 
-Learn about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) for details.
+Learn about [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) for details.
 
 ### How do I optimize SELECT query performance?
 
-Optimize SELECT queries by: (1) selecting only needed columns, (2) using WHERE to filter early, (3) creating indexes on filtered/sorted columns, (4) using LIMIT to restrict results, (5) avoiding SELECT * in production, and (6) using EXPLAIN to analyze query plans. Learn about [MySQL Indexes](/tutorial/mysql-indexes) for performance optimization.
+Optimize SELECT queries by: (1) selecting only needed columns, (2) using WHERE to filter early, (3) creating indexes on filtered/sorted columns, (4) using LIMIT to restrict results, (5) avoiding SELECT * in production, and (6) using EXPLAIN to analyze query plans. Learn about [MySQL Indexes](/mysql/mysql-indexes) for performance optimization.
 
 ---
 
@@ -539,10 +539,10 @@ Now that you understand DQL, you're ready to explore advanced MySQL topics:
 
 ### Immediate Next Steps
 
-1. **[MySQL Clauses](/tutorial/mysql-clauses)**: Master WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
-2. **[MySQL Joins](/tutorial/mysql-joins)**: Retrieve data from multiple tables
-3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Calculate summaries and statistics
-4. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Use nested queries for complex logic
+1. **[MySQL Clauses](/mysql/mysql-clauses)**: Master WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+2. **[MySQL Joins](/mysql/mysql-joins)**: Retrieve data from multiple tables
+3. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Calculate summaries and statistics
+4. **[MySQL Subqueries](/mysql/mysql-subqueries)**: Use nested queries for complex logic
 
 ### Advanced Topics
 
@@ -553,12 +553,12 @@ Now that you understand DQL, you're ready to explore advanced MySQL topics:
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Indexes](/tutorial/mysql-indexes)**: Optimize query performance
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Indexes](/mysql/mysql-indexes)**: Optimize query performance
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute SELECT queries from Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates SELECT queries
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA generates SELECT queries
 
-DQL is essential for data retrieval. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to retrieve data from multiple related tables.
+DQL is essential for data retrieval. Continue learning about [MySQL Joins](/mysql/mysql-joins) to retrieve data from multiple related tables.
 
 ---
 
@@ -610,17 +610,17 @@ DQL is essential for data retrieval. Continue learning about [MySQL Joins](/tuto
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **SELECT deep dive** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
-| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
-| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
+| **SELECT deep dive** | [MySQL SELECT](/mysql/mysql-select) |
+| **Clauses** | [MySQL Clauses](/mysql/mysql-clauses) |
+| **Joins** | [MySQL Joins](/mysql/mysql-joins) |
+| **Subqueries** | [MySQL Subqueries](/mysql/mysql-subqueries) |
 | **JDBC ResultSet** | [Result Set Interface](/tutorial/resultset-interface) |
 
 ---
 
 ## Test Your Knowledge
 
-Ready to test your MySQL DQL understanding? Take our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) with 20 randomly selected questions covering DQL, DDL, DML, and all MySQL topics!
+Ready to test your MySQL DQL understanding? Take our comprehensive [MySQL MCQ Exam](/mysql-mcq) with 20 randomly selected questions covering DQL, DDL, DML, and all MySQL topics!
   `,
   code: `-- MySQL DQL Examples
 

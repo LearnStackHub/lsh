@@ -419,7 +419,7 @@ public void makeSound() {
 
 ### What is inheritance and why is it important?
 
-Inheritance is an object-oriented programming concept that allows a class to inherit properties and methods from another class. It's important because it promotes code reuse, reduces duplication, enables polymorphism, and models real-world hierarchical relationships naturally. Inheritance is one of the four pillars of OOP along with [Encapsulation](/tutorial/encapsulation), [Polymorphism](/tutorial/polymorphism), and [Abstraction](/tutorial/abstraction).
+Inheritance is an object-oriented programming concept that allows a class to inherit properties and methods from another class. It's important because it promotes code reuse, reduces duplication, enables polymorphism, and models real-world hierarchical relationships naturally. Inheritance is one of the four pillars of OOP along with [Encapsulation](/corejava/encapsulation), [Polymorphism](/corejava/polymorphism), and [Abstraction](/corejava/abstraction).
 
 ### What's the difference between inheritance and composition?
 
@@ -427,15 +427,15 @@ Inheritance represents an "is-a" relationship (Dog is an Animal), while composit
 
 ### Can a class extend multiple classes in Java?
 
-No, Java supports only single inheritance for classes. A class can extend only one parent class. However, Java supports multiple inheritance through interfaces - a class can implement multiple interfaces. This design prevents the "diamond problem" that occurs in languages with multiple inheritance. Learn about [Interfaces](/tutorial/interfaces) to understand how to achieve multiple inheritance-like behavior.
+No, Java supports only single inheritance for classes. A class can extend only one parent class. However, Java supports multiple inheritance through interfaces - a class can implement multiple interfaces. This design prevents the "diamond problem" that occurs in languages with multiple inheritance. Learn about [Interfaces](/corejava/interfaces) to understand how to achieve multiple inheritance-like behavior.
 
 ### What is the difference between extends and implements?
 
-The \`extends\` keyword is used for class inheritance, where a subclass inherits from a superclass. The \`implements\` keyword is used when a class implements an interface, agreeing to provide implementations for all interface methods. A class can extend one class and implement multiple interfaces. Learn about [Interfaces](/tutorial/interfaces) for more details.
+The \`extends\` keyword is used for class inheritance, where a subclass inherits from a superclass. The \`implements\` keyword is used when a class implements an interface, agreeing to provide implementations for all interface methods. A class can extend one class and implement multiple interfaces. Learn about [Interfaces](/corejava/interfaces) for more details.
 
 ### What is method overriding?
 
-Method overriding occurs when a subclass provides its own implementation of a method that exists in the parent class. The method signature must match exactly, and the @Override annotation should be used. Overriding enables polymorphism, where the same method call can produce different results based on the actual object type. This is closely related to [Polymorphism](/tutorial/polymorphism).
+Method overriding occurs when a subclass provides its own implementation of a method that exists in the parent class. The method signature must match exactly, and the @Override annotation should be used. Overriding enables polymorphism, where the same method call can produce different results based on the actual object type. This is closely related to [Polymorphism](/corejava/polymorphism).
 
 ### What is the super keyword used for?
 
@@ -455,7 +455,7 @@ Multilevel inheritance occurs when a class inherits from another class, which in
 
 ### How does inheritance relate to polymorphism?
 
-Inheritance enables polymorphism by allowing objects of derived classes to be treated as objects of their base class. This means you can write code that works with the base class type, and it will automatically work with any derived class. For example, an Animal array can hold Dog, Cat, and Bird objects. Learn more about [Polymorphism](/tutorial/polymorphism) to understand this powerful concept.
+Inheritance enables polymorphism by allowing objects of derived classes to be treated as objects of their base class. This means you can write code that works with the base class type, and it will automatically work with any derived class. For example, an Animal array can hold Dog, Cat, and Bird objects. Learn more about [Polymorphism](/corejava/polymorphism) to understand this powerful concept.
 
 ---
 
@@ -480,10 +480,10 @@ Now that you understand inheritance, you're ready to explore related OOP concept
 
 ### Immediate Next Steps
 
-1. **[Polymorphism](/tutorial/polymorphism)**: Learn how inheritance enables one interface with many implementations
-2. **[Encapsulation](/tutorial/encapsulation)**: Understand data hiding and access control in inheritance
-3. **[Abstraction](/tutorial/abstraction)**: Learn to hide complexity while showing essential features
-4. **[Interfaces](/tutorial/interfaces)**: Discover how to achieve multiple inheritance-like behavior
+1. **[Polymorphism](/corejava/polymorphism)**: Learn how inheritance enables one interface with many implementations
+2. **[Encapsulation](/corejava/encapsulation)**: Understand data hiding and access control in inheritance
+3. **[Abstraction](/corejava/abstraction)**: Learn to hide complexity while showing essential features
+4. **[Interfaces](/corejava/interfaces)**: Discover how to achieve multiple inheritance-like behavior
 
 ### Advanced Topics
 
@@ -494,12 +494,12 @@ Now that you understand inheritance, you're ready to explore related OOP concept
 
 ### Related Tutorials
 
-- **[OOPs Introduction](/tutorial/oops-introduction)**: Review object-oriented programming fundamentals
-- **[Classes and Objects](/tutorial/classes-objects)**: Understand the foundation of inheritance
-- **[Constructors](/tutorial/constructors)**: Learn how constructors work in inheritance
-- **[Java Introduction](/tutorial/java-introduction)**: Master Java fundamentals
+- **[OOPs Introduction](/corejava/oops-introduction)**: Review object-oriented programming fundamentals
+- **[Classes and Objects](/corejava/classes-objects)**: Understand the foundation of inheritance
+- **[Constructors](/corejava/constructors)**: Learn how constructors work in inheritance
+- **[Java Introduction](/corejava/java-introduction)**: Master Java fundamentals
 
-Inheritance is a powerful tool for building maintainable, extensible software. Continue learning about [Polymorphism](/tutorial/polymorphism) to see how inheritance enables flexible, dynamic behavior in your applications.
+Inheritance is a powerful tool for building maintainable, extensible software. Continue learning about [Polymorphism](/corejava/polymorphism) to see how inheritance enables flexible, dynamic behavior in your applications.
 
 ---
 
@@ -908,20 +908,20 @@ class Motorcycle extends Vehicle {
 
 Master these related OOPs concepts:
 
-1. **[Polymorphism](/tutorial/polymorphism)** — One interface, many implementations
-2. **[Encapsulation](/tutorial/encapsulation)** — Data hiding and access control
-3. **[Abstraction](/tutorial/abstraction)** — Hide complexity, show essentials
-4. **[Interfaces](/tutorial/interfaces)** — Define contracts for classes
-5. **[Classes and Objects](/tutorial/classes-objects)** — Create and use objects
-6. **[Constructors](/tutorial/constructors)** — Initialize objects properly
+1. **[Polymorphism](/corejava/polymorphism)** — One interface, many implementations
+2. **[Encapsulation](/corejava/encapsulation)** — Data hiding and access control
+3. **[Abstraction](/corejava/abstraction)** — Hide complexity, show essentials
+4. **[Interfaces](/corejava/interfaces)** — Define contracts for classes
+5. **[Classes and Objects](/corejava/classes-objects)** — Create and use objects
+6. **[Constructors](/corejava/constructors)** — Initialize objects properly
 
 **Prerequisites:**
-- Complete [OOPs Introduction](/tutorial/oops-introduction) first
-- Understand [Java Classes and Objects](/tutorial/classes-objects) basics
+- Complete [OOPs Introduction](/corejava/oops-introduction) first
+- Understand [Java Classes and Objects](/corejava/classes-objects) basics
 
 **Next Level:**
-- Use inheritance in [Spring Framework](/tutorial/spring-framework-introduction)
-- Build applications with [Spring Boot](/tutorial/spring-boot-introduction)
+- Use inheritance in [Spring Framework](/spring/spring-introduction)
+- Build applications with [Spring Boot](/springboot/spring-boot-introduction)
 `
     }
   ]

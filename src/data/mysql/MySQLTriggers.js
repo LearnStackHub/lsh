@@ -5,7 +5,7 @@ const mysqlTriggers = {
   content: `
 # MySQL Triggers - Automated Database Actions
 
-MySQL triggers are stored database programs that automatically execute in response to specific data modification events ([INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete)) on tables. Triggers enable automatic enforcement of business rules, data validation, audit logging, and maintaining derived data without requiring application code changes. Understanding triggers is essential for implementing automated database behaviors and maintaining data integrity.
+MySQL triggers are stored database programs that automatically execute in response to specific data modification events ([INSERT, UPDATE, DELETE](/mysql/mysql-insert-update-delete)) on tables. Triggers enable automatic enforcement of business rules, data validation, audit logging, and maintaining derived data without requiring application code changes. Understanding triggers is essential for implementing automated database behaviors and maintaining data integrity.
 
 Enterprise applications use triggers extensively for audit logging, data validation, maintaining calculated fields, enforcing business rules, and synchronizing related data. Triggers execute automatically at the database level, ensuring consistent behavior regardless of which application modifies data. Mastery of triggers enables building robust, self-maintaining database systems.
 
@@ -99,7 +99,7 @@ DELIMITER ;
 
 ## AFTER INSERT Trigger
 
-Executes after a row is inserted. Learn about [INSERT operations](/tutorial/mysql-insert-update-delete) to understand how triggers work with data insertion.
+Executes after a row is inserted. Learn about [INSERT operations](/mysql/mysql-insert-update-delete) to understand how triggers work with data insertion.
 
 ### Example: Update Statistics
 
@@ -149,7 +149,7 @@ DELIMITER ;
 
 ## BEFORE UPDATE Trigger
 
-Executes before a row is updated. Learn about [UPDATE operations](/tutorial/mysql-insert-update-delete) to understand how triggers work with data updates.
+Executes before a row is updated. Learn about [UPDATE operations](/mysql/mysql-insert-update-delete) to understand how triggers work with data updates.
 
 ### Example: Prevent Price Decrease
 
@@ -260,7 +260,7 @@ DELIMITER ;
 
 ## AFTER DELETE Trigger
 
-Executes after a row is deleted. Learn about [DELETE operations](/tutorial/mysql-insert-update-delete) to understand how triggers work with data deletion.
+Executes after a row is deleted. Learn about [DELETE operations](/mysql/mysql-insert-update-delete) to understand how triggers work with data deletion.
 
 ### Example: Update Statistics
 
@@ -681,10 +681,10 @@ Now that you understand triggers, you're ready to explore advanced MySQL topics:
 
 ### Immediate Next Steps
 
-1. **[MySQL Stored Procedures](/tutorial/mysql-stored-procedures)**: Learn reusable database logic
-2. **[MySQL Transactions](/tutorial/mysql-transactions)**: Understand how triggers work with transactions
-3. **[MySQL Constraints](/tutorial/mysql-constraints)**: Compare triggers with constraints
-4. **[MySQL Views](/tutorial/mysql-views)**: Understand views vs triggers
+1. **[MySQL Stored Procedures](/mysql/mysql-stored-procedures)**: Learn reusable database logic
+2. **[MySQL Transactions](/mysql/mysql-transactions)**: Understand how triggers work with transactions
+3. **[MySQL Constraints](/mysql/mysql-constraints)**: Compare triggers with constraints
+4. **[MySQL Views](/mysql/mysql-views)**: Understand views vs triggers
 
 ### Advanced Topics
 
@@ -695,12 +695,12 @@ Now that you understand triggers, you're ready to explore advanced MySQL topics:
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Insert Update Delete](/tutorial/mysql-insert-update-delete)**: Understand DML operations that trigger triggers
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Insert Update Delete](/mysql/mysql-insert-update-delete)**: Understand DML operations that trigger triggers
 - **[Database Design](/tutorial/database-design)**: Design databases with triggers in mind
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA works with triggers
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA works with triggers
 
-Triggers are essential for automated database behaviors. Continue learning about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) to understand reusable database logic.
+Triggers are essential for automated database behaviors. Continue learning about [MySQL Stored Procedures](/mysql/mysql-stored-procedures) to understand reusable database logic.
 
 ---
 
@@ -752,17 +752,17 @@ Triggers are essential for automated database behaviors. Continue learning about
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **DML** | [MySQL INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete) |
-| **Stored procedures** | [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) |
-| **Transactions** | [MySQL Transactions](/tutorial/mysql-transactions) |
-| **Constraints** | [MySQL Constraints](/tutorial/mysql-constraints) |
-| **Hibernate listeners / events** | [Hibernate Introduction](/tutorial/hibernate-introduction) |
+| **DML** | [MySQL INSERT, UPDATE, DELETE](/mysql/mysql-insert-update-delete) |
+| **Stored procedures** | [MySQL Stored Procedures](/mysql/mysql-stored-procedures) |
+| **Transactions** | [MySQL Transactions](/mysql/mysql-transactions) |
+| **Constraints** | [MySQL Constraints](/mysql/mysql-constraints) |
+| **Hibernate listeners / events** | [Hibernate Introduction](/hibernate/hibernate-introduction) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL triggers? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering triggers, stored procedures, transactions, and all MySQL topics!
+Mastered MySQL triggers? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering triggers, stored procedures, transactions, and all MySQL topics!
   `,
   code: `-- MySQL Triggers Examples
 

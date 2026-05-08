@@ -65,7 +65,7 @@ public class StudentService {
 **The Problem:** StudentService is tightly coupled to StudentRepository through direct instantiation. This creates several challenges:
 
 **Change Management Issues:**
-- **Database Migration**: Switching from [MySQL](/tutorial/mysql-introduction) to Oracle requires modifying StudentService
+- **Database Migration**: Switching from [MySQL](/mysql/mysql-introduction) to Oracle requires modifying StudentService
 - **Testing Limitations**: Cannot easily replace StudentRepository with mock objects for unit testing
 - **Technology Changes**: Switching to NoSQL databases requires extensive code modifications
 - **Scalability**: If StudentService is used in 50+ locations, changes require updates across the entire codebase
@@ -419,20 +419,20 @@ The result? Cleaner code, easier testing, better maintainability, and faster dev
 
 Now that you understand why Spring exists, let's learn how it works:
 
-1. **[IOC (Inversion of Control)](/tutorial/spring-ioc)** - How Spring creates objects
-2. **[DI (Dependency Injection)](/tutorial/spring-di)** - How Spring wires dependencies
-3. **[Beans](/tutorial/spring-bean)** - What Spring-managed objects are called
-4. **[ApplicationContext](/tutorial/spring-application-context)** - The container that manages everything
+1. **[IOC (Inversion of Control)](/spring/spring-ioc)** - How Spring creates objects
+2. **[DI (Dependency Injection)](/spring/spring-di)** - How Spring wires dependencies
+3. **[Beans](/spring/spring-bean)** - What Spring-managed objects are called
+4. **[ApplicationContext](/spring/spring-application-context)** - The container that manages everything
 
 These are the building blocks. Master these, and Spring will make sense.
 
-**Ready for Spring Boot?** Once you understand Spring Framework, check out [Spring Boot Introduction](/tutorial/spring-boot-introduction) to see how Spring Boot makes everything even easier!
+**Ready for Spring Boot?** Once you understand Spring Framework, check out [Spring Boot Introduction](/springboot/spring-boot-introduction) to see how Spring Boot makes everything even easier!
 
 ---
 
 ## Test Your Knowledge
 
-Ready to test your Spring Framework understanding? Take our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) with 20 randomly selected questions covering IOC, DI, MVC, AOP, and all Spring topics. Perfect for practice and assessment!
+Ready to test your Spring Framework understanding? Take our comprehensive [Spring Framework MCQ Exam](/spring-mcq) with 20 randomly selected questions covering IOC, DI, MVC, AOP, and all Spring topics. Perfect for practice and assessment!
 
 > **Remember:** Spring doesn't change what Java can do. It changes how you write Java code. It makes your code cleaner, more testable, and easier to maintain. That's the real value.
 `,

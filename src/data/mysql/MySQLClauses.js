@@ -617,10 +617,10 @@ Now that you understand SQL clauses, you're ready to explore advanced MySQL topi
 
 ### Immediate Next Steps
 
-1. **[MySQL Select](/tutorial/mysql-select)**: Master the complete SELECT statement
-2. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Use aggregates with GROUP BY and HAVING
-3. **[MySQL Joins](/tutorial/mysql-joins)**: Combine clauses with table joins
-4. **[MySQL Indexes](/tutorial/mysql-indexes)**: Optimize clause performance with indexes
+1. **[MySQL Select](/mysql/mysql-select)**: Master the complete SELECT statement
+2. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Use aggregates with GROUP BY and HAVING
+3. **[MySQL Joins](/mysql/mysql-joins)**: Combine clauses with table joins
+4. **[MySQL Indexes](/mysql/mysql-indexes)**: Optimize clause performance with indexes
 
 ### Advanced Topics
 
@@ -631,12 +631,12 @@ Now that you understand SQL clauses, you're ready to explore advanced MySQL topi
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Clauses](/tutorial/mysql-clauses)**: Deep dive into each clause
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Clauses](/mysql/mysql-clauses)**: Deep dive into each clause
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Execute queries with clauses from Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA generates clause-based queries
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA generates clause-based queries
 
-SQL clauses are essential for building effective queries. Continue learning about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) to master data aggregation.
+SQL clauses are essential for building effective queries. Continue learning about [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) to master data aggregation.
 
 ---
 
@@ -688,17 +688,17 @@ SQL clauses are essential for building effective queries. Continue learning abou
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
-| **DQL** | [MySQL DQL](/tutorial/mysql-dql) |
-| **Aggregates** | [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) |
-| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
-| **Indexes (sort speed)** | [MySQL Indexes](/tutorial/mysql-indexes) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
+| **DQL** | [MySQL DQL](/mysql/mysql-dql) |
+| **Aggregates** | [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) |
+| **Subqueries** | [MySQL Subqueries](/mysql/mysql-subqueries) |
+| **Indexes (sort speed)** | [MySQL Indexes](/mysql/mysql-indexes) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered SQL clauses? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and all MySQL topics!
+Mastered SQL clauses? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and all MySQL topics!
   `,
   code: `-- MySQL Clauses Examples
 

@@ -193,9 +193,9 @@ In real production debugging, thread dumps show states:
 The thread lifecycle is the foundation for understanding concurrency. If you can clearly identify why a thread is RUNNABLE, BLOCKED, WAITING, or TIMED_WAITING, you can debug most multithreading problems much faster.
 
 ### Next steps
-- Learn [Thread Methods](/tutorial/thread-methods) (\`sleep\`, \`join\`, \`interrupt\`)
-- Continue with [Multithreading Introduction](/tutorial/thread-introduction)
-- Study [Synchronization](/tutorial/synchronization) to understand locks and thread safety
+- Learn [Thread Methods](/corejava/thread-methods) (\`sleep\`, \`join\`, \`interrupt\`)
+- Continue with [Multithreading Introduction](/corejava/thread-introduction)
+- Study [Synchronization](/corejava/synchronization) to understand locks and thread safety
   
 ---
 

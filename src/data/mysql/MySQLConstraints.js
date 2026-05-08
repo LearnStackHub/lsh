@@ -5,7 +5,7 @@ const mysqlConstraints = {
   content: `
 # MySQL Constraints and Keys - Ensuring Data Integrity
 
-MySQL constraints are rules enforced on table columns that ensure data integrity, validity, and consistency in relational databases. Constraints prevent invalid data from being inserted, maintain relationships between tables through foreign keys, and enforce business rules at the database level. Understanding constraints is essential for designing robust, reliable database schemas. Learn about [MySQL Data Types](/tutorial/mysql-data-types) to understand how constraints work with different data types.
+MySQL constraints are rules enforced on table columns that ensure data integrity, validity, and consistency in relational databases. Constraints prevent invalid data from being inserted, maintain relationships between tables through foreign keys, and enforce business rules at the database level. Understanding constraints is essential for designing robust, reliable database schemas. Learn about [MySQL Data Types](/mysql/mysql-data-types) to understand how constraints work with different data types.
 
 Enterprise applications rely heavily on database constraints to maintain data quality, prevent data corruption, and ensure referential integrity across related tables. Constraints act as a safety net, catching invalid data before it enters the database, reducing application-level validation complexity and ensuring data consistency even when multiple applications access the same database.
 
@@ -74,7 +74,7 @@ CREATE TABLE order_items (
 
 ### Add Primary Key to Existing Table
 
-Learn about [MySQL DDL](/tutorial/mysql-ddl) for more ALTER TABLE operations.
+Learn about [MySQL DDL](/mysql/mysql-ddl) for more ALTER TABLE operations.
 
 \`\`\`sql
 ALTER TABLE users ADD PRIMARY KEY (id);
@@ -84,7 +84,7 @@ ALTER TABLE users ADD PRIMARY KEY (id);
 
 ## 2. FOREIGN KEY
 
-Maintains referential integrity between tables. Learn about [MySQL Joins](/tutorial/mysql-joins) to see how foreign keys enable table relationships. Ensures that values in one table exist in another.
+Maintains referential integrity between tables. Learn about [MySQL Joins](/mysql/mysql-joins) to see how foreign keys enable table relationships. Ensures that values in one table exist in another.
 
 ### Basic Foreign Key
 
@@ -450,10 +450,10 @@ username VARCHAR(50) UNIQUE
 - Enforces business rules
 
 **Related Topics:**
-- Learn [Creating Databases and Tables](/tutorial/mysql-create-database) to apply constraints
-- Use [MySQL Joins](/tutorial/mysql-joins) with FOREIGN KEY relationships
-- Understand [MySQL Indexes](/tutorial/mysql-indexes) for PRIMARY KEY performance
-- Connect from Java with [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Learn [Creating Databases and Tables](/mysql/mysql-create-database) to apply constraints
+- Use [MySQL Joins](/mysql/mysql-joins) with FOREIGN KEY relationships
+- Understand [MySQL Indexes](/mysql/mysql-indexes) for PRIMARY KEY performance
+- Connect from Java with [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/springboot/spring-boot-jpa)
 - Improves data quality
 
 Use constraints wisely to build robust databases!
@@ -612,7 +612,7 @@ A PRIMARY KEY uniquely identifies each row, cannot be NULL, and a table can have
 
 ### What is a foreign key and how does it work?
 
-A foreign key is a column or set of columns that references the primary key of another table. It maintains referential integrity by ensuring that values in the foreign key column exist in the referenced table. Foreign keys prevent orphaned records and maintain relationships between tables. Learn about [MySQL Joins](/tutorial/mysql-joins) to see how foreign keys enable table relationships.
+A foreign key is a column or set of columns that references the primary key of another table. It maintains referential integrity by ensuring that values in the foreign key column exist in the referenced table. Foreign keys prevent orphaned records and maintain relationships between tables. Learn about [MySQL Joins](/mysql/mysql-joins) to see how foreign keys enable table relationships.
 
 ### Can a table have multiple foreign keys?
 
@@ -666,10 +666,10 @@ Now that you understand MySQL constraints, you're ready to explore advanced MySQ
 
 ### Immediate Next Steps
 
-1. **[MySQL Joins](/tutorial/mysql-joins)**: Use foreign keys to join related tables
-2. **[MySQL Indexes](/tutorial/mysql-indexes)**: Understand how constraints create indexes
-3. **[MySQL Data Types](/tutorial/mysql-data-types)**: Choose appropriate types for constraints
-4. **[MySQL Transactions](/tutorial/mysql-transactions)**: Maintain integrity with transactions
+1. **[MySQL Joins](/mysql/mysql-joins)**: Use foreign keys to join related tables
+2. **[MySQL Indexes](/mysql/mysql-indexes)**: Understand how constraints create indexes
+3. **[MySQL Data Types](/mysql/mysql-data-types)**: Choose appropriate types for constraints
+4. **[MySQL Transactions](/mysql/mysql-transactions)**: Maintain integrity with transactions
 
 ### Advanced Topics
 
@@ -680,12 +680,12 @@ Now that you understand MySQL constraints, you're ready to explore advanced MySQ
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables with constraints
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Create Database](/mysql/mysql-create-database)**: Create tables with constraints
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Work with constraints in Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles constraints
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA handles constraints
 
-Constraints are essential for maintaining data integrity. Continue learning about [MySQL Joins](/tutorial/mysql-joins) to see how foreign keys enable table relationships.
+Constraints are essential for maintaining data integrity. Continue learning about [MySQL Joins](/mysql/mysql-joins) to see how foreign keys enable table relationships.
 
 ---
 
@@ -737,17 +737,17 @@ Constraints are essential for maintaining data integrity. Continue learning abou
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **DDL** | [MySQL DDL](/tutorial/mysql-ddl) |
-| **Create tables** | [Creating Databases and Tables](/tutorial/mysql-create-database) |
-| **Joins (use FKs)** | [MySQL Joins](/tutorial/mysql-joins) |
-| **Indexes** | [MySQL Indexes](/tutorial/mysql-indexes) |
-| **JPA mapping** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+| **DDL** | [MySQL DDL](/mysql/mysql-ddl) |
+| **Create tables** | [Creating Databases and Tables](/mysql/mysql-create-database) |
+| **Joins (use FKs)** | [MySQL Joins](/mysql/mysql-joins) |
+| **Indexes** | [MySQL Indexes](/mysql/mysql-indexes) |
+| **JPA mapping** | [Spring Boot JPA](/springboot/spring-boot-jpa) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL constraints? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, and all MySQL topics!
+Mastered MySQL constraints? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, and all MySQL topics!
   `,
   code: `-- MySQL Constraints and Keys Examples
 

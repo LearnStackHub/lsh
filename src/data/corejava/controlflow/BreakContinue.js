@@ -722,10 +722,10 @@ Now that you understand break and continue, you're ready to explore related cont
 
 ### Immediate Next Steps
 
-1. **[For Loop](/tutorial/for-loop)**: Understand iteration with break and continue
-2. **[While Loop](/tutorial/while-loop)**: Learn condition-based loops with control statements
-3. **[Switch Statement](/tutorial/switch-statement)**: Understand break in switch statements
-4. **[If-Else Statements](/tutorial/if-else)**: Master conditional logic
+1. **[For Loop](/corejava/for-loop)**: Understand iteration with break and continue
+2. **[While Loop](/corejava/while-loop)**: Learn condition-based loops with control statements
+3. **[Switch Statement](/corejava/switch-statement)**: Understand break in switch statements
+4. **[If-Else Statements](/corejava/if-else)**: Master conditional logic
 
 ### Advanced Topics
 
@@ -737,11 +737,11 @@ Now that you understand break and continue, you're ready to explore related cont
 ### Related Tutorials
 
 - **[Java Control Flow](/tutorial/control-flow-introduction)**: Review all control flow statements
-- **[Java Basics](/tutorial/java-introduction)**: Master Java fundamentals
-- **[Exception Handling](/tutorial/exception-introduction)**: Handle errors in loops
-- **[Collections](/tutorial/collection-introduction)**: Use break/continue with collections
+- **[Java Basics](/corejava/java-introduction)**: Master Java fundamentals
+- **[Exception Handling](/corejava/exception-introduction)**: Handle errors in loops
+- **[Collections](/corejava/collection-introduction)**: Use break/continue with collections
 
-Break and continue are essential for fine-grained loop control. Continue learning about [For Loop](/tutorial/for-loop) to see how break and continue enhance iteration capabilities.
+Break and continue are essential for fine-grained loop control. Continue learning about [For Loop](/corejava/for-loop) to see how break and continue enhance iteration capabilities.
 `,
   practiceQuestions: [
     {

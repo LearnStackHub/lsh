@@ -144,6 +144,32 @@ function topicContentToString(content) {
   return '';
 }
 
+const LEGACY_CORE_JAVA_TOPIC_IDS = new Set([
+  'if-else', 'for-loop', 'while-loop', 'do-while-loop', 'switch-statement', 'break-continue',
+  'array-introduction', 'single-dimensional-array', 'multi-dimensional-array', 'array-methods',
+  'oops-introduction', 'classes-objects', 'constructors', 'encapsulation', 'inheritance',
+  'polymorphism', 'abstraction', 'interfaces',
+  'string-introduction', 'string-methods', 'string-builder', 'string-buffer',
+  'exception-introduction', 'try-catch-finally', 'throw-throws', 'custom-exceptions', 'global-exception-handling',
+  'thread-introduction', 'thread-creation', 'thread-methods', 'thread-lifecycle',
+  'collection-introduction', 'list-interface', 'set-interface', 'queue-interface', 'map-interface',
+  'serialization', 'synchronization'
+]);
+
+function normalizeInternalTutorialLink(path = '') {
+  if (typeof path !== 'string') return path;
+  if (path.startsWith('/tutorial/hibernate-')) return path.replace('/tutorial/hibernate-', '/hibernate/hibernate-');
+  if (path.startsWith('/tutorial/spring-boot-')) return path.replace('/tutorial/spring-boot-', '/springboot/spring-boot-');
+  if (path.startsWith('/tutorial/spring-')) return path.replace('/tutorial/spring-', '/spring/spring-');
+  if (path.startsWith('/tutorial/mysql-')) return path.replace('/tutorial/mysql-', '/mysql/mysql-');
+  if (path.startsWith('/tutorial/java-')) return path.replace('/tutorial/java-', '/corejava/java-');
+  if (path.startsWith('/tutorial/')) {
+    const topicId = path.replace('/tutorial/', '');
+    if (LEGACY_CORE_JAVA_TOPIC_IDS.has(topicId)) return `/corejava/${topicId}`;
+  }
+  return path;
+}
+
 function Tutorial() {
   const { topicId, topicSlug } = useParams();
   const location = useLocation();
@@ -505,12 +531,13 @@ function Tutorial() {
           const [, text, url] = linkMatch;
           // Check if it's an internal route
           if (url.startsWith('/')) {
+            const normalizedUrl = normalizeInternalTutorialLink(url);
             // Special handling for exam start link
-            if (url === '/core-java-mcq' || url.includes('mcq')) {
+            if (normalizedUrl === '/core-java-mcq' || normalizedUrl.includes('mcq')) {
               elements.push(
                 <div key={`link-container-${index}`} style={{ margin: '2rem 0', textAlign: 'center' }}>
                   <Link
-                    to={url}
+                    to={normalizedUrl}
                     style={{
                       display: 'inline-block',
                       padding: '1rem 2.5rem',
@@ -542,7 +569,7 @@ function Tutorial() {
               elements.push(
                 <Link
                   key={`link-${index}`}
-                  to={url}
+                  to={normalizedUrl}
                   style={{
                     color: '#3b82f6',
                     textDecoration: 'underline',
@@ -651,7 +678,7 @@ function Tutorial() {
       
       // Add link
       const linkText = match[1];
-      const linkPath = match[2];
+      const linkPath = normalizeInternalTutorialLink(match[2]);
       
       // Special styling for exam start link
       if (linkPath === '/core-java-mcq' || linkPath.includes('mcq')) {

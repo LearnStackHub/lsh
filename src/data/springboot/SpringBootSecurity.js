@@ -452,10 +452,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 Security is critical. Don't skip it.
 
 **Related Topics:**
-- Build secure REST APIs with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
-- Add input validation with [Spring Boot Validation](/tutorial/spring-boot-validation)
-- Handle security exceptions with [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
-- Test security with [Spring Boot Testing](/tutorial/spring-boot-testing)
+- Build secure REST APIs with [Spring Boot REST API](/springboot/spring-boot-rest-api)
+- Add input validation with [Spring Boot Validation](/springboot/spring-boot-validation)
+- Handle security exceptions with [Spring Boot Exception Handling](/springboot/spring-boot-exception-handling)
+- Test security with [Spring Boot Testing](/springboot/spring-boot-testing)
 `,
   code: `// Complete Spring Security Example
 
@@ -689,7 +689,7 @@ Authentication verifies who the user is (login process), while authorization det
 
 ### How does Spring Security work by default?
 
-By default, Spring Security secures all endpoints, requires authentication for all requests, provides a default user (username: "user") with a generated password, and enables CSRF protection. This default configuration is for development only and must be customized for production. Learn about [Spring Boot Configuration](/tutorial/spring-boot-configuration) for customizing security settings.
+By default, Spring Security secures all endpoints, requires authentication for all requests, provides a default user (username: "user") with a generated password, and enables CSRF protection. This default configuration is for development only and must be customized for production. Learn about [Spring Boot Configuration](/springboot/spring-boot-configuration) for customizing security settings.
 
 ### What is JWT and how do I use it with Spring Security?
 
@@ -705,7 +705,7 @@ Password encoding (hashing) converts plain text passwords into irreversible hash
 
 ### Can I use Spring Security with REST APIs?
 
-Yes, Spring Security works excellently with REST APIs. For stateless REST APIs, use JWT tokens instead of sessions, disable CSRF (since REST is stateless), and configure authentication filters. Spring Security provides comprehensive support for securing REST endpoints. Learn about [Spring Boot REST API](/tutorial/spring-boot-rest-api) for REST API development.
+Yes, Spring Security works excellently with REST APIs. For stateless REST APIs, use JWT tokens instead of sessions, disable CSRF (since REST is stateless), and configure authentication filters. Spring Security provides comprehensive support for securing REST endpoints. Learn about [Spring Boot REST API](/springboot/spring-boot-rest-api) for REST API development.
 
 ### What is CSRF protection and when should I disable it?
 
@@ -751,10 +751,10 @@ Now that you understand Spring Boot Security, you're ready to build secure appli
 
 ### Immediate Next Steps
 
-1. **[Spring Boot REST API](/tutorial/spring-boot-rest-api)**: Secure your REST APIs with Spring Security
-2. **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Integrate security with database operations
-3. **[Spring Boot Validation](/tutorial/spring-boot-validation)**: Add input validation to secure forms
-4. **[Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)**: Handle security exceptions gracefully
+1. **[Spring Boot REST API](/springboot/spring-boot-rest-api)**: Secure your REST APIs with Spring Security
+2. **[Spring Boot JPA](/springboot/spring-boot-jpa)**: Integrate security with database operations
+3. **[Spring Boot Validation](/springboot/spring-boot-validation)**: Add input validation to secure forms
+4. **[Spring Boot Exception Handling](/springboot/spring-boot-exception-handling)**: Handle security exceptions gracefully
 
 ### Advanced Topics
 
@@ -766,12 +766,12 @@ Now that you understand Spring Boot Security, you're ready to build secure appli
 
 ### Related Tutorials
 
-- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Review Spring Boot fundamentals
-- **[Spring Framework](/tutorial/spring-introduction)**: Understand the underlying Spring Framework
-- **[Spring Boot Configuration](/tutorial/spring-boot-configuration)**: Master application configuration
+- **[Spring Boot Introduction](/springboot/spring-boot-introduction)**: Review Spring Boot fundamentals
+- **[Spring Framework](/spring/spring-introduction)**: Understand the underlying Spring Framework
+- **[Spring Boot Configuration](/springboot/spring-boot-configuration)**: Master application configuration
 - **[HTTP Security](/tutorial/https-security)**: Understand web security fundamentals
 
-Spring Security is essential for building secure, production-ready applications. Continue learning about [Spring Boot REST API](/tutorial/spring-boot-rest-api) to see how security integrates with API development.
+Spring Security is essential for building secure, production-ready applications. Continue learning about [Spring Boot REST API](/springboot/spring-boot-rest-api) to see how security integrates with API development.
 `,
   practiceQuestions: [
     {

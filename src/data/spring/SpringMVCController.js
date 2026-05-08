@@ -447,17 +447,17 @@ public String showStudents(Model model) {
 
 Now that you understand controllers, let's learn about:
 
-1. **[Spring MVC ViewResolver](/tutorial/spring-mvc-view-resolver)** - How views are resolved
-2. **[Spring MVC ModelAndView](/tutorial/spring-mvc-model-and-view)** - Another way to pass data
-3. **[Complete Spring Project](/tutorial/spring-project-login-student-crud)** - Login + Student CRUD
+1. **[Spring MVC ViewResolver](/spring/spring-mvc-view-resolver)** - How views are resolved
+2. **[Spring MVC ModelAndView](/spring/spring-mvc-model-and-view)** - Another way to pass data
+3. **[Complete Spring Project](/spring/spring-project-login-student-crud)** - Login + Student CRUD
 
-**Ready for Spring Boot?** Controllers in Spring Boot are even simpler! Check out [Spring Boot REST API](/tutorial/spring-boot-rest-api).
+**Ready for Spring Boot?** Controllers in Spring Boot are even simpler! Check out [Spring Boot REST API](/springboot/spring-boot-rest-api).
 
 ---
 
 ## Test Your Knowledge
 
-Mastered Spring MVC Controllers? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/tutorial/spring-mcq) covering MVC, Controllers, @RequestMapping, and all Spring topics!
+Mastered Spring MVC Controllers? Test your Spring Framework skills with our comprehensive [Spring Framework MCQ Exam](/spring-mcq) covering MVC, Controllers, @RequestMapping, and all Spring topics!
 
 > **Key Takeaway:** Controllers handle web requests. Use @Controller to mark a class, @RequestMapping to map URLs, and Model to pass data to views. It's that simple.
 `,

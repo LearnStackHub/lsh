@@ -568,7 +568,7 @@ public class UserDAO {
 
 ## Test Your Knowledge
 
-Mastered Hibernate Session? Test your Hibernate skills with our comprehensive [Hibernate MCQ Exam](/tutorial/hibernate-mcq) covering Session, SessionFactory, lifecycle, and all Hibernate topics!
+Mastered Hibernate Session? Test your Hibernate skills with our comprehensive [Hibernate MCQ Exam](/hibernate-mcq) covering Session, SessionFactory, lifecycle, and all Hibernate topics!
 
 ---
 

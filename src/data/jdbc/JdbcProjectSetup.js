@@ -691,7 +691,7 @@ For more JDBC patterns (CRUD, DAOs), see **[JDBC CRUD Operations](/tutorial/jdbc
 
 **Next Level:**
 - Use [Spring Boot JPA](/tutorial/spring-boot-jpa) for easier database operations
-- Learn [Hibernate](/tutorial/hibernate-introduction) for ORM
+- Learn [Hibernate](/hibernate/hibernate-introduction) for ORM
 
 ---
 

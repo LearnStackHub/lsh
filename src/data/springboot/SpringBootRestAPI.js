@@ -560,7 +560,7 @@ REST is an architectural style that uses HTTP methods and JSON/XML for data exch
 
 ### Do I need to know Spring Framework before learning Spring Boot REST API?
 
-While not strictly required, understanding [Spring Framework](/tutorial/spring-introduction) fundamentals helps. Spring Boot REST APIs use Spring MVC under the hood, so knowledge of [Spring DI](/tutorial/spring-di) and [Spring IOC](/tutorial/spring-ioc) concepts is beneficial. However, Spring Boot simplifies REST API development significantly, so you can start with Spring Boot and learn Spring Framework concepts as needed.
+While not strictly required, understanding [Spring Framework](/spring/spring-introduction) fundamentals helps. Spring Boot REST APIs use Spring MVC under the hood, so knowledge of [Spring DI](/spring/spring-di) and [Spring IOC](/spring/spring-ioc) concepts is beneficial. However, Spring Boot simplifies REST API development significantly, so you can start with Spring Boot and learn Spring Framework concepts as needed.
 
 ### What is the difference between @Controller and @RestController?
 
@@ -568,7 +568,7 @@ While not strictly required, understanding [Spring Framework](/tutorial/spring-i
 
 ### How do I handle errors in REST APIs?
 
-Use @RestControllerAdvice to create global exception handlers that return appropriate error responses. Create custom exception classes and map them to HTTP status codes. Always return consistent error response formats with meaningful error messages. Learn about [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling) for detailed error handling strategies.
+Use @RestControllerAdvice to create global exception handlers that return appropriate error responses. Create custom exception classes and map them to HTTP status codes. Always return consistent error response formats with meaningful error messages. Learn about [Spring Boot Exception Handling](/springboot/spring-boot-exception-handling) for detailed error handling strategies.
 
 ### What is the purpose of @RequestBody and @ResponseBody?
 
@@ -576,7 +576,7 @@ Use @RestControllerAdvice to create global exception handlers that return approp
 
 ### How do I validate request data in REST APIs?
 
-Use Bean Validation annotations (@NotNull, @Size, @Email, etc.) on your model classes and add @Valid annotation to controller method parameters. Spring Boot automatically validates requests and returns 400 Bad Request for validation failures. Learn about [Spring Boot Validation](/tutorial/spring-boot-validation) for comprehensive validation strategies.
+Use Bean Validation annotations (@NotNull, @Size, @Email, etc.) on your model classes and add @Valid annotation to controller method parameters. Spring Boot automatically validates requests and returns 400 Bad Request for validation failures. Learn about [Spring Boot Validation](/springboot/spring-boot-validation) for comprehensive validation strategies.
 
 ### What is the difference between PUT and PATCH?
 
@@ -584,11 +584,11 @@ PUT is used to replace an entire resource, requiring all fields to be provided. 
 
 ### How do I secure my REST API?
 
-Implement authentication and authorization using Spring Security. Use JWT tokens for stateless authentication, implement role-based access control, and use HTTPS for secure communication. Learn about [Spring Boot Security](/tutorial/spring-boot-security) for comprehensive security implementation.
+Implement authentication and authorization using Spring Security. Use JWT tokens for stateless authentication, implement role-based access control, and use HTTPS for secure communication. Learn about [Spring Boot Security](/springboot/spring-boot-security) for comprehensive security implementation.
 
 ### Can I use REST APIs with databases?
 
-Yes, REST APIs commonly interact with databases. Use [Spring Boot JPA](/tutorial/spring-boot-jpa) to connect your REST API to databases. The service layer handles database operations, and controllers expose REST endpoints that use the service layer. This separation of concerns keeps your code organized and maintainable.
+Yes, REST APIs commonly interact with databases. Use [Spring Boot JPA](/springboot/spring-boot-jpa) to connect your REST API to databases. The service layer handles database operations, and controllers expose REST endpoints that use the service layer. This separation of concerns keeps your code organized and maintainable.
 
 ---
 
@@ -611,7 +611,7 @@ Before proceeding to advanced REST API topics, ensure you understand these funda
 
 ## Test Your Knowledge
 
-Mastered Spring Boot REST API? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) covering REST APIs, @RestController, @RequestBody, and all Spring Boot topics!
+Mastered Spring Boot REST API? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/spring-boot-mcq) covering REST APIs, @RestController, @RequestBody, and all Spring Boot topics!
 
 ---
 
@@ -621,10 +621,10 @@ Now that you understand Spring Boot REST API fundamentals, you're ready to build
 
 ### Immediate Next Steps
 
-1. **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: Connect your REST API to databases for persistent data storage
-2. **[Spring Boot Validation](/tutorial/spring-boot-validation)**: Add input validation to ensure data integrity
-3. **[Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)**: Handle errors gracefully with proper exception handling
-4. **[Spring Boot Security](/tutorial/spring-boot-security)**: Secure your API with authentication and authorization
+1. **[Spring Boot JPA](/springboot/spring-boot-jpa)**: Connect your REST API to databases for persistent data storage
+2. **[Spring Boot Validation](/springboot/spring-boot-validation)**: Add input validation to ensure data integrity
+3. **[Spring Boot Exception Handling](/springboot/spring-boot-exception-handling)**: Handle errors gracefully with proper exception handling
+4. **[Spring Boot Security](/springboot/spring-boot-security)**: Secure your API with authentication and authorization
 
 ### Advanced Topics
 
@@ -640,10 +640,10 @@ Now that you understand Spring Boot REST API fundamentals, you're ready to build
 
 - **[HTTP Methods](/tutorial/http-methods)**: Understand HTTP protocol fundamentals
 - **[REST API Fundamentals](/tutorial/rest-api-fundamentals)**: Deep dive into REST principles
-- **[Spring Boot Introduction](/tutorial/spring-boot-introduction)**: Master Spring Boot framework
-- **[Spring Framework](/tutorial/spring-introduction)**: Understand the underlying Spring Framework
+- **[Spring Boot Introduction](/springboot/spring-boot-introduction)**: Master Spring Boot framework
+- **[Spring Framework](/spring/spring-introduction)**: Understand the underlying Spring Framework
 
-Spring Boot REST APIs enable you to build scalable, maintainable web services. Continue learning about [Spring Boot JPA](/tutorial/spring-boot-jpa) to create complete data-driven applications with persistent storage.
+Spring Boot REST APIs enable you to build scalable, maintainable web services. Continue learning about [Spring Boot JPA](/springboot/spring-boot-jpa) to create complete data-driven applications with persistent storage.
 `,
   code: `// Complete REST API Example
 package com.example.controller;

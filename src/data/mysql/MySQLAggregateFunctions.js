@@ -398,10 +398,10 @@ SELECT * FROM (
 Master aggregate functions, and you can analyze any data!
 
 **Related Topics:**
-- Learn [MySQL Clauses](/tutorial/mysql-clauses) - GROUP BY, HAVING, ORDER BY
-- Combine with [MySQL Joins](/tutorial/mysql-joins) for complex analysis
-- Use in [MySQL Subqueries](/tutorial/mysql-subqueries) for advanced queries
-- Query from Java with [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Learn [MySQL Clauses](/mysql/mysql-clauses) - GROUP BY, HAVING, ORDER BY
+- Combine with [MySQL Joins](/mysql/mysql-joins) for complex analysis
+- Use in [MySQL Subqueries](/mysql/mysql-subqueries) for advanced queries
+- Query from Java with [JDBC](/tutorial/jdbc-introduction) and [Spring Boot JPA](/springboot/spring-boot-jpa)
 
 ---
 
@@ -602,10 +602,10 @@ Now that you understand aggregate functions, you're ready to explore advanced My
 
 ### Immediate Next Steps
 
-1. **[MySQL Group By](/tutorial/mysql-group-by)**: Master grouping data for aggregation
-2. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Use aggregates in subqueries
-3. **[MySQL Select](/tutorial/mysql-select)**: Combine aggregates with SELECT
-4. **[MySQL Joins](/tutorial/mysql-joins)**: Aggregate data from multiple tables
+1. **[MySQL Group By](/mysql/mysql-group-by)**: Master grouping data for aggregation
+2. **[MySQL Subqueries](/mysql/mysql-subqueries)**: Use aggregates in subqueries
+3. **[MySQL Select](/mysql/mysql-select)**: Combine aggregates with SELECT
+4. **[MySQL Joins](/mysql/mysql-joins)**: Aggregate data from multiple tables
 
 ### Advanced Topics
 
@@ -616,12 +616,12 @@ Now that you understand aggregate functions, you're ready to explore advanced My
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Clauses](/tutorial/mysql-clauses)**: Understand WHERE, GROUP BY, HAVING
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Clauses](/mysql/mysql-clauses)**: Understand WHERE, GROUP BY, HAVING
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Use aggregates in Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles aggregation
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA handles aggregation
 
-Aggregate functions are essential for data analysis. Continue learning about [MySQL Subqueries](/tutorial/mysql-subqueries) to use aggregates in complex queries.
+Aggregate functions are essential for data analysis. Continue learning about [MySQL Subqueries](/mysql/mysql-subqueries) to use aggregates in complex queries.
 
 ---
 
@@ -673,17 +673,17 @@ Aggregate functions are essential for data analysis. Continue learning about [My
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
-| **Subqueries** | [MySQL Subqueries](/tutorial/mysql-subqueries) |
-| **Reports in apps** | [Spring Boot JPA](/tutorial/spring-boot-jpa) |
+| **Clauses** | [MySQL Clauses](/mysql/mysql-clauses) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
+| **Joins** | [MySQL Joins](/mysql/mysql-joins) |
+| **Subqueries** | [MySQL Subqueries](/mysql/mysql-subqueries) |
+| **Reports in apps** | [Spring Boot JPA](/springboot/spring-boot-jpa) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered aggregate functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering COUNT, SUM, AVG, MAX, MIN, and all MySQL topics!
+Mastered aggregate functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering COUNT, SUM, AVG, MAX, MIN, and all MySQL topics!
   `,
   code: `-- MySQL Aggregate Functions Examples
 

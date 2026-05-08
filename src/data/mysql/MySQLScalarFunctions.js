@@ -579,7 +579,7 @@ Scalar functions operate on a single input value and return a single result valu
 
 ### What's the difference between scalar and aggregate functions?
 
-Scalar functions operate on a single value and return a single value for each row. Aggregate functions operate on multiple rows and return a single summary value. Use scalar functions for row-level transformations, aggregate functions for group-level calculations. Learn about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) for aggregation.
+Scalar functions operate on a single value and return a single value for each row. Aggregate functions operate on multiple rows and return a single summary value. Use scalar functions for row-level transformations, aggregate functions for group-level calculations. Learn about [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) for aggregation.
 
 ### Can I nest functions in MySQL?
 
@@ -665,10 +665,10 @@ Now that you understand scalar functions, you're ready to explore advanced MySQL
 
 ### Immediate Next Steps
 
-1. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Learn functions that operate on groups
-2. **[MySQL Select](/tutorial/mysql-select)**: Use functions in SELECT statements
-3. **[MySQL Clauses](/tutorial/mysql-clauses)**: Combine functions with WHERE, ORDER BY
-4. **[MySQL Data Types](/tutorial/mysql-data-types)**: Understand types used with conversion functions
+1. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Learn functions that operate on groups
+2. **[MySQL Select](/mysql/mysql-select)**: Use functions in SELECT statements
+3. **[MySQL Clauses](/mysql/mysql-clauses)**: Combine functions with WHERE, ORDER BY
+4. **[MySQL Data Types](/mysql/mysql-data-types)**: Understand types used with conversion functions
 
 ### Advanced Topics
 
@@ -679,12 +679,12 @@ Now that you understand scalar functions, you're ready to explore advanced MySQL
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Use functions in subqueries
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Subqueries](/mysql/mysql-subqueries)**: Use functions in subqueries
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Work with function results in Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles function expressions
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA handles function expressions
 
-Scalar functions are essential for data transformation. Continue learning about [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) to master group-level calculations.
+Scalar functions are essential for data transformation. Continue learning about [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) to master group-level calculations.
 
 ---
 
@@ -736,17 +736,17 @@ Scalar functions are essential for data transformation. Continue learning about 
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Data types** | [MySQL Data Types](/tutorial/mysql-data-types) |
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Clauses** | [MySQL Clauses](/tutorial/mysql-clauses) |
-| **DML** | [MySQL INSERT, UPDATE, DELETE](/tutorial/mysql-insert-update-delete) |
+| **Data types** | [MySQL Data Types](/mysql/mysql-data-types) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
+| **Clauses** | [MySQL Clauses](/mysql/mysql-clauses) |
+| **DML** | [MySQL INSERT, UPDATE, DELETE](/mysql/mysql-insert-update-delete) |
 | **JDBC types** | [JDBC Introduction](/tutorial/jdbc-introduction) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered scalar functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering string, date, numeric functions, and all MySQL topics!
+Mastered scalar functions? Test your MySQL skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering string, date, numeric functions, and all MySQL topics!
   `,
   code: `-- MySQL Scalar Functions Examples
 

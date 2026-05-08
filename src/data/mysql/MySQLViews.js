@@ -298,9 +298,9 @@ Views provide:
 Use views to simplify your database queries!
 
 **Related Topics:**
-- Learn [MySQL Joins](/tutorial/mysql-joins) to create complex views
-- Use [MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions) in views
-- Combine with [MySQL Subqueries](/tutorial/mysql-subqueries) for advanced views
+- Learn [MySQL Joins](/mysql/mysql-joins) to create complex views
+- Use [MySQL Aggregate Functions](/mysql/mysql-aggregate-functions) in views
+- Combine with [MySQL Subqueries](/mysql/mysql-subqueries) for advanced views
 - Query views from Java using [JDBC](/tutorial/jdbc-introduction)
 
 ---
@@ -438,7 +438,7 @@ No, you cannot create indexes directly on views since views don't store data. Ho
 
 ### What's the difference between a view and a stored procedure?
 
-A view is a saved SELECT query that can be queried like a table. A stored procedure is a saved set of SQL statements that can perform various operations (SELECT, INSERT, UPDATE, DELETE, etc.). Views are for data retrieval, stored procedures are for complex logic and operations. Learn about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) for procedural logic.
+A view is a saved SELECT query that can be queried like a table. A stored procedure is a saved set of SQL statements that can perform various operations (SELECT, INSERT, UPDATE, DELETE, etc.). Views are for data retrieval, stored procedures are for complex logic and operations. Learn about [MySQL Stored Procedures](/mysql/mysql-stored-procedures) for procedural logic.
 
 ### When should I use a view vs writing the query directly?
 
@@ -468,10 +468,10 @@ Now that you understand MySQL views, you're ready to explore advanced MySQL topi
 
 ### Immediate Next Steps
 
-1. **[MySQL Select](/tutorial/mysql-select)**: Use views in SELECT queries
-2. **[MySQL Joins](/tutorial/mysql-joins)**: Create views with complex joins
-3. **[MySQL Aggregate Functions](/tutorial/mysql-aggregate-functions)**: Build views with aggregations
-4. **[MySQL Subqueries](/tutorial/mysql-subqueries)**: Use subqueries in view definitions
+1. **[MySQL Select](/mysql/mysql-select)**: Use views in SELECT queries
+2. **[MySQL Joins](/mysql/mysql-joins)**: Create views with complex joins
+3. **[MySQL Aggregate Functions](/mysql/mysql-aggregate-functions)**: Build views with aggregations
+4. **[MySQL Subqueries](/mysql/mysql-subqueries)**: Use subqueries in view definitions
 
 ### Advanced Topics
 
@@ -482,12 +482,12 @@ Now that you understand MySQL views, you're ready to explore advanced MySQL topi
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables for views
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Create Database](/mysql/mysql-create-database)**: Create tables for views
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Query views from Java
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA works with views
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA works with views
 
-Views are essential for simplifying complex queries and improving security. Continue learning about [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) to implement procedural database logic.
+Views are essential for simplifying complex queries and improving security. Continue learning about [MySQL Stored Procedures](/mysql/mysql-stored-procedures) to implement procedural database logic.
 
 ---
 
@@ -539,17 +539,17 @@ Views are essential for simplifying complex queries and improving security. Cont
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **SELECT** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Privileges** | [MySQL Privileges](/tutorial/mysql-privileges) |
-| **Stored programs** | [MySQL Stored Procedures](/tutorial/mysql-stored-procedures) |
-| **Triggers** | [MySQL Triggers](/tutorial/mysql-triggers) |
-| **Hibernate HQL** | [Hibernate HQL](/tutorial/hibernate-hql) |
+| **SELECT** | [MySQL SELECT](/mysql/mysql-select) |
+| **Privileges** | [MySQL Privileges](/mysql/mysql-privileges) |
+| **Stored programs** | [MySQL Stored Procedures](/mysql/mysql-stored-procedures) |
+| **Triggers** | [MySQL Triggers](/mysql/mysql-triggers) |
+| **Hibernate HQL** | [Hibernate HQL](/hibernate/hibernate-hql) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL views? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering views, stored procedures, triggers, and all MySQL topics!
+Mastered MySQL views? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering views, stored procedures, triggers, and all MySQL topics!
   `,
   code: `-- MySQL Views Examples
 

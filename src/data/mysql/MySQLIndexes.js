@@ -572,10 +572,10 @@ Now that you understand indexes, you're ready to explore advanced MySQL topics:
 
 ### Immediate Next Steps
 
-1. **[MySQL Select](/tutorial/mysql-select)**: See how indexes improve SELECT queries
-2. **[MySQL Joins](/tutorial/mysql-joins)**: Understand index usage in JOINs
-3. **[MySQL Constraints](/tutorial/mysql-constraints)**: See how constraints create indexes
-4. **[MySQL Performance Tuning](/tutorial/mysql-performance)**: Master query optimization
+1. **[MySQL Select](/mysql/mysql-select)**: See how indexes improve SELECT queries
+2. **[MySQL Joins](/mysql/mysql-joins)**: Understand index usage in JOINs
+3. **[MySQL Constraints](/mysql/mysql-constraints)**: See how constraints create indexes
+4. **[MySQL Performance Tuning](/mysql/mysql-performance)**: Master query optimization
 
 ### Advanced Topics
 
@@ -586,12 +586,12 @@ Now that you understand indexes, you're ready to explore advanced MySQL topics:
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Review database fundamentals
-- **[MySQL Create Database](/tutorial/mysql-create-database)**: Create tables with indexes
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Review database fundamentals
+- **[MySQL Create Database](/mysql/mysql-create-database)**: Create tables with indexes
 - **[Database Design](/tutorial/database-design)**: Design databases with performance in mind
-- **[Spring Boot JPA](/tutorial/spring-boot-jpa)**: See how JPA handles indexing
+- **[Spring Boot JPA](/springboot/spring-boot-jpa)**: See how JPA handles indexing
 
-Indexes are essential for database performance. Continue learning about [MySQL Performance Tuning](/tutorial/mysql-performance) to master query optimization techniques.
+Indexes are essential for database performance. Continue learning about [MySQL Performance Tuning](/mysql/mysql-performance) to master query optimization techniques.
 
 ---
 
@@ -643,17 +643,17 @@ Indexes are essential for database performance. Continue learning about [MySQL P
 
 | Topic | Tutorial link |
 |-------|----------------|
-| **Query writing** | [MySQL SELECT](/tutorial/mysql-select) |
-| **Joins** | [MySQL Joins](/tutorial/mysql-joins) |
-| **DDL** | [MySQL DDL](/tutorial/mysql-ddl) |
-| **Transactions & locks** | [MySQL Transactions](/tutorial/mysql-transactions) |
-| **ORM performance** | [Hibernate Caching](/tutorial/hibernate-caching) |
+| **Query writing** | [MySQL SELECT](/mysql/mysql-select) |
+| **Joins** | [MySQL Joins](/mysql/mysql-joins) |
+| **DDL** | [MySQL DDL](/mysql/mysql-ddl) |
+| **Transactions & locks** | [MySQL Transactions](/mysql/mysql-transactions) |
+| **ORM performance** | [Hibernate Caching](/hibernate/hibernate-caching) |
 
 ---
 
 ## Test Your Knowledge
 
-Mastered MySQL indexes? Test your skills with our comprehensive [MySQL MCQ Exam](/tutorial/mysql-mcq) covering indexes, performance optimization, and all MySQL topics!
+Mastered MySQL indexes? Test your skills with our comprehensive [MySQL MCQ Exam](/mysql-mcq) covering indexes, performance optimization, and all MySQL topics!
   `,
   code: `-- MySQL Indexes Examples
 

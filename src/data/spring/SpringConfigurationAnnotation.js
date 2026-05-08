@@ -480,12 +480,12 @@ public class UtilityClass {
 
 Now that you understand annotation configuration, let's learn:
 
-1. **[Spring MVC DispatcherServlet](/tutorial/spring-mvc-dispatcher-servlet)** - Building web applications with Spring
-2. **[Spring MVC Controller](/tutorial/spring-mvc-controller)** - Handling web requests
-3. **[Spring MVC ViewResolver](/tutorial/spring-mvc-view-resolver)** - Resolving views
-4. **[Spring MVC ModelAndView](/tutorial/spring-mvc-model-and-view)** - Passing data to views
+1. **[Spring MVC DispatcherServlet](/spring/spring-mvc-dispatcher-servlet)** - Building web applications with Spring
+2. **[Spring MVC Controller](/spring/spring-mvc-controller)** - Handling web requests
+3. **[Spring MVC ViewResolver](/spring/spring-mvc-view-resolver)** - Resolving views
+4. **[Spring MVC ModelAndView](/spring/spring-mvc-model-and-view)** - Passing data to views
 
-**Ready for Spring Boot?** Spring Boot uses annotation configuration by default. Check out [Spring Boot Introduction](/tutorial/spring-boot-introduction) and [Spring Boot Configuration](/tutorial/spring-boot-configuration)!
+**Ready for Spring Boot?** Spring Boot uses annotation configuration by default. Check out [Spring Boot Introduction](/springboot/spring-boot-introduction) and [Spring Boot Configuration](/springboot/spring-boot-configuration)!
 
 > **Key Takeaway:** Annotation configuration is the modern way to configure Spring. Use @Component, @Service, @Repository, @Controller to mark beans, and @Autowired to inject dependencies. It's cleaner and easier than XML.
 `,

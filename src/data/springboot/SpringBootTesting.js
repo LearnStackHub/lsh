@@ -348,10 +348,10 @@ class StudentApplicationIntegrationTest {
 Testing gives you confidence. Write tests for everything important.
 
 **Related Topics:**
-- Test your REST APIs built with [Spring Boot REST API](/tutorial/spring-boot-rest-api)
-- Test validation logic from [Spring Boot Validation](/tutorial/spring-boot-validation)
-- Test exception handling from [Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)
-- Test JPA repositories from [Spring Boot JPA](/tutorial/spring-boot-jpa)
+- Test your REST APIs built with [Spring Boot REST API](/springboot/spring-boot-rest-api)
+- Test validation logic from [Spring Boot Validation](/springboot/spring-boot-validation)
+- Test exception handling from [Spring Boot Exception Handling](/springboot/spring-boot-exception-handling)
+- Test JPA repositories from [Spring Boot JPA](/springboot/spring-boot-jpa)
 `,
   code: `// Complete Testing Example
 

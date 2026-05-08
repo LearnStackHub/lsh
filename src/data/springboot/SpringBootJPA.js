@@ -643,7 +643,7 @@ private String email;
 
 ### What is JPA and why should I use it with Spring Boot?
 
-JPA (Java Persistence API) is a Java specification for managing relational data in applications. You should use JPA with Spring Boot because it provides automatic configuration, eliminates boilerplate code, and offers powerful features like automatic table creation, relationship mapping, and query generation. Spring Boot's integration with JPA simplifies database operations, making it the preferred choice for enterprise application development. Learn more about [Spring Boot Introduction](/tutorial/spring-boot-introduction) to understand the framework's capabilities.
+JPA (Java Persistence API) is a Java specification for managing relational data in applications. You should use JPA with Spring Boot because it provides automatic configuration, eliminates boilerplate code, and offers powerful features like automatic table creation, relationship mapping, and query generation. Spring Boot's integration with JPA simplifies database operations, making it the preferred choice for enterprise application development. Learn more about [Spring Boot Introduction](/springboot/spring-boot-introduction) to understand the framework's capabilities.
 
 ### What's the difference between JPA and JDBC?
 
@@ -651,15 +651,15 @@ JPA is an object-relational mapping (ORM) framework that works with Java objects
 
 ### Do I need to know SQL to use JPA?
 
-While JPA abstracts away much of the SQL complexity, understanding SQL fundamentals is beneficial for writing custom queries, optimizing performance, and debugging issues. JPA provides query methods that generate SQL automatically, but complex queries may require JPQL (Java Persistence Query Language) or native SQL. Knowledge of [MySQL Introduction](/tutorial/mysql-introduction) helps understand database concepts.
+While JPA abstracts away much of the SQL complexity, understanding SQL fundamentals is beneficial for writing custom queries, optimizing performance, and debugging issues. JPA provides query methods that generate SQL automatically, but complex queries may require JPQL (Java Persistence Query Language) or native SQL. Knowledge of [MySQL Introduction](/mysql/mysql-introduction) helps understand database concepts.
 
 ### What is the difference between JPA and Hibernate?
 
-Hibernate is an implementation of the JPA specification. JPA defines the standard API, while Hibernate is one of several JPA providers (others include EclipseLink, OpenJPA). Spring Boot uses Hibernate as the default JPA implementation. Understanding [Hibernate Introduction](/tutorial/hibernate-introduction) provides deeper insights into JPA implementation details.
+Hibernate is an implementation of the JPA specification. JPA defines the standard API, while Hibernate is one of several JPA providers (others include EclipseLink, OpenJPA). Spring Boot uses Hibernate as the default JPA implementation. Understanding [Hibernate Introduction](/hibernate/hibernate-introduction) provides deeper insights into JPA implementation details.
 
 ### How does Spring Boot auto-configure JPA?
 
-Spring Boot auto-configures JPA by detecting JPA-related dependencies on the classpath. When it finds spring-boot-starter-data-jpa, it automatically configures a DataSource, EntityManagerFactory, and TransactionManager. Spring Boot reads database configuration from application.properties and sets up Hibernate as the JPA provider. Learn about [Spring Boot Configuration](/tutorial/spring-boot-configuration) for detailed setup information.
+Spring Boot auto-configures JPA by detecting JPA-related dependencies on the classpath. When it finds spring-boot-starter-data-jpa, it automatically configures a DataSource, EntityManagerFactory, and TransactionManager. Spring Boot reads database configuration from application.properties and sets up Hibernate as the JPA provider. Learn about [Spring Boot Configuration](/springboot/spring-boot-configuration) for detailed setup information.
 
 ### What is the purpose of @Entity annotation?
 
@@ -679,7 +679,7 @@ The save() method queues the entity for persistence but doesn't immediately writ
 
 ### How do I write custom queries in JPA?
 
-You can write custom queries using method naming conventions (findBy...), @Query annotation with JPQL, or native SQL queries. For complex queries, use @Query with JPQL syntax. For database-specific features, use native queries with nativeQuery = true. Learn about [Spring Boot REST API](/tutorial/spring-boot-rest-api) to see JPA in action with REST endpoints.
+You can write custom queries using method naming conventions (findBy...), @Query annotation with JPQL, or native SQL queries. For complex queries, use @Query with JPQL syntax. For database-specific features, use native queries with nativeQuery = true. Learn about [Spring Boot REST API](/springboot/spring-boot-rest-api) to see JPA in action with REST endpoints.
 
 ---
 
@@ -701,7 +701,7 @@ Before proceeding to advanced JPA topics, ensure you understand these fundamenta
 
 ## Test Your Knowledge
 
-Mastered Spring Boot JPA? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/tutorial/spring-boot-mcq) covering JPA, Spring Data, repositories, and all Spring Boot topics!
+Mastered Spring Boot JPA? Test your Spring Boot skills with our comprehensive [Spring Boot MCQ Exam](/spring-boot-mcq) covering JPA, Spring Data, repositories, and all Spring Boot topics!
 
 ---
 
@@ -711,9 +711,9 @@ Now that you understand Spring Boot JPA fundamentals, you're ready to explore ad
 
 ### Immediate Next Steps
 
-1. **[Spring Boot REST API](/tutorial/spring-boot-rest-api)**: Build RESTful web services that use JPA for data persistence
-2. **[Spring Boot Validation](/tutorial/spring-boot-validation)**: Add input validation to your JPA entities
-3. **[Spring Boot Exception Handling](/tutorial/spring-boot-exception-handling)**: Handle database errors gracefully
+1. **[Spring Boot REST API](/springboot/spring-boot-rest-api)**: Build RESTful web services that use JPA for data persistence
+2. **[Spring Boot Validation](/springboot/spring-boot-validation)**: Add input validation to your JPA entities
+3. **[Spring Boot Exception Handling](/springboot/spring-boot-exception-handling)**: Handle database errors gracefully
 
 ### Advanced Topics
 
@@ -725,12 +725,12 @@ Now that you understand Spring Boot JPA fundamentals, you're ready to explore ad
 
 ### Related Tutorials
 
-- **[MySQL Introduction](/tutorial/mysql-introduction)**: Understand database fundamentals
+- **[MySQL Introduction](/mysql/mysql-introduction)**: Understand database fundamentals
 - **[JDBC Introduction](/tutorial/jdbc-introduction)**: Learn direct database access patterns
-- **[Hibernate Introduction](/tutorial/hibernate-introduction)**: Deep dive into JPA implementation
-- **[Spring Boot Configuration](/tutorial/spring-boot-configuration)**: Master application configuration
+- **[Hibernate Introduction](/hibernate/hibernate-introduction)**: Deep dive into JPA implementation
+- **[Spring Boot Configuration](/springboot/spring-boot-configuration)**: Master application configuration
 
-Spring Boot JPA provides a robust foundation for building data-driven applications. Continue learning about [Spring Boot REST API](/tutorial/spring-boot-rest-api) to create complete backend services that leverage JPA's powerful features.
+Spring Boot JPA provides a robust foundation for building data-driven applications. Continue learning about [Spring Boot REST API](/springboot/spring-boot-rest-api) to create complete backend services that leverage JPA's powerful features.
 `,
   code: `// Complete Spring Boot JPA Example
 

@@ -170,9 +170,9 @@ Always check for null before calling methods.
 String methods are essential for validation, parsing, formatting, and searching. Mastering these methods improves code quality and reduces bugs in real applications.
 
 ### Next steps
-- Learn [StringBuilder](/tutorial/string-builder) for efficient concatenation
-- Learn [StringBuffer](/tutorial/string-buffer) for thread-safe mutable strings
-- Continue with [Exception Handling](/tutorial/exception-introduction) for safe string parsing
+- Learn [StringBuilder](/corejava/string-builder) for efficient concatenation
+- Learn [StringBuffer](/corejava/string-buffer) for thread-safe mutable strings
+- Continue with [Exception Handling](/corejava/exception-introduction) for safe string parsing
   
 ---
 
