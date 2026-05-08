@@ -292,117 +292,311 @@ export const generateSEOTitle = (topic) => {
 
 
     // Servlet Topics
-    'Introduction to Servlets': 'Java Servlet Tutorial for Beginners - Web Application Development',
-    'Servlet Lifecycle': 'Servlet Lifecycle Explained with Example - init(), service(), destroy()',
-    'Servlet API': 'Java Servlet API Tutorial - HttpServletRequest and HttpServletResponse',
-    'ServletConfig & ServletContext': 'Servlet Config and Context Tutorial - Configuration Parameters',
-    'HttpServletRequest & Response': 'Servlet Request Response Tutorial - Get Parameters, Set Headers',
-    'Session Management': 'Servlet Session Management Tutorial - HttpSession with Examples',
-    'Filters & Listeners': 'Servlet Filters and Listeners Tutorial - Request Filtering Examples',
-    'Servlet Annotations': 'Servlet Annotations Tutorial - @WebServlet, @WebFilter Examples',
-    'Servlet Security': 'Servlet Security Tutorial - Authentication and Authorization',
-    'Servlet Project Setup - Create & Run': 'Servlet Project Setup Tutorial - Create Servlet in Eclipse with Tomcat',
-    'Apache Tomcat Server - Installation & Configuration': 'Apache Tomcat Server Tutorial - Installation, Configuration, Deployment',
-    'HTML/CSS Frontend with Servlets - Complete Project': 'HTML CSS with Servlet Tutorial - Complete Project Example',
-    
+    'Introduction to Servlets':
+'Learn Java Servlets for Beginners | Build Dynamic Web Applications',
+
+'Servlet Lifecycle':
+'Understanding the Servlet Lifecycle in Java Web Applications',
+
+'Servlet API':
+'Java Servlet API Explained | HttpServletRequest and HttpServletResponse',
+
+'ServletConfig & ServletContext':
+'Difference Between ServletConfig and ServletContext in Java',
+
+'HttpServletRequest & Response':
+'Handling Client Requests and Responses in Java Servlets',
+
+'Session Management':
+'Session Management in Servlets Using HttpSession',
+
+'Filters & Listeners':
+'Using Filters and Listeners in Java Servlet Applications',
+
+'Servlet Annotations':
+'Servlet Annotations Explained | @WebServlet and @WebFilter',
+
+'Servlet Security':
+'Servlet Security Basics | Authentication and Authorization',
+
+'Servlet Project Setup - Create & Run':
+'How to Create and Run a Servlet Project with Tomcat',
+
+'Apache Tomcat Server - Installation & Configuration':
+'Apache Tomcat Installation and Configuration Guide',
+
+'HTML/CSS Frontend with Servlets - Complete Project':
+'Build a Complete Servlet Project with HTML and CSS Frontend',
+
     // JSP Topics
-    'Introduction to JSP': 'JSP Tutorial for Beginners - JavaServer Pages with Examples',
-    'JSP Architecture & Lifecycle': 'JSP Architecture Explained - How JSP Works Internally',
-    'JSP Scripting Elements': 'JSP Scripting Elements Tutorial - Scriptlets, Expressions, Declarations',
-    'JSP Directives': 'JSP Directives Tutorial - page, include, taglib Directives',
-    'JSP Implicit Objects': 'JSP Implicit Objects Tutorial - request, response, session, out Examples',
-    'JSP Action Tags': 'JSP Action Tags Tutorial - jsp:include, jsp:forward, jsp:useBean',
-    'JSP Expression Language (EL)': 'JSP EL Tutorial - Expression Language with Examples',
-    'JSTL (JSP Standard Tag Library)': 'JSP JSTL Tutorial - JSP Standard Tag Library with Examples',
-    'JSP Custom Tags': 'JSP Custom Tags Tutorial - Create Custom Tags in JSP',
-    'JSP Project Setup - Create & Run': 'JSP Project Setup Tutorial - Create JSP Project in Eclipse with Tomcat',
-    
+    'Introduction to JSP':
+'Learn JSP for Beginners | Build Dynamic Web Pages with Java',
+
+'JSP Architecture & Lifecycle':
+'How JSP Works Internally | JSP Lifecycle and Architecture Explained',
+
+'JSP Scripting Elements':
+'Understanding JSP Scriptlets, Expressions, and Declarations',
+
+'JSP Directives':
+'JSP Directives Explained | page, include, and taglib Usage',
+
+'JSP Implicit Objects':
+'JSP Implicit Objects Explained with Real Examples',
+
+'JSP Action Tags':
+'Using JSP Action Tags | jsp:include, forward, useBean',
+
+'JSP Expression Language (EL)':
+'JSP Expression Language Explained for Beginners',
+
+'JSTL (JSP Standard Tag Library)':
+'Learn JSTL in JSP | Standard Tag Library with Examples',
+
+'JSP Custom Tags':
+'Creating and Using Custom Tags in JSP Applications',
+
+'JSP Project Setup - Create & Run':
+'How to Create and Run a JSP Project with Tomcat',
+
     // Hibernate Topics
-    'Hibernate Introduction': 'Hibernate ORM Tutorial for Beginners - Java Persistence Framework',
-    'Hibernate Architecture': 'Hibernate Architecture Explained - Core Components and Flow',
-    'Hibernate Configuration': 'Hibernate Configuration Tutorial - hibernate.cfg.xml Step by Step',
-    'Hibernate Session': 'Hibernate Session Tutorial - Session API and Lifecycle',
-    'Hibernate Mapping': 'Hibernate Mapping Tutorial - JPA Annotations and Relationships',
-    'Hibernate HQL': 'Hibernate HQL Tutorial - Hibernate Query Language with Examples',
-    'Hibernate Locking': 'Hibernate Locking Tutorial - Optimistic vs Pessimistic Locking',
-    'Hibernate Caching': 'Hibernate Caching Tutorial - First Level and Second Level Cache',
-    'Hibernate Relationships': 'Hibernate Relationships Tutorial - One-to-One, One-to-Many, Many-to-Many',
-    'Hibernate Batch Processing': 'Hibernate Batch Processing Tutorial - Insert, Update, Delete in Batch',
-    'Hibernate Project Setup': 'Hibernate Project Setup Tutorial - Maven Project with MySQL',
-    
+    'Hibernate Introduction':
+'Learn Hibernate ORM for Beginners | Java Database Persistence Guide',
+
+'Hibernate Architecture':
+'Understanding Hibernate Architecture and Internal Workflow',
+
+'Hibernate Configuration':
+'How to Configure Hibernate with hibernate.cfg.xml',
+
+'Hibernate Session':
+'Hibernate Session Explained | Session Lifecycle and Operations',
+
+'Hibernate Mapping':
+'Hibernate Entity Mapping with JPA Annotations Explained',
+
+'Hibernate HQL':
+'Learn Hibernate Query Language (HQL) with Examples',
+
+'Hibernate Locking':
+'Optimistic vs Pessimistic Locking in Hibernate',
+
+'Hibernate Caching':
+'How Hibernate Caching Improves Application Performance',
+
+'Hibernate Relationships':
+'Hibernate Relationships Explained | One-to-One, One-to-Many, Many-to-Many',
+
+'Hibernate Batch Processing':
+'Batch Insert, Update, and Delete Operations in Hibernate',
+
+'Hibernate Project Setup':
+'How to Create a Hibernate Project with Maven and MySQL',
+
     // MySQL Topics
-    'Introduction to MySQL': 'MySQL Database Tutorial for Beginners - Relational Database Management',
-    'MySQL Installation and Setup': 'MySQL Installation Tutorial - Step by Step Guide for Windows',
-    'MySQL Data Types': 'MySQL Data Types Tutorial - INT, VARCHAR, DATE, TEXT Examples',
-    'Creating Databases and Tables': 'MySQL Create Database Tutorial - CREATE DATABASE and TABLE',
-    'SELECT Query - Retrieving Data': 'MySQL SELECT Query Tutorial - Retrieve Data from Tables',
-    'INSERT, UPDATE, DELETE - Modifying Data': 'MySQL DML Tutorial - INSERT, UPDATE, DELETE Statements',
-    'MySQL Joins - Combining Data from Multiple Tables': 'MySQL Joins Tutorial - INNER, LEFT, RIGHT, FULL OUTER JOIN',
-    'MySQL Constraints and Keys': 'MySQL Constraints Tutorial - PRIMARY KEY, FOREIGN KEY, UNIQUE',
-    'MySQL Aggregate Functions': 'MySQL Aggregate Functions - COUNT, SUM, AVG, MIN, MAX',
-    'MySQL Scalar Functions - String, Date, Math': 'MySQL Scalar Functions - UCASE, LCASE, MID, LENGTH, ROUND',
-    'MySQL Views - Virtual Tables': 'MySQL Views Tutorial - CREATE, ALTER, DROP Views',
-    'MySQL Stored Procedures': 'MySQL Stored Procedures Tutorial - CREATE and CALL Procedures',
-    'MySQL Triggers - Automated Actions': 'MySQL Triggers Tutorial - BEFORE and AFTER Triggers',
-    'MySQL Transactions - ACID Properties': 'MySQL Transactions Tutorial - COMMIT, ROLLBACK, SAVEPOINT',
-    'MySQL Subqueries - Nested Queries': 'MySQL Subqueries Tutorial - Nested Queries in SELECT, WHERE',
-    'MySQL DDL - ALTER, DROP, TRUNCATE': 'MySQL DDL Tutorial - ALTER, DROP, TRUNCATE Statements',
-    'MySQL DQL - Data Query Language (SELECT)': 'MySQL DQL Tutorial - SELECT Statement with Examples',
-    'MySQL Clauses - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT': 'MySQL Clauses Tutorial - WHERE, GROUP BY, HAVING, ORDER BY',
-    'MySQL Privileges & Security - GRANT, REVOKE, DCL': 'MySQL Privileges Tutorial - GRANT and REVOKE User Permissions',
-    'MySQL Indexes - Performance Optimization': 'MySQL Indexes Tutorial - CREATE INDEX for Performance',
-    
+    'Introduction to MySQL':
+'Learn MySQL for Beginners | Introduction to Relational Databases',
+
+'MySQL Installation and Setup':
+'How to Install and Configure MySQL on Windows',
+
+'MySQL Data Types':
+'Understanding MySQL Data Types with Practical Examples',
+
+'Creating Databases and Tables':
+'How to Create Databases and Tables in MySQL',
+
+'SELECT Query - Retrieving Data':
+'Retrieve Data Using SELECT Queries in MySQL',
+
+'INSERT, UPDATE, DELETE - Modifying Data':
+'How to Insert, Update, and Delete Records in MySQL',
+
+'MySQL Joins - Combining Data from Multiple Tables':
+'Understanding MySQL Joins with Real Table Examples',
+
+'MySQL Constraints and Keys':
+'Primary Key, Foreign Key, and Constraints in MySQL',
+
+'MySQL Aggregate Functions':
+'Using COUNT, SUM, AVG, MIN, and MAX in MySQL',
+
+'MySQL Scalar Functions - String, Date, Math':
+'Useful String, Date, and Math Functions in MySQL',
+
+'MySQL Views - Virtual Tables':
+'How MySQL Views Work with CREATE and ALTER Examples',
+
+'MySQL Stored Procedures':
+'Creating and Executing Stored Procedures in MySQL',
+
+'MySQL Triggers - Automated Actions':
+'Using BEFORE and AFTER Triggers in MySQL',
+
+'MySQL Transactions - ACID Properties':
+'MySQL Transactions Explained with COMMIT and ROLLBACK',
+
+'MySQL Subqueries - Nested Queries':
+'Understanding Nested Queries and Subqueries in MySQL',
+
+'MySQL DDL - ALTER, DROP, TRUNCATE':
+'Managing Tables with ALTER, DROP, and TRUNCATE in MySQL',
+
+'MySQL DQL - Data Query Language (SELECT)':
+'MySQL SELECT Statement Explained for Beginners',
+
+'MySQL Clauses - WHERE, GROUP BY, HAVING, ORDER BY, LIMIT':
+'Using WHERE, GROUP BY, HAVING, ORDER BY, and LIMIT in MySQL',
+
+'MySQL Privileges & Security - GRANT, REVOKE, DCL':
+'Managing User Permissions with GRANT and REVOKE in MySQL',
+
+'MySQL Indexes - Performance Optimization':
+'How MySQL Indexes Improve Query Performance',
+
     // Spring Framework Topics
-    'Why Spring? Problems in Traditional Java': 'Spring Framework Tutorial - Why Spring? Problems Solved by Spring',
-    'Spring IOC - Inversion of Control': 'Spring IOC Tutorial - Inversion of Control Container Explained',
-    'Spring DI - Dependency Injection': 'Spring Dependency Injection Tutorial - Constructor and Setter Injection',
-    'Spring Bean - Understanding Spring-Managed Objects': 'Spring Bean Tutorial - Bean Lifecycle, Scope, Configuration',
-    'Spring ApplicationContext - The Container': 'Spring ApplicationContext Tutorial - Bean Container and Context',
-    'Spring XML Configuration': 'Spring XML Configuration Tutorial - Configure Beans with XML',
-    'Spring Annotation Configuration': 'Spring Annotation Configuration Tutorial - @Component, @Autowired, @Service',
-    'Spring MVC DispatcherServlet': 'Spring MVC DispatcherServlet Tutorial - Front Controller Pattern',
-    'Spring MVC Controller': 'Spring MVC Controller Tutorial - @Controller, @RequestMapping, @GetMapping',
-    'Spring MVC ViewResolver': 'Spring MVC ViewResolver Tutorial - Configure View Resolution',
-    'Spring MVC ModelAndView': 'Spring MVC ModelAndView Tutorial - Pass Data from Controller to View',
-    'Spring Project - Login + Student CRUD': 'Spring MVC Project Tutorial - Complete Login and CRUD Application',
-    'Spring Data - Introduction': 'Spring Data Tutorial - Spring Data JPA Introduction and Overview',
-    'Spring Data Repository Architecture': 'Spring Data Repository Tutorial - CrudRepository, JpaRepository',
-    'Spring JDBC Template': 'Spring JDBC Template Tutorial - Database Operations without JPA',
-    'Spring Data Custom Queries': 'Spring Data Custom Queries Tutorial - @Query, Native Queries, JPQL',
-    'Spring AOP - Introduction': 'Spring AOP Tutorial - Aspect-Oriented Programming Introduction',
-    'Spring AOP - Advanced Pointcut Expressions': 'Spring AOP Pointcut Tutorial - Advanced Pointcut Expressions',
-    'Spring AOP - Custom Annotations': 'Spring AOP Custom Annotations Tutorial - Create Custom Aspect Annotations',
-    'Spring AOP - Aspect Ordering': 'Spring AOP Aspect Ordering Tutorial - Control Aspect Execution Order',
-    'Spring AOP with Spring Boot': 'Spring AOP Spring Boot Tutorial - AOP Configuration in Spring Boot',
-    
+   'Why Spring? Problems in Traditional Java':
+'Why Spring Framework is Used in Modern Java Applications',
+
+'Spring IOC - Inversion of Control':
+'Understanding Inversion of Control (IoC) in Spring Framework',
+
+'Spring DI - Dependency Injection':
+'Dependency Injection in Spring Explained with Examples',
+
+'Spring Bean - Understanding Spring-Managed Objects':
+'Spring Beans Explained | Lifecycle, Scope, and Configuration',
+
+'Spring ApplicationContext - The Container':
+'How ApplicationContext Works in Spring Framework',
+
+'Spring XML Configuration':
+'Configuring Spring Beans Using XML Configuration',
+
+'Spring Annotation Configuration':
+'Spring Annotations Explained | @Component, @Autowired, @Service',
+
+'Spring MVC DispatcherServlet':
+'Understanding DispatcherServlet in Spring MVC Architecture',
+
+'Spring MVC Controller':
+'Creating Controllers in Spring MVC with Annotations',
+
+'Spring MVC ViewResolver':
+'How ViewResolver Works in Spring MVC Applications',
+
+'Spring MVC ModelAndView':
+'Passing Data from Controller to View Using ModelAndView',
+
+'Spring Project - Login + Student CRUD':
+'Build a Spring MVC Login and Student CRUD Project',
+
+'Spring Data - Introduction':
+'Introduction to Spring Data and Spring Data JPA',
+
+'Spring Data Repository Architecture':
+'Understanding CrudRepository and JpaRepository in Spring Data',
+
+'Spring JDBC Template':
+'Database Operations Using Spring JDBC Template',
+
+'Spring Data Custom Queries':
+'Custom Queries in Spring Data Using @Query and JPQL',
+
+'Spring AOP - Introduction':
+'Introduction to Aspect-Oriented Programming in Spring',
+
+'Spring AOP - Advanced Pointcut Expressions':
+'Advanced Pointcut Expressions in Spring AOP',
+
+'Spring AOP - Custom Annotations':
+'Creating Custom Aspect Annotations in Spring AOP',
+
+'Spring AOP - Aspect Ordering':
+'How Aspect Ordering Works in Spring AOP',
+
+'Spring AOP with Spring Boot':
+'Configuring and Using Spring AOP in Spring Boot',
+
     // Spring Boot Topics
-    'Spring Boot - Your First Step into Enterprise Java': 'Spring Boot Tutorial for Beginners - Build Enterprise Java Applications',
-    'Spring Boot Project Setup - Step by Step Guide': 'Spring Boot Project Setup Tutorial - Create Spring Boot Application',
-    'Spring Boot Configuration - application.properties and YAML': 'Spring Boot Configuration Tutorial - application.properties and YAML Files',
-    'Spring Boot REST API - Building RESTful Web Services': 'Spring Boot REST API Tutorial - Build RESTful Web Services',
-    'Spring Boot with JPA - Database Integration': 'Spring Boot JPA Tutorial - Database Integration with Spring Data JPA',
-    'Spring Boot Exception Handling - Global Exception Handler': 'Spring Boot Exception Handling Tutorial - @ControllerAdvice, @ExceptionHandler',
-    'Spring Boot Validation - Input Validation and Error Handling': 'Spring Boot Validation Tutorial - Bean Validation, @Valid, @NotNull',
-    'Spring Boot Security - Authentication and Authorization': 'Spring Boot Security Tutorial - Spring Security Configuration',
-    'Spring Boot Testing - Unit and Integration Tests': 'Spring Boot Testing Tutorial - JUnit, Mockito, Integration Tests',
-    'Spring Boot Deployment - Deploy to Production': 'Spring Boot Deployment Tutorial - Deploy to Production Server',
-    'Spring Boot Actuator - Monitoring and Management': 'Spring Boot Actuator Tutorial - Application Monitoring and Health Checks',
-    'Spring Boot SMTP Integration - Email Sending': 'Spring Boot SMTP Tutorial - Send Emails with Gmail, Outlook, Custom SMTP Servers',
-    'Postman and Swagger Integration - API Testing and Documentation': 'Postman and Swagger Tutorial - Test and Document REST APIs in Spring Boot',
-    'Spring Cloud & Microservices Architecture': 'Spring Cloud Microservices Tutorial - Complete Guide to Building Microservices with Spring Cloud',
-    'Spring Cloud Microservices Project Setup': 'Spring Cloud Microservices Project Tutorial - Complete Setup Guide with Eureka, API Gateway, User and Product Services',
-    'Microservices Architecture Fundamentals': 'Microservices Architecture Tutorial - Monolith vs Microservices, DDD, Architecture Principles',
-    'Spring Cloud Config Server - Centralized Configuration': 'Spring Cloud Config Server Tutorial - Centralized Configuration Management for Microservices',
-    'Service Discovery with Eureka': 'Spring Cloud Eureka Tutorial - Service Discovery and Registration in Microservices',
-    'API Gateway with Spring Cloud Gateway': 'Spring Cloud Gateway Tutorial - API Gateway Routing, Filters, Authentication',
-    'Load Balancing in Spring Cloud': 'Spring Cloud Load Balancing Tutorial - Client-Side Load Balancing with LoadBalancer',
-    'Inter-Service Communication with OpenFeign': 'Spring Cloud OpenFeign Tutorial - Declarative REST Clients for Microservices',
-    'Fault Tolerance with Resilience4j': 'Spring Cloud Resilience4j Tutorial - Circuit Breaker, Retry, Rate Limiter, Bulkhead',
-    'Distributed Tracing with Sleuth and Zipkin': 'Spring Cloud Distributed Tracing Tutorial - Sleuth and Zipkin for Request Tracking',
-    'Security in Microservices - JWT and OAuth2': 'Spring Cloud Security Tutorial - JWT Authentication and OAuth2 in Microservices',
-    'Centralized Logging with ELK Stack': 'Spring Cloud ELK Stack Tutorial - Elasticsearch, Logstash, Kibana for Centralized Logging',
-    'Top 30 Spring Boot Interview Questions': 'Top 30 Spring Boot Interview Questions - Most Asked Spring Boot Interview Questions with Answers',
-    
+   'Spring Boot - Your First Step into Enterprise Java':
+'Getting Started with Spring Boot for Modern Java Development',
+
+'Spring Boot Project Setup - Step by Step Guide':
+'Create Your First Spring Boot Project from Scratch',
+
+'Spring Boot Configuration - application.properties and YAML':
+'Understanding application.properties and YAML in Spring Boot',
+
+'Spring Boot REST API - Building RESTful Web Services':
+'Build RESTful APIs Using Spring Boot and Java',
+
+'Spring Boot with JPA - Database Integration':
+'Connect Spring Boot Applications with MySQL Using JPA',
+
+'Spring Boot Exception Handling - Global Exception Handler':
+'Handle Exceptions Globally in Spring Boot Applications',
+
+'Spring Boot Validation - Input Validation and Error Handling':
+'Validate API Requests in Spring Boot Using Bean Validation',
+
+'Spring Boot Security - Authentication and Authorization':
+'Secure Spring Boot Applications with Authentication and Authorization',
+
+'Spring Boot Testing - Unit and Integration Tests':
+'Write Unit and Integration Tests for Spring Boot Applications',
+
+'Spring Boot Deployment - Deploy to Production':
+'Deploy Spring Boot Applications to Production Servers',
+
+'Spring Boot Actuator - Monitoring and Management':
+'Monitor and Manage Spring Boot Applications with Actuator',
+
+'Spring Boot SMTP Integration - Email Sending':
+'Send Emails from Spring Boot Using Gmail and SMTP',
+
+'Postman and Swagger Integration - API Testing and Documentation':
+'Test and Document REST APIs Using Postman and Swagger',
+
+'Spring Cloud & Microservices Architecture':
+'Understanding Spring Cloud and Microservices Architecture',
+
+'Spring Cloud Microservices Project Setup':
+'Build a Complete Microservices Project Using Spring Cloud',
+
+'Microservices Architecture Fundamentals':
+'Microservices Architecture Explained with Real-World Concepts',
+
+'Spring Cloud Config Server - Centralized Configuration':
+'Manage Centralized Configuration in Microservices with Config Server',
+
+'Service Discovery with Eureka':
+'Implement Service Discovery Using Eureka Server',
+
+'API Gateway with Spring Cloud Gateway':
+'Build an API Gateway Using Spring Cloud Gateway',
+
+'Load Balancing in Spring Cloud':
+'Distribute Requests Across Services with Spring Cloud Load Balancer',
+
+'Inter-Service Communication with OpenFeign':
+'Simplify Service Communication Using OpenFeign Clients',
+
+'Fault Tolerance with Resilience4j':
+'Implement Circuit Breaker and Retry Logic with Resilience4j',
+
+'Distributed Tracing with Sleuth and Zipkin':
+'Track Requests Across Microservices Using Sleuth and Zipkin',
+
+'Security in Microservices - JWT and OAuth2':
+'Secure Microservices with JWT Authentication and OAuth2',
+
+'Centralized Logging with ELK Stack':
+'Centralized Logging in Microservices Using Elasticsearch and Kibana',
+
+'Top 30 Spring Boot Interview Questions':
+'Most Asked Spring Boot Interview Questions for Java Developers',
+
     // SDLC Topics
     'Software Development Life Cycle (SDLC) - Complete Guide': 'SDLC Tutorial - Software Development Life Cycle Complete Guide 2026 - Phases, Models, Best Practices',
     
