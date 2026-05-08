@@ -25,100 +25,272 @@ export const generateSEOTitle = (topic) => {
   // Map of topic titles to SEO-friendly long-tail keyword titles
   const seoTitles = {
     // HTML Topics
-    'HTML Introduction - What is HTML?': 'HTML Tutorial for Beginners - Learn HTML from Scratch with Examples',
-    'HTML Document Structure & Basic Tags': 'HTML Document Structure Tutorial - DOCTYPE, html, head, body Tags',
-    'HTML Links & Anchors': 'HTML Links Tutorial - Create Hyperlinks with href, target, anchor Tags',
-    'HTML Images': 'HTML Images Tutorial - Insert Images with img Tag, alt, src Attributes',
-    'HTML Lists - Ordered, Unordered & Description Lists': 'HTML Lists Tutorial - ul, ol, li, dl, dt, dd Tags with Examples',
-    'HTML Tables - Creating Data Tables': 'HTML Tables Tutorial - Create Tables with table, tr, td, th Tags',
-    'HTML Forms - Input Elements & Form Handling': 'HTML Forms Tutorial - Form, input, select, textarea Elements',
-    'HTML5 Semantic Elements': 'HTML5 Semantic Tags Tutorial - header, nav, article, section, footer',
-    'HTML Media - Audio & Video': 'HTML Media Tutorial - Embed Audio and Video with audio, video Tags',
-    'HTML iframe - Embedding Content': 'HTML iframe Tutorial - Embed External Content with iframe Tag',
-    'HTML Marquee - Scrolling Text (Deprecated)': 'HTML Marquee Tag Tutorial - Scrolling Text Animation (Deprecated)',
-    'HTML DOM - Document Object Model': 'HTML DOM Tutorial - Manipulate HTML Elements with JavaScript',
-    'HTML Best Practices': 'HTML Best Practices Tutorial - Semantic HTML, Accessibility, SEO Tips',
+    'HTML Introduction - What is HTML?':
+'HTML Introduction Tutorial for Beginners | Learn HTML Basics',
+
+'HTML Document Structure & Basic Tags':
+'HTML Document Structure Tutorial | DOCTYPE, html, head, body Tags',
+
+'HTML Links & Anchors':
+'HTML Links and Anchor Tags Tutorial | href, target, Navigation',
+
+'HTML Images':
+'HTML Images Tutorial | img Tag, src, alt, width, height Attributes',
+
+'HTML Lists - Ordered, Unordered & Description Lists':
+'HTML Lists Tutorial | Ordered, Unordered, and Description Lists',
+
+'HTML Tables - Creating Data Tables':
+'HTML Tables Tutorial | table, tr, td, th Tags with Examples',
+
+'HTML Forms - Input Elements & Form Handling':
+'HTML Forms Tutorial | input, select, textarea, button Elements',
+
+'HTML5 Semantic Elements':
+'HTML5 Semantic Tags Tutorial | header, nav, section, article, footer',
+
+'HTML Media - Audio & Video':
+'HTML Audio and Video Tutorial | HTML5 Media Elements',
+
+'HTML iframe - Embedding Content':
+'HTML iframe Tutorial | Embed Websites, Videos, and External Pages',
+
+'HTML Marquee - Scrolling Text (Deprecated)':
+'HTML Marquee Tag Tutorial | Scrolling Text Animation in HTML',
+
+'HTML DOM - Document Object Model':
+'HTML DOM Tutorial | JavaScript DOM Manipulation for Beginners',
+
+'HTML Best Practices':
+'HTML Best Practices Tutorial | Semantic HTML, Accessibility, SEO',
     
     // CSS Topics
-    'CSS Introduction - What is CSS?': 'CSS Tutorial for Beginners - Learn CSS Styling from Scratch',
-    'CSS Selectors': 'CSS Selectors Tutorial - Class, ID, Element, Attribute Selectors with Examples',
-    'CSS Colors & Backgrounds': 'CSS Colors and Backgrounds Tutorial - color, background-color, background-image',
-    'CSS Box Model': 'CSS Box Model Tutorial - margin, padding, border, width, height Explained',
-    'CSS Text & Fonts': 'CSS Text and Fonts Tutorial - font-family, font-size, text-align, text-decoration',
-    'CSS Display & Positioning': 'CSS Display and Positioning Tutorial - display, position, float, z-index',
-    'CSS Flexbox': 'CSS Flexbox Tutorial - Complete Guide to Flexible Layout with flexbox',
-    'CSS Grid': 'CSS Grid Tutorial - Two-Dimensional Layout System with grid-template',
-    'CSS Responsive Design': 'CSS Responsive Design Tutorial - Media Queries, Mobile-First Approach',
-    'CSS Animations': 'CSS Animations Tutorial - Keyframes, transitions, transform, animation Properties',
-    
+   'CSS Introduction - What is CSS?':
+'CSS Introduction Tutorial for Beginners | Learn CSS Styling Basics',
+
+'CSS Selectors':
+'CSS Selectors Tutorial | Class, ID, Element, and Attribute Selectors',
+
+'CSS Colors & Backgrounds':
+'CSS Colors and Backgrounds Tutorial | color, background, Gradient Styling',
+
+'CSS Box Model':
+'CSS Box Model Tutorial | margin, padding, border, width, height',
+
+'CSS Text & Fonts':
+'CSS Text and Fonts Tutorial | font-family, font-size, text-align',
+
+'CSS Display & Positioning':
+'CSS Display and Positioning Tutorial | display, position, z-index, float',
+
+'CSS Flexbox':
+'CSS Flexbox Tutorial | Flexible Layout Design with Flex Container',
+
+'CSS Grid':
+'CSS Grid Tutorial | Build Two-Dimensional Layouts with CSS Grid',
+
+'CSS Responsive Design':
+'CSS Responsive Design Tutorial | Media Queries and Mobile-First Design',
+
+'CSS Animations':
+'CSS Animations Tutorial | keyframes, transition, transform, animation',
+
+
     // Core Java Topics
-    'Java Introduction': 'Java Programming Tutorial for Beginners - Learn Java from Scratch',
-    'Introduction to Java': 'Introduction to Java Programming - Complete Beginner Guide with Examples',
-    'Java Features': 'Java Features Explained - Object-Oriented, Platform Independent, Secure',
-    'Java Environment Setup': 'Java Environment Setup Tutorial - Install JDK and Set PATH',
-    'Java Syntax': 'Java Syntax Tutorial - Basic Syntax Rules and Examples',
-    'Variables in Java': 'Java Variables Tutorial - Local, Instance, Static Variables',
-    'Java Data Types': 'Java Data Types Tutorial - Primitive and Reference Types',
-    'Data Types in Java': 'Data Types in Java - Complete Guide to Primitive and Reference Types',
-    'Operators in Java': 'Java Operators Tutorial - Arithmetic, Logical, Comparison Operators',
-    'Methods in Java': 'Java Methods Tutorial - Method Declaration, Parameters, Return Types',
-    'Java Keywords': 'Java Keywords Tutorial - Reserved Words in Java',
-    'If-Else Statement': 'Java If-Else Statement Tutorial - Conditional Statements with Examples',
-    'If-Else Statements': 'Java If-Else Statements Tutorial - Complete Guide to Conditional Logic',
-    'Switch Statement': 'Java Switch Statement Tutorial - Multi-way Branching with switch-case',
-    'For Loop': 'Java For Loop Tutorial - Iteration with for, for-each Loop Examples',
-    'While Loop': 'Java While Loop Tutorial - Conditional Iteration with while, do-while',
-    'Do-While Loop': 'Java Do-While Loop Tutorial - Post-Test Loop with do-while Examples',
-    'Break and Continue': 'Java Break and Continue Tutorial - Control Loop Execution',
-    'OOPs Introduction': 'Java OOPs Concepts Tutorial - Object-Oriented Programming Fundamentals',
-    'Introduction to OOPs': 'Introduction to OOPs in Java - Object-Oriented Programming Complete Guide',
-    'Classes and Objects': 'Java Classes and Objects Tutorial - Create Classes and Instantiate Objects',
-    'Constructors': 'Java Constructors Tutorial - Default, Parameterized, Constructor Overloading',
-    'Inheritance': 'Java Inheritance Tutorial - extends, super, Method Overriding',
-    'Polymorphism': 'Java Polymorphism Tutorial - Method Overloading and Overriding',
-    'Abstraction': 'Java Abstraction Tutorial - Abstract Classes and Methods',
-    'Encapsulation': 'Java Encapsulation Tutorial - Data Hiding with private, getters, setters',
-    'Interfaces': 'Java Interfaces Tutorial - interface Keyword, Multiple Inheritance',
-    'String Introduction': 'Java String Tutorial - String Class, String Literals, String Pool',
-    'Introduction to Strings': 'Introduction to Java Strings - Complete Guide to String Class and Methods',
-    'String Methods': 'Java String Methods Tutorial - length, charAt, substring, indexOf, replace',
-    'StringBuffer': 'Java StringBuffer Tutorial - Mutable String with StringBuffer Class',
-    'StringBuilder': 'Java StringBuilder Tutorial - Efficient String Concatenation',
-    'Array Introduction': 'Java Array Tutorial - Declare, Initialize, Access Array Elements',
-    'Introduction to Arrays': 'Introduction to Java Arrays - Complete Guide to Array Declaration and Usage',
-    'Single Dimensional Array': 'Java 1D Array Tutorial - Single Dimensional Array with Examples',
-    'Multi Dimensional Array': 'Java 2D Array Tutorial - Multi-Dimensional Arrays, Matrix',
-    'Array Methods': 'Java Array Methods Tutorial - Arrays Class, Sorting, Searching',
-    'Exception Handling Introduction': 'Java Exception Handling Tutorial - try-catch, throw, throws',
-    'Introduction to Exception Handling': 'Introduction to Java Exception Handling - Complete Guide with Examples',
-    'Try-Catch-Finally': 'Java Try-Catch-Finally Tutorial - Exception Handling Blocks',
-    'Throw and Throws': 'Java Throw and Throws Tutorial - Throw Exceptions, Declare Exceptions',
-    'Custom Exceptions': 'Java Custom Exceptions Tutorial - Create User-Defined Exception Classes',
-    'Global Exception Handling': 'Java Global Exception Handling Tutorial - @ControllerAdvice, @ExceptionHandler',
-    'Collection Framework Introduction': 'Java Collections Tutorial - Collection Framework Overview',
-    'List Interface': 'Java List Interface Tutorial - ArrayList, LinkedList, Vector Examples',
-    'Set Interface': 'Java Set Interface Tutorial - HashSet, TreeSet, LinkedHashSet',
-    'Map Interface': 'Java Map Interface Tutorial - HashMap, TreeMap, LinkedHashMap',
-    'Queue Interface': 'Java Queue Interface Tutorial - PriorityQueue, LinkedList Queue',
-    'Synchronization': 'Java Synchronization Tutorial - synchronized Keyword, Thread Safety',
-    'Serialization': 'Java Serialization Tutorial - Serializable Interface, Object Streams',
-    'Thread Introduction': 'Java Multithreading Tutorial - Thread Class, Runnable Interface',
-    'Thread Creation': 'Java Thread Creation Tutorial - Extend Thread, Implement Runnable',
-    'Thread Lifecycle': 'Java Thread Lifecycle Tutorial - New, Runnable, Blocked, Dead States',
-    'Thread Methods': 'Java Thread Methods Tutorial - start, sleep, join, interrupt, yield',
-    'Top 30 Java Interview Questions ': 'Top 30 Java Interview Questions - Most Asked Java Interview Questions with Answers',
-    
+   'Java Introduction':
+'Learn Java Programming from Scratch | Beginner Guide',
+
+'Introduction to Java':
+'What is Java? Complete Introduction for Beginners',
+
+'Java Features':
+'Top Features of Java Explained with Real Examples',
+
+'Java Environment Setup':
+'How to Install Java JDK and Configure Environment Variables',
+
+'Java Syntax':
+'Understanding Java Syntax and Basic Program Structure',
+
+'Variables in Java':
+'How Variables Work in Java with Examples',
+
+'Java Data Types':
+'Primitive and Non-Primitive Data Types in Java',
+
+'Data Types in Java':
+'Java Data Types Explained in Simple Way',
+
+'Operators in Java':
+'Java Operators Explained with Practical Examples',
+
+'Methods in Java':
+'How Methods Work in Java with Parameters and Return Types',
+
+'Java Keywords':
+'All Important Java Keywords Every Beginner Should Know',
+
+'If-Else Statement':
+'How if-else Conditions Work in Java',
+
+'If-Else Statements':
+'Java Conditional Logic Explained with if else Examples',
+
+'Switch Statement':
+'Using switch-case Statements in Java Programs',
+
+'For Loop':
+'Java for Loop Explained with Real Examples',
+
+'While Loop':
+'Understanding while and do-while Loops in Java',
+
+'Do-While Loop':
+'How do-while Loop Works in Java',
+
+'Break and Continue':
+'Using break and continue Statements in Java Loops',
+
+'OOPs Introduction':
+'Object-Oriented Programming Concepts in Java Explained',
+
+'Introduction to OOPs':
+'Complete Beginner Guide to OOP in Java',
+
+'Classes and Objects':
+'How Classes and Objects Work in Java',
+
+'Constructors':
+'Understanding Constructors in Java with Examples',
+
+'Inheritance':
+'Java Inheritance Explained with extends and super',
+
+'Polymorphism':
+'Understanding Polymorphism in Java Applications',
+
+'Abstraction':
+'How Abstraction Works in Java OOP',
+
+'Encapsulation':
+'Encapsulation in Java Explained in Simple Terms',
+
+'Interfaces':
+'Java Interfaces Explained with Practical Examples',
+
+'String Introduction':
+'Introduction to Java Strings and String Pool',
+
+'Introduction to Strings':
+'Complete Guide to String Handling in Java',
+
+'String Methods':
+'Most Important Java String Methods Explained',
+
+'StringBuffer':
+'Why StringBuffer is Used in Java',
+
+'StringBuilder':
+'StringBuilder in Java for Faster String Operations',
+
+'Array Introduction':
+'Introduction to Arrays in Java with Examples',
+
+'Introduction to Arrays':
+'Understanding Java Arrays Step by Step',
+
+'Single Dimensional Array':
+'Working with One Dimensional Arrays in Java',
+
+'Multi Dimensional Array':
+'How Multi-Dimensional Arrays Work in Java',
+
+'Array Methods':
+'Useful Java Arrays Class Methods Explained',
+
+'Exception Handling Introduction':
+'Introduction to Exception Handling in Java',
+
+'Introduction to Exception Handling':
+'How Java Exception Handling Works Internally',
+
+'Try-Catch-Finally':
+'Using try catch finally Blocks in Java',
+
+'Throw and Throws':
+'Difference Between throw and throws in Java',
+
+'Custom Exceptions':
+'Creating Custom Exceptions in Java',
+
+'Global Exception Handling':
+'Global Exception Handling in Spring Boot Applications',
+
+'Collection Framework Introduction':
+'Java Collections Framework Explained for Beginners',
+
+'List Interface':
+'Understanding List Interface in Java Collections',
+
+'Set Interface':
+'How Set Interface Works in Java Collections',
+
+'Map Interface':
+'Complete Guide to Map Interface in Java',
+
+'Queue Interface':
+'Queue Interface in Java with Real Examples',
+
+'Synchronization':
+'Thread Synchronization in Java Explained',
+
+'Serialization':
+'How Serialization Works in Java',
+
+'Thread Introduction':
+'Introduction to Multithreading in Java',
+
+'Thread Creation':
+'Different Ways to Create Threads in Java',
+
+'Thread Lifecycle':
+'Java Thread Lifecycle Explained Step by Step',
+
+'Thread Methods':
+'Important Java Thread Methods You Should Know',
+
+'Top 30 Java Interview Questions ':
+'Top 30 Core Java Interview Questions with Answers',
+
     // JDBC Topics
-    'Introduction to JDBC': 'Java JDBC Tutorial for Beginners - Connect Java with MySQL Database',
-    'JDBC Drivers': 'JDBC Drivers Explained - Type 1, 2, 3, 4 Drivers with Examples',
-    'JDBC Connection Steps': 'JDBC Connection Steps - How to Connect Java with MySQL Step by Step',
-    'Statement Interface': 'JDBC Statement Interface Tutorial - Execute SQL Queries in Java',
-    'PreparedStatement Interface': 'JDBC PreparedStatement Tutorial - Prevent SQL Injection with Examples',
-    'ResultSet Interface': 'JDBC ResultSet Tutorial - Retrieve Data from Database in Java',
-    'CRUD Operations': 'JDBC CRUD Operations Tutorial - Create, Read, Update, Delete with MySQL',
-    'Transaction Management': 'JDBC Transaction Management - Commit, Rollback Examples',
-    'JDBC Project Setup - MySQL Connection': 'JDBC Project Setup Tutorial - How to Add MySQL Connector JAR File',
-    
+   'Introduction to JDBC':
+'Learn JDBC Step by Step | Connect Java Applications with Databases',
+
+'JDBC Drivers':
+'Understanding JDBC Driver Types in Java Applications',
+
+'JDBC Connection Steps':
+'How to Connect Java with MySQL Database Using JDBC',
+
+'Statement Interface':
+'Executing SQL Queries Using Statement Interface in JDBC',
+
+'PreparedStatement Interface':
+'How PreparedStatement Prevents SQL Injection in JDBC',
+
+'ResultSet Interface':
+'Reading Database Records Using ResultSet in JDBC',
+
+'CRUD Operations':
+'Perform CRUD Operations in Java Using JDBC and MySQL',
+
+'Transaction Management':
+'JDBC Transaction Management Explained with Commit and Rollback',
+
+'JDBC Project Setup - MySQL Connection':
+'JDBC MySQL Project Setup Guide | Add MySQL Connector and Configure Connection',
+
+
     // Servlet Topics
     'Introduction to Servlets': 'Java Servlet Tutorial for Beginners - Web Application Development',
     'Servlet Lifecycle': 'Servlet Lifecycle Explained with Example - init(), service(), destroy()',
