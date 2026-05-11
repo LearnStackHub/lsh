@@ -887,7 +887,8 @@ function Tutorial() {
       {/* Header */}
       <div className={`tutorial-header${isMysqlTopic ? ' tutorial-header--mysql' : ''}${isJspTopic ? ' tutorial-header--jsp' : ''}${isJdbcTopic ? ' tutorial-header--jdbc' : ''}`}>
         <div className="tutorial-header-top">
-        <h1 className="tutorial-title">{generateSEOTitle(currentTopic).replace(/\s*\|\s*LearnStackHub$/, '')}</h1>        </div>
+          <h1 className="tutorial-title">{generateSEOTitle(currentTopic)}</h1>
+        </div>
         <div className="tutorial-meta">
           <span>
             <BookOpen size={16} />
