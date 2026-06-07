@@ -40,6 +40,13 @@ import JavaVariablesShowcase from '../components/JavaVariablesShowcase';
 import JavaOperatorsShowcase from '../components/JavaOperatorsShowcase';
 import JavaMethodsShowcase from '../components/JavaMethodsShowcase';
 import JavaKeywordsShowcase from '../components/JavaKeywordsShowcase';
+import Java8IntroductionShowcase from '../components/Java8IntroductionShowcase';
+import {
+  Java8DateTimeShowcase,
+  Java8FunctionalInterfacesShowcase,
+  Java8OptionalShowcase,
+  Java8StreamAPIShowcase
+} from '../components/java8/showcases';
 import IfElseShowcase from '../components/IfElseShowcase';
 import SwitchStatementShowcase from '../components/SwitchStatementShowcase';
 import ForLoopShowcase from '../components/ForLoopShowcase';
@@ -133,7 +140,7 @@ import { HTTP_SHOWCASE_TOPIC_IDS, HttpShowcaseRouter } from '../components/http/
 import { MYSQL_SHOWCASE_TOPIC_IDS, MySQLShowcaseRouter } from '../components/mysql/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
-import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId } from '../utils/topicRoutes';
+import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId, java8SlugToTopicId } from '../utils/topicRoutes';
 
 SyntaxHighlighter.registerLanguage('java', java);
 
@@ -176,7 +183,9 @@ function Tutorial() {
   const resolvedTopicId = topicId || (
     location.pathname.startsWith('/docker/')
       ? dockerSlugToTopicId(topicSlug)
-      : kafkaSlugToTopicId(topicSlug)
+      : location.pathname.startsWith('/java8/')
+        ? java8SlugToTopicId(topicSlug)
+        : kafkaSlugToTopicId(topicSlug)
   );
   const [copiedBlockId, setCopiedBlockId] = useState(null);
   const [editorCode, setEditorCode] = useState('');
@@ -777,6 +786,11 @@ function Tutorial() {
   const tutorialInteractiveShowcases = (
     <>
       {resolvedTopicId === 'java-introduction' && <JavaIntroductionShowcase />}
+      {resolvedTopicId === 'java8-introduction' && <Java8IntroductionShowcase />}
+      {resolvedTopicId === 'java8-functional-interfaces' && <Java8FunctionalInterfacesShowcase />}
+      {resolvedTopicId === 'java8-stream-api' && <Java8StreamAPIShowcase />}
+      {resolvedTopicId === 'java8-optional-class' && <Java8OptionalShowcase />}
+      {resolvedTopicId === 'java8-date-time-api' && <Java8DateTimeShowcase />}
       {resolvedTopicId === 'java-features' && <JavaFeaturesShowcase />}
       {resolvedTopicId === 'java-syntax' && <JavaSyntaxShowcase />}
       {resolvedTopicId === 'java-variables' && <JavaVariablesShowcase />}

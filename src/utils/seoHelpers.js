@@ -97,6 +97,39 @@ export const generateSEOTitle = (topic) => {
 
 
     // Core Java Topics
+   'Java 8 Roadmap for Freshers':
+'Java 8 Roadmap for Freshers with Realtime Examples',
+
+'Java 8 Lambda Expressions for Freshers':
+'Java 8 Lambda Expressions with Realtime Examples',
+
+'Java 8 Functional Interfaces for Freshers':
+'Java 8 Functional Interfaces with Predicate Examples',
+
+'Java 8 Method References Tutorial':
+'Java 8 Method References with Lambda Comparison',
+
+'Java 8 Stream API for Freshers':
+'Java 8 Stream API Tutorial with Employee Examples',
+
+'Java 8 Stream Coding Examples':
+'Java 8 Stream Coding Examples for Interviews',
+
+'Java 8 Optional Class for Null Safety':
+'Java 8 Optional Class Tutorial for Null Safety',
+
+'Java 8 Interface Default Static Methods':
+'Java 8 Default and Static Interface Methods',
+
+'Java 8 Date and Time API Tutorial':
+'Java 8 Date Time API with Formatting Examples',
+
+'Java 8 Interview Questions and Coding':
+'Java 8 Interview Questions with Coding Problems',
+
+   'Core Java Introduction for Freshers':
+'Core Java Introduction for Freshers | JVM JDK JRE',
+
    'Java Introduction':
 'Learn Java Programming from Scratch | Beginner Guide',
 

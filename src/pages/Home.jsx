@@ -8,6 +8,7 @@ import {
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import { getTopicPath } from '../utils/topicRoutes';
+import Java8Icon from '../components/icons/Java8Icon';
 
 function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
@@ -59,6 +60,7 @@ function Home() {
     html: 'Semantic structure, forms, media, accessibility, and modern HTML5 patterns.',
     css: 'Selectors, layout with Flexbox and Grid, responsive design, and animations.',
     corejava: 'Variables through multithreading: OOP, collections, exceptions, and interview depth.',
+    java8: 'Lambda, streams, Optional, Date Time API, and fresher job tasks with realtime examples.',
     mysql: 'Relational modeling, SQL, joins, indexes, transactions, and database design.',
     jdbc: 'Java database connectivity, prepared statements, and transaction control.',
     servlets: 'Request lifecycle, sessions, filters, listeners, and servlet architecture.',
@@ -79,6 +81,7 @@ function Home() {
     html: FileCode,
     css: Palette,
     corejava: Code,
+    java8: Java8Icon,
     mysql: Database,
     jdbc: Server,
     servlets: Server,

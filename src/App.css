@@ -2211,6 +2211,255 @@ code {
   border-top: 1px solid var(--border-color);
 }
 
+/* Java 8 showcase - fresher friendly realtime flow */
+.java8-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(37, 99, 235, 0.24);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 48%, #f0fdfa 100%);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+}
+
+.java8-showcase-lead {
+  margin: 0 0 1rem;
+  color: #334155;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.java8-scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.java8-scenario-grid > div {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 88px;
+  padding: 0.8rem;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #334155;
+}
+
+.java8-scenario-grid svg {
+  color: #2563eb;
+}
+
+.java8-scenario-grid strong {
+  color: #0f172a;
+  font-size: 0.98rem;
+}
+
+.java8-scenario-grid span {
+  color: #64748b;
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.java8-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.java8-tabs button {
+  border: 1px solid #bfdbfe;
+  background: #ffffff;
+  color: #1e3a8a;
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.java8-tabs button.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.java8-diagram-frame {
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.65);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.java8-showcase-svg {
+  display: block;
+  width: 100%;
+  min-height: 220px;
+}
+
+.java8-mini-showcase {
+  margin: 0 0 2rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+.java8-mini-showcase--green {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%);
+  border-color: rgba(34, 197, 94, 0.28);
+}
+
+.java8-mini-showcase--purple {
+  background: linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.java8-mini-showcase--orange {
+  background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+  border-color: rgba(249, 115, 22, 0.32);
+}
+
+.java8-mini-showcase--cyan {
+  background: linear-gradient(135deg, #ecfeff 0%, #eff6ff 100%);
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.java8-mini-header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.95rem;
+  color: #1d4ed8;
+}
+
+.java8-mini-header strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.java8-mini-header span {
+  display: block;
+  margin-top: 0.2rem;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.java8-mini-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 0.7rem;
+}
+
+.java8-mini-step {
+  min-height: 92px;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.java8-mini-index {
+  display: inline-grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-bottom: 0.45rem;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.java8-mini-step strong,
+.java8-mini-step small {
+  display: block;
+}
+
+.java8-mini-step strong {
+  color: #0f172a;
+  font-size: 0.92rem;
+}
+
+.java8-mini-step small {
+  margin-top: 0.25rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.java8-sql-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.java8-sql-compare > div,
+.java8-date-cards > div {
+  padding: 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.java8-sql-compare span,
+.java8-date-cards strong,
+.java8-date-cards span {
+  display: block;
+}
+
+.java8-sql-compare span {
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.java8-sql-compare code {
+  display: block;
+  margin-top: 0.4rem;
+  white-space: normal;
+}
+
+.java8-date-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.java8-date-cards svg {
+  color: #0891b2;
+}
+
+.java8-date-cards strong {
+  margin-top: 0.35rem;
+  color: #0f172a;
+}
+
+.java8-date-cards span {
+  margin-top: 0.2rem;
+  color: #64748b;
+}
+
+@media (max-width: 820px) {
+  .java8-scenario-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .java8-sql-compare,
+  .java8-date-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .java8-scenario-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .java-env-caption code {
   font-size: 0.85em;
   padding: 0.1rem 0.35rem;

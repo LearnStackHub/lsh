@@ -98,6 +98,18 @@ import threadMethods from './corejava/multithreading/ThreadMethods';
 import javaInterviewQuestions from './corejava/interview/JavaInterviewQuestions';
 import coreJavaMCQ from './corejava/basics/CoreJavaMCQ';
 
+// Java 8
+import java8Introduction from './java8/Java8Introduction';
+import java8LambdaExpressions from './java8/Java8LambdaExpressions';
+import java8FunctionalInterfaces from './java8/Java8FunctionalInterfaces';
+import java8MethodReferences from './java8/Java8MethodReferences';
+import java8StreamAPI from './java8/Java8StreamAPI';
+import java8StreamPracticalExamples from './java8/Java8StreamPracticalExamples';
+import java8OptionalClass from './java8/Java8OptionalClass';
+import java8DefaultStaticMethods from './java8/Java8DefaultStaticMethods';
+import java8DateTimeAPI from './java8/Java8DateTimeAPI';
+import java8InterviewQuestions from './java8/Java8InterviewQuestions';
+
 // MySQL
 import mysqlIntroduction from './mysql/MySQLIntroduction';
 import mysqlInstallation from './mysql/MySQLInstallation';
@@ -526,6 +538,48 @@ export const courseStructure = {
         title: "Practice Exam",
         topics: [
           coreJavaMCQ
+        ]
+      }
+    }
+  },
+  java8: {
+    title: "Java 8",
+    icon: "J8",
+    color: "#5382A1",
+    sections: {
+      foundation: {
+        title: "Java 8 Foundation",
+        topics: [
+          java8Introduction
+        ]
+      },
+      functionalProgramming: {
+        title: "Functional Programming",
+        topics: [
+          java8LambdaExpressions,
+          java8FunctionalInterfaces,
+          java8MethodReferences
+        ]
+      },
+      streams: {
+        title: "Stream API",
+        topics: [
+          java8StreamAPI,
+          java8StreamPracticalExamples
+        ]
+      },
+      modernApis: {
+        title: "Modern Java 8 APIs",
+        topics: [
+          java8OptionalClass,
+          java8DefaultStaticMethods,
+          java8DateTimeAPI
+        ]
+      },
+      interview: {
+        title: "Interview Questions",
+        topics: [
+          java8InterviewQuestions
         ]
       }
     }
@@ -1413,6 +1467,3 @@ export const getNavigation = (topicId) => {
 };
 
 export default courseStructure;
-
-
-

@@ -4,6 +4,7 @@ export const isHibernateTopicId = (topicId) => typeof topicId === 'string' && to
 export const isSpringTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('spring-') && !topicId.startsWith('spring-boot-') && !topicId.startsWith('spring-cloud-');
 export const isSpringBootTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('spring-boot-');
 export const isMySQLTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('mysql-');
+export const isJava8TopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('java8-');
 
 const CORE_JAVA_TOPIC_IDS = new Set([
   'java-introduction', 'java-features', 'java-environment-setup', 'java-syntax', 'java-variables',
@@ -37,6 +38,14 @@ export const dockerSlugToTopicId = (topicSlug) => (
   typeof topicSlug === 'string' && topicSlug.trim() ? `docker-${topicSlug}` : ''
 );
 
+export const java8TopicIdToSlug = (topicId) => (
+  isJava8TopicId(topicId) ? topicId.replace(/^java8-/, '') : topicId
+);
+
+export const java8SlugToTopicId = (topicSlug) => (
+  typeof topicSlug === 'string' && topicSlug.trim() ? `java8-${topicSlug}` : ''
+);
+
 export const getTopicPath = (topicId) => {
   if (!topicId) return '/';
   if (/(?:^|[-/])(mcq|exam)$/.test(topicId)) return `/${topicId}`;
@@ -45,6 +54,7 @@ export const getTopicPath = (topicId) => {
   if (isSpringBootTopicId(topicId)) return `/springboot/${topicId}`;
   if (isSpringTopicId(topicId)) return `/spring/${topicId}`;
   if (isHibernateTopicId(topicId)) return `/hibernate/${topicId}`;
+  if (isJava8TopicId(topicId)) return `/java8/${java8TopicIdToSlug(topicId)}`;
   if (isKafkaTopicId(topicId)) return `/kafka/${kafkaTopicIdToSlug(topicId)}`;
   if (isDockerTopicId(topicId)) return `/docker/${dockerTopicIdToSlug(topicId)}`;
   return `/tutorial/${topicId}`;

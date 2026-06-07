@@ -14,10 +14,23 @@ import { ADSENSE_CONFIG } from '../config/adsense';
 import { trackSearch } from '../config/analytics';
 import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug } from '../utils/topicRoutes';
 import logoImage from '../assets/LSH.png';
+import Java8Icon from './icons/Java8Icon';
+
+const getCourseKeyFromPath = (pathname = '') => {
+  if (pathname.startsWith('/java8/')) return 'java8';
+  if (pathname.startsWith('/corejava/')) return 'corejava';
+  if (pathname.startsWith('/mysql/')) return 'mysql';
+  if (pathname.startsWith('/springboot/')) return 'springboot';
+  if (pathname.startsWith('/spring/')) return 'spring';
+  if (pathname.startsWith('/hibernate/')) return 'hibernate';
+  if (pathname.startsWith('/kafka/')) return 'kafka';
+  if (pathname.startsWith('/docker/')) return 'docker';
+  return null;
+};
 
 function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeCourse, setActiveCourse] = useState('corejava');
+  const [activeCourse, setActiveCourse] = useState(() => getCourseKeyFromPath(window.location.pathname) || 'corejava');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredTopics, setFilteredTopics] = useState([]);
   const location = useLocation();
@@ -85,6 +98,11 @@ function Layout() {
   useEffect(() => {
     if (!dataLoaded) return;
     const currentPath = location.pathname;
+    const courseKeyFromPath = getCourseKeyFromPath(currentPath);
+    if (courseKeyFromPath) {
+      setActiveCourse(courseKeyFromPath);
+      return;
+    }
     const allTopics = window.__getAllTopics();
     const currentTopic = allTopics.find(t => currentPath === getTopicPath(t.id) || currentPath.includes(t.id));
     
@@ -118,6 +136,10 @@ function Layout() {
   }, [searchQuery, dataLoaded]);
 
   const isTopicActive = (topicId) => {
+    if (location.pathname === getTopicPath(topicId)) {
+      return true;
+    }
+
     // For MCQ topics, check exact path match
     if (topicId?.includes('mcq') || topicId?.includes('exam')) {
       return location.pathname === `/${topicId}` || location.pathname === `/tutorial/${topicId}`;
@@ -184,6 +206,7 @@ function Layout() {
     html: FileCode,
     css: Palette,
     corejava: Code,
+    java8: Java8Icon,
     mysql: Database,
     jdbc: Server,
     servlets: Server,
@@ -474,6 +497,7 @@ function Layout() {
                 <li><Link to="/tutorial/html-introduction">HTML</Link></li>
                 <li><Link to="/tutorial/css-introduction">CSS</Link></li>
                 <li><Link to="/corejava/java-introduction">Core Java</Link></li>
+                <li><Link to="/java8/introduction">Java 8</Link></li>
                 <li><Link to="/mysql/mysql-introduction">MySQL</Link></li>
                 <li><Link to="/tutorial/jdbc-introduction">JDBC</Link></li>
               </ul>

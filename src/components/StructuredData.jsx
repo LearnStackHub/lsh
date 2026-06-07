@@ -160,6 +160,7 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
       type === 'Course'
       || location.pathname.includes('/tutorial/')
       || location.pathname.includes('/corejava/')
+      || location.pathname.includes('/java8/')
       || location.pathname.includes('/mysql/')
       || location.pathname.includes('/spring/')
       || location.pathname.includes('/springboot/')

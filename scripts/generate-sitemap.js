@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import indexingCandidates from '../src/config/indexingCandidates.json' with { type: 'json' };
 import indexingOverrides from '../src/config/indexingOverrides.json' with { type: 'json' };
+import { getTopicPath } from '../src/utils/topicRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,7 +34,17 @@ const newPagesToday = [
   'spring-boot-testing',
   'spring-boot-deployment',
   'spring-boot-actuator',
-  'spring-boot-interview-questions'
+  'spring-boot-interview-questions',
+  'java8-introduction',
+  'java8-lambda-expressions',
+  'java8-functional-interfaces',
+  'java8-method-references',
+  'java8-stream-api',
+  'java8-stream-practical-examples',
+  'java8-optional-class',
+  'java8-default-static-methods',
+  'java8-date-time-api',
+  'java8-interview-questions'
 ];
 
 // Static pages
@@ -135,7 +146,7 @@ async function generateSitemap() {
     allTopicIds
       .filter(isIndexableTopicId)
       .forEach(topicId => {
-      const url = `/tutorial/${topicId}`;
+      const url = getTopicPath(topicId);
       let lastmod;
       
       // If it's a new page, use today's date
