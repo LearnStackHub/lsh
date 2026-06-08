@@ -83,7 +83,7 @@ Spring Cloud provides tools for building microservices.
 - **Circuit Breaker** - Fault tolerance
 - **Load Balancer** - Load distribution
 - **OpenFeign** - HTTP client
-- **Sleuth** - Distributed tracing
+- **Micrometer Tracing** - Distributed tracing in modern Spring Boot applications
 
 ---
 
@@ -261,12 +261,12 @@ restTemplate.getForObject("http://user-service/users", User.class);
 
 ---
 
-### Question 11: What is Distributed Tracing? Explain Spring Cloud Sleuth.
+### Question 11: What is Distributed Tracing? Explain Micrometer Tracing.
 
 **Answer:**
 Distributed tracing tracks requests across multiple services.
 
-**Spring Cloud Sleuth:**
+**Micrometer Tracing:**
 - Adds trace IDs to requests
 - Correlates logs across services
 - Integrates with Zipkin
@@ -582,7 +582,7 @@ Each microservice has its own database.
 
 **Answer:**
 **Techniques:**
-- Distributed tracing (Sleuth, Zipkin)
+- Distributed tracing (Micrometer Tracing, Zipkin)
 - Centralized logging (ELK)
 - Correlation IDs
 - Health checks

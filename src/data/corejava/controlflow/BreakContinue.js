@@ -5,7 +5,7 @@ const breakContinue = {
   content: `
 # Break and Continue Statements - Controlling Loop Execution
 
-Break and continue are control flow statements that alter the normal execution flow of loops. The \`break\` statement terminates the loop immediately, while the \`continue\` statement skips the remaining code in the current iteration and proceeds to the next iteration. These statements provide fine-grained control over loop execution, enabling early termination and selective iteration processing.
+Break and continue are control flow statements that alter the normal execution flow of loops. The \`break\` statement terminates the loop immediately, while the \`continue\` statement skips the remaining code in the current iteration and proceeds to the next iteration. In real applications, \`break\` is used when a search target is found or a critical error appears; \`continue\` is used to skip invalid records, blocked users, spam emails, or failed validations while processing the rest.
 
 Enterprise applications extensively use break and continue for search algorithms, data filtering, validation loops, and processing scenarios where you need to exit early or skip specific iterations. Understanding break and continue is essential for writing efficient, readable loop code.
 
@@ -22,28 +22,50 @@ Enterprise applications extensively use break and continue for search algorithms
 ## Syntax
 
 \`\`\`java
-// Break - exits loop
-for (int i = 0; i < 10; i++) {
-    if (i == 5) break;  // Exits when i is 5
-    System.out.println(i);
-}
+public class BreakDemo {
+    public static void main(String[] args) {
+        int[] employeeIds = {101, 102, 103, 104};
+        int targetId = 103;
 
-// Continue - skips iteration
-for (int i = 0; i < 10; i++) {
-    if (i == 5) continue;  // Skips when i is 5
-    System.out.println(i);
+        for (int id : employeeIds) {
+            if (id == targetId) {
+                System.out.println("Employee found: " + id);
+                break;
+            }
+            System.out.println("Checked employee: " + id);
+        }
+    }
 }
 \`\`\`
 
-## 🏢 Real-Time Project Example: Search Engine Results
+\`\`\`java
+public class ContinueDemo {
+    public static void main(String[] args) {
+        String[] emails = {
+            "user@example.com",
+            "spam@example.com",
+            "admin@example.com",
+            "blocked@example.com"
+        };
+
+        for (String email : emails) {
+            if (email.startsWith("spam") || email.startsWith("blocked")) {
+                continue;
+            }
+            System.out.println("Sending newsletter to: " + email);
+        }
+    }
+}
+\`\`\`
+## Workplace Example: Search Engine Results
 
 \`\`\`java
-// Real-Time: Search Results Processing
+// Workplace: Search Results Processing
 // Used in Google, Amazon search systems
 
 public class SearchEngine {
     public static void main(String[] args) {
-        System.out.println("🔍 SEARCH ENGINE RESULTS");
+        System.out.println("SEARCH ENGINE RESULTS");
         System.out.println("=========================");
         
         String searchQuery = "java programming";
@@ -80,18 +102,18 @@ public class SearchEngine {
         double[] relevanceScores = {0.95, 0.30, 0.88, 0.10, 0.92, 0.25, 0.85, 0.90, 0.05, 0.87};
         
         System.out.println("\\nSearch: \\"" + searchQuery + "\\"");
-        System.out.println("─".repeat(50));
+        System.out.println("=".repeat(50));
         
         for (int i = 0; i < titles.length; i++) {
             // Skip blocked content using continue
             if (titles[i].contains("[BLOCKED]")) {
-                System.out.println("⚠️ Skipped: Blocked content at index " + i);
+                System.out.println("Skipped: Blocked content at index " + i);
                 continue; // Skip this result
             }
             
             // Skip ads using continue
             if (titles[i].contains("[AD]")) {
-                System.out.println("📢 Skipped: Advertisement at index " + i);
+                System.out.println("Skipped: Advertisement at index " + i);
                 continue; // Skip ads
             }
             
@@ -102,10 +124,10 @@ public class SearchEngine {
             
             // Display result
             resultsFound++;
-            System.out.println("\\n📄 Result #" + resultsFound);
-            System.out.println("   Title: " + titles[i]);
-            System.out.println("   URL: " + urls[i]);
-            System.out.println("   Relevance: " + (int)(relevanceScores[i] * 100) + "%");
+            System.out.println("\\nResult #" + resultsFound);
+            System.out.println("Title: " + titles[i]);
+            System.out.println("URL: " + urls[i]);
+            System.out.println("Relevance: " + (int)(relevanceScores[i] * 100) + "%");
             
             // Stop when max results reached using break
             if (resultsFound >= maxResults) {
@@ -114,21 +136,20 @@ public class SearchEngine {
             }
         }
         
-        System.out.println("\\n─".repeat(50));
+        System.out.println("\\n".repeat(50));
         System.out.println("Found " + resultsFound + " relevant results");
     }
 }
 \`\`\`
-
-## 🏦 Real-Time Project Example: Transaction Fraud Detection
+## Workplace Example: Transaction Fraud Detection
 
 \`\`\`java
-// Real-Time: Fraud Detection System
+// Workplace: Fraud Detection System
 // Used in banking and payment systems
 
 public class FraudDetection {
     public static void main(String[] args) {
-        System.out.println("🔒 FRAUD DETECTION SYSTEM");
+        System.out.println("FRAUD DETECTION SYSTEM");
         System.out.println("==========================");
         
         // Transaction data
@@ -148,8 +169,8 @@ public class FraudDetection {
         int blockedCount = 0;
         boolean criticalFraudDetected = false;
         
-        System.out.println("\\n🔍 Scanning Transactions...");
-        System.out.println("─".repeat(60));
+        System.out.println("\\nScanning Transactions...");
+        System.out.println("=".repeat(60));
         
         for (int i = 0; i < transactionIds.length; i++) {
             processedCount++;
@@ -157,9 +178,9 @@ public class FraudDetection {
             boolean isBlocked = false;
             String flagReason = "";
             
-            System.out.println("\\n📋 " + transactionIds[i] + " - $" + amounts[i]);
-            System.out.println("   Location: " + locations[i]);
-            System.out.println("   Merchant: " + merchants[i]);
+            System.out.println("\\n" + transactionIds[i] + " - $" + amounts[i]);
+            System.out.println("Location: " + locations[i]);
+            System.out.println("Merchant: " + merchants[i]);
             
             // Check blocked countries - BLOCK immediately
             for (String country : blockedCountries) {
@@ -172,7 +193,7 @@ public class FraudDetection {
             
             if (isBlocked) {
                 blockedCount++;
-                System.out.println("   🚫 BLOCKED: " + flagReason);
+                System.out.println("BLOCKED: " + flagReason);
                 continue; // Skip to next transaction
             }
             
@@ -193,8 +214,8 @@ public class FraudDetection {
                 // Critical fraud - stop processing
                 if (amounts[i] > 25000) {
                     criticalFraudDetected = true;
-                    System.out.println("   🚨 CRITICAL: Amount exceeds $25,000!");
-                    System.out.println("   ⛔ Stopping all transactions!");
+                    System.out.println("CRITICAL: Amount exceeds $25,000!");
+                    System.out.println("Stopping all transactions!");
                     break; // Exit loop completely
                 }
             }
@@ -207,39 +228,38 @@ public class FraudDetection {
             
             if (isFlagged) {
                 flaggedCount++;
-                System.out.println("   ⚠️ FLAGGED: " + flagReason);
-                System.out.println("   → Sent for manual review");
+                System.out.println("FLAGGED: " + flagReason);
+                System.out.println("Sent for manual review");
             } else {
-                System.out.println("   APPROVED");
+                System.out.println("APPROVED");
             }
         }
         
         // Summary
-        System.out.println("\\n" + "═".repeat(60));
-        System.out.println("📊 DETECTION SUMMARY");
-        System.out.println("═".repeat(60));
+        System.out.println("\\n" + "=".repeat(60));
+        System.out.println("DETECTION SUMMARY");
+        System.out.println("=".repeat(60));
         System.out.println("Transactions Processed: " + processedCount);
         System.out.println("Approved: " + (processedCount - flaggedCount - blockedCount));
         System.out.println("Flagged for Review: " + flaggedCount);
         System.out.println("Blocked: " + blockedCount);
         
         if (criticalFraudDetected) {
-            System.out.println("\\n🚨 ALERT: Critical fraud detected!");
-            System.out.println("   Account has been temporarily frozen.");
+            System.out.println("\\nALERT: Critical fraud detected!");
+            System.out.println("Account has been temporarily frozen.");
         }
     }
 }
 \`\`\`
-
-## 📦 Real-Time Project Example: Inventory Scanner
+## Workplace Example: Inventory Scanner
 
 \`\`\`java
-// Real-Time: Warehouse Inventory Check
+// Workplace: Warehouse Inventory Check
 // Used in Amazon, Walmart warehouses
 
 public class InventoryScanner {
     public static void main(String[] args) {
-        System.out.println("📦 WAREHOUSE INVENTORY SCANNER");
+        System.out.println("WAREHOUSE INVENTORY SCANNER");
         System.out.println("===============================");
         
         // Product data
@@ -253,8 +273,8 @@ public class InventoryScanner {
         int lowStockCount = 0;
         boolean criticalShortage = false;
         
-        System.out.println("\\n🔍 Scanning inventory...");
-        System.out.println("─".repeat(50));
+        System.out.println("\\nScanning inventory...");
+        System.out.println("=".repeat(50));
         
         for (int i = 0; i < products.length; i++) {
             scannedCount++;
@@ -263,55 +283,55 @@ public class InventoryScanner {
             if (quantities[i] == 0) {
                 outOfStockCount++;
                 System.out.println("\\n" + products[i] + " - OUT OF STOCK");
-                System.out.println("   Location: " + locations[i]);
+                System.out.println("Location: " + locations[i]);
                 
                 // Check if critical item
                 if (products[i].equals("Phone") || products[i].equals("Laptop")) {
                     criticalShortage = true;
-                    System.out.println("   🚨 CRITICAL: High-demand item!");
+                    System.out.println("CRITICAL: High-demand item!");
                 }
                 
                 continue; // Skip to next product
             }
             
             // Check stock levels
-            System.out.println("\\n📦 " + products[i]);
-            System.out.println("   Quantity: " + quantities[i]);
-            System.out.println("   Location: " + locations[i]);
+            System.out.println("\\n" + products[i]);
+            System.out.println("Quantity: " + quantities[i]);
+            System.out.println("Location: " + locations[i]);
             
             if (quantities[i] < reorderLevels[i]) {
                 lowStockCount++;
-                System.out.println("   ⚠️ LOW STOCK - Reorder needed");
-                System.out.println("   Reorder Level: " + reorderLevels[i]);
+                System.out.println("LOW STOCK - Reorder needed");
+                System.out.println("Reorder Level: " + reorderLevels[i]);
             } else {
-                System.out.println("   Stock OK");
+                System.out.println("Stock OK");
             }
             
             // Stop if too many issues found
             if (outOfStockCount + lowStockCount > 3) {
-                System.out.println("\\n⛔ Multiple stock issues detected!");
-                System.out.println("   Generating urgent report...");
+                System.out.println("\\nMultiple stock issues detected!");
+                System.out.println("Generating urgent report...");
                 break;
             }
         }
         
         // Summary
-        System.out.println("\\n" + "═".repeat(50));
-        System.out.println("📊 INVENTORY SUMMARY");
-        System.out.println("═".repeat(50));
+        System.out.println("\\n" + "=".repeat(50));
+        System.out.println("INVENTORY SUMMARY");
+        System.out.println("=".repeat(50));
         System.out.println("Products Scanned: " + scannedCount + "/" + products.length);
         System.out.println("In Stock: " + (scannedCount - outOfStockCount - lowStockCount));
         System.out.println("Low Stock: " + lowStockCount);
         System.out.println("Out of Stock: " + outOfStockCount);
         
         if (criticalShortage) {
-            System.out.println("\\n🚨 URGENT: Critical items out of stock!");
+            System.out.println("\\nURGENT: Critical items out of stock!");
         }
     }
 }
 \`\`\`
 
-> **Industry Insight**: Break and continue are essential in data processing pipelines. Netflix uses these to skip invalid data records (continue) or stop processing when critical errors occur (break) in their recommendation engine.
+> **Teacher Note**: Break and continue are essential in data processing pipelines. Netflix uses these to skip invalid data records (continue) or stop processing when critical errors occur (break) in their recommendation engine.
 
 ---
 
@@ -322,38 +342,38 @@ public class InventoryScanner {
 Neither skips \`finally\` blocks.
 
 ### 2. What are labeled \`break\` and \`continue\`?
-**Answer:** They target outer loops by label—\`break outer;\` exits nested loops; \`continue outer;\` advances the outer loop.
-Use sparingly—often refactor to methods is clearer.
+**Answer:** They target outer loops by label\`break outer;\` exits nested loops; \`continue outer;\` advances the outer loop.
+Use sparinglyoften refactor to methods is clearer.
 
-### 3. Can \`break\` exit a block that isn’t a loop?
-**Answer:** Only with labeled blocks—rare style; many teams prefer structured returns or flags.
+### 3. Can \`break\` exit a block that is not a loop?
+**Answer:** Only with labeled blocksrare style; many teams prefer structured returns or flags.
 Know it for reading legacy code.
 
 ### 4. How does \`break\` interact with \`try/finally\`?
 **Answer:** \`finally\` runs before the loop actually exits after \`break\`.
 Resource cleanup still happens.
 
-### 5. Scenario: searching a 2D matrix—when is labeled break useful?
+### 5. Scenario: searching a 2D matrixwhen is labeled break useful?
 **Answer:** When you find an element and want to exit both row and column loops immediately.
 Alternatively use helper method with \`return\`.
 
 ### 6. Does \`continue\` skip the increment clause in a for loop?
-**Answer:** In a traditional \`for\`, \`continue\` jumps to the update expression then condition—increment still runs.
+**Answer:** In a traditional \`for\`, \`continue\` jumps to the update expression then conditionincrement still runs.
 In \`while\`, you must ensure state advances to avoid infinite loops.
 
 ### 7. What happens with \`continue\` inside \`try\` with \`finally\`?
 **Answer:** \`finally\` executes before the next iteration begins.
-Side effects in \`finally\` run every continue—watch performance.
+Side effects in \`finally\` run every continuewatch performance.
 
 ### 8. Why avoid \`continue\` in deeply nested code?
-**Answer:** It obscures control flow—extract loops or use stream operations with predicates.
+**Answer:** It obscures control flowextract loops or use stream operations with predicates.
 Readability beats micro-conciseness.
 
 ### 9. Can switch use \`continue\`?
-**Answer:** In a loop, \`continue\` inside \`switch\` continues the enclosing loop, not the switch—common gotcha.
+**Answer:** In a loop, \`continue\` inside \`switch\` continues the enclosing loop, not the switchcommon gotcha.
 Structure code to avoid confusion.
 
-### 10. What’s a safe alternative to multiple breaks?
+### 10. Whats a safe alternative to multiple breaks?
 **Answer:** Extract method returning boolean success, or use \`Optional\` and short-circuit patterns.
 Tests become simpler with structured exits.
 
@@ -389,14 +409,14 @@ Correct usage can reduce unnecessary work from O(n) full scans to short-circuit 
 Overuse causes hidden control paths and weak readability. Strong code uses break and continue where they model genuine algorithmic meaning, not as patchwork for poor loop design.
 
 `,
-  code: `// Real-Time: Complete Fraud Detection System
+  code: `// Workplace: Complete Fraud Detection System
 // Demonstrates break and continue in security systems
 
 public class FraudDetection {
     public static void main(String[] args) {
-        System.out.println("╔════════════════════════════════════════════╗");
-        System.out.println("║     🔒 FRAUD DETECTION SYSTEM v2.0         ║");
-        System.out.println("╚════════════════════════════════════════════╝");
+        System.out.println("");
+        System.out.println("FRAUD DETECTION SYSTEM v2.0         ");
+        System.out.println("");
         
         // Transaction database (simulated)
         String[] txnIds = {"TXN-001", "TXN-002", "TXN-003", "TXN-004", "TXN-005", 
@@ -428,23 +448,23 @@ public class FraudDetection {
         boolean accountFrozen = false;
         String freezeReason = "";
         
-        System.out.println("\\n🔍 REAL-TIME TRANSACTION MONITORING");
-        System.out.println("════════════════════════════════════");
+        System.out.println("\\nReal workplace TRANSACTION MONITORING");
+        System.out.println("");
         
         for (int i = 0; i < txnIds.length; i++) {
             totalProcessed++;
             
-            System.out.println("\\n┌─────────────────────────────────────────┐");
-            System.out.println("│ Transaction: " + txnIds[i]);
-            System.out.println("├─────────────────────────────────────────┤");
-            System.out.println("│ Amount:   $" + String.format("%,.2f", amounts[i]));
-            System.out.println("│ Country:  " + countries[i]);
-            System.out.println("│ Merchant: " + merchants[i]);
-            System.out.println("│ Card:     " + cardTypes[i]);
-            System.out.println("└─────────────────────────────────────────┘");
+            System.out.println("\\n");
+            System.out.println("Transaction: " + txnIds[i]);
+            System.out.println("");
+            System.out.println("Amount:   $" + String.format("%,.2f", amounts[i]));
+            System.out.println("Country:  " + countries[i]);
+            System.out.println("Merchant: " + merchants[i]);
+            System.out.println("Card:     " + cardTypes[i]);
+            System.out.println("");
             
             // Risk Assessment
-            System.out.println("\\n   🔍 Risk Assessment:");
+            System.out.println("\\nRisk Assessment:");
             int riskScore = 0;
             boolean shouldBlock = false;
             boolean shouldFlag = false;
@@ -462,8 +482,8 @@ public class FraudDetection {
             if (shouldBlock) {
                 blocked++;
                 totalBlockedAmount += amounts[i];
-                System.out.println("   🚫 BLOCKED: " + riskReasons);
-                System.out.println("   → Transaction rejected");
+                System.out.println("BLOCKED: " + riskReasons);
+                System.out.println("Transaction rejected");
                 continue; // Skip to next transaction
             }
             
@@ -484,9 +504,9 @@ public class FraudDetection {
                 // CRITICAL - Freeze account immediately
                 accountFrozen = true;
                 freezeReason = "Transaction of $" + String.format("%,.2f", amounts[i]) + " detected";
-                System.out.println("   🚨 CRITICAL ALERT!");
-                System.out.println("   ⛔ Account frozen immediately!");
-                System.out.println("   → Reason: " + freezeReason);
+                System.out.println("CRITICAL ALERT!");
+                System.out.println("Account frozen immediately!");
+                System.out.println("Reason: " + freezeReason);
                 break; // Stop all processing
                 
             } else if (amounts[i] >= highRiskAmount) {
@@ -501,7 +521,7 @@ public class FraudDetection {
             }
             
             // Determine action based on risk score
-            System.out.println("   📊 Risk Score: " + riskScore + "/100");
+            System.out.println("Risk Score: " + riskScore + "/100");
             
             if (riskScore >= 50) {
                 shouldFlag = true;
@@ -509,46 +529,46 @@ public class FraudDetection {
             
             if (shouldFlag) {
                 flagged++;
-                System.out.println("   ⚠️ FLAGGED FOR REVIEW");
-                System.out.println("   → Reasons: " + riskReasons);
+                System.out.println("FLAGGED FOR REVIEW");
+                System.out.println("Reasons: " + riskReasons);
                 
                 // Check if too many flags
                 if (flagged >= maxFlagsBeforeFreeze) {
                     accountFrozen = true;
                     freezeReason = "Multiple suspicious transactions (" + flagged + " flagged)";
-                    System.out.println("\\n   🚨 SECURITY ALERT!");
-                    System.out.println("   ⛔ Account frozen: Too many flagged transactions");
+                    System.out.println("\\nSECURITY ALERT!");
+                    System.out.println("Account frozen: Too many flagged transactions");
                     break; // Stop processing
                 }
             } else {
                 approved++;
                 totalApprovedAmount += amounts[i];
-                System.out.println("   APPROVED");
+                System.out.println("APPROVED");
             }
         }
         
         // Final Report
-        System.out.println("\\n╔════════════════════════════════════════════╗");
-        System.out.println("║           📊 MONITORING REPORT              ║");
-        System.out.println("╚════════════════════════════════════════════╝");
+        System.out.println("\\n");
+        System.out.println("MONITORING REPORT              ");
+        System.out.println("");
         System.out.println("\\nTransactions Processed: " + totalProcessed + "/" + txnIds.length);
-        System.out.println("\\n📈 RESULTS:");
-        System.out.println("   Approved: " + approved + " ($" + String.format("%,.2f", totalApprovedAmount) + ")");
-        System.out.println("   ⚠️ Flagged:  " + flagged);
-        System.out.println("   🚫 Blocked:  " + blocked + " ($" + String.format("%,.2f", totalBlockedAmount) + ")");
+        System.out.println("\\nRESULTS:");
+        System.out.println("Approved: " + approved + " ($" + String.format("%,.2f", totalApprovedAmount) + ")");
+        System.out.println("Flagged:  " + flagged);
+        System.out.println("Blocked:  " + blocked + " ($" + String.format("%,.2f", totalBlockedAmount) + ")");
         
-        System.out.println("\\n🔒 ACCOUNT STATUS:");
+        System.out.println("\\nACCOUNT STATUS:");
         if (accountFrozen) {
-            System.out.println("   ⛔ FROZEN");
-            System.out.println("   Reason: " + freezeReason);
-            System.out.println("   Action: Contact security team");
+            System.out.println("FROZEN");
+            System.out.println("Reason: " + freezeReason);
+            System.out.println("Action: Contact security team");
         } else {
-            System.out.println("   ACTIVE");
+            System.out.println("ACTIVE");
         }
         
         // Risk Summary
         double riskPercentage = ((double)(flagged + blocked) / totalProcessed) * 100;
-        System.out.println("\\n📉 Risk Level: " + String.format("%.1f", riskPercentage) + "% suspicious activity");
+        System.out.println("\\nRisk Level: " + String.format("%.1f", riskPercentage) + "% suspicious activity");
     }
 }
 
@@ -593,17 +613,24 @@ Input validation systems use break to exit validation loops when critical errors
 **Solution:** Understand context - break in switch exits the switch, break in loops exits the loop:
 
 \`\`\`java
-// Break in switch - exits switch only
-switch (value) {
-    case 1:
-        // code
-        break;  // Exits switch, not any loop
-}
+public class BreakContextDemo {
+    public static void main(String[] args) {
+        int value = 1;
 
-// Break in loop - exits loop
-for (int i = 0; i < 10; i++) {
-    if (condition) {
-        break;  // Exits the for loop
+        switch (value) {
+            case 1:
+                System.out.println("Switch case 1");
+                break;
+            default:
+                System.out.println("Default case");
+        }
+
+        for (int i = 0; i < 10; i++) {
+            if (i == 3) {
+                System.out.println("Loop stopped at " + i);
+                break;
+            }
+        }
     }
 }
 \`\`\`
@@ -614,17 +641,24 @@ for (int i = 0; i < 10; i++) {
 **Solution:** Use break to exit, continue to skip:
 
 \`\`\`java
-// WRONG - Using continue when break needed
-for (int i = 0; i < items.length; i++) {
-    if (found) {
-        continue;  // Wrong - continues loop instead of exiting
-    }
-}
+public class BreakVsContinueChoiceDemo {
+    public static void main(String[] args) {
+        String[] items = {"mouse", "keyboard", "monitor"};
+        String target = "keyboard";
 
-// CORRECT - Use break to exit
-for (int i = 0; i < items.length; i++) {
-    if (found) {
-        break;  // Correct - exits loop
+        for (String item : items) {
+            if (item.equals(target)) {
+                System.out.println("Found item: " + item);
+                break;
+            }
+        }
+
+        for (String item : items) {
+            if (item.equals("mouse")) {
+                continue;
+            }
+            System.out.println("Non-mouse item: " + item);
+        }
     }
 }
 \`\`\`
@@ -635,21 +669,23 @@ for (int i = 0; i < items.length; i++) {
 **Solution:** Use labeled break/continue only when necessary, prefer refactoring:
 
 \`\`\`java
-// PREFER - Refactor nested loops
-boolean found = false;
-for (int i = 0; i < rows && !found; i++) {
-    for (int j = 0; j < cols && !found; j++) {
-        if (condition) {
-            found = true;
-        }
-    }
-}
+public class NestedSearchWithoutLabelDemo {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+        int target = 5;
+        boolean found = false;
 
-// AVOID - Complex labeled break
-outer: for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < cols; j++) {
-        if (condition) {
-            break outer;  // Works but harder to understand
+        for (int row = 0; row < matrix.length && !found; row++) {
+            for (int col = 0; col < matrix[row].length && !found; col++) {
+                if (matrix[row][col] == target) {
+                    found = true;
+                    System.out.println("Found at row " + row + ", col " + col);
+                }
+            }
         }
     }
 }

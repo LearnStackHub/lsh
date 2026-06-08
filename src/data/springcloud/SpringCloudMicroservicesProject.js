@@ -1,87 +1,116 @@
 const springCloudMicroservicesProject = {
   id: 'spring-cloud-microservices-project',
-  title: 'Spring Cloud Microservices Project Setup',
-  description: 'Complete step-by-step guide to create and run a simple microservices project with Spring Cloud - Eureka Server, User Service, Product Service, and API Gateway',
+  title: 'Spring Cloud Microservices Full Project',
+  description: 'Build a realtime Spring Cloud project with full code for Eureka Server, User Service, Product Service, Order Service, API Gateway, service discovery, gateway routing, load-balanced calls, run steps, testing, and error fixes.',
   content: `
-# Spring Cloud Microservices Project Setup
+# Spring Cloud Microservices Full Project with Code and Explanation
 
-Let's build a complete microservices project from scratch. We'll create a simple e-commerce system with multiple services that communicate with each other.
+This project shows how Spring Cloud tools help implement microservices in a real Java backend.
 
-This project will help you understand how all the Spring Cloud components work together in a real application.
+We will build:
+
+- **Eureka Server**: service registry
+- **User Service**: returns customer data
+- **Product Service**: returns product data
+- **Order Service**: creates an order by calling User Service and Product Service using service names
+- **API Gateway**: one public entry point for frontend/mobile clients
+
+This project is different from the basic [Microservices Realtime Project](/microservices/realtime-project). There, services used hardcoded URLs like \`http://localhost:8081\`. Here, Spring Cloud uses Eureka and load-balanced service names like \`http://user-service\`.
 
 ---
 
-## Project Overview
+## What Problem Spring Cloud Solves
 
-We'll build 4 microservices:
-
-1. **Eureka Server** - Service registry (port 8761)
-2. **User Service** - Manages users (port 8081)
-3. **Product Service** - Manages products (port 8082)
-4. **API Gateway** - Single entry point (port 8080)
-
-**Architecture:**
+Without Spring Cloud:
 
 \`\`\`
-Client
-  │
-  ▼
-API Gateway (8080)
-  │
-  ├─► User Service (8081) ──► Eureka (8761)
-  │
-  └─► Product Service (8082) ──► Eureka (8761)
+Order Service -> http://localhost:8081/users/1
+Order Service -> http://localhost:8082/products/101
+\`\`\`
+
+Problem:
+
+- host/port is hardcoded
+- service scaling is difficult
+- gateway routing is manual
+- frontend needs many service URLs
+
+With Spring Cloud:
+
+\`\`\`
+Order Service -> http://user-service/users/1
+Order Service -> http://product-service/products/101
+Frontend      -> http://localhost:8080/orders
+\`\`\`
+
+Eureka resolves service names, and API Gateway becomes the single public entry point.
+
+---
+
+## Final Architecture
+
+\`\`\`
+Client / Frontend
+       |
+       v
+API Gateway : 8080
+       |
+       +-- lb://user-service    -> User Service : 8081
+       +-- lb://product-service -> Product Service : 8082
+       +-- lb://order-service   -> Order Service : 8083
+                                      |
+                                      +-- http://user-service/users/{id}
+                                      +-- http://product-service/products/{id}
+
+Eureka Server : 8761 keeps service registry
 \`\`\`
 
 ---
 
-## Prerequisites
+## Final Folder Structure
 
-Before starting, make sure you have:
+\`\`\`
+spring-cloud-realtime-project/
+  pom.xml
+  eureka-server/
+  user-service/
+  product-service/
+  order-service/
+  api-gateway/
+\`\`\`
 
-- Java 17 or higher
-- Maven 3.6 or higher
-- IDE (IntelliJ IDEA, Eclipse, or VS Code)
-- Basic knowledge of Spring Boot
+Each child folder is a separate Spring Boot application.
 
 ---
 
-## Step 1: Create Parent Project Structure
+## Parent Project
 
-First, let's create the parent project structure.
+Create folder: \`spring-cloud-realtime-project\`
 
-**Create a folder:** \`microservices-project\`
-
-**Inside this folder, create:** \`pom.xml\` (parent POM)
+### pom.xml
 
 \`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>microservices-project</artifactId>
+    <groupId>com.learnstackhub</groupId>
+    <artifactId>spring-cloud-realtime-project</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-
-    <name>Microservices Project</name>
-    <description>Spring Cloud Microservices Project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.5.0</version>
         <relativePath/>
     </parent>
 
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2022.0.3</spring-cloud.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
@@ -100,55 +129,61 @@ First, let's create the parent project structure.
         <module>eureka-server</module>
         <module>user-service</module>
         <module>product-service</module>
+        <module>order-service</module>
         <module>api-gateway</module>
     </modules>
-
 </project>
 \`\`\`
 
+### Explanation
+
+The parent POM controls Spring Boot and Spring Cloud versions in one place. Child services do not need to repeat version numbers for Spring Cloud dependencies.
+
 ---
 
-## Step 2: Create Eureka Server
+## 1. Eureka Server
 
-**Create folder:** \`eureka-server\`
+Eureka Server is the service registry. Services register themselves here using their \`spring.application.name\`.
 
-**Create:** \`eureka-server/pom.xml\`
+### eureka-server/pom.xml
 
 \`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>microservices-project</artifactId>
+        <groupId>com.learnstackhub</groupId>
+        <artifactId>spring-cloud-realtime-project</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>eureka-server</artifactId>
-    <name>Eureka Server</name>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 \`\`\`
 
-**Create:** \`eureka-server/src/main/java/com/example/eurekaserver/EurekaServerApplication.java\`
+### EurekaServerApplication.java
 
 \`\`\`java
-package com.example.eurekaserver;
+package com.learnstackhub.eurekaserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -163,41 +198,42 @@ public class EurekaServerApplication {
 }
 \`\`\`
 
-**Create:** \`eureka-server/src/main/resources/application.properties\`
+### application.properties
 
 \`\`\`properties
 server.port=8761
-
 spring.application.name=eureka-server
 
 eureka.client.register-with-eureka=false
 eureka.client.fetch-registry=false
 \`\`\`
 
+### Why these properties?
+
+Eureka Server should not register itself as a client. That is why both values are false.
+
 ---
 
-## Step 3: Create User Service
+## 2. User Service
 
-**Create folder:** \`user-service\`
+User Service registers with Eureka and exposes user APIs.
 
-**Create:** \`user-service/pom.xml\`
+### user-service/pom.xml
 
 \`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>microservices-project</artifactId>
+        <groupId>com.learnstackhub</groupId>
+        <artifactId>spring-cloud-realtime-project</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>user-service</artifactId>
-    <name>User Service</name>
 
     <dependencies>
         <dependency>
@@ -210,20 +246,26 @@ eureka.client.fetch-registry=false
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 \`\`\`
 
-**Create:** \`user-service/src/main/java/com/example/userservice/UserServiceApplication.java\`
+### UserServiceApplication.java
 
 \`\`\`java
-package com.example.userservice;
+package com.learnstackhub.userservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-@EnableEurekaClient
 public class UserServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserServiceApplication.class, args);
@@ -231,100 +273,68 @@ public class UserServiceApplication {
 }
 \`\`\`
 
-**Create:** \`user-service/src/main/java/com/example/userservice/model/User.java\`
+In modern Spring Cloud, \`@EnableEurekaClient\` is usually not required when the Eureka client dependency is present.
+
+### UserResponse.java
 
 \`\`\`java
-package com.example.userservice.model;
+package com.learnstackhub.userservice;
 
-public class User {
-    private Long id;
-    private String name;
-    private String email;
-
-    public User() {
-    }
-
-    public User(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+public record UserResponse(Long id, String name, String email) {
 }
 \`\`\`
 
-**Create:** \`user-service/src/main/java/com/example/userservice/controller/UserController.java\`
+### UserController.java
 
 \`\`\`java
-package com.example.userservice.controller;
+package com.learnstackhub.userservice;
 
-import com.example.userservice.model.User;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
-    private List<User> users = new ArrayList<>();
-
-    public UserController() {
-        users.add(new User(1L, "Dattu p", " Dattu@example.com"));
-        users.add(new User(2L, "Jane Smith", "jane@example.com"));
-    }
+    private final List<UserResponse> users = List.of(
+            new UserResponse(1L, "Ravi", "ravi@example.com"),
+            new UserResponse(2L, "Amit", "amit@example.com"),
+            new UserResponse(3L, "Dattu", "dattu@example.com")
+    );
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserResponse> getUsers() {
         return users;
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserResponse getUser(@PathVariable Long id) {
         return users.stream()
-                .filter(user -> user.getId().equals(id))
+                .filter(user -> user.id().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + id));
     }
+}
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        user.setId((long) (users.size() + 1));
-        users.add(user);
-        return user;
+@ResponseStatus(HttpStatus.NOT_FOUND)
+class UserNotFoundException extends RuntimeException {
+    UserNotFoundException(String message) {
+        super(message);
     }
 }
 \`\`\`
 
-**Create:** \`user-service/src/main/resources/application.properties\`
+### application.properties
 
 \`\`\`properties
-spring.application.name=user-service
 server.port=8081
+spring.application.name=user-service
 
 eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
 eureka.instance.prefer-ip-address=true
@@ -332,28 +342,26 @@ eureka.instance.prefer-ip-address=true
 
 ---
 
-## Step 4: Create Product Service
+## 3. Product Service
 
-**Create folder:** \`product-service\`
+Product Service registers with Eureka and exposes product APIs.
 
-**Create:** \`product-service/pom.xml\`
+### product-service/pom.xml
 
 \`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>microservices-project</artifactId>
+        <groupId>com.learnstackhub</groupId>
+        <artifactId>spring-cloud-realtime-project</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>product-service</artifactId>
-    <name>Product Service</name>
 
     <dependencies>
         <dependency>
@@ -366,20 +374,26 @@ eureka.instance.prefer-ip-address=true
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 \`\`\`
 
-**Create:** \`product-service/src/main/java/com/example/productservice/ProductServiceApplication.java\`
+### ProductServiceApplication.java
 
 \`\`\`java
-package com.example.productservice;
+package com.learnstackhub.productservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-@EnableEurekaClient
 public class ProductServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class, args);
@@ -387,111 +401,69 @@ public class ProductServiceApplication {
 }
 \`\`\`
 
-**Create:** \`product-service/src/main/java/com/example/productservice/model/Product.java\`
+### ProductResponse.java
 
 \`\`\`java
-package com.example.productservice.model;
+package com.learnstackhub.productservice;
 
-public class Product {
-    private Long id;
-    private String name;
-    private Double price;
-    private String description;
+import java.math.BigDecimal;
 
-    public Product() {
-    }
-
-    public Product(Long id, String name, Double price, String description) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+public record ProductResponse(Long id, String name, BigDecimal price) {
 }
 \`\`\`
 
-**Create:** \`product-service/src/main/java/com/example/productservice/controller/ProductController.java\`
+### ProductController.java
 
 \`\`\`java
-package com.example.productservice.controller;
+package com.learnstackhub.productservice;
 
-import com.example.productservice.model.Product;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/products")
 public class ProductController {
 
-    private List<Product> products = new ArrayList<>();
-
-    public ProductController() {
-        products.add(new Product(1L, "Laptop", 999.99, "High-performance laptop"));
-        products.add(new Product(2L, "Mouse", 29.99, "Wireless mouse"));
-        products.add(new Product(3L, "Keyboard", 79.99, "Mechanical keyboard"));
-    }
+    private final List<ProductResponse> products = List.of(
+            new ProductResponse(101L, "Java Course", new BigDecimal("999.00")),
+            new ProductResponse(102L, "Spring Boot Course", new BigDecimal("1499.00")),
+            new ProductResponse(103L, "Microservices Course", new BigDecimal("1999.00"))
+    );
 
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ProductResponse> getProducts() {
         return products;
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
+    public ProductResponse getProduct(@PathVariable Long id) {
         return products.stream()
-                .filter(product -> product.getId().equals(id))
+                .filter(product -> product.id().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new ProductNotFoundException("Product not found: " + id));
     }
+}
 
-    @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        product.setId((long) (products.size() + 1));
-        products.add(product);
-        return product;
+@ResponseStatus(HttpStatus.NOT_FOUND)
+class ProductNotFoundException extends RuntimeException {
+    ProductNotFoundException(String message) {
+        super(message);
     }
 }
 \`\`\`
 
-**Create:** \`product-service/src/main/resources/application.properties\`
+### application.properties
 
 \`\`\`properties
-spring.application.name=product-service
 server.port=8082
+spring.application.name=product-service
 
 eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
 eureka.instance.prefer-ip-address=true
@@ -499,33 +471,301 @@ eureka.instance.prefer-ip-address=true
 
 ---
 
-## Step 5: Create API Gateway
+## 4. Order Service
 
-**Create folder:** \`api-gateway\`
+Order Service registers with Eureka and calls other services by name using \`@LoadBalanced RestClient.Builder\`.
 
-**Create:** \`api-gateway/pom.xml\`
+### order-service/pom.xml
 
 \`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>microservices-project</artifactId>
+        <groupId>com.learnstackhub</groupId>
+        <artifactId>spring-cloud-realtime-project</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>order-service</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+\`\`\`
+
+### OrderServiceApplication.java
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestClient;
+
+@SpringBootApplication
+public class OrderServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(OrderServiceApplication.class, args);
+    }
+
+    @Bean
+    @LoadBalanced
+    RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+}
+\`\`\`
+
+### DTO Classes
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+public record OrderRequest(Long userId, Long productId, int quantity) {
+}
+\`\`\`
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+public record UserResponse(Long id, String name, String email) {
+}
+\`\`\`
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+import java.math.BigDecimal;
+
+public record ProductResponse(Long id, String name, BigDecimal price) {
+}
+\`\`\`
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+import java.math.BigDecimal;
+
+public record OrderResponse(
+        Long orderId,
+        String customerName,
+        String productName,
+        int quantity,
+        BigDecimal totalAmount,
+        String status
+) {
+}
+\`\`\`
+
+### OrderService.java
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
+
+import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicLong;
+
+@Service
+public class OrderService {
+
+    private final RestClient restClient;
+    private final AtomicLong orderSequence = new AtomicLong(1000);
+
+    public OrderService(RestClient.Builder restClientBuilder) {
+        this.restClient = restClientBuilder.build();
+    }
+
+    public OrderResponse createOrder(OrderRequest request) {
+        validateRequest(request);
+
+        UserResponse user = getUser(request.userId());
+        ProductResponse product = getProduct(request.productId());
+
+        BigDecimal totalAmount = product.price()
+                .multiply(BigDecimal.valueOf(request.quantity()));
+
+        return new OrderResponse(
+                orderSequence.incrementAndGet(),
+                user.name(),
+                product.name(),
+                request.quantity(),
+                totalAmount,
+                "CREATED"
+        );
+    }
+
+    private void validateRequest(OrderRequest request) {
+        if (request.userId() == null) {
+            throw new IllegalArgumentException("userId is required");
+        }
+        if (request.productId() == null) {
+            throw new IllegalArgumentException("productId is required");
+        }
+        if (request.quantity() <= 0) {
+            throw new IllegalArgumentException("quantity must be greater than zero");
+        }
+    }
+
+    private UserResponse getUser(Long userId) {
+        try {
+            return restClient.get()
+                    .uri("http://user-service/users/{id}", userId)
+                    .retrieve()
+                    .body(UserResponse.class);
+        } catch (RestClientException ex) {
+            throw new IllegalStateException("Unable to fetch user through Eureka service name user-service", ex);
+        }
+    }
+
+    private ProductResponse getProduct(Long productId) {
+        try {
+            return restClient.get()
+                    .uri("http://product-service/products/{id}", productId)
+                    .retrieve()
+                    .body(ProductResponse.class);
+        } catch (RestClientException ex) {
+            throw new IllegalStateException("Unable to fetch product through Eureka service name product-service", ex);
+        }
+    }
+}
+\`\`\`
+
+### OrderController.java
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @PostMapping
+    public OrderResponse createOrder(@RequestBody OrderRequest request) {
+        return orderService.createOrder(request);
+    }
+}
+\`\`\`
+
+### GlobalExceptionHandler.java
+
+\`\`\`java
+package com.learnstackhub.orderservice;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, Object>> handleBadRequest(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(errorBody("BAD_REQUEST", ex.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Map<String, Object>> handleServiceFailure(IllegalStateException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(errorBody("SERVICE_UNAVAILABLE", ex.getMessage()));
+    }
+
+    private Map<String, Object> errorBody(String code, String message) {
+        return Map.of(
+                "timestamp", LocalDateTime.now().toString(),
+                "code", code,
+                "message", message
+        );
+    }
+}
+\`\`\`
+
+### application.properties
+
+\`\`\`properties
+server.port=8083
+spring.application.name=order-service
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+eureka.instance.prefer-ip-address=true
+\`\`\`
+
+### Why \`@LoadBalanced\` is important
+
+\`http://user-service\` is not a real DNS URL on your machine. It is a service name registered in Eureka. \`@LoadBalanced\` tells Spring Cloud LoadBalancer to resolve that service name to an actual running instance.
+
+---
+
+## 5. API Gateway
+
+API Gateway receives frontend requests and routes them to internal services using Eureka service names.
+
+### api-gateway/pom.xml
+
+\`\`\`xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.learnstackhub</groupId>
+        <artifactId>spring-cloud-realtime-project</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>api-gateway</artifactId>
-    <name>API Gateway</name>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -533,20 +773,26 @@ eureka.instance.prefer-ip-address=true
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 \`\`\`
 
-**Create:** \`api-gateway/src/main/java/com/example/apigateway/ApiGatewayApplication.java\`
+### ApiGatewayApplication.java
 
 \`\`\`java
-package com.example.apigateway;
+package com.learnstackhub.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-@EnableEurekaClient
 public class ApiGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
@@ -554,317 +800,287 @@ public class ApiGatewayApplication {
 }
 \`\`\`
 
-**Create:** \`api-gateway/src/main/resources/application.properties\`
+### application.properties
 
 \`\`\`properties
-spring.application.name=api-gateway
 server.port=8080
+spring.application.name=api-gateway
 
 eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+eureka.instance.prefer-ip-address=true
 
-# Gateway Routes
-spring.cloud.gateway.routes[0].id=user-service
-spring.cloud.gateway.routes[0].uri=lb://user-service
-spring.cloud.gateway.routes[0].predicates[0]=Path=/api/users/**
+spring.cloud.gateway.server.webflux.routes[0].id=user-service
+spring.cloud.gateway.server.webflux.routes[0].uri=lb://user-service
+spring.cloud.gateway.server.webflux.routes[0].predicates[0]=Path=/users/**
 
-spring.cloud.gateway.routes[1].id=product-service
-spring.cloud.gateway.routes[1].uri=lb://product-service
-spring.cloud.gateway.routes[1].predicates[0]=Path=/api/products/**
+spring.cloud.gateway.server.webflux.routes[1].id=product-service
+spring.cloud.gateway.server.webflux.routes[1].uri=lb://product-service
+spring.cloud.gateway.server.webflux.routes[1].predicates[0]=Path=/products/**
+
+spring.cloud.gateway.server.webflux.routes[2].id=order-service
+spring.cloud.gateway.server.webflux.routes[2].uri=lb://order-service
+spring.cloud.gateway.server.webflux.routes[2].predicates[0]=Path=/orders/**
 \`\`\`
+
+### Gateway Explanation
+
+When client calls:
+
+\`\`\`
+http://localhost:8080/users/1
+\`\`\`
+
+Gateway sees \`Path=/users/**\` and forwards the request to:
+
+\`\`\`
+lb://user-service
+\`\`\`
+
+Spring Cloud LoadBalancer asks Eureka for a running user-service instance and routes the request.
 
 ---
 
-## Step 6: Project Structure
+## Run the Project
 
-Your final project structure should look like this:
+Open five terminals.
 
-\`\`\`
-microservices-project/
-├── pom.xml
-├── eureka-server/
-│   ├── pom.xml
-│   └── src/
-│       └── main/
-│           ├── java/com/example/eurekaserver/
-│           │   └── EurekaServerApplication.java
-│           └── resources/
-│               └── application.properties
-├── user-service/
-│   ├── pom.xml
-│   └── src/
-│       └── main/
-│           ├── java/com/example/userservice/
-│           │   ├── UserServiceApplication.java
-│           │   ├── controller/
-│           │   │   └── UserController.java
-│           │   └── model/
-│           │       └── User.java
-│           └── resources/
-│               └── application.properties
-├── product-service/
-│   ├── pom.xml
-│   └── src/
-│       └── main/
-│           ├── java/com/example/productservice/
-│           │   ├── ProductServiceApplication.java
-│           │   ├── controller/
-│           │   │   └── ProductController.java
-│           │   └── model/
-│           │       └── Product.java
-│           └── resources/
-│               └── application.properties
-└── api-gateway/
-    ├── pom.xml
-    └── src/
-        └── main/
-            ├── java/com/example/apigateway/
-            │   └── ApiGatewayApplication.java
-            └── resources/
-                └── application.properties
-\`\`\`
+### Terminal 1: Eureka Server
 
----
-
-## Step 7: How to Run the Project
-
-### Option 1: Run from IDE (Recommended)
-
-**Step 1: Import Project**
-- Open your IDE (IntelliJ IDEA, Eclipse)
-- Import as Maven project
-- Select the parent \`pom.xml\`
-
-**Step 2: Run Services in Order**
-
-1. **Start Eureka Server:**
-   - Right-click on \`EurekaServerApplication.java\`
-   - Select "Run"
-   - Wait for it to start (check console for "Started EurekaServerApplication")
-   - Visit: http://localhost:8761
-
-2. **Start User Service:**
-   - Right-click on \`UserServiceApplication.java\`
-   - Select "Run"
-   - Wait for it to register with Eureka
-
-3. **Start Product Service:**
-   - Right-click on \`ProductServiceApplication.java\`
-   - Select "Run"
-   - Wait for it to register with Eureka
-
-4. **Start API Gateway:**
-   - Right-click on \`ApiGatewayApplication.java\`
-   - Select "Run"
-   - Wait for it to start
-
-### Option 2: Run from Command Line
-
-**Step 1: Build the Project**
-
-\`\`\`bash
-cd microservices-project
-mvn clean install
-\`\`\`
-
-**Step 2: Run Services**
-
-Open 4 separate terminal windows:
-
-**Terminal 1 - Eureka Server:**
 \`\`\`bash
 cd eureka-server
 mvn spring-boot:run
 \`\`\`
 
-**Terminal 2 - User Service:**
+Open dashboard:
+
+\`\`\`
+http://localhost:8761
+\`\`\`
+
+### Terminal 2: User Service
+
 \`\`\`bash
 cd user-service
 mvn spring-boot:run
 \`\`\`
 
-**Terminal 3 - Product Service:**
+### Terminal 3: Product Service
+
 \`\`\`bash
 cd product-service
 mvn spring-boot:run
 \`\`\`
 
-**Terminal 4 - API Gateway:**
+### Terminal 4: Order Service
+
+\`\`\`bash
+cd order-service
+mvn spring-boot:run
+\`\`\`
+
+### Terminal 5: API Gateway
+
 \`\`\`bash
 cd api-gateway
 mvn spring-boot:run
 \`\`\`
 
+Run order matters because clients need Eureka available first.
+
 ---
 
-## Step 8: Testing the Project
-
-### 1. Check Eureka Dashboard
-
-Visit: http://localhost:8761
-
-You should see:
-- user-service (UP)
-- product-service (UP)
-- api-gateway (UP)
-
-### 2. Test User Service Directly
+## Test Direct Services
 
 \`\`\`bash
-# Get all users
-curl http://localhost:8081/api/users
-
-# Get user by ID
-curl http://localhost:8081/api/users/1
+curl http://localhost:8081/users/1
+curl http://localhost:8082/products/101
 \`\`\`
 
-### 3. Test Product Service Directly
+---
+
+## Test Through API Gateway
 
 \`\`\`bash
-# Get all products
-curl http://localhost:8082/api/products
-
-# Get product by ID
-curl http://localhost:8082/api/products/1
+curl http://localhost:8080/users/1
+curl http://localhost:8080/products/101
 \`\`\`
 
-### 4. Test Through API Gateway
+Create order through gateway:
 
 \`\`\`bash
-# Get all users through gateway
-curl http://localhost:8080/api/users
-
-# Get user by ID through gateway
-curl http://localhost:8080/api/users/1
-
-# Get all products through gateway
-curl http://localhost:8080/api/products
-
-# Get product by ID through gateway
-curl http://localhost:8080/api/products/1
+curl -X POST http://localhost:8080/orders \\
+  -H "Content-Type: application/json" \\
+  -d "{\\"userId\\":1,\\"productId\\":101,\\"quantity\\":2}"
 \`\`\`
 
-### 5. Test with Browser
+Expected response:
 
-- http://localhost:8080/api/users
-- http://localhost:8080/api/users/1
-- http://localhost:8080/api/products
-- http://localhost:8080/api/products/1
-
----
-
-## Common Issues and Solutions
-
-### Issue 1: Services Not Registering with Eureka
-
-**Symptoms:** Services don't appear in Eureka dashboard
-
-**Solutions:**
-- Make sure Eureka Server is running first
-- Check \`eureka.client.service-url.defaultZone\` is correct
-- Verify service names match exactly
-- Check network connectivity
-
-### Issue 2: Gateway Can't Route to Services
-
-**Symptoms:** 404 errors when calling through gateway
-
-**Solutions:**
-- Verify services are registered in Eureka
-- Check route predicates match your requests
-- Verify \`lb://\` prefix is used for service discovery
-- Check service names match
-
-### Issue 3: Port Already in Use
-
-**Symptoms:** Port binding error
-
-**Solutions:**
-- Change port in \`application.properties\`
-- Stop other applications using the port
-- Use different ports for each service
+\`\`\`json
+{
+  "orderId": 1001,
+  "customerName": "Ravi",
+  "productName": "Java Course",
+  "quantity": 2,
+  "totalAmount": 1998.00,
+  "status": "CREATED"
+}
+\`\`\`
 
 ---
 
-## What's Next?
+## How the Full Request Works
 
-Now that you have a working microservices project:
-
-1. Learn [Microservices Architecture Fundamentals](/tutorial/microservices-architecture-fundamentals) to understand the concepts
-2. Set up [Config Server](/tutorial/spring-cloud-config-server) for centralized configuration
-3. Use [OpenFeign](/tutorial/spring-cloud-openfeign) for inter-service communication
-4. Add [Resilience4j](/tutorial/spring-cloud-resilience4j) for fault tolerance
-5. Implement [Distributed Tracing](/tutorial/spring-cloud-distributed-tracing) to track requests
+1. Client calls API Gateway: \`POST /orders\`
+2. Gateway routes request to \`lb://order-service\`
+3. Eureka resolves \`order-service\` to localhost:8083
+4. Order Service receives request
+5. Order Service calls \`http://user-service/users/1\`
+6. LoadBalancer asks Eureka for user-service instance
+7. Order Service calls \`http://product-service/products/101\`
+8. LoadBalancer asks Eureka for product-service instance
+9. Order Service calculates total
+10. Gateway returns final response to client
 
 ---
 
-## Summary
+## Common Errors and Fixes
 
-You've successfully created and run a complete microservices project with:
+### Error 1: Services not showing in Eureka
 
-- Eureka Server for service discovery
-- User Service and Product Service as microservices
-- API Gateway as single entry point
-- All services communicating through Eureka
+Reason:
 
-This is a solid foundation for building more complex microservices applications!
+- Eureka Server is not running
+- wrong Eureka URL
+- service started before Eureka and did not reconnect yet
+
+Fix:
+
+\`\`\`properties
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+\`\`\`
+
+Restart the client service after Eureka starts.
+
+---
+
+### Error 2: Gateway returns 503 Service Unavailable
+
+Reason:
+
+Gateway route is correct, but target service is not registered in Eureka.
+
+Fix:
+
+1. Open http://localhost:8761
+2. Check whether service is UP
+3. Confirm service name matches route URI:
+
+\`\`\`properties
+spring.application.name=user-service
+spring.cloud.gateway.server.webflux.routes[0].uri=lb://user-service
+\`\`\`
+
+---
+
+### Error 3: UnknownHostException user-service
+
+Reason:
+
+Order Service is calling \`http://user-service\`, but RestClient is not load-balanced.
+
+Fix:
+
+Add \`@LoadBalanced\`:
+
+\`\`\`java
+@Bean
+@LoadBalanced
+RestClient.Builder restClientBuilder() {
+    return RestClient.builder();
+}
+\`\`\`
+
+Also include:
+
+\`\`\`xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+\`\`\`
+
+---
+
+### Error 4: Port already in use
+
+Reason:
+
+Another service is already running on the same port.
+
+Fix:
+
+Change port:
+
+\`\`\`properties
+server.port=8084
+\`\`\`
+
+Or stop the existing process.
+
+---
+
+### Error 5: Gateway route not matching
+
+Reason:
+
+Path predicate does not match the request URL.
+
+Example:
+
+\`\`\`properties
+Path=/users/**
+\`\`\`
+
+This matches:
+
+\`\`\`
+/users
+/users/1
+\`\`\`
+
+It does not match:
+
+\`\`\`
+/api/users/1
+\`\`\`
+
+Fix either your route path or controller path.
+
+---
+
+## Why This Is Spring Cloud
+
+| Feature | Spring Cloud Tool |
+|---|---|
+| Service registry | Eureka Server |
+| Service registration | Eureka Client |
+| Single public entry point | Spring Cloud Gateway |
+| Service name routing | Spring Cloud LoadBalancer |
+| Gateway route resolution | \`lb://service-name\` |
+
+## Next Improvements
+
+After this project runs, add:
+
+1. [Config Server](/tutorial/spring-cloud-config-server)
+2. [OpenFeign](/tutorial/spring-cloud-openfeign)
+3. [Resilience4j](/tutorial/spring-cloud-resilience4j)
+4. [Micrometer Tracing and Zipkin](/tutorial/spring-cloud-distributed-tracing)
+5. [ELK centralized logging](/tutorial/spring-cloud-elk)
 `,
-  code: `// Complete Project Structure Example
-
-// Parent pom.xml
-<project>
-    <modules>
-        <module>eureka-server</module>
-        <module>user-service</module>
-        <module>product-service</module>
-        <module>api-gateway</module>
-    </modules>
-</project>
-
-// Eureka Server Application
-@SpringBootApplication
-@EnableEurekaServer
-public class EurekaServerApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaServerApplication.class, args);
-    }
-}
-
-// User Service Controller
-@RestController
-@RequestMapping("/api/users")
-public class UserController {
-    @GetMapping
-    public List<User> getAllUsers() {
-        return users;
-    }
-}
-
-// Product Service Controller
-@RestController
-@RequestMapping("/api/products")
-public class ProductController {
-    @GetMapping
-    public List<Product> getAllProducts() {
-        return products;
-    }
-}
-
-// API Gateway Configuration
-spring.cloud.gateway.routes[0].id=user-service
-spring.cloud.gateway.routes[0].uri=lb://user-service
-spring.cloud.gateway.routes[0].predicates[0]=Path=/api/users/**
-
-// Run Order:
-// 1. Eureka Server (8761)
-// 2. User Service (8081)
-// 3. Product Service (8082)
-// 4. API Gateway (8080)`
+  code: `// Spring Cloud project flow:
+// Client -> API Gateway -> Eureka service lookup -> target service
+// Order Service also uses Eureka service names through @LoadBalanced RestClient.Builder`
 };
 
 export default springCloudMicroservicesProject;
-
-
-
-
-
-

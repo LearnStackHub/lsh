@@ -5,39 +5,52 @@ const javaMethods = {
   content: `
 # Methods — Breaking Code into Reusable Pieces
 
-Imagine writing the same 20 lines of code every time you need to calculate a discount. That would be tedious and error-prone. Methods solve this problem — they let you write code once and use it many times.
+Imagine writing the same 20 lines of code every time you need to calculate a discount, validate an email, check stock, or format an invoice. That would be tedious and error-prone. Methods solve this problem — they let you write code once and use it many times.
 
-A **method** is a block of code that performs a specific task. You give it a name, and whenever you need that task done, you just call the method.
+A **method** is a block of code that performs a specific task. You give it a name, and whenever you need that task done, you just call the method. In real projects, method names often describe business actions like \`calculateTotal()\`, \`isEligibleForLoan()\`, \`sendOtp()\`, or \`findEmployeeById()\`.
 
 ---
 
 ## Why Use Methods?
 
-1. **Reusability** — Write once, use many times
-2. **Organization** — Break complex problems into smaller pieces
-3. **Readability** — Give meaningful names to operations
+1. **Reusability** — Write once, use many times, like one tax method used by checkout, invoice, and report screens
+2. **Organization** — Break complex problems into smaller pieces such as validate input, calculate amount, save record
+3. **Readability** — Give meaningful names to operations so code reads like business flow
 4. **Maintainability** — Fix bugs in one place, not everywhere
-5. **Testing** — Test individual pieces independently
+5. **Testing** — Test individual pieces independently before connecting the full feature
 
 ---
 
 ## Method Anatomy
 
 \`\`\`java
-accessModifier returnType methodName(parameters) {
-    // method body
-    return value;  // if returnType isn't void
+public class MethodAnatomyDemo {
+    public static int methodName(int firstNumber, int secondNumber) {
+        int value = firstNumber + secondNumber;
+        return value;
+    }
+
+    public static void main(String[] args) {
+        int result = methodName(10, 20);
+        System.out.println("Result: " + result);
+    }
 }
 \`\`\`
 
 **Example:**
 \`\`\`java
-public static int add(int a, int b) {
-    return a + b;
+public class AddMethodDemo {
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Sum: " + add(5, 3));
+    }
 }
 \`\`\`
 
-Let's break this down:
+Let's break this down using a real mindset: the method name tells what work is done, parameters are the data needed to do that work, and the return type tells what result the caller gets back.
 - \`public\` — Access modifier (who can call this method)
 - \`static\` — Belongs to class, not object
 - \`int\` — Return type (what type of value it gives back)
@@ -49,94 +62,126 @@ Let's break this down:
 
 ## Types of Methods
 
+Different method shapes solve different real tasks: some only print or save data, some accept input, some return calculated values, and some do both.
+
 ### 1. No Parameters, No Return
 
 \`\`\`java
-public static void sayHello() {
-    System.out.println("Hello!");
-}
+public class NoParameterNoReturnDemo {
+    public static void sayHello() {
+        System.out.println("Hello!");
+    }
 
-// Calling it:
-sayHello();  // Output: Hello!
+    public static void main(String[] args) {
+        sayHello();
+    }
+}
 \`\`\`
 
 ### 2. With Parameters, No Return
 
 \`\`\`java
-public static void greet(String name) {
-    System.out.println("Hello, " + name + "!");
-}
+public class ParameterNoReturnDemo {
+    public static void greet(String name) {
+        System.out.println("Hello, " + name + "!");
+    }
 
-// Calling it:
-greet(" Dattu");  // Output: Hello,  Dattu!
+    public static void main(String[] args) {
+        greet("Dattu");
+    }
+}
 \`\`\`
 
 ### 3. No Parameters, With Return
 
 \`\`\`java
-public static int getRandomNumber() {
-    return (int)(Math.random() * 100);
-}
+public class NoParameterWithReturnDemo {
+    public static int getRandomNumber() {
+        return (int) (Math.random() * 100);
+    }
 
-// Calling it:
-int num = getRandomNumber();
+    public static void main(String[] args) {
+        int num = getRandomNumber();
+        System.out.println("Random number: " + num);
+    }
+}
 \`\`\`
 
 ### 4. With Parameters and Return
 
 \`\`\`java
-public static double calculateTax(double amount, double rate) {
-    return amount * rate;
-}
+public class ParameterWithReturnDemo {
+    public static double calculateTax(double amount, double rate) {
+        return amount * rate;
+    }
 
-// Calling it:
-double tax = calculateTax(100.0, 0.08);  // Returns 8.0
+    public static void main(String[] args) {
+        double tax = calculateTax(100.0, 0.08);
+        System.out.println("Tax: " + tax);
+    }
+}
 \`\`\`
 
 ---
 
 ## Parameters vs Arguments
 
-People often confuse these:
+People often confuse these. In real code, parameters are like empty form fields in a method definition, and arguments are the actual values passed from a screen, API request, test case, or another method.
 
 - **Parameters** — Variables in the method definition
 - **Arguments** — Actual values passed when calling
 
 \`\`\`java
-// 'a' and 'b' are PARAMETERS
-public static int add(int a, int b) {
-    return a + b;
-}
+public class ParametersArgumentsDemo {
+    public static int add(int a, int b) {
+        return a + b;
+    }
 
-// 5 and 3 are ARGUMENTS
-int result = add(5, 3);
+    public static void main(String[] args) {
+        int result = add(5, 3);
+        System.out.println("Result: " + result);
+    }
+}
 \`\`\`
 
 ---
 
 ## Return Statement
 
-The \`return\` statement does two things:
+The \`return\` statement does two things, and both matter in real business logic:
 1. Sends a value back to the caller
 2. Exits the method immediately
 
 \`\`\`java
-public static int findMax(int a, int b) {
-    if (a > b) {
-        return a;  // Method exits here if true
+public class ReturnStatementDemo {
+    public static int findMax(int a, int b) {
+        if (a > b) {
+            return a;
+        }
+        return b;
     }
-    return b;  // Only reached if a <= b
+
+    public static void main(String[] args) {
+        System.out.println("Max: " + findMax(45, 30));
+    }
 }
 \`\`\`
 
 **For void methods:** You can use \`return;\` (no value) to exit early.
 
 \`\`\`java
-public static void printPositive(int num) {
-    if (num < 0) {
-        return;  // Exit early, don't print
+public class VoidReturnDemo {
+    public static void printPositive(int num) {
+        if (num < 0) {
+            return;
+        }
+        System.out.println(num);
     }
-    System.out.println(num);
+
+    public static void main(String[] args) {
+        printPositive(10);
+        printPositive(-5);
+    }
 }
 \`\`\`
 
@@ -144,25 +189,28 @@ public static void printPositive(int num) {
 
 ## Method Overloading
 
-You can have multiple methods with the same name but different parameters:
+You can have multiple methods with the same name but different parameters. This is useful when one business action supports multiple inputs, such as adding two numbers, three numbers, or decimal values without creating confusing method names.
 
 \`\`\`java
-public static int add(int a, int b) {
-    return a + b;
-}
+public class MethodOverloadingDemo {
+    public static int add(int a, int b) {
+        return a + b;
+    }
 
-public static int add(int a, int b, int c) {
-    return a + b + c;
-}
+    public static int add(int a, int b, int c) {
+        return a + b + c;
+    }
 
-public static double add(double a, double b) {
-    return a + b;
-}
+    public static double add(double a, double b) {
+        return a + b;
+    }
 
-// Java picks the right one based on arguments:
-add(5, 3);        // Calls first version
-add(5, 3, 2);     // Calls second version
-add(5.0, 3.0);    // Calls third version
+    public static void main(String[] args) {
+        System.out.println(add(5, 3));
+        System.out.println(add(5, 3, 2));
+        System.out.println(add(5.0, 3.0));
+    }
+}
 \`\`\`
 
 **Rules for overloading:**
@@ -174,15 +222,24 @@ add(5.0, 3.0);    // Calls third version
 
 ## Variable Scope
 
-Variables declared inside a method only exist inside that method:
+Variables declared inside a method only exist inside that method. This keeps temporary values like one user's discount, one request's OTP, or one calculation's subtotal from leaking into unrelated code.
 
 \`\`\`java
-public static void methodA() {
-    int x = 10;  // x only exists in methodA
-}
+public class MethodScopeDemo {
+    public static void methodA() {
+        int x = 10;
+        System.out.println("x inside methodA: " + x);
+    }
 
-public static void methodB() {
-    System.out.println(x);  // ERROR! x doesn't exist here
+    public static void methodB() {
+        // System.out.println(x); // Error: x exists only inside methodA
+        System.out.println("methodB cannot access methodA local variable");
+    }
+
+    public static void main(String[] args) {
+        methodA();
+        methodB();
+    }
 }
 \`\`\`
 
@@ -190,45 +247,54 @@ public static void methodB() {
 
 ## Pass by Value
 
-Java always passes arguments **by value** — it copies the value:
+Java always passes arguments **by value** — it copies the value. This matters when debugging because changing a primitive parameter inside a method will not change the caller's original variable.
 
 \`\`\`java
-public static void changeValue(int num) {
-    num = 100;  // Only changes the copy
-}
+public class PrimitivePassByValueDemo {
+    public static void changeValue(int num) {
+        num = 100;
+        System.out.println("Inside method: " + num);
+    }
 
-int x = 5;
-changeValue(x);
-System.out.println(x);  // Still 5!
+    public static void main(String[] args) {
+        int x = 5;
+        changeValue(x);
+        System.out.println("Outside method: " + x);
+    }
+}
 \`\`\`
 
-**But with objects, the reference is copied:**
+**But with objects, the reference is copied:** this means the method receives a copied address to the same object, so changing array elements or object fields can affect the caller's data.
 
 \`\`\`java
-public static void changeArray(int[] arr) {
-    arr[0] = 100;  // Changes the actual array!
-}
+public class ArrayReferencePassDemo {
+    public static void changeArray(int[] arr) {
+        arr[0] = 100;
+    }
 
-int[] numbers = {1, 2, 3};
-changeArray(numbers);
-System.out.println(numbers[0]);  // Now 100!
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3};
+        changeArray(numbers);
+        System.out.println("First value: " + numbers[0]);
+    }
+}
 \`\`\`
 
 ---
 
 ## Best Practices
 
-1. **One task per method** — A method should do one thing well
-2. **Meaningful names** — \`calculateTax()\` not \`calc()\`
-3. **Keep methods short** — If it's too long, break it up
-4. **Limit parameters** — More than 3-4 is a code smell
-5. **Document complex methods** — Use comments or Javadoc
+1. **One task per method** — A method should do one business action well
+2. **Meaningful names** — \`calculateTax()\` or \`validatePassword()\`, not \`calc()\` or \`process()\`
+3. **Keep methods short** — If checkout logic mixes validation, discount, tax, and save logic, split it
+4. **Limit parameters** — More than 3-4 often means you need an object like \`Order\` or \`Employee\`
+5. **Document complex methods** — Use comments or Javadoc when rules involve tax, eligibility, security, or external systems
 
 ---
 
 ## Real-World Example
 
-Here's how methods work in a real application:
+Here's how methods work in a real application: one method calculates subtotal, one applies discount, one calculates tax, and one final method combines them into the checkout total.
 
 \`\`\`java
 public class ShoppingCart {
@@ -252,10 +318,25 @@ public class ShoppingCart {
         double taxAmount = calculateTax(afterDiscount, tax);
         return afterDiscount + taxAmount;
     }
+
+    public static void main(String[] args) {
+        double price = 499.0;
+        int quantity = 2;
+        double discountRate = 0.10;
+        double taxRate = 0.08;
+
+        double total = calculateTotal(price, quantity, discountRate, taxRate);
+
+        System.out.println("Price: " + price);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Discount rate: " + discountRate);
+        System.out.println("Tax rate: " + taxRate);
+        System.out.println("Final total: " + total);
+    }
 }
 \`\`\`
 
-Each method has a clear, single responsibility. The \`calculateTotal\` method orchestrates them all.
+Each method has a clear, single responsibility. The \`calculateTotal\` method orchestrates them all, just like a service method in a real application calls smaller helper methods to complete one user action.
 
 ---
 

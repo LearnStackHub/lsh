@@ -353,7 +353,7 @@ Create \`logback-spring.xml\`:
 **Explanation:**
 - STASH appender sends logs to Logstash (port 5000)
 - Encoder formats logs as JSON
-- Includes trace ID and span ID from MDC (Sleuth adds these)
+- Includes trace ID and span ID from MDC (Micrometer Tracing adds these in Spring Boot 3)
 
 ### Step 3: Logs Are Sent Automatically
 

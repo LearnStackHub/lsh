@@ -5,44 +5,57 @@ const switchStatement = {
   content: `
 # Switch Statement - Multi-Way Branching
 
-The switch statement is a control flow construct that enables multi-way branching based on the value of a single expression. Switch statements provide a cleaner, more readable alternative to long chains of if-else-if statements when dealing with discrete values. Switch statements are particularly efficient for handling multiple possible values of a variable, making code more maintainable and easier to understand.
+The switch statement is a control flow construct that enables multi-way branching based on the value of a single expression. In real applications, switch is useful for fixed choices such as payment method, order status, menu option, user role, ticket priority, or command type.
 
 Enterprise applications use switch statements extensively for routing logic, state machines, command processing, menu systems, and handling enumerated values. Modern Java (14+) introduced switch expressions that return values, making switch statements even more powerful and concise. Understanding switch statements is essential for writing efficient, readable conditional logic.
 
 ## Syntax
 
 \`\`\`java
-switch (expression) {
-    case value1:
-        // code
-        break;
-    case value2:
-        // code
-        break;
-    default:
-        // default code
+public class BasicSwitchDemo {
+    public static void main(String[] args) {
+        String ticketPriority = "HIGH";
+
+        switch (ticketPriority) {
+            case "LOW":
+                System.out.println("Resolve within 3 days");
+                break;
+            case "HIGH":
+                System.out.println("Resolve today");
+                break;
+            default:
+                System.out.println("Use normal support queue");
+        }
+    }
 }
 \`\`\`
 
 ## Switch Expression (Java 14+)
 
 \`\`\`java
-String result = switch (day) {
-    case 1, 2, 3, 4, 5 -> "Weekday";
-    case 6, 7 -> "Weekend";
-    default -> "Invalid";
-};
-\`\`\`
+public class SwitchExpressionDemo {
+    public static void main(String[] args) {
+        int day = 6;
 
-## 🏢 Real-Time Project Example: Payment Gateway Router
+        String result = switch (day) {
+            case 1, 2, 3, 4, 5 -> "Weekday";
+            case 6, 7 -> "Weekend";
+            default -> "Invalid";
+        };
+
+        System.out.println("Day type: " + result);
+    }
+}
+\`\`\`
+## Workplace Example: Payment Gateway Router
 
 \`\`\`java
-// Real-Time: Payment Processing System
+// Workplace: Payment Processing System
 // Used in Stripe, PayPal, Razorpay
 
 public class PaymentGateway {
     public static void main(String[] args) {
-        System.out.println("💳 Payment Gateway Router");
+        System.out.println("Payment Gateway Router");
         System.out.println("=========================");
         
         // Payment details
@@ -51,11 +64,11 @@ public class PaymentGateway {
         String currency = "USD";
         String cardNetwork = "VISA";
         
-        System.out.println("\\n📋 Transaction Details:");
+        System.out.println("\\nTransaction Details:");
         System.out.println("Amount: " + currency + " " + amount);
         System.out.println("Method: " + paymentMethod);
         
-        System.out.println("\\n🔄 Processing Payment...");
+        System.out.println("\\nProcessing Payment...");
         
         double processingFee = 0;
         String processor = "";
@@ -71,20 +84,20 @@ public class PaymentGateway {
                 switch (cardNetwork) {
                     case "VISA":
                         processor = "Visa Direct";
-                        System.out.println("   → Routing to Visa Direct");
+                        System.out.println("Routing to Visa Direct");
                         break;
                     case "MASTERCARD":
                         processor = "Mastercard Gateway";
-                        System.out.println("   → Routing to Mastercard Gateway");
+                        System.out.println("Routing to Mastercard Gateway");
                         break;
                     case "AMEX":
                         processor = "American Express";
                         processingFee = amount * 0.035 + 0.30; // Higher fee
-                        System.out.println("   → Routing to Amex (premium fee)");
+                        System.out.println("Routing to Amex (premium fee)");
                         break;
                     default:
                         processor = "Generic Card Processor";
-                        System.out.println("   → Routing to Generic Processor");
+                        System.out.println("Routing to Generic Processor");
                 }
                 status = "APPROVED";
                 break;
@@ -94,7 +107,7 @@ public class PaymentGateway {
                 processor = "Debit Network";
                 estimatedTime = 1;
                 status = "APPROVED";
-                System.out.println("   → Processing via Debit Network");
+                System.out.println("Processing via Debit Network");
                 break;
                 
             case "UPI":
@@ -102,7 +115,7 @@ public class PaymentGateway {
                 processor = "NPCI UPI";
                 estimatedTime = 1;
                 status = "APPROVED";
-                System.out.println("   → Processing via NPCI UPI");
+                System.out.println("Processing via NPCI UPI");
                 break;
                 
             case "NET_BANKING":
@@ -110,7 +123,7 @@ public class PaymentGateway {
                 processor = "Bank Gateway";
                 estimatedTime = 3;
                 status = "PENDING";
-                System.out.println("   → Redirecting to Bank Gateway");
+                System.out.println("Redirecting to Bank Gateway");
                 break;
                 
             case "WALLET":
@@ -118,7 +131,7 @@ public class PaymentGateway {
                 processor = "Digital Wallet";
                 estimatedTime = 1;
                 status = "APPROVED";
-                System.out.println("   → Processing via Digital Wallet");
+                System.out.println("Processing via Digital Wallet");
                 break;
                 
             case "CRYPTO":
@@ -126,7 +139,7 @@ public class PaymentGateway {
                 processor = "Crypto Gateway";
                 estimatedTime = 10;
                 status = "PENDING_CONFIRMATION";
-                System.out.println("   → Processing via Blockchain");
+                System.out.println("Processing via Blockchain");
                 break;
                 
             case "COD":
@@ -134,12 +147,12 @@ public class PaymentGateway {
                 processor = "Cash Collection";
                 estimatedTime = 0;
                 status = "PENDING_DELIVERY";
-                System.out.println("   → Cash on Delivery selected");
+                System.out.println("Cash on Delivery selected");
                 break;
                 
             default:
                 status = "FAILED";
-                System.out.println("   Invalid payment method!");
+                System.out.println("Invalid payment method!");
         }
         
         if (!status.equals("FAILED")) {
@@ -157,23 +170,22 @@ public class PaymentGateway {
     }
 }
 \`\`\`
-
-## 🛒 Real-Time Project Example: Order Status Tracker
+## Workplace Example: Order Status Tracker
 
 \`\`\`java
-// Real-Time: Order Tracking System
+// Workplace: Order Tracking System
 // Used in Amazon, FedEx, DHL tracking
 
 public class OrderTracker {
     public static void main(String[] args) {
-        System.out.println("📦 Order Tracking System");
+        System.out.println("Order Tracking System");
         System.out.println("========================");
         
         String orderId = "ORD-2024-78901";
         String currentStatus = "SHIPPED";
         
         System.out.println("\\nOrder ID: " + orderId);
-        System.out.println("\\n📍 Tracking Status:");
+        System.out.println("\\nTracking Status:");
         
         String statusMessage = "";
         String nextStep = "";
@@ -186,7 +198,7 @@ public class OrderTracker {
                 nextStep = "Waiting for seller confirmation";
                 progressPercent = 10;
                 estimatedDelivery = "5-7 business days";
-                System.out.println("   [●○○○○○○○○○] 10%");
+                System.out.println("  [] 10%");
                 break;
                 
             case "CONFIRMED":
@@ -194,7 +206,7 @@ public class OrderTracker {
                 nextStep = "Preparing for shipment";
                 progressPercent = 20;
                 estimatedDelivery = "4-6 business days";
-                System.out.println("   [●●○○○○○○○○] 20%");
+                System.out.println("  [] 20%");
                 break;
                 
             case "PROCESSING":
@@ -202,7 +214,7 @@ public class OrderTracker {
                 nextStep = "Packing items";
                 progressPercent = 30;
                 estimatedDelivery = "4-5 business days";
-                System.out.println("   [●●●○○○○○○○] 30%");
+                System.out.println("  [] 30%");
                 break;
                 
             case "PACKED":
@@ -210,7 +222,7 @@ public class OrderTracker {
                 nextStep = "Ready for pickup by courier";
                 progressPercent = 40;
                 estimatedDelivery = "3-4 business days";
-                System.out.println("   [●●●●○○○○○○] 40%");
+                System.out.println("  [] 40%");
                 break;
                 
             case "SHIPPED":
@@ -218,7 +230,7 @@ public class OrderTracker {
                 nextStep = "In transit to your city";
                 progressPercent = 60;
                 estimatedDelivery = "2-3 business days";
-                System.out.println("   [●●●●●●○○○○] 60%");
+                System.out.println("  [] 60%");
                 break;
                 
             case "IN_TRANSIT":
@@ -226,7 +238,7 @@ public class OrderTracker {
                 nextStep = "Arriving at local facility";
                 progressPercent = 70;
                 estimatedDelivery = "1-2 business days";
-                System.out.println("   [●●●●●●●○○○] 70%");
+                System.out.println("  [] 70%");
                 break;
                 
             case "OUT_FOR_DELIVERY":
@@ -234,7 +246,7 @@ public class OrderTracker {
                 nextStep = "Will be delivered today";
                 progressPercent = 90;
                 estimatedDelivery = "Today";
-                System.out.println("   [●●●●●●●●●○] 90%");
+                System.out.println("  [] 90%");
                 break;
                 
             case "DELIVERED":
@@ -242,7 +254,7 @@ public class OrderTracker {
                 nextStep = "Thank you for shopping!";
                 progressPercent = 100;
                 estimatedDelivery = "Completed";
-                System.out.println("   [●●●●●●●●●●] 100%");
+                System.out.println("  [] 100%");
                 break;
                 
             case "CANCELLED":
@@ -250,7 +262,7 @@ public class OrderTracker {
                 nextStep = "Refund will be processed";
                 progressPercent = 0;
                 estimatedDelivery = "N/A";
-                System.out.println("   [CANCELLED]");
+                System.out.println("  [CANCELLED]");
                 break;
                 
             case "RETURNED":
@@ -258,7 +270,7 @@ public class OrderTracker {
                 nextStep = "Pickup scheduled";
                 progressPercent = 0;
                 estimatedDelivery = "Refund in 5-7 days";
-                System.out.println("   [RETURN IN PROGRESS]");
+                System.out.println("  [RETURN IN PROGRESS]");
                 break;
                 
             default:
@@ -266,22 +278,21 @@ public class OrderTracker {
                 nextStep = "Contact support";
         }
         
-        System.out.println("\\n📋 Status: " + statusMessage);
-        System.out.println("📌 Next: " + nextStep);
-        System.out.println("📅 Estimated: " + estimatedDelivery);
+        System.out.println("\\nStatus: " + statusMessage);
+        System.out.println("Next: " + nextStep);
+        System.out.println("Estimated: " + estimatedDelivery);
     }
 }
 \`\`\`
-
-## 🎮 Real-Time Project Example: Game Menu System
+## Workplace Example: Game Menu System
 
 \`\`\`java
-// Real-Time: Game Menu Handler
+// Workplace: Game Menu Handler
 // Used in mobile and console games
 
 public class GameMenu {
     public static void main(String[] args) {
-        System.out.println("🎮 ADVENTURE QUEST - MAIN MENU");
+        System.out.println("ADVENTURE QUEST - MAIN MENU");
         System.out.println("==============================");
         
         int menuChoice = 2;
@@ -295,60 +306,60 @@ public class GameMenu {
         
         switch (menuChoice) {
             case 1:
-                System.out.println("\\n⚔️ STARTING NEW GAME...");
-                System.out.println("   Creating character...");
-                System.out.println("   Loading world...");
-                System.out.println("   Ready to play!");
+                System.out.println("\\nSTARTING NEW GAME...");
+                System.out.println("Creating character...");
+                System.out.println("Loading world...");
+                System.out.println("Ready to play!");
                 break;
                 
             case 2:
-                System.out.println("\\n📂 LOADING SAVED GAME...");
-                System.out.println("   Save file found!");
-                System.out.println("   Progress: Chapter 5");
-                System.out.println("   Last played: 2 days ago");
-                System.out.println("   Resuming adventure...");
+                System.out.println("\\nLOADING SAVED GAME...");
+                System.out.println("Save file found!");
+                System.out.println("Progress: Chapter 5");
+                System.out.println("Last played: 2 days ago");
+                System.out.println("Resuming adventure...");
                 break;
                 
             case 3:
-                System.out.println("\\n⚙️ SETTINGS");
-                System.out.println("   1. Graphics: High");
-                System.out.println("   2. Sound: ON");
-                System.out.println("   3. Controls: Default");
-                System.out.println("   4. Language: English");
+                System.out.println("\\nSETTINGS");
+                System.out.println("  1. Graphics: High");
+                System.out.println("  2. Sound: ON");
+                System.out.println("  3. Controls: Default");
+                System.out.println("  4. Language: English");
                 break;
                 
             case 4:
-                System.out.println("\\n🏪 ITEM SHOP");
-                System.out.println("   Your Gold: " + gold);
-                System.out.println("   ─────────────────");
-                System.out.println("   1. Health Potion - 100g");
-                System.out.println("   2. Magic Sword - 5000g");
-                System.out.println("   3. Shield - 3000g");
+                System.out.println("\\nITEM SHOP");
+                System.out.println("Your Gold: " + gold);
+                System.out.println("  ");
+                System.out.println("  1. Health Potion - 100g");
+                System.out.println("  2. Magic Sword - 5000g");
+                System.out.println("  3. Shield - 3000g");
                 break;
                 
             case 5:
-                System.out.println("\\n🏆 ACHIEVEMENTS");
-                System.out.println("   Unlocked: 25/50");
-                System.out.println("   First Victory");
-                System.out.println("   Dragon Slayer");
-                System.out.println("   ○ Complete All Quests");
+                System.out.println("\\nACHIEVEMENTS");
+                System.out.println("Unlocked: 25/50");
+                System.out.println("First Victory");
+                System.out.println("Dragon Slayer");
+                System.out.println("Complete All Quests");
                 break;
                 
             case 6:
-                System.out.println("\\n👋 EXITING GAME...");
-                System.out.println("   Saving progress...");
-                System.out.println("   See you next time!");
+                System.out.println("\\nEXITING GAME...");
+                System.out.println("Saving progress...");
+                System.out.println("See you next time!");
                 break;
                 
             default:
                 System.out.println("\\nInvalid option!");
-                System.out.println("   Please select 1-6");
+                System.out.println("Please select 1-6");
         }
     }
 }
 \`\`\`
 
-> **Industry Insight**: Switch statements are heavily used in state machines, menu systems, and protocol handlers. Netflix uses switch-based routing for their streaming quality selection based on network conditions.
+> **Teacher Note**: Switch statements are heavily used in state machines, menu systems, and protocol handlers. Netflix uses switch-based routing for their streaming quality selection based on network conditions.
 
 ---
 
@@ -356,34 +367,34 @@ public class GameMenu {
 
 ### 1. What types can switch use (classic vs modern Java)?
 **Answer:** Historically integral types, enums, strings (Java 7+); pattern matching for types and sealed hierarchies evolves in newer versions.
-Know your team’s JDK for which switch features are allowed.
+Know your teams JDK for which switch features are allowed.
 
 ### 2. Why is \`break\` important in switch cases?
-**Answer:** Without \`break\`, execution falls through to the next case—sometimes intentional, often a bug.
+**Answer:** Without \`break\`, execution falls through to the next casesometimes intentional, often a bug.
 Use comments when fall-through is deliberate.
 
 ### 3. What does \`default\` do?
-**Answer:** Catches values not matched by cases—good for defensive handling or “impossible” states that log errors.
+**Answer:** Catches values not matched by casesgood for defensive handling or impossible states that log errors.
 Some style guides require \`default\` even if empty.
 
 ### 4. How does switch on \`String\` work at compile time?
-**Answer:** Compiler translates to hash-based dispatch with equals checks—roughly similar to if-else chain but cleaner.
+**Answer:** Compiler translates to hash-based dispatch with equals checksroughly similar to if-else chain but cleaner.
 Null \`String\` throws \`NullPointerException\` before matching.
 
 ### 5. What is exhaustive switch with enums or sealed types?
-**Answer:** Compiler can require all variants covered—reduces missing cases when new enum values appear.
+**Answer:** Compiler can require all variants coveredreduces missing cases when new enum values appear.
 Team process must update switches when enums grow.
 
-### 6. Scenario: routing HTTP methods or event types—why prefer switch?
+### 6. Scenario: routing HTTP methods or event typeswhy prefer switch?
 **Answer:** Clear mapping from discrete constants to handlers; pairs well with enums.
 Avoid giant switches that should be polymorphic handlers.
 
 ### 7. When is polymorphism better than switch?
-**Answer:** When many cases share structure or new types are added frequently—Open/Closed principle.
+**Answer:** When many cases share structure or new types are added frequentlyOpen/Closed principle.
 Switch suits stable, finite sets.
 
 ### 8. What is the arrow syntax (\`case X ->\`) in modern switch?
-**Answer:** No fall-through by default; can yield values as expressions—reduces boilerplate.
+**Answer:** No fall-through by default; can yield values as expressionsreduces boilerplate.
 Improves readability for multi-case logic.
 
 ### 9. Can you declare variables in case blocks?
@@ -395,12 +406,12 @@ Arrow syntax often avoids brace noise.
 Validate inputs at system boundaries.
 
 `,
-  code: `// Real-Time: Complete Payment Gateway System
+  code: `// Workplace: Complete Payment Gateway System
 // Production-grade payment routing
 
 public class PaymentGateway {
     public static void main(String[] args) {
-        System.out.println("💳 PAYMENT GATEWAY SYSTEM");
+        System.out.println("PAYMENT GATEWAY SYSTEM");
         System.out.println("=========================");
         
         // Transaction Details
@@ -416,8 +427,8 @@ public class PaymentGateway {
         boolean isVerified = true;
         String riskLevel = "LOW"; // LOW, MEDIUM, HIGH
         
-        System.out.println("\\n📋 TRANSACTION DETAILS");
-        System.out.println("──────────────────────");
+        System.out.println("\\nTRANSACTION DETAILS");
+        System.out.println("");
         System.out.println("Transaction ID: " + transactionId);
         System.out.println("Customer: " + customerId);
         System.out.println("Amount: " + currency + " " + String.format("%,.2f", amount));
@@ -432,13 +443,13 @@ public class PaymentGateway {
         int settlementDays = 0;
         boolean requiresVerification = false;
         
-        System.out.println("\\n🔄 ROUTING PAYMENT...");
-        System.out.println("────────────────────");
+        System.out.println("\\nROUTING PAYMENT...");
+        System.out.println("");
         
         // Main payment method switch
         switch (paymentMethod) {
             case "CREDIT_CARD":
-                System.out.println("→ Credit Card Payment");
+                System.out.println("Credit Card Payment");
                 
                 // Card network routing
                 switch (cardNetwork) {
@@ -446,46 +457,46 @@ public class PaymentGateway {
                         processor = "Visa Direct API";
                         processingFee = amount * 0.029 + 0.30;
                         settlementDays = 2;
-                        System.out.println("  → Network: Visa");
-                        System.out.println("  → Processor: " + processor);
+                        System.out.println("Network: Visa");
+                        System.out.println("Processor: " + processor);
                         break;
                         
                     case "MASTERCARD":
                         processor = "Mastercard Gateway";
                         processingFee = amount * 0.029 + 0.30;
                         settlementDays = 2;
-                        System.out.println("  → Network: Mastercard");
-                        System.out.println("  → Processor: " + processor);
+                        System.out.println("Network: Mastercard");
+                        System.out.println("Processor: " + processor);
                         break;
                         
                     case "AMEX":
                         processor = "American Express";
                         processingFee = amount * 0.035 + 0.30;
                         settlementDays = 3;
-                        System.out.println("  → Network: Amex (Premium)");
-                        System.out.println("  → Processor: " + processor);
+                        System.out.println("Network: Amex (Premium)");
+                        System.out.println("Processor: " + processor);
                         break;
                         
                     case "DISCOVER":
                         processor = "Discover Network";
                         processingFee = amount * 0.029 + 0.30;
                         settlementDays = 2;
-                        System.out.println("  → Network: Discover");
-                        System.out.println("  → Processor: " + processor);
+                        System.out.println("Network: Discover");
+                        System.out.println("Processor: " + processor);
                         break;
                         
                     default:
                         processor = "Generic Card Processor";
                         processingFee = amount * 0.032 + 0.35;
                         settlementDays = 3;
-                        System.out.println("  → Network: Unknown");
-                        System.out.println("  → Processor: " + processor);
+                        System.out.println("Network: Unknown");
+                        System.out.println("Processor: " + processor);
                 }
                 
                 // 3D Secure check based on amount
                 if (amount > 1000) {
                     requiresVerification = true;
-                    System.out.println("  → 3D Secure: Required");
+                    System.out.println("  3D Secure: Required");
                 }
                 
                 status = "APPROVED";
@@ -498,9 +509,9 @@ public class PaymentGateway {
                 settlementDays = 1;
                 status = "APPROVED";
                 statusCode = "00";
-                System.out.println("→ Debit Card Payment");
-                System.out.println("  → Processor: " + processor);
-                System.out.println("  → PIN Verification: Required");
+                System.out.println("Debit Card Payment");
+                System.out.println("Processor: " + processor);
+                System.out.println("PIN Verification: Required");
                 break;
                 
             case "UPI":
@@ -510,9 +521,9 @@ public class PaymentGateway {
                 settlementDays = 0; // Instant
                 status = "APPROVED";
                 statusCode = "00";
-                System.out.println("→ UPI Payment");
-                System.out.println("  → Processor: " + processor);
-                System.out.println("  → Settlement: Instant");
+                System.out.println("UPI Payment");
+                System.out.println("Processor: " + processor);
+                System.out.println("Settlement: Instant");
                 break;
                 
             case "NET_BANKING":
@@ -521,9 +532,9 @@ public class PaymentGateway {
                 settlementDays = 2;
                 status = "PENDING";
                 statusCode = "09";
-                System.out.println("→ Net Banking Payment");
-                System.out.println("  → Processor: " + processor);
-                System.out.println("  → Redirect: Bank Portal");
+                System.out.println("Net Banking Payment");
+                System.out.println("Processor: " + processor);
+                System.out.println("Redirect: Bank Portal");
                 break;
                 
             case "WALLET":
@@ -532,8 +543,8 @@ public class PaymentGateway {
                 settlementDays = 1;
                 status = "APPROVED";
                 statusCode = "00";
-                System.out.println("→ Wallet Payment");
-                System.out.println("  → Processor: " + processor);
+                System.out.println("Wallet Payment");
+                System.out.println("Processor: " + processor);
                 break;
                 
             case "BNPL": // Buy Now Pay Later
@@ -542,9 +553,9 @@ public class PaymentGateway {
                 settlementDays = 1;
                 status = "APPROVED";
                 statusCode = "00";
-                System.out.println("→ Buy Now Pay Later");
-                System.out.println("  → Processor: " + processor);
-                System.out.println("  → Installments: 3 months");
+                System.out.println("Buy Now Pay Later");
+                System.out.println("Processor: " + processor);
+                System.out.println("Installments: 3 months");
                 break;
                 
             case "CRYPTO":
@@ -553,9 +564,9 @@ public class PaymentGateway {
                 settlementDays = 0;
                 status = "PENDING_CONFIRMATION";
                 statusCode = "P1";
-                System.out.println("→ Cryptocurrency Payment");
-                System.out.println("  → Processor: " + processor);
-                System.out.println("  → Confirmations: Waiting...");
+                System.out.println("Cryptocurrency Payment");
+                System.out.println("Processor: " + processor);
+                System.out.println("Confirmations: Waiting...");
                 break;
                 
             case "BANK_TRANSFER":
@@ -564,19 +575,19 @@ public class PaymentGateway {
                 settlementDays = 3;
                 status = "PENDING";
                 statusCode = "09";
-                System.out.println("→ Bank Transfer");
-                System.out.println("  → Processor: " + processor);
+                System.out.println("Bank Transfer");
+                System.out.println("Processor: " + processor);
                 break;
                 
             default:
                 status = "FAILED";
                 statusCode = "14";
-                System.out.println("→ Invalid Payment Method!");
+                System.out.println("Invalid Payment Method!");
         }
         
         // Risk assessment
-        System.out.println("\\n🔒 RISK ASSESSMENT");
-        System.out.println("──────────────────");
+        System.out.println("\\nRISK ASSESSMENT");
+        System.out.println("");
         
         switch (riskLevel) {
             case "LOW":
@@ -584,12 +595,12 @@ public class PaymentGateway {
                 System.out.println("Action: Auto-approve");
                 break;
             case "MEDIUM":
-                System.out.println("Risk Level: MEDIUM ⚠️");
+                System.out.println("Risk Level: MEDIUM ");
                 System.out.println("Action: Additional verification");
                 requiresVerification = true;
                 break;
             case "HIGH":
-                System.out.println("Risk Level: HIGH 🚨");
+                System.out.println("Risk Level: HIGH ");
                 System.out.println("Action: Manual review required");
                 status = "UNDER_REVIEW";
                 statusCode = "R1";
@@ -603,24 +614,24 @@ public class PaymentGateway {
         double netAmount = amount - totalFees;
         
         // Transaction Result
-        System.out.println("\\n" + "═".repeat(40));
-        System.out.println("📊 TRANSACTION RESULT");
-        System.out.println("═".repeat(40));
+        System.out.println("\\n" + "=".repeat(40));
+        System.out.println("TRANSACTION RESULT");
+        System.out.println("=".repeat(40));
         System.out.println("Status: " + status + " (" + statusCode + ")");
         System.out.println("Processor: " + processor);
-        System.out.println("\\n💰 FINANCIAL SUMMARY");
-        System.out.println("────────────────────");
+        System.out.println("\\nFINANCIAL SUMMARY");
+        System.out.println("");
         System.out.println("Gross Amount:    $" + String.format("%,.2f", amount));
         System.out.println("Processing Fee:  $" + String.format("%,.2f", processingFee));
         if (platformFee > 0) {
             System.out.println("Platform Fee:    $" + String.format("%,.2f", platformFee));
         }
-        System.out.println("────────────────────");
+        System.out.println("");
         System.out.println("Net Amount:      $" + String.format("%,.2f", netAmount));
-        System.out.println("\\n📅 Settlement: " + settlementDays + " business day(s)");
+        System.out.println("\\nSettlement: " + settlementDays + " business day(s)");
         
         if (requiresVerification) {
-            System.out.println("\\n⚠️ Additional verification required");
+            System.out.println("\\nAdditional verification required");
         }
     }
 }`,

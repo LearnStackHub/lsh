@@ -103,7 +103,7 @@ Create a new Spring Boot project. In your pom.xml, add these dependencies:
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
-            <version>2022.0.0</version>
+            <version>2025.0.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

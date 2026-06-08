@@ -583,10 +583,10 @@ export const allQuestions = [
   },
   {
     id: 82,
-    question: "What is Spring Cloud Sleuth?",
-    options: ["A database", "Distributed tracing solution for Spring Cloud (now part of Micrometer)", "A service", "A framework"],
+    question: "What is Micrometer Tracing in Spring Boot microservices?",
+    options: ["A database", "Distributed tracing facade used by Spring Boot for trace/span propagation", "A service registry", "A template engine"],
     correctAnswer: 1,
-    explanation: "Spring Cloud Sleuth provides distributed tracing for Spring Cloud applications (now integrated with Micrometer)."
+    explanation: "Micrometer Tracing is the modern Spring Boot tracing layer used after Sleuth moved into the Micrometer ecosystem."
   },
   {
     id: 83,

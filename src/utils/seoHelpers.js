@@ -127,6 +127,27 @@ export const generateSEOTitle = (topic) => {
 'Java 8 Interview Questions and Coding':
 'Java 8 Interview Questions with Coding Problems',
 
+'Microservices Introduction for Freshers':
+'Microservices Introduction for Freshers',
+
+'Microservices Architecture Design':
+'Microservices Architecture Design with Examples',
+
+'Microservices Communication Patterns':
+'Microservices Communication Patterns Tutorial',
+
+'Microservices Data Management':
+'Microservices Data Management and Saga Pattern',
+
+'Microservices Resilience and Observability':
+'Microservices Resilience and Observability',
+
+'Microservices Security and Deployment':
+'Microservices Security and Deployment Tutorial',
+
+'Microservices Realtime Project':
+'Microservices Realtime Project with Spring Boot',
+
    'Core Java Introduction for Freshers':
 'Core Java Introduction for Freshers | JVM JDK JRE',
 
@@ -594,8 +615,8 @@ export const generateSEOTitle = (topic) => {
 'Spring Cloud & Microservices Architecture':
 'Understanding Spring Cloud and Microservices Architecture',
 
-'Spring Cloud Microservices Project Setup':
-'Build a Complete Microservices Project Using Spring Cloud',
+'Spring Cloud Microservices Full Project':
+'Spring Cloud Microservices Full Project with Code',
 
 'Microservices Architecture Fundamentals':
 'Microservices Architecture Explained with Real-World Concepts',
@@ -618,8 +639,8 @@ export const generateSEOTitle = (topic) => {
 'Fault Tolerance with Resilience4j':
 'Implement Circuit Breaker and Retry Logic with Resilience4j',
 
-'Distributed Tracing with Sleuth and Zipkin':
-'Track Requests Across Microservices Using Sleuth and Zipkin',
+'Distributed Tracing with Micrometer and Zipkin':
+'Distributed Tracing with Micrometer and Zipkin',
 
 'Security in Microservices - JWT and OAuth2':
 'Secure Microservices with JWT Authentication and OAuth2',

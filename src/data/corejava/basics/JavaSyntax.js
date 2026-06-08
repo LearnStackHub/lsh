@@ -5,7 +5,7 @@ const javaSyntax = {
   content: `
 # Java Syntax — The Grammar of Java
 
-Every language has grammar rules. English has subjects, verbs, and punctuation. Java has its own rules too. Understanding Java syntax is like learning the alphabet before writing sentences.
+Every language has grammar rules. English has subjects, verbs, and punctuation. Java has its own rules too. Understanding Java syntax is like learning the alphabet before writing sentences, and in real projects it helps you read controllers, services, entity classes, and utility code without guessing.
 
 Let's break down how Java code is structured.
 
@@ -21,13 +21,15 @@ public class HelloWorld {
 }
 \`\`\`
 
-This simple program has a lot going on. Let's dissect it:
+This simple program has a lot going on. Let's dissect it so you understand the structure that every real Java application starts from.
 
 ### The Class Declaration
 
 \`\`\`java
 public class HelloWorld {
-    // code goes here
+    public static void main(String[] args) {
+        System.out.println("This code belongs to the HelloWorld class");
+    }
 }
 \`\`\`
 
@@ -41,8 +43,10 @@ public class HelloWorld {
 ### The Main Method
 
 \`\`\`java
-public static void main(String[] args) {
-    // code goes here
+public class MainMethodDemo {
+    public static void main(String[] args) {
+        System.out.println("Java starts running from the main method");
+    }
 }
 \`\`\`
 
@@ -59,7 +63,11 @@ This is the entry point — where your program starts running.
 ### The Print Statement
 
 \`\`\`java
-System.out.println("Hello, World!");
+public class PrintStatementDemo {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
 \`\`\`
 
 - **System** — A built-in class
@@ -74,42 +82,61 @@ System.out.println("Hello, World!");
 
 ### 1. Statements End with Semicolons
 
-Every statement must end with \`;\`
+Every statement must end with \`;\`. In real code, one missing semicolon can stop the whole project from compiling, even if the business logic is correct.
 
 \`\`\`java
-int x = 5;
-System.out.println(x);
-String name = " Dattu";
+public class SemicolonDemo {
+    public static void main(String[] args) {
+        int x = 5;
+        String name = "Dattu";
+
+        System.out.println(x);
+        System.out.println(name);
+    }
+}
 \`\`\`
 
 **Common mistake:** Forgetting the semicolon!
 
 ### 2. Code Blocks Use Curly Braces
 
+Curly braces define the exact area controlled by a class, method, loop, or condition. In real work, misplaced braces can put validation, payment, or permission code in the wrong block.
+
 \`\`\`java
-if (condition) {
-    // code block
-}
+public class CodeBlockDemo {
+    public static void main(String[] args) {
+        boolean isLoggedIn = true;
 
-for (int i = 0; i < 10; i++) {
-    // code block
-}
+        if (isLoggedIn) {
+            System.out.println("User can open dashboard");
+        }
 
-public void myMethod() {
-    // code block
+        for (int i = 1; i <= 3; i++) {
+            System.out.println("Notification " + i);
+        }
+    }
 }
 \`\`\`
 
 ### 3. Java is Case-Sensitive
 
-\`\`\`java
-String name = " Dattu";
-String Name = "Jane";  // Different variable!
-String NAME = "Bob";   // Also different!
+Case sensitivity matters when calling library classes and project methods. \`System\`, \`String\`, \`getUserById\`, and \`getUserByID\` are treated differently.
 
-// System vs system
-System.out.println("Hi");  // Correct
-system.out.println("Hi");  // ERROR!
+\`\`\`java
+public class CaseSensitiveDemo {
+    public static void main(String[] args) {
+        String name = "Dattu";
+        String Name = "Ravi";  // Different variable
+        String NAME = "Amit";  // Also different
+
+        System.out.println(name);
+        System.out.println(Name);
+        System.out.println(NAME);
+
+        System.out.println("Correct: System starts with capital S");
+        // system.out.println("Wrong"); // Error: cannot find symbol system
+    }
+}
 \`\`\`
 
 ### 4. Whitespace is Ignored (Mostly)
@@ -117,10 +144,15 @@ system.out.println("Hi");  // ERROR!
 Java doesn't care about extra spaces or blank lines:
 
 \`\`\`java
-// These are identical to Java:
-int x=5;
-int x = 5;
-int x    =    5;
+public class WhitespaceDemo {
+    public static void main(String[] args) {
+        int firstNumber=5;
+        int secondNumber = 5;
+        int thirdNumber    =    5;
+
+        System.out.println(firstNumber + secondNumber + thirdNumber);
+    }
+}
 \`\`\`
 
 But use whitespace for readability!
@@ -129,65 +161,126 @@ But use whitespace for readability!
 
 ## Naming Conventions
 
-Java has strong conventions (not rules, but everyone follows them):
+Java has strong conventions (not rules, but everyone follows them). These conventions make large projects readable when many developers work on controllers, services, repositories, DTOs, and tests.
 
 ### Classes — PascalCase
 \`\`\`java
-public class MyClass { }
-public class BankAccount { }
-public class HttpRequest { }
+public class NamingConventionDemo {
+    static class BankAccount {
+        String accountHolder = "Dattu";
+    }
+
+    static class HttpRequest {
+        String method = "GET";
+    }
+
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount();
+        HttpRequest request = new HttpRequest();
+
+        System.out.println(account.accountHolder);
+        System.out.println(request.method);
+    }
+}
 \`\`\`
 
 ### Methods & Variables — camelCase
 \`\`\`java
-int myVariable;
-String firstName;
-void calculateTotal() { }
-boolean isValid() { }
+public class CamelCaseDemo {
+    static int calculateTotal(int price, int quantity) {
+        return price * quantity;
+    }
+
+    static boolean isValid(int total) {
+        return total > 0;
+    }
+
+    public static void main(String[] args) {
+        String firstName = "Dattu";
+        int myVariable = calculateTotal(250, 2);
+
+        System.out.println(firstName + " total: " + myVariable);
+        System.out.println("Valid bill: " + isValid(myVariable));
+    }
+}
 \`\`\`
 
 ### Constants — UPPER_SNAKE_CASE
 \`\`\`java
-final int MAX_SIZE = 100;
-final double PI = 3.14159;
-final String DATABASE_URL = "localhost";
+public class ConstantNamingDemo {
+    public static void main(String[] args) {
+        final int MAX_SIZE = 100;
+        final double PI = 3.14159;
+        final String DATABASE_URL = "localhost";
+
+        System.out.println("Max size: " + MAX_SIZE);
+        System.out.println("PI: " + PI);
+        System.out.println("Database: " + DATABASE_URL);
+    }
+}
 \`\`\`
 
 ### Packages — lowercase
 \`\`\`java
-package com.mycompany.myapp;
-package java.util;
+package com.learnstackhub.syntax;
+
+public class PackageNameDemo {
+    public static void main(String[] args) {
+        System.out.println("This class belongs to com.learnstackhub.syntax");
+    }
+}
 \`\`\`
 
 ---
 
 ## Comments
 
-Comments are notes for humans — Java ignores them.
+Comments are notes for humans — Java ignores them. Use comments to explain business rules, tricky validations, external API behavior, or why a workaround exists; do not comment obvious lines.
 
 ### Single-Line Comments
 \`\`\`java
-// This is a single-line comment
-int x = 5;  // Comment at end of line
+public class SingleLineCommentDemo {
+    public static void main(String[] args) {
+        // Store the number of login attempts allowed
+        int maxAttempts = 3;
+
+        System.out.println("Max attempts: " + maxAttempts); // Print result
+    }
+}
 \`\`\`
 
 ### Multi-Line Comments
 \`\`\`java
-/* This is a
-   multi-line comment
-   spanning several lines */
+public class MultiLineCommentDemo {
+    public static void main(String[] args) {
+        /*
+         This calculation is simple now.
+         In a real billing app, tax and discount rules may come from database.
+        */
+        int price = 1000;
+        int discount = 100;
+
+        System.out.println("Final price: " + (price - discount));
+    }
+}
 \`\`\`
 
 ### Documentation Comments (Javadoc)
 \`\`\`java
-/**
- * Calculates the sum of two numbers.
- * @param a First number
- * @param b Second number
- * @return The sum of a and b
- */
-public int add(int a, int b) {
-    return a + b;
+public class JavadocCommentDemo {
+    /**
+     * Calculates the sum of two numbers.
+     * @param a first number
+     * @param b second number
+     * @return sum of a and b
+     */
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Sum: " + add(10, 20));
+    }
 }
 \`\`\`
 
@@ -195,25 +288,25 @@ public int add(int a, int b) {
 
 ## Code Structure
 
-A typical Java file structure:
+A typical Java file structure. This same order appears in real files: package first, imports next, class name, fields, constructors, methods, and sometimes a \`main\` method for testing.
 
 \`\`\`java
 // 1. Package declaration (optional)
-package com.mycompany.myapp;
+package com.learnstackhub.syntax;
 
 // 2. Import statements
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // 3. Class declaration
-public class MyClass {
+public class JavaFileStructureDemo {
     
     // 4. Instance variables
     private String name;
     private int age;
     
     // 5. Constructor
-    public MyClass(String name, int age) {
+    public JavaFileStructureDemo(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -225,7 +318,7 @@ public class MyClass {
     
     // 7. Main method (entry point)
     public static void main(String[] args) {
-        MyClass obj = new MyClass(" Dattu", 25);
+        JavaFileStructureDemo obj = new JavaFileStructureDemo("Dattu", 25);
         obj.display();
     }
 }
@@ -237,37 +330,69 @@ public class MyClass {
 
 ### Missing Semicolon
 \`\`\`java
-int x = 5  // ERROR: ';' expected
+public class MissingSemicolonError {
+    public static void main(String[] args) {
+        // int x = 5  // Error: ';' expected
+
+        int x = 5;
+        System.out.println("Correct value: " + x);
+    }
+}
 \`\`\`
 
 ### Mismatched Braces
 \`\`\`java
-if (true) {
-    System.out.println("Hi");
-// ERROR: Missing closing brace
+public class MismatchedBracesError {
+    public static void main(String[] args) {
+        if (true) {
+            System.out.println("Hi");
+        } // Correct: block is closed properly
+    }
+}
 \`\`\`
 
 ### Wrong Case
 \`\`\`java
-system.out.println("Hi");  // ERROR: 'system' should be 'System'
+public class WrongCaseError {
+    public static void main(String[] args) {
+        // system.out.println("Hi"); // Error: 'system' should be 'System'
+
+        System.out.println("Hi");
+    }
+}
 \`\`\`
 
 ### String with Single Quotes
 \`\`\`java
-String name = ' Dattu';  // ERROR: Use double quotes for strings
-char letter = "A";     // ERROR: Use single quotes for char
+public class QuoteUsageError {
+    public static void main(String[] args) {
+        // String name = 'Dattu'; // Error: use double quotes for String
+        // char letter = "A";     // Error: use single quotes for char
+
+        String name = "Dattu";
+        char letter = 'A';
+
+        System.out.println(name + " grade: " + letter);
+    }
+}
 \`\`\`
 
 ---
 
 ## Print Statements
 
-Different ways to output:
+Different ways to output. In beginner programs this means console printing; in real apps the same idea becomes logs, debug messages, formatted reports, and command-line tool output.
 
 \`\`\`java
-System.out.println("Hello");  // Prints and adds new line
-System.out.print("Hello");    // Prints without new line
-System.out.printf("Age: %d", 25);  // Formatted output
+public class PrintMethodsDemo {
+    public static void main(String[] args) {
+        System.out.println("Hello");          // Prints and adds new line
+        System.out.print("Java ");            // Prints without new line
+        System.out.print("Learner");
+        System.out.println();
+        System.out.printf("Age: %d%n", 25);   // Formatted output
+    }
+}
 \`\`\`
 
 **printf format specifiers:**
@@ -278,12 +403,15 @@ System.out.printf("Age: %d", 25);  // Formatted output
 - \`%.2f\` — Float with 2 decimal places
 
 \`\`\`java
-String name = " Dattu";
-int age = 25;
-double salary = 50000.50;
+public class FormattedOutputDemo {
+    public static void main(String[] args) {
+        String name = "Dattu";
+        int age = 25;
+        double salary = 50000.50;
 
-System.out.printf("Name: %s, Age: %d, Salary: $%.2f%n", name, age, salary);
-// Output: Name:  Dattu, Age: 25, Salary: $50000.50
+        System.out.printf("Name: %s, Age: %d, Salary: $%.2f%n", name, age, salary);
+    }
+}
 \`\`\`
 
 ---

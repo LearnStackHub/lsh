@@ -19,6 +19,7 @@ import {
   Calendar
 } from 'lucide-react';
 import { getTopicById, getNavigation, getAllTopics } from '../data';
+import forLoopSource from '../data/corejava/controlflow/ForLoop';
 import { executeWithPiston } from '../services/codeExecutor';
 import { useContributions } from '../context/ContributionContext';
 import ContributorBadge from '../components/ContributorBadge';
@@ -140,7 +141,7 @@ import { HTTP_SHOWCASE_TOPIC_IDS, HttpShowcaseRouter } from '../components/http/
 import { MYSQL_SHOWCASE_TOPIC_IDS, MySQLShowcaseRouter } from '../components/mysql/showcases';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
-import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId, java8SlugToTopicId } from '../utils/topicRoutes';
+import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId, java8SlugToTopicId, microservicesSlugToTopicId } from '../utils/topicRoutes';
 
 SyntaxHighlighter.registerLanguage('java', java);
 
@@ -185,7 +186,9 @@ function Tutorial() {
       ? dockerSlugToTopicId(topicSlug)
       : location.pathname.startsWith('/java8/')
         ? java8SlugToTopicId(topicSlug)
-        : kafkaSlugToTopicId(topicSlug)
+        : location.pathname.startsWith('/microservices/')
+          ? microservicesSlugToTopicId(topicSlug)
+          : kafkaSlugToTopicId(topicSlug)
   );
   const [copiedBlockId, setCopiedBlockId] = useState(null);
   const [editorCode, setEditorCode] = useState('');
@@ -196,22 +199,35 @@ function Tutorial() {
   // Get current topic data - check user contributions first
   const contribution = getContribution(resolvedTopicId);
   const originalTopic = getTopicById(resolvedTopicId);
+  const originalContent = topicContentToString(originalTopic?.content);
+  const contributionContent = topicContentToString(contribution?.content);
+  const hasUsableContributionContent = contributionContent.trim().length > 200;
+  const contributionCode = typeof contribution?.code === 'string' ? contribution.code : '';
   
   // Use contribution data if available, otherwise use original topic
-  const currentTopic = contribution
+  const contributionTopic = contribution
     ? {
         ...originalTopic,
         ...contribution,
         title: contribution.title || originalTopic?.title,
-        content:
-          typeof contribution.content === 'string'
-            ? contribution.content
-            : typeof originalTopic?.content === 'string'
-              ? originalTopic.content
-              : topicContentToString(originalTopic?.content),
-        code: contribution.code || originalTopic?.code
+        content: hasUsableContributionContent ? contributionContent : originalContent,
+        code: contributionCode.trim() ? contributionCode : originalTopic?.code
       }
     : originalTopic;
+  const currentTopic =
+    resolvedTopicId === 'for-loop'
+      ? {
+          ...contributionTopic,
+          ...forLoopSource,
+          courseKey: contributionTopic?.courseKey,
+          sectionKey: contributionTopic?.sectionKey,
+          courseTitle: contributionTopic?.courseTitle,
+          sectionTitle: contributionTopic?.sectionTitle
+        }
+      : contributionTopic;
+  const articleContent = topicContentToString(
+    resolvedTopicId === 'for-loop' ? forLoopSource.content : currentTopic?.content
+  );
 
   const isMysqlTopic = resolvedTopicId?.startsWith('mysql-');
   const isServletTopic = resolvedTopicId?.startsWith('servlet-') || resolvedTopicId === 'http-request-response' || resolvedTopicId === 'session-management' || resolvedTopicId === 'filters-listeners' || resolvedTopicId === 'tomcat-server';
@@ -261,7 +277,7 @@ function Tutorial() {
     return Math.max(3, Math.ceil(words / 220));
   };
 
-  const estimatedReadTime = getEstimatedReadTime(currentTopic?.content);
+  const estimatedReadTime = getEstimatedReadTime(articleContent);
   const lastUpdatedRaw = contribution?.editedBy?.date
     || contribution?.contributedBy?.date
     || currentTopic?.lastUpdated
@@ -959,18 +975,18 @@ function Tutorial() {
         {isCoreJavaTopic && (
           <div className="jdbc-interview-notice" role="note">
             <strong>Interview prep on this page:</strong> each Core Java lesson includes{' '}
-            <strong>10 important interview questions with full answers</strong> in the article below. Interactive code showcases appear first; the full lesson text (including Q&amp;A) follows. Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
+            <strong>10 important interview questions with full answers</strong> in the article below. Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
           </div>
         )}
         {isCoreJavaTopic ? (
           <>
             {tutorialInteractiveShowcases}
-            {renderContent(currentTopic.content)}
+            {renderContent(articleContent)}
           </>
         ) : (
           <>
             {tutorialInteractiveShowcases}
-            {renderContent(currentTopic.content)}
+            {renderContent(articleContent)}
           </>
         )}
         

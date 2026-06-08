@@ -5,27 +5,42 @@ const javaVariables = {
   content: `
 # Variables — Storing Data in Java
 
-Every program needs to store data. A user's name, their age, a product price, a login status — all of this needs to live somewhere while your program runs. That's what variables are for.
+Every program needs to store data. A user's name, their age, a product price, a login status, a failed-login count, a cart total, or a database id all need to live somewhere while your program runs. That's what variables are for.
 
-A **variable** is simply a named container that holds a value. You give it a name, tell Java what type of data it will hold, and then you can use it throughout your code.
+A **variable** is simply a named container that holds a value. You give it a name, tell Java what type of data it will hold, and then use it while processing a request, calculating a bill, validating a form, or preparing output for the user.
 
 ---
 
 ## Declaring Variables
 
-Here's the basic syntax:
+Here is a complete runnable program showing the basic syntax. Notice how each variable represents one real piece of screen or backend data: age, name, price, and login status.
 
 \`\`\`java
-dataType variableName = value;
+public class VariableDeclarationDemo {
+    public static void main(String[] args) {
+        int age = 25;
+        String name = "Dattu";
+        double price = 99.99;
+        boolean isLoggedIn = true;
+
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Price: " + price);
+        System.out.println("Logged in: " + isLoggedIn);
+    }
+}
 \`\`\`
 
-Some examples:
+Syntax pattern used inside the program:
 
 \`\`\`java
-int age = 25;
-String name = " Dattu";
-double price = 99.99;
-boolean isLoggedIn = true;
+public class VariableSyntaxPattern {
+    public static void main(String[] args) {
+        // dataType variableName = value;
+        int quantity = 5;
+        System.out.println("Quantity: " + quantity);
+    }
+}
 \`\`\`
 
 **Variable Declaration Components:**
@@ -33,18 +48,24 @@ boolean isLoggedIn = true;
 - **age** — the variable name (you choose this)
 - **25** — the initial value
 
-You can also declare without initializing:
+You can also declare first and assign later. This is common when the value depends on a condition, a database result, or user input that is not available at the first line.
 
 \`\`\`java
-int age;        // Declared but not initialized
-age = 25;       // Assigned later
+public class DeclareThenAssignDemo {
+    public static void main(String[] args) {
+        int age;
+        age = 25;
+
+        System.out.println("Age after assignment: " + age);
+    }
+}
 \`\`\`
 
 ---
 
 ## Naming Rules
 
-Java has rules about what you can name your variables:
+Java has rules about what you can name your variables. In real projects, names are read more often than they are written, so a clear name like \`invoiceTotal\` or \`failedLoginAttempts\` saves debugging time.
 
 **Must follow:**
 - Start with a letter, underscore (_), or dollar sign ($)
@@ -54,20 +75,40 @@ Java has rules about what you can name your variables:
 
 **Good names:**
 \`\`\`java
-int userAge;
-String firstName;
-double accountBalance;
-boolean isActive;
+public class GoodVariableNames {
+    public static void main(String[] args) {
+        int userAge = 24;
+        String firstName = "Ravi";
+        double accountBalance = 15000.75;
+        boolean isActive = true;
+
+        System.out.println(firstName + " age: " + userAge);
+        System.out.println("Balance: " + accountBalance);
+        System.out.println("Active: " + isActive);
+    }
+}
 \`\`\`
 
-**Bad names:**
+**Bad names shown inside a full program as comments because they will not compile:**
 \`\`\`java
-int 2fast;        // Can't start with number
-String my-name;   // No hyphens allowed
-double class;     // 'class' is a keyword
+public class BadVariableNames {
+    public static void main(String[] args) {
+        // int 2fast = 100;        // Error: cannot start with a number
+        // String my-name = "Amit"; // Error: hyphen is not allowed
+        // double class = 99.5;     // Error: class is a Java keyword
+
+        int speed = 100;
+        String myName = "Amit";
+        double score = 99.5;
+
+        System.out.println(speed);
+        System.out.println(myName);
+        System.out.println(score);
+    }
+}
 \`\`\`
 
-**Convention:** Use camelCase for variable names. Start with lowercase, capitalize each new word: \`firstName\`, \`totalAmount\`, \`isUserLoggedIn\`.
+**Convention:** Use camelCase for variable names. Start with lowercase, capitalize each new word: \`firstName\`, \`totalAmount\`, \`isUserLoggedIn\`. Prefer business names over short names: \`taxAmount\` is better than \`t\` when a billing bug appears.
 
 ---
 
@@ -77,33 +118,53 @@ Java has three types of variables based on where they're declared:
 
 ### 1. Local Variables
 
-Declared inside a method. Only accessible within that method.
+Declared inside a method. Only accessible within that method. Use local variables for temporary work such as calculating one order total, checking one password, or preparing one response.
 
 \`\`\`java
-public void calculateTotal() {
-    int quantity = 5;        // Local variable
-    double price = 10.99;    // Local variable
-    double total = quantity * price;
+public class LocalVariableDemo {
+    public static void main(String[] args) {
+        calculateTotal();
+    }
+
+    public static void calculateTotal() {
+        int quantity = 5;
+        double price = 10.99;
+        double total = quantity * price;
+
+        System.out.println("Total bill: " + total);
+    }
 }
-// quantity, price, total don't exist outside this method
 \`\`\`
 
 **Key points:**
 - Must be initialized before use
 - No default value
-- Destroyed when method ends
+- Destroyed when method ends, which is why they are good for temporary request-level calculations
 
 ### 2. Instance Variables
 
-Declared inside a class but outside methods. Each object gets its own copy.
+Declared inside a class but outside methods. Each object gets its own copy. Use instance variables for data that belongs to one object, like one employee's name, one account's balance, or one product's stock.
 
 \`\`\`java
-public class User {
-    String name;        // Instance variable
-    int age;            // Instance variable
-    
+public class InstanceVariableDemo {
+    String name;
+    int age;
+
+    public InstanceVariableDemo(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public void printInfo() {
-        System.out.println(name + " is " + age);
+        System.out.println(name + " is " + age + " years old");
+    }
+
+    public static void main(String[] args) {
+        InstanceVariableDemo user1 = new InstanceVariableDemo("Ravi", 24);
+        InstanceVariableDemo user2 = new InstanceVariableDemo("Amit", 26);
+
+        user1.printInfo();
+        user2.printInfo();
     }
 }
 \`\`\`
@@ -111,20 +172,29 @@ public class User {
 **Key points:**
 - Belong to an object
 - Have default values (0 for numbers, null for objects, false for boolean)
-- Accessible throughout the class
+- Accessible throughout the class, so methods of the same object can use the same state
 
 ### 3. Static Variables (Class Variables)
 
-Declared with the \`static\` keyword. Shared by all objects of the class.
+Declared with the \`static\` keyword. Shared by all objects of the class. Use static variables carefully for shared counters, constants, and application-wide settings; avoid using them for user-specific data.
 
 \`\`\`java
-public class User {
-    static int totalUsers = 0;  // Shared by all User objects
+public class StaticVariableDemo {
+    static int totalUsers = 0;
     String name;
-    
-    public User(String name) {
+
+    public StaticVariableDemo(String name) {
         this.name = name;
-        totalUsers++;  // Increment for each new user
+        totalUsers++;
+    }
+
+    public static void main(String[] args) {
+        StaticVariableDemo user1 = new StaticVariableDemo("Ravi");
+        StaticVariableDemo user2 = new StaticVariableDemo("Amit");
+        StaticVariableDemo user3 = new StaticVariableDemo("Dattu");
+
+        System.out.println("Created users: " + user1.name + ", " + user2.name + ", " + user3.name);
+        System.out.println("Total users: " + StaticVariableDemo.totalUsers);
     }
 }
 \`\`\`
@@ -132,13 +202,13 @@ public class User {
 **Key points:**
 - One copy shared by all objects
 - Can be accessed without creating an object
-- Use for constants or counters
+- Use for constants or counters, not for values that should differ per user or per request
 
 ---
 
 ## Default Values
 
-Instance and static variables get default values if you don't initialize them:
+Instance and static variables get default values if you don't initialize them. This matters in entity/model classes because missing values can silently become \`0\`, \`false\`, or \`null\`.
 
 | Type | Default Value |
 |------|---------------|
@@ -151,9 +221,14 @@ Instance and static variables get default values if you don't initialize them:
 **Important:** Local variables do NOT get default values. You must initialize them.
 
 \`\`\`java
-public void test() {
-    int x;
-    System.out.println(x);  // ERROR! x not initialized
+public class LocalVariableInitializationError {
+    public static void main(String[] args) {
+        // int x;
+        // System.out.println(x); // Error: variable x might not have been initialized
+
+        int x = 0;
+        System.out.println("Initialized x: " + x);
+    }
 }
 \`\`\`
 
@@ -161,12 +236,20 @@ public void test() {
 
 ## Constants (final)
 
-Sometimes you want a variable that never changes. Use the \`final\` keyword:
+Sometimes you want a variable that never changes. Use the \`final\` keyword for values like tax rate, max login attempts, minimum age, or application constants where accidental changes would create bugs.
 
 \`\`\`java
-final double PI = 3.14159;
-final int MAX_USERS = 100;
-final String COMPANY_NAME = "TechCorp";
+public class ConstantsDemo {
+    public static void main(String[] args) {
+        final double PI = 3.14159;
+        final int MAX_USERS = 100;
+        final String COMPANY_NAME = "TechCorp";
+
+        System.out.println("Company: " + COMPANY_NAME);
+        System.out.println("Max users: " + MAX_USERS);
+        System.out.println("PI value: " + PI);
+    }
+}
 \`\`\`
 
 **Convention:** Use ALL_CAPS with underscores for constants.
@@ -174,37 +257,38 @@ final String COMPANY_NAME = "TechCorp";
 Once assigned, you can't change a final variable:
 
 \`\`\`java
-final int MAX = 100;
-MAX = 200;  // ERROR! Cannot reassign final variable
+public class FinalVariableError {
+    public static void main(String[] args) {
+        final int MAX = 100;
+        // MAX = 200; // Error: cannot assign a value to final variable MAX
+
+        System.out.println("MAX value: " + MAX);
+    }
+}
 \`\`\`
 
 ---
 
 ## Real-World Example
 
-Let's see variables in a practical context — a simple user profile:
+Let's see variables in a practical context: a simple user profile where instance variables store one user's data, a static variable counts all profiles, and a constant protects the minimum allowed age rule.
 
 \`\`\`java
 public class UserProfile {
-    // Instance variables
     private String username;
     private String email;
     private int age;
     private boolean isPremium;
-    
-    // Static variable - shared across all profiles
+
     private static int totalProfiles = 0;
-    
-    // Constant
     private static final int MIN_AGE = 13;
-    
+
     public UserProfile(String username, String email, int age) {
         this.username = username;
         this.email = email;
-        
-        // Local variable for validation
+
         boolean isValidAge = age >= MIN_AGE;
-        
+
         if (isValidAge) {
             this.age = age;
         } else {
@@ -213,6 +297,22 @@ public class UserProfile {
         
         this.isPremium = false;
         totalProfiles++;
+    }
+
+    public void printProfile() {
+        System.out.println("Username: " + username);
+        System.out.println("Email: " + email);
+        System.out.println("Age: " + age);
+        System.out.println("Premium: " + isPremium);
+    }
+
+    public static void main(String[] args) {
+        UserProfile profile1 = new UserProfile("ravi24", "ravi@example.com", 24);
+        UserProfile profile2 = new UserProfile("childUser", "child@example.com", 10);
+
+        profile1.printProfile();
+        profile2.printProfile();
+        System.out.println("Total profiles: " + UserProfile.totalProfiles);
     }
 }
 \`\`\`
@@ -223,26 +323,53 @@ public class UserProfile {
 
 **1. Using before declaring**
 \`\`\`java
-System.out.println(x);  // ERROR!
-int x = 10;
+public class UsingBeforeDeclaringError {
+    public static void main(String[] args) {
+        // System.out.println(x); // Error: cannot find symbol x
+
+        int x = 10;
+        System.out.println("x: " + x);
+    }
+}
 \`\`\`
 
 **2. Type mismatch**
 \`\`\`java
-int age = "twenty";  // ERROR! Can't put String in int
+public class TypeMismatchError {
+    public static void main(String[] args) {
+        // int age = "twenty"; // Error: String cannot be converted to int
+
+        int age = 20;
+        System.out.println("Age: " + age);
+    }
+}
 \`\`\`
 
 **3. Forgetting to initialize local variables**
 \`\`\`java
-int sum;
-sum = sum + 10;  // ERROR! sum not initialized
+public class LocalVariableMistake {
+    public static void main(String[] args) {
+        // int sum;
+        // sum = sum + 10; // Error: variable sum might not have been initialized
+
+        int sum = 0;
+        sum = sum + 10;
+        System.out.println("Sum: " + sum);
+    }
+}
 \`\`\`
 
 **4. Shadowing (same name in different scopes)**
 \`\`\`java
-int x = 10;
-if (true) {
-    int x = 20;  // This shadows the outer x - confusing!
+public class VariableShadowingDemo {
+    static int count = 10;
+
+    public static void main(String[] args) {
+        int count = 20;
+
+        System.out.println("Local count: " + count);
+        System.out.println("Static count: " + VariableShadowingDemo.count);
+    }
 }
 \`\`\`
 

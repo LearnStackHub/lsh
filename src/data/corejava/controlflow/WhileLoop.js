@@ -5,15 +5,29 @@ const whileLoop = {
   content: `
 # While Loop - Conditional Iteration
 
-The while loop is a control flow statement that repeatedly executes a block of code as long as a specified condition evaluates to true. Unlike for loops that iterate a predetermined number of times, while loops are ideal for situations where the number of iterations depends on runtime conditions or user input. While loops provide flexibility for processing data streams, handling user interactions, and implementing algorithms with dynamic termination conditions.
+The while loop is a control flow statement that repeatedly executes a block of code as long as a specified condition evaluates to true. Unlike for loops that usually run a known number of times, while loops fit real situations where the stop point depends on runtime data: retrying login, reading records until none remain, processing a queue until empty, or keeping a game/session active.
 
 Enterprise applications use while loops for processing data streams, handling user input validation, implementing retry logic, processing queues, and managing long-running operations. Understanding while loops is essential for building interactive applications, processing dynamic data, and implementing algorithms that require conditional repetition.
 
 ## Syntax
 
 \`\`\`java
-while (condition) {
-    // code to be executed
+public class BasicWhileLoopDemo {
+    public static void main(String[] args) {
+        int retryCount = 0;
+        int maxRetries = 3;
+        boolean success = false;
+
+        while (retryCount < maxRetries && !success) {
+            retryCount++;
+            System.out.println("Calling payment API, attempt " + retryCount);
+
+            if (retryCount == 2) {
+                success = true;
+                System.out.println("Payment API responded successfully");
+            }
+        }
+    }
 }
 \`\`\`
 
@@ -21,20 +35,21 @@ while (condition) {
 
 | Scenario | Example |
 |----------|---------|
-| Unknown iterations | Reading file until EOF |
-| User input validation | Keep asking until valid |
-| Game loops | Run until game over |
-| Server processes | Listen for connections |
+| Unknown iterations | Reading file until EOF or queue until empty |
+| User input validation | Keep asking until username/password is valid |
+| Retry logic | Retry payment/API/email until success or max attempts |
+| Game/session loops | Run until game over or user logs out |
+| Server processes | Listen for connections or background jobs |
 
-## 🏢 Real-Time Project Example: ATM Machine Simulation
+## Workplace Example: ATM Machine Simulation
 
 \`\`\`java
-// Real-Time: ATM Banking System
+// Workplace: ATM Banking System
 // Used in actual ATM software
 
 public class ATMMachine {
     public static void main(String[] args) {
-        System.out.println("🏧 WELCOME TO SECURE BANK ATM");
+        System.out.println("WELCOME TO SECURE BANK ATM");
         System.out.println("==============================");
         
         // Account setup
@@ -46,7 +61,7 @@ public class ATMMachine {
         boolean sessionActive = true;
         
         // PIN verification with while loop
-        System.out.println("\\n🔐 PIN VERIFICATION");
+        System.out.println("\\nPIN VERIFICATION");
         int enteredPin = 1234; // Simulated input
         
         while (attempts < maxAttempts && !authenticated) {
@@ -58,7 +73,7 @@ public class ATMMachine {
             } else {
                 System.out.println("Incorrect PIN. Attempts: " + attempts + "/" + maxAttempts);
                 if (attempts >= maxAttempts) {
-                    System.out.println("🔒 Card blocked! Contact bank.");
+                    System.out.println("Card blocked! Contact bank.");
                     return;
                 }
             }
@@ -68,9 +83,9 @@ public class ATMMachine {
         int menuChoice = 0;
         int transactionCount = 0;
         
-        System.out.println("\\n" + "═".repeat(40));
-        System.out.println("       ATM MAIN MENU");
-        System.out.println("═".repeat(40));
+        System.out.println("\\n" + "=".repeat(40));
+        System.out.println("ATM MAIN MENU");
+        System.out.println("=".repeat(40));
         
         // Simulate menu selections
         int[] selections = {1, 2, 3, 1, 5}; // User selections
@@ -81,68 +96,67 @@ public class ATMMachine {
             selectionIndex++;
             transactionCount++;
             
-            System.out.println("\\n📋 Selection: " + menuChoice);
+            System.out.println("\\nSelection: " + menuChoice);
             
             switch (menuChoice) {
                 case 1: // Check Balance
-                    System.out.println("\\n💰 BALANCE INQUIRY");
-                    System.out.println("   Available Balance: $" + String.format("%,.2f", balance));
+                    System.out.println("\\nBALANCE INQUIRY");
+                    System.out.println("Available Balance: $" + String.format("%,.2f", balance));
                     break;
                     
                 case 2: // Withdraw
-                    System.out.println("\\n💵 CASH WITHDRAWAL");
+                    System.out.println("\\nCASH WITHDRAWAL");
                     double withdrawAmount = 500.00;
                     
                     if (withdrawAmount > balance) {
-                        System.out.println("   Insufficient funds!");
+                        System.out.println("Insufficient funds!");
                     } else if (withdrawAmount > 1000) {
-                        System.out.println("   Daily limit exceeded!");
+                        System.out.println("Daily limit exceeded!");
                     } else {
                         balance -= withdrawAmount;
-                        System.out.println("   Dispensing: $" + withdrawAmount);
-                        System.out.println("   New Balance: $" + String.format("%,.2f", balance));
+                        System.out.println("Dispensing: $" + withdrawAmount);
+                        System.out.println("New Balance: $" + String.format("%,.2f", balance));
                     }
                     break;
                     
                 case 3: // Deposit
-                    System.out.println("\\n📥 CASH DEPOSIT");
+                    System.out.println("\\nCASH DEPOSIT");
                     double depositAmount = 1000.00;
                     balance += depositAmount;
-                    System.out.println("   Deposited: $" + depositAmount);
-                    System.out.println("   New Balance: $" + String.format("%,.2f", balance));
+                    System.out.println("Deposited: $" + depositAmount);
+                    System.out.println("New Balance: $" + String.format("%,.2f", balance));
                     break;
                     
                 case 4: // Transfer
-                    System.out.println("\\n🔄 FUND TRANSFER");
-                    System.out.println("   Feature coming soon!");
+                    System.out.println("\\nFUND TRANSFER");
+                    System.out.println("Feature coming soon!");
                     break;
                     
                 case 5: // Exit
-                    System.out.println("\\n👋 Thank you for using SecureBank ATM!");
+                    System.out.println("\\nThank you for using SecureBank ATM!");
                     sessionActive = false;
                     break;
                     
                 default:
-                    System.out.println("   Invalid option!");
+                    System.out.println("Invalid option!");
             }
         }
         
-        System.out.println("\\n📊 Session Summary:");
-        System.out.println("   Transactions: " + transactionCount);
-        System.out.println("   Final Balance: $" + String.format("%,.2f", balance));
+        System.out.println("\\nSession Summary:");
+        System.out.println("Transactions: " + transactionCount);
+        System.out.println("Final Balance: $" + String.format("%,.2f", balance));
     }
 }
 \`\`\`
-
-## 🎮 Real-Time Project Example: Game Score Tracker
+## Workplace Example: Game Score Tracker
 
 \`\`\`java
-// Real-Time: Multiplayer Game Session
+// Workplace: Multiplayer Game Session
 // Used in online gaming platforms
 
 public class GameSession {
     public static void main(String[] args) {
-        System.out.println("🎮 BATTLE ROYALE - GAME SESSION");
+        System.out.println("BATTLE ROYALE - GAME SESSION");
         System.out.println("================================");
         
         // Game settings
@@ -158,23 +172,23 @@ public class GameSession {
         int playerHealth = 100;
         int playerShield = 50;
         
-        System.out.println("\\n👤 Player: " + playerName);
-        System.out.println("🎯 Starting Match...");
-        System.out.println("👥 Players: " + playersAlive);
+        System.out.println("\\nPlayer: " + playerName);
+        System.out.println("Starting Match...");
+        System.out.println("Players: " + playersAlive);
         
         // Game loop
         while (!gameOver && playerAlive) {
             round++;
-            System.out.println("\\n" + "─".repeat(40));
-            System.out.println("⚔️ ROUND " + round);
-            System.out.println("─".repeat(40));
+            System.out.println("\\n" + "=".repeat(40));
+            System.out.println("ROUND " + round);
+            System.out.println("=".repeat(40));
             
             // Simulate game events
             int event = round % 4;
             
             switch (event) {
                 case 0: // Combat
-                    System.out.println("🔫 Enemy encountered!");
+                    System.out.println("Enemy encountered!");
                     int damage = 25;
                     
                     if (playerShield > 0) {
@@ -190,55 +204,55 @@ public class GameSession {
                     kills++;
                     playerScore += 100;
                     playersAlive -= 5;
-                    System.out.println("   Enemy eliminated! +100 points");
+                    System.out.println("Enemy eliminated! +100 points");
                     break;
                     
                 case 1: // Loot
-                    System.out.println("📦 Found supply crate!");
+                    System.out.println("Found supply crate!");
                     playerShield = Math.min(playerShield + 25, 100);
                     playerScore += 25;
-                    System.out.println("   +25 Shield");
+                    System.out.println("  +25 Shield");
                     break;
                     
                 case 2: // Zone damage
-                    System.out.println("⚠️ Storm approaching!");
+                    System.out.println("Storm approaching!");
                     playersAlive -= 10;
-                    System.out.println("   " + playersAlive + " players remaining");
+                    System.out.println("  " + playersAlive + " players remaining");
                     break;
                     
                 case 3: // Heal
-                    System.out.println("💊 Using medkit...");
+                    System.out.println("Using medkit...");
                     playerHealth = Math.min(playerHealth + 30, 100);
-                    System.out.println("   Health restored to " + playerHealth);
+                    System.out.println("Health restored to " + playerHealth);
                     break;
             }
             
             // Display status
-            System.out.println("\\n📊 Status:");
-            System.out.println("   ❤️ Health: " + playerHealth);
-            System.out.println("   🛡️ Shield: " + playerShield);
-            System.out.println("   🎯 Kills: " + kills);
-            System.out.println("   ⭐ Score: " + playerScore);
-            System.out.println("   👥 Alive: " + playersAlive);
+            System.out.println("\\nStatus:");
+            System.out.println("Health: " + playerHealth);
+            System.out.println("Shield: " + playerShield);
+            System.out.println("Kills: " + kills);
+            System.out.println("Score: " + playerScore);
+            System.out.println("Alive: " + playersAlive);
             
             // Check game end conditions
             if (playerHealth <= 0) {
                 playerAlive = false;
-                System.out.println("\\n💀 YOU WERE ELIMINATED!");
+                System.out.println("\\nYOU WERE ELIMINATED!");
             } else if (playersAlive <= 1) {
                 gameOver = true;
-                System.out.println("\\n🏆 VICTORY ROYALE!");
+                System.out.println("\\nVICTORY ROYALE!");
                 playerScore += 500;
             } else if (round >= 10) {
                 gameOver = true;
-                System.out.println("\\n⏱️ Match ended (time limit)");
+                System.out.println("\\nMatch ended (time limit)");
             }
         }
         
         // Final stats
-        System.out.println("\\n" + "═".repeat(40));
-        System.out.println("📊 MATCH SUMMARY");
-        System.out.println("═".repeat(40));
+        System.out.println("\\n" + "=".repeat(40));
+        System.out.println("MATCH SUMMARY");
+        System.out.println("=".repeat(40));
         System.out.println("Player: " + playerName);
         System.out.println("Placement: #" + playersAlive);
         System.out.println("Kills: " + kills);
@@ -247,16 +261,15 @@ public class GameSession {
     }
 }
 \`\`\`
-
-## 📡 Real-Time Project Example: Server Request Handler
+## Workplace Example: Server Request Handler
 
 \`\`\`java
-// Real-Time: Web Server Request Processing
+// Workplace: Web Server Request Processing
 // Used in web servers like Tomcat, Jetty
 
 public class RequestHandler {
     public static void main(String[] args) {
-        System.out.println("🌐 WEB SERVER - REQUEST HANDLER");
+        System.out.println("WEB SERVER - REQUEST HANDLER");
         System.out.println("================================");
         
         boolean serverRunning = true;
@@ -265,7 +278,7 @@ public class RequestHandler {
         long startTime = System.currentTimeMillis();
         
         System.out.println("Server started on port 8080");
-        System.out.println("📡 Listening for connections...");
+        System.out.println("Listening for connections...");
         
         // Server loop
         while (serverRunning && requestCount < maxRequests) {
@@ -282,10 +295,10 @@ public class RequestHandler {
             String endpoint = endpoints[idx];
             int responseCode = responseCodes[idx];
             
-            System.out.println("\\n─────────────────────────────────");
-            System.out.println("📥 Request #" + requestCount);
-            System.out.println("   Method: " + method);
-            System.out.println("   Endpoint: " + endpoint);
+            System.out.println("\\n");
+            System.out.println("Request #" + requestCount);
+            System.out.println("Method: " + method);
+            System.out.println("Endpoint: " + endpoint);
             
             // Process request
             long processStart = System.currentTimeMillis();
@@ -309,17 +322,17 @@ public class RequestHandler {
             
             long processTime = System.currentTimeMillis() - processStart;
             
-            System.out.println("📤 Response:");
-            System.out.println("   Status: " + responseCode);
-            System.out.println("   Message: " + response);
-            System.out.println("   Time: " + processTime + "ms");
+            System.out.println("Response:");
+            System.out.println("Status: " + responseCode);
+            System.out.println("Message: " + response);
+            System.out.println("Time: " + processTime + "ms");
         }
         
         // Server stats
         long totalTime = System.currentTimeMillis() - startTime;
-        System.out.println("\\n" + "═".repeat(40));
-        System.out.println("📊 SERVER STATISTICS");
-        System.out.println("═".repeat(40));
+        System.out.println("\\n" + "=".repeat(40));
+        System.out.println("SERVER STATISTICS");
+        System.out.println("=".repeat(40));
         System.out.println("Total Requests: " + requestCount);
         System.out.println("Uptime: " + totalTime + "ms");
         System.out.println("Avg Response: " + (totalTime / requestCount) + "ms");
@@ -327,14 +340,14 @@ public class RequestHandler {
 }
 \`\`\`
 
-> **Industry Insight**: While loops are fundamental in server programming. Web servers like Apache Tomcat use while loops to continuously listen for incoming HTTP requests, process them, and send responses.
+> **Teacher Note**: While loops are fundamental in server programming. Web servers like Apache Tomcat use while loops to continuously listen for incoming HTTP requests, process them, and send responses.
 
 ---
 
 ## 10 Important while-loop Interview Questions
 
 ### 1. When do you pick \`while\` over \`for\`?
-**Answer:** When iterations aren’t counted upfront—event loops, reading streams until EOF, polling until a condition flips.
+**Answer:** When iterations arent counted upfrontevent loops, reading streams until EOF, polling until a condition flips.
 For known ranges, \`for\` often reads clearer.
 
 ### 2. What is the difference between \`while\` and \`do-while\`?
@@ -349,39 +362,39 @@ Server loops often block on I/O inside to avoid burning cores.
 **Answer:** Use blocking queues, \`wait/notify\`, \`LockSupport\`, or higher-level concurrency utilities instead of tight empty spins.
 Busy-wait is for specialized low-latency systems with care.
 
-### 5. Scenario: reading a \`ResultSet\` or \`BufferedReader\`—which loop fits?
-**Answer:** \`while (rs.next())\` or \`while ((line = br.readLine()) != null)\`—condition drives continuation until data ends.
+### 5. Scenario: reading a \`ResultSet\` or \`BufferedReader\`which loop fits?
+**Answer:** \`while (rs.next())\` or \`while ((line = br.readLine()) != null)\`condition drives continuation until data ends.
 Classic JDBC and I/O interview patterns.
 
 ### 6. What happens if the condition never becomes false?
-**Answer:** Infinite loop—often a logic bug; sometimes intentional servers with internal blocking.
+**Answer:** Infinite loopoften a logic bug; sometimes intentional servers with internal blocking.
 Add timeouts and watchdogs for production loops.
 
 ### 7. Can \`while\` variables declared outside the loop create bugs?
-**Answer:** Yes—reusing mutable flags without reset between iterations or concurrent updates cause subtle errors.
+**Answer:** Yesreusing mutable flags without reset between iterations or concurrent updates cause subtle errors.
 Prefer smaller scopes and immutable snapshots where possible.
 
 ### 8. How does \`continue\` behave in \`while\`?
-**Answer:** Skips to next condition check—ensure increment steps still run or you may infinite-loop.
+**Answer:** Skips to next condition checkensure increment steps still run or you may infinite-loop.
 Double-check \`continue\` placement vs update expressions.
 
 ### 9. What is a sentinel-controlled loop?
-**Answer:** Repeats until a special value (sentinel) appears—common in CLI input parsing.
-Validate sentinel doesn’t collide with valid data.
+**Answer:** Repeats until a special value (sentinel) appearscommon in CLI input parsing.
+Validate sentinel does not collide with valid data.
 
 ### 10. How do you test while-loops effectively?
 **Answer:** Cover zero iterations, one iteration, many iterations, and boundary where condition flips.
 Property-based tests help find edge cases.
 
 `,
-  code: `// Real-Time: ATM Banking System
+  code: `// Workplace: ATM Banking System
 // Complete ATM simulation with while loops
 
 public class ATMMachine {
     public static void main(String[] args) {
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║     🏧 SECURE BANK ATM SYSTEM          ║");
-        System.out.println("╚════════════════════════════════════════╝");
+        System.out.println("");
+        System.out.println("SECURE BANK ATM SYSTEM          ");
+        System.out.println("");
         
         // Account data
         String accountNumber = "****-****-1234";
@@ -399,8 +412,8 @@ public class ATMMachine {
         int transactionCount = 0;
         
         // PIN Authentication Loop
-        System.out.println("\\n🔐 AUTHENTICATION REQUIRED");
-        System.out.println("──────────────────────────");
+        System.out.println("\\nAUTHENTICATION REQUIRED");
+        System.out.println("");
         
         int enteredPin = 1234; // Simulated correct PIN
         
@@ -415,7 +428,7 @@ public class ATMMachine {
             } else {
                 System.out.println("Incorrect PIN");
                 if (attempts >= maxAttempts) {
-                    System.out.println("\\n🔒 CARD BLOCKED");
+                    System.out.println("\\nCARD BLOCKED");
                     System.out.println("Please contact customer service.");
                     return;
                 }
@@ -430,15 +443,15 @@ public class ATMMachine {
         
         // Main ATM Menu Loop
         while (sessionActive && selectionIndex < menuSelections.length) {
-            System.out.println("\\n╔════════════════════════════════════════╗");
-            System.out.println("║           MAIN MENU                    ║");
-            System.out.println("╠════════════════════════════════════════╣");
-            System.out.println("║  1. 💰 Check Balance                   ║");
-            System.out.println("║  2. 💵 Withdraw Cash                   ║");
-            System.out.println("║  3. 📥 Deposit Cash                    ║");
-            System.out.println("║  4. 🔄 Fund Transfer                   ║");
-            System.out.println("║  5. 👋 Exit                            ║");
-            System.out.println("╚════════════════════════════════════════╝");
+            System.out.println("\\n");
+            System.out.println("MAIN MENU                    ");
+            System.out.println("");
+            System.out.println(" 1.  Check Balance                   ");
+            System.out.println(" 2.  Withdraw Cash                   ");
+            System.out.println(" 3.  Deposit Cash                    ");
+            System.out.println(" 4.  Fund Transfer                   ");
+            System.out.println(" 5.  Exit                            ");
+            System.out.println("");
             
             int choice = menuSelections[selectionIndex];
             selectionIndex++;
@@ -447,8 +460,8 @@ public class ATMMachine {
             switch (choice) {
                 case 1: // Balance Inquiry
                     transactionCount++;
-                    System.out.println("\\n💰 BALANCE INQUIRY");
-                    System.out.println("────────────────────");
+                    System.out.println("\\nBALANCE INQUIRY");
+                    System.out.println("");
                     System.out.println("Account: " + accountNumber);
                     System.out.println("Available Balance: $" + String.format("%,.2f", balance));
                     System.out.println("Daily Limit Remaining: $" + 
@@ -457,8 +470,8 @@ public class ATMMachine {
                     
                 case 2: // Withdraw
                     transactionCount++;
-                    System.out.println("\\n💵 CASH WITHDRAWAL");
-                    System.out.println("────────────────────");
+                    System.out.println("\\nCASH WITHDRAWAL");
+                    System.out.println("");
                     
                     double withdrawAmount = 500.00;
                     System.out.println("Amount: $" + withdrawAmount);
@@ -468,7 +481,7 @@ public class ATMMachine {
                         System.out.println("Insufficient balance!");
                     } else if (withdrawAmount + withdrawnToday > dailyLimit) {
                         System.out.println("Daily limit exceeded!");
-                        System.out.println("   Remaining limit: $" + 
+                        System.out.println("Remaining limit: $" + 
                             String.format("%,.2f", dailyLimit - withdrawnToday));
                     } else if (withdrawAmount % 20 != 0) {
                         System.out.println("Amount must be multiple of $20");
@@ -476,15 +489,15 @@ public class ATMMachine {
                         balance -= withdrawAmount;
                         withdrawnToday += withdrawAmount;
                         System.out.println("Please collect your cash");
-                        System.out.println("   Dispensed: $" + String.format("%,.2f", withdrawAmount));
-                        System.out.println("   New Balance: $" + String.format("%,.2f", balance));
+                        System.out.println("Dispensed: $" + String.format("%,.2f", withdrawAmount));
+                        System.out.println("New Balance: $" + String.format("%,.2f", balance));
                     }
                     break;
                     
                 case 3: // Deposit
                     transactionCount++;
-                    System.out.println("\\n📥 CASH DEPOSIT");
-                    System.out.println("────────────────────");
+                    System.out.println("\\nCASH DEPOSIT");
+                    System.out.println("");
                     
                     double depositAmount = 1000.00;
                     System.out.println("Amount: $" + depositAmount);
@@ -495,14 +508,14 @@ public class ATMMachine {
                     
                     balance += depositAmount;
                     System.out.println("Deposit successful!");
-                    System.out.println("   Deposited: $" + String.format("%,.2f", depositAmount));
-                    System.out.println("   New Balance: $" + String.format("%,.2f", balance));
+                    System.out.println("Deposited: $" + String.format("%,.2f", depositAmount));
+                    System.out.println("New Balance: $" + String.format("%,.2f", balance));
                     break;
                     
                 case 4: // Transfer
                     transactionCount++;
-                    System.out.println("\\n🔄 FUND TRANSFER");
-                    System.out.println("────────────────────");
+                    System.out.println("\\nFUND TRANSFER");
+                    System.out.println("");
                     
                     String targetAccount = "****-****-5678";
                     double transferAmount = 200.00;
@@ -515,14 +528,14 @@ public class ATMMachine {
                     } else {
                         balance -= transferAmount;
                         System.out.println("Transfer successful!");
-                        System.out.println("   Transferred: $" + String.format("%,.2f", transferAmount));
-                        System.out.println("   New Balance: $" + String.format("%,.2f", balance));
+                        System.out.println("Transferred: $" + String.format("%,.2f", transferAmount));
+                        System.out.println("New Balance: $" + String.format("%,.2f", balance));
                     }
                     break;
                     
                 case 5: // Exit
                     sessionActive = false;
-                    System.out.println("\\n👋 THANK YOU FOR BANKING WITH US!");
+                    System.out.println("\\nTHANK YOU FOR BANKING WITH US!");
                     break;
                     
                 default:
@@ -531,17 +544,17 @@ public class ATMMachine {
             
             // Print receipt option
             if (choice >= 1 && choice <= 4) {
-                System.out.println("\\n📄 Receipt printed.");
+                System.out.println("\\nReceipt printed.");
             }
         }
         
         // Session Summary
-        System.out.println("\\n╔════════════════════════════════════════╗");
-        System.out.println("║         SESSION SUMMARY                ║");
-        System.out.println("╚════════════════════════════════════════╝");
+        System.out.println("\\n");
+        System.out.println("SESSION SUMMARY                ");
+        System.out.println("");
         System.out.println("Transactions: " + transactionCount);
         System.out.println("Final Balance: $" + String.format("%,.2f", balance));
-        System.out.println("\\n🔒 Please take your card.");
+        System.out.println("\\nPlease take your card.");
         System.out.println("Have a great day!");
     }
 }
@@ -557,7 +570,7 @@ Enterprise applications use while loops to process data streams, read files line
 - Reading files until end of file
 - Processing database result sets
 - Parsing network data streams
-- Handling real-time data feeds
+- Handling Real workplace data feeds
 
 ### User Input Validation
 Applications use while loops to repeatedly prompt users for input until valid data is provided. This ensures data quality and improves user experience by guiding users to correct input.
@@ -587,18 +600,17 @@ Game applications use while loops for game loops that continue until game over c
 **Solution:** Always ensure condition will eventually become false:
 
 \`\`\`java
-// WRONG - Infinite loop
-int i = 0;
-while (i < 10) {
-    System.out.println(i);
-    // Forgot to increment i!
-}
+public class WhileInfiniteLoopFixDemo {
+    public static void main(String[] args) {
+        int i = 0;
 
-// CORRECT
-int i = 0;
-while (i < 10) {
-    System.out.println(i);
-    i++;  // Update loop variable
+        while (i < 10) {
+            System.out.println(i);
+            i++;
+        }
+
+        // Wrong: forgetting i++ keeps condition true forever.
+    }
 }
 \`\`\`
 
@@ -608,16 +620,20 @@ while (i < 10) {
 **Solution:** Use for loop when iteration count is known:
 
 \`\`\`java
-// PREFER - For loop for known iterations
-for (int i = 0; i < 10; i++) {
-    System.out.println(i);
-}
+public class ForVsWhileChoiceDemo {
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Known iteration: " + i);
+        }
 
-// AVOID - While loop for known iterations
-int i = 0;
-while (i < 10) {
-    System.out.println(i);
-    i++;
+        int retry = 0;
+        boolean success = false;
+        while (retry < 3 && !success) {
+            retry++;
+            System.out.println("Unknown success attempt: " + retry);
+            success = retry == 2;
+        }
+    }
 }
 \`\`\`
 
@@ -627,11 +643,23 @@ while (i < 10) {
 **Solution:** Consider if loop should execute at least once (use do-while) or not at all:
 
 \`\`\`java
-// If loop might not execute, use while
-while (condition) { }
+public class WhileVsDoWhileChoiceDemo {
+    public static void main(String[] args) {
+        boolean hasPendingJob = false;
 
-// If loop must execute at least once, use do-while
-do { } while (condition);
+        while (hasPendingJob) {
+            System.out.println("This may not run");
+        }
+
+        boolean askAgain;
+        int promptCount = 0;
+        do {
+            promptCount++;
+            System.out.println("Show menu at least once");
+            askAgain = false;
+        } while (askAgain);
+    }
+}
 \`\`\`
 
 ---
@@ -667,9 +695,24 @@ Use a for loop for: iterating arrays/collections, counting iterations, known ite
 Use a while loop that continues until a sentinel (termination) value is encountered:
 
 \`\`\`java
-int value;
-while ((value = readValue()) != -1) {
-    process(value);
+public class SentinelValueDemo {
+    static int index = 0;
+    static int[] values = {10, 20, 30, -1};
+
+    static int readValue() {
+        return values[index++];
+    }
+
+    static void process(int value) {
+        System.out.println("Processing value: " + value);
+    }
+
+    public static void main(String[] args) {
+        int value;
+        while ((value = readValue()) != -1) {
+            process(value);
+        }
+    }
 }
 \`\`\`
 
@@ -682,16 +725,21 @@ Yes, you can nest while loops (while inside while), but be careful with performa
 Use a while loop with a retry counter:
 
 \`\`\`java
-int maxRetries = 3;
-int attempts = 0;
-boolean success = false;
+public class RetryWithWhileDemo {
+    static boolean performOperation(int attempt) {
+        return attempt == 2;
+    }
 
-while (attempts < maxRetries && !success) {
-    try {
-        performOperation();
-        success = true;
-    } catch (Exception e) {
-        attempts++;
+    public static void main(String[] args) {
+        int maxRetries = 3;
+        int attempts = 0;
+        boolean success = false;
+
+        while (attempts < maxRetries && !success) {
+            attempts++;
+            success = performOperation(attempts);
+            System.out.println("Attempt " + attempts + ", success: " + success);
+        }
     }
 }
 \`\`\`

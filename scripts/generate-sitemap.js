@@ -44,7 +44,14 @@ const newPagesToday = [
   'java8-optional-class',
   'java8-default-static-methods',
   'java8-date-time-api',
-  'java8-interview-questions'
+  'java8-interview-questions',
+  'microservices-introduction',
+  'microservices-architecture',
+  'microservices-communication',
+  'microservices-data-management',
+  'microservices-resilience-observability',
+  'microservices-security-deployment',
+  'microservices-realtime-project'
 ];
 
 // Static pages

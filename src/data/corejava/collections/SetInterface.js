@@ -5,186 +5,316 @@ const setInterface = {
   content: `
 # Set Interface — No Duplicates Allowed
 
-A Set is like a bag of unique items. You can't have two of the same thing. If you try to add a duplicate, it's simply ignored. This makes Sets perfect for storing unique values like user IDs, email addresses, or tags.
+Think of a **Set** like a guest list at a wedding. Once someone's name is on the list, writing it again does nothing — the same person cannot enter twice. In Java, a Set stores **unique elements only**. Try to add a duplicate and the Set quietly ignores it.
+
+Other everyday examples:
+- **Unique student roll numbers** in a class register — roll 101 can appear only once
+- **Tags on a blog post** — you don't want \`java\` and \`Java\` counted as two different tags if you normalize them
+- **Visited URLs** in a web crawler — each URL should be tracked once
+
+If you need order with duplicates, use a **List**. If you need key–value pairs, use a **Map**. A Set is for "have I seen this before?" and "give me every unique value."
+
+---
+
+## Understand Deeply — How a Set Knows Something Is a Duplicate
+
+A Set does not magically "see" duplicates. It uses two methods from the \`Object\` class:
+
+1. \`hashCode()\` — a number that helps Java find the right bucket quickly
+2. \`equals()\` — checks if two objects are "the same" for your purpose
+
+**When you call \`set.add(student)\`:**
+
+1. Java computes \`student.hashCode()\`
+2. Java goes to the bucket for that hash
+3. Java compares with existing items using \`equals()\`
+4. If \`equals\` says "same" → add is ignored, \`add\` returns \`false\`
+5. If no match → item is stored, \`add\` returns \`true\`
+
+**Example with Strings:** \`"Apple"\` and \`"Apple"\` have the same hash and are equal — second add fails silently.
+
+**Example with your own class:** If you store \`User\` objects in a HashSet but do **not** override \`equals\` and \`hashCode\`, Java compares memory addresses. Two users with the same email might both get stored — a common fresher bug. Fix it by defining equality on email (see the custom object demo below).
+
+**Why HashSet order looks random:** HashSet spreads items across buckets for speed. Print order is not insertion order. Need order? Use LinkedHashSet (insertion) or TreeSet (sorted).
 
 ---
 
 ## Set Characteristics
 
-- **No duplicates** — Each element appears only once
-- **No index** — Can't access by position
-- **Null handling** — Most allow one null (TreeSet doesn't)
-- **Order** — Depends on implementation
+Before we look at code, remember these four rules:
+
+- **No duplicates** — each element appears at most once (Java checks with \`equals()\`)
+- **No index** — you cannot call \`get(0)\` like on a List; you search with \`contains()\` or loop
+- **Null handling** — HashSet and LinkedHashSet allow one \`null\`; TreeSet does not
+- **Order depends on the implementation** — HashSet has no guaranteed order; LinkedHashSet keeps insertion order; TreeSet keeps sorted order
 
 ---
 
 ## Set Implementations
 
-### HashSet
-- **Backed by:** HashMap
-- **Order:** No guaranteed order
-- **Performance:** O(1) for add, remove, contains
-- **Best for:** Fast lookups, no order needed
+Java gives you three main Set classes. All three reject duplicates, but they differ in **order** and **speed**.
+
+### HashSet — fast, no guaranteed order
+
+HashSet is the default choice. It is backed by a hash table (internally a HashMap), so add, remove, and \`contains\` are very fast on average — O(1). The trade-off: when you print the Set, elements may appear in any order.
+
+**Real example:** storing unique email addresses for a newsletter signup — you only care that each email appears once, not the order they signed up.
 
 \`\`\`java
-Set<String> hashSet = new HashSet<>();
-hashSet.add("Apple");
-hashSet.add("Banana");
-hashSet.add("Apple");  // Ignored - duplicate
-// Result: [Banana, Apple] (order may vary)
+import java.util.HashSet;
+import java.util.Set;
+
+public class HashSetBasicsDemo {
+    public static void main(String[] args) {
+        Set<String> hashSet = new HashSet<>();
+        hashSet.add("Apple");
+        hashSet.add("Banana");
+        hashSet.add("Apple");  // Ignored - duplicate
+
+        System.out.println("HashSet: " + hashSet);
+        System.out.println("Size: " + hashSet.size());
+        System.out.println("(Order may vary)");
+    }
+}
 \`\`\`
 
-### LinkedHashSet
-- **Backed by:** LinkedHashMap
-- **Order:** Insertion order preserved
-- **Performance:** Slightly slower than HashSet
-- **Best for:** Unique elements + predictable iteration
+Notice \`size()\` is 2, not 3 — the second \`"Apple"\` was ignored.
+
+### LinkedHashSet — unique + insertion order
+
+LinkedHashSet is like HashSet with a memory of **when** each item was added. Iteration order matches insertion order. It is slightly slower and uses a bit more memory because it links entries together.
+
+**Real example:** removing duplicates from a list but keeping the first occurrence's order — e.g. \`["A", "B", "A", "C"]\` becomes \`["A", "B", "C"]\`.
 
 \`\`\`java
-Set<String> linkedSet = new LinkedHashSet<>();
-linkedSet.add("Apple");
-linkedSet.add("Banana");
-linkedSet.add("Cherry");
-// Result: [Apple, Banana, Cherry] (insertion order)
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class LinkedHashSetBasicsDemo {
+    public static void main(String[] args) {
+        Set<String> linkedSet = new LinkedHashSet<>();
+        linkedSet.add("Apple");
+        linkedSet.add("Banana");
+        linkedSet.add("Cherry");
+
+        System.out.println("LinkedHashSet: " + linkedSet);
+        System.out.println("(Maintains insertion order)");
+    }
+}
 \`\`\`
 
-### TreeSet
-- **Backed by:** TreeMap (Red-Black tree)
-- **Order:** Sorted (natural or custom)
-- **Performance:** O(log n) for operations
-- **Best for:** Sorted unique elements
+### TreeSet — unique + sorted order
+
+TreeSet stores elements in **sorted order** (natural order for Strings and numbers, or a custom \`Comparator\`). It uses a red-black tree internally, so operations are O(log n) — still fast, but not as fast as HashSet for huge datasets.
+
+**Real example:** maintaining a sorted list of unique product IDs, or finding the nearest price in a range.
 
 \`\`\`java
-Set<String> treeSet = new TreeSet<>();
-treeSet.add("Cherry");
-treeSet.add("Apple");
-treeSet.add("Banana");
-// Result: [Apple, Banana, Cherry] (sorted)
+import java.util.Set;
+import java.util.TreeSet;
+
+public class TreeSetBasicsDemo {
+    public static void main(String[] args) {
+        Set<String> treeSet = new TreeSet<>();
+        treeSet.add("Cherry");
+        treeSet.add("Apple");
+        treeSet.add("Banana");
+
+        System.out.println("TreeSet: " + treeSet);
+        System.out.println("(Automatically sorted)");
+    }
+}
 \`\`\`
+
+Even though we added Cherry first, the output is Apple, Banana, Cherry — alphabetical order.
 
 ---
 
-## Comparison Table
+## HashSet vs LinkedHashSet vs TreeSet — When to Pick
+
+Use this table when you are choosing which Set to create:
+
+| When you need… | Pick this | Real-world example |
+|----------------|-----------|-------------------|
+| Fastest lookups, order does not matter | **HashSet** | Set of logged-in user IDs checked on every request |
+| Unique values in the order they were added | **LinkedHashSet** | Browsing history — each page once, most recent trail preserved |
+| Unique values always sorted | **TreeSet** | Leaderboard scores, sorted unique city names |
+| Range queries (values between X and Y) | **TreeSet** | All product prices from ₹500 to ₹1000 using \`subSet()\` |
+| Remove duplicates from a List, keep first-seen order | **LinkedHashSet** | \`new LinkedHashSet<>(listWithDupes)\` |
+
+### Feature comparison
 
 | Feature | HashSet | LinkedHashSet | TreeSet |
 |---------|---------|---------------|---------|
-| Order | None | Insertion | Sorted |
-| Null | One allowed | One allowed | Not allowed |
-| Performance | O(1) | O(1) | O(log n) |
-| Memory | Less | More | More |
+| Order | None guaranteed | Insertion order | Sorted order |
+| Null allowed | One null | One null | No null |
+| Average speed | O(1) | O(1) | O(log n) |
+| Memory | Least | More than HashSet | More than HashSet |
 | Thread-safe | No | No | No |
+
+**Simple rule for freshers:** start with **HashSet**. Switch to **LinkedHashSet** if iteration order matters. Switch to **TreeSet** if you need sorting or range queries.
+
+### Set vs List — same data, different behavior
+
+\`\`\`java
+List<String> list = new ArrayList<>();
+list.add("A"); list.add("B"); list.add("A");
+// list → [A, B, A]  size 3
+
+Set<String> set = new HashSet<>();
+set.add("A"); set.add("B"); set.add("A");
+// set → [A, B]  size 2  (order may vary)
+\`\`\`
+
+If your requirement says "no duplicates," do not manually check \`list.contains()\` in a loop every time — use a Set and let Java enforce uniqueness.
 
 ---
 
 ## Common Set Operations
 
-### Creating Sets
+The program below shows everyday tasks: creating Sets (including from a List to remove duplicates), checking what \`add\` returns, searching with \`contains\`, and removing items.
+
+Watch \`add("Apple")\` — it returns \`true\` the first time and \`false\` when the duplicate is rejected.
 
 \`\`\`java
-// Empty set
-Set<String> set1 = new HashSet<>();
+import java.util.*;
 
-// With initial capacity
-Set<String> set2 = new HashSet<>(100);
+public class SetOperationsDemo {
+    public static void main(String[] args) {
+        Set<String> set = new HashSet<>();
+        Set<String> withCapacity = new HashSet<>(100);
+        Set<String> fromList = new HashSet<>(List.of("X", "Y", "X"));
+        Set<String> immutable = Set.of("A", "B", "C");
 
-// From collection
-Set<String> set3 = new HashSet<>(list);
+        System.out.println("From list (deduped): " + fromList);
+        System.out.println("Immutable: " + immutable);
 
-// Immutable set (Java 9+)
-Set<String> set4 = Set.of("A", "B", "C");
-\`\`\`
+        boolean firstAdd = set.add("Apple");
+        boolean duplicateAdd = set.add("Apple");
+        set.addAll(List.of("Banana", "Cherry"));
 
-### Adding Elements
+        System.out.println("\nSet: " + set);
+        System.out.println("First add returned: " + firstAdd);
+        System.out.println("Duplicate add returned: " + duplicateAdd);
+        System.out.println("Contains Apple: " + set.contains("Apple"));
+        System.out.println("Size: " + set.size());
 
-\`\`\`java
-set.add("Apple");           // Returns true if added
-boolean added = set.add("Apple");  // Returns false (duplicate)
-set.addAll(otherCollection);
-\`\`\`
-
-### Removing Elements
-
-\`\`\`java
-set.remove("Apple");
-set.removeAll(otherCollection);
-set.removeIf(s -> s.startsWith("A"));
-set.clear();
-\`\`\`
-
-### Checking Contents
-
-\`\`\`java
-boolean has = set.contains("Apple");
-boolean hasAll = set.containsAll(otherCollection);
-boolean empty = set.isEmpty();
-int size = set.size();
+        set.remove("Banana");
+        set.removeIf(s -> s.startsWith("C"));
+        System.out.println("After removals: " + set);
+    }
+}
 \`\`\`
 
 ---
 
 ## Set Operations (Math)
 
-Sets support mathematical set operations:
+Sets behave like math sets from school. You can compute **union** (everything in either set), **intersection** (only what both share), and **difference** (in first set but not second).
 
-### Union (All elements from both)
-
-\`\`\`java
-Set<Integer> set1 = new HashSet<>(Arrays.asList(1, 2, 3));
-Set<Integer> set2 = new HashSet<>(Arrays.asList(3, 4, 5));
-
-Set<Integer> union = new HashSet<>(set1);
-union.addAll(set2);
-// Result: [1, 2, 3, 4, 5]
-\`\`\`
-
-### Intersection (Common elements)
+Example: students who chose Java **or** Python (union), who chose **both** (intersection), or who chose Java **but not** Python (difference).
 
 \`\`\`java
-Set<Integer> intersection = new HashSet<>(set1);
-intersection.retainAll(set2);
-// Result: [3]
+import java.util.*;
+
+public class SetMathOperationsDemo {
+    public static void main(String[] args) {
+        Set<Integer> set1 = new HashSet<>(Arrays.asList(1, 2, 3));
+        Set<Integer> set2 = new HashSet<>(Arrays.asList(3, 4, 5));
+
+        Set<Integer> union = new HashSet<>(set1);
+        union.addAll(set2);
+        System.out.println("Union: " + union);
+
+        Set<Integer> intersection = new HashSet<>(set1);
+        intersection.retainAll(set2);
+        System.out.println("Intersection: " + intersection);
+
+        Set<Integer> difference = new HashSet<>(set1);
+        difference.removeAll(set2);
+        System.out.println("Difference: " + difference);
+    }
+}
 \`\`\`
 
-### Difference (Elements in set1 but not set2)
+| Operation | Method | Meaning |
+|-----------|--------|---------|
+| Union | \`addAll(other)\` | All elements from both sets |
+| Intersection | \`retainAll(other)\` | Only elements in both sets |
+| Difference | \`removeAll(other)\` | Elements in this set but not the other |
 
-\`\`\`java
-Set<Integer> difference = new HashSet<>(set1);
-difference.removeAll(set2);
-// Result: [1, 2]
-\`\`\`
+**Plain English with Venn diagrams in your head:**
+
+- **Union** — students who chose Java **or** Python (everyone from both classes combined)
+- **Intersection** — students enrolled in Java **and** Python (only those in both)
+- **Difference** — students in Java but **not** in Python (set1 minus overlap)
+
+If set1 = {1,2,3} and set2 = {3,4,5}: union = {1,2,3,4,5}, intersection = {3}, difference = {1,2}.
 
 ---
 
 ## TreeSet Special Features
 
-TreeSet provides additional navigation methods:
+Because TreeSet keeps data sorted, it offers extra navigation methods that HashSet does not have — \`first()\`, \`last()\`, \`lower()\`, \`higher()\`, and views like \`headSet()\` / \`tailSet()\` / \`subSet()\`.
+
+Think of it like a sorted guest list where you can quickly ask: "Who is just below seat 30?" or "Give me everyone from 20 up to (but not including) 40."
 
 \`\`\`java
-TreeSet<Integer> numbers = new TreeSet<>(Arrays.asList(10, 20, 30, 40, 50));
+import java.util.Arrays;
+import java.util.TreeSet;
 
-numbers.first();      // 10 (smallest)
-numbers.last();       // 50 (largest)
-numbers.lower(30);    // 20 (largest < 30)
-numbers.higher(30);   // 40 (smallest > 30)
-numbers.floor(25);    // 20 (largest <= 25)
-numbers.ceiling(25);  // 30 (smallest >= 25)
+public class TreeSetNavigationDemo {
+    public static void main(String[] args) {
+        TreeSet<Integer> numbers = new TreeSet<>(Arrays.asList(10, 20, 30, 40, 50));
 
-numbers.headSet(30);  // [10, 20] (elements < 30)
-numbers.tailSet(30);  // [30, 40, 50] (elements >= 30)
-numbers.subSet(20, 40); // [20, 30] (20 <= x < 40)
+        System.out.println("First: " + numbers.first());
+        System.out.println("Last: " + numbers.last());
+        System.out.println("Lower than 30: " + numbers.lower(30));
+        System.out.println("Higher than 30: " + numbers.higher(30));
+        System.out.println("Floor of 25: " + numbers.floor(25));
+        System.out.println("Ceiling of 25: " + numbers.ceiling(25));
+        System.out.println("HeadSet(<30): " + numbers.headSet(30));
+        System.out.println("TailSet(>=30): " + numbers.tailSet(30));
+        System.out.println("SubSet [20,40): " + numbers.subSet(20, 40));
+    }
+}
 \`\`\`
 
 ---
 
 ## Custom Objects in Sets
 
-For custom objects, you must override \`equals()\` and \`hashCode()\`:
+When you store your own classes (like \`User\`) in a HashSet or LinkedHashSet, Java must know what "duplicate" means. You **must override \`equals()\` and \`hashCode()\`** using the same fields — here, two users with the same email are treated as one person on the guest list.
+
+Without proper \`equals\`/\`hashCode\`, the same email could appear twice and the Set would not notice.
 
 \`\`\`java
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class CustomObjectInSetDemo {
+    public static void main(String[] args) {
+        Set<User> users = new HashSet<>();
+        users.add(new User("dattu@email.com", "Dattu"));
+        users.add(new User("dattu@email.com", "Dattuny"));  // Duplicate! Same email
+
+        System.out.println("Users in set: " + users.size());
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+}
+
 class User {
-    private String email;
-    private String name;
-    
+    private final String email;
+    private final String name;
+
+    public User(String email, String name) {
+        this.email = email;
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -192,42 +322,71 @@ class User {
         User user = (User) o;
         return Objects.equals(email, user.email);
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(email);
     }
-}
 
-Set<User> users = new HashSet<>();
-users.add(new User(" Dattu@email.com", " Dattu"));
-users.add(new User(" Dattu@email.com", " Dattuny"));  // Duplicate! Same email
-// Set size: 1
+    @Override
+    public String toString() {
+        return name + " <" + email + ">";
+    }
+}
 \`\`\`
 
-For TreeSet, implement \`Comparable\` or provide a \`Comparator\`.
+For **TreeSet** with custom objects, also implement \`Comparable\` (or pass a \`Comparator\`) so Java knows how to sort them.
 
 ---
 
 ## Real-World Example: Tag System
 
+Blog posts often have tags like \`java\`, \`spring\`, \`tutorial\`. A Set is a natural fit — each tag should appear once per article. The demo below normalizes tags to lowercase so \`"Java"\` and \`"java"\` count as the same tag, and uses set intersection to find tags shared between two articles.
+
 \`\`\`java
-public class Article {
-    private String title;
-    private Set<String> tags = new HashSet<>();
-    
-    public void addTag(String tag) {
-        tags.add(tag.toLowerCase());  // Normalize
+import java.util.HashSet;
+import java.util.Set;
+
+public class ArticleTagSystemDemo {
+    public static void main(String[] args) {
+        Article javaArticle = new Article("Java Collections");
+        javaArticle.addTag("Java");
+        javaArticle.addTag("Collections");
+        javaArticle.addTag("java");  // duplicate after normalization
+
+        Article springArticle = new Article("Spring Boot");
+        springArticle.addTag("Java");
+        springArticle.addTag("Spring");
+
+        System.out.println("Java article tags: " + javaArticle.getTags());
+        System.out.println("Common tags: " + javaArticle.getCommonTags(springArticle));
     }
-    
+}
+
+class Article {
+    private final String title;
+    private final Set<String> tags = new HashSet<>();
+
+    public Article(String title) {
+        this.title = title;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag.toLowerCase());
+    }
+
     public void removeTag(String tag) {
         tags.remove(tag.toLowerCase());
     }
-    
+
     public boolean hasTag(String tag) {
         return tags.contains(tag.toLowerCase());
     }
-    
+
+    public Set<String> getTags() {
+        return new HashSet<>(tags);
+    }
+
     public Set<String> getCommonTags(Article other) {
         Set<String> common = new HashSet<>(this.tags);
         common.retainAll(other.tags);
@@ -238,59 +397,71 @@ public class Article {
 
 ---
 
-## When to Use Which Set
+## Interview Questions — Plain Answers
 
-| Use Case | Best Choice |
-|----------|-------------|
-| Fast lookups, order doesn't matter | HashSet |
-| Need insertion order | LinkedHashSet |
-| Need sorted elements | TreeSet |
-| Need range queries | TreeSet |
-| Removing duplicates from list | HashSet |
+### 1. What makes a Set different from a List?
+
+A List allows duplicates and gives you index-based access. A Set allows **only unique** elements and has **no index**. If you add the same value twice to a Set, the second add is ignored.
+
+### 2. HashSet vs LinkedHashSet vs TreeSet — which one should I use?
+
+Pick based on order: **HashSet** when you don't care about order and want speed. **LinkedHashSet** when you need insertion order. **TreeSet** when you need sorted order or range queries. All three reject duplicates.
+
+### 3. How does a Set decide two elements are duplicates?
+
+It uses \`equals()\`. For HashSet and LinkedHashSet, \`hashCode()\` must also match — that is why you override both for custom objects. Two objects that are \`equals\` must have the same \`hashCode\`.
+
+### 4. Can I change an object after putting it in a HashSet?
+
+Be very careful. If you change a field that \`equals()\` or \`hashCode()\` uses, the Set may not find the object anymore, or it may allow what looks like a duplicate. Best practice: use **immutable** keys (like \`String\`, \`Integer\`, or \`final\` fields) in Sets.
+
+### 5. How do I remove duplicates from a List?
+
+Wrap the List in a Set: \`new HashSet<>(list)\` removes duplicates but loses order. Use \`new LinkedHashSet<>(list)\` to keep the first-seen order. In streams: \`.distinct()\` or \`.collect(Collectors.toSet())\`.
+
+### 6. What is EnumSet?
+
+When your Set contains **enum** values only (like \`Day.MONDAY\`, \`Day.TUESDAY\`), \`EnumSet\` is faster and more compact than HashSet. Use it whenever the element type is an enum.
+
+### 7. What is CopyOnWriteArraySet?
+
+A **thread-safe** Set for read-heavy scenarios. Reads are fast; writes copy the whole backing array, so writes are expensive. Useful for small listener lists that are read often and changed rarely.
+
+### 8. Are two Sets equal if they have the same elements in different order?
+
+Yes. Set equality ignores order — \`{1, 2, 3}\` equals \`{3, 1, 2}\`. A List would **not** consider those equal because order matters for Lists.
+
+### 9. Why must a TreeSet comparator agree with equals?
+
+If your comparator says two objects are different but \`equals\` says they are the same (or the opposite), the Set contract breaks — you could end up with "duplicate" values that TreeSet treats as distinct. Keep comparison and equality consistent.
+
+### 10. How fast is \`contains()\` on a HashSet?
+
+On average, **O(1)** — constant time — because hashing jumps straight to the right bucket. Worst case can degrade if many keys collide, but with a good \`hashCode()\` and normal load, it is very fast. TreeSet \`contains\` is O(log n) because it walks the tree.
 
 ---
 
-## 10 Important Set Interface Interview Questions
+## Remember These 5 Things
 
-### 1. What is Set’s uniqueness contract?
-**Answer:** No duplicate elements per \`equals\`/\`hashCode\`—at most one null in implementations allowing null (avoid).
-Mathematical set abstraction.
+1. **Set = no duplicates** — second add of the same element is ignored.
+2. **Default is HashSet** — fastest; order when printing is not guaranteed.
+3. **Use LinkedHashSet** when you care about insertion order; **TreeSet** when you need sorting.
+4. **Custom objects need \`equals\` + \`hashCode\`** — or duplicates will slip through.
+5. **Remove duplicates from a List:** \`new LinkedHashSet<>(list)\` then back to \`ArrayList\` if needed.
 
-### 2. HashSet vs LinkedHashSet vs TreeSet?
-**Answer:** HashSet O(1) avg ops unordered; LinkedHashSet insertion order; TreeSet sorted per Comparable/Comparator O(log n).
-Pick ordering requirements first.
+---
 
-### 3. Can you modify elements used in HashSet after insert?
-**Answer:** Dangerous—if fields affecting equals/hash change, set breaks—use immutable keys or remove/re-add consciously.
-Classic defect in interviews.
+## What's Next?
 
-### 4. Scenario: dedupe user IDs from stream—idiomatic approach?
-**Answer:** \`stream().collect(Collectors.toSet())\` or \`distinct()\` if hash based on equals—ensure stable equals for objects.
-Large datasets consider trove/openhash if primitives.
+Now that you understand Sets, continue with the other Java Collections Framework interfaces:
 
-### 5. What is \`EnumSet\`?
-**Answer:** Extremely efficient bit-vector set for enums—preferred when domain is enum universe.
-Faster than HashSet for enums.
+### Immediate Next Steps
 
-### 6. What is \`CopyOnWriteArraySet\`?
-**Answer:** Thread-safe copy-on-write—good read-heavy, rare writes—expensive writes—iterator snapshot.
-Event listener registries sometimes.
+1. **[Queue Interface](/corejava/queue-interface)** — First-in-first-out collections for tasks, messages, and waiting lines
+2. **[Map Interface](/corejava/map-interface)** — Key–value pairs when you need to look up data by a key, not just check uniqueness
+3. **[List Interface](/corejava/list-interface)** — Ordered collections that allow duplicates and index-based access
+4. **[Collection Introduction](/corejava/collection-introduction)** — Review the big picture of Lists, Sets, Queues, and Maps together
 
-### 7. Set equals/hashCode with other collections?
-**Answer:** Set equals another Set if same elements regardless of order—hashCode defined accordingly.
-Symmetry with List differs.
-
-### 8. Why TreeSet’s comparator must be consistent with equals?
-**Answer:** Otherwise Set contract breaks—equal elements might both exist if compare returns non-zero—subtle bugs.
-Document comparator assumptions.
-
-### 9. BitSet vs HashSet for integers?
-**Answer:** BitSet compact for dense integer ranges—specialized—not implementing Set interface fully same way—domain specific.
-Memory efficient cardinality.
-
-### 10. Performance of \`contains\` in HashSet?
-**Answer:** Average O(1)—depends on good hash function and load factor—resize costs amortized.
-Know initial capacity and load factor tuning.
 
 `,
   code: `// Set Interface Demo

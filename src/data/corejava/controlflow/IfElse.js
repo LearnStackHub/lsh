@@ -5,7 +5,7 @@ const ifElse = {
   content: `
 # If-Else Statements - Making Decisions in Code
 
-If-else statements are fundamental control flow constructs in Java that enable programs to execute different code blocks based on conditional logic. Conditional statements are essential for implementing business logic, validating input, controlling program flow, and handling different scenarios in applications. Understanding if-else statements is crucial for building functional, responsive software.
+If-else statements are fundamental control flow constructs in Java that enable programs to execute different code blocks based on conditional logic. In real applications, every important decision uses conditions: allow login or reject it, apply discount or skip it, approve payment or block it, show error or save data.
 
 Enterprise applications extensively use conditional statements for access control, data validation, business rule enforcement, and user interface logic. Banking systems use conditionals for transaction validation, e-commerce platforms use them for pricing and discount logic, and authentication systems rely on conditionals for access decisions. Mastery of if-else statements is fundamental for all Java developers.
 
@@ -14,17 +14,28 @@ Enterprise applications extensively use conditional statements for access contro
 ## The Basic If Statement
 
 \`\`\`java
-if (condition) {
-    // Code runs if condition is true
+public class BasicIfDemo {
+    public static void main(String[] args) {
+        boolean paymentCompleted = true;
+
+        if (paymentCompleted) {
+            System.out.println("Order can be confirmed");
+        }
+    }
 }
 \`\`\`
 
-**Example:**
-\`\`\`java
-int age = 20;
+Use a basic \`if\` when one action should happen only if a condition is true, such as showing a success message after payment or sending an OTP only for an active user.
 
-if (age >= 18) {
-    System.out.println("You can vote!");
+\`\`\`java
+public class VotingEligibilityDemo {
+    public static void main(String[] args) {
+        int age = 20;
+
+        if (age >= 18) {
+            System.out.println("You can vote!");
+        }
+    }
 }
 \`\`\`
 
@@ -33,21 +44,32 @@ if (age >= 18) {
 ## If-Else Statement
 
 \`\`\`java
-if (condition) {
-    // Runs if true
-} else {
-    // Runs if false
+public class IfElseSyntaxDemo {
+    public static void main(String[] args) {
+        boolean stockAvailable = false;
+
+        if (stockAvailable) {
+            System.out.println("Add item to cart");
+        } else {
+            System.out.println("Show out-of-stock message");
+        }
+    }
 }
 \`\`\`
 
-**Example:**
-\`\`\`java
-int score = 75;
+Use \`if-else\` when both outcomes matter, like pass/fail, login success/login error, stock available/out of stock, or adult/minor.
 
-if (score >= 60) {
-    System.out.println("You passed!");
-} else {
-    System.out.println("You failed.");
+\`\`\`java
+public class PassFailDemo {
+    public static void main(String[] args) {
+        int score = 75;
+
+        if (score >= 60) {
+            System.out.println("You passed!");
+        } else {
+            System.out.println("You failed.");
+        }
+    }
 }
 \`\`\`
 
@@ -55,88 +77,125 @@ if (score >= 60) {
 
 ## If-Else-If Ladder
 
-For multiple conditions:
+For multiple conditions, use an if-else-if ladder. This is common in grading, order status decisions, loan eligibility, ticket priority, and salary tax slab logic.
 
 \`\`\`java
-if (condition1) {
-    // First condition true
-} else if (condition2) {
-    // Second condition true
-} else if (condition3) {
-    // Third condition true
-} else {
-    // None of the above
+public class DeliveryChargeDemo {
+    public static void main(String[] args) {
+        double cartTotal = 850.0;
+        double deliveryCharge;
+
+        if (cartTotal >= 1000) {
+            deliveryCharge = 0;
+        } else if (cartTotal >= 500) {
+            deliveryCharge = 40;
+        } else if (cartTotal >= 200) {
+            deliveryCharge = 70;
+        } else {
+            deliveryCharge = 100;
+        }
+
+        System.out.println("Delivery charge: " + deliveryCharge);
+    }
 }
 \`\`\`
 
-**Example — Grade Calculator:**
+**Example  Grade Calculator:**
 \`\`\`java
-int score = 85;
-String grade;
+public class GradeCalculator {
+    public static void main(String[] args) {
+        int score = 85;
+        String grade;
 
-if (score >= 90) {
-    grade = "A";
-} else if (score >= 80) {
-    grade = "B";
-} else if (score >= 70) {
-    grade = "C";
-} else if (score >= 60) {
-    grade = "D";
-} else {
-    grade = "F";
+        if (score >= 90) {
+            grade = "A";
+        } else if (score >= 80) {
+            grade = "B";
+        } else if (score >= 70) {
+            grade = "C";
+        } else if (score >= 60) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+
+        System.out.println("Grade: " + grade);
+    }
 }
-
-System.out.println("Grade: " + grade);  // Grade: B
 \`\`\`
 
 ---
 
 ## Nested If Statements
 
-If statements inside if statements:
+If statements inside if statements. Nested checks are useful when the second rule should be checked only after the first rule passes, like checking license only after age is valid or checking payment only after cart is not empty.
 
 \`\`\`java
-int age = 25;
-boolean hasLicense = true;
+public class DrivingEligibilityDemo {
+    public static void main(String[] args) {
+        int age = 25;
+        boolean hasLicense = true;
 
-if (age >= 18) {
-    if (hasLicense) {
-        System.out.println("You can drive!");
-    } else {
-        System.out.println("Get a license first.");
+        if (age >= 18) {
+            if (hasLicense) {
+                System.out.println("You can drive!");
+            } else {
+                System.out.println("Get a license first.");
+            }
+        } else {
+            System.out.println("Too young to drive.");
+        }
     }
-} else {
-    System.out.println("Too young to drive.");
 }
 \`\`\`
 
-**Tip:** Avoid deep nesting — it makes code hard to read. Consider using early returns or combining conditions.
+**Tip:** Avoid deep nesting  it makes code hard to read. Consider using early returns or combining conditions.
 
 ---
 
 ## Combining Conditions
 
-### AND (&&) — Both must be true
+### AND (&&)  Both must be true
 
 \`\`\`java
-if (age >= 18 && hasLicense) {
-    System.out.println("Can drive");
+public class AndConditionDemo {
+    public static void main(String[] args) {
+        int age = 22;
+        boolean hasLicense = true;
+
+        if (age >= 18 && hasLicense) {
+            System.out.println("Can drive");
+        }
+    }
 }
 \`\`\`
 
-### OR (||) — At least one must be true
+### OR (||)  At least one must be true
 
 \`\`\`java
-if (isAdmin || isOwner) {
-    System.out.println("Has access");
+public class OrConditionDemo {
+    public static void main(String[] args) {
+        boolean isAdmin = false;
+        boolean isOwner = true;
+
+        if (isAdmin || isOwner) {
+            System.out.println("Has access");
+        }
+    }
 }
 \`\`\`
 
-### NOT (!) — Reverses the condition
+### NOT (!)  Reverses the condition
 
 \`\`\`java
-if (!isLoggedIn) {
-    System.out.println("Please log in");
+public class NotConditionDemo {
+    public static void main(String[] args) {
+        boolean isLoggedIn = false;
+
+        if (!isLoggedIn) {
+            System.out.println("Please log in");
+        }
+    }
 }
 \`\`\`
 
@@ -147,54 +206,95 @@ if (!isLoggedIn) {
 ### Null Check
 
 \`\`\`java
-if (user != null) {
-    System.out.println("Hello, " + user.getName());
-}
+public class NullCheckDemo {
+    static class User {
+        private String name;
+        private boolean active;
 
-// Or with short-circuit
-if (user != null && user.isActive()) {
-    // Safe - won't call isActive() if user is null
+        User(String name, boolean active) {
+            this.name = name;
+            this.active = active;
+        }
+
+        String getName() {
+            return name;
+        }
+
+        boolean isActive() {
+            return active;
+        }
+    }
+
+    public static void main(String[] args) {
+        User user = new User("Dattu", true);
+
+        if (user != null) {
+            System.out.println("Hello, " + user.getName());
+        }
+
+        if (user != null && user.isActive()) {
+            System.out.println("User can access dashboard");
+        }
+    }
 }
 \`\`\`
 
 ### Range Check
 
 \`\`\`java
-if (age >= 13 && age <= 19) {
-    System.out.println("Teenager");
+public class RangeCheckDemo {
+    public static void main(String[] args) {
+        int age = 16;
+
+        if (age >= 13 && age <= 19) {
+            System.out.println("Teenager");
+        }
+    }
 }
 \`\`\`
 
 ### Empty Check
 
 \`\`\`java
-if (name != null && !name.isEmpty()) {
-    System.out.println("Name: " + name);
-}
+public class EmptyCheckDemo {
+    public static void main(String[] args) {
+        String name = "Dattu";
 
-// Java 11+
-if (name != null && !name.isBlank()) {
-    System.out.println("Name: " + name);
+        if (name != null && !name.isEmpty()) {
+            System.out.println("Name: " + name);
+        }
+
+        if (name != null && !name.isBlank()) {
+            System.out.println("Name after blank check: " + name);
+        }
+    }
 }
 \`\`\`
 
 ---
 
-## Ternary Operator — Shorthand If-Else
+## Ternary Operator  Shorthand If-Else
 
-For simple assignments:
+For simple assignments. In real code, ternary is useful for small labels like account status, delivery charge text, discount type, or pass/fail result.
 
 \`\`\`java
-// Instead of:
-String status;
-if (age >= 18) {
-    status = "Adult";
-} else {
-    status = "Minor";
-}
+public class TernaryIfElseDemo {
+    public static void main(String[] args) {
+        int age = 20;
 
-// Write:
-String status = (age >= 18) ? "Adult" : "Minor";
+        String statusUsingIf;
+        if (age >= 18) {
+            statusUsingIf = "Adult";
+        } else {
+            statusUsingIf = "Minor";
+        }
+
+        String statusUsingTernary = (age >= 18) ? "Adult" : "Minor";
+
+        System.out.println("If-else status: " + statusUsingIf);
+        System.out.println("Ternary status: " + statusUsingTernary);
+    }
+}
 \`\`\`
 
 **Use ternary for simple cases only.** Complex logic should use regular if-else.
@@ -206,49 +306,86 @@ String status = (age >= 18) ? "Adult" : "Minor";
 ### 1. Always Use Braces
 
 \`\`\`java
-// BAD - error-prone
-if (condition)
-    doSomething();
-    doSomethingElse();  // Always runs! Not part of if
+public class AlwaysUseBracesDemo {
+    static void reserveStock() {
+        System.out.println("Stock reserved");
+    }
 
-// GOOD
-if (condition) {
-    doSomething();
-    doSomethingElse();
+    static void createOrder() {
+        System.out.println("Order created");
+    }
+
+    public static void main(String[] args) {
+        boolean paymentCompleted = true;
+
+        if (paymentCompleted) {
+            reserveStock();
+            createOrder();
+        }
+    }
 }
 \`\`\`
 
 ### 2. Positive Conditions First
 
 \`\`\`java
-// Harder to read
-if (!isInvalid) {
-    // valid case
-}
+public class PositiveConditionDemo {
+    public static void main(String[] args) {
+        boolean isValid = true;
 
-// Easier to read
-if (isValid) {
-    // valid case
+        if (isValid) {
+            System.out.println("Save customer profile");
+        } else {
+            System.out.println("Show validation error");
+        }
+    }
 }
 \`\`\`
 
 ### 3. Early Return Pattern
 
 \`\`\`java
-// Instead of deep nesting:
-if (user != null) {
-    if (user.isActive()) {
-        if (user.hasPermission()) {
-            // do something
+public class EarlyReturnDemo {
+    static class User {
+        boolean active;
+        boolean permission;
+
+        User(boolean active, boolean permission) {
+            this.active = active;
+            this.permission = permission;
+        }
+
+        boolean isActive() {
+            return active;
+        }
+
+        boolean hasPermission() {
+            return permission;
         }
     }
-}
 
-// Use early returns:
-if (user == null) return;
-if (!user.isActive()) return;
-if (!user.hasPermission()) return;
-// do something
+    static void openAdminPage(User user) {
+        if (user == null) {
+            System.out.println("User not found");
+            return;
+        }
+        if (!user.isActive()) {
+            System.out.println("User is inactive");
+            return;
+        }
+        if (!user.hasPermission()) {
+            System.out.println("Permission denied");
+            return;
+        }
+
+        System.out.println("Admin page opened");
+    }
+
+    public static void main(String[] args) {
+        User user = new User(true, true);
+        openAdminPage(user);
+    }
+}
 \`\`\`
 
 ---
@@ -256,41 +393,88 @@ if (!user.hasPermission()) return;
 ## Real-World Example: Login Validation
 
 \`\`\`java
-public String login(String username, String password) {
-    // Check for empty input
-    if (username == null || username.isEmpty()) {
-        return "Username is required";
-    }
-    
-    if (password == null || password.isEmpty()) {
-        return "Password is required";
-    }
-    
-    // Find user
-    User user = findUser(username);
-    
-    if (user == null) {
-        return "User not found";
-    }
-    
-    // Check if account is locked
-    if (user.isLocked()) {
-        return "Account is locked";
-    }
-    
-    // Verify password
-    if (!user.checkPassword(password)) {
-        user.incrementFailedAttempts();
-        if (user.getFailedAttempts() >= 3) {
-            user.lock();
-            return "Account locked due to too many failed attempts";
+public class LoginValidationDemo {
+    static class User {
+        private String username;
+        private String password;
+        private boolean locked;
+        private int failedAttempts;
+
+        User(String username, String password) {
+            this.username = username;
+            this.password = password;
         }
-        return "Invalid password";
+
+        boolean isLocked() {
+            return locked;
+        }
+
+        boolean checkPassword(String password) {
+            return this.password.equals(password);
+        }
+
+        void incrementFailedAttempts() {
+            failedAttempts++;
+        }
+
+        int getFailedAttempts() {
+            return failedAttempts;
+        }
+
+        void lock() {
+            locked = true;
+        }
+
+        void resetFailedAttempts() {
+            failedAttempts = 0;
+        }
     }
-    
-    // Success!
-    user.resetFailedAttempts();
-    return "Login successful";
+
+    static User findUser(String username) {
+        if ("dattu".equals(username)) {
+            return new User("dattu", "Java@123");
+        }
+        return null;
+    }
+
+    static String login(String username, String password) {
+        if (username == null || username.isEmpty()) {
+            return "Username is required";
+        }
+
+        if (password == null || password.isEmpty()) {
+            return "Password is required";
+        }
+
+        User user = findUser(username);
+
+        if (user == null) {
+            return "User not found";
+        }
+
+        if (user.isLocked()) {
+            return "Account is locked";
+        }
+
+        if (!user.checkPassword(password)) {
+            user.incrementFailedAttempts();
+            if (user.getFailedAttempts() >= 3) {
+                user.lock();
+                return "Account locked due to too many failed attempts";
+            }
+            return "Invalid password";
+        }
+
+        user.resetFailedAttempts();
+        return "Login successful";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(login("", "Java@123"));
+        System.out.println(login("unknown", "Java@123"));
+        System.out.println(login("dattu", "wrong"));
+        System.out.println(login("dattu", "Java@123"));
+    }
 }
 \`\`\`
 
@@ -300,29 +484,29 @@ public String login(String username, String password) {
 
 ### 1. When do you choose if-else over switch?
 **Answer:** Use if-else for ranges, compound boolean conditions, or non-constant predicates; switch fits discrete constants (especially enums) with clearer branching.
-If-else chains with duplicated conditions are a smell—extract methods.
+If-else chains with duplicated conditions are a smellextract methods.
 
 ### 2. What is dangling else and how does Java bind else?
 **Answer:** An \`else\` binds to the nearest preceding \`if\` without an \`else\`; use braces to make intent explicit.
 Always brace multi-line branches to avoid maintenance bugs.
 
 ### 3. How does \`boolean\` short-circuiting interact with if conditions?
-**Answer:** \`&&\` and \`||\` skip evaluating the right side when the result is fixed—useful to avoid null checks and expensive calls.
+**Answer:** \`&&\` and \`||\` skip evaluating the right side when the result is fixeduseful to avoid null checks and expensive calls.
 Order conditions from cheapest/safest to heavier.
 
 ### 4. Can you use \`if\` with assignment accidentally?
-**Answer:** Yes—\`if (x = y)\` is a compile-time error when the assignment does not produce a \`boolean\` (e.g. \`int\` operands). If both sides are \`boolean\`, it compiles and assigns \`y\` to \`x\`, which is often a logic bug mistaken for \`==\`.
+**Answer:** Yes\`if (x = y)\` is a compile-time error when the assignment does not produce a \`boolean\` (e.g. \`int\` operands). If both sides are \`boolean\`, it compiles and assigns \`y\` to \`x\`, which is often a logic bug mistaken for \`==\`.
 Use \`==\` for comparison and tools/review to catch suspicious assignments in conditions.
 
 ### 5. What is the ternary operator vs if-else for returns?
-**Answer:** Ternary is an expression and can be assigned; if-else is statements—pick based on readability.
+**Answer:** Ternary is an expression and can be assigned; if-else is statementspick based on readability.
 Deep nesting of ternaries hurts clarity.
 
 ### 6. How do you structure validation with if-else early returns?
-**Answer:** Guard clauses at the top reduce nesting (“fail fast”) and keep the happy path at the bottom.
+**Answer:** Guard clauses at the top reduce nesting (fail fast) and keep the happy path at the bottom.
 This pattern appears heavily in REST controllers and parsers.
 
-### 7. Scenario: feature flags control behavior—how does if-else scale?
+### 7. Scenario: feature flags control behaviorhow does if-else scale?
 **Answer:** A few flags work with if-else; many combinations call for strategy pattern, polymorphism, or rule engines.
 Interviewers probe when simple branching becomes unmaintainable.
 
@@ -347,33 +531,33 @@ public class IfElseDemo {
         
         // 1. BASIC IF
         System.out.println("1. BASIC IF");
-        System.out.println("   ---------");
+        System.out.println("  ---------");
         
         int temperature = 30;
-        System.out.println("   Temperature: " + temperature + "°C");
+        System.out.println("Temperature: " + temperature + "C");
         
         if (temperature > 25) {
-            System.out.println("   It's hot today!");
+            System.out.println("It's hot today!");
         }
         System.out.println();
         
         // 2. IF-ELSE
         System.out.println("2. IF-ELSE");
-        System.out.println("   --------");
+        System.out.println("  --------");
         
         int age = 16;
-        System.out.println("   Age: " + age);
+        System.out.println("Age: " + age);
         
         if (age >= 18) {
-            System.out.println("   You can vote!");
+            System.out.println("You can vote!");
         } else {
-            System.out.println("   Too young to vote.");
+            System.out.println("Too young to vote.");
         }
         System.out.println();
         
         // 3. IF-ELSE-IF LADDER
         System.out.println("3. IF-ELSE-IF LADDER (Grade Calculator)");
-        System.out.println("   -------------------------------------");
+        System.out.println("  -------------------------------------");
         
         int[] scores = {95, 82, 73, 65, 45};
         
@@ -390,91 +574,91 @@ public class IfElseDemo {
             } else {
                 grade = "F";
             }
-            System.out.println("   Score: " + score + " -> Grade: " + grade);
+            System.out.println("Score: " + score + " -> Grade: " + grade);
         }
         System.out.println();
         
         // 4. COMBINING CONDITIONS
         System.out.println("4. COMBINING CONDITIONS");
-        System.out.println("   ---------------------");
+        System.out.println("  ---------------------");
         
         int userAge = 25;
         boolean hasLicense = true;
         boolean hasCar = false;
         
-        System.out.println("   Age: " + userAge + ", License: " + hasLicense + ", Car: " + hasCar);
+        System.out.println("Age: " + userAge + ", License: " + hasLicense + ", Car: " + hasCar);
         
         // AND
         if (userAge >= 18 && hasLicense) {
-            System.out.println("   Can legally drive");
+            System.out.println("Can legally drive");
         }
         
         // OR
         if (hasLicense || hasCar) {
-            System.out.println("   Has license OR car");
+            System.out.println("Has license OR car");
         }
         
         // Complex
         if (userAge >= 18 && hasLicense && !hasCar) {
-            System.out.println("   Can drive but needs to rent a car");
+            System.out.println("Can drive but needs to rent a car");
         }
         System.out.println();
         
         // 5. NESTED IF
         System.out.println("5. NESTED IF");
-        System.out.println("   ----------");
+        System.out.println("  ----------");
         
         String userType = "premium";
         int purchaseAmount = 150;
         
-        System.out.println("   User: " + userType + ", Purchase: $" + purchaseAmount);
+        System.out.println("User: " + userType + ", Purchase: $" + purchaseAmount);
         
         if (userType.equals("premium")) {
             if (purchaseAmount >= 100) {
-                System.out.println("   20% discount applied!");
+                System.out.println("  20% discount applied!");
             } else {
-                System.out.println("   10% discount applied!");
+                System.out.println("  10% discount applied!");
             }
         } else {
             if (purchaseAmount >= 100) {
-                System.out.println("   5% discount applied!");
+                System.out.println("  5% discount applied!");
             } else {
-                System.out.println("   No discount");
+                System.out.println("No discount");
             }
         }
         System.out.println();
         
         // 6. TERNARY OPERATOR
         System.out.println("6. TERNARY OPERATOR");
-        System.out.println("   -----------------");
+        System.out.println("  -----------------");
         
         int num = 7;
         String evenOdd = (num % 2 == 0) ? "even" : "odd";
-        System.out.println("   " + num + " is " + evenOdd);
+        System.out.println("  " + num + " is " + evenOdd);
         
         int a = 10, b = 20;
         int max = (a > b) ? a : b;
-        System.out.println("   Max of " + a + " and " + b + " is " + max);
+        System.out.println("Max of " + a + " and " + b + " is " + max);
         
         // Nested ternary (use sparingly!)
         int score = 85;
         String result = (score >= 90) ? "Excellent" :
                         (score >= 70) ? "Good" :
                         (score >= 50) ? "Pass" : "Fail";
-        System.out.println("   Score " + score + ": " + result);
+        System.out.println("Score " + score + ": " + result);
         System.out.println();
         
         // 7. REAL-WORLD EXAMPLE
         System.out.println("7. REAL-WORLD EXAMPLE - Login System");
-        System.out.println("   -----------------------------------");
+        System.out.println("  -----------------------------------");
         
         LoginSystem login = new LoginSystem();
         
-        System.out.println("   " + login.authenticate("", "pass123"));
-        System.out.println("   " + login.authenticate(" Dattu", ""));
-        System.out.println("   " + login.authenticate("unknown", "pass123"));
-        System.out.println("   " + login.authenticate(" Dattu", "wrong"));
-        System.out.println("   " + login.authenticate(" Dattu", "password123"));
+        System.out.println("  " + login.authenticate("", "pass123"));
+        System.out.println("  " + login.authenticate(" Dattu", ""));
+        System.out.println("  " + login.authenticate("unknown", "pass123"));
+        System.out.println("  " + login.authenticate(" Dattu", "wrong"));
+        System.out.println("  " + login.authenticate(" Dattu", "password123"));
     }
 }
 
@@ -544,11 +728,18 @@ Applications use if-else statements for input validation, ensuring data integrit
 **Solution:** Always use == for comparison:
 
 \`\`\`java
-// WRONG
-if (age = 18) { }  // Assigns 18 to age, always true!
+public class AssignmentVsComparisonDemo {
+    public static void main(String[] args) {
+        int age = 18;
 
-// CORRECT
-if (age == 18) { }  // Compares age with 18
+        // Wrong for int: if (age = 18) { }
+        // Java does not allow int assignment as an if condition.
+
+        if (age == 18) {
+            System.out.println("Age is exactly 18");
+        }
+    }
+}
 \`\`\`
 
 ### Mistake 2: Missing Braces for Single Statements
@@ -557,14 +748,19 @@ if (age == 18) { }  // Compares age with 18
 **Solution:** Always use braces:
 
 \`\`\`java
-// GOOD - Always use braces
-if (condition) {
-    doSomething();
-}
+public class MissingBracesDemo {
+    static void reserveStock() {
+        System.out.println("Stock reserved");
+    }
 
-// AVOID - Can cause bugs
-if (condition)
-    doSomething();
+    public static void main(String[] args) {
+        boolean paymentCompleted = true;
+
+        if (paymentCompleted) {
+            reserveStock();
+        }
+    }
+}
 \`\`\`
 
 ### Mistake 3: Deeply Nested If-Else Statements
@@ -573,17 +769,23 @@ if (condition)
 **Solution:** Use early returns or switch statements:
 
 \`\`\`java
-// PREFER - Early return
-if (condition1) return result1;
-if (condition2) return result2;
-return defaultResult;
-
-// AVOID - Deep nesting
-if (condition1) {
-    if (condition2) {
-        if (condition3) {
-            // Hard to read
+public class EarlyReturnValidationDemo {
+    static String validateOrder(boolean cartEmpty, boolean addressMissing, boolean paymentFailed) {
+        if (cartEmpty) {
+            return "Cart is empty";
         }
+        if (addressMissing) {
+            return "Address is required";
+        }
+        if (paymentFailed) {
+            return "Payment failed";
+        }
+
+        return "Order can be placed";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(validateOrder(false, false, false));
     }
 }
 \`\`\`

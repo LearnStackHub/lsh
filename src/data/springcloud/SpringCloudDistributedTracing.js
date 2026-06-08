@@ -1,13 +1,20 @@
 const springCloudDistributedTracing = {
   id: 'spring-cloud-distributed-tracing',
-  title: 'Distributed Tracing with Sleuth and Zipkin',
-  description: 'Learn how to implement distributed tracing in microservices with Spring Cloud Sleuth and Zipkin - trace requests across services, identify bottlenecks, and correlate logs',
+  title: 'Distributed Tracing with Micrometer and Zipkin',
+  description: 'Learn distributed tracing in Spring Boot 3 microservices using Micrometer Tracing, Zipkin, trace IDs, span IDs, log correlation, full dependencies, configuration, and realtime debugging flow.',
   content: `
-# Distributed Tracing with Sleuth and Zipkin
+# Distributed Tracing with Micrometer Tracing and Zipkin
 
 In microservices, a single request might go through multiple services. Distributed tracing helps you see the complete path of a request across all services.
 
-Let me explain what distributed tracing is and how to implement it with Sleuth and Zipkin.
+Modern Spring Boot 3 applications should use **Micrometer Tracing** for tracing. Older tutorials often teach Spring Cloud Sleuth, but Sleuth does not support Spring Boot 3.x. Sleuth's core tracing work moved into Micrometer Tracing, and Zipkin can still be used as the tracing UI/backend.
+
+Use this rule:
+
+| Spring Boot Version | Recommended Tracing |
+|---|---|
+| Spring Boot 2.x | Spring Cloud Sleuth |
+| Spring Boot 3.x and newer | Micrometer Tracing + Zipkin/OpenTelemetry |
 
 ---
 
@@ -86,31 +93,39 @@ All logs for the same request have the same trace ID. You can search logs by tra
 
 ---
 
-## Integrating Sleuth
+## Integrating Micrometer Tracing
 
-Spring Cloud Sleuth automatically adds trace and span IDs to your logs and HTTP headers.
+Micrometer Tracing adds trace and span IDs to HTTP requests, logs, and outgoing client calls. Spring Boot Actuator provides the auto-configuration.
 
 ### Step 1: Add Dependency
 
 \`\`\`xml
 <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-sleuth</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing-bridge-brave</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.zipkin.reporter2</groupId>
+    <artifactId>zipkin-reporter-brave</artifactId>
 </dependency>
 \`\`\`
 
-That's it! Sleuth works automatically. No configuration needed.
+These dependencies enable tracing and send spans to Zipkin using Brave.
 
 ### Step 2: View Traces in Logs
 
 Your logs will now include trace information automatically:
 
-**Before Sleuth:**
+**Before tracing:**
 \`\`\`
 2024-01-15 10:30:45.123 INFO - Processing request
 \`\`\`
 
-**After Sleuth:**
+**After tracing:**
 \`\`\`
 2024-01-15 10:30:45.123 [user-service,abc123,def456] INFO - Processing request
 \`\`\`
@@ -157,33 +172,23 @@ java -jar zipkin.jar
 
 Zipkin runs on port 9411 by default.
 
-### Step 2: Add Zipkin Dependency
+### Step 2: Configure Zipkin Export
 
-In your services, add:
+In each service, add:
 
-\`\`\`xml
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-</dependency>
-\`\`\`
-
-This sends traces to Zipkin.
-
-### Step 3: Configure Zipkin
-
-In application.properties:
+In \`application.properties\`:
 
 \`\`\`properties
-spring.zipkin.base-url=http://localhost:9411
-spring.sleuth.sampler.probability=1.0
+management.tracing.sampling.probability=1.0
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
 \`\`\`
 
 **Explanation:**
-- spring.zipkin.base-url: Location of Zipkin server
-- spring.sleuth.sampler.probability=1.0: Sample 100% of traces (for development). Use 0.1 (10%) for production.
+- \`management.tracing.sampling.probability=1.0\`: sample 100% of requests in development
+- \`management.zipkin.tracing.endpoint\`: Zipkin span endpoint
+- In production, reduce sampling, for example 0.1 for 10% traffic
 
-### Step 4: View Traces
+### Step 3: View Traces
 
 Visit: http://localhost:9411
 
@@ -370,8 +375,8 @@ Let's see a complete example with multiple services.
 **Configuration (All Services):**
 
 \`\`\`properties
-spring.zipkin.base-url=http://localhost:9411
-spring.sleuth.sampler.probability=1.0
+management.tracing.sampling.probability=1.0
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
 \`\`\`
 
 **Request Flow:**
@@ -401,16 +406,16 @@ You'll see:
 
 **Solutions:**
 - Check Zipkin server is running
-- Verify spring.zipkin.base-url is correct
+- Verify \`management.zipkin.tracing.endpoint\` is correct
 - Check network connectivity
-- Verify sampler.probability is not 0
+- Verify \`management.tracing.sampling.probability\` is not 0
 
 ### Issue 2: Trace IDs Not Consistent
 
 **Symptoms:** Different trace IDs in different services
 
 **Solutions:**
-- Verify Sleuth dependency is in all services
+- Verify Micrometer Tracing dependencies are in all services
 - Check HTTP headers are being passed correctly
 - Verify service-to-service calls use proper HTTP clients
 
@@ -432,12 +437,12 @@ You'll see:
 Don't trace 100% of requests in production. Use 10% (0.1) or less:
 
 \`\`\`properties
-spring.sleuth.sampler.probability=0.1
+management.tracing.sampling.probability=0.1
 \`\`\`
 
 ### 2. Include Trace ID in Logs
 
-Always include trace ID in your logs. Sleuth does this automatically.
+Always include trace ID in your logs. Micrometer Tracing and Spring Boot logging correlation can add this automatically when tracing is enabled.
 
 ### 3. Use Structured Logging
 
@@ -455,7 +460,7 @@ Set timeouts for sending traces to Zipkin to avoid blocking requests.
 
 ## Summary
 
-Distributed tracing with Sleuth and Zipkin provides:
+Distributed tracing with Micrometer Tracing and Zipkin provides:
 
 **Key Features:**
 - Automatic trace ID generation
@@ -480,8 +485,8 @@ Now that you understand distributed tracing:
 3. Master [API Gateway](/tutorial/spring-cloud-api-gateway) for routing
 4. Use [OpenFeign](/tutorial/spring-cloud-openfeign) for inter-service communication
 `,
-  code: `// Sleuth automatically adds trace IDs to logs
-// No code changes needed!
+  code: `// Micrometer Tracing adds trace IDs to logs and outgoing requests
+// Add dependencies and configuration, then keep normal service code clean.
 
 // Example: Your existing code
 @Service
@@ -490,7 +495,7 @@ public class OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     
     public Order createOrder(OrderRequest request) {
-        // Sleuth automatically adds trace ID to this log
+        // Trace ID is attached to this log by tracing/log correlation
         logger.info("Creating order for user: {}", request.getUserId());
         
         // Call another service
@@ -509,8 +514,8 @@ public class OrderService {
 
 // Configuration
 // application.properties
-spring.zipkin.base-url=http://localhost:9411
-spring.sleuth.sampler.probability=1.0`
+management.tracing.sampling.probability=1.0
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans`
 };
 
 export default springCloudDistributedTracing;

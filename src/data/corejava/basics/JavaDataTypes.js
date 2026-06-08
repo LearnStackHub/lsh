@@ -5,11 +5,11 @@ const javaDataTypes = {
   content: `
 # Data Types — The Building Blocks of Java
 
-When you create a variable, Java needs to know what kind of data you're storing. Will it be a number? Text? A yes/no value? This is where data types come in.
+When you create a variable, Java needs to know what kind of data you're storing. Will it be a user id, product price, login status, file size, OTP digit, or employee name? This is where data types come in.
 
 Java is a **strongly typed language** — every variable must have a declared type, and you can't put the wrong type of data in it.
 
-> **Why does this matter?** Choosing the wrong type can cause silent bugs, wasted memory, or compile-time errors. Understanding types is the foundation of all Java programming.
+> **Why does this matter?** In real applications, the wrong type can break billing, truncate report values, overflow counters, or store invalid user data. Understanding types is not just syntax; it is how you protect data quality.
 
 ---
 
@@ -18,10 +18,10 @@ Java is a **strongly typed language** — every variable must have a declared ty
 Java has two main categories:
 
 ### 1. Primitive Types (8 total)
-Built directly into the language. Store simple values directly in memory (on the **stack**). Fast and memory-efficient.
+Built directly into the language. Store simple values directly in memory (on the **stack**). Fast and memory-efficient, so they are common in loops, counters, flags, calculations, and request validation.
 
 ### 2. Reference Types
-Store a **memory address** (reference) pointing to an object on the **heap**. Includes classes, arrays, interfaces, and String.
+Store a **memory address** (reference) pointing to an object on the **heap**. Includes classes, arrays, interfaces, and String. In real projects, most business data like Customer, Order, Employee, List, Map, and String values are reference types.
 
 ---
 
@@ -31,20 +31,30 @@ Store a **memory address** (reference) pointing to an object on the **heap**. In
 
 | Type | Size | Range | Default Value | Use Case |
 |------|------|-------|---------------|----------|
-| byte | 1 byte | -128 to 127 | 0 | Saving memory in large arrays |
-| short | 2 bytes | -32,768 to 32,767 | 0 | Legacy code, rarely used |
-| int | 4 bytes | -2,147,483,648 to 2,147,483,647 | 0 | **Most common choice** |
-| long | 8 bytes | -9.2 quintillion to 9.2 quintillion | 0L | Timestamps, file sizes, barcodes |
+| byte | 1 byte | -128 to 127 | 0 | Raw binary data, image bytes, file upload buffers |
+| short | 2 bytes | -32,768 to 32,767 | 0 | Legacy protocols, compact sensor/device values |
+| int | 4 bytes | -2,147,483,648 to 2,147,483,647 | 0 | **Most common choice** for age, count, quantity, page number |
+| long | 8 bytes | -9.2 quintillion to 9.2 quintillion | 0L | Database ids, timestamps, file sizes, barcodes, payment references |
 
 \`\`\`java
-byte age = 25;
-short year = 2024;
-int population = 1500000;
-long worldPopulation = 8000000000L;  // Note the 'L' suffix
-long timestamp = System.currentTimeMillis(); // ms since Jan 1, 1970
+public class IntegerTypesDemo {
+    public static void main(String[] args) {
+        byte age = 25;
+        short year = 2026;
+        int cityPopulation = 1500000;
+        long worldPopulation = 8000000000L;
+        long timestamp = System.currentTimeMillis();
+
+        System.out.println("Age: " + age);
+        System.out.println("Year: " + year);
+        System.out.println("City population: " + cityPopulation);
+        System.out.println("World population: " + worldPopulation);
+        System.out.println("Current timestamp: " + timestamp);
+    }
+}
 \`\`\`
 
-**Pro tip:** Just use \`int\` for most whole numbers. Only use \`long\` when you need really big numbers (like file sizes or timestamps).
+**Pro tip:** Use \`int\` for normal counts such as marks, attempts, cart quantity, and pagination. Use \`long\` when the value can grow beyond 2 billion, such as database ids, audit timestamps, total views, transaction numbers, and file sizes.
 
 ---
 
@@ -52,18 +62,26 @@ long timestamp = System.currentTimeMillis(); // ms since Jan 1, 1970
 
 | Type | Size | Precision | Default Value | Use Case |
 |------|------|-----------|---------------|----------|
-| float | 4 bytes | ~7 decimal digits | 0.0f | Graphics, games (memory-sensitive) |
-| double | 8 bytes | ~15 decimal digits | 0.0d | **Default choice for decimals** |
+| float | 4 bytes | ~7 decimal digits | 0.0f | Graphics, games, location values where memory matters |
+| double | 8 bytes | ~15 decimal digits | 0.0d | **Default choice for measurements, percentages, ratings, averages** |
 
 \`\`\`java
-float price = 19.99f;              // Note the 'f' suffix
-double preciseValue = 3.14159265358979;
-double salary = 75000.50;
+public class FloatingPointDemo {
+    public static void main(String[] args) {
+        float productRating = 4.5f;
+        double preciseValue = 3.14159265358979;
+        double salary = 75000.50;
+
+        System.out.println("Rating: " + productRating);
+        System.out.println("Precise value: " + preciseValue);
+        System.out.println("Salary: " + salary);
+    }
+}
 \`\`\`
 
-**Pro tip:** Always use \`double\` unless you have a specific reason not to. It's more precise and is Java's default for decimal literals.
+**Pro tip:** Use \`double\` when the decimal is an approximate value like student average, product rating, distance, CPU usage, tax percentage, or analytics score. It works well for calculations where tiny rounding differences are acceptable.
 
-> **Never use float or double for money in real apps!** Use \`BigDecimal\` instead to avoid precision errors like 0.1 + 0.2 = 0.30000000000000004.
+> **Never use float or double for exact money in real apps.** Salary display in a demo can be \`double\`, but invoice totals, bank balances, EMI, GST, and payment settlement should use \`BigDecimal\` because financial systems cannot accept rounding surprises like 0.1 + 0.2 = 0.30000000000000004.
 
 ---
 
@@ -71,17 +89,27 @@ double salary = 75000.50;
 
 | Type | Size | Range | Default Value | Use Case |
 |------|------|-------|---------------|----------|
-| char | 2 bytes | 0 to 65,535 (Unicode) | '\\u0000' | Single characters |
+| char | 2 bytes | 0 to 65,535 (Unicode) | '\\u0000' | Grade letters, menu choices, gender code, single status code |
 
 \`\`\`java
-char letter = 'A';
-char digit = '7';
-char symbol = '@';
-char unicode = '\\u0041';  // Also 'A' — Java uses Unicode (UTF-16)
-char newline = '\\n';      // Escape characters work too
+public class CharacterTypeDemo {
+    public static void main(String[] args) {
+        char letter = 'A';
+        char digit = '7';
+        char symbol = '@';
+        char unicode = '\\u0041';
+        char newline = '\\n';
+
+        System.out.println("Letter: " + letter);
+        System.out.println("Digit: " + digit);
+        System.out.println("Symbol: " + symbol);
+        System.out.println("Unicode A: " + unicode);
+        System.out.print("Line one" + newline + "Line two");
+    }
+}
 \`\`\`
 
-> **char uses single quotes** \`'A'\`, while String uses double quotes \`"Hello"\`. These are completely different types!
+> **char uses single quotes** \`'A'\`, while String uses double quotes \`"Hello"\`. Use \`char\` only for one character like grade \`'A'\` or menu option \`'Y'\`; use \`String\` for names, emails, messages, and any text with more than one character.
 
 ---
 
@@ -89,16 +117,28 @@ char newline = '\\n';      // Escape characters work too
 
 | Type | Size | Values | Default Value | Use Case |
 |------|------|--------|---------------|----------|
-| boolean | 1 bit* | true or false | false | Conditions, flags, on/off states |
+| boolean | 1 bit* | true or false | false | Login status, permission flags, active/inactive records, validation results |
 
 \`\`\`java
-boolean isLoggedIn = true;
-boolean hasPermission = false;
-boolean isValid = (age >= 18);       // Can store a result of a condition
-boolean isEven = (number % 2 == 0); // Computed boolean
+public class BooleanTypeDemo {
+    public static void main(String[] args) {
+        int age = 21;
+        int number = 12;
+
+        boolean isLoggedIn = true;
+        boolean hasPermission = false;
+        boolean isAdult = age >= 18;
+        boolean isEven = number % 2 == 0;
+
+        System.out.println("Logged in: " + isLoggedIn);
+        System.out.println("Has permission: " + hasPermission);
+        System.out.println("Adult: " + isAdult);
+        System.out.println("Even number: " + isEven);
+    }
+}
 \`\`\`
 
-> **Naming convention:** Start boolean variable names with \`is\`, \`has\`, \`can\`, or \`should\` — e.g., \`isActive\`, \`hasAccount\`, \`canEdit\`. This makes your code read like a sentence.
+> **Naming convention:** Start boolean variable names with \`is\`, \`has\`, \`can\`, or \`should\` — e.g., \`isActive\`, \`hasAccount\`, \`canEdit\`. In real service code, names like \`isPaymentCompleted\`, \`hasAdminRole\`, and \`canDownloadInvoice\` make conditions readable without extra comments.
 
 ---
 
@@ -129,7 +169,7 @@ double:     [################    64
 
 ## Default Values
 
-When you declare a variable as a **class field** (not inside a method), Java gives it a default value automatically:
+When you declare a variable as a **class field** (not inside a method), Java gives it a default value automatically. This is useful to know when creating DTOs, entity classes, and form objects because an unfilled boolean becomes \`false\`, an unfilled number becomes \`0\`, and an unfilled object reference becomes \`null\`.
 
 \`\`\`java
 public class DefaultValues {
@@ -142,6 +182,20 @@ public class DefaultValues {
     char   c;      // '\\u0000' (null character)
     boolean flag;  // false
     String text;   // null
+
+    public static void main(String[] args) {
+        DefaultValues values = new DefaultValues();
+
+        System.out.println("byte: " + values.b);
+        System.out.println("short: " + values.s);
+        System.out.println("int: " + values.i);
+        System.out.println("long: " + values.l);
+        System.out.println("float: " + values.f);
+        System.out.println("double: " + values.d);
+        System.out.println("char numeric value: " + (int) values.c);
+        System.out.println("boolean: " + values.flag);
+        System.out.println("String: " + values.text);
+    }
 }
 \`\`\`
 
@@ -153,7 +207,7 @@ public class DefaultValues {
 
 ### Automatic (Widening) Conversion
 
-Java automatically converts smaller types to larger types — no data is lost:
+Java automatically converts smaller types to larger types — no data is lost. This appears often when a small count is passed into a reporting method that expects \`long\` or \`double\`.
 
 \`\`\`
 byte → short → int → long → float → double
@@ -162,20 +216,40 @@ byte → short → int → long → float → double
 \`\`\`
 
 \`\`\`java
-int myInt = 100;
-double myDouble = myInt;   // Automatic: 100 → 100.0 long myLong = myInt;       // Automatic: 100 → 100L  float myFloat = myInt;     // Automatic: 100 → 100.0f
+public class WideningConversionDemo {
+    public static void main(String[] args) {
+        int myInt = 100;
+        long myLong = myInt;
+        float myFloat = myInt;
+        double myDouble = myInt;
+
+        System.out.println("int value: " + myInt);
+        System.out.println("long value: " + myLong);
+        System.out.println("float value: " + myFloat);
+        System.out.println("double value: " + myDouble);
+    }
+}
 \`\`\`
 
 ### Manual (Narrowing) Conversion
 
-Going from larger to smaller requires explicit **casting** — you may lose data:
+Going from larger to smaller requires explicit **casting** — you may lose data. In real projects this is risky when converting API values, database ids, discount percentages, or decimal bill amounts into smaller types.
 
 \`\`\`java
-double myDouble = 9.78;
-int myInt = (int) myDouble;  // Manual cast: 9.78 → 9 (decimal truncated!)
+public class NarrowingConversionDemo {
+    public static void main(String[] args) {
+        double myDouble = 9.78;
+        int myInt = (int) myDouble;
 
-long bigNumber = 3000000000L;
-int smallInt = (int) bigNumber; // May overflow! Result is unpredictable
+        long bigNumber = 3000000000L;
+        int smallInt = (int) bigNumber;
+
+        System.out.println("double value: " + myDouble);
+        System.out.println("after casting to int: " + myInt);
+        System.out.println("large long value: " + bigNumber);
+        System.out.println("after casting to int: " + smallInt);
+    }
+}
 \`\`\`
 
 **Warning:** You lose data when narrowing! 9.78 becomes 9, not 10. Always cast intentionally.
@@ -184,16 +258,32 @@ int smallInt = (int) bigNumber; // May overflow! Result is unpredictable
 
 ## Reference Types
 
-Everything that's not a primitive is a reference type:
+Everything that's not a primitive is a reference type. Reference types are what you use for real business objects: customer names as \`String\`, selected ids as arrays/lists, request payloads as objects, and database records as entity classes.
 
 \`\`\`java
-String name = "Dattu";                        // String class
-int[] numbers = {1, 2, 3};                   // Array
-ArrayList<String> list = new ArrayList<>();   // Generic class
-Scanner sc = new Scanner(System.in);          // Object
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ReferenceTypesDemo {
+    public static void main(String[] args) {
+        String name = "Dattu";
+        int[] numbers = {1, 2, 3};
+        ArrayList<String> names = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        names.add(name);
+
+        System.out.println("String: " + name);
+        System.out.println("Array first value: " + numbers[0]);
+        System.out.println("ArrayList: " + names);
+        System.out.println("Scanner object created: " + scanner.getClass().getSimpleName());
+
+        scanner.close();
+    }
+}
 \`\`\`
 
-**Key difference:** Primitives store values directly. References store memory addresses pointing to objects.
+**Key difference:** Primitives store values directly. References store memory addresses pointing to objects. This matters when debugging because changing an object through one reference can be visible through another reference.
 
 \`\`\`
 Primitive:  int x = 10;
@@ -206,17 +296,22 @@ Reference:  String s = "Hello";
 > This is why comparing Strings with \`==\` can give wrong results — you're comparing addresses, not values. Always use \`.equals()\` for Strings!
 
 \`\`\`java
-String a = new String("hello");
-String b = new String("hello");
-System.out.println(a == b);       // false — different addresses
-System.out.println(a.equals(b));  // true  — same content
+public class StringComparisonDemo {
+    public static void main(String[] args) {
+        String a = new String("hello");
+        String b = new String("hello");
+
+        System.out.println(a == b);
+        System.out.println(a.equals(b));
+    }
+}
 \`\`\`
 
 ---
 
 ## Wrapper Classes
 
-Each primitive has a corresponding **Wrapper Class** — an object version of the primitive:
+Each primitive has a corresponding **Wrapper Class** — an object version of the primitive. Wrappers are used heavily in collections, request/response objects, JSON mapping, database nullable columns, and utility parsing.
 
 | Primitive | Wrapper Class | Useful Methods |
 |-----------|---------------|----------------|
@@ -236,35 +331,48 @@ Each primitive has a corresponding **Wrapper Class** — an object version of th
 - Required for generics: \`ArrayList<Integer>\` not \`ArrayList<int>\`
 
 \`\`\`java
-// Autoboxing: primitive → wrapper (automatic)
-Integer num = 10;
-Double price = 9.99;
+public class WrapperClassesDemo {
+    public static void main(String[] args) {
+        Integer num = 10;
+        Double price = 9.99;
 
-// Unboxing: wrapper → primitive (automatic)
-int value = num;
-double d = price;
+        int value = num;
+        double amount = price;
 
-// Useful static methods
-int parsed = Integer.parseInt("123");      // String → int
-String str = Integer.toString(456);        // int → String
-int maxInt = Integer.MAX_VALUE;            // 2147483647
-int minInt = Integer.MIN_VALUE;            // -2147483648
-String binary = Integer.toBinaryString(10); // "1010"
-String hex = Integer.toHexString(255);      // "ff"
+        int parsed = Integer.parseInt("123");
+        String str = Integer.toString(456);
+        String binary = Integer.toBinaryString(10);
+        String hex = Integer.toHexString(255);
 
-boolean isLetter = Character.isLetter('A');   // true
-char upper = Character.toUpperCase('a');       // 'A'
-boolean isDigit = Character.isDigit('5');      // true
+        boolean isLetter = Character.isLetter('A');
+        char upper = Character.toUpperCase('a');
+        boolean isDigit = Character.isDigit('5');
+
+        System.out.println("Integer object: " + num);
+        System.out.println("Unboxed int: " + value);
+        System.out.println("Double object: " + price);
+        System.out.println("Unboxed double: " + amount);
+        System.out.println("Parsed int: " + parsed);
+        System.out.println("String value: " + str);
+        System.out.println("Max int: " + Integer.MAX_VALUE);
+        System.out.println("Min int: " + Integer.MIN_VALUE);
+        System.out.println("Binary of 10: " + binary);
+        System.out.println("Hex of 255: " + hex);
+        System.out.println("A is letter: " + isLetter);
+        System.out.println("a uppercase: " + upper);
+        System.out.println("5 is digit: " + isDigit);
+    }
+}
 \`\`\`
 
 ---
 
 ## Choosing the Right Type
 
-| Scenario | Recommended Type | Why |
+| Scenario | Common Type Choice | Why |
 |----------|-----------------|-----|
 | Age, score, count | int | Default whole number |
-| Money/prices | double or BigDecimal | Decimals needed |
+| Money/prices | BigDecimal | Exact financial values needed |
 | True/false flags | boolean | Binary state |
 | Single character | char | One char only |
 | Text / names | String | Multiple characters |
@@ -273,71 +381,106 @@ boolean isDigit = Character.isDigit('5');      // true
 | Scientific calc | double | High precision |
 | Loop counters | int | Standard choice |
 | Array indexes | int | Standard in Java |
-| Account numbers | long | Large unique numbers |
+| Account numbers | String or long | Use String when leading zeroes or formatting matter |
 | Percentages | double | Decimal precision |
 
 ---
 
 ## Common Mistakes
 
-**1. Integer overflow — silent bug!**
+**1. Integer overflow — silent bug!** This happens in real counters when total downloads, views, ids, or accumulated quantities exceed the \`int\` range.
 \`\`\`java
-int big = 2147483647;       // Integer.MAX_VALUE
-big = big + 1;              // Wraps to -2147483648! No error thrown!
-// Fix: use long
-long safe = 2147483647L;
-safe = safe + 1;            // 2147483648 — correct
+public class IntegerOverflowMistake {
+    public static void main(String[] args) {
+        int big = 2147483647;
+        big = big + 1;
+
+        long safe = 2147483647L;
+        safe = safe + 1;
+
+        System.out.println("int overflow result: " + big);
+        System.out.println("long safe result: " + safe);
+    }
+}
 \`\`\`
 
-**2. Float precision issues**
+**2. Float precision issues** This is why payment, tax, EMI, wallet balance, and invoice calculations should not use \`double\` directly.
 \`\`\`java
-double result = 0.1 + 0.2;
-System.out.println(result);  // 0.30000000000000004 (not 0.3!)
-// Fix: use BigDecimal for money
-BigDecimal a = new BigDecimal("0.1");
-BigDecimal b = new BigDecimal("0.2");
-System.out.println(a.add(b)); // 0.3 — correct
+import java.math.BigDecimal;
+
+public class DecimalPrecisionMistake {
+    public static void main(String[] args) {
+        double result = 0.1 + 0.2;
+
+        BigDecimal a = new BigDecimal("0.1");
+        BigDecimal b = new BigDecimal("0.2");
+
+        System.out.println("double result: " + result);
+        System.out.println("BigDecimal result: " + a.add(b));
+    }
+}
 \`\`\`
 
-**3. Forgetting suffixes**
+**3. Forgetting suffixes** This appears when a fresher copies a large id, mobile-like number, timestamp, or decimal value without telling Java whether it is \`long\` or \`float\`.
 \`\`\`java
-long big = 3000000000;   // ERROR! Java thinks it's int — too large!
-long big = 3000000000L;  // CORRECT
-float f = 3.14;          // ERROR! Java sees 3.14 as double
-float f = 3.14f;         // CORRECT
+public class LiteralSuffixMistake {
+    public static void main(String[] args) {
+        // long wrongBig = 3000000000; // Error: integer number too large
+        long big = 3000000000L;
+
+        // float wrongFloat = 3.14; // Error: possible lossy conversion from double to float
+        float f = 3.14f;
+
+        System.out.println("long value: " + big);
+        System.out.println("float value: " + f);
+    }
+}
 \`\`\`
 
 **4. Comparing floats with ==**
 \`\`\`java
-double a = 0.1 + 0.2;
-double b = 0.3;
-System.out.println(a == b);  // false! Floating point imprecision
-// Fix:
-System.out.println(Math.abs(a - b) < 0.0001);  // true
+public class FloatingPointComparisonMistake {
+    public static void main(String[] args) {
+        double a = 0.1 + 0.2;
+        double b = 0.3;
+
+        System.out.println("Using == : " + (a == b));
+        System.out.println("Using tolerance: " + (Math.abs(a - b) < 0.0001));
+    }
+}
 \`\`\`
 
-**5. Using == to compare Strings**
+**5. Using == to compare Strings** This causes login, role, status, and request parameter checks to fail even when the visible text looks the same.
 \`\`\`java
-String s1 = new String("hello");
-String s2 = new String("hello");
-System.out.println(s1 == s2);       // false — compares addresses!
-System.out.println(s1.equals(s2));  // true — compares content
+public class StringEqualityMistake {
+    public static void main(String[] args) {
+        String s1 = new String("hello");
+        String s2 = new String("hello");
+
+        System.out.println("Using == : " + (s1 == s2));
+        System.out.println("Using equals: " + s1.equals(s2));
+    }
+}
 \`\`\`
 
 **6. Local variable used without initialization**
 \`\`\`java
-int x;
-System.out.println(x);  // COMPILE ERROR: variable x might not have been initialized
-// Fix:
-int x = 0;
-System.out.println(x);  // 0
+public class LocalVariableInitializationMistake {
+    public static void main(String[] args) {
+        // int x;
+        // System.out.println(x); // Error: variable x might not have been initialized
+
+        int x = 0;
+        System.out.println("Initialized value: " + x);
+    }
+}
 \`\`\`
 
 ---
 
 ## Real-World Application
 
-The following example demonstrates how different data types work together in a practical application scenario:
+The following example demonstrates how different data types work together in a practical product record: \`int\` for product id and stock, \`String\` for product name, \`double\` for display price, \`boolean\` for stock status, \`char\` for category code, and \`long\` for barcode.
 
 \`\`\`java
 public class Product {
@@ -348,17 +491,30 @@ public class Product {
     boolean isAvailable;       // In stock? (true/false)
     char category;             // 'E' for electronics, 'C' for clothing
     long barcode;              // Large number for barcode (needs long)
-}
 
-// Usage:
-Product p = new Product();
-p.id = 1001;
-p.name = "Wireless Headphones";
-p.price = 79.99;
-p.quantity = 150;
-p.isAvailable = p.quantity > 0;   // computed boolean
-p.category = 'E';
-p.barcode = 8901234567890L;
+    void printDetails() {
+        System.out.println("Product ID: " + id);
+        System.out.println("Name: " + name);
+        System.out.println("Price: " + price);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Available: " + isAvailable);
+        System.out.println("Category: " + category);
+        System.out.println("Barcode: " + barcode);
+    }
+
+    public static void main(String[] args) {
+        Product p = new Product();
+        p.id = 1001;
+        p.name = "Wireless Headphones";
+        p.price = 79.99;
+        p.quantity = 150;
+        p.isAvailable = p.quantity > 0;
+        p.category = 'E';
+        p.barcode = 8901234567890L;
+
+        p.printDetails();
+    }
+}
 \`\`\`
 
 ---

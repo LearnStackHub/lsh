@@ -5,7 +5,7 @@ const javaKeywords = {
   content: `
 # Java Keywords — Reserved Words You Can't Use
 
-Keywords are special words that Java has reserved for itself. They have specific meanings and purposes in the language. You cannot use them as variable names, class names, or method names.
+Keywords are special words that Java has reserved for itself. They have specific meanings and purposes in the language. You cannot use them as variable names, class names, or method names because Java uses them to understand structure, access, inheritance, exceptions, and object behavior.
 
 Think of them as "taken" — Java got there first!
 
@@ -112,7 +112,7 @@ Java has about 50 reserved keywords. Let's organize them by purpose:
 
 ### static
 
-Belongs to the class itself, not to any object:
+Belongs to the class itself, not to any object. In real code, \`static\` is common for constants, utility methods, counters, and factory methods, but it should not hold user-specific request data.
 
 \`\`\`java
 public class Counter {
@@ -132,23 +132,29 @@ public class Counter {
 
 ### final
 
-Makes things unchangeable:
+Makes things unchangeable. In real projects, \`final\` protects constants like tax rate, max retry count, fixed role names, and method behavior that subclasses should not override.
 
 \`\`\`java
-// Final variable - constant
-final int MAX = 100;
-MAX = 200;  // ERROR!
+public final class FinalKeywordDemo {
+    final int max = 100;
 
-// Final method - can't override
-public final void display() { }
+    public final void display() {
+        System.out.println("MAX value: " + max);
+    }
 
-// Final class - can't extend
-public final class String { }
+    public static void main(String[] args) {
+        FinalKeywordDemo demo = new FinalKeywordDemo();
+        demo.display();
+
+        // demo.max = 200; // Error: final variable cannot be reassigned
+        // class Child extends FinalKeywordDemo { } // Error: final class cannot be extended
+    }
+}
 \`\`\`
 
 ### this
 
-Refers to the current object:
+Refers to the current object. In constructors and setters, \`this\` clearly separates object fields from incoming parameters.
 
 \`\`\`java
 public class Person {
@@ -157,52 +163,106 @@ public class Person {
     public Person(String name) {
         this.name = name;  // this.name is the field
     }
+
+    public void printName() {
+        System.out.println("Name: " + this.name);
+    }
+
+    public static void main(String[] args) {
+        Person person = new Person("Dattu");
+        person.printName();
+    }
 }
 \`\`\`
 
 ### super
 
-Refers to the parent class:
+Refers to the parent class. In inheritance, \`super\` is used to call parent constructors or reuse parent behavior before adding child-specific behavior.
 
 \`\`\`java
+class Animal {
+    String sound;
+
+    Animal(String sound) {
+        this.sound = sound;
+    }
+
+    void speak() {
+        System.out.println("Animal sound: " + sound);
+    }
+}
+
 public class Dog extends Animal {
     public Dog() {
-        super();  // Call parent constructor
+        super("generic sound");
     }
     
     public void speak() {
-        super.speak();  // Call parent method
+        super.speak();
         System.out.println("Woof!");
+    }
+
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.speak();
     }
 }
 \`\`\`
 
 ### abstract
 
-Declares something without implementation:
+Declares something without implementation. Abstract classes are useful when multiple classes share a common idea, like different payment types or report generators, but each one completes part of the behavior differently.
 
 \`\`\`java
-public abstract class Shape {
-    abstract double getArea();  // No body
-}
+public class AbstractKeywordDemo {
+    static abstract class Shape {
+        abstract double getArea();
+    }
 
-public class Circle extends Shape {
-    double radius;
-    
-    double getArea() {
-        return Math.PI * radius * radius;  // Must implement
+    static class Circle extends Shape {
+        double radius;
+
+        Circle(double radius) {
+            this.radius = radius;
+        }
+
+        double getArea() {
+            return Math.PI * radius * radius;
+        }
+    }
+
+    public static void main(String[] args) {
+        Circle circle = new Circle(5.0);
+        System.out.println("Area: " + circle.getArea());
     }
 }
 \`\`\`
 
 ### synchronized
 
-Makes code thread-safe:
+Makes code thread-safe. In real applications, synchronized blocks protect shared data such as counters or balances when multiple threads may update them at the same time.
 
 \`\`\`java
-public synchronized void withdraw(double amount) {
-    if (balance >= amount) {
-        balance -= amount;
+public class SynchronizedKeywordDemo {
+    private double balance = 1000.0;
+
+    public synchronized void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    public void printBalance() {
+        System.out.println("Balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        SynchronizedKeywordDemo account = new SynchronizedKeywordDemo();
+        account.withdraw(250.0);
+        account.printBalance();
     }
 }
 \`\`\`
@@ -213,29 +273,68 @@ public synchronized void withdraw(double amount) {
 
 ### Using Keywords as Names
 
+This mistake appears when beginners choose names like \`class\`, \`new\`, or \`for\` because they sound meaningful. In real projects, use names like \`className\`, \`newMessage\`, or \`forLoopRequired\` instead.
+
 \`\`\`java
-int class = 5;      // ERROR! 'class' is a keyword
-String new = "hi";  // ERROR! 'new' is a keyword
-boolean for = true; // ERROR! 'for' is a keyword
+public class KeywordNameMistake {
+    public static void main(String[] args) {
+        // int class = 5;      // Error: class is a keyword
+        // String new = "hi";  // Error: new is a keyword
+        // boolean for = true; // Error: for is a keyword
+
+        int classCount = 5;
+        String newMessage = "hi";
+        boolean forLoopRequired = true;
+
+        System.out.println(classCount);
+        System.out.println(newMessage);
+        System.out.println(forLoopRequired);
+    }
+}
 \`\`\`
 
 ### Confusing Similar Keywords
 
 \`\`\`java
-// throw vs throws
-throw new Exception();  // Actually throw an exception
-void method() throws Exception { }  // Declare that method might throw
+public class SimilarKeywordsDemo {
+    static class Parent {
+        String name;
+    }
 
-// this vs super
-this.name = name;   // Current object's field
-super.name = name;  // Parent class's field
+    static class Child extends Parent {
+        String childName;
+
+        Child(String name) {
+            this.childName = name;
+            super.name = "Parent of " + name;
+        }
+
+        void validateAge(int age) throws Exception {
+            if (age < 18) {
+                throw new Exception("Age must be 18 or above");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Child child = new Child("Dattu");
+
+        try {
+            child.validateAge(20);
+            System.out.println("Child field: " + child.childName);
+            System.out.println("Parent field: " + child.name);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
 \`\`\`
 
 ---
 
 ## Literals (Not Keywords, But Reserved)
 
-These aren't technically keywords, but they're reserved:
+These aren't technically keywords, but they're reserved. \`true\` and \`false\` drive real decision flags, while \`null\` represents missing object data such as an absent email, optional manager, or unloaded record.
 
 | Literal | Meaning |
 |---------|---------|
@@ -244,9 +343,17 @@ These aren't technically keywords, but they're reserved:
 | null | No object reference |
 
 \`\`\`java
-boolean flag = true;
-boolean other = false;
-String name = null;
+public class ReservedLiteralsDemo {
+    public static void main(String[] args) {
+        boolean flag = true;
+        boolean other = false;
+        String name = null;
+
+        System.out.println("flag: " + flag);
+        System.out.println("other: " + other);
+        System.out.println("name is null: " + (name == null));
+    }
+}
 \`\`\`
 
 ---

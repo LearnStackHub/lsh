@@ -263,10 +263,22 @@ import {
   springBootMCQ
 } from './springboot';
 
+// Microservices
+import {
+  microservicesIntroduction,
+  microservicesArchitecture,
+  microservicesCommunication,
+  microservicesDataManagement,
+  microservicesResilienceObservability,
+  microservicesSecurityDeployment,
+  microservicesRealtimeProject,
+  microservicesMCQ,
+  microservicesInterviewQuestions
+} from './microservices';
+
 // Spring Cloud
 import {
   springCloudMicroservicesProject,
-  microservicesArchitectureFundamentals,
   springCloudConfigServer,
   springCloudEureka,
   springCloudApiGateway,
@@ -275,9 +287,7 @@ import {
   springCloudResilience4j,
   springCloudDistributedTracing,
   springCloudSecurity,
-  springCloudELK,
-  microservicesMCQ,
-  microservicesInterviewQuestions
+  springCloudELK
 } from './springcloud';
 
 // SDLC
@@ -1046,6 +1056,52 @@ export const courseStructure = {
       }
     }
   },
+  microservices: {
+    title: "Microservices",
+    icon: "▦",
+    color: "#0EA5E9",
+    sections: {
+      fundamentals: {
+        title: "Microservices Fundamentals",
+        topics: [
+          microservicesIntroduction,
+          microservicesArchitecture
+        ]
+      },
+      design: {
+        title: "Design Patterns",
+        topics: [
+          microservicesCommunication,
+          microservicesDataManagement
+        ]
+      },
+      production: {
+        title: "Production Readiness",
+        topics: [
+          microservicesResilienceObservability,
+          microservicesSecurityDeployment
+        ]
+      },
+      project: {
+        title: "Realtime Project",
+        topics: [
+          microservicesRealtimeProject
+        ]
+      },
+      interview: {
+        title: "Interview & Practice",
+        topics: [
+          microservicesInterviewQuestions
+        ]
+      },
+      exam: {
+        title: "Practice Exam",
+        topics: [
+          microservicesMCQ
+        ]
+      }
+    }
+  },
   springcloud: {
     title: "Spring Cloud",
     icon: "☁️",
@@ -1055,12 +1111,6 @@ export const courseStructure = {
         title: "Getting Started",
         topics: [
           springCloudMicroservicesProject
-        ]
-      },
-      fundamentals: {
-        title: "Microservices Fundamentals",
-        topics: [
-          microservicesArchitectureFundamentals
         ]
       },
       configuration: {
@@ -1117,18 +1167,6 @@ export const courseStructure = {
           springCloudELK
         ]
       },
-      exam: {
-        title: "Practice Exam",
-        topics: [
-          microservicesMCQ
-        ]
-      },
-      interview: {
-        title: "Interview Questions",
-        topics: [
-          microservicesInterviewQuestions
-        ]
-      }
     }
   },
   http: {

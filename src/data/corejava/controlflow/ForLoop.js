@@ -5,33 +5,190 @@ const forLoop = {
   content: `
 # For Loop - Repeating Code a Specific Number of Times
 
-The for loop is a fundamental control flow construct in Java that enables developers to execute a block of code repeatedly for a predetermined number of iterations. For loops are essential for processing arrays, collections, and performing repetitive operations with precise control over iteration count. Understanding for loops is crucial for efficient data processing, algorithm implementation, and working with data structures.
+The for loop is a fundamental control flow construct in Java that executes a block of code repeatedly when the number of iterations is known or controlled by an index. In real applications, for loops process arrays, table rows, search results, marks lists, cart items, report records, and batch jobs.
 
 For loops are widely used in enterprise applications for tasks such as data processing, batch operations, array manipulation, and iterative algorithms. They provide better performance and readability compared to while loops when the number of iterations is known in advance. Mastery of for loops is fundamental for Java developers working with collections, arrays, and iterative problem-solving.
+
+---
+
+## First Understand the Theory
+
+A for loop is used when you know the starting point, the stopping rule, and how the value should move after every round. Think like a teacher checking answer sheets:
+
+- start from the first student
+- continue until the last student is checked
+- move to the next student after every check
+
+In Java, those three decisions are written in one line:
+
+\`\`\`java
+for (initialization; condition; update) {
+    // code to repeat
+}
+\`\`\`
+
+This is not only syntax. It is a small contract between you and the program:
+
+| Part | Meaning | Fresher Example |
+|------|---------|-----------------|
+| Initialization | Where the loop starts | Start from index 0 |
+| Condition | When the loop should continue | Continue while index is less than array length |
+| Update | How to move after each round | Increase index by 1 |
+| Body | Work done in each round | Print mark, calculate total, check product |
+
+For example, when a shopping cart has 5 items, the loop should not run 6 times. That is why array loops usually use \`i < items.length\`, not \`i <= items.length\`. This one small detail prevents \`ArrayIndexOutOfBoundsException\`.
+
+### Real Use in Projects
+
+You will use for loops when:
+
+- showing all products in a cart
+- calculating total marks from a marks array
+- checking each uploaded file before saving
+- printing table rows in reports
+- finding a matching employee, order, or product id
+- comparing values in algorithms and interviews
+
+When you read a for loop, ask four questions: where does it start, when does it stop, how does it move, and what work happens inside?
+
+---
+
+## Full Program 1: Calculate Student Marks
+
+This is the most common fresher-level use of a for loop: read all marks, calculate total, average, highest mark, and lowest mark. The loop is useful because the same calculation must happen for every subject.
+
+\`\`\`java
+public class StudentMarksReport {
+    public static void main(String[] args) {
+        String studentName = "Ravi";
+        int[] marks = {78, 85, 69, 92, 88};
+
+        int total = 0;
+        int highest = marks[0];
+        int lowest = marks[0];
+
+        for (int i = 0; i < marks.length; i++) {
+            total = total + marks[i];
+
+            if (marks[i] > highest) {
+                highest = marks[i];
+            }
+
+            if (marks[i] < lowest) {
+                lowest = marks[i];
+            }
+        }
+
+        double average = (double) total / marks.length;
+
+        System.out.println("Student: " + studentName);
+        System.out.println("Total Marks: " + total);
+        System.out.println("Average Marks: " + average);
+        System.out.println("Highest Mark: " + highest);
+        System.out.println("Lowest Mark: " + lowest);
+    }
+}
+\`\`\`
+
+In a real student portal, the same idea is used to calculate semester totals, attendance percentages, internal marks, and result summaries.
+
+---
+
+## Full Program 2: Shopping Cart Bill
+
+Here the for loop connects three arrays by index: item name, price, and quantity. This is why indexed for loops are important. The index tells us which price and quantity belong to which item.
+
+\`\`\`java
+public class ShoppingCartBill {
+    public static void main(String[] args) {
+        String[] items = {"Laptop", "Mouse", "Keyboard", "USB Cable"};
+        double[] prices = {55000.00, 700.00, 1500.00, 250.00};
+        int[] quantities = {1, 2, 1, 3};
+
+        double grandTotal = 0;
+
+        System.out.println("Item Bill");
+        System.out.println("------------------------------");
+
+        for (int i = 0; i < items.length; i++) {
+            double itemTotal = prices[i] * quantities[i];
+            grandTotal = grandTotal + itemTotal;
+
+            System.out.println(items[i] + " x " + quantities[i] + " = " + itemTotal);
+        }
+
+        System.out.println("------------------------------");
+        System.out.println("Grand Total: " + grandTotal);
+    }
+}
+\`\`\`
+
+In an e-commerce project, this same loop is used before applying discount, delivery charge, tax, wallet balance, or payment gateway amount.
+
+---
+
+## Full Program 3: Find Product by Id
+
+Many beginner programs print values, but in real applications loops often search for one matching record. Here the loop checks each product id. Once the product is found, \`break\` stops unnecessary checking.
+
+\`\`\`java
+public class ProductSearch {
+    public static void main(String[] args) {
+        int[] productIds = {101, 102, 103, 104, 105};
+        String[] productNames = {"Pen", "Notebook", "Bag", "Bottle", "Shoes"};
+
+        int searchId = 104;
+        boolean found = false;
+
+        for (int i = 0; i < productIds.length; i++) {
+            if (productIds[i] == searchId) {
+                System.out.println("Product found");
+                System.out.println("Id: " + productIds[i]);
+                System.out.println("Name: " + productNames[i]);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Product not found for id: " + searchId);
+        }
+    }
+}
+\`\`\`
+
+In real projects, this logic becomes searching an employee by id, order by order number, user by email, or file by name.
 
 ---
 
 ## Basic For Loop
 
 \`\`\`java
-for (initialization; condition; update) {
-    // Code to repeat
+public class BasicForSyntaxDemo {
+    public static void main(String[] args) {
+        for (int attempt = 1; attempt <= 3; attempt++) {
+            System.out.println("Sending OTP attempt: " + attempt);
+        }
+    }
 }
 \`\`\`
 
 **Example:**
 \`\`\`java
-for (int i = 1; i <= 5; i++) {
-    System.out.println("Count: " + i);
+public class CountDemo {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Count: " + i);
+        }
+    }
 }
-// Output: 1, 2, 3, 4, 5
 \`\`\`
 
 **How it works:**
-1. **Initialization** (\`int i = 1\`) — Runs once at the start
-2. **Condition** (\`i <= 5\`) — Checked before each iteration
-3. **Update** (\`i++\`) — Runs after each iteration
-4. **Body** — Runs if condition is true
+1. **Initialization** (\`int i = 1\`)  Runs once at the start
+2. **Condition** (\`i <= 5\`)  Checked before each iteration
+3. **Update** (\`i++\`)  Runs after each iteration
+4. **Body**  Runs if condition is true
 
 ---
 
@@ -40,34 +197,50 @@ for (int i = 1; i <= 5; i++) {
 ### Counting Up
 
 \`\`\`java
-for (int i = 0; i < 10; i++) {
-    System.out.println(i);  // 0 to 9
+public class CountingUpDemo {
+    public static void main(String[] args) {
+        for (int page = 0; page < 10; page++) {
+            System.out.println("Loading page index: " + page);
+        }
+    }
 }
 \`\`\`
 
 ### Counting Down
 
 \`\`\`java
-for (int i = 10; i > 0; i--) {
-    System.out.println(i);  // 10 to 1
+public class CountingDownDemo {
+    public static void main(String[] args) {
+        for (int seconds = 10; seconds > 0; seconds--) {
+            System.out.println("Offer ends in: " + seconds);
+        }
+    }
 }
 \`\`\`
 
 ### Step by 2
 
 \`\`\`java
-for (int i = 0; i <= 10; i += 2) {
-    System.out.println(i);  // 0, 2, 4, 6, 8, 10
+public class StepByTwoDemo {
+    public static void main(String[] args) {
+        for (int seatNumber = 2; seatNumber <= 10; seatNumber += 2) {
+            System.out.println("Even seat: " + seatNumber);
+        }
+    }
 }
 \`\`\`
 
 ### Iterating Arrays
 
 \`\`\`java
-int[] numbers = {10, 20, 30, 40, 50};
+public class ArrayIterationDemo {
+    public static void main(String[] args) {
+        int[] orderAmounts = {10, 20, 30, 40, 50};
 
-for (int i = 0; i < numbers.length; i++) {
-    System.out.println("Index " + i + ": " + numbers[i]);
+        for (int i = 0; i < orderAmounts.length; i++) {
+            System.out.println("Order index " + i + ": " + orderAmounts[i]);
+        }
+    }
 }
 \`\`\`
 
@@ -75,13 +248,17 @@ for (int i = 0; i < numbers.length; i++) {
 
 ## Enhanced For Loop (For-Each)
 
-Simpler syntax for iterating collections:
+Simpler syntax for iterating collections. Use it when you only need each value, such as printing names, summing marks, validating products, or sending notifications.
 
 \`\`\`java
-int[] numbers = {10, 20, 30, 40, 50};
+public class EnhancedForLoopDemo {
+    public static void main(String[] args) {
+        int[] marks = {80, 90, 75, 88, 95};
 
-for (int num : numbers) {
-    System.out.println(num);
+        for (int mark : marks) {
+            System.out.println("Mark: " + mark);
+        }
+    }
 }
 \`\`\`
 
@@ -99,15 +276,18 @@ for (int num : numbers) {
 
 ## Nested For Loops
 
-Loops inside loops:
+Loops inside loops. Nested loops are used for matrix data, timetable grids, seat layouts, calendar rows, and comparing records pair by pair.
 
 \`\`\`java
-// Multiplication table
-for (int i = 1; i <= 5; i++) {
-    for (int j = 1; j <= 5; j++) {
-        System.out.print(i * j + "\\t");
+public class MultiplicationTableDemo {
+    public static void main(String[] args) {
+        for (int row = 1; row <= 5; row++) {
+            for (int column = 1; column <= 5; column++) {
+                System.out.print(row * column + "\\t");
+            }
+            System.out.println();
+        }
     }
-    System.out.println();
 }
 \`\`\`
 
@@ -124,28 +304,40 @@ Output:
 
 ## Loop Control
 
-### break — Exit the loop
+### break  Exit the loop
 
 \`\`\`java
-for (int i = 1; i <= 10; i++) {
-    if (i == 5) {
-        break;  // Exit loop
+public class BreakInForLoopDemo {
+    public static void main(String[] args) {
+        int[] productIds = {101, 102, 103, 104};
+        int targetId = 103;
+
+        for (int id : productIds) {
+            if (id == targetId) {
+                System.out.println("Product found: " + id);
+                break;
+            }
+            System.out.println("Checked product: " + id);
+        }
     }
-    System.out.println(i);
 }
-// Output: 1, 2, 3, 4
 \`\`\`
 
-### continue — Skip to next iteration
+### continue  Skip to next iteration
 
 \`\`\`java
-for (int i = 1; i <= 5; i++) {
-    if (i == 3) {
-        continue;  // Skip this iteration
+public class ContinueInForLoopDemo {
+    public static void main(String[] args) {
+        int[] marks = {85, -1, 90, 0, 76};
+
+        for (int mark : marks) {
+            if (mark <= 0) {
+                continue;
+            }
+            System.out.println("Valid mark: " + mark);
+        }
     }
-    System.out.println(i);
 }
-// Output: 1, 2, 4, 5
 \`\`\`
 
 ### Labeled break/continue
@@ -153,13 +345,23 @@ for (int i = 1; i <= 5; i++) {
 For nested loops:
 
 \`\`\`java
-outer:
-for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 3; j++) {
-        if (i == 2 && j == 2) {
-            break outer;  // Exit both loops
+public class LabeledBreakDemo {
+    public static void main(String[] args) {
+        int[][] seats = {
+            {1, 1, 1},
+            {1, 0, 1},
+            {1, 1, 1}
+        };
+
+        outer:
+        for (int row = 0; row < seats.length; row++) {
+            for (int column = 0; column < seats[row].length; column++) {
+                if (seats[row][column] == 0) {
+                    System.out.println("Empty seat found at row " + row + ", column " + column);
+                    break outer;
+                }
+            }
         }
-        System.out.println(i + "," + j);
     }
 }
 \`\`\`
@@ -168,16 +370,23 @@ for (int i = 1; i <= 3; i++) {
 
 ## Infinite Loop
 
-Be careful! This runs forever:
+Be careful! This runs forever if you do not include a valid exit condition. Real server listeners and background workers may use controlled infinite loops, but beginner programs should include a clear \`break\` condition.
 
 \`\`\`java
-for (;;) {
-    // Infinite loop
-}
+public class ControlledInfiniteLoopDemo {
+    public static void main(String[] args) {
+        int attempts = 0;
 
-// Or
-for (int i = 0; i >= 0; i++) {
-    // Also infinite (until overflow)
+        for (;;) {
+            attempts++;
+            System.out.println("Health check attempt: " + attempts);
+
+            if (attempts == 3) {
+                System.out.println("Stopping health check");
+                break;
+            }
+        }
+    }
 }
 \`\`\`
 
@@ -188,43 +397,58 @@ for (int i = 0; i >= 0; i++) {
 ### Processing a List
 
 \`\`\`java
-List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+import java.util.Arrays;
+import java.util.List;
 
-for (int i = 0; i < names.size(); i++) {
-    System.out.println((i + 1) + ". " + names.get(i));
+public class ProcessListDemo {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        for (int i = 0; i < names.size(); i++) {
+            System.out.println((i + 1) + ". " + names.get(i));
+        }
+    }
 }
 \`\`\`
 
 ### Finding an Element
 
 \`\`\`java
-int[] numbers = {5, 12, 8, 130, 44};
-int target = 8;
-int foundIndex = -1;
+public class FindElementDemo {
+    public static void main(String[] args) {
+        int[] numbers = {5, 12, 8, 130, 44};
+        int target = 8;
+        int foundIndex = -1;
 
-for (int i = 0; i < numbers.length; i++) {
-    if (numbers[i] == target) {
-        foundIndex = i;
-        break;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == target) {
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (foundIndex != -1) {
+            System.out.println("Found at index: " + foundIndex);
+        }
     }
-}
-
-if (foundIndex != -1) {
-    System.out.println("Found at index: " + foundIndex);
 }
 \`\`\`
 
 ### Calculating Sum
 
 \`\`\`java
-int[] numbers = {1, 2, 3, 4, 5};
-int sum = 0;
+public class SumCalculationDemo {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        int sum = 0;
 
-for (int num : numbers) {
-    sum += num;
+        for (int num : numbers) {
+            sum += num;
+        }
+
+        System.out.println("Sum: " + sum);
+    }
 }
-
-System.out.println("Sum: " + sum);  // 15
 \`\`\`
 
 ---
@@ -234,30 +458,50 @@ System.out.println("Sum: " + sum);  // 15
 ### Off-by-One Errors
 
 \`\`\`java
-int[] arr = {1, 2, 3, 4, 5};
+public class OffByOneErrorDemo {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
 
-// WRONG - ArrayIndexOutOfBoundsException
-for (int i = 0; i <= arr.length; i++) { }
+        // Wrong: i <= arr.length will try index 5 and cause ArrayIndexOutOfBoundsException.
+        // for (int i = 0; i <= arr.length; i++) {
+        //     System.out.println(arr[i]);
+        // }
 
-// CORRECT
-for (int i = 0; i < arr.length; i++) { }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("Value: " + arr[i]);
+        }
+    }
+}
 \`\`\`
 
 ### Modifying Loop Variable
 
 \`\`\`java
-// Confusing and error-prone
-for (int i = 0; i < 10; i++) {
-    i = i + 2;  // Don't do this!
+public class LoopVariableMistakeDemo {
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i += 3) {
+            System.out.println("Processing batch index: " + i);
+        }
+
+        // Avoid changing i again inside the loop body because it hides the real step size.
+    }
 }
 \`\`\`
 
 ### Infinite Loop by Mistake
 
 \`\`\`java
-// WRONG - i never changes
-for (int i = 0; i < 10; ) {
-    System.out.println(i);
+public class MissingUpdateMistakeDemo {
+    public static void main(String[] args) {
+        // Wrong: this loop never changes i.
+        // for (int i = 0; i < 10; ) {
+        //     System.out.println(i);
+        // }
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i);
+        }
+    }
 }
 \`\`\`
 
@@ -297,16 +541,25 @@ Many algorithms rely on for loops for iterative processing. Sorting algorithms, 
 ## Common Mistakes and How to Avoid Them
 
 ### Mistake 1: Off-by-One Errors
-**Problem:** Using `<=` instead of `<` when iterating arrays causes ArrayIndexOutOfBoundsException.
+**Problem:** Using \`<=\` instead of \`<\` when iterating arrays causes ArrayIndexOutOfBoundsException.
 
-**Solution:** Always use `<` with array.length:
+**Solution:** Always use \`<\` with array.length:
 
 \`\`\`java
-// CORRECT
-for (int i = 0; i < arr.length; i++) { }
+public class ArrayLengthLoopDemo {
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30};
 
-// WRONG
-for (int i = 0; i <= arr.length; i++) { }  // Index out of bounds!
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+
+        // Wrong: i <= arr.length tries to access arr[3].
+        // for (int i = 0; i <= arr.length; i++) {
+        //     System.out.println(arr[i]);
+        // }
+    }
+}
 \`\`\`
 
 ### Mistake 2: Modifying Loop Variable
@@ -315,13 +568,15 @@ for (int i = 0; i <= arr.length; i++) { }  // Index out of bounds!
 **Solution:** Don't modify the loop variable:
 
 \`\`\`java
-// WRONG
-for (int i = 0; i < 10; i++) {
-    i = i + 2;  // Don't do this!
-}
+public class LoopUpdateDemo {
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i += 3) {
+            System.out.println("Batch index: " + i);
+        }
 
-// CORRECT - Use step in update
-for (int i = 0; i < 10; i += 3) { }
+        // Avoid changing i again inside the loop body.
+    }
+}
 \`\`\`
 
 ### Mistake 3: Infinite Loops
@@ -330,11 +585,18 @@ for (int i = 0; i < 10; i += 3) { }
 **Solution:** Always ensure the condition will eventually become false:
 
 \`\`\`java
-// WRONG - Missing update
-for (int i = 0; i < 10; ) { }  // Infinite!
+public class ForLoopUpdateDemo {
+    public static void main(String[] args) {
+        // Wrong: missing update can create an infinite loop.
+        // for (int i = 0; i < 10; ) {
+        //     System.out.println(i);
+        // }
 
-// CORRECT
-for (int i = 0; i < 10; i++) { }
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i);
+        }
+    }
+}
 \`\`\`
 
 ### Mistake 4: Using Traditional Loop When Enhanced Loop Works
@@ -343,14 +605,18 @@ for (int i = 0; i < 10; i++) { }
 **Solution:** Use enhanced for loop when you don't need the index:
 
 \`\`\`java
-// PREFER - Simpler and safer
-for (String item : items) {
-    System.out.println(item);
-}
+public class EnhancedLoopChoiceDemo {
+    public static void main(String[] args) {
+        String[] items = {"Laptop", "Mouse", "Keyboard"};
 
-// AVOID - More complex
-for (int i = 0; i < items.length; i++) {
-    System.out.println(items[i]);
+        for (String item : items) {
+            System.out.println(item);
+        }
+
+        for (int i = 0; i < items.length; i++) {
+            System.out.println("Index " + i + ": " + items[i]);
+        }
+    }
 }
 \`\`\`
 
@@ -360,15 +626,24 @@ for (int i = 0; i < items.length; i++) {
 **Solution:** Optimize nested loops or use more efficient algorithms:
 
 \`\`\`java
-// WRONG - O(n²) complexity
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-        // Process
+import java.util.HashSet;
+import java.util.Set;
+
+public class NestedLoopOptimizationDemo {
+    public static void main(String[] args) {
+        int[] existingIds = {101, 102, 103};
+        int searchId = 102;
+
+        Set<Integer> idSet = new HashSet<>();
+        for (int id : existingIds) {
+            idSet.add(id);
+        }
+
+        if (idSet.contains(searchId)) {
+            System.out.println("Found id quickly: " + searchId);
+        }
     }
 }
-
-// PREFER - Optimize when possible
-// Use hash maps, sorting, or other optimizations
 \`\`\`
 
 ---
@@ -404,8 +679,12 @@ All three parts (initialization, condition, update) are optional, but you must i
 Yes, you can declare multiple variables of the same type in the initialization part:
 
 \`\`\`java
-for (int i = 0, j = 10; i < j; i++, j--) {
-    // Both i and j are available
+public class MultipleLoopVariablesDemo {
+    public static void main(String[] args) {
+        for (int left = 0, right = 10; left < right; left++, right--) {
+            System.out.println("left=" + left + ", right=" + right);
+        }
+    }
 }
 \`\`\`
 
@@ -418,8 +697,14 @@ Variables declared in the for loop initialization (like \`int i = 0\`) are scope
 Use a for loop that starts at the last index and decrements:
 
 \`\`\`java
-for (int i = arr.length - 1; i >= 0; i--) {
-    System.out.println(arr[i]);
+public class ReverseArrayIterationDemo {
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30, 40};
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            System.out.println(arr[i]);
+        }
+    }
 }
 \`\`\`
 
@@ -438,7 +723,7 @@ Before proceeding to other control flow statements, ensure you understand these 
 - **Enhanced for loop** provides simpler syntax for iterating arrays and collections
 - **Nested for loops** enable processing multi-dimensional data structures
 - **break and continue** provide control over loop execution flow
-- **Off-by-one errors** are common - always use `<` with array.length
+- **Off-by-one errors** are common - always use \`<\` with array.length
 - **Loop variable scope** is limited to the loop block
 - **For loops are preferred** when iteration count is known in advance
 
@@ -476,12 +761,12 @@ For loops are essential for processing data and implementing algorithms. Continu
 ## 10 Important for-loop Interview Questions
 
 ### 1. What are the three parts of a traditional \`for\` loop?
-**Answer:** Initialization, condition, and update—executed before iteration, before each body, and after each body respectively.
+**Answer:** Initialization, condition, and update. Initialization runs once before the loop starts, condition is checked before each round, and update runs after each round.
 The condition is checked every iteration.
 
 ### 2. What is enhanced for (\`for-each\`) and what types does it accept?
 **Answer:** \`for (T x : iterable)\` iterates arrays or \`Iterable\`; no index unless you track manually.
-Fails fast if collection is structurally modified—\`ConcurrentModificationException\` for many collections.
+For many collections, structural modification during iteration can fail with \`ConcurrentModificationException\`.
 
 ### 3. When is a traditional \`for\` loop better than enhanced for?
 **Answer:** When you need the index, multiple arrays in lockstep, or to iterate backwards.
@@ -492,23 +777,23 @@ Enhanced for is clearer when you only need elements.
 Labeled \`break\` can exit outer loops.
 
 ### 5. What is off-by-one risk in loop bounds?
-**Answer:** Using \`<=\` vs \`<\` with array length—classic fencepost errors.
+**Answer:** Using \`<=\` instead of \`<\` with array length creates classic fencepost errors.
 Test with empty and single-element collections.
 
 ### 6. How do multiple variables work in \`for\` initialization?
 **Answer:** You can declare several same-type vars: \`for (int i = 0, j = n - 1; i < j; i++, j--)\`.
 Useful for two-pointer algorithms.
 
-### 7. Scenario: processing millions of rows—what for-loop concerns arise?
+### 7. Scenario: processing millions of rows, what for-loop concerns arise?
 **Answer:** Allocation in the loop header, autoboxing in enhanced for over poor structures, and unnecessary object creation in update step.
 Profile before micro-optimizing.
 
 ### 8. What is the scope of the loop variable in a traditional for?
 **Answer:** Declared in the for header, scoped to the loop body in modern Java (block scoped).
-Older code sometimes declared \`int i\` outside for wider scope—avoid unless needed.
+Older code sometimes declared \`int i\` outside for wider scope. Avoid that unless you really need the value after the loop.
 
 ### 9. Can the loop condition call methods with side effects?
-**Answer:** Yes, but it’s poor style—\`for (; it.hasNext(); )\` on an \`Iterator\` or calling \`size()\` each time can be costly if the method isn’t O(1).
+**Answer:** Yes, but it is poor style when the condition does hidden work. Calling \`size()\` each time is fine for most lists, but costly if the method is not O(1).
 Cache lengths or iterator state when appropriate.
 
 ### 10. How does \`for\` relate to iterators under the hood?
@@ -548,7 +833,7 @@ public class ForLoopDemo {
         
         // 1. BASIC FOR LOOP
         System.out.println("1. BASIC FOR LOOP");
-        System.out.println("   ---------------");
+        System.out.println("  ---------------");
         
         System.out.print("   Counting 1-5: ");
         for (int i = 1; i <= 5; i++) {
@@ -570,32 +855,32 @@ public class ForLoopDemo {
         
         // 2. ITERATING ARRAYS
         System.out.println("2. ITERATING ARRAYS");
-        System.out.println("   -----------------");
+        System.out.println("  -----------------");
         
         String[] fruits = {"Apple", "Banana", "Cherry", "Date"};
         
-        System.out.println("   Traditional for loop:");
+        System.out.println("Traditional for loop:");
         for (int i = 0; i < fruits.length; i++) {
-            System.out.println("   " + i + ": " + fruits[i]);
+            System.out.println("  " + i + ": " + fruits[i]);
         }
         
-        System.out.println("\\n   Enhanced for loop (for-each):");
+        System.out.println("\\nEnhanced for loop (for-each):");
         for (String fruit : fruits) {
-            System.out.println("   - " + fruit);
+            System.out.println("  - " + fruit);
         }
         System.out.println();
         
         // 3. NESTED FOR LOOPS
         System.out.println("3. NESTED FOR LOOPS");
-        System.out.println("   -----------------");
+        System.out.println("  -----------------");
         
-        System.out.println("   Multiplication Table (1-5):");
+        System.out.println("Multiplication Table (1-5):");
         System.out.print("      ");
         for (int i = 1; i <= 5; i++) {
             System.out.printf("%4d", i);
         }
         System.out.println();
-        System.out.println("      " + "----".repeat(5));
+        System.out.println("     " + "----".repeat(5));
         
         for (int i = 1; i <= 5; i++) {
             System.out.printf("   %d |", i);
@@ -608,7 +893,7 @@ public class ForLoopDemo {
         
         // 4. BREAK AND CONTINUE
         System.out.println("4. BREAK AND CONTINUE");
-        System.out.println("   -------------------");
+        System.out.println("  -------------------");
         
         System.out.print("   Break at 5: ");
         for (int i = 1; i <= 10; i++) {
@@ -626,9 +911,9 @@ public class ForLoopDemo {
         
         // 5. PATTERN PRINTING
         System.out.println("5. PATTERN PRINTING");
-        System.out.println("   -----------------");
+        System.out.println("  -----------------");
         
-        System.out.println("   Right triangle:");
+        System.out.println("Right triangle:");
         for (int i = 1; i <= 5; i++) {
             System.out.print("   ");
             for (int j = 1; j <= i; j++) {
@@ -640,7 +925,7 @@ public class ForLoopDemo {
         
         // 6. PRACTICAL EXAMPLES
         System.out.println("6. PRACTICAL EXAMPLES");
-        System.out.println("   -------------------");
+        System.out.println("  -------------------");
         
         // Sum of array
         int[] numbers = {10, 20, 30, 40, 50};
@@ -648,7 +933,7 @@ public class ForLoopDemo {
         for (int num : numbers) {
             sum += num;
         }
-        System.out.println("   Sum of array: " + sum);
+        System.out.println("Sum of array: " + sum);
         
         // Find maximum
         int max = numbers[0];
@@ -657,7 +942,7 @@ public class ForLoopDemo {
                 max = numbers[i];
             }
         }
-        System.out.println("   Maximum: " + max);
+        System.out.println("Maximum: " + max);
         
         // Count occurrences
         String text = "hello world";
@@ -665,19 +950,19 @@ public class ForLoopDemo {
         for (char c : text.toCharArray()) {
             if (c == 'l') count++;
         }
-        System.out.println("   'l' appears " + count + " times in '" + text + "'");
+        System.out.println("  'l' appears " + count + " times in '" + text + "'");
         System.out.println();
         
         // 7. REAL-WORLD EXAMPLE
         System.out.println("7. REAL-WORLD EXAMPLE - Shopping Cart");
-        System.out.println("   ------------------------------------");
+        System.out.println("  ------------------------------------");
         
         String[] items = {"Laptop", "Mouse", "Keyboard"};
         double[] prices = {999.99, 29.99, 79.99};
         int[] quantities = {1, 2, 1};
         
         double total = 0;
-        System.out.println("   Cart Items:");
+        System.out.println("Cart Items:");
         for (int i = 0; i < items.length; i++) {
             double itemTotal = prices[i] * quantities[i];
             total += itemTotal;

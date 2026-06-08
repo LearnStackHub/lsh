@@ -149,6 +149,7 @@ function AppWithTracking() {
         <Route path="springboot/:topicId" element={<Tutorial />} />
         <Route path="hibernate/:topicId" element={<Tutorial />} />
         <Route path="java8/:topicSlug" element={<Tutorial />} />
+        <Route path="microservices/:topicSlug" element={<Tutorial />} />
         <Route path="kafka/:topicSlug" element={<Tutorial />} />
         <Route path="docker/:topicSlug" element={<Tutorial />} />
         <Route path="privacy" element={<PrivacyPolicy />} />

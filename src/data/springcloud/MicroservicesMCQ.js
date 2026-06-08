@@ -38,7 +38,7 @@ Welcome to the Microservices MCQ Examination! This is a comprehensive test desig
 - Spring Cloud Eureka (Service Discovery, Service Registry)
 - Spring Cloud API Gateway (Routing, Filters, Load balancing)
 - Circuit Breaker & Resilience4j (Fault tolerance, Retry, Rate Limiter)
-- Distributed Tracing & Monitoring (Sleuth, Zipkin, ELK Stack)
+- Distributed Tracing & Monitoring (Micrometer Tracing, Zipkin, ELK Stack)
 - Spring Cloud Security (OAuth2, JWT, API Security)
 - Microservices Patterns & Best Practices
 - And much more!

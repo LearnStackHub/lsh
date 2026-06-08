@@ -5,230 +5,335 @@ const mapInterface = {
   content: `
 # Map Interface — Key-Value Storage
 
-A Map is like a dictionary — you look up a word (key) to find its definition (value). Each key maps to exactly one value, and keys must be unique. Maps are incredibly useful for fast lookups, caching, and storing relationships.
+Think of a Map like your phone contacts. You search by **name** (the key) and get back a **phone number** (the value). Or like a school marks sheet: **roll number → marks**. Or an online store: **product id → price**.
+
+That is the whole idea. You give a key, you get a value. Keys must be unique — you cannot have two contacts with the same name stored as separate entries. But two different products can share the same price. If you add the same key again, the old value gets replaced.
+
+Maps are one of the most useful tools in Java because lookup by key is fast. Instead of looping through a whole list to find something, you just ask: "What is the value for this key?"
+
+---
+
+## Understand Deeply — How HashMap Finds a Value So Fast
+
+Imagine a school office with many drawers. Each drawer is a **bucket**.
+
+**When you call \`map.put("Ravi", 85)\`:**
+
+1. Java runs \`"Ravi".hashCode()\` to pick a drawer (bucket)
+2. Java stores the pair \`"Ravi" → 85\` inside that drawer
+3. If \`"Ravi"\` was already there, the old marks are **replaced** with 85
+
+**When you call \`map.get("Ravi")\`:**
+
+1. Java hashes \`"Ravi"\` again → same drawer
+2. Java finds the entry in that drawer
+3. Returns \`85\`
+
+You did **not** scan every student in the school — you went straight to the right drawer. That is why Map lookup is fast compared to looping a List.
+
+**Important rules for keys:**
+
+| Rule | Why it matters |
+|------|----------------|
+| Keys must be **unique** | One key → one value at a time |
+| Keys should not change after \`put\` | If hash changes, Java looks in the wrong drawer and \`get\` fails |
+| Override \`equals\` + \`hashCode\` for custom key classes | Same idea as Set — broken equality breaks the map |
+| \`null\` key allowed once in HashMap | Only one null key; many null values OK |
+
+**List vs Map — do not confuse them:**
+
+\`\`\`java
+// List — find by position
+List<String> list = new ArrayList<>();
+list.get(0);  // first item
+
+// Map — find by key
+Map<String, Integer> map = new HashMap<>();
+map.get("Ravi");  // value for key "Ravi"
+\`\`\`
 
 ---
 
 ## Map Characteristics
 
-- **Key-Value pairs** — Each entry has a key and a value
-- **Unique keys** — No duplicate keys (values can duplicate)
-- **One value per key** — Adding same key replaces value
-- **Null handling** — Depends on implementation
+- **Key-Value pairs** — Every entry has a key and a value, like name → number
+- **Unique keys** — No duplicate keys allowed (values can repeat)
+- **One value per key** — Putting the same key again replaces the old value
+- **Null handling** — Depends on which Map class you pick
 
 ---
 
-## Map Implementations
+## Map Implementations — Which One Should You Pick?
 
-### HashMap
-- **Order:** No guaranteed order
-- **Performance:** O(1) for get/put
-- **Null:** One null key, multiple null values
-- **Best for:** General purpose, fast lookups
+Java gives you three main Map types. Here is the simple fresher-level rule:
 
-\`\`\`java
-Map<String, Integer> ages = new HashMap<>();
-ages.put("Alice", 25);
-ages.put("Bob", 30);
-int age = ages.get("Alice");  // 25
-\`\`\`
+| Map Type | Think of it as... | When to use |
+|----------|-------------------|-------------|
+| **HashMap** | A fast drawer — grab anything quickly, order does not matter | Default choice for most apps |
+| **LinkedHashMap** | A notebook — entries stay in the order you wrote them | When print order should match add order |
+| **TreeMap** | An alphabetically sorted phone book — keys always sorted | When you need sorted keys or range queries |
 
-### LinkedHashMap
-- **Order:** Insertion order (or access order)
-- **Performance:** Slightly slower than HashMap
-- **Best for:** When iteration order matters
+**HashMap** — Use this 90% of the time. Fast \`get\` and \`put\`. Order is not guaranteed when you print the map.
 
-\`\`\`java
-Map<String, Integer> orderedMap = new LinkedHashMap<>();
-orderedMap.put("First", 1);
-orderedMap.put("Second", 2);
-// Iteration: First, Second (insertion order)
-\`\`\`
+**LinkedHashMap** — Same speed as HashMap, but remembers insertion order. Useful for shopping carts, recent history, or simple LRU caches.
 
-### TreeMap
-- **Order:** Sorted by keys
-- **Performance:** O(log n) for operations
-- **Null:** No null keys
-- **Best for:** Sorted key iteration, range queries
+**TreeMap** — Keys are always sorted (A before B, 1 before 2). Slightly slower, but great when you need "first key", "last key", or a range of keys.
 
-\`\`\`java
-Map<String, Integer> sortedMap = new TreeMap<>();
-sortedMap.put("Charlie", 3);
-sortedMap.put("Alice", 1);
-sortedMap.put("Bob", 2);
-// Iteration: Alice, Bob, Charlie (sorted)
-\`\`\`
-
-### Hashtable (Legacy)
-- **Thread-safe** but slow
-- **Use instead:** \`ConcurrentHashMap\`
+**Hashtable** — Old and slow. Do not use in new code. Use \`ConcurrentHashMap\` if you need thread safety.
 
 ---
 
-## Comparison Table
+### HashMap — Fast Lookups, No Fixed Order
 
-| Feature | HashMap | LinkedHashMap | TreeMap |
-|---------|---------|---------------|---------|
-| Order | None | Insertion | Sorted |
-| Null keys | Yes (one) | Yes (one) | No |
-| Performance | O(1) | O(1) | O(log n) |
-| Thread-safe | No | No | No |
+Imagine storing student ages: name → age. You just want quick lookup — "How old is Alice?" HashMap is perfect for that.
+
+\`\`\`java
+import java.util.HashMap;
+import java.util.Map;
+
+public class HashMapBasicsDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> ages = new HashMap<>();
+        ages.put("Alice", 25);
+        ages.put("Bob", 30);
+
+        int aliceAge = ages.get("Alice");
+        System.out.println("Alice age: " + aliceAge);
+        System.out.println("All ages: " + ages);
+    }
+}
+\`\`\`
+
+---
+
+### LinkedHashMap — Remembers Insertion Order
+
+Same as HashMap, but when you loop through it, entries appear in the order you added them. Like writing contacts in a notebook — first added stays first.
+
+\`\`\`java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LinkedHashMapBasicsDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> orderedMap = new LinkedHashMap<>();
+        orderedMap.put("First", 1);
+        orderedMap.put("Second", 2);
+        orderedMap.put("Third", 3);
+
+        System.out.println("Insertion order:");
+        orderedMap.forEach((key, value) -> System.out.println("  " + key + " -> " + value));
+    }
+}
+\`\`\`
+
+---
+
+### TreeMap — Keys Always Sorted
+
+If you add Charlie, Alice, Bob — TreeMap prints them as Alice, Bob, Charlie. Perfect for roll-number → marks when you want sorted reports, or product id → price when ids must appear in order.
+
+\`\`\`java
+import java.util.Map;
+import java.util.TreeMap;
+
+public class TreeMapBasicsDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> sortedMap = new TreeMap<>();
+        sortedMap.put("Charlie", 3);
+        sortedMap.put("Alice", 1);
+        sortedMap.put("Bob", 2);
+
+        System.out.println("Sorted by key:");
+        sortedMap.forEach((key, value) -> System.out.println("  " + key + " -> " + value));
+    }
+}
+\`\`\`
 
 ---
 
 ## Common Map Operations
 
-### Creating Maps
+Now let us see the methods you will use every day: \`put\`, \`get\`, \`getOrDefault\`, \`containsKey\`, \`remove\`, and more. This example uses a student marks map — roll number or name as key, score as value.
 
 \`\`\`java
-// Empty map
-Map<String, Integer> map1 = new HashMap<>();
+import java.util.*;
 
-// With initial capacity
-Map<String, Integer> map2 = new HashMap<>(100);
+public class MapOperationsDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> withCapacity = new HashMap<>(100);
+        Map<String, Integer> immutable = Map.of("A", 1, "B", 2);
+        Map<String, Integer> fromEntries = Map.ofEntries(
+            Map.entry("X", 10),
+            Map.entry("Y", 20)
+        );
 
-// Immutable map (Java 9+)
-Map<String, Integer> map3 = Map.of("A", 1, "B", 2);
+        System.out.println("Immutable: " + immutable);
+        System.out.println("From entries: " + fromEntries);
 
-// From entries (Java 9+)
-Map<String, Integer> map4 = Map.ofEntries(
-    Map.entry("A", 1),
-    Map.entry("B", 2)
-);
+        map.put("Alice", 95);
+        map.putIfAbsent("Bob", 87);
+        map.putIfAbsent("Alice", 60);  // ignored
+        map.putAll(Map.of("Charlie", 92));
+
+        System.out.println("\\nMap: " + map);
+        System.out.println("Alice score: " + map.get("Alice"));
+        System.out.println("Unknown: " + map.getOrDefault("Unknown", 0));
+        System.out.println("Contains key Bob: " + map.containsKey("Bob"));
+        System.out.println("Contains value 92: " + map.containsValue(92));
+
+        map.replace("Bob", 90);
+        map.remove("Charlie");
+        System.out.println("After update/remove: " + map);
+    }
+}
 \`\`\`
 
-### Adding/Updating Entries
-
-\`\`\`java
-map.put("key", value);           // Add or replace
-map.putIfAbsent("key", value);   // Add only if key doesn't exist
-map.putAll(otherMap);            // Add all from another map
-map.replace("key", newValue);    // Replace if exists
-map.replace("key", oldVal, newVal); // Replace if value matches
-\`\`\`
-
-### Getting Values
-
-\`\`\`java
-Integer value = map.get("key");           // null if not found
-Integer value = map.getOrDefault("key", 0); // default if not found
-\`\`\`
-
-### Removing Entries
-
-\`\`\`java
-map.remove("key");               // Remove by key
-map.remove("key", value);        // Remove if value matches
-map.clear();                     // Remove all
-\`\`\`
-
-### Checking Contents
-
-\`\`\`java
-boolean hasKey = map.containsKey("key");
-boolean hasValue = map.containsValue(100);
-boolean empty = map.isEmpty();
-int size = map.size();
-\`\`\`
+Notice \`putIfAbsent\` — it only adds if the key is missing. And \`getOrDefault\` — returns a fallback instead of null when the key is not found. Very handy in real projects.
 
 ---
 
 ## Iterating Over Maps
 
+A Map is not a List — you do not loop with \`get(i)\`. You have three views:
+
+| View | Method | You get |
+|------|--------|---------|
+| Entries | \`entrySet()\` | Both key and value — **most common in real code** |
+| Keys only | \`keySet()\` | Every key; use \`get(key)\` if you need the value |
+| Values only | \`values()\` | Every value; keys are lost |
+
+**Best practice:** Use \`entrySet()\` when you need both name and score together. It avoids calling \`get(key)\` twice and is easier to read.
+
+There are several ways to loop through a Map. In interviews and at work, \`entrySet\` and \`forEach\` are the most common. Here we print student names and their scores.
+
 \`\`\`java
-Map<String, Integer> scores = new HashMap<>();
-scores.put("Alice", 95);
-scores.put("Bob", 87);
-scores.put("Charlie", 92);
+import java.util.HashMap;
+import java.util.Map;
 
-// 1. Iterate over entries (most common)
-for (Map.Entry<String, Integer> entry : scores.entrySet()) {
-    System.out.println(entry.getKey() + ": " + entry.getValue());
+public class MapIterationDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> scores = new HashMap<>();
+        scores.put("Alice", 95);
+        scores.put("Bob", 87);
+        scores.put("Charlie", 92);
+
+        System.out.println("=== entrySet ===");
+        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        System.out.println("\\n=== keySet ===");
+        for (String name : scores.keySet()) {
+            System.out.println(name + ": " + scores.get(name));
+        }
+
+        System.out.println("\\n=== values ===");
+        for (Integer score : scores.values()) {
+            System.out.println(score);
+        }
+
+        System.out.println("\\n=== forEach ===");
+        scores.forEach((name, score) -> System.out.println(name + ": " + score));
+
+        System.out.println("\\n=== stream filter > 90 ===");
+        scores.entrySet().stream()
+              .filter(e -> e.getValue() > 90)
+              .forEach(e -> System.out.println(e.getKey()));
+    }
 }
-
-// 2. Iterate over keys
-for (String name : scores.keySet()) {
-    System.out.println(name + ": " + scores.get(name));
-}
-
-// 3. Iterate over values
-for (Integer score : scores.values()) {
-    System.out.println(score);
-}
-
-// 4. forEach with lambda (Java 8+)
-scores.forEach((name, score) -> 
-    System.out.println(name + ": " + score));
-
-// 5. Stream API
-scores.entrySet().stream()
-      .filter(e -> e.getValue() > 90)
-      .forEach(e -> System.out.println(e.getKey()));
 \`\`\`
+
+**Tip for freshers:** Prefer \`entrySet\` when you need both key and value. Use \`keySet\` only when you need keys and will call \`get\` inside the loop.
 
 ---
 
 ## Advanced Operations (Java 8+)
 
-### compute — Calculate value based on key
+Java 8 added smart methods that save you from writing long if-else blocks. \`compute\` updates a value, \`computeIfAbsent\` creates a list if missing, and \`merge\` adds numbers together. You will see these in counting and grouping logic.
 
 \`\`\`java
-// Increment counter
-map.compute("count", (key, val) -> val == null ? 1 : val + 1);
-\`\`\`
+import java.util.*;
 
-### computeIfAbsent — Calculate only if key missing
+public class MapAdvancedOperationsDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> counter = new HashMap<>();
+        counter.compute("count", (key, val) -> val == null ? 1 : val + 1);
+        counter.compute("count", (key, val) -> val == null ? 1 : val + 1);
+        System.out.println("Counter: " + counter.get("count"));
 
-\`\`\`java
-// Initialize list if not exists
-map.computeIfAbsent("users", k -> new ArrayList<>()).add(" Dattu");
-\`\`\`
+        Map<String, List<String>> usersByRole = new HashMap<>();
+        usersByRole.computeIfAbsent("admins", k -> new ArrayList<>()).add("Dattu");
+        usersByRole.computeIfAbsent("admins", k -> new ArrayList<>()).add("Ravi");
+        System.out.println("Admins: " + usersByRole.get("admins"));
 
-### merge — Combine values
-
-\`\`\`java
-// Sum values for same key
-map.merge("total", 100, Integer::sum);
+        Map<String, Integer> totals = new HashMap<>();
+        totals.merge("total", 100, Integer::sum);
+        totals.merge("total", 50, Integer::sum);
+        System.out.println("Total: " + totals.get("total"));
+    }
+}
 \`\`\`
 
 ---
 
 ## TreeMap Navigation
 
+TreeMap is special because keys are sorted. So you can ask: "What is the first key? The last? What comes just before 5?" This is useful for price ranges, score bands, or date ranges.
+
 \`\`\`java
-TreeMap<Integer, String> map = new TreeMap<>();
-map.put(1, "One");
-map.put(3, "Three");
-map.put(5, "Five");
-map.put(7, "Seven");
+import java.util.TreeMap;
 
-map.firstKey();      // 1
-map.lastKey();       // 7
-map.lowerKey(5);     // 3 (largest < 5)
-map.higherKey(5);    // 7 (smallest > 5)
-map.floorKey(4);     // 3 (largest <= 4)
-map.ceilingKey(4);   // 5 (smallest >= 4)
+public class TreeMapNavigationDemo {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> map = new TreeMap<>();
+        map.put(1, "One");
+        map.put(3, "Three");
+        map.put(5, "Five");
+        map.put(7, "Seven");
 
-map.headMap(5);      // {1=One, 3=Three}
-map.tailMap(5);      // {5=Five, 7=Seven}
-map.subMap(2, 6);    // {3=Three, 5=Five}
+        System.out.println("First key: " + map.firstKey());
+        System.out.println("Last key: " + map.lastKey());
+        System.out.println("Lower than 5: " + map.lowerKey(5));
+        System.out.println("Higher than 5: " + map.higherKey(5));
+        System.out.println("Floor of 4: " + map.floorKey(4));
+        System.out.println("Ceiling of 4: " + map.ceilingKey(4));
+        System.out.println("HeadMap(<5): " + map.headMap(5));
+        System.out.println("TailMap(>=5): " + map.tailMap(5));
+        System.out.println("SubMap [2,6): " + map.subMap(2, 6));
+    }
+}
 \`\`\`
 
 ---
 
 ## Real-World Example: Word Counter
 
+Count how many times each word appears — word → count. This is a classic Map use case. The \`merge\` method makes counting clean: if the word exists, add 1; if not, start at 1.
+
 \`\`\`java
-public class WordCounter {
+import java.util.HashMap;
+import java.util.Map;
+
+public class WordCounterDemo {
+    public static void main(String[] args) {
+        String text = "Java is powerful and Java is popular";
+        Map<String, Integer> wordCount = WordCounter.countWords(text);
+        wordCount.forEach((word, count) -> System.out.println(word + " -> " + count));
+    }
+}
+
+class WordCounter {
     public static Map<String, Integer> countWords(String text) {
         Map<String, Integer> wordCount = new HashMap<>();
-        
         String[] words = text.toLowerCase().split("\\\\W+");
-        
+
         for (String word : words) {
-            wordCount.merge(word, 1, Integer::sum);
+            if (!word.isEmpty()) {
+                wordCount.merge(word, 1, Integer::sum);
+            }
         }
-        
         return wordCount;
     }
 }
@@ -238,26 +343,44 @@ public class WordCounter {
 
 ## Real-World Example: Cache
 
+A cache stores recently used data for fast access — user id → user details. This example builds a simple LRU (Least Recently Used) cache using LinkedHashMap. When the cache is full, the oldest unused entry is removed automatically.
+
 \`\`\`java
-public class SimpleCache<K, V> {
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class SimpleCacheDemo {
+    public static void main(String[] args) {
+        SimpleCache<String, String> cache = new SimpleCache<>(2);
+        cache.put("user:1", "Dattu");
+        cache.put("user:2", "Ravi");
+        cache.get("user:1");  // mark as recently used
+        cache.put("user:3", "Asha");  // evicts user:2 (LRU)
+
+        System.out.println("user:1 -> " + cache.get("user:1"));
+        System.out.println("user:2 -> " + cache.get("user:2"));
+        System.out.println("user:3 -> " + cache.get("user:3"));
+    }
+}
+
+class SimpleCache<K, V> {
     private final Map<K, V> cache;
     private final int maxSize;
-    
+
     public SimpleCache(int maxSize) {
         this.maxSize = maxSize;
-        // LinkedHashMap with access-order for LRU
         this.cache = new LinkedHashMap<>(maxSize, 0.75f, true) {
             @Override
             protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
-                return size() > maxSize;
+                return size() > SimpleCache.this.maxSize;
             }
         };
     }
-    
+
     public V get(K key) {
         return cache.get(key);
     }
-    
+
     public void put(K key, V value) {
         cache.put(key, value);
     }
@@ -270,97 +393,93 @@ public class SimpleCache<K, V> {
 
 | Use Case | Best Choice |
 |----------|-------------|
-| General purpose | HashMap |
-| Need insertion order | LinkedHashMap |
-| Need sorted keys | TreeMap |
-| Need range queries | TreeMap |
-| LRU cache | LinkedHashMap (access order) |
-| Thread-safe | ConcurrentHashMap |
+| General purpose (contacts, marks, prices) | HashMap |
+| Need insertion order (cart, history) | LinkedHashMap |
+| Need sorted keys (sorted reports) | TreeMap |
+| Need range queries (scores between 60–80) | TreeMap |
+| LRU cache (keep recent items) | LinkedHashMap (access order) |
+| Multiple threads accessing the map | ConcurrentHashMap |
+
+**Simple rule:** Start with HashMap. Switch to LinkedHashMap if order matters. Switch to TreeMap if sorting matters.
 
 ---
 
 ## 10 Important Map Interface Interview Questions
 
-### 1. Why doesn’t Map extend Collection?
-**Answer:** Different abstraction—key-value pairs vs elements—separate hierarchy with \`entrySet\`, \`keySet\`, \`values\` bridging views.
-Design clarity.
+### 1. Why doesn't Map extend Collection?
+
+**Answer:** A List or Set stores individual elements — one item after another. A Map stores **pairs** — key and value together. That is a different idea, so Map has its own interface. You can still get a List-like view through \`keySet()\`, \`values()\`, or \`entrySet()\`, but the core model is key → value, not just "a bag of items."
 
 ### 2. HashMap vs Hashtable vs ConcurrentHashMap?
-**Answer:** HashMap unsynchronized null-friendly one null key; Hashtable legacy synchronized; CHM segmented locking/JDK8+ node locking for concurrency.
-Default new code: HashMap single-thread, CHM concurrent.
+
+**Answer:** **HashMap** is the normal choice — fast, not thread-safe, allows one null key. **Hashtable** is the old synchronized version — slow, avoid it in new code. **ConcurrentHashMap** is for when multiple threads read and write the same map at the same time. Rule of thumb: HashMap for single-threaded code, ConcurrentHashMap when threads share the map.
 
 ### 3. What is load factor and resizing?
-**Answer:** When size/capacity exceeds load factor threshold, HashMap doubles capacity and rehashes—amortized cost—tune initial capacity if known size.
-Rehashing pauses can hurt latency spikes.
 
-### 4. Hash collision handling in HashMap?
-**Answer:** Separate chaining with linked lists → treeification for long chains—O(log n) worst per bucket after Java 8.
-Poor hash function degrades to trees.
+**Answer:** HashMap stores entries in buckets. Load factor (default 0.75) means "when the map is 75% full, make it bigger." Java doubles the bucket array and rehashes all entries. This keeps lookups fast. If you know you will store 10,000 entries, create the map with initial capacity to avoid repeated resizing.
 
-### 5. Scenario: cache with TTL—use HashMap alone?
-**Answer:** No—needs eviction—use Caffeine, Guava Cache, or Redis—HashMap grows unbounded leaks memory.
-Know off-heap and concurrent requirements.
+### 4. How does HashMap handle hash collisions?
 
-### 6. What is \`LinkedHashMap\` access order?
-**Answer:** Can maintain insertion or access order—basis for LRU caches with removeEldestEntry override.
-Simple LRU pattern.
+**Answer:** Two different keys can land in the same bucket — that is a collision. HashMap stores them in a linked list inside that bucket. If the list gets too long (Java 8+), it converts to a balanced tree for faster lookup. A bad \`hashCode()\` on your key class causes too many collisions and slows things down.
 
-### 7. IdentityHashMap purpose?
-**Answer:** Reference identity (\`==\`) instead of equals—rare—framework internals, serialization tracking—don’t use for business keys normally.
+### 5. Can I use HashMap alone for a cache with expiry?
+
+**Answer:** Not really. A plain HashMap never removes old entries — it keeps growing and can cause memory leaks. For a real cache with size limits or time-to-live (TTL), use libraries like Caffeine or Guava Cache, or an external store like Redis. The SimpleCache example above shows a size-limited cache, but not TTL.
+
+### 6. What is LinkedHashMap access order?
+
+**Answer:** LinkedHashMap can track either **insertion order** (default) or **access order** (when you pass \`true\` in the constructor). Access order moves an entry to the end every time you \`get\` it. That is how LRU caches work — the least recently used entry sits at the front and gets removed first.
+
+### 7. What is IdentityHashMap used for?
+
+**Answer:** Normal maps compare keys with \`equals()\`. IdentityHashMap compares with \`==\` — same object in memory, not just same content. You will rarely use this in business code. It appears inside Java frameworks for internal tracking. For your apps, stick with HashMap.
 
 ### 8. WeakHashMap vs HashMap?
-**Answer:** Keys held weakly—entries disappear when keys GC—useful for canonical registries without preventing GC—subtle lifecycle semantics.
-Not a general cache.
 
-### 9. Immutable maps in Java 9+?
-**Answer:** \`Map.of\` and \`Map.copyOf\`—compact immutable maps—fail on duplicate keys—null-prohibited.
-Prefer for static catalogs.
+**Answer:** In HashMap, as long as you hold the map, keys stay alive. In WeakHashMap, keys are "weak" — if nothing else references the key object, garbage collection can remove that entry automatically. Useful for caches tied to object lifecycle, but tricky to reason about. Not a general-purpose replacement for HashMap.
 
-### 10. Why \`equals\` and \`hashCode\` for keys critical?
-**Answer:** Buckets determined by hash—equal keys must land in same bucket—broken equals/hash loses entries or duplicates.
-Immutable keys strongly recommended.
----
+### 9. How do immutable maps work in Java 9+?
 
-## Topic-Focused Practice for Map Interface
+**Answer:** \`Map.of("A", 1, "B", 2)\` creates a small, unchangeable map — you cannot add, remove, or update entries. \`Map.copyOf(existingMap)\` makes a read-only copy. They throw an error if you pass null or duplicate keys. Great for fixed config data like status codes or country codes.
 
-### Real-World Scenarios
+### 10. Why are equals and hashCode important for Map keys?
 
-1. Build one mini exercise focused on **key-value mapping** and explain why your chosen approach is correct.
-2. Add a second variation where **hashing behavior** changes the expected output or system behavior.
-3. Document one production caution related to **iteration patterns** and how you would monitor it.
-
-### Page-Specific Interview Questions
-
-1. In Map Interface, how do you decide between approaches related to **key-value mapping** when requirements conflict?
-2. What debugging steps would you follow if **hashing behavior** behaves differently in development vs production?
-3. Which performance or maintainability risks are introduced by **iteration patterns**, and how would you reduce them?
-4. What is one real incident where misunderstanding **key-value mapping** can cause bugs or outages?
-5. If you had to teach this topic to a fresher, how would you explain **hashing behavior** with a simple example?
-
-### Implementation Checklist
-
-- Verify functional correctness with at least two valid and two invalid input cases.
-- Add one code example that highlights **key-value mapping** and one that highlights **hashing behavior**.
-- Record typical errors around **iteration patterns** and add prevention notes in your project docs.
-- Revisit related lessons and connect this concept to a complete end-to-end workflow.
+**Answer:** HashMap uses \`hashCode()\` to pick a bucket and \`equals()\` to find the exact entry inside that bucket. If two keys are equal but have different hash codes, the map breaks — you might store a value but fail to retrieve it. Always override both methods together in custom key classes, and prefer immutable keys (String, Integer) when possible.
 
 ---
 
-## Deep Understanding: Map as Key-Based Lookup Model
+## Remember These 5 Things
 
-Map is a data model for association, not sequence. It optimizes retrieval by key identity, replacing expensive linear scans with key-based access strategies.
+1. **Map = unique keys → values** — like roll number → marks or product id → price.
+2. **Default is HashMap** — fast lookup; print order is not guaranteed.
+3. **Same key twice replaces the old value** — \`put\` is add or update.
+4. **Loop with \`entrySet()\`** when you need both key and value in one pass.
+5. **Never change key fields after putting in the map** — broken \`hashCode\` means \`get\` stops working.
 
-Different Map implementations encode different guarantees:
+---
 
-- HashMap: average fast lookup, no ordering,
-- LinkedHashMap: insertion order stability,
-- TreeMap: sorted key order with logarithmic operations.
+## What's Next?
 
-## Why This Matters in Backend Systems
+You now understand how Maps store key-value pairs — the backbone of lookups in real applications. Here is where to go next:
 
-Caching, deduplication, indexing, and aggregation all rely on map semantics. Bugs usually come from weak key design, mutable keys, or misunderstood ordering guarantees.
+### Immediate Next Steps
 
-Use Map when identity lookup is central to the problem, not when order is the primary concern.
+1. **[Queue Interface](/corejava/queue-interface)**: Learn FIFO collections for task queues and waiting lines
+2. **[Set Interface](/corejava/set-interface)**: Review unique-element collections (Set is built on Map internally)
+3. **[List Interface](/corejava/list-interface)**: Compare ordered lists with indexed access vs key-based lookup
+
+### Practice Ideas
+
+- Build a phone book: name → phone number using TreeMap for sorted names
+- Build a product catalog: product id → price using HashMap for fast lookup
+- Build a roll-number → marks tracker and print students scoring above 90
+
+### Related Tutorials
+
+- **[Collection Introduction](/corejava/collection-introduction)**: Review the full Java Collections Framework
+- **[Core Java MCQ Exam](/tutorial/core-java-mcq)**: Test your Map and Collections knowledge
+
+Maps power caching, configuration, counting, grouping, and indexing in almost every Java backend. Practice the phone book exercise in the practice section below, then move on to [Queue Interface](/corejava/queue-interface).
 
 `,
   code: `// Map Interface Demo

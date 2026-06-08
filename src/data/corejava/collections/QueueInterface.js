@@ -5,189 +5,341 @@ const queueInterface = {
   content: `
 # Queue Interface — First In, First Out
 
-A Queue is like a line at a coffee shop — the first person in line gets served first. This is called FIFO (First-In-First-Out). Queues are essential for task scheduling, message processing, and managing ordered workflows.
+Imagine three everyday scenes:
+
+- **Bus ticket counter** — The person who arrived first gets the ticket first. Nobody cuts in line (hopefully).
+- **Office print queue** — The document you sent first prints first. Later jobs wait their turn.
+- **Hospital token system** — Token #1 is called before token #2, no matter how urgent you feel.
+
+That is a **Queue**: **First In, First Out (FIFO)**. The first item you add is the first one removed. Java's \`Queue\` interface models exactly this waiting-line behavior.
+
+Queues show up everywhere in real software: background jobs, message processing, order fulfillment, and task scheduling.
 
 ---
 
-## Queue Characteristics
+## Understand Deeply — FIFO Step by Step
 
-- **FIFO ordering** — First element added is first removed
-- **Two ends** — Add at tail, remove from head
-- **No random access** — Can only access head element
-- **Null handling** — Most implementations don't allow null
+Picture three people in a line: **Anita**, **Bharat**, **Chitra**.
+
+\`\`\`
+offer("Anita")   →  front [Anita] back
+offer("Bharat")  →  front [Anita, Bharat] back
+offer("Chitra")  →  front [Anita, Bharat, Chitra] back
+
+peek()           →  sees Anita (does not remove)
+poll()           →  removes Anita  →  [Bharat, Chitra]
+poll()           →  removes Bharat →  [Chitra]
+\`\`\`
+
+**Front** = head = first to leave. **Back** = tail = where new people join.
+
+| Method | What it does | Empty queue behavior |
+|--------|--------------|----------------------|
+| \`offer(x)\` | Add at back | Returns false if full (bounded queue) |
+| \`poll()\` | Remove from front | Returns \`null\` (safe) |
+| \`peek()\` | Look at front only | Returns \`null\` (safe) |
+
+**Queue vs List:** A List lets you \`get(5)\` — jump to any position. A Queue does not. You only touch the ends. That restriction is what makes queue logic correct for waiting lines.
+
+**PriorityQueue is different:** It is **not** strict FIFO. Items leave by **priority** (or smallest number first by default). A critical bug report can be processed before an older low-priority task. Use normal Queue for "fair line" and PriorityQueue for "urgent first."
 
 ---
 
-## Queue Operations
+## What Makes a Queue Different?
 
-Queues have two sets of methods — one throws exceptions, one returns special values:
+- **FIFO ordering** — First in, first out. Like a real waiting line.
+- **Two ends** — You join at the back (\`offer\`) and leave from the front (\`poll\`).
+- **No random access** — You cannot ask for "the 5th person in line." You only see who is at the front (\`peek\`).
+- **Null handling** — Most queue implementations do not allow \`null\` elements.
 
-| Operation | Throws Exception | Returns Special Value |
-|-----------|------------------|----------------------|
-| Insert | add(e) | offer(e) → true/false |
-| Remove | remove() | poll() → element/null |
-| Examine | element() | peek() → element/null |
+---
 
-**Recommendation:** Use \`offer\`, \`poll\`, \`peek\` — they're safer.
+## Queue Operations — Two Flavors
+
+Java gives you two ways to do the same thing. One throws an exception when something goes wrong; the other returns a safe value.
+
+| What you want | Throws exception | Safe version (recommended) |
+|---------------|------------------|----------------------------|
+| Add to back | \`add(e)\` | \`offer(e)\` → returns true/false |
+| Remove from front | \`remove()\` | \`poll()\` → returns element or null |
+| Look at front (don't remove) | \`element()\` | \`peek()\` → returns element or null |
+
+**Tip for beginners:** Stick with \`offer\`, \`poll\`, and \`peek\`. They won't crash your program if the queue is empty.
 
 ---
 
 ## Queue Implementations
 
-### LinkedList
-- **Implements:** Queue, Deque, List
-- **Best for:** General purpose queue
+### LinkedList — A General-Purpose Queue
+
+\`LinkedList\` can act as a List, a Queue, and a Deque. For a simple FIFO queue, it works fine. New items go to the tail; the head is removed first.
+
+Run this to see the basics — three tasks go in, the first one comes out:
 
 \`\`\`java
-Queue<String> queue = new LinkedList<>();
-queue.offer("First");
-queue.offer("Second");
-String head = queue.poll();  // "First"
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class LinkedListQueueDemo {
+    public static void main(String[] args) {
+        Queue<String> queue = new LinkedList<>();
+        queue.offer("First");
+        queue.offer("Second");
+
+        String head = queue.poll();
+        System.out.println("Removed head: " + head);
+        System.out.println("Remaining: " + queue);
+    }
+}
 \`\`\`
 
-### PriorityQueue
-- **Order:** By priority (natural order or Comparator)
-- **Best for:** Task scheduling, event processing
+### PriorityQueue — Not FIFO, but by Priority
+
+A regular queue serves everyone in arrival order. A **priority queue** is different — urgent tasks jump ahead. Think of a hospital emergency room: critical cases are seen before mild ones, even if they arrived later.
+
+By default, \`PriorityQueue\` pulls the **smallest** number first (min-heap). Add 30, 10, 20 — they come out as 10, 20, 30:
 
 \`\`\`java
-Queue<Integer> pq = new PriorityQueue<>();
-pq.offer(30);
-pq.offer(10);
-pq.offer(20);
-pq.poll();  // 10 (smallest first)
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+public class PriorityQueueBasicsDemo {
+    public static void main(String[] args) {
+        Queue<Integer> pq = new PriorityQueue<>();
+        pq.offer(30);
+        pq.offer(10);
+        pq.offer(20);
+
+        System.out.println("Poll order (smallest first):");
+        while (!pq.isEmpty()) {
+            System.out.println(pq.poll());
+        }
+    }
+}
 \`\`\`
 
-### ArrayDeque
-- **Implements:** Deque (double-ended queue)
-- **Best for:** Stack or queue operations, faster than LinkedList
+### ArrayDeque — Fast Queue and Deque
+
+\`ArrayDeque\` uses a circular array internally. It is faster than \`LinkedList\` for most queue and stack operations. You can add or remove from **both** ends — that makes it a **Deque** (double-ended queue).
+
+Here we add items at the front and back, then remove from both ends:
 
 \`\`\`java
-Deque<String> deque = new ArrayDeque<>();
-deque.offerFirst("First");  // Add to front
-deque.offerLast("Last");    // Add to back
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class ArrayDequeBasicsDemo {
+    public static void main(String[] args) {
+        Deque<String> deque = new ArrayDeque<>();
+        deque.offerFirst("First");
+        deque.offerLast("Last");
+
+        System.out.println("Deque: " + deque);
+        System.out.println("Poll first: " + deque.pollFirst());
+        System.out.println("Poll last: " + deque.pollLast());
+    }
+}
 \`\`\`
 
 ---
 
 ## Basic Queue Operations
 
+These four methods are what you will use every day: \`offer\` to add, \`peek\` to look at the front, \`poll\` to remove the front, and \`size\` / \`isEmpty\` to check status.
+
 \`\`\`java
-Queue<String> queue = new LinkedList<>();
+import java.util.LinkedList;
+import java.util.Queue;
 
-// Adding elements
-queue.offer("Task 1");
-queue.offer("Task 2");
-queue.offer("Task 3");
+public class BasicQueueOperationsDemo {
+    public static void main(String[] args) {
+        Queue<String> queue = new LinkedList<>();
 
-// Examining head (without removing)
-String head = queue.peek();  // "Task 1"
+        queue.offer("Task 1");
+        queue.offer("Task 2");
+        queue.offer("Task 3");
 
-// Removing head
-String removed = queue.poll();  // "Task 1"
+        String head = queue.peek();
+        String removed = queue.poll();
 
-// Check size
-int size = queue.size();
-boolean empty = queue.isEmpty();
+        System.out.println("Peek head: " + head);
+        System.out.println("Polled: " + removed);
+        System.out.println("Remaining queue: " + queue);
+        System.out.println("Size: " + queue.size());
+        System.out.println("Is empty: " + queue.isEmpty());
+    }
+}
 \`\`\`
 
 ---
 
-## PriorityQueue — Ordered by Priority
+## PriorityQueue — Min Heap, Max Heap, and Custom Priority
 
-Elements are ordered by natural ordering or a custom Comparator:
+\`PriorityQueue\` does not follow arrival order. It uses a heap to always give you the "most important" element first.
+
+- **Default** — smallest number first (min-heap)
+- **\`Collections.reverseOrder()\`** — largest first (max-heap)
+- **Custom \`Comparator\`** — your own rules, like task priority
+
+This example shows all three approaches. Tasks with priority 1 (highest) are processed before priority 3:
 
 \`\`\`java
-// Natural ordering (smallest first)
-PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-minHeap.offer(5);
-minHeap.offer(1);
-minHeap.offer(3);
-// poll() returns: 1, 3, 5
+import java.util.*;
 
-// Reverse ordering (largest first)
-PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-maxHeap.offer(5);
-maxHeap.offer(1);
-maxHeap.offer(3);
-// poll() returns: 5, 3, 1
+public class PriorityQueueOrderingDemo {
+    public static void main(String[] args) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        minHeap.offer(5);
+        minHeap.offer(1);
+        minHeap.offer(3);
+        System.out.println("Min heap poll order: " + pollAll(minHeap));
 
-// Custom ordering
-PriorityQueue<Task> taskQueue = new PriorityQueue<>(
-    Comparator.comparing(Task::getPriority)
-);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        maxHeap.offer(5);
+        maxHeap.offer(1);
+        maxHeap.offer(3);
+        System.out.println("Max heap poll order: " + pollAll(maxHeap));
+
+        PriorityQueue<Task> taskQueue = new PriorityQueue<>(Comparator.comparingInt(Task::getPriority));
+        taskQueue.offer(new Task("Send email", 2));
+        taskQueue.offer(new Task("Fix bug", 1));
+        taskQueue.offer(new Task("Write docs", 3));
+
+        System.out.println("Task processing order:");
+        while (!taskQueue.isEmpty()) {
+            System.out.println("  " + taskQueue.poll());
+        }
+    }
+
+    private static List<Integer> pollAll(PriorityQueue<Integer> pq) {
+        List<Integer> result = new ArrayList<>();
+        while (!pq.isEmpty()) result.add(pq.poll());
+        return result;
+    }
+}
+
+class Task {
+    private final String name;
+    private final int priority;
+
+    public Task(String name, int priority) {
+        this.name = name;
+        this.priority = priority;
+    }
+
+    public int getPriority() { return priority; }
+
+    @Override
+    public String toString() { return name + " (p=" + priority + ")"; }
+}
 \`\`\`
 
 ---
 
 ## Deque — Double-Ended Queue
 
-A Deque (pronounced "deck") allows insertion and removal at both ends:
+**Deque** (pronounced "deck") lets you add and remove from **both** ends — like a line where people can join or leave from the front or the back. \`ArrayDeque\` is the go-to implementation.
 
 \`\`\`java
-Deque<String> deque = new ArrayDeque<>();
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-// Add to front
-deque.offerFirst("A");
-deque.addFirst("B");
+public class DequeOperationsDemo {
+    public static void main(String[] args) {
+        Deque<String> deque = new ArrayDeque<>();
 
-// Add to back
-deque.offerLast("C");
-deque.addLast("D");
+        deque.offerFirst("A");
+        deque.addFirst("B");
+        deque.offerLast("C");
+        deque.addLast("D");
+        System.out.println("After adds: " + deque);
 
-// Remove from front
-deque.pollFirst();
-deque.removeFirst();
-
-// Remove from back
-deque.pollLast();
-deque.removeLast();
-
-// Peek at both ends
-deque.peekFirst();
-deque.peekLast();
+        System.out.println("Poll first: " + deque.pollFirst());
+        System.out.println("Poll last: " + deque.pollLast());
+        System.out.println("Peek first: " + deque.peekFirst());
+        System.out.println("Peek last: " + deque.peekLast());
+        System.out.println("Remaining: " + deque);
+    }
+}
 \`\`\`
 
-### Using Deque as Stack
+### Using Deque as a Stack
+
+Java's old \`Stack\` class is outdated. The modern way to build a stack (Last In, First Out) is \`ArrayDeque\` with \`push\` and \`pop\` — like a stack of plates where you always take the top one:
 
 \`\`\`java
-Deque<String> stack = new ArrayDeque<>();
-stack.push("First");   // Same as addFirst
-stack.push("Second");
-stack.pop();           // Same as removeFirst → "Second"
-stack.peek();          // Same as peekFirst → "First"
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class DequeAsStackDemo {
+    public static void main(String[] args) {
+        Deque<String> stack = new ArrayDeque<>();
+        stack.push("First");
+        stack.push("Second");
+
+        System.out.println("Pop: " + stack.pop());
+        System.out.println("Peek: " + stack.peek());
+        System.out.println("Remaining stack: " + stack);
+    }
+}
 \`\`\`
 
 ---
 
 ## Real-World Example: Task Scheduler
 
+In a real app, not all tasks are equal. A production bug (priority 1) should run before writing docs (priority 3). This scheduler uses \`PriorityQueue\` with a custom comparator to process tasks in priority order:
+
 \`\`\`java
-public class TaskScheduler {
-    private PriorityQueue<Task> taskQueue;
-    
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class TaskSchedulerDemo {
+    public static void main(String[] args) {
+        TaskScheduler scheduler = new TaskScheduler();
+        scheduler.addTask("Send report", 3);
+        scheduler.addTask("Fix production bug", 1);
+        scheduler.addTask("Team meeting", 2);
+        scheduler.processAll();
+    }
+}
+
+class TaskScheduler {
+    private final PriorityQueue<ScheduledTask> taskQueue;
+
     public TaskScheduler() {
-        // Higher priority (lower number) first
-        taskQueue = new PriorityQueue<>(
-            Comparator.comparingInt(Task::getPriority)
-        );
+        taskQueue = new PriorityQueue<>(Comparator.comparingInt(ScheduledTask::getPriority));
     }
-    
+
     public void addTask(String name, int priority) {
-        taskQueue.offer(new Task(name, priority));
+        taskQueue.offer(new ScheduledTask(name, priority));
     }
-    
+
     public void processNext() {
-        Task task = taskQueue.poll();
+        ScheduledTask task = taskQueue.poll();
         if (task != null) {
             System.out.println("Processing: " + task.getName());
         }
     }
-    
+
     public void processAll() {
         while (!taskQueue.isEmpty()) {
             processNext();
         }
     }
+}
+
+class ScheduledTask {
+    private final String name;
+    private final int priority;
+
+    public ScheduledTask(String name, int priority) {
+        this.name = name;
+        this.priority = priority;
+    }
+
+    public String getName() { return name; }
+    public int getPriority() { return priority; }
 }
 \`\`\`
 
@@ -195,27 +347,56 @@ public class TaskScheduler {
 
 ## Real-World Example: Print Queue
 
+This is the classic FIFO use case. Documents are added to the queue in the order they were submitted. The printer always takes the job at the front — just like a real office printer:
+
 \`\`\`java
-public class PrintQueue {
-    private Queue<PrintJob> queue = new LinkedList<>();
-    
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class PrintQueueDemo {
+    public static void main(String[] args) {
+        PrintQueue printQueue = new PrintQueue();
+        printQueue.addJob("Resume.pdf", 2);
+        printQueue.addJob("Invoice.pdf", 1);
+        printQueue.addJob("Report.pdf", 5);
+
+        System.out.println("Queue size: " + printQueue.getQueueSize());
+        printQueue.printNext();
+        printQueue.printNext();
+        printQueue.printNext();
+        printQueue.printNext();
+    }
+}
+
+class PrintQueue {
+    private final Queue<PrintJob> queue = new LinkedList<>();
+
     public void addJob(String document, int pages) {
         queue.offer(new PrintJob(document, pages));
         System.out.println("Added to queue: " + document);
     }
-    
+
     public void printNext() {
         PrintJob job = queue.poll();
         if (job != null) {
-            System.out.println("Printing: " + job.document + 
-                             " (" + job.pages + " pages)");
+            System.out.println("Printing: " + job.document + " (" + job.pages + " pages)");
         } else {
             System.out.println("Queue is empty");
         }
     }
-    
+
     public int getQueueSize() {
         return queue.size();
+    }
+}
+
+class PrintJob {
+    final String document;
+    final int pages;
+
+    PrintJob(String document, int pages) {
+        this.document = document;
+        this.pages = pages;
     }
 }
 \`\`\`
@@ -224,32 +405,57 @@ public class PrintQueue {
 
 ## Real-World Example: Browser History (Deque)
 
+Your browser's Back and Forward buttons are a perfect Deque example. Visiting a new page pushes the old one onto a back stack. Pressing Back pops it off. \`ArrayDeque\` handles both stacks efficiently:
+
 \`\`\`java
-public class BrowserHistory {
-    private Deque<String> backStack = new ArrayDeque<>();
-    private Deque<String> forwardStack = new ArrayDeque<>();
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class BrowserHistoryDemo {
+    public static void main(String[] args) {
+        BrowserHistory history = new BrowserHistory();
+        history.visit("google.com");
+        history.visit("learnstackhub.com");
+        history.visit("java-collections");
+
+        history.back();
+        System.out.println("Current after back: " + history.getCurrentPage());
+
+        history.forward();
+        System.out.println("Current after forward: " + history.getCurrentPage());
+    }
+}
+
+class BrowserHistory {
+    private final Deque<String> backStack = new ArrayDeque<>();
+    private final Deque<String> forwardStack = new ArrayDeque<>();
     private String currentPage;
-    
+
     public void visit(String url) {
         if (currentPage != null) {
             backStack.push(currentPage);
         }
         currentPage = url;
-        forwardStack.clear();  // Clear forward history
+        forwardStack.clear();
+        System.out.println("Visited: " + url);
     }
-    
+
     public void back() {
         if (!backStack.isEmpty()) {
             forwardStack.push(currentPage);
             currentPage = backStack.pop();
         }
     }
-    
+
     public void forward() {
         if (!forwardStack.isEmpty()) {
             backStack.push(currentPage);
             currentPage = forwardStack.pop();
         }
+    }
+
+    public String getCurrentPage() {
+        return currentPage;
     }
 }
 \`\`\`
@@ -271,69 +477,73 @@ public class BrowserHistory {
 
 ## 10 Important Queue Interface Interview Questions
 
-### 1. What operations does Queue add beyond Collection?
-**Answer:** \`offer/poll/peek\` (non-throwing) vs \`add/remove/element\` (throwing)—choose for bounded queues handling backpressure.
-Critical in producer-consumer systems.
+### 1. What extra methods does Queue add beyond Collection?
+**Answer:** Queue adds \`offer\`, \`poll\`, and \`peek\` — the safe versions that return null or false instead of throwing exceptions. The throwing versions are \`add\`, \`remove\`, and \`element\`. In interviews, say you prefer \`offer/poll/peek\` because they handle empty queues gracefully.
 
-### 2. LinkedList as Queue—still recommended?
-**Answer:** Works but often \`ArrayDeque\` is faster for deque operations without null elements—prefer \`ArrayDeque\` as queue.
-LinkedList poor cache locality.
+### 2. Should I use LinkedList as a Queue?
+**Answer:** It works, but \`ArrayDeque\` is usually faster and uses less memory. \`LinkedList\` is fine if you already need it as a List too, but for a plain queue, pick \`ArrayDeque\`.
 
 ### 3. What is PriorityQueue?
-**Answer:** Min-heap by natural order or comparator—head is least element—O(log n) insert/remove—unbounded.
-Not thread-safe—\`PriorityBlockingQueue\` for concurrency.
+**Answer:** A queue where elements come out by priority, not arrival order. Internally it is a min-heap — the smallest element (or highest priority by your Comparator) is always at the front. Insert and remove take O(log n) time. It is not thread-safe.
 
-### 4. Scenario: task scheduling by deadline—what queue fits?
-**Answer:** \`PriorityQueue\` or time-wheel structures for efficiency at scale—simple cases use \`PriorityQueue\` of tasks.
-Know delayed and scheduled executors built atop.
+### 4. You need to schedule tasks by deadline — which queue?
+**Answer:** \`PriorityQueue\` with a Comparator that sorts by deadline. Tasks with the nearest deadline get processed first. For multi-threaded apps, look at \`PriorityBlockingQueue\`.
 
-### 5. BlockingQueue vs Queue?
-**Answer:** \`put/take\` block when full/empty—essential for backpressure—\`ArrayBlockingQueue\`, \`LinkedBlockingQueue\`.
-Producer-consumer pipelines.
+### 5. What is the difference between Queue and BlockingQueue?
+**Answer:** A regular Queue returns immediately — \`poll()\` gives null if empty. A BlockingQueue waits: \`take()\` blocks until an item arrives, and \`put()\` blocks if the queue is full. Use BlockingQueue when producers and consumers run at different speeds.
 
-### 6. What is \`Deque\` double-ended queue?
-**Answer:** Add/remove both ends—stack (\`push/pop\`) and queue—\`ArrayDeque\` preferred over \`Stack\` class.
-Stack extends Vector—legacy.
+### 6. What is a Deque?
+**Answer:** A double-ended queue. You can add and remove from both the front and the back. It can act as a regular queue (FIFO) or a stack (LIFO). \`ArrayDeque\` is the recommended implementation.
 
-### 7. Why avoid \`Stack\` class?
-**Answer:** Legacy synchronized vector-based—use \`Deque\`—better performance and clearer API.
-Interview historical note.
+### 7. Why should I avoid the Stack class?
+**Answer:** \`java.util.Stack\` is a legacy class that extends \`Vector\` and is synchronized — slow and outdated. Use \`Deque\` with \`push()\` and \`pop()\` instead. Interviewers like hearing that you know the modern approach.
 
-### 8. What is \`ConcurrentLinkedQueue\`?
-**Answer:** Lock-free non-blocking queue—high concurrency—weak consistency size—good for MPMC in some patterns.
-Understand memory ordering costs.
+### 8. What is ConcurrentLinkedQueue?
+**Answer:** A thread-safe, lock-free queue for high-concurrency apps. Multiple threads can add and remove at the same time without explicit locking. Good for producer-consumer patterns in multi-threaded systems.
 
-### 9. Bounded vs unbounded queue risk?
-**Answer:** Unbounded queues hide overload—OOM risk—bounded with rejection policies or backpressure in reactive systems.
-Resilience engineering.
+### 9. What is the risk of an unbounded queue?
+**Answer:** If producers add items faster than consumers remove them, an unbounded queue keeps growing until you run out of memory (OutOfMemoryError). In production, use bounded queues with a rejection policy or backpressure.
 
-### 10. FIFO guarantee always?
-**Answer:** \`PriorityQueue\` not FIFO by arrival—\`LinkedBlockingQueue\` FIFO—choose semantics carefully.
-Fairness vs priority trade-off.
+### 10. Does every Queue guarantee FIFO?
+**Answer:** No. \`LinkedList\` and \`ArrayDeque\` used as queues are FIFO. But \`PriorityQueue\` is ordered by priority, not arrival time. Always match the queue type to what your business logic actually needs.
+
 ---
 
-## Topic-Focused Practice for Queue Interface
+## Key Takeaways
 
-### Real-World Scenarios
+- A **Queue** is a waiting line — first in, first out
+- Use \`offer\`, \`poll\`, \`peek\` for safe day-to-day coding
+- \`ArrayDeque\` is the best general-purpose choice for queues and stacks
+- \`PriorityQueue\` is for urgency, not fairness
+- \`Deque\` handles both queue and stack patterns
 
-1. Build one mini exercise focused on **FIFO processing** and explain why your chosen approach is correct.
-2. Add a second variation where **offer/poll semantics** changes the expected output or system behavior.
-3. Document one production caution related to **priority queue variants** and how you would monitor it.
+---
 
-### Page-Specific Interview Questions
+## Remember These 5 Things
 
-1. In Queue Interface, how do you decide between approaches related to **FIFO processing** when requirements conflict?
-2. What debugging steps would you follow if **offer/poll semantics** behaves differently in development vs production?
-3. Which performance or maintainability risks are introduced by **priority queue variants**, and how would you reduce them?
-4. What is one real incident where misunderstanding **FIFO processing** can cause bugs or outages?
-5. If you had to teach this topic to a fresher, how would you explain **offer/poll semantics** with a simple example?
+1. **Queue = waiting line** — first in (\`offer\`), first out (\`poll\`).
+2. **Use \`offer\`, \`poll\`, \`peek\`** — they do not crash on an empty queue.
+3. **Default queue: \`ArrayDeque\`** — faster than \`LinkedList\` for most queue/stack work.
+4. **PriorityQueue is not FIFO** — smallest or highest-priority item leaves first.
+5. **Use \`ArrayDeque\` for stack** (\`push\`/\`pop\`) — avoid the old \`Stack\` class.
 
-### Implementation Checklist
+---
 
-- Verify functional correctness with at least two valid and two invalid input cases.
-- Add one code example that highlights **FIFO processing** and one that highlights **offer/poll semantics**.
-- Record typical errors around **priority queue variants** and add prevention notes in your project docs.
-- Revisit related lessons and connect this concept to a complete end-to-end workflow.
+## What's Next?
+
+Now that you understand queues, continue with the remaining collection types:
+
+### Immediate Next Steps
+
+1. **[Map Interface](/corejava/map-interface)**: Learn key-value pairs — like a phone book lookup
+2. **[List Interface](/corejava/list-interface)**: Review ordered, indexed collections
+3. **[Set Interface](/corejava/set-interface)**: Review unique-element collections
+4. **[Collection Introduction](/corejava/collection-introduction)**: Revisit the big picture
+
+### Related Practice
+
+- Try the customer service queue exercise in the Practice tab on this page
+- Test yourself with the [Core Java MCQ Exam](/tutorial/core-java-mcq)
 
 `,
   code: `// Queue Interface Demo

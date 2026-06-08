@@ -5,9 +5,9 @@ const javaOperators = {
   content: `
 # Operators — Making Things Happen in Java
 
-Variables store data. But what good is data if you can't do anything with it? That's where operators come in. They let you perform calculations, make comparisons, and combine conditions.
+Variables store data. But what good is data if you can't do anything with it? That's where operators come in. They let you calculate cart totals, compare ages, verify passwords, apply discounts, check permissions, and decide what path the program should take.
 
-Think of operators as the verbs of programming — they make things happen.
+Think of operators as the verbs of programming — they make things happen inside billing, validation, reporting, and decision-making code.
 
 ---
 
@@ -27,7 +27,7 @@ Java has several categories of operators:
 
 ## 1. Arithmetic Operators
 
-The basic math operations you learned in school:
+The basic math operations you learned in school become real application work: calculating invoice totals, average marks, remaining stock, page offsets, tax, discount, and retry counts.
 
 | Operator | Name | Example | Result |
 |----------|------|---------|--------|
@@ -37,31 +37,43 @@ The basic math operations you learned in school:
 | / | Division | 5 / 3 | 1 (integer division!) |
 | % | Modulus (remainder) | 5 % 3 | 2 |
 
-**Watch out for integer division!**
+**Watch out for integer division!** It appears in real reports when calculating averages or percentages; if both values are \`int\`, Java removes the decimal part.
 \`\`\`java
-int result = 5 / 2;    // Result is 2, not 2.5
-double result = 5.0 / 2;  // Result is 2.5
+public class DivisionOperatorDemo {
+    public static void main(String[] args) {
+        int intResult = 5 / 2;
+        double doubleResult = 5.0 / 2;
+
+        System.out.println("Integer division: " + intResult);
+        System.out.println("Decimal division: " + doubleResult);
+    }
+}
 \`\`\`
 
-**Modulus is super useful:**
+**Modulus is super useful:** use it to check even/odd ids, find the last digit of an OTP, rotate indexes, split batches, or wrap clock-like values.
 \`\`\`java
-// Check if number is even
-if (number % 2 == 0) {
-    System.out.println("Even!");
+public class ModulusOperatorDemo {
+    public static void main(String[] args) {
+        int number = 246;
+
+        if (number % 2 == 0) {
+            System.out.println(number + " is even");
+        }
+
+        int lastDigit = number % 10;
+        int hour = 25 % 24;
+
+        System.out.println("Last digit: " + lastDigit);
+        System.out.println("25th hour on a clock becomes: " + hour);
+    }
 }
-
-// Get last digit
-int lastDigit = number % 10;
-
-// Wrap around (like clock hours)
-int hour = 25 % 24;  // Result: 1
 \`\`\`
 
 ---
 
 ## 2. Assignment Operators
 
-Store values in variables:
+Store values in variables. Assignment operators are common when updating running totals, reducing stock, adding reward points, or accumulating marks.
 
 | Operator | Example | Same As |
 |----------|---------|---------|
@@ -72,20 +84,27 @@ Store values in variables:
 | /= | x /= 3 | x = x / 3 |
 | %= | x %= 3 | x = x % 3 |
 
-**Compound assignment is cleaner:**
+**Compound assignment is cleaner:** in real code, \`total += price\`, \`stock -= soldQuantity\`, and \`attempts++\` make update logic shorter and easier to scan.
 \`\`\`java
-// Instead of this:
-total = total + price;
+public class CompoundAssignmentDemo {
+    public static void main(String[] args) {
+        double total = 500.0;
+        double price = 199.0;
 
-// Write this:
-total += price;
+        total = total + price;
+        System.out.println("After normal assignment: " + total);
+
+        total += price;
+        System.out.println("After compound assignment: " + total);
+    }
+}
 \`\`\`
 
 ---
 
 ## 3. Comparison Operators
 
-Compare two values, return true or false:
+Compare two values, return true or false. Comparison operators power validation rules like age checks, salary filters, stock alerts, password confirmation, and exam pass/fail decisions.
 
 | Operator | Name | Example | Result |
 |----------|------|---------|--------|
@@ -98,22 +117,30 @@ Compare two values, return true or false:
 
 **Used in conditions:**
 \`\`\`java
-if (age >= 18) {
-    System.out.println("Adult");
-}
+public class ComparisonOperatorDemo {
+    public static void main(String[] args) {
+        int age = 21;
+        String password = "java123";
+        String confirmPassword = "java123";
 
-if (password.equals(confirmPassword)) {
-    System.out.println("Passwords match");
+        if (age >= 18) {
+            System.out.println("Adult");
+        }
+
+        if (password.equals(confirmPassword)) {
+            System.out.println("Passwords match");
+        }
+    }
 }
 \`\`\`
 
-**Important:** Use \`.equals()\` for comparing Strings, not \`==\`!
+**Important:** Use \`.equals()\` for comparing Strings, not \`==\`, especially for login usernames, role names, order status, request parameters, and dropdown values.
 
 ---
 
 ## 4. Logical Operators
 
-Combine multiple conditions:
+Combine multiple conditions. Logical operators are what make real rules readable, such as "user is active and has permission", "admin or owner can edit", and "not logged in means redirect to login".
 
 | Operator | Name | Description |
 |----------|------|-------------|
@@ -132,23 +159,30 @@ F && F = F          F || F = F
 
 **Real examples:**
 \`\`\`java
-// AND - both conditions must be true
-if (age >= 18 && hasLicense) {
-    System.out.println("Can drive");
-}
+public class LogicalOperatorDemo {
+    public static void main(String[] args) {
+        int age = 22;
+        boolean hasLicense = true;
+        boolean isAdmin = false;
+        boolean isOwner = true;
+        boolean isLoggedIn = false;
 
-// OR - at least one must be true
-if (isAdmin || isOwner) {
-    System.out.println("Has access");
-}
+        if (age >= 18 && hasLicense) {
+            System.out.println("Can drive");
+        }
 
-// NOT - reverses the condition
-if (!isLoggedIn) {
-    System.out.println("Please log in");
+        if (isAdmin || isOwner) {
+            System.out.println("Has access");
+        }
+
+        if (!isLoggedIn) {
+            System.out.println("Please log in");
+        }
+    }
 }
 \`\`\`
 
-**Short-circuit evaluation:**
+**Short-circuit evaluation:** this protects real code from unnecessary work and errors. For example, \`user != null && user.isActive()\` checks \`user.isActive()\` only after confirming \`user\` is not null.
 - \`&&\` stops if first condition is false (no need to check second)
 - \`||\` stops if first condition is true (already satisfied)
 
@@ -156,7 +190,7 @@ if (!isLoggedIn) {
 
 ## 5. Unary Operators
 
-Work with a single operand:
+Work with a single operand. Unary operators usually appear in counters, loop indexes, retry attempts, page numbers, and toggled boolean flags.
 
 | Operator | Name | Example | Description |
 |----------|------|---------|-------------|
@@ -168,46 +202,70 @@ Work with a single operand:
 
 **Pre vs Post increment:**
 \`\`\`java
-int x = 5;
-System.out.println(x++);  // Prints 5, then x becomes 6
-System.out.println(++x);  // x becomes 7, then prints 7
+public class IncrementOperatorDemo {
+    public static void main(String[] args) {
+        int x = 5;
+
+        System.out.println("Post increment output: " + x++);
+        System.out.println("After post increment: " + x);
+        System.out.println("Pre increment output: " + ++x);
+    }
+}
 \`\`\`
 
-**Rule of thumb:** Use \`x++\` or \`x--\` on their own line to avoid confusion.
+**Rule of thumb:** Use \`x++\` or \`x--\` on their own line to avoid confusion. This keeps loop counters and retry counters easy for teammates to review.
 
 ---
 
 ## 6. Ternary Operator
 
-A shorthand for simple if-else:
+A shorthand for simple if-else. Use it for small value decisions such as status labels, discount rates, grade text, or display messages.
 
 \`\`\`java
-// Syntax: condition ? valueIfTrue : valueIfFalse
+public class TernaryOperatorDemo {
+    public static void main(String[] args) {
+        int age = 17;
 
-// Instead of:
-String status;
-if (age >= 18) {
-    status = "Adult";
-} else {
-    status = "Minor";
+        String statusUsingIf;
+        if (age >= 18) {
+            statusUsingIf = "Adult";
+        } else {
+            statusUsingIf = "Minor";
+        }
+
+        String statusUsingTernary = (age >= 18) ? "Adult" : "Minor";
+
+        System.out.println("Using if-else: " + statusUsingIf);
+        System.out.println("Using ternary: " + statusUsingTernary);
+    }
 }
-
-// Write:
-String status = (age >= 18) ? "Adult" : "Minor";
 \`\`\`
 
-**Great for:**
+**Great for:** compact assignments where both choices are simple and side-effect free.
 \`\`\`java
-int max = (a > b) ? a : b;
-String greeting = (hour < 12) ? "Good morning" : "Good afternoon";
-double discount = (isPremium) ? 0.20 : 0.10;
+public class TernaryUseCasesDemo {
+    public static void main(String[] args) {
+        int a = 40;
+        int b = 25;
+        int hour = 10;
+        boolean isPremium = true;
+
+        int max = (a > b) ? a : b;
+        String greeting = (hour < 12) ? "Good morning" : "Good afternoon";
+        double discount = isPremium ? 0.20 : 0.10;
+
+        System.out.println("Max value: " + max);
+        System.out.println(greeting);
+        System.out.println("Discount: " + discount);
+    }
+}
 \`\`\`
 
 ---
 
 ## Operator Precedence
 
-When multiple operators appear, Java follows this order (highest to lowest):
+When multiple operators appear, Java follows this order (highest to lowest). This matters in billing, tax, marks average, and eligibility formulas because one missing pair of parentheses can change the answer.
 
 1. \`()\` — Parentheses
 2. \`++\`, \`--\`, \`!\` — Unary
@@ -219,13 +277,17 @@ When multiple operators appear, Java follows this order (highest to lowest):
 8. \`||\` — Logical OR
 9. \`=\`, \`+=\`, etc. — Assignment
 
-**When in doubt, use parentheses!**
+**When in doubt, use parentheses!** Parentheses are cheap, and they make production formulas readable during bug fixing.
 \`\`\`java
-// Confusing:
-int result = 2 + 3 * 4;  // Is it 20 or 14?
+public class OperatorPrecedenceDemo {
+    public static void main(String[] args) {
+        int withoutParentheses = 2 + 3 * 4;
+        int withParentheses = (2 + 3) * 4;
 
-// Clear:
-int result = 2 + (3 * 4);  // Obviously 14
+        System.out.println("2 + 3 * 4 = " + withoutParentheses);
+        System.out.println("(2 + 3) * 4 = " + withParentheses);
+    }
+}
 \`\`\`
 
 ---
@@ -234,25 +296,45 @@ int result = 2 + (3 * 4);  // Obviously 14
 
 **E-Commerce Price Calculator:**
 \`\`\`java
-double price = 100.0;
-int quantity = 3;
-double taxRate = 0.08;
-boolean hasCoupon = true;
-double couponDiscount = 0.10;
+public class EcommercePriceCalculator {
+    public static void main(String[] args) {
+        double price = 100.0;
+        int quantity = 3;
+        double taxRate = 0.08;
+        boolean hasCoupon = true;
+        double couponDiscount = 0.10;
 
-double subtotal = price * quantity;
-double discount = hasCoupon ? subtotal * couponDiscount : 0;
-double afterDiscount = subtotal - discount;
-double tax = afterDiscount * taxRate;
-double total = afterDiscount + tax;
+        double subtotal = price * quantity;
+        double discount = hasCoupon ? subtotal * couponDiscount : 0;
+        double afterDiscount = subtotal - discount;
+        double tax = afterDiscount * taxRate;
+        double total = afterDiscount + tax;
+
+        System.out.println("Subtotal: " + subtotal);
+        System.out.println("Discount: " + discount);
+        System.out.println("Tax: " + tax);
+        System.out.println("Total: " + total);
+    }
+}
 \`\`\`
 
 **User Validation:**
 \`\`\`java
-boolean isValid = username != null 
-    && username.length() >= 3 
-    && password.length() >= 8
-    && age >= 18;
+public class UserValidationDemo {
+    public static void main(String[] args) {
+        String username = "dattu";
+        String password = "java@123";
+        int age = 22;
+
+        boolean isValid = username != null
+                && username.length() >= 3
+                && password != null
+                && password.length() >= 8
+                && age >= 18;
+
+        System.out.println("Valid user input: " + isValid);
+    }
+}
 \`\`\`
 
 ---

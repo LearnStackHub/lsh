@@ -12,12 +12,14 @@ import SocialOfficialLinks from './SocialOfficialLinks';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
 import { trackSearch } from '../config/analytics';
-import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug } from '../utils/topicRoutes';
+import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug, isMicroservicesTopicId, microservicesTopicIdToSlug } from '../utils/topicRoutes';
 import logoImage from '../assets/LSH.png';
 import Java8Icon from './icons/Java8Icon';
+import MicroservicesIcon from './icons/MicroservicesIcon';
 
 const getCourseKeyFromPath = (pathname = '') => {
   if (pathname.startsWith('/java8/')) return 'java8';
+  if (pathname.startsWith('/microservices/')) return 'microservices';
   if (pathname.startsWith('/corejava/')) return 'corejava';
   if (pathname.startsWith('/mysql/')) return 'mysql';
   if (pathname.startsWith('/springboot/')) return 'springboot';
@@ -150,6 +152,9 @@ function Layout() {
     if (isDockerTopicId(topicId)) {
       return location.pathname === `/docker/${dockerTopicIdToSlug(topicId)}`;
     }
+    if (isMicroservicesTopicId(topicId)) {
+      return location.pathname === `/microservices/${microservicesTopicIdToSlug(topicId)}`;
+    }
     return location.pathname.includes(topicId);
   };
 
@@ -207,6 +212,7 @@ function Layout() {
     css: Palette,
     corejava: Code,
     java8: Java8Icon,
+    microservices: MicroservicesIcon,
     mysql: Database,
     jdbc: Server,
     servlets: Server,
@@ -507,6 +513,7 @@ function Layout() {
                 <li><Link to="/hibernate/hibernate-introduction">Hibernate</Link></li>
                 <li><Link to="/spring/spring-introduction">Spring Framework</Link></li>
                 <li><Link to="/springboot/spring-boot-introduction">Spring Boot</Link></li>
+                <li><Link to="/microservices/introduction">Microservices</Link></li>
                 <li><Link to="/tutorial/http-status-codes">HTTP & APIs</Link></li>
                 <li><Link to="/kafka/introduction">Kafka</Link></li>
                 <li><Link to="/docker/introduction">Docker</Link></li>

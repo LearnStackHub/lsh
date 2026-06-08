@@ -485,7 +485,7 @@ Java Micro Edition targets resource-constrained devices and embedded systems:
 
 ### Learning Path Recommendation
 
-For new Java developers, the recommended learning path is:
+For new Java developers, a practical learning path is:
 
 1. **Start with Java SE**: Master core Java concepts including [variables](/corejava/java-variables), [data types](/corejava/java-data-types), [control flow](/corejava/if-else), [OOPs concepts](/corejava/oops-introduction), and [collections](/corejava/collection-introduction)
 2. **Learn Web Development**: Progress to [Servlets](/tutorial/servlet-introduction) and [JSP](/tutorial/jsp-introduction) for server-side development
@@ -526,13 +526,16 @@ public class HelloWorld {
 
 **Example:**
 \`\`\`java
-// Correct
-int number = 10;
-System.out.println("Hello");
+public class SemicolonMistakeDemo {
+    public static void main(String[] args) {
+        int number = 10;
+        System.out.println("Hello");
+        System.out.println("Number: " + number);
 
-// Incorrect - missing semicolons
-int number = 10
-System.out.println("Hello")
+        // int wrongNumber = 10
+        // System.out.println("Missing semicolon")
+    }
+}
 \`\`\`
 
 **Compilation Error**: Missing semicolons result in syntax errors that prevent code compilation.
@@ -545,13 +548,17 @@ System.out.println("Hello")
 
 **Example:**
 \`\`\`java
-// Correct
-System.out.println("Hello");
-String name = "Java";
+public class CaseSensitivityMistakeDemo {
+    public static void main(String[] args) {
+        System.out.println("Hello");
+        String name = "Java";
 
-// Incorrect - wrong case
-system.out.println("Hello");  // Error: system cannot be resolved
-string name = "Java";         // Error: string cannot be resolved
+        // system.out.println("Hello"); // Error: system cannot be resolved
+        // string wrongName = "Java";    // Error: string cannot be resolved
+
+        System.out.println("Language: " + name);
+    }
+}
 \`\`\`
 
 **Best Practice**: Pay careful attention to capitalization when typing Java code. IDEs help by providing autocomplete and highlighting errors.
@@ -604,14 +611,15 @@ public class HelloWorld {
 
 **Example:**
 \`\`\`java
-// Correct
-public static void main(String[] args) { }
+public class MainMethodSignatureDemo {
+    public static void main(String[] args) {
+        System.out.println("Correct main method signature");
+    }
 
-// Common mistakes
-public static void main(String args[]) { }      // Works but non-standard
-public static void Main(String[] args) { }     // Wrong: Main vs main
-public void main(String[] args) { }            // Missing static
-static void main(String[] args) { }            // Missing public
+    // public static void Main(String[] args) { }  // Wrong: Main vs main
+    // public void main(String[] args) { }         // Wrong: missing static
+    // static void main(String[] args) { }         // Wrong: missing public
+}
 \`\`\`
 
 **Why it matters**: The JVM looks for a method with this exact signature to start program execution. Any deviation prevents the program from running.
@@ -624,20 +632,77 @@ static void main(String[] args) { }            // Missing public
 
 **Example:**
 \`\`\`java
-// Option 1: Import statement
 import java.util.ArrayList;
 import java.util.List;
 
-// Option 2: Fully qualified name (no import needed)
-java.util.ArrayList<String> list = new java.util.ArrayList<>();
+public class ImportStatementDemo {
+    public static void main(String[] args) {
+        List<String> importedList = new ArrayList<>();
+        importedList.add("Java");
 
-// Common mistake: Missing import
-ArrayList<String> list = new ArrayList<>();  // Error if import missing
+        java.util.ArrayList<String> fullyQualifiedList = new java.util.ArrayList<>();
+        fullyQualifiedList.add("Core Java");
+
+        System.out.println(importedList);
+        System.out.println(fullyQualifiedList);
+
+        // ArrayList<String> list = new ArrayList<>(); // Error if import is missing
+    }
+}
 \`\`\`
 
 **Best Practice**: Use import statements for cleaner code. IDEs can automatically add required imports.
 
 Understanding and avoiding these common mistakes accelerates the learning process and helps developers write correct Java code from the beginning. For more detailed guidance, refer to our [Java Syntax](/corejava/java-syntax) and [Java Environment Setup](/corejava/java-environment-setup) tutorials.
+
+---
+
+## Real-Time Use: Where Java Starts in Actual Projects
+
+A fresher does not usually begin by building a huge enterprise system. The first real Java task is normally much smaller: clone the project, set the right JDK, run the main class, read console logs, and understand how source code becomes a running application.
+
+In companies, Java is commonly used for:
+
+- **Backend APIs**: login, payments, order management, user profiles, reports
+- **Banking applications**: account statements, transactions, fraud checks, loan workflows
+- **E-commerce systems**: cart, checkout, inventory, offers, delivery tracking
+- **Internal tools**: employee portals, admin dashboards, batch jobs
+- **Android and legacy systems**: older mobile apps and long-running enterprise systems
+
+### Fresher Job Task
+
+You may be asked: "Create a Java program that reads customer details, validates the age, and prints whether the customer is eligible for account creation."
+
+This task looks simple, but it checks your basics:
+
+- Can you create the correct class and file name?
+- Can you write the correct \`main\` method?
+- Can you compile and run without IDE help?
+- Can you explain what JVM, JRE, and JDK are doing?
+
+### Real Error You Will See
+
+\`\`\`
+Error: Could not find or load main class HelloWorld
+Caused by: java.lang.ClassNotFoundException: HelloWorld
+\`\`\`
+
+This usually means one of these happened:
+
+- You ran the command from the wrong folder
+- The class name and file name do not match
+- You used a package but did not run the full package name
+- Compilation failed, so the \`.class\` file was never created
+
+### How to Debug Like a Developer
+
+1. Check the file name: \`HelloWorld.java\`
+2. Check the class name: \`public class HelloWorld\`
+3. Compile again: \`javac HelloWorld.java\`
+4. Confirm \`HelloWorld.class\` exists
+5. Run with class name only: \`java HelloWorld\`
+
+This is why Java introduction is not just theory. It is the first step in understanding how every Spring Boot, microservices, or enterprise Java application starts.
 
 ---
 
@@ -750,7 +815,7 @@ To reinforce your understanding:
 
 1. **Write Code Regularly**: Practice writing Java programs daily, even if they're simple
 2. **Build Projects**: Start with small projects and gradually increase complexity
-3. **Read Java Documentation**: Familiarize yourself with the official Java API documentation
+3. **Read Official Documentation**: Use the official Java API documentation, Oracle Java tutorials, OpenJDK docs, and framework documentation when learning specific tools
 4. **Join Java Communities**: Participate in forums, Stack Overflow, and Java developer communities
 
 The journey to mastering Java requires consistent practice and hands-on coding. Each tutorial builds upon previous concepts, so ensure you understand each topic before moving forward. Start with [Java Environment Setup](/corejava/java-environment-setup) to begin writing your first Java programs.

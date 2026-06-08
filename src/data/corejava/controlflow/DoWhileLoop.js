@@ -5,16 +5,29 @@ const doWhileLoop = {
   content: `
 # Do-While Loop - Guaranteed Execution Loop
 
-The do-while loop is a control flow statement that executes a block of code at least once, then repeatedly executes it as long as a condition remains true. Unlike the while loop that checks the condition before execution, the do-while loop checks the condition after execution, ensuring the loop body runs at least once regardless of the initial condition value.
+The do-while loop is a control flow statement that executes a block of code at least once, then repeatedly executes it as long as a condition remains true. Unlike the while loop that checks the condition before execution, the do-while loop checks the condition after execution. In real apps, this is useful for menus, registration forms, OTP retry screens, checkout steps, and confirmation prompts where the user must see the first screen before the next decision is made.
 
 Do-while loops are essential for scenarios where you need guaranteed execution before condition evaluation, such as menu systems, user input validation with retry logic, and initialization sequences. Understanding do-while loops complements your knowledge of while and for loops, providing the right tool for specific iteration requirements.
 
 ## Syntax
 
 \`\`\`java
-do {
-    // code to be executed
-} while (condition);
+public class BasicDoWhileDemo {
+    public static void main(String[] args) {
+        int attempt = 0;
+        boolean otpVerified = false;
+
+        do {
+            attempt++;
+            System.out.println("OTP verification attempt: " + attempt);
+
+            if (attempt == 2) {
+                otpVerified = true;
+                System.out.println("OTP verified");
+            }
+        } while (!otpVerified && attempt < 3);
+    }
+}
 \`\`\`
 
 ## Difference: While vs Do-While
@@ -29,10 +42,11 @@ do {
 
 ## When to Use Do-While (Practical Scenarios)
 
-Use a do-while loop when:\n
-- the program must run the block **at least once**\n
-- the condition depends on user input or an action inside the loop\n
-- you are implementing menu systems, retry logic, or validation flows\n
+Use a do-while loop when:
+
+- the program must run the block **at least once**
+- the condition depends on user input or an action inside the loop
+- you are implementing menu systems, retry logic, OTP checks, checkout steps, or validation flows
 
 ### Diagram: While vs Do-While
 
@@ -69,8 +83,8 @@ public class FormValidation {
         String validPassword = "";
         
         // Username validation - must be 3+ chars, alphanumeric
-        System.out.println("\\n👤 USERNAME VALIDATION");
-        System.out.println("─────────────────────");
+        System.out.println("\\nUSERNAME VALIDATION");
+        System.out.println("");
         
         do {
             String username = usernameAttempts[attemptIndex];
@@ -92,8 +106,8 @@ public class FormValidation {
         attemptIndex = 0;
         isValid = false;
         
-        System.out.println("\\n📧 EMAIL VALIDATION");
-        System.out.println("───────────────────");
+        System.out.println("\\nEMAIL VALIDATION");
+        System.out.println("");
         
         do {
             String email = emailAttempts[attemptIndex];
@@ -115,8 +129,8 @@ public class FormValidation {
         attemptIndex = 0;
         isValid = false;
         
-        System.out.println("\\n🔐 PASSWORD VALIDATION");
-        System.out.println("─────────────────────");
+        System.out.println("\\nPASSWORD VALIDATION");
+        System.out.println("");
         
         do {
             String password = passwordAttempts[attemptIndex];
@@ -137,9 +151,9 @@ public class FormValidation {
         } while (!isValid && attemptIndex < passwordAttempts.length);
         
         // Registration result
-        System.out.println("\\n" + "═".repeat(40));
+        System.out.println("\\n" + "=".repeat(40));
         System.out.println("REGISTRATION SUCCESSFUL!");
-        System.out.println("═".repeat(40));
+        System.out.println("=".repeat(40));
         System.out.println("Username: " + validUsername);
         System.out.println("Email: " + validEmail);
         System.out.println("Password: ********");
@@ -165,14 +179,14 @@ public class GameMainMenu {
         
         // Game menu - always shows at least once
         do {
-            System.out.println("\\n╔═══════════════════════╗");
-            System.out.println("║     MAIN MENU         ║");
-            System.out.println("╠═══════════════════════╣");
-            System.out.println("║ 1. New Game           ║");
-            System.out.println("║ 2. Load Game          ║");
-            System.out.println("║ 3. Settings           ║");
-            System.out.println("║ 4. Exit               ║");
-            System.out.println("╚═══════════════════════╝");
+            System.out.println("\\n");
+            System.out.println("MAIN MENU         ");
+            System.out.println("");
+            System.out.println("1. New Game           ");
+            System.out.println("2. Load Game          ");
+            System.out.println("3. Settings           ");
+            System.out.println("4. Exit               ");
+            System.out.println("");
             
             int choice = menuSelections[selectionIndex];
             selectionIndex++;
@@ -182,24 +196,24 @@ public class GameMainMenu {
             switch (choice) {
                 case 1:
                     System.out.println("\\nStarting New Game...");
-                    System.out.println("   Creating character...");
-                    System.out.println("   Loading world...");
-                    System.out.println("   [Game Started]");
+                    System.out.println("Creating character...");
+                    System.out.println("Loading world...");
+                    System.out.println("  [Game Started]");
                     break;
                     
                 case 2:
                     System.out.println("\\nLoading Saved Game...");
-                    System.out.println("   Save 1: Level 45 - 80% complete");
-                    System.out.println("   Save 2: Level 23 - 45% complete");
-                    System.out.println("   [Game Loaded]");
+                    System.out.println("Save 1: Level 45 - 80% complete");
+                    System.out.println("Save 2: Level 23 - 45% complete");
+                    System.out.println("  [Game Loaded]");
                     break;
                     
                 case 3:
                     System.out.println("\\nSettings");
-                    System.out.println("   Sound: ON");
-                    System.out.println("   Music: ON");
-                    System.out.println("   Graphics: HIGH");
-                    System.out.println("   [Settings Saved]");
+                    System.out.println("Sound: ON");
+                    System.out.println("Music: ON");
+                    System.out.println("Graphics: HIGH");
+                    System.out.println("  [Settings Saved]");
                     break;
                     
                 case 4:
@@ -230,7 +244,7 @@ Do-while is useful when you must attempt an operation at least once and then dec
 
 public class CheckoutProcess {
     public static void main(String[] args) {
-        System.out.println("🛒 CHECKOUT PROCESS");
+        System.out.println("CHECKOUT PROCESS");
         System.out.println("====================");
         
         // Cart items
@@ -240,53 +254,53 @@ public class CheckoutProcess {
         
         // Checkout steps - must go through at least once
         do {
-            System.out.println("\\n" + "─".repeat(40));
-            System.out.println("📍 STEP " + step + " of 4");
-            System.out.println("─".repeat(40));
+            System.out.println("\\n" + "=".repeat(40));
+            System.out.println("STEP " + step + " of 4");
+            System.out.println("=".repeat(40));
             
             switch (step) {
                 case 1: // Review Cart
-                    System.out.println("\\n🛍️ REVIEW YOUR CART");
-                    System.out.println("   Items: 3");
-                    System.out.println("   Subtotal: $" + cartTotal);
-                    System.out.println("   Cart confirmed");
+                    System.out.println("\\nREVIEW YOUR CART");
+                    System.out.println("Items: 3");
+                    System.out.println("Subtotal: $" + cartTotal);
+                    System.out.println("Cart confirmed");
                     step++;
                     break;
                     
                 case 2: // Shipping Address
-                    System.out.println("\\n📍 SHIPPING ADDRESS");
-                    System.out.println("    Dattu Smith");
-                    System.out.println("   123 Main Street");
-                    System.out.println("   New York, NY 10001");
-                    System.out.println("   Address verified");
+                    System.out.println("\\nSHIPPING ADDRESS");
+                    System.out.println("Dattu Smith");
+                    System.out.println("  123 Main Street");
+                    System.out.println("New York, NY 10001");
+                    System.out.println("Address verified");
                     step++;
                     break;
                     
                 case 3: // Payment
-                    System.out.println("\\n💳 PAYMENT METHOD");
-                    System.out.println("   Card: **** **** **** 1234");
-                    System.out.println("   Processing payment...");
-                    System.out.println("   Payment successful!");
+                    System.out.println("\\nPAYMENT METHOD");
+                    System.out.println("Card: **** **** **** 1234");
+                    System.out.println("Processing payment...");
+                    System.out.println("Payment successful!");
                     step++;
                     break;
                     
                 case 4: // Confirmation
                     System.out.println("\\nORDER CONFIRMED!");
-                    System.out.println("   Order #: ORD-" + System.currentTimeMillis());
-                    System.out.println("   Total: $" + cartTotal);
-                    System.out.println("   Delivery: 3-5 business days");
+                    System.out.println("Order #: ORD-" + System.currentTimeMillis());
+                    System.out.println("Total: $" + cartTotal);
+                    System.out.println("Delivery: 3-5 business days");
                     checkoutComplete = true;
                     break;
             }
             
         } while (!checkoutComplete);
         
-        System.out.println("\\n🎉 Thank you for your order!");
+        System.out.println("\\nThank you for your order!");
     }
 }
 \`\`\`
 
-> **Industry Insight**: Do-while loops are perfect for menu systems and input validation where you need to show options or prompt at least once. Payment gateways use do-while for retry mechanisms when transactions fail.
+> **Teacher Note**: Do-while loops are perfect for menu systems and input validation where you need to show options or prompt at least once. Payment gateways use do-while for retry mechanisms when transactions fail.
 
 ---
 
@@ -297,27 +311,27 @@ public class CheckoutProcess {
 Use when the first computation supplies data for the condition.
 
 ### 2. Give a realistic use case for do-while.
-**Answer:** Menu prompts (“Enter choice until quit”), retry loops that must attempt an operation once, or reading until valid input.
+**Answer:** Menu prompts (Enter choice until quit), retry loops that must attempt an operation once, or reading until valid input.
 Contrast with while when zero attempts should happen if already satisfied.
 
-### 3. What’s a common bug when translating while to do-while?
+### 3. Whats a common bug when translating while to do-while?
 **Answer:** Accidentally running an extra iteration or performing side effects when the while version would skip entirely.
 Revalidate invariants at loop end.
 
 ### 4. How does do-while interact with \`continue\`?
-**Answer:** \`continue\` jumps to condition check—ensure state updates still occur or you might stall.
+**Answer:** \`continue\` jumps to condition checkensure state updates still occur or you might stall.
 Less common than in for loops; still test carefully.
 
-### 5. Scenario: retry with exponential backoff—do you use do-while?
-**Answer:** Often you attempt once then backoff in while; do-while fits “always try once” before checking whether to retry.
+### 5. Scenario: retry with exponential backoffdo you use do-while?
+**Answer:** Often you attempt once then backoff in while; do-while fits always try once before checking whether to retry.
 Combine with max retry caps.
 
 ### 6. Is do-while common in enterprise Java code?
 **Answer:** Less than while/for; appears in parsers, interactive CLIs, and some polling patterns.
-Readability matters—sometimes an infinite while with structured break is clearer.
+Readability matterssometimes an infinite while with structured break is clearer.
 
 ### 7. Can do-while be rewritten with while only?
-**Answer:** Yes—duplicate the body once before a while, or use flags—usually uglier.
+**Answer:** Yesduplicate the body once before a while, or use flagsusually uglier.
 Choose the form that minimizes duplication.
 
 ### 8. What about do-while with multiple exit conditions?
@@ -329,7 +343,7 @@ Avoid deeply nested conditions inside the body.
 Verify boundary when the body should run exactly once.
 
 ### 10. Performance vs while?
-**Answer:** Negligible difference—choose based on semantics.
+**Answer:** Negligible differencechoose based on semantics.
 Micro-optimizations belong after profiling.
 
 ---
@@ -353,14 +367,14 @@ while is pre-condition guarded and may execute zero times. Choosing do-while is 
 Developers misuse do-while with unstable termination conditions, causing infinite loops. Proper state progression and explicit invariants are required.
 
 `,
-  code: `// Real-Time: Complete User Registration with Validation
+  code: `// Workplace: Complete User Registration with Validation
 // Multi-step form validation using do-while
 
 public class UserRegistration {
     public static void main(String[] args) {
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║      📝 USER REGISTRATION SYSTEM       ║");
-        System.out.println("╚════════════════════════════════════════╝");
+        System.out.println("");
+        System.out.println("USER REGISTRATION SYSTEM       ");
+        System.out.println("");
         
         // Simulated user inputs for each field
         String[] usernameInputs = {"ab", "user@name", " Dattu_doe123"};
@@ -377,11 +391,11 @@ public class UserRegistration {
         int attempts;
         boolean isValid;
         
-        // ═══════════════════════════════════════
+        // 
         // STEP 1: Username Validation
-        // ═══════════════════════════════════════
-        System.out.println("\\n📋 STEP 1: Username");
-        System.out.println("────────────────────");
+        // 
+        System.out.println("\\nSTEP 1: Username");
+        System.out.println("");
         System.out.println("Requirements: 3-20 chars, alphanumeric, underscore allowed");
         
         attempts = 0;
@@ -392,24 +406,24 @@ public class UserRegistration {
             System.out.println("\\nAttempt " + (attempts + 1) + ": \\"" + username + "\\"");
             
             if (username.length() < 3) {
-                System.out.println("   Too short (minimum 3 characters)");
+                System.out.println("Too short (minimum 3 characters)");
             } else if (username.length() > 20) {
-                System.out.println("   Too long (maximum 20 characters)");
+                System.out.println("Too long (maximum 20 characters)");
             } else if (!username.matches("^[a-zA-Z0-9_]+$")) {
-                System.out.println("   Invalid characters (only letters, numbers, underscore)");
+                System.out.println("Invalid characters (only letters, numbers, underscore)");
             } else {
-                System.out.println("   Username accepted!");
+                System.out.println("Username accepted!");
                 validUsername = username;
                 isValid = true;
             }
             attempts++;
         } while (!isValid && attempts < usernameInputs.length);
         
-        // ═══════════════════════════════════════
+        // 
         // STEP 2: Email Validation
-        // ═══════════════════════════════════════
-        System.out.println("\\n📋 STEP 2: Email Address");
-        System.out.println("────────────────────────");
+        // 
+        System.out.println("\\nSTEP 2: Email Address");
+        System.out.println("");
         System.out.println("Requirements: Valid email format (user@domain.com)");
         
         attempts = 0;
@@ -420,24 +434,24 @@ public class UserRegistration {
             System.out.println("\\nAttempt " + (attempts + 1) + ": \\"" + email + "\\"");
             
             if (!email.contains("@")) {
-                System.out.println("   Missing @ symbol");
+                System.out.println("Missing @ symbol");
             } else if (!email.contains(".")) {
-                System.out.println("   Missing domain extension");
+                System.out.println("Missing domain extension");
             } else if (email.indexOf("@") > email.lastIndexOf(".")) {
-                System.out.println("   Invalid format");
+                System.out.println("Invalid format");
             } else {
-                System.out.println("   Email accepted!");
+                System.out.println("Email accepted!");
                 validEmail = email;
                 isValid = true;
             }
             attempts++;
         } while (!isValid && attempts < emailInputs.length);
         
-        // ═══════════════════════════════════════
+        // 
         // STEP 3: Password Validation
-        // ═══════════════════════════════════════
-        System.out.println("\\n📋 STEP 3: Password");
-        System.out.println("───────────────────");
+        // 
+        System.out.println("\\nSTEP 3: Password");
+        System.out.println("");
         System.out.println("Requirements: 8+ chars, uppercase, lowercase, number, special char");
         
         attempts = 0;
@@ -454,32 +468,32 @@ public class UserRegistration {
             boolean hasDigit = password.matches(".*[0-9].*");
             boolean hasSpecial = password.matches(".*[!@#$%^&*].*");
             
-            System.out.println("   Strength Check:");
-            System.out.println("   " + (hasLength ? "Yes" : "No") + " Minimum 8 characters");
-            System.out.println("   " + (hasUpper ? "Yes" : "No") + " Uppercase letter");
-            System.out.println("   " + (hasLower ? "Yes" : "No") + " Lowercase letter");
-            System.out.println("   " + (hasDigit ? "Yes" : "No") + " Number");
-            System.out.println("   " + (hasSpecial ? "Yes" : "No") + " Special character");
+            System.out.println("Strength Check:");
+            System.out.println("  " + (hasLength ? "Yes" : "No") + " Minimum 8 characters");
+            System.out.println("  " + (hasUpper ? "Yes" : "No") + " Uppercase letter");
+            System.out.println("  " + (hasLower ? "Yes" : "No") + " Lowercase letter");
+            System.out.println("  " + (hasDigit ? "Yes" : "No") + " Number");
+            System.out.println("  " + (hasSpecial ? "Yes" : "No") + " Special character");
             
             if (hasLength && hasUpper && hasLower && hasDigit && hasSpecial) {
-                System.out.println("   Password accepted! (Strong)");
+                System.out.println("Password accepted! (Strong)");
                 validPassword = password;
                 isValid = true;
             } else if (hasLength && hasUpper && hasDigit) {
-                System.out.println("   ⚠️ Password weak but accepted");
+                System.out.println("Password weak but accepted");
                 validPassword = password;
                 isValid = true;
             } else {
-                System.out.println("   Password too weak");
+                System.out.println("Password too weak");
             }
             attempts++;
         } while (!isValid && attempts < passwordInputs.length);
         
-        // ═══════════════════════════════════════
+        // 
         // STEP 4: Phone Validation
-        // ═══════════════════════════════════════
-        System.out.println("\\n📋 STEP 4: Phone Number");
-        System.out.println("───────────────────────");
+        // 
+        System.out.println("\\nSTEP 4: Phone Number");
+        System.out.println("");
         System.out.println("Requirements: 10 digits");
         
         attempts = 0;
@@ -490,33 +504,33 @@ public class UserRegistration {
             System.out.println("\\nAttempt " + (attempts + 1) + ": \\"" + phone + "\\"");
             
             if (phone.length() != 10) {
-                System.out.println("   Must be exactly 10 digits");
+                System.out.println("Must be exactly 10 digits");
             } else if (!phone.matches("^[0-9]+$")) {
-                System.out.println("   Must contain only numbers");
+                System.out.println("Must contain only numbers");
             } else {
-                System.out.println("   Phone number accepted!");
+                System.out.println("Phone number accepted!");
                 validPhone = phone;
                 isValid = true;
             }
             attempts++;
         } while (!isValid && attempts < phoneInputs.length);
         
-        // ═══════════════════════════════════════
+        // 
         // REGISTRATION COMPLETE
-        // ═══════════════════════════════════════
-        System.out.println("\\n╔════════════════════════════════════════╗");
-        System.out.println("║     REGISTRATION SUCCESSFUL!        ║");
-        System.out.println("╚════════════════════════════════════════╝");
-        System.out.println("\\n📋 Account Details:");
-        System.out.println("────────────────────");
+        // 
+        System.out.println("\\n");
+        System.out.println("REGISTRATION SUCCESSFUL!        ");
+        System.out.println("");
+        System.out.println("\\nAccount Details:");
+        System.out.println("");
         System.out.println("Username: " + validUsername);
         System.out.println("Email:    " + validEmail);
         System.out.println("Password: " + "*".repeat(validPassword.length()));
         System.out.println("Phone:    " + validPhone.substring(0, 3) + "-" + 
                           validPhone.substring(3, 6) + "-" + validPhone.substring(6));
         
-        System.out.println("\\n📧 Verification email sent to: " + validEmail);
-        System.out.println("🎉 Welcome to our platform!");
+        System.out.println("\\nVerification email sent to: " + validEmail);
+        System.out.println("WELCOME to our platform!");
     }
 }
 
@@ -561,15 +575,26 @@ Systems use do-while loops for initialization processes that must run at least o
 **Solution:** Use while when execution might not be needed:
 
 \`\`\`java
-// PREFER - While when might not execute
-while (hasData()) {
-    processData();
-}
+public class WhileBetterThanDoWhileDemo {
+    static int pendingRecords = 0;
 
-// AVOID - Do-while forces execution
-do {
-    processData();
-} while (hasData());  // Executes even if hasData() is false initially
+    static boolean hasData() {
+        return pendingRecords > 0;
+    }
+
+    static void processData() {
+        System.out.println("Processing record");
+        pendingRecords--;
+    }
+
+    public static void main(String[] args) {
+        while (hasData()) {
+            processData();
+        }
+
+        System.out.println("No records found, so processing did not start");
+    }
+}
 \`\`\`
 
 ### Mistake 2: Forgetting Semicolon After While
@@ -578,15 +603,23 @@ do {
 **Solution:** Always include semicolon:
 
 \`\`\`java
-// CORRECT
-do {
-    // code
-} while (condition);  // Semicolon required!
+public class DoWhileSemicolonDemo {
+    public static void main(String[] args) {
+        int attempt = 0;
+        boolean condition;
 
-// WRONG
-do {
-    // code
-} while (condition)  // Missing semicolon!
+        do {
+            attempt++;
+            condition = attempt < 2;
+            System.out.println("Attempt: " + attempt);
+        } while (condition);
+
+        // Wrong: do-while requires semicolon after condition.
+        // do {
+        //     System.out.println("Missing semicolon");
+        // } while (condition)
+    }
+}
 \`\`\`
 
 ### Mistake 3: Infinite Loops
@@ -595,21 +628,29 @@ do {
 **Solution:** Ensure condition will eventually become false:
 
 \`\`\`java
-// WRONG - Infinite if user never enters "exit"
-String input;
-do {
-    input = readInput();
-    process(input);
-} while (!input.equals("exit"));  // What if input is null?
+public class DoWhileExitConditionDemo {
+    static int index = 0;
+    static String[] inputs = {null, "continue", "exit"};
 
-// CORRECT - Handle null and provide exit mechanism
-String input;
-do {
-    input = readInput();
-    if (input != null) {
-        process(input);
+    static String readInput() {
+        return inputs[index++];
     }
-} while (input == null || !input.equals("exit"));
+
+    static void process(String input) {
+        System.out.println("Processing: " + input);
+    }
+
+    public static void main(String[] args) {
+        String input;
+
+        do {
+            input = readInput();
+            if (input != null) {
+                process(input);
+            }
+        } while (input == null || !input.equals("exit"));
+    }
+}
 \`\`\`
 
 ---

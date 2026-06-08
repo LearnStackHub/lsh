@@ -252,7 +252,7 @@ Create a new Spring Boot project with these dependencies in pom.xml:
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
-            <version>2022.0.0</version>
+            <version>2025.0.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -1191,7 +1191,7 @@ Cascading failures happen when one service failure causes others to fail. Circui
 
 ---
 
-## 8. Distributed Tracing (Sleuth + Zipkin)
+## 8. Distributed Tracing (Micrometer Tracing + Zipkin)
 
 ### What is Distributed Tracing?
 
@@ -1224,18 +1224,26 @@ Unique identifier for each operation within a trace. Each service call creates a
 
 Correlation ID is another term for Trace ID. It correlates all logs and spans for one request.
 
-### Integrating Sleuth
+### Integrating Micrometer Tracing
 
 **Step 1: Add Dependency**
 
 \`\`\`xml
 <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-sleuth</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing-bridge-brave</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.zipkin.reporter2</groupId>
+    <artifactId>zipkin-reporter-brave</artifactId>
 </dependency>
 \`\`\`
 
-Sleuth automatically adds trace and span IDs to logs.
+Micrometer Tracing adds trace and span IDs to logs and propagates trace context across HTTP calls.
 
 **Step 2: View Traces in Logs**
 
@@ -1259,23 +1267,14 @@ docker run -d -p 9411:9411 openzipkin/zipkin
 
 Or download and run Zipkin JAR.
 
-**Step 2: Add Zipkin Dependency**
-
-\`\`\`xml
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-</dependency>
-\`\`\`
-
-**Step 3: Configure Zipkin**
+**Step 2: Configure Zipkin**
 
 \`\`\`properties
-spring.zipkin.base-url=http://localhost:9411
-spring.sleuth.sampler.probability=1.0
+management.tracing.sampling.probability=1.0
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
 \`\`\`
 
-**Step 4: View Traces**
+**Step 3: View Traces**
 
 Visit: http://localhost:9411
 
@@ -1794,7 +1793,7 @@ Building microservices with Spring Cloud involves:
 4. **Gateway:** Single entry point with API Gateway
 5. **Communication:** Inter-service calls with Feign
 6. **Resilience:** Fault tolerance with Resilience4j
-7. **Observability:** Distributed tracing with Sleuth/Zipkin
+7. **Observability:** Distributed tracing with Micrometer Tracing/Zipkin
 8. **Security:** JWT authentication across services
 9. **Logging:** Centralized logging with ELK
 
