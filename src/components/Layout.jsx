@@ -12,6 +12,7 @@ import SocialOfficialLinks from './SocialOfficialLinks';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
 import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
+import { sortCourseEntries } from '../config/navCourseOrder';
 import { trackSearch } from '../config/analytics';
 import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug, isMicroservicesTopicId, microservicesTopicIdToSlug, isSpringAiTopicId, springAiTopicIdToSlug } from '../utils/topicRoutes';
 import logoImage from '../assets/LSH.png';
@@ -347,7 +348,7 @@ function Layout() {
       {/* Main Topics Navigation Bar - Shows main courses */}
       <nav className="main-topics-nav-bar">
         <div className="main-topics-container">
-          {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => {
+          {courseStructure ? sortCourseEntries(courseStructure).map(([courseKey, course]) => {
             const firstTopic = Object.values(course.sections)[0]?.topics[0];
             const IconComponent = courseIcons[courseKey] || Code; // Default to Code icon if not found
             return (
@@ -520,8 +521,10 @@ function Layout() {
                 <li><Link to="/hibernate/hibernate-introduction">Hibernate</Link></li>
                 <li><Link to="/spring/spring-introduction">Spring Framework</Link></li>
                 <li><Link to="/springboot/spring-boot-introduction">Spring Boot</Link></li>
-                <li><Link to="/microservices/introduction">Microservices</Link></li>
                 <li><Link to="/tutorial/http-status-codes">HTTP & APIs</Link></li>
+                <li><Link to="/tutorial/spring-cloud-microservices-project">Spring Cloud</Link></li>
+                <li><Link to="/microservices/introduction">Microservices</Link></li>
+                <li><Link to="/springai/introduction">Spring AI</Link></li>
                 <li><Link to="/kafka/introduction">Kafka</Link></li>
                 <li><Link to="/docker/introduction">Docker</Link></li>
               </ul>

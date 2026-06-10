@@ -8,6 +8,7 @@ import {
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import { GENAIXIS, LEARNSTACKHUB, FOUNDER } from '../config/company';
+import { sortCourseEntries } from '../config/navCourseOrder';
 import { getTopicPath } from '../utils/topicRoutes';
 import Java8Icon from '../components/icons/Java8Icon';
 import MicroservicesIcon from '../components/icons/MicroservicesIcon';
@@ -343,7 +344,7 @@ function Home() {
           <p className="home-section-subtitle">Choose a track and follow the complete sequence topic by topic.</p>
         </div>
         <div className="courses-grid">
-          {courseStructure ? Object.entries(courseStructure).map(([courseKey, course]) => {
+          {courseStructure ? sortCourseEntries(courseStructure).map(([courseKey, course]) => {
             const topicCount = Object.values(course.sections).reduce((acc, section) => acc + section.topics.length, 0);
             const firstTopic = Object.values(course.sections)[0]?.topics[0];
             const IconComponent = courseIcons[courseKey] || Code;
