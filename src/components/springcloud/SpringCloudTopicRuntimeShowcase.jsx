@@ -400,39 +400,6 @@ const CONFIG = {
       { title: 'Mock test timed run', sub: 'confidence check' }
     ],
     scenarioCaption: 'Structured revision strategy aligned with common Spring Cloud exam patterns.'
-  },
-  'microservices-interview-questions': {
-    eyebrow: 'Spring Cloud · Interview',
-    title: 'Interview answer architecture map',
-    subtitle: 'Explain distributed systems decisions with runtime flow and trade-offs.',
-    why: [
-      { title: 'Narrative clarity', text: 'Interviewers prefer concrete request flows over abstract buzzwords.' },
-      { title: 'Trade-off maturity', text: 'Good answers include failure modes and operational constraints.' },
-      { title: 'Evidence mindset', text: 'Back claims with metrics, incidents, and measurable outcomes.' }
-    ],
-    conceptLabel: 'Interview architecture lens',
-    ConceptDiagram: SpringCloudDistributedTracingFlowDiagram,
-    mechanicsTitle: 'Interview explanation mechanics',
-    mechanicsSteps: [
-      { title: 'State context', sub: 'traffic/load constraints' },
-      { title: 'Describe architecture', sub: 'gateway-discovery-config' },
-      { title: 'Explain failure handling', sub: 'resilience strategy' },
-      { title: 'Show observability', sub: 'trace/log metrics' },
-      { title: 'Report impact', sub: 'latency/error improvements' }
-    ],
-    scenarioTitle: 'Scenario: answer “How did you stabilize microservices?”',
-    scenarioSteps: [
-      { title: 'Baseline issue', sub: 'timeouts + cascading errors' },
-      { title: 'Introduce controls', sub: 'timeouts/breakers/retries' },
-      { title: 'Improve visibility', sub: 'tracing + centralized logs' },
-      { title: 'Harden edge security', sub: 'gateway token policy' },
-      { title: 'Quantify results', sub: 'p95 and error-rate gains' }
-    ],
-    scenarioCaption: 'High-signal answer pattern for senior-level Spring Cloud interviews.',
-    callout: {
-      title: 'Interview tip',
-      body: 'Anchor each answer in one real incident: symptom, architecture decision, and measured outcome.'
-    }
   }
 };
 

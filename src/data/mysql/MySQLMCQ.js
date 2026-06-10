@@ -1,7 +1,7 @@
 const mysqlMCQ = {
   id: 'mysql-mcq',
   title: 'MySQL MCQ Exam',
-  description: 'Test your MySQL knowledge with our comprehensive MCQ exam. 20 randomly selected questions from 150+ questions, 10-minute time limit. Practice and improve your MySQL database skills!',
+  description: 'Test your MySQL knowledge with our comprehensive MCQ exam. 20 randomly selected questions, 10-minute time limit. Practice and improve your MySQL database skills!',
   content: `
 # MySQL MCQ Exam
 
@@ -9,7 +9,7 @@ Welcome to the MySQL MCQ Examination! This is a comprehensive test designed to e
 
 ## Exam Details
 
-- **Total Questions**: 20 (randomly selected from 150+ questions)
+- **Total Questions**: 20 (randomly selected)
 - **Time Limit**: 10 minutes
 - **Question Type**: Multiple Choice Questions (MCQ)
 - **Passing Score**: 70% or higher
@@ -17,7 +17,7 @@ Welcome to the MySQL MCQ Examination! This is a comprehensive test designed to e
 ## Exam Rules
 
 1. **Time Limit**: You have exactly 10 minutes to complete the exam
-2. **Random Selection**: Each exam randomly selects 20 questions from a pool of 150+ questions
+2. **Random Selection**: Each exam randomly selects 20 questions
 3. **No Results Before Submit**: Results are only shown after submission
 4. **Security**: The exam monitors for tab switching and window focus changes
 5. **Auto-Submit**: The exam will auto-submit if any suspicious activity is detected

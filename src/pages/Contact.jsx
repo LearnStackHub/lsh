@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Mail, MessageSquare, Send, Github } from 'lucide-react';
 import SocialOfficialLinks from '../components/SocialOfficialLinks';
 import SEOHead from '../components/SEOHead';
+import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
 import { sendContactEmail } from '../config/emailjs';
 
 function Contact() {
@@ -63,7 +64,11 @@ function Contact() {
           <h2 style={{ marginBottom: '1.5rem' }}>Get in Touch</h2>
           <div style={{ marginBottom: '2rem' }}>
             <p style={{ marginBottom: '1rem', lineHeight: '1.8' }}>
-              We're here to help! Whether you have a question about our tutorials, want to report a bug, 
+              {LEARNSTACKHUB.brand} is owned and operated by{' '}
+              <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                {GENAIXIS.legalName}
+              </a>
+              . We&apos;re here to help — whether you have a question about our tutorials, want to report a bug,
               or have suggestions for improvement, feel free to reach out.
             </p>
           </div>
@@ -74,14 +79,16 @@ function Contact() {
               Email
             </h3>
             <p style={{ marginBottom: '0.5rem' }}>
-              <a href="mailto:dattudattakumar369@gmail.com" style={{ color: 'var(--accent-primary)' }}>
-                dattudattakumar369@gmail.com
+              <a href={`mailto:${LEARNSTACKHUB.contactEmail}`} style={{ color: 'var(--accent-primary)' }}>
+                {LEARNSTACKHUB.contactEmail}
               </a>
             </p>
-            <p style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>
-               <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--accent-primary)' }}>
-                careers@learnstackhub.com
+            <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+              Operator:{' '}
+              <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                {GENAIXIS.legalName}
               </a>
+              {' '}(CIN: {GENAIXIS.cin})
             </p>
           </div>
 
@@ -276,10 +283,10 @@ function Contact() {
             borderRadius: '12px',
             padding: '1.5rem'
           }}>
-            <h3 style={{ marginBottom: '0.5rem' }}>Is LearnStackHub free to use?</h3>
+            <h3 style={{ marginBottom: '0.5rem' }}>What is LearnStackHub?</h3>
             <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-              Yes, LearnStackHub is completely free! We believe quality education should be accessible to everyone. 
-              Our platform is supported by advertisements.
+              LearnStackHub is a structured Java and backend learning platform operated by Genaixis Labs Pvt Ltd. You get
+              tutorials, MCQs, a code runner, and a Practice Lab for interview preparation—all in one place.
             </p>
           </div>
         </div>

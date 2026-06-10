@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AlertTriangle, Shield, FileText, Code, ExternalLink, BookOpen } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
 
 function Disclaimer() {
   useEffect(() => {
@@ -173,7 +174,7 @@ function Disclaimer() {
             Limitation of Liability
           </h2>
           <p>
-            To the fullest extent permitted by applicable law, LearnStackHub, its owners, operators, contributors, and affiliates 
+            To the fullest extent permitted by applicable law, {LEARNSTACKHUB.brand}, {GENAIXIS.legalName} (the operator of {LEARNSTACKHUB.brand}), its contributors, and affiliates 
             shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages, or any loss of 
             profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible 
             losses resulting from:
@@ -271,9 +272,19 @@ function Disclaimer() {
             marginTop: '1.5rem'
           }}>
             <p style={{ marginBottom: '0.5rem' }}>
-              <strong>Email:</strong> <a href="mailto:dattudattakumar369@gmail.com" style={{ color: 'var(--accent-primary)' }}>
-                dattudattakumar369@gmail.com
+              <strong>Email:</strong>{' '}
+              <a href={`mailto:${LEARNSTACKHUB.contactEmail}`} style={{ color: 'var(--accent-primary)' }}>
+                {LEARNSTACKHUB.contactEmail}
               </a>
+            </p>
+            <p style={{ marginBottom: '0.5rem' }}>
+              <strong>Operator:</strong>{' '}
+              <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                {GENAIXIS.legalName}
+              </a>
+            </p>
+            <p style={{ marginBottom: '0.5rem' }}>
+              <strong>CIN:</strong> {GENAIXIS.cin}
             </p>
             <p style={{ margin: 0 }}>
               <Link to="/contact" style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>

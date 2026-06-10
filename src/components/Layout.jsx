@@ -11,15 +11,18 @@ import ConsentBanner from './ConsentBanner';
 import SocialOfficialLinks from './SocialOfficialLinks';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
+import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
 import { trackSearch } from '../config/analytics';
-import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug, isMicroservicesTopicId, microservicesTopicIdToSlug } from '../utils/topicRoutes';
+import { getTopicPath, isKafkaTopicId, kafkaTopicIdToSlug, isDockerTopicId, dockerTopicIdToSlug, isMicroservicesTopicId, microservicesTopicIdToSlug, isSpringAiTopicId, springAiTopicIdToSlug } from '../utils/topicRoutes';
 import logoImage from '../assets/LSH.png';
 import Java8Icon from './icons/Java8Icon';
 import MicroservicesIcon from './icons/MicroservicesIcon';
+import SpringAiIcon from './icons/SpringAiIcon';
 
 const getCourseKeyFromPath = (pathname = '') => {
   if (pathname.startsWith('/java8/')) return 'java8';
   if (pathname.startsWith('/microservices/')) return 'microservices';
+  if (pathname.startsWith('/springai/')) return 'springai';
   if (pathname.startsWith('/corejava/')) return 'corejava';
   if (pathname.startsWith('/mysql/')) return 'mysql';
   if (pathname.startsWith('/springboot/')) return 'springboot';
@@ -155,6 +158,9 @@ function Layout() {
     if (isMicroservicesTopicId(topicId)) {
       return location.pathname === `/microservices/${microservicesTopicIdToSlug(topicId)}`;
     }
+    if (isSpringAiTopicId(topicId)) {
+      return location.pathname === `/springai/${springAiTopicIdToSlug(topicId)}`;
+    }
     return location.pathname.includes(topicId);
   };
 
@@ -213,6 +219,7 @@ function Layout() {
     corejava: Code,
     java8: Java8Icon,
     microservices: MicroservicesIcon,
+    springai: SpringAiIcon,
     mysql: Database,
     jdbc: Server,
     servlets: Server,
@@ -558,9 +565,27 @@ function Layout() {
         <div className="footer-bottom">
           <p className="footer-social-heading">Follow us</p>
           <SocialOfficialLinks showLabels />
-          <p>&copy; {new Date().getFullYear()} LearnStackHub. All rights reserved.</p>
-          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-            Made with ☁️ for developers worldwide
+          <p className="footer-powered-by">
+            Powered by{' '}
+            <a
+              href={GENAIXIS.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {GENAIXIS.legalName}
+            </a>
+          </p>
+          <p>&copy; {new Date().getFullYear()} {LEARNSTACKHUB.brand}. All rights reserved.</p>
+          <p className="footer-operated-by">
+            Owned and operated by{' '}
+            <a
+              href={GENAIXIS.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {GENAIXIS.legalName}
+            </a>
+            . CIN: {GENAIXIS.cin}
           </p>
         </div>
       </footer>

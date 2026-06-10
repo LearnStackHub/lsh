@@ -532,7 +532,7 @@ function JDBCMCQ() {
                 <Target className="info-icon" />
                 <div>
                   <strong>20 Questions</strong>
-                  <p>Randomly selected from 130+ questions</p>
+                  <p>Randomly selected each attempt</p>
                 </div>
               </div>
               <div className="info-item">
@@ -554,7 +554,7 @@ function JDBCMCQ() {
               <h3>Exam Rules</h3>
               <ul>
                 <li>You have exactly 10 minutes to complete the exam</li>
-                <li>20 questions will be randomly selected from 130+ questions</li>
+                <li>20 questions will be randomly selected for each attempt</li>
                 <li>Results will be shown only after submission</li>
                 <li>Tab switching and window blur will be monitored</li>
                 <li>Exam will auto-submit after 3 security warnings</li>
@@ -727,8 +727,8 @@ function JDBCMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="JDBC MCQ Exam - Test Your JDBC Knowledge | LearnStackHub"
-        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive JDBC MCQ exam with 20 randomly selected questions from 130+ questions. 10-minute time limit. Test your Java Database Connectivity knowledge with real-time feedback and detailed explanations. Free JDBC practice exam on LearnStackHub."
-        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, jdbc mcq, jdbc exam, jdbc quiz, jdbc test, jdbc multiple choice questions, jdbc practice exam, jdbc assessment, learn jdbc, java database connectivity test, jdbc mcq online, free jdbc exam, jdbc practice test, java jdbc exam"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive JDBC MCQ exam with 20 randomly selected questions. 10-minute time limit. Test your Java Database Connectivity knowledge with real-time feedback and detailed explanations. Free JDBC practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, jdbc mcq, jdbc exam, jdbc quiz, jdbc test, jdbc multiple choice questions, jdbc practice exam, jdbc assessment, learn jdbc, java database connectivity test, jdbc mcq online, jdbc practice test, java jdbc exam"
       />
       <FloatingParticles />
       {showSecurityWarning && (

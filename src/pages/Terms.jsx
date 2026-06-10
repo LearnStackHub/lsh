@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Scale, AlertTriangle, Book, Code, Shield } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
 
 function Terms() {
   useEffect(() => {
@@ -21,9 +22,19 @@ function Terms() {
 
       <div className="tutorial-content">
         <section style={{ marginBottom: '2.5rem' }}>
+          <h2>Who Operates This Site</h2>
+          <p>
+            <strong>{LEARNSTACKHUB.brand}</strong> ({LEARNSTACKHUB.url}) is an educational platform owned and operated by{' '}
+            <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer">{GENAIXIS.legalName}</a>{' '}
+            ({GENAIXIS.legalNameFull}, CIN: {GENAIXIS.cin}). {GENAIXIS.tagline}. Learn more at{' '}
+            <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer">{GENAIXIS.website}</a>.
+          </p>
+        </section>
+
+        <section style={{ marginBottom: '2.5rem' }}>
           <h2>Acceptance of Terms</h2>
           <p>
-            By accessing and using LearnStackHub ("the Site"), you accept and agree to be bound by the terms and 
+            By accessing and using {LEARNSTACKHUB.brand} (&quot;the Site&quot;), you accept and agree to be bound by the terms and 
             provision of this agreement. If you do not agree to abide by the above, please do not use this service.
           </p>
         </section>
@@ -84,9 +95,9 @@ function Terms() {
         <section style={{ marginBottom: '2.5rem' }}>
           <h2>Limitations of Liability</h2>
           <p>
-            In no event shall LearnStackHub or its suppliers be liable for any damages (including, without limitation, 
+            In no event shall {GENAIXIS.legalName}, {LEARNSTACKHUB.brand}, or their suppliers be liable for any damages (including, without limitation, 
             damages for loss of data or profit, or due to business interruption) arising out of the use or inability 
-            to use the materials on LearnStackHub, even if LearnStackHub or a LearnStackHub authorized representative has 
+            to use the materials on {LEARNSTACKHUB.brand}, even if {GENAIXIS.legalName} or an authorized representative has 
             been notified orally or in writing of the possibility of such damage.
           </p>
           <p>
@@ -138,8 +149,8 @@ function Terms() {
         <section style={{ marginBottom: '2.5rem' }}>
           <h2>Intellectual Property</h2>
           <p>
-            The content on LearnStackHub, including but not limited to text, graphics, logos, code examples, and software,
-            is the property of LearnStackHub or its content suppliers and is protected by copyright and other intellectual
+            The content on {LEARNSTACKHUB.brand}, including but not limited to text, graphics, logos, code examples, and software,
+            is the property of {GENAIXIS.legalName} (operating {LEARNSTACKHUB.brand}) or its content suppliers and is protected by copyright and other intellectual
             property laws.
           </p>
           <p>
@@ -207,7 +218,15 @@ function Terms() {
             If you have any questions about these Terms of Service, please contact us:
           </p>
           <ul>
-            <li>Email: <a href="mailto:dattudattakumar369@gmail.com">dattudattakumar369@gmail.com</a></li>
+            <li>
+              Email:{' '}
+              <a href={`mailto:${LEARNSTACKHUB.contactEmail}`}>{LEARNSTACKHUB.contactEmail}</a>
+            </li>
+            <li>
+              Operator:{' '}
+              <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer">{GENAIXIS.legalName}</a>
+              {' '}(CIN: {GENAIXIS.cin})
+            </li>
             <li>Website: <Link to="/contact">Contact Page</Link></li>
           </ul>
         </section>

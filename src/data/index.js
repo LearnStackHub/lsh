@@ -263,6 +263,26 @@ import {
   springBootMCQ
 } from './springboot';
 
+// Spring AI
+import {
+  springAiIntroduction,
+  springAiOpenAiIntegration,
+  springAiPromptEngineering,
+  springAiChatModels,
+  springAiImageModels,
+  springAiEmbeddings,
+  springAiVectorDatabases,
+  springAiRag,
+  springAiMemory,
+  springAiFunctionCalling,
+  springAiAgents,
+  springAiMcp,
+  springAiMultiAgent,
+  springAiSecurity,
+  springAiDeployment,
+  springAiRealTimeProjects
+} from './springai';
+
 // Microservices
 import {
   microservicesIntroduction,
@@ -1098,6 +1118,64 @@ export const courseStructure = {
         title: "Practice Exam",
         topics: [
           microservicesMCQ
+        ]
+      }
+    }
+  },
+  springai: {
+    title: "Spring AI",
+    icon: "AI",
+    color: "#16A34A",
+    sections: {
+      foundations: {
+        title: "Foundations",
+        topics: [
+          springAiIntroduction
+        ]
+      },
+      openai: {
+        title: "OpenAI Integration",
+        topics: [
+          springAiOpenAiIntegration
+        ]
+      },
+      prompting: {
+        title: "Prompt Engineering",
+        topics: [
+          springAiPromptEngineering
+        ]
+      },
+      models: {
+        title: "Models",
+        topics: [
+          springAiChatModels,
+          springAiImageModels
+        ]
+      },
+      knowledge: {
+        title: "Knowledge and RAG",
+        topics: [
+          springAiEmbeddings,
+          springAiVectorDatabases,
+          springAiRag
+        ]
+      },
+      applications: {
+        title: "AI Application Patterns",
+        topics: [
+          springAiMemory,
+          springAiFunctionCalling,
+          springAiAgents,
+          springAiMcp,
+          springAiMultiAgent
+        ]
+      },
+      enterprise: {
+        title: "Enterprise Readiness",
+        topics: [
+          springAiSecurity,
+          springAiDeployment,
+          springAiRealTimeProjects
         ]
       }
     }

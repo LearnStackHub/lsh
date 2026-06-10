@@ -517,7 +517,7 @@ function SpringMCQ() {
                 <Target className="info-icon" />
                 <div>
                   <strong>20 Questions</strong>
-                  <p>Randomly selected from 150+ questions</p>
+                  <p>Randomly selected each attempt</p>
                 </div>
               </div>
               <div className="info-item">
@@ -539,7 +539,7 @@ function SpringMCQ() {
               <h3>Exam Rules</h3>
               <ul>
                 <li>You have exactly 10 minutes to complete the exam</li>
-                <li>20 questions will be randomly selected from 150+ questions</li>
+                <li>20 questions will be randomly selected for each attempt</li>
                 <li>Results will be shown only after submission</li>
                 <li>Tab switching and window blur will be monitored</li>
                 <li>Exam will auto-submit after 3 security warnings</li>
@@ -712,8 +712,8 @@ function SpringMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="Spring Framework MCQ Exam - Test Your Spring Knowledge | LearnStackHub"
-        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Spring Framework MCQ exam with 20 randomly selected questions from 120+ questions. 10-minute time limit. Test your Spring Framework knowledge (IOC, DI, MVC, AOP) with real-time feedback and detailed explanations. Free Spring practice exam on LearnStackHub."
-        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, spring mcq, spring exam, spring quiz, spring test, spring framework mcq, spring multiple choice questions, spring practice exam, spring assessment, learn spring, spring framework test, spring mcq online, free spring exam, spring practice test, spring certification exam, spring ioc, spring di, spring mvc, spring aop"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Spring Framework MCQ exam with 20 randomly selected questions. 10-minute time limit. Test your Spring Framework knowledge (IOC, DI, MVC, AOP) with real-time feedback and detailed explanations. Free Spring practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, spring mcq, spring exam, spring quiz, spring test, spring framework mcq, spring multiple choice questions, spring practice exam, spring assessment, learn spring, spring framework test, spring mcq online, spring practice test, spring certification exam, spring ioc, spring di, spring mvc, spring aop"
       />
       <FloatingParticles />
       {showSecurityWarning && (

@@ -1,7 +1,7 @@
 const springMCQ = {
   id: 'spring-mcq',
   title: 'Spring Framework MCQ Exam',
-  description: 'Test your Spring Framework knowledge with our comprehensive MCQ exam. 20 randomly selected questions from 120+ questions, 10-minute time limit. Practice and improve your Spring Framework skills!',
+  description: 'Test your Spring Framework knowledge with our comprehensive MCQ exam. 20 randomly selected questions, 10-minute time limit. Practice and improve your Spring Framework skills!',
   content: `
 # Spring Framework MCQ Exam
 
@@ -9,7 +9,7 @@ Welcome to the Spring Framework MCQ Examination! This is a comprehensive test de
 
 ## Exam Details
 
-- **Total Questions**: 20 (randomly selected from 120+ questions)
+- **Total Questions**: 20 (randomly selected)
 - **Time Limit**: 10 minutes
 - **Question Type**: Multiple Choice Questions (MCQ)
 - **Passing Score**: 70% or higher
@@ -17,7 +17,7 @@ Welcome to the Spring Framework MCQ Examination! This is a comprehensive test de
 ## Exam Rules
 
 1. **Time Limit**: You have exactly 10 minutes to complete the exam
-2. **Random Selection**: Each exam randomly selects 20 questions from a pool of 120+ questions
+2. **Random Selection**: Each exam randomly selects 20 questions
 3. **No Results Before Submit**: Results are only shown after submission
 4. **Security**: The exam monitors for tab switching and window focus changes
 5. **Auto-Submit**: The exam will auto-submit if any suspicious activity is detected

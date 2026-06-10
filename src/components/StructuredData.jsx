@@ -1,6 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getTopicPath } from '../utils/topicRoutes';
+import { GENAIXIS, LEARNSTACKHUB, FOUNDER } from '../config/company';
+
+const genaixisIdentifier = {
+  '@type': 'PropertyValue',
+  propertyID: 'CIN',
+  name: 'Corporate Identification Number',
+  value: GENAIXIS.cin,
+};
 
 function StructuredData({ topicId, topic, type = 'WebSite' }) {
   const location = useLocation();
@@ -24,9 +32,9 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
         '@id': `${baseUrl}/#website`,
         name: 'LearnStackHub',
         alternateName: ['LSH', 'Learn Stack Hub' ,  'LearnStack', 'Learn Hub', 'Stack Hub', 'Learn Java Full Stack Development'],
-        description: 'LearnStackHub (LSH) provides free Java full stack tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP APIs, React, and AWS with practical examples.',
+        description: 'LearnStackHub (LSH) provides Java full stack tutorials covering Core Java, Servlets, JSP, JDBC, Hibernate, MySQL, Spring Framework, Spring Boot, HTTP APIs, React, and AWS with practical examples.',
         url: baseUrl,
-        keywords: 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, learnstackhub, learnstack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, free java tutorial, java tutorial hyderabad, java training hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad',
+        keywords: 'LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, learn, stack, hub, learnstackhub, learnstack hub, learnstack hub tutorial, learnstack hub java, learnstack hub spring, learn hub java, learn hub tutorial, learn stack hub java, learn stack hub tutorial, learn java, java tutorial, java full stack, java programming, java development, servlets tutorial, jsp tutorial, jdbc tutorial, hibernate tutorial, mysql tutorial, react tutorial, aws tutorial, java for beginners, java course, java tutorial hyderabad, java training hyderabad, spring tutorial hyderabad, top tutorial company hyderabad, best tutorial hyderabad',
         inLanguage: 'en-US',
         potentialAction: {
           '@type': 'SearchAction',
@@ -51,7 +59,7 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
           '@id': `${baseUrl}/#organization`,
           name: 'LearnStackHub',
           alternateName: ['LSH', 'Learn Stack Hub' ,  'LearnStack', 'Learn Hub', 'Stack Hub'],
-          description: 'LearnStackHub (LSH) is a free online Java full stack learning platform with practical tutorials and interview-focused content.',
+          description: 'LearnStackHub (LSH) is an online Java full stack learning platform with practical tutorials and interview-focused content.',
           teaches: ['Java Programming', 'Java Web Development', 'JDBC', 'Servlets', 'JSP', 'Hibernate', 'MySQL', 'Spring Framework', 'Spring Boot', 'HTTP & APIs', 'React', 'AWS'],
           educationalCredentialAwarded: 'Certificate of Completion',
           address: {
@@ -80,21 +88,30 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
           url: `${baseUrl}${topicPath}`,
           author: {
             '@type': 'Person',
-            name: 'Dattakumar Pandi',
+            name: FOUNDER.name,
             description: 'Backend developer and founder of LearnStackHub, specializing in Java, Spring Boot, APIs, system design, and backend architecture.',
             url: `${baseUrl}/about`,
             jobTitle: 'Software Developer & Founder',
             worksFor: {
               '@type': 'Organization',
-              name: 'LearnStackHub',
-              url: baseUrl
-            }
+              name: GENAIXIS.legalName,
+              legalName: GENAIXIS.legalNameFull,
+              url: GENAIXIS.website,
+              identifier: genaixisIdentifier,
+            },
           },
           publisher: {
             '@type': 'Organization',
             '@id': `${baseUrl}/#organization`,
-            name: 'LearnStackHub',
+            name: LEARNSTACKHUB.brand,
             url: baseUrl,
+            parentOrganization: {
+              '@type': 'Organization',
+              name: GENAIXIS.legalName,
+              legalName: GENAIXIS.legalNameFull,
+              url: GENAIXIS.website,
+              identifier: genaixisIdentifier,
+            },
             logo: {
               '@type': 'ImageObject',
               url: `${baseUrl}/LSH.png`
@@ -107,7 +124,7 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
             '@id': `${baseUrl}${topicPath}`
           },
           articleSection: resolvedTopic.courseTitle || 'Java Tutorial',
-          keywords: `${resolvedTopic.title}, ${resolvedTopic.title} tutorial, learn ${resolvedTopic.title}, ${resolvedTopic.title} for beginners, ${resolvedTopic.title} example, ${resolvedTopic.courseTitle || 'Java'} tutorial, ${resolvedTopic.courseTitle || 'Java'} programming, free ${resolvedTopic.title} tutorial, ${resolvedTopic.title} step by step, ${resolvedTopic.title} complete guide`,
+          keywords: `${resolvedTopic.title}, ${resolvedTopic.title} tutorial, learn ${resolvedTopic.title}, ${resolvedTopic.title} for beginners, ${resolvedTopic.title} example, ${resolvedTopic.courseTitle || 'Java'} tutorial, ${resolvedTopic.courseTitle || 'Java'} programming, ${resolvedTopic.title} step by step, ${resolvedTopic.title} complete guide`,
           about: {
             '@type': 'Thing',
             name: resolvedTopic.courseTitle || 'Java Programming'
@@ -178,8 +195,14 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
           description: resolvedTopic.description || `Learn ${resolvedTopic.title}`,
           provider: {
             '@type': 'Organization',
-            name: 'LearnStackHub',
-            url: baseUrl
+            name: LEARNSTACKHUB.brand,
+            url: baseUrl,
+            parentOrganization: {
+              '@type': 'Organization',
+              name: GENAIXIS.legalName,
+              url: GENAIXIS.website,
+              identifier: genaixisIdentifier,
+            },
           },
           courseCode: resolvedTopic.id,
           educationalLevel: 'Beginner to Advanced',
@@ -192,10 +215,23 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
         '@context': 'https://schema.org',
         '@type': ['Organization', 'LocalBusiness', 'EducationalOrganization'],
         '@id': `${baseUrl}/#organization`,
-        name: 'LearnStackHub',
+        name: LEARNSTACKHUB.brand,
         alternateName: ['LSH', 'Learn Stack Hub' ,  'LearnStack', 'Learn Hub', 'Stack Hub'],
         url: baseUrl,
-        description: 'LearnStackHub (LSH) is a free Java full stack tutorial platform with comprehensive Java, Spring Boot, and backend learning resources.',
+        description: `${LEARNSTACKHUB.brand} (LSH) is a Java full stack tutorial platform operated by ${GENAIXIS.legalName}.`,
+        founder: {
+          '@type': 'Person',
+          name: FOUNDER.name,
+          jobTitle: 'Founder',
+        },
+        parentOrganization: {
+          '@type': 'Organization',
+          name: GENAIXIS.legalName,
+          legalName: GENAIXIS.legalNameFull,
+          url: GENAIXIS.website,
+          description: GENAIXIS.description,
+          identifier: genaixisIdentifier,
+        },
         logo: {
           '@type': 'ImageObject',
           url: `${baseUrl}/LSH.png`
@@ -217,22 +253,20 @@ function StructuredData({ topicId, topic, type = 'WebSite' }) {
           longitude: '78.4867'
         },
         telephone: '+91-8466932302',
-        email: 'careers@learnstackhub.com',
-        priceRange: 'Free',
+        email: LEARNSTACKHUB.contactEmail,
         aggregateRating: {
           '@type': 'AggregateRating',
           ratingValue: '5',
           reviewCount: '1000'
         },
         sameAs: [
-          'https://github.com/Dattakumar369/learnstackhub'
+          GENAIXIS.website,
+          'https://github.com/LearnStackHub',
         ],
         offers: {
           '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'INR',
           availability: 'https://schema.org/InStock',
-          description: 'Free Java Full Stack Development Tutorials'
+          description: 'Java Full Stack Development Tutorials'
         }
       };
     }

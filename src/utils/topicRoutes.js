@@ -1,11 +1,12 @@
 export const isKafkaTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('kafka-');
 export const isDockerTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('docker-');
 export const isHibernateTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('hibernate-');
-export const isSpringTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('spring-') && !topicId.startsWith('spring-boot-') && !topicId.startsWith('spring-cloud-');
+export const isSpringTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('spring-') && !topicId.startsWith('spring-boot-') && !topicId.startsWith('spring-cloud-') && !topicId.startsWith('spring-ai-');
 export const isSpringBootTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('spring-boot-');
 export const isMySQLTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('mysql-');
 export const isJava8TopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('java8-');
 export const isMicroservicesTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('microservices-');
+export const isSpringAiTopicId = (topicId) => typeof topicId === 'string' && topicId.startsWith('spring-ai-');
 
 const CORE_JAVA_TOPIC_IDS = new Set([
   'java-introduction', 'java-features', 'java-environment-setup', 'java-syntax', 'java-variables',
@@ -55,11 +56,20 @@ export const microservicesSlugToTopicId = (topicSlug) => (
   typeof topicSlug === 'string' && topicSlug.trim() ? `microservices-${topicSlug}` : ''
 );
 
+export const springAiTopicIdToSlug = (topicId) => (
+  isSpringAiTopicId(topicId) ? topicId.replace(/^spring-ai-/, '') : topicId
+);
+
+export const springAiSlugToTopicId = (topicSlug) => (
+  typeof topicSlug === 'string' && topicSlug.trim() ? `spring-ai-${topicSlug}` : ''
+);
+
 export const getTopicPath = (topicId) => {
   if (!topicId) return '/';
   if (/(?:^|[-/])(mcq|exam)$/.test(topicId)) return `/${topicId}`;
   if (isCoreJavaTopicId(topicId)) return `/corejava/${topicId}`;
   if (isMySQLTopicId(topicId)) return `/mysql/${topicId}`;
+  if (isSpringAiTopicId(topicId)) return `/springai/${springAiTopicIdToSlug(topicId)}`;
   if (isSpringBootTopicId(topicId)) return `/springboot/${topicId}`;
   if (isSpringTopicId(topicId)) return `/spring/${topicId}`;
   if (isHibernateTopicId(topicId)) return `/hibernate/${topicId}`;

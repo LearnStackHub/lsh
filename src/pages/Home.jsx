@@ -7,9 +7,11 @@ import {
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
+import { GENAIXIS, LEARNSTACKHUB, FOUNDER } from '../config/company';
 import { getTopicPath } from '../utils/topicRoutes';
 import Java8Icon from '../components/icons/Java8Icon';
 import MicroservicesIcon from '../components/icons/MicroservicesIcon';
+import SpringAiIcon from '../components/icons/SpringAiIcon';
 
 function Home() {
   const [courseStructure, setCourseStructure] = useState(null);
@@ -63,6 +65,7 @@ function Home() {
     corejava: 'Variables through multithreading: OOP, collections, exceptions, and interview depth.',
     java8: 'Lambda, streams, Optional, Date Time API, and fresher job tasks with realtime examples.',
     microservices: 'Architecture, service boundaries, APIs, data ownership, resilience, observability, and realtime projects.',
+    springai: 'Add AI to Spring Boot with ChatClient, OpenAI, prompts, RAG, tools, agents, MCP, and production patterns.',
     mysql: 'Relational modeling, SQL, joins, indexes, transactions, and database design.',
     jdbc: 'Java database connectivity, prepared statements, and transaction control.',
     servlets: 'Request lifecycle, sessions, filters, listeners, and servlet architecture.',
@@ -85,6 +88,7 @@ function Home() {
     corejava: Code,
     java8: Java8Icon,
     microservices: MicroservicesIcon,
+    springai: SpringAiIcon,
     mysql: Database,
     jdbc: Server,
     servlets: Server,
@@ -116,12 +120,11 @@ function Home() {
       <StructuredData type="WebSite" />
 
       <section className="landing-hero">
-        <span className="landing-chip">Free learning platform</span>
+        <span className="landing-chip">Java full stack learning</span>
         <h1>Learn Java Full Stack Development with Clarity and Depth</h1>
         <p>
-          <strong>LearnStackHub is free to use</strong>—study with structured tutorials, a browser code runner, topic-wise
-          MCQs, and a Practice Lab for AI chat and interview-style practice. Built for real interviews and project-ready
-          skills, with no paywall.
+          Study with structured tutorials, a browser code runner, topic-wise MCQs, and a Practice Lab for AI chat and
+          interview-style practice. Built for real interviews and project-ready backend skills.
         </p>
         <div className="landing-actions">
           <Link to="/tutorial/java-introduction" className="btn btn-primary">
@@ -137,7 +140,7 @@ function Home() {
           <div><strong>{totalTopics}+</strong><span>Tutorials</span></div>
           <div><strong>{trackCount || '—'}</strong><span>Tracks</span></div>
           <div><strong>150+</strong><span>Examples</span></div>
-          <div><strong>100% free</strong><span>Platform</span></div>
+          <div><strong>Practice Lab</strong><span>AI &amp; interview</span></div>
         </div>
       </section>
 
@@ -160,9 +163,8 @@ function Home() {
           <h2 className="section-title-main">What is LearnStackHub?</h2>
         </div>
         <p className="home-section-subtitle" style={{ marginTop: '-0.35rem' }}>
-          LearnStackHub is a 100% free learning platform for Java and backend preparation.
+          LearnStackHub is a learning platform for Java and backend preparation.
           You get structured tutorials, AI chat interview practice, and mock interview rehearsal in one place.
-          No subscription, no paywall, and no hidden course fee.
         </p>
         <div
           style={{
@@ -184,8 +186,8 @@ function Home() {
           </article>
           <article className="landing-guide-card" style={{ cursor: 'default' }}>
             <h3>What we offer</h3>
-            <p>100% free platform</p>
-            <span>Free tutorials, free AI chat, and free mock interview practice with audio/video rehearsal.</span>
+            <p>Tutorials + Practice Lab</p>
+            <span>Tutorials, AI chat, MCQs, and mock interview practice with audio/video rehearsal.</span>
           </article>
         </div>
       </section>
@@ -271,7 +273,7 @@ function Home() {
         </p>
         <p className="home-section-subtitle" style={{ marginTop: '0.75rem' }}>
           Today, LearnStackHub continues to grow its curriculum with new topics and clearer paths-always with the goal of
-          keeping professional-grade Java and backend education free and accessible.
+          keeping professional-grade Java and backend education accessible.
         </p>
       </section>
 
@@ -288,11 +290,21 @@ function Home() {
             margin: '0 auto',
           }}
         >
-          <span><strong>Domain:</strong> learnstackhub.com (canonical host: www.learnstackhub.com)</span>
-          <span><strong>Website owner and operator:</strong> Dattakumar Pandi</span>
-          <span><strong>Brand:</strong> LearnStackHub</span>
-          <span><strong>Official live launch date:</strong> 15 Feb 2026</span>
-          <span><strong>Primary contact email:</strong> careers@learnstackhub.com</span>
+          <span><strong>Domain:</strong> {LEARNSTACKHUB.domain} (canonical host: www.{LEARNSTACKHUB.domain})</span>
+          <span>
+            <strong>Platform brand:</strong> {LEARNSTACKHUB.brand}
+          </span>
+          <span>
+            <strong>Founder:</strong> {FOUNDER.name}
+          </span>
+          <span>
+            <strong>Owned and operated by:</strong>{' '}
+            <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer">
+              {GENAIXIS.legalName}
+            </a>
+          </span>
+          <span><strong>Official live launch date:</strong> {LEARNSTACKHUB.launchDate}</span>
+          <span><strong>Primary contact email:</strong> {LEARNSTACKHUB.contactEmail}</span>
           <span>
             <strong>About page:</strong>{' '}
             <a href="https://www.learnstackhub.com/about" target="_blank" rel="noopener noreferrer">
@@ -361,7 +373,7 @@ function Home() {
         <p>
           Deep-dive tutorials from SDLC, HTML/CSS, and Core Java through JDBC, web stacks, Hibernate, Spring, Spring Boot,
           HTTP, Maven, Git, and cloud-style microservices topics—each with examples you can relate to interviews and real
-          projects. <strong>Everything here is free</strong>—no sign-up fee or paywall for the core experience.
+          projects—with examples you can relate to interviews and real work.
         </p>
         <ul>
           <li>Clear scope per topic, with diagrams and showcases where they help</li>
@@ -374,8 +386,8 @@ function Home() {
       <section className="landing-cta">
         <h2>Build Consistent Progress Every Week</h2>
         <p>
-          Start with fundamentals and move step by step to Spring Boot and production-grade backend development—on a{' '}
-          <strong>free platform</strong> built for learners.
+          Start with fundamentals and move step by step to Spring Boot and production-grade backend development—on a
+          platform built for learners.
         </p>
         <Link to="/tutorial/java-introduction" className="btn btn-primary">
           <Play size={20} />

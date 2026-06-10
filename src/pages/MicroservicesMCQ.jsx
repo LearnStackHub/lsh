@@ -517,7 +517,7 @@ function MicroservicesMCQ() {
                 <Target className="info-icon" />
                 <div>
                   <strong>20 Questions</strong>
-                  <p>Randomly selected from 150+ questions</p>
+                  <p>Randomly selected each attempt</p>
                 </div>
               </div>
               <div className="info-item">
@@ -539,7 +539,7 @@ function MicroservicesMCQ() {
               <h3>Exam Rules</h3>
               <ul>
                 <li>You have exactly 10 minutes to complete the exam</li>
-                <li>20 questions will be randomly selected from 150+ questions</li>
+                <li>20 questions will be randomly selected for each attempt</li>
                 <li>Results will be shown only after submission</li>
                 <li>Tab switching and window blur will be monitored</li>
                 <li>Exam will auto-submit after 3 security warnings</li>
@@ -712,8 +712,8 @@ function MicroservicesMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="Microservices MCQ Exam - Test Your Microservices Knowledge | LearnStackHub"
-        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Microservices MCQ exam with 20 randomly selected questions from 120+ questions. 10-minute time limit. Test your Microservices and Spring Cloud knowledge (Eureka, Config Server, API Gateway, Circuit Breaker) with real-time feedback and detailed explanations. Free Microservices practice exam on LearnStackHub."
-        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, microservices mcq, microservices exam, microservices quiz, microservices test, spring cloud mcq, microservices multiple choice questions, microservices practice exam, microservices assessment, learn microservices, spring cloud test, microservices mcq online, free microservices exam, microservices practice test, microservices certification exam, spring cloud eureka, spring cloud gateway, circuit breaker"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Microservices MCQ exam with 20 randomly selected questions. 10-minute time limit. Test your Microservices and Spring Cloud knowledge (Eureka, Config Server, API Gateway, Circuit Breaker) with real-time feedback and detailed explanations. Free Microservices practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, microservices mcq, microservices exam, microservices quiz, microservices test, spring cloud mcq, microservices multiple choice questions, microservices practice exam, microservices assessment, learn microservices, spring cloud test, microservices mcq online, microservices practice test, microservices certification exam, spring cloud eureka, spring cloud gateway, circuit breaker"
       />
       <FloatingParticles />
       {showSecurityWarning && (

@@ -520,7 +520,7 @@ function CoreJavaMCQ() {
                 <Target className="info-icon" />
                 <div>
                   <strong>20 Questions</strong>
-                  <p>Randomly selected from 150+ questions</p>
+                  <p>Randomly selected each attempt</p>
                 </div>
               </div>
               <div className="info-item">
@@ -542,7 +542,7 @@ function CoreJavaMCQ() {
               <h3>Exam Rules</h3>
               <ul>
                 <li>You have exactly 10 minutes to complete the exam</li>
-                <li>20 questions will be randomly selected from 150+ questions</li>
+                <li>20 questions will be randomly selected for each attempt</li>
                 <li>Results will be shown only after submission</li>
                 <li>Tab switching and window blur will be monitored</li>
                 <li>Exam will auto-submit after 3 security warnings</li>
@@ -715,8 +715,8 @@ function CoreJavaMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="Core Java MCQ Exam - Test Your Java Knowledge | LearnStackHub"
-        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Core Java MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your Java programming knowledge with real-time feedback and detailed explanations. Free Java practice exam on LearnStackHub."
-        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, core java mcq, java exam, java quiz, java test, java multiple choice questions, java practice exam, java assessment, learn java, java programming test, java mcq online, free java exam, java practice test, java certification exam"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Core Java MCQ exam with 20 randomly selected questions. 10-minute time limit. Test your Java programming knowledge with real-time feedback and detailed explanations. Free Java practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, core java mcq, java exam, java quiz, java test, java multiple choice questions, java practice exam, java assessment, learn java, java programming test, java mcq online, java practice test, java certification exam"
       />
       <FloatingParticles />
       {showSecurityWarning && (

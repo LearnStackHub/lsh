@@ -517,7 +517,7 @@ function SpringBootMCQ() {
                 <Target className="info-icon" />
                 <div>
                   <strong>20 Questions</strong>
-                  <p>Randomly selected from 150+ questions</p>
+                  <p>Randomly selected each attempt</p>
                 </div>
               </div>
               <div className="info-item">
@@ -539,7 +539,7 @@ function SpringBootMCQ() {
               <h3>Exam Rules</h3>
               <ul>
                 <li>You have exactly 10 minutes to complete the exam</li>
-                <li>20 questions will be randomly selected from 150+ questions</li>
+                <li>20 questions will be randomly selected for each attempt</li>
                 <li>Results will be shown only after submission</li>
                 <li>Tab switching and window blur will be monitored</li>
                 <li>Exam will auto-submit after 3 security warnings</li>
@@ -712,8 +712,8 @@ function SpringBootMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="Spring Boot MCQ Exam - Test Your Spring Boot Knowledge | LearnStackHub"
-        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Spring Boot MCQ exam with 20 randomly selected questions from 120+ questions. 10-minute time limit. Test your Spring Boot knowledge (Auto-configuration, Starters, Actuator, JPA, Security) with real-time feedback and detailed explanations. Free Spring Boot practice exam on LearnStackHub."
-        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, spring boot mcq, spring boot exam, spring boot quiz, spring boot test, spring boot multiple choice questions, spring boot practice exam, spring boot assessment, learn spring boot, spring boot test, spring boot mcq online, free spring boot exam, spring boot practice test, spring boot certification exam, spring boot auto-configuration, spring boot starters, spring boot actuator"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive Spring Boot MCQ exam with 20 randomly selected questions. 10-minute time limit. Test your Spring Boot knowledge (Auto-configuration, Starters, Actuator, JPA, Security) with real-time feedback and detailed explanations. Free Spring Boot practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, spring boot mcq, spring boot exam, spring boot quiz, spring boot test, spring boot multiple choice questions, spring boot practice exam, spring boot assessment, learn spring boot, spring boot test, spring boot mcq online, spring boot practice test, spring boot certification exam, spring boot auto-configuration, spring boot starters, spring boot actuator"
       />
       <FloatingParticles />
       {showSecurityWarning && (

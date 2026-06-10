@@ -28,6 +28,7 @@ import { ADSENSE_CONFIG } from '../config/adsense';
 import { HierarchyDiagram, ConceptCube, ProcessCards, CodeFlowAnimation } from '../components/Diagram';
 import { ImageGif, ImageCard3D } from '../components/ImageGif';
 import SEOHead from '../components/SEOHead';
+import { FOUNDER } from '../config/company';
 import StructuredData from '../components/StructuredData';
 import FAQSection from '../components/FAQSection';
 import TutorialFloatingChat from '../components/TutorialFloatingChat';
@@ -139,9 +140,10 @@ import { HIBERNATE_SHOWCASE_TOPIC_IDS, HibernateShowcaseRouter } from '../compon
 import { SPRING_CLOUD_SHOWCASE_TOPIC_IDS, SpringCloudShowcaseRouter } from '../components/springcloud/showcases';
 import { HTTP_SHOWCASE_TOPIC_IDS, HttpShowcaseRouter } from '../components/http/showcases';
 import { MYSQL_SHOWCASE_TOPIC_IDS, MySQLShowcaseRouter } from '../components/mysql/showcases';
+import SpringAiLesson from '../components/springai/SpringAiLesson';
 import { generateSEOTitle } from '../utils/seoHelpers';
 import { trackTutorialView, trackButtonClick } from '../config/analytics';
-import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId, java8SlugToTopicId, microservicesSlugToTopicId } from '../utils/topicRoutes';
+import { getTopicPath, kafkaSlugToTopicId, dockerSlugToTopicId, java8SlugToTopicId, microservicesSlugToTopicId, springAiSlugToTopicId } from '../utils/topicRoutes';
 
 SyntaxHighlighter.registerLanguage('java', java);
 
@@ -188,7 +190,9 @@ function Tutorial() {
         ? java8SlugToTopicId(topicSlug)
         : location.pathname.startsWith('/microservices/')
           ? microservicesSlugToTopicId(topicSlug)
-          : kafkaSlugToTopicId(topicSlug)
+          : location.pathname.startsWith('/springai/')
+            ? springAiSlugToTopicId(topicSlug)
+            : kafkaSlugToTopicId(topicSlug)
   );
   const [copiedBlockId, setCopiedBlockId] = useState(null);
   const [editorCode, setEditorCode] = useState('');
@@ -233,6 +237,7 @@ function Tutorial() {
   const isServletTopic = resolvedTopicId?.startsWith('servlet-') || resolvedTopicId === 'http-request-response' || resolvedTopicId === 'session-management' || resolvedTopicId === 'filters-listeners' || resolvedTopicId === 'tomcat-server';
   const isJdbcTopic = resolvedTopicId?.startsWith('jdbc-') || resolvedTopicId === 'transaction-management' || resolvedTopicId === 'crud-operations' || resolvedTopicId === 'statement-interface' || resolvedTopicId === 'preparedstatement-interface' || resolvedTopicId === 'resultset-interface';
   const isHibernateTopic = resolvedTopicId?.startsWith('hibernate-');
+  const isSpringAiTopic = resolvedTopicId?.startsWith('spring-ai-');
   const CORE_JAVA_TOPIC_IDS = new Set([
     'java-introduction', 'java-features', 'java-environment-setup', 'java-syntax', 'java-variables',
     'java-data-types', 'java-keywords', 'java-operators', 'java-methods',
@@ -369,12 +374,6 @@ function Tutorial() {
   const onChange = useCallback((value) => {
     setEditorCode(value);
   }, []);
-
-  const authorProfile = {
-    name: 'Dattakumar Pandi',
-    role: 'Founder of LearnStackHub',
-    expertise: 'Backend Developer (Java)',
-  };
 
   if (!currentTopic) {
     return (
@@ -978,7 +977,12 @@ function Tutorial() {
             <strong>10 important interview questions with full answers</strong> in the article below. Use your browser find for <strong>Interview Questions</strong> to jump there quickly.
           </div>
         )}
-        {isCoreJavaTopic ? (
+        {isSpringAiTopic ? (
+          <SpringAiLesson
+            topic={{ ...currentTopic, content: articleContent }}
+            renderContent={renderContent}
+          />
+        ) : isCoreJavaTopic ? (
           <>
             {tutorialInteractiveShowcases}
             {renderContent(articleContent)}
@@ -1013,9 +1017,9 @@ function Tutorial() {
           }}
         >
           <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Written by:</p>
-          <p style={{ margin: '0.45rem 0 0', fontWeight: 700, fontSize: '1.05rem' }}>{authorProfile.name}</p>
-          <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)' }}>{authorProfile.role}</p>
-          <p style={{ margin: '0.15rem 0 0', color: 'var(--text-secondary)' }}>{authorProfile.expertise}</p>
+          <p style={{ margin: '0.45rem 0 0', fontWeight: 700, fontSize: '1.05rem' }}>{FOUNDER.name}</p>
+          <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)' }}>{FOUNDER.role}</p>
+          <p style={{ margin: '0.15rem 0 0', color: 'var(--text-secondary)' }}>{FOUNDER.expertise}</p>
         </section>
       </div>
 

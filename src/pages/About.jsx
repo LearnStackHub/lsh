@@ -4,6 +4,7 @@ import { Target, Users, BookOpen, Code, Heart, Award, MessageSquare, Video, Clip
 import SEOHead from '../components/SEOHead';
 import SocialOfficialLinks from '../components/SocialOfficialLinks';
 import StructuredData from '../components/StructuredData';
+import { GENAIXIS, LEARNSTACKHUB, FOUNDER } from '../config/company';
 
 function About() {
   useEffect(() => {
@@ -14,13 +15,13 @@ function About() {
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead 
         title="About Us - LearnStackHub" 
-        description="LearnStackHub is a free platform: Java full-stack tutorials, browser code practice, MCQs, Practice Lab (AI chat & interview prep), and tracks from SDLC to Spring Boot—no paywall."
+        description="LearnStackHub: Java full-stack tutorials, browser code practice, MCQs, Practice Lab (AI chat & interview prep), and tracks from SDLC to Spring Boot."
       />
       <StructuredData type="Organization" />
       <h1 className="tutorial-title">About LearnStackHub</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1.1rem' }}>
-        <strong style={{ color: 'var(--text-primary)' }}>A free platform</strong> — tutorials, hands-on code, MCQs, and a
-        Practice Lab, from SDLC and web basics through Spring Boot and modern backend skills. No subscription required.
+        <strong style={{ color: 'var(--text-primary)' }}>A structured learning platform</strong> — tutorials, hands-on code, MCQs, and a
+        Practice Lab, from SDLC and web basics through Spring Boot and modern backend skills.
       </p>
 
       <div className="tutorial-content">
@@ -35,17 +36,16 @@ function About() {
           }}>
             <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Our Mission</h2>
             <p style={{ fontSize: '1.3rem', lineHeight: '1.9', margin: 0, fontWeight: '500' }}>
-              To democratize Java full-stack education by providing comprehensive, high-quality, and completely free learning 
+              To democratize Java full-stack education by providing comprehensive, high-quality learning 
               resources that empower individuals from all backgrounds to master enterprise-grade software development. We are 
-              committed to making professional-level Java education accessible to everyone, regardless of their financial 
-              situation or prior experience.
+              committed to making professional-level Java education accessible to everyone, regardless of prior experience.
             </p>
             <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.3)' }}>
               <h3 style={{ color: 'white', marginBottom: '1rem', fontSize: '1.4rem' }}>Our Core Values</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', textAlign: 'left' }}>
                 <div>
                   <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Accessibility</strong>
-                  <p style={{ fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>Free education for everyone, forever</p>
+                  <p style={{ fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>Learning paths open to every background</p>
                 </div>
                 <div>
                   <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Quality</strong>
@@ -67,11 +67,10 @@ function About() {
         <section style={{ marginBottom: '3rem' }}>
           <h2>What is LearnStackHub?</h2>
           <p style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
-            LearnStackHub is a <strong>free</strong>, interactive learning platform for Java and backend careers. You get
+            LearnStackHub is an interactive learning platform for Java and backend careers. You get
             structured tutorials across multiple tracks, a browser-based code runner for Java where lessons support it,
             topic-wise MCQs for revision, and a <strong>Practice Lab</strong> with an AI tutor chat (interview topics)
-            plus an audio and video interview mode with guided coaching hints—so you can read, run, and rehearse in one
-            place at no cost.
+            plus an audio and video interview mode with guided coaching hints—so you can read, run, and rehearse in one place.
           </p>
           <div style={{
             background: 'var(--bg-tertiary)',
@@ -82,18 +81,22 @@ function About() {
           }}>
             <h3 style={{ marginTop: 0 }}>Our Story</h3>
             <p style={{ marginBottom: '1rem' }}>
-              LearnStackHub was founded with a simple yet powerful vision: to break down barriers in technology education. 
-              We recognized that quality Java full-stack education was often locked behind expensive courses or scattered 
-              across multiple sources, making it difficult for aspiring developers to build comprehensive skills.
+              LearnStackHub was created by{' '}
+              <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                {GENAIXIS.legalName}
+              </a>{' '}
+              with a simple yet powerful vision: to break down barriers in technology education. We recognized that quality
+              Java full-stack education was often locked behind expensive courses or scattered across multiple sources,
+              making it difficult for aspiring developers to build comprehensive skills.
             </p>
             <p style={{ marginBottom: '1rem' }}>
-              Our platform was built by developers who understand the challenges of learning enterprise Java development. 
-              We've experienced the frustration of incomplete tutorials, outdated examples, and courses that don't prepare 
-              you for real-world projects. LearnStackHub is our solution to these problems.
+              {GENAIXIS.legalName} is an AI product engineering company — {GENAIXIS.description.toLowerCase()} LearnStackHub
+              is one of our educational products: structured Java and backend learning for students and early-career
+              engineers.
             </p>
             <p style={{ margin: 0 }}>
               Today, LearnStackHub continues to grow its curriculum with new topics and clearer paths—always with the
-              goal of keeping professional-grade Java and backend education free and accessible.
+              goal of keeping professional-grade Java and backend education accessible.
             </p>
           </div>
         </section>
@@ -112,33 +115,49 @@ function About() {
             </p>
             <ul style={{ margin: 0, paddingLeft: '1.2rem', lineHeight: 1.8 }}>
               <li>
-                <strong>Domain:</strong> learnstackhub.com (canonical host: www.learnstackhub.com)
+                <strong>Platform brand:</strong> {LEARNSTACKHUB.brand}
               </li>
               <li>
-                <strong>Website owner and operator:</strong> Dattakumar Pandi
+                <strong>Domain:</strong> {LEARNSTACKHUB.domain} (canonical host: www.{LEARNSTACKHUB.domain})
               </li>
               <li>
-                <strong>Brand:</strong> LearnStackHub
+                <strong>Founder:</strong> {FOUNDER.name}
               </li>
               <li>
-                <strong>Official live launch date:</strong> 15 Feb 2026
+                <strong>Owned and operated by:</strong>{' '}
+                <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  {GENAIXIS.legalName}
+                </a>{' '}
+                ({GENAIXIS.legalNameFull})
+              </li>
+              <li>
+                <strong>CIN:</strong> {GENAIXIS.cin}
+              </li>
+              <li>
+                <strong>Parent company website:</strong>{' '}
+                <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  {GENAIXIS.website}
+                </a>
+              </li>
+              <li>
+                <strong>Official live launch date:</strong> {LEARNSTACKHUB.launchDate}
               </li>
               <li>
                 <strong>Primary contact email:</strong>{' '}
-                <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--accent-primary)' }}>
-                  careers@learnstackhub.com
+                <a href={`mailto:${LEARNSTACKHUB.contactEmail}`} style={{ color: 'var(--accent-primary)' }}>
+                  {LEARNSTACKHUB.contactEmail}
                 </a>
               </li>
               <li>
                 <strong>About page:</strong>{' '}
-                <a href="https://www.learnstackhub.com/about" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
-                  https://www.learnstackhub.com/about
+                <a href={`${LEARNSTACKHUB.url}/about`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  {LEARNSTACKHUB.url}/about
                 </a>
               </li>
               <li>
                 <strong>Contact page:</strong>{' '}
-                <a href="https://www.learnstackhub.com/contact" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
-                  https://www.learnstackhub.com/contact
+                <a href={`${LEARNSTACKHUB.url}/contact`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  {LEARNSTACKHUB.url}/contact
                 </a>
               </li>
             </ul>
@@ -231,10 +250,10 @@ function About() {
               textAlign: 'center'
             }}>
               <Heart size={40} style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }} />
-              <h3 style={{ marginBottom: '0.5rem' }}>Free platform—always</h3>
+              <h3 style={{ marginBottom: '0.5rem' }}>All-in-one learning</h3>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.95rem' }}>
-                Tutorials, MCQs, code practice, and Practice Lab tools are free to use: no paywall, no subscription, no
-                course fee—our mission is open access to quality learning
+                Tutorials, MCQs, code practice, and Practice Lab tools in one place—built for interview prep and
+                project-ready backend skills
               </p>
             </div>
           </div>
@@ -393,7 +412,7 @@ function About() {
           </p>
           <ul>
             <li>Providing high-quality, accurate, and up-to-date content</li>
-            <li>Keeping education free and accessible to everyone</li>
+            <li>Keeping education accessible and high quality for everyone</li>
             <li>Continuously improving based on user feedback</li>
             <li>Maintaining a supportive learning community</li>
             <li>Respecting user privacy and data security</li>
@@ -418,8 +437,8 @@ function About() {
           </p>
           <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>
             For career opportunities, email us at:{' '}
-            <a href="mailto:careers@learnstackhub.com" style={{ color: 'var(--accent-primary)' }}>
-              careers@learnstackhub.com
+            <a href={`mailto:${LEARNSTACKHUB.contactEmail}`} style={{ color: 'var(--accent-primary)' }}>
+              {LEARNSTACKHUB.contactEmail}
             </a>
           </p>
         </section>
@@ -441,7 +460,7 @@ function About() {
           paddingTop: '2rem', 
           borderTop: '2px solid var(--border-color)'
         }}>
-          <h2>About the Author</h2>
+          <h2>About the Founder</h2>
           <div style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border-color)',
@@ -456,14 +475,14 @@ function About() {
                 color: 'var(--accent-primary)',
                 marginBottom: '0.5rem'
               }}>
-                Dattakumar Pandi
+                {FOUNDER.name}
               </h3>
               <p style={{ 
                 color: 'var(--text-secondary)', 
                 fontSize: '1.1rem',
                 margin: 0
               }}>
-                Software Developer & Founder of LearnStackHub
+                {FOUNDER.title}
               </p>
             </div>
             
@@ -473,8 +492,11 @@ function About() {
               color: 'var(--text-primary)'
             }}>
               <p style={{ marginBottom: '1.5rem' }}>
-                Dattakumar Pandi is a software developer and the founder of LearnStackHub, an online learning platform 
-                focused on modern backend development and real-world programming skills.
+                {FOUNDER.name} is a software developer and the founder of LearnStackHub, an online learning platform 
+                focused on modern backend development and real-world programming skills. LearnStackHub is owned and operated by{' '}
+                <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)' }}>
+                  {GENAIXIS.legalName}
+                </a>.
               </p>
               
               <p style={{ marginBottom: '1.5rem' }}>
@@ -484,7 +506,7 @@ function About() {
               </p>
               
               <p style={{ marginBottom: '1.5rem' }}>
-                Through LearnStackHub, Dattakumar creates in-depth tutorials, technical guides, and structured learning 
+                Through LearnStackHub, {FOUNDER.name.split(' ')[0]} creates in-depth tutorials, technical guides, and structured learning 
                 resources covering topics like HTTP, APIs, backend architecture, database design, and scalable system 
                 development.
               </p>
@@ -514,8 +536,97 @@ function About() {
               Created with ❤️ by
             </p>
             <p style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--accent-primary)' }}>
-              Dattakumar Pandi
+              {FOUNDER.name}
             </p>
+          </div>
+        </section>
+
+        <section style={{ 
+          marginTop: '3rem', 
+          paddingTop: '2rem', 
+          borderTop: '2px solid var(--border-color)'
+        }}>
+          <h2>About {GENAIXIS.legalName}</h2>
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '2rem',
+            marginTop: '1.5rem'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h3 style={{ 
+                fontSize: '1.8rem', 
+                fontWeight: '600', 
+                color: 'var(--accent-primary)',
+                marginBottom: '0.5rem'
+              }}>
+                <a
+                  href={GENAIXIS.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'inherit', textDecoration: 'none' }}
+                >
+                  {GENAIXIS.legalName}
+                </a>
+              </h3>
+              <p style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.1rem',
+                margin: 0
+              }}>
+                {GENAIXIS.tagline}
+              </p>
+            </div>
+            
+            <div style={{ 
+              lineHeight: '1.8',
+              fontSize: '1.05rem',
+              color: 'var(--text-primary)'
+            }}>
+              <p style={{ marginBottom: '1.5rem' }}>
+                {GENAIXIS.description} LearnStackHub is operated by {GENAIXIS.legalName} as an educational platform
+                for Java, Spring Boot, and backend development.
+              </p>
+              
+              <p style={{ marginBottom: '1.5rem' }}>
+                The company focuses on AI-first products, SaaS platforms, automation, cloud solutions, and enterprise
+                software — combining practical engineering with products that scale in real business environments.
+              </p>
+              
+              <p style={{ 
+                margin: 0,
+                padding: '1.5rem',
+                background: 'var(--bg-tertiary)',
+                borderRadius: '10px',
+                borderLeft: '4px solid var(--accent-primary)',
+                fontStyle: 'italic',
+                color: 'var(--text-secondary)'
+              }}>
+                LearnStackHub is powered by {GENAIXIS.legalName} (CIN: {GENAIXIS.cin}). © {new Date().getFullYear()} {LEARNSTACKHUB.brand}. All
+                rights reserved. Owned and operated by {GENAIXIS.legalName}.
+              </p>
+            </div>
+          </div>
+          
+          <div style={{ 
+            textAlign: 'center', 
+            marginTop: '2rem',
+            paddingTop: '2rem',
+            borderTop: '1px solid var(--border-color)'
+          }}>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+              Visit the parent company
+            </p>
+            <a
+              href={GENAIXIS.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              {GENAIXIS.website.replace('https://', '')}
+            </a>
           </div>
         </section>
       </div>

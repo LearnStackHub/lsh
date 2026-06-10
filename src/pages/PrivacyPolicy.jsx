@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Shield, Lock, Eye, FileText, Cookie } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
 
 function PrivacyPolicy() {
   useEffect(() => {
@@ -23,9 +24,11 @@ function PrivacyPolicy() {
         <section style={{ marginBottom: '2.5rem' }}>
           <h2>Introduction</h2>
           <p>
-            Welcome to LearnStackHub ("we," "our," or "us"). We are committed to protecting your privacy and ensuring
+            Welcome to {LEARNSTACKHUB.brand} (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). {LEARNSTACKHUB.brand} is owned and operated by{' '}
+            <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer">{GENAIXIS.legalName}</a>{' '}
+            ({GENAIXIS.legalNameFull}, CIN: {GENAIXIS.cin}). We are committed to protecting your privacy and ensuring
             you have a positive experience on our website. This Privacy Policy explains how we collect, use, disclose,
-            and safeguard your information when you visit our website <strong>learnstackhub.com</strong> (the "Site").
+            and safeguard your information when you visit our website <strong>{LEARNSTACKHUB.domain}</strong> (the &quot;Site&quot;).
           </p>
         </section>
 
@@ -185,7 +188,15 @@ function PrivacyPolicy() {
             If you have any questions about this Privacy Policy, please contact us:
           </p>
           <ul>
-            <li>Email: <a href="mailto:dattudattakumar369@gmail.com">dattudattakumar369@gmail.com</a></li>
+            <li>
+              Email:{' '}
+              <a href={`mailto:${LEARNSTACKHUB.contactEmail}`}>{LEARNSTACKHUB.contactEmail}</a>
+            </li>
+            <li>
+              Data controller / operator:{' '}
+              <a href={GENAIXIS.website} target="_blank" rel="noopener noreferrer">{GENAIXIS.legalName}</a>
+              {' '}(CIN: {GENAIXIS.cin})
+            </li>
             <li>Website: <Link to="/contact">Contact Page</Link></li>
           </ul>
         </section>

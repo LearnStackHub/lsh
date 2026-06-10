@@ -13,11 +13,11 @@ export const SPRING_CLOUD_SHOWCASE_TOPIC_IDS = new Set([
   'spring-cloud-security',
   'spring-cloud-elk',
   'spring-cloud-microservices',
-  'microservices-mcq',
-  'microservices-interview-questions'
+  'microservices-mcq'
 ]);
 
 export default function SpringCloudShowcaseRouter({ topicId }) {
   if (!SPRING_CLOUD_SHOWCASE_TOPIC_IDS.has(topicId)) return null;
+
   return <SpringCloudTopicRuntimeShowcase topicId={topicId} />;
 }

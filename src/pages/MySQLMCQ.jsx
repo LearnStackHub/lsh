@@ -517,7 +517,7 @@ function MySQLMCQ() {
                 <Target className="info-icon" />
                 <div>
                   <strong>20 Questions</strong>
-                  <p>Randomly selected from 150+ questions</p>
+                  <p>Randomly selected each attempt</p>
                 </div>
               </div>
               <div className="info-item">
@@ -539,7 +539,7 @@ function MySQLMCQ() {
               <h3>Exam Rules</h3>
               <ul>
                 <li>You have exactly 10 minutes to complete the exam</li>
-                <li>20 questions will be randomly selected from 150+ questions</li>
+                <li>20 questions will be randomly selected for each attempt</li>
                 <li>Results will be shown only after submission</li>
                 <li>Tab switching and window blur will be monitored</li>
                 <li>Exam will auto-submit after 3 security warnings</li>
@@ -712,8 +712,8 @@ function MySQLMCQ() {
     <div className="mcq-container" ref={containerRef}>
       <SEOHead 
         title="MySQL MCQ Exam - Test Your MySQL Knowledge | LearnStackHub"
-        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive MySQL MCQ exam with 20 randomly selected questions from 150+ questions. 10-minute time limit. Test your MySQL database knowledge with real-time feedback and detailed explanations. Free MySQL practice exam on LearnStackHub."
-        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, mysql mcq, mysql exam, mysql quiz, mysql test, mysql multiple choice questions, mysql practice exam, mysql assessment, learn mysql, mysql database test, mysql mcq online, free mysql exam, mysql practice test, mysql certification exam"
+        description="LSH (Learn Stack Hub, LearnStack, Learn Hub, Stack Hub) - Take our comprehensive MySQL MCQ exam with 20 randomly selected questions. 10-minute time limit. Test your MySQL database knowledge with real-time feedback and detailed explanations. Free MySQL practice exam on LearnStackHub."
+        keywords="LSH, lsh, Learn Stack Hub, learn stack hub, LearnStack, learnstack, Learn Hub, learn hub, Stack Hub, stack hub, mysql mcq, mysql exam, mysql quiz, mysql test, mysql multiple choice questions, mysql practice exam, mysql assessment, learn mysql, mysql database test, mysql mcq online, mysql practice test, mysql certification exam"
       />
       <FloatingParticles />
       {showSecurityWarning && (
