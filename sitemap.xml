@@ -226,103 +226,103 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-architecture</loc>
+    <loc>https://www.learnstackhub.com/docker/architecture</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-build-run-custom-image</loc>
+    <loc>https://www.learnstackhub.com/docker/build-run-custom-image</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-compose</loc>
+    <loc>https://www.learnstackhub.com/docker/compose</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-containers</loc>
+    <loc>https://www.learnstackhub.com/docker/containers</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-debugging-logs</loc>
+    <loc>https://www.learnstackhub.com/docker/debugging-logs</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-dockerfile</loc>
+    <loc>https://www.learnstackhub.com/docker/dockerfile</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-hub-push-image</loc>
+    <loc>https://www.learnstackhub.com/docker/hub-push-image</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-images</loc>
+    <loc>https://www.learnstackhub.com/docker/images</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-installation</loc>
+    <loc>https://www.learnstackhub.com/docker/installation</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-interview-questions</loc>
+    <loc>https://www.learnstackhub.com/docker/interview-questions</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-introduction</loc>
+    <loc>https://www.learnstackhub.com/docker/introduction</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-networking</loc>
+    <loc>https://www.learnstackhub.com/docker/networking</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-port-mapping-networking</loc>
+    <loc>https://www.learnstackhub.com/docker/port-mapping-networking</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-production-concepts</loc>
+    <loc>https://www.learnstackhub.com/docker/production-concepts</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-real-project-springboot-mysql-compose</loc>
+    <loc>https://www.learnstackhub.com/docker/real-project-springboot-mysql-compose</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-volumes</loc>
+    <loc>https://www.learnstackhub.com/docker/volumes</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/docker-with-database</loc>
+    <loc>https://www.learnstackhub.com/docker/with-database</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -437,7 +437,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/global-exception-handling-http</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -586,6 +586,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.learnstackhub.com/tutorial/html-simple-card</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.learnstackhub.com/tutorial/html-structure</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -641,7 +647,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/http-status-codes</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -670,6 +676,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.learnstackhub.com/tutorial/java-array-swap</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.learnstackhub.com/corejava/java-data-types</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -682,14 +694,20 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.learnstackhub.com/tutorial/java-factorial</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.learnstackhub.com/corejava/java-features</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/corejava/java-interview-questions</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://www.learnstackhub.com/tutorial/java-interview-questions</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -718,7 +736,13 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/corejava/java-string-reverse</loc>
+    <loc>https://www.learnstackhub.com/tutorial/java-palindrome</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/tutorial/java-string-reverse</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -732,6 +756,66 @@
   <url>
     <loc>https://www.learnstackhub.com/corejava/java-variables</loc>
     <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/date-time-api</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/default-static-methods</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/functional-interfaces</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/interview-questions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/introduction</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/lambda-expressions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/method-references</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/optional-class</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/stream-api</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/java8/stream-practical-examples</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -820,109 +904,109 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-apis</loc>
+    <loc>https://www.learnstackhub.com/kafka/apis</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-architecture</loc>
+    <loc>https://www.learnstackhub.com/kafka/architecture</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-connect</loc>
+    <loc>https://www.learnstackhub.com/kafka/connect</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-consumers-deep-dive</loc>
+    <loc>https://www.learnstackhub.com/kafka/consumers-deep-dive</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-core-components</loc>
+    <loc>https://www.learnstackhub.com/kafka/core-components</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-fault-tolerance-replication</loc>
+    <loc>https://www.learnstackhub.com/kafka/fault-tolerance-replication</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-interview-questions</loc>
+    <loc>https://www.learnstackhub.com/kafka/interview-questions</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-introduction</loc>
+    <loc>https://www.learnstackhub.com/kafka/introduction</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-message-delivery-semantics</loc>
+    <loc>https://www.learnstackhub.com/kafka/message-delivery-semantics</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-monitoring-tools</loc>
+    <loc>https://www.learnstackhub.com/kafka/monitoring-tools</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-performance-scaling</loc>
+    <loc>https://www.learnstackhub.com/kafka/performance-scaling</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-producers-deep-dive</loc>
+    <loc>https://www.learnstackhub.com/kafka/producers-deep-dive</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-real-world-use-cases</loc>
+    <loc>https://www.learnstackhub.com/kafka/real-world-use-cases</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-security</loc>
+    <loc>https://www.learnstackhub.com/kafka/security</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-storage-retention</loc>
+    <loc>https://www.learnstackhub.com/kafka/storage-retention</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-streams</loc>
+    <loc>https://www.learnstackhub.com/kafka/streams</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-topics-partitions</loc>
+    <loc>https://www.learnstackhub.com/kafka/topics-partitions</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/kafka-with-spring-boot</loc>
+    <loc>https://www.learnstackhub.com/kafka/with-spring-boot</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -1036,20 +1120,62 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/microservices-apis</loc>
+    <loc>https://www.learnstackhub.com/microservices/apis</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/microservices-architecture-fundamentals</loc>
+    <loc>https://www.learnstackhub.com/microservices/architecture</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/architecture-fundamentals</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.learnstackhub.com/tutorial/microservices-interview-questions</loc>
-    <lastmod>2026-02-18</lastmod>
+    <loc>https://www.learnstackhub.com/microservices/communication</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/data-management</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/interview-questions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/introduction</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/realtime-project</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/resilience-observability</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/microservices/security-deployment</loc>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -1127,6 +1253,12 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/mysql/mysql-introduction</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/mysql/mysql-join-sample</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -1318,6 +1450,102 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.learnstackhub.com/springai/agents</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/chat-models</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/deployment</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/embeddings</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/function-calling</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/image-models</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/introduction</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/mcp</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/memory</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/multi-agent-systems</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/openai-integration</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/prompt-engineering</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/rag</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/real-time-projects</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/security</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.learnstackhub.com/springai/vector-databases</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.learnstackhub.com/spring/spring-aop-advanced-pointcuts</loc>
     <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1361,85 +1589,85 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-actuator</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-configuration</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-deployment</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-exception-handling</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-interview-questions</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-introduction</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-jpa</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-postman-swagger</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-project-setup</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-rest-api</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-security</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-smtp</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-testing</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.learnstackhub.com/springboot/spring-boot-validation</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -1481,7 +1709,7 @@
   </url>
   <url>
     <loc>https://www.learnstackhub.com/tutorial/spring-cloud-microservices</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

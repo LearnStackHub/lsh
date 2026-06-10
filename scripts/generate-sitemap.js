@@ -51,7 +51,24 @@ const newPagesToday = [
   'microservices-data-management',
   'microservices-resilience-observability',
   'microservices-security-deployment',
-  'microservices-realtime-project'
+  'microservices-realtime-project',
+  'microservices-interview-questions',
+  'spring-ai-introduction',
+  'spring-ai-openai-integration',
+  'spring-ai-prompt-engineering',
+  'spring-ai-chat-models',
+  'spring-ai-image-models',
+  'spring-ai-embeddings',
+  'spring-ai-vector-databases',
+  'spring-ai-rag',
+  'spring-ai-memory',
+  'spring-ai-function-calling',
+  'spring-ai-agents',
+  'spring-ai-mcp',
+  'spring-ai-multi-agent-systems',
+  'spring-ai-security',
+  'spring-ai-deployment',
+  'spring-ai-real-time-projects',
 ];
 
 // Static pages
@@ -103,6 +120,22 @@ function readExistingSitemap(sitemapPath) {
   return existingDates;
 }
 
+function extractTopicIdsFromFile(fileContent) {
+  const ids = new Set();
+
+  // Object literal topic ids (avoid matching strings like `not found with id: "`)
+  for (const match of fileContent.matchAll(/^\s*id:\s*['"]([^'"]+)['"]/gm)) {
+    ids.add(match[1]);
+  }
+
+  // Spring AI modules built with makeSpringAiTopic('spring-ai-...', ...)
+  for (const match of fileContent.matchAll(/makeSpringAiTopic\(\s*['"]([^'"]+)['"]/g)) {
+    ids.add(match[1]);
+  }
+
+  return ids;
+}
+
 // Import getAllTopics from the data index
 // We need to use dynamic import since we're in a Node.js script
 async function generateSitemap() {
@@ -110,38 +143,29 @@ async function generateSitemap() {
     const dataDir = path.join(__dirname, '..', 'src', 'data');
     const tutorialPages = [];
     const foundTopicIds = new Set();
-    
-    // Recursively read all .js files in the data directory
+
     function readTopicFiles(dir) {
       const files = fs.readdirSync(dir);
-      
-      files.forEach(file => {
+
+      files.forEach((file) => {
         const filePath = path.join(dir, file);
         const stat = fs.statSync(filePath);
-        
+
         if (stat.isDirectory()) {
-          // Recursively read subdirectories
           readTopicFiles(filePath);
-        } else if (file.endsWith('.js') && file !== 'index.js') {
-          // Read each topic file and extract the ID
+        } else if (file.endsWith('.js') && file !== 'index.js' && file !== 'topicHelpers.js') {
           try {
             const fileContent = fs.readFileSync(filePath, 'utf8');
-            // Look for: id: 'topic-id', or id: "topic-id",
-            const idMatch = fileContent.match(/id:\s*['"]([^'"]+)['"]/);
-            if (idMatch && idMatch[1]) {
-              foundTopicIds.add(idMatch[1]);
-            }
+            extractTopicIdsFromFile(fileContent).forEach((topicId) => foundTopicIds.add(topicId));
           } catch (error) {
             console.warn(`Warning: Could not read ${filePath}:`, error.message);
           }
         }
       });
     }
-    
-    // Read all topic files
+
     readTopicFiles(dataDir);
-    
-    // Convert Set to Array and create tutorial pages
+
     const allTopicIds = Array.from(foundTopicIds).sort();
     
     // Read existing sitemap to preserve old dates
