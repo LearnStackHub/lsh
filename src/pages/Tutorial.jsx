@@ -28,7 +28,6 @@ import { ADSENSE_CONFIG } from '../config/adsense';
 import { HierarchyDiagram, ConceptCube, ProcessCards, CodeFlowAnimation } from '../components/Diagram';
 import { ImageGif, ImageCard3D } from '../components/ImageGif';
 import SEOHead from '../components/SEOHead';
-import { FOUNDER } from '../config/company';
 import StructuredData from '../components/StructuredData';
 import FAQSection from '../components/FAQSection';
 import TutorialFloatingChat from '../components/TutorialFloatingChat';
@@ -1005,22 +1004,6 @@ function Tutorial() {
           topicId={resolvedTopicId}
           courseTitle={currentTopic.courseTitle}
         />
-
-        <section
-          aria-label="Article author"
-          style={{
-            marginTop: '2rem',
-            padding: '1rem 1.25rem',
-            border: '1px solid var(--border-color)',
-            borderRadius: '12px',
-            background: 'var(--bg-secondary)',
-          }}
-        >
-          <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Written by:</p>
-          <p style={{ margin: '0.45rem 0 0', fontWeight: 700, fontSize: '1.05rem' }}>{FOUNDER.name}</p>
-          <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)' }}>{FOUNDER.role}</p>
-          <p style={{ margin: '0.15rem 0 0', color: 'var(--text-secondary)' }}>{FOUNDER.expertise}</p>
-        </section>
       </div>
 
       {/* Code Example (Java tutorials only; MySQL/Servlet tracks use article body examples) */}

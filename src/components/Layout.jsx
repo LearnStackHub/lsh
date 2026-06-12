@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Search, Menu, X, BookOpen,
@@ -46,19 +46,35 @@ function Layout() {
   const { getAllContributions } = useContributions();
   const [courseStructure, setCourseStructure] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const loadPromiseRef = useRef(null);
 
-  // Lazy load data after initial render - delay to reduce TBT
-  useEffect(() => {
-    const loadData = () => {
-      import('../data').then((module) => {
+  const loadCourseData = useCallback(() => {
+    if (loadPromiseRef.current) {
+      return loadPromiseRef.current;
+    }
+
+    window.__lshDataLoadTriggered = true;
+    loadPromiseRef.current = import('../data')
+      .then((module) => {
         setCourseStructure(module.courseStructure);
         window.__getAllTopics = module.getAllTopics;
         setDataLoaded(true);
-      }).catch((error) => {
+        return module;
+      })
+      .catch((error) => {
         console.error('Error loading course data:', error);
-        // Still set dataLoaded to true to prevent infinite loading
         setDataLoaded(true);
+        return null;
       });
+
+    return loadPromiseRef.current;
+  }, []);
+
+  // Lazy load data after initial render - delay to reduce TBT
+  useEffect(() => {
+    const triggerLoad = () => {
+      if (window.__lshDataLoadTriggered) return;
+      loadCourseData();
     };
 
     // Detect mobile and use longer delay to reduce TBT
@@ -66,12 +82,6 @@ function Layout() {
     const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
     const idleTimeout = isHomeRoute ? (isMobile ? 7000 : 6000) : (isMobile ? 800 : 500);
     const fallbackDelay = isHomeRoute ? (isMobile ? 8000 : 7000) : (isMobile ? 400 : 200);
-
-    const triggerLoad = () => {
-      if (window.__lshDataLoadTriggered) return;
-      window.__lshDataLoadTriggered = true;
-      loadData();
-    };
 
     if (isHomeRoute) {
       // Home page under slow-4G audits: defer heavy data graph until user intent or long-idle fallback.
@@ -99,7 +109,7 @@ function Layout() {
     } else {
       setTimeout(triggerLoad, fallbackDelay);
     }
-  }, []);
+  }, [loadCourseData]);
 
   // Auto-detect active course based on current topic
   useEffect(() => {
@@ -120,27 +130,36 @@ function Layout() {
 
   // Filter topics based on search
   useEffect(() => {
-    if (!dataLoaded) return;
-    if (searchQuery.trim()) {
-      const allTopics = window.__getAllTopics();
-      const filtered = allTopics.filter(topic => 
-        topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        topic.description?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredTopics(filtered);
-      
-      // Track search in Google Analytics (debounced)
-      const timeoutId = setTimeout(() => {
-        if (searchQuery.trim().length >= 3) {
-          trackSearch(searchQuery.trim());
-        }
-      }, 1000);
-      
-      return () => clearTimeout(timeoutId);
-    } else {
+    const query = searchQuery.trim();
+    if (!query) {
       setFilteredTopics([]);
+      return;
     }
-  }, [searchQuery, dataLoaded]);
+
+    loadCourseData();
+
+    if (!dataLoaded || typeof window.__getAllTopics !== 'function') {
+      return;
+    }
+
+    const normalizedQuery = query.toLowerCase();
+    const allTopics = window.__getAllTopics();
+    const filtered = allTopics.filter((topic) =>
+      topic.title?.toLowerCase().includes(normalizedQuery) ||
+      topic.description?.toLowerCase().includes(normalizedQuery) ||
+      topic.courseTitle?.toLowerCase().includes(normalizedQuery) ||
+      topic.id?.toLowerCase().includes(normalizedQuery.replace(/\s+/g, '-'))
+    );
+    setFilteredTopics(filtered);
+
+    const timeoutId = setTimeout(() => {
+      if (normalizedQuery.length >= 3) {
+        trackSearch(query);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, dataLoaded, loadCourseData]);
 
   const isTopicActive = (topicId) => {
     if (location.pathname === getTopicPath(topicId)) {
@@ -293,25 +312,36 @@ function Layout() {
               type="text"
               placeholder="Search..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => loadCourseData()}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (e.target.value.trim()) {
+                  loadCourseData();
+                }
+              }}
             />
-            {/* Search Results Dropdown */}
-            {filteredTopics.length > 0 && (
+            {searchQuery.trim() && (
               <div className="search-results">
-                {filteredTopics.slice(0, 8).map(topic => (
-                  <Link
-                    key={topic.id}
-                    to={getTopicPath(topic.id)}
-                    className="search-result-item"
-                    onClick={() => setSearchQuery('')}
-                  >
-                    <BookOpen size={14} />
-                    <div>
-                      <span className="search-result-title">{topic.title}</span>
-                      <span className="search-result-course">{topic.courseTitle}</span>
-                    </div>
-                  </Link>
-                ))}
+                {!dataLoaded || typeof window.__getAllTopics !== 'function' ? (
+                  <div className="search-result-status">Loading topics…</div>
+                ) : filteredTopics.length === 0 ? (
+                  <div className="search-result-status">No results found</div>
+                ) : (
+                  filteredTopics.slice(0, 8).map((topic) => (
+                    <Link
+                      key={topic.id}
+                      to={getTopicPath(topic.id)}
+                      className="search-result-item"
+                      onClick={() => setSearchQuery('')}
+                    >
+                      <BookOpen size={14} />
+                      <div>
+                        <span className="search-result-title">{topic.title}</span>
+                        <span className="search-result-course">{topic.courseTitle}</span>
+                      </div>
+                    </Link>
+                  ))
+                )}
               </div>
             )}
           </div>
@@ -454,7 +484,7 @@ function Layout() {
 
 
       {/* Click outside to close search */}
-      {filteredTopics.length > 0 && (
+      {searchQuery.trim() && (
         <div 
           className="search-overlay"
           onClick={() => setSearchQuery('')}

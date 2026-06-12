@@ -498,6 +498,12 @@ code {
   color: var(--text-muted);
 }
 
+.search-result-status {
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
 .search-overlay {
   position: fixed;
   top: 0;
