@@ -5,7 +5,22 @@ function normalizePrivateKey(key) {
     return '';
   }
 
-  return String(key).replace(/\\n/g, '\n');
+  let value = String(key).trim();
+
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    value = value.slice(1, -1);
+  }
+
+  value = value.replace(/\\n/g, '\n');
+
+  if (value.includes('\\n')) {
+    value = value.replace(/\\n/g, '\n');
+  }
+
+  return value;
 }
 
 function parseServiceAccount(raw) {
@@ -13,41 +28,48 @@ function parseServiceAccount(raw) {
     return null;
   }
 
-  let value = raw;
-
-  if (typeof value === 'object' && value !== null) {
-    if (value.client_email && value.private_key) {
+  if (typeof raw === 'object' && raw !== null) {
+    if (raw.client_email && raw.private_key) {
       return {
-        ...value,
-        private_key: normalizePrivateKey(value.private_key),
+        ...raw,
+        private_key: normalizePrivateKey(raw.private_key),
       };
     }
     return null;
   }
 
-  let trimmed = String(value).trim();
+  let trimmed = String(raw).trim().replace(/^\uFEFF/, '');
 
   if (
     (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
     (trimmed.startsWith("'") && trimmed.endsWith("'"))
   ) {
     try {
-      trimmed = JSON.parse(trimmed);
-      if (typeof trimmed === 'object' && trimmed !== null) {
-        return parseServiceAccount(trimmed);
+      const unquoted = JSON.parse(trimmed);
+      if (typeof unquoted === 'object' && unquoted !== null) {
+        return parseServiceAccount(unquoted);
+      }
+      if (typeof unquoted === 'string') {
+        trimmed = unquoted.trim();
       }
     } catch {
-      // continue with string parsing
+      trimmed = trimmed.slice(1, -1);
     }
   }
 
   const candidates = [
     trimmed,
+    trimmed.replace(/\r\n/g, '\n'),
     trimmed.replace(/\r?\n/g, ''),
     trimmed.replace(/\\"/g, '"'),
+    trimmed.replace(/\\'/g, "'"),
   ];
 
   for (const candidate of candidates) {
+    if (!candidate) {
+      continue;
+    }
+
     try {
       const parsed = JSON.parse(candidate);
       if (parsed?.client_email && parsed?.private_key && parsed?.project_id) {
@@ -64,6 +86,32 @@ function parseServiceAccount(raw) {
   return null;
 }
 
+function readServiceAccountFromEnv() {
+  const jsonRaw = process.env.FIREBASE_SERVICE_ACCOUNT || process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+  if (jsonRaw) {
+    const parsed = parseServiceAccount(jsonRaw);
+    if (parsed) {
+      return parsed;
+    }
+  }
+
+  const b64Raw =
+    process.env.FIREBASE_SERVICE_ACCOUNT_B64 || process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+  if (b64Raw) {
+    try {
+      const decoded = Buffer.from(String(b64Raw).trim(), 'base64').toString('utf8');
+      const parsed = parseServiceAccount(decoded);
+      if (parsed) {
+        return parsed;
+      }
+    } catch {
+      // fall through to split vars
+    }
+  }
+
+  return null;
+}
+
 function resolveProjectId(serviceAccount) {
   return (
     serviceAccount?.project_id ||
@@ -74,27 +122,31 @@ function resolveProjectId(serviceAccount) {
 }
 
 function buildCredential() {
-  const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
-  if (serviceAccount) {
-    return {
-      credential: cert(serviceAccount),
-      projectId: resolveProjectId(serviceAccount),
-    };
-  }
+  try {
+    const serviceAccount = readServiceAccountFromEnv();
+    if (serviceAccount) {
+      return {
+        credential: cert(serviceAccount),
+        projectId: resolveProjectId(serviceAccount),
+      };
+    }
 
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
-  const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
-  const projectId = resolveProjectId();
+    const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
+    const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
+    const projectId = resolveProjectId();
 
-  if (clientEmail && privateKey) {
-    return {
-      credential: cert({
+    if (clientEmail && privateKey) {
+      return {
+        credential: cert({
+          projectId,
+          clientEmail,
+          privateKey,
+        }),
         projectId,
-        clientEmail,
-        privateKey,
-      }),
-      projectId,
-    };
+      };
+    }
+  } catch (error) {
+    console.error('firebase credential build failed:', error?.message || error);
   }
 
   return null;
@@ -107,6 +159,7 @@ export function getFirebaseAdminApp() {
 
   const config = buildCredential();
   if (!config) {
+    console.error('firebase admin: no valid credential in environment');
     return null;
   }
 
@@ -126,6 +179,24 @@ export function getAdminEmails() {
     .split(',')
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean);
+}
+
+export function getConfigStatus() {
+  const hasJson = Boolean(
+    process.env.FIREBASE_SERVICE_ACCOUNT ||
+      process.env.FIREBASE_SERVICE_ACCOUNT_JSON ||
+      process.env.FIREBASE_SERVICE_ACCOUNT_B64 ||
+      process.env.FIREBASE_SERVICE_ACCOUNT_BASE64
+  );
+  const hasSplit = Boolean(
+    process.env.FIREBASE_CLIENT_EMAIL?.trim() && process.env.FIREBASE_PRIVATE_KEY?.trim()
+  );
+
+  return {
+    hasCredentialEnv: hasJson || hasSplit,
+    credentialParses: Boolean(buildCredential()),
+    hasAdminEmails: getAdminEmails().length > 0,
+  };
 }
 
 export function getBearerToken(req) {

@@ -22,12 +22,18 @@ export default async function handler(req, res) {
 
     const { getAuth } = await import('firebase-admin/auth');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { getFirebaseAdminApp, userFromDecodedToken } = await import('./_lib/firebaseAdmin.js');
+    const { getConfigStatus, getFirebaseAdminApp, userFromDecodedToken } = await import(
+      './_lib/firebaseAdmin.js'
+    );
     const { upsertUserProfile } = await import('./_lib/userProfiles.js');
 
     const app = getFirebaseAdminApp();
     if (!app) {
-      res.status(503).json({ error: 'Not configured' });
+      const status = getConfigStatus();
+      res.status(503).json({
+        error: 'Not configured',
+        code: status.hasCredentialEnv ? 'INVALID_FIREBASE_CREDENTIAL' : 'MISSING_FIREBASE_CREDENTIAL',
+      });
       return;
     }
 

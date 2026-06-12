@@ -76,18 +76,24 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { getAdminEmails, getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const { getAdminEmails, getConfigStatus, getFirebaseAdminApp } = await import(
+      './_lib/firebaseAdmin.js'
+    );
     const token = authHeader.slice('Bearer '.length);
-
-    const app = getFirebaseAdminApp();
-    if (!app) {
-      res.status(503).json({ error: 'Not configured' });
-      return;
-    }
 
     const allowedEmails = getAdminEmails();
     if (allowedEmails.length === 0) {
-      res.status(503).json({ error: 'Not configured' });
+      res.status(503).json({ error: 'Not configured', code: 'MISSING_ADMIN_EMAILS' });
+      return;
+    }
+
+    const app = getFirebaseAdminApp();
+    if (!app) {
+      const status = getConfigStatus();
+      res.status(503).json({
+        error: 'Not configured',
+        code: status.hasCredentialEnv ? 'INVALID_FIREBASE_CREDENTIAL' : 'MISSING_FIREBASE_CREDENTIAL',
+      });
       return;
     }
 
