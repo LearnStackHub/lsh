@@ -1,5 +1,14 @@
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { db, isAuthConfigured } from '../config/firebase';
+import { auth, db, isAuthConfigured } from '../config/firebase';
+
+const SYNC_MAX_ATTEMPTS = 4;
+const SYNC_RETRY_MS = 1200;
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 function buildUserProfile(firebaseUser, displayNameOverride) {
   const displayName =
@@ -20,6 +29,26 @@ function buildUserProfile(firebaseUser, displayNameOverride) {
     },
     updatedAt: serverTimestamp(),
   };
+}
+
+async function syncUserProfileViaApi(firebaseUser) {
+  if (!auth?.currentUser || auth.currentUser.uid !== firebaseUser.uid) {
+    return false;
+  }
+
+  try {
+    const token = await auth.currentUser.getIdToken(true);
+    const response = await fetch('/api/sync-user', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.ok;
+  } catch {
+    return false;
+  }
 }
 
 export async function ensureUserProfile(firebaseUser, displayNameOverride) {
@@ -43,6 +72,7 @@ export async function ensureUserProfile(firebaseUser, displayNameOverride) {
             firebaseUser.email?.split('@')[0] ||
             'User',
           photoURL: firebaseUser.photoURL || existing.photoURL || '',
+          lastSignInAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         },
         { merge: true }
@@ -53,6 +83,7 @@ export async function ensureUserProfile(firebaseUser, displayNameOverride) {
     const profile = buildUserProfile(firebaseUser, displayNameOverride);
     await setDoc(userRef, {
       ...profile,
+      lastSignInAt: serverTimestamp(),
       createdAt: serverTimestamp(),
     });
     return profile;
@@ -60,6 +91,39 @@ export async function ensureUserProfile(firebaseUser, displayNameOverride) {
     console.warn('Could not save user profile:', error?.code || error?.message);
     return null;
   }
+}
+
+/** Persist profile via server API first, then client Firestore, with retries. */
+export async function persistUserProfile(firebaseUser, displayNameOverride) {
+  if (!firebaseUser?.uid) {
+    return null;
+  }
+
+  let lastProfile = null;
+
+  for (let attempt = 0; attempt < SYNC_MAX_ATTEMPTS; attempt += 1) {
+    const serverSaved = await syncUserProfileViaApi(firebaseUser);
+    const clientProfile = await ensureUserProfile(firebaseUser, displayNameOverride);
+
+    if (clientProfile) {
+      lastProfile = clientProfile;
+    }
+
+    if (serverSaved) {
+      const profile = await getUserProfile(firebaseUser.uid);
+      return profile || lastProfile || clientProfile;
+    }
+
+    if (clientProfile) {
+      return clientProfile;
+    }
+
+    if (attempt < SYNC_MAX_ATTEMPTS - 1) {
+      await wait(SYNC_RETRY_MS * (attempt + 1));
+    }
+  }
+
+  return lastProfile;
 }
 
 export async function getUserProfile(uid) {

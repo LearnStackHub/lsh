@@ -12,7 +12,7 @@ import {
   buildUserFromSession,
 } from '../../services/adminService';
 import { auth } from '../../config/firebase';
-import { ensureUserProfile } from '../../services/userService';
+import { persistUserProfile } from '../../services/userService';
 
 function formatDate(value) {
   if (!value) {
@@ -48,7 +48,7 @@ function AdminDashboard() {
         console.warn('Admin bootstrap skipped:', bootstrapError?.message);
       }
 
-      const savedProfile = await ensureUserProfile(auth.currentUser);
+      const savedProfile = await persistUserProfile(auth.currentUser);
 
       let profileUsers = [];
       let accountUsers = null;

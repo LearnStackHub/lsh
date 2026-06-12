@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth, googleProvider, isAuthConfigured } from '../config/firebase';
-import { ensureUserProfile, getUserProfile, hasActiveSubscription } from '../services/userService';
+import { persistUserProfile, getUserProfile, hasActiveSubscription } from '../services/userService';
 
 const AuthContext = createContext();
 
@@ -72,7 +72,7 @@ function throwAuthError(code) {
 
 async function syncUserProfile(firebaseUser) {
   try {
-    await ensureUserProfile(firebaseUser);
+    await persistUserProfile(firebaseUser);
   } catch (error) {
     console.warn('User profile sync skipped:', error?.code || error?.message);
   }

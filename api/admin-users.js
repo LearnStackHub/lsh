@@ -1,92 +1,11 @@
-import { cert, getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
+import { getAdminEmails, getBearerToken, getFirebaseAdminApp } from './lib/firebaseAdmin.js';
+import { backfillUserProfiles } from './lib/userProfiles.js';
 
 export const config = {
   maxDuration: 30,
 };
-
-function getAdminEmails() {
-  return (process.env.ADMIN_EMAILS || process.env.VITE_ADMIN_EMAILS || '')
-    .split(',')
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-function normalizePrivateKey(key) {
-  if (!key) {
-    return '';
-  }
-
-  return String(key).replace(/\\n/g, '\n');
-}
-
-function parseServiceAccount(raw) {
-  if (!raw) {
-    return null;
-  }
-
-  const trimmed = raw.trim();
-  const candidates = [trimmed, trimmed.replace(/\r?\n/g, '')];
-
-  for (const candidate of candidates) {
-    try {
-      const parsed = JSON.parse(candidate);
-      if (parsed?.client_email && parsed?.private_key && parsed?.project_id) {
-        return {
-          ...parsed,
-          private_key: normalizePrivateKey(parsed.private_key),
-        };
-      }
-    } catch {
-      // try next candidate
-    }
-  }
-
-  return null;
-}
-
-function buildCredential() {
-  const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
-  if (serviceAccount) {
-    return cert(serviceAccount);
-  }
-
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
-  const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
-  const projectId =
-    process.env.FIREBASE_PROJECT_ID?.trim() ||
-    process.env.VITE_FIREBASE_PROJECT_ID?.trim() ||
-    'learnstackhub';
-
-  if (clientEmail && privateKey) {
-    return cert({
-      projectId,
-      clientEmail,
-      privateKey,
-    });
-  }
-
-  return null;
-}
-
-function getFirebaseAdminApp() {
-  if (getApps().length > 0) {
-    return getApps()[0];
-  }
-
-  const credential = buildCredential();
-  if (!credential) {
-    return null;
-  }
-
-  try {
-    return initializeApp({ credential });
-  } catch (error) {
-    console.error('admin-users init failed:', error?.message || error);
-    return null;
-  }
-}
 
 function mapAuthUser(user) {
   return {
@@ -102,6 +21,7 @@ function mapAuthUser(user) {
 function mapProfileDoc(id, data) {
   const subscription = data.subscription || { status: 'none' };
   const createdAt = data.createdAt?.toDate?.()?.toISOString?.() || null;
+  const lastSignInAt = data.lastSignInAt?.toDate?.()?.toISOString?.() || null;
 
   return {
     uid: id,
@@ -109,7 +29,7 @@ function mapProfileDoc(id, data) {
     displayName: data.displayName || '',
     photoURL: data.photoURL || '',
     createdAt,
-    lastSignIn: null,
+    lastSignIn: lastSignInAt,
     subscriptionStatus: subscription.status || 'none',
     subscriptionExpiresAt: subscription.expiresAt?.toDate?.()?.toISOString?.() || null,
   };
@@ -158,15 +78,13 @@ export default async function handler(req, res) {
       return;
     }
 
-    const authHeader = req.headers.authorization || '';
-    if (!authHeader.startsWith('Bearer ')) {
+    const token = getBearerToken(req);
+    if (!token) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
     }
 
-    const token = authHeader.slice('Bearer '.length);
     const allowedEmails = getAdminEmails();
-
     if (allowedEmails.length === 0) {
       res.status(503).json({ error: 'Not configured' });
       return;
@@ -182,32 +100,38 @@ export default async function handler(req, res) {
     }
 
     const authUsers = [];
+    const authUserRecords = [];
     let pageToken;
 
     do {
       const batch = await auth.listUsers(1000, pageToken);
       batch.users.forEach((user) => {
+        authUserRecords.push(user);
         authUsers.push(mapAuthUser(user));
       });
       pageToken = batch.pageToken;
     } while (pageToken);
 
+    const db = getFirestore(app);
+
+    try {
+      await backfillUserProfiles(db, authUserRecords);
+    } catch (backfillError) {
+      console.warn('admin-users backfill skipped:', backfillError?.message || backfillError);
+    }
+
     let profileUsers = [];
     try {
-      const profileSnap = await getFirestore(app).collection('users').get();
+      const profileSnap = await db.collection('users').get();
       profileUsers = profileSnap.docs.map((entry) => mapProfileDoc(entry.id, entry.data()));
     } catch (profileError) {
-      console.warn('admin-users profile merge skipped:', profileError?.message || profileError);
+      console.warn('admin-users profile read skipped:', profileError?.message || profileError);
     }
 
     res.status(200).json({ users: mergeUsers(authUsers, profileUsers) });
   } catch (error) {
     const code = error?.code || '';
-    if (
-      code.startsWith('auth/') ||
-      code === 'auth/id-token-expired' ||
-      code === 'auth/argument-error'
-    ) {
+    if (code.startsWith('auth/')) {
       res.status(401).json({ error: 'Invalid token' });
       return;
     }

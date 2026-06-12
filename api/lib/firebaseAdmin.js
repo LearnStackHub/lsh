@@ -1,0 +1,92 @@
+import { cert, getApps, initializeApp } from 'firebase-admin/app';
+
+function normalizePrivateKey(key) {
+  if (!key) {
+    return '';
+  }
+
+  return String(key).replace(/\\n/g, '\n');
+}
+
+function parseServiceAccount(raw) {
+  if (!raw) {
+    return null;
+  }
+
+  const trimmed = raw.trim();
+  const candidates = [trimmed, trimmed.replace(/\r?\n/g, '')];
+
+  for (const candidate of candidates) {
+    try {
+      const parsed = JSON.parse(candidate);
+      if (parsed?.client_email && parsed?.private_key && parsed?.project_id) {
+        return {
+          ...parsed,
+          private_key: normalizePrivateKey(parsed.private_key),
+        };
+      }
+    } catch {
+      // try next candidate
+    }
+  }
+
+  return null;
+}
+
+function buildCredential() {
+  const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
+  if (serviceAccount) {
+    return cert(serviceAccount);
+  }
+
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
+  const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
+  const projectId =
+    process.env.FIREBASE_PROJECT_ID?.trim() ||
+    process.env.VITE_FIREBASE_PROJECT_ID?.trim() ||
+    'learnstackhub';
+
+  if (clientEmail && privateKey) {
+    return cert({
+      projectId,
+      clientEmail,
+      privateKey,
+    });
+  }
+
+  return null;
+}
+
+export function getFirebaseAdminApp() {
+  if (getApps().length > 0) {
+    return getApps()[0];
+  }
+
+  const credential = buildCredential();
+  if (!credential) {
+    return null;
+  }
+
+  try {
+    return initializeApp({ credential });
+  } catch (error) {
+    console.error('firebase admin init failed:', error?.message || error);
+    return null;
+  }
+}
+
+export function getAdminEmails() {
+  return (process.env.ADMIN_EMAILS || process.env.VITE_ADMIN_EMAILS || '')
+    .split(',')
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function getBearerToken(req) {
+  const authHeader = req.headers.authorization || '';
+  if (!authHeader.startsWith('Bearer ')) {
+    return null;
+  }
+
+  return authHeader.slice('Bearer '.length);
+}
