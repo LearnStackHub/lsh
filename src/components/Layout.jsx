@@ -237,8 +237,10 @@ function Layout() {
     maven: Package
   };
 
+  const isHomePage = location.pathname === '/' || location.pathname === '/index.html';
+
   return (
-    <div className="app-layout">
+    <div className={`app-layout${isHomePage ? ' app-layout--home' : ''}`}>
       {/* Header */}
       <header className="header" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
         <div className="header-left">
@@ -271,53 +273,25 @@ function Layout() {
         <div className="header-right">
           <Link
             to="/ai-lab/code-editor"
-            className="header-ai-lab-link"
+            className="header-action-link"
             title="Open live code editor"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              marginRight: '0.5rem',
-              padding: '0.4rem 0.65rem',
-              borderRadius: 'var(--radius-md)',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              color: '#fff',
-              textDecoration: 'none',
-              background: 'var(--gradient-primary)',
-              whiteSpace: 'nowrap',
-            }}
           >
             <Code size={16} aria-hidden />
-            <span className="header-ai-lab-text">Run Live Code</span>
+            <span className="header-action-text">Run Live Code</span>
           </Link>
           <Link
             to="/ai-lab"
-            className="header-ai-lab-link"
+            className="header-action-link"
             title="Practice Lab — AI chat and interview prep"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              marginRight: '0.75rem',
-              padding: '0.4rem 0.65rem',
-              borderRadius: 'var(--radius-md)',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              color: '#fff',
-              textDecoration: 'none',
-              background: 'var(--gradient-primary)',
-              whiteSpace: 'nowrap',
-            }}
           >
             <Sparkles size={16} aria-hidden />
-            <span className="header-ai-lab-text">Practice Lab</span>
+            <span className="header-action-text">Practice Lab</span>
           </Link>
           <div className="header-search">
             <Search size={18} className="search-icon" />
             <input
               type="text"
-              placeholder="Search tutorials..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
