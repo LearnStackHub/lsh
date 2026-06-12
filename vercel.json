@@ -2,13 +2,11 @@
   "functions": {
     "api/sync-user.js": {
       "memory": 1024,
-      "maxDuration": 15,
-      "includeFiles": "api/_lib/**"
+      "maxDuration": 15
     },
     "api/admin-users.js": {
       "memory": 1024,
-      "maxDuration": 30,
-      "includeFiles": "api/_lib/**"
+      "maxDuration": 30
     }
   },
   "headers": [

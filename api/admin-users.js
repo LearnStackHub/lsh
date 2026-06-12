@@ -1,8 +1,3 @@
-import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
-import { getAdminEmails, getBearerToken, getFirebaseAdminApp } from './_lib/firebaseAdmin.js';
-import { backfillUserProfiles } from './_lib/userProfiles.js';
-
 export const config = {
   maxDuration: 30,
 };
@@ -75,15 +70,19 @@ export default async function handler(req, res) {
       return;
     }
 
-    const app = getFirebaseAdminApp();
-    if (!app) {
-      res.status(503).json({ error: 'Not configured' });
-      return;
-    }
+    const { getAdminEmails, getBearerToken, getFirebaseAdminApp } = await import(
+      './_lib/firebaseAdmin.js'
+    );
 
     const token = getBearerToken(req);
     if (!token) {
       res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    const app = getFirebaseAdminApp();
+    if (!app) {
+      res.status(503).json({ error: 'Not configured' });
       return;
     }
 
@@ -92,6 +91,10 @@ export default async function handler(req, res) {
       res.status(503).json({ error: 'Not configured' });
       return;
     }
+
+    const { getAuth } = await import('firebase-admin/auth');
+    const { getFirestore } = await import('firebase-admin/firestore');
+    const { backfillUserProfiles } = await import('./_lib/userProfiles.js');
 
     const auth = getAuth(app);
     const decoded = await auth.verifyIdToken(token);
@@ -140,6 +143,6 @@ export default async function handler(req, res) {
     }
 
     console.error('admin-users failed:', error?.message || error);
-    res.status(503).json({ error: 'Unavailable' });
+    res.status(503).json({ error: 'Unavailable', detail: error?.message || 'unknown' });
   }
 }
