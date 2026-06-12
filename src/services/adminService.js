@@ -49,23 +49,30 @@ export async function fetchFirestoreUsers() {
     return [];
   }
 
-  const snapshot = await getDocs(query(collection(db, 'users')));
-  return snapshot.docs.map((entry) => {
-    const data = entry.data();
-    const createdAt = data.createdAt?.toDate?.() || null;
-    const subscription = data.subscription || { status: 'none' };
+  try {
+    const snapshot = await getDocs(query(collection(db, 'users')));
+    return snapshot.docs.map((entry) => {
+      const data = entry.data();
+      const createdAt = data.createdAt?.toDate?.() || null;
+      const subscription = data.subscription || { status: 'none' };
 
-    return {
-      uid: entry.id,
-      email: data.email || '',
-      displayName: data.displayName || '',
-      photoURL: data.photoURL || '',
-      createdAt: createdAt ? createdAt.toISOString() : null,
-      subscriptionStatus: subscription.status || 'none',
-      subscriptionExpiresAt: subscription.expiresAt?.toDate?.()?.toISOString?.() || null,
-      source: 'firestore',
-    };
-  });
+      return {
+        uid: entry.id,
+        email: data.email || '',
+        displayName: data.displayName || '',
+        photoURL: data.photoURL || '',
+        createdAt: createdAt ? createdAt.toISOString() : null,
+        subscriptionStatus: subscription.status || 'none',
+        subscriptionExpiresAt: subscription.expiresAt?.toDate?.()?.toISOString?.() || null,
+      };
+    });
+  } catch (error) {
+    if (error?.code === 'permission-denied') {
+      throw new Error('Unable to load users. Please try again later.');
+    }
+
+    throw new Error('Unable to load users right now.');
+  }
 }
 
 export async function fetchAuthUsersFromApi() {
@@ -85,12 +92,15 @@ export async function fetchAuthUsersFromApi() {
   }
 
   if (!response.ok) {
-    const payload = await response.json().catch(() => ({}));
-    throw new Error(payload.error || 'Failed to load users from admin API');
+    throw new Error('Unable to load full user list.');
   }
 
   const payload = await response.json();
   return payload.users || [];
+}
+
+export function formatProviderLabel() {
+  return 'Member';
 }
 
 export function mergeUserRecords(authUsers, firestoreUsers) {
@@ -108,11 +118,9 @@ export function mergeUserRecords(authUsers, firestoreUsers) {
       displayName: user.displayName || existing.displayName || '',
       photoURL: user.photoURL || existing.photoURL || '',
       createdAt: user.createdAt || existing.createdAt || null,
-      lastSignIn: user.lastSignIn || null,
-      provider: user.provider || 'google.com',
-      subscriptionStatus: existing.subscriptionStatus || 'none',
-      subscriptionExpiresAt: existing.subscriptionExpiresAt || null,
-      source: existing.uid ? 'auth+firestore' : 'auth',
+      lastSignIn: user.lastSignIn || existing.lastSignIn || null,
+      subscriptionStatus: existing.subscriptionStatus || user.subscriptionStatus || 'none',
+      subscriptionExpiresAt: existing.subscriptionExpiresAt || user.subscriptionExpiresAt || null,
     });
   });
 
@@ -121,4 +129,23 @@ export function mergeUserRecords(authUsers, firestoreUsers) {
     const bTime = new Date(b.lastSignIn || b.createdAt || 0).getTime();
     return bTime - aTime;
   });
+}
+
+export function buildUserFromSession(authUser, profile) {
+  if (!authUser?.uid) {
+    return null;
+  }
+
+  const subscription = profile?.subscription || { status: 'none' };
+
+  return {
+    uid: authUser.uid,
+    email: authUser.email || profile?.email || '',
+    displayName: authUser.displayName || profile?.displayName || '',
+    photoURL: authUser.photoURL || profile?.photoURL || '',
+    createdAt: profile?.createdAt?.toDate?.()?.toISOString?.() || authUser.metadata?.creationTime || null,
+    lastSignIn: authUser.metadata?.lastSignInTime || null,
+    subscriptionStatus: subscription.status || 'none',
+    subscriptionExpiresAt: subscription.expiresAt?.toDate?.()?.toISOString?.() || null,
+  };
 }

@@ -21,12 +21,70 @@ function getFirebaseAdmin() {
     return null;
   }
 
-  const serviceAccount = JSON.parse(raw);
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+  try {
+    const serviceAccount = JSON.parse(raw);
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+    return admin;
+  } catch {
+    return null;
+  }
+}
+
+function mapAuthUser(user) {
+  return {
+    uid: user.uid,
+    email: user.email || '',
+    displayName: user.displayName || '',
+    photoURL: user.photoURL || '',
+    createdAt: user.metadata.creationTime || null,
+    lastSignIn: user.metadata.lastSignInTime || null,
+  };
+}
+
+function mapProfileDoc(id, data) {
+  const subscription = data.subscription || { status: 'none' };
+  const createdAt = data.createdAt?.toDate?.()?.toISOString?.() || null;
+
+  return {
+    uid: id,
+    email: data.email || '',
+    displayName: data.displayName || '',
+    photoURL: data.photoURL || '',
+    createdAt,
+    lastSignIn: null,
+    subscriptionStatus: subscription.status || 'none',
+    subscriptionExpiresAt: subscription.expiresAt?.toDate?.()?.toISOString?.() || null,
+  };
+}
+
+function mergeUsers(authUsers, profileUsers) {
+  const byUid = new Map();
+
+  profileUsers.forEach((user) => {
+    byUid.set(user.uid, user);
   });
 
-  return admin;
+  authUsers.forEach((user) => {
+    const existing = byUid.get(user.uid) || {};
+    byUid.set(user.uid, {
+      uid: user.uid,
+      email: user.email || existing.email || '',
+      displayName: user.displayName || existing.displayName || '',
+      photoURL: user.photoURL || existing.photoURL || '',
+      createdAt: user.createdAt || existing.createdAt || null,
+      lastSignIn: user.lastSignIn || existing.lastSignIn || null,
+      subscriptionStatus: existing.subscriptionStatus || 'none',
+      subscriptionExpiresAt: existing.subscriptionExpiresAt || null,
+    });
+  });
+
+  return Array.from(byUid.values()).sort((a, b) => {
+    const aTime = new Date(a.lastSignIn || a.createdAt || 0).getTime();
+    const bTime = new Date(b.lastSignIn || b.createdAt || 0).getTime();
+    return bTime - aTime;
+  });
 }
 
 export default async function handler(req, res) {
@@ -39,7 +97,7 @@ export default async function handler(req, res) {
 
   const firebaseAdmin = getFirebaseAdmin();
   if (!firebaseAdmin) {
-    res.status(503).json({ error: 'Admin API not configured' });
+    res.status(503).json({ error: 'Not configured' });
     return;
   }
 
@@ -67,20 +125,15 @@ export default async function handler(req, res) {
     do {
       const batch = await firebaseAdmin.auth().listUsers(1000, pageToken);
       batch.users.forEach((user) => {
-        authUsers.push({
-          uid: user.uid,
-          email: user.email || '',
-          displayName: user.displayName || '',
-          photoURL: user.photoURL || '',
-          createdAt: user.metadata.creationTime || null,
-          lastSignIn: user.metadata.lastSignInTime || null,
-          provider: user.providerData[0]?.providerId || 'google.com',
-        });
+        authUsers.push(mapAuthUser(user));
       });
       pageToken = batch.pageToken;
     } while (pageToken);
 
-    res.status(200).json({ users: authUsers });
+    const profileSnap = await firebaseAdmin.firestore().collection('users').get();
+    const profileUsers = profileSnap.docs.map((entry) => mapProfileDoc(entry.id, entry.data()));
+
+    res.status(200).json({ users: mergeUsers(authUsers, profileUsers) });
   } catch {
     res.status(401).json({ error: 'Invalid token' });
   }

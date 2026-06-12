@@ -24,7 +24,7 @@ function AdminRoute({ children }) {
   if (!user) {
     return (
       <div className="admin-page-loading">
-        <p>Please sign in with Google to open the admin dashboard.</p>
+        <p>Please sign in to open the admin dashboard.</p>
         <Link to="/" className="admin-back-link">
           <ArrowLeft size={16} aria-hidden />
           Back to home
@@ -40,7 +40,7 @@ function AdminRoute({ children }) {
         <h1>Access restricted</h1>
         <p>Your account does not have permission to view this page.</p>
         <p className="admin-access-hint">
-          Sign in with a different Google account, or contact the site owner if you need access.
+          Sign in with a different account, or contact the site owner if you need access.
         </p>
         <Link to="/" className="btn btn-primary">
           Back to home

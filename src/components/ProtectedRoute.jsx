@@ -29,10 +29,10 @@ function ProtectedRoute() {
       <div className="auth-gate-prompt">
         <LogIn size={40} aria-hidden />
         <h1>Sign in required</h1>
-        <p>Sign in with Google to access tutorials, MCQs, and the Practice Lab.</p>
+        <p>Sign in to access tutorials, MCQs, and the Practice Lab.</p>
         <div className="auth-gate-actions">
           <button type="button" className="btn btn-primary" onClick={openLoginModal}>
-            Sign in with Google
+            Sign in
           </button>
           <Link to="/" className="auth-back-link">
             <ArrowLeft size={16} aria-hidden />

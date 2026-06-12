@@ -162,7 +162,7 @@ function Home() {
         <div className="section-header">
           <h2 className="section-title-main">Courses Available</h2>
           <p className="home-section-subtitle">
-            Every track below is on LearnStackHub with step-by-step tutorials. Sign in with Google to access
+            Every track below is on LearnStackHub with step-by-step tutorials. Sign in to access
             courses — the homepage is open; all course content requires sign-in.
           </p>
         </div>

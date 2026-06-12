@@ -56,7 +56,7 @@ function getAuthErrorMessage(error) {
     case 'auth/network-request-failed':
       return 'Network error. Check your connection and try again.';
     case 'auth/operation-not-allowed':
-      return 'Google sign-in is not enabled yet. Please try again later.';
+      return 'Sign-in is not enabled yet. Please try again later.';
     case 'auth/unavailable':
       return 'Sign-in is unavailable right now. Please try again later.';
     default:
@@ -110,7 +110,7 @@ export function AuthProvider({ children }) {
         }
       } catch (error) {
         if (!isUserCancelledAuth(error)) {
-          console.warn('Google redirect sign-in failed:', error?.code || error?.message);
+          console.warn('Redirect sign-in failed:', error?.code || error?.message);
         }
       }
     };
@@ -135,7 +135,7 @@ export function AuthProvider({ children }) {
         setUser(mapFirebaseUser(firebaseUser, profile));
       }
 
-      syncUserProfile(firebaseUser);
+      await syncUserProfile(firebaseUser);
     });
 
     return () => {

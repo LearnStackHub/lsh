@@ -5037,7 +5037,7 @@ code {
   background: var(--border-color);
 }
 
-.btn-google {
+.btn-signin {
   width: 100%;
   display: inline-flex;
   align-items: center;
@@ -5048,7 +5048,7 @@ code {
   border: 1px solid var(--border-color);
 }
 
-.btn-google:hover {
+.btn-signin:hover {
   background: #f8fafc;
 }
 

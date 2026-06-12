@@ -16,7 +16,7 @@ function LoginModal() {
 
   if (!isLoginModalOpen) return null;
 
-  const handleGoogleSignIn = async () => {
+  const handleSignIn = async () => {
     setError('');
     setSubmitting(true);
 
@@ -59,12 +59,12 @@ function LoginModal() {
 
             <button
               type="button"
-              className="btn btn-google login-btn"
-              onClick={handleGoogleSignIn}
+              className="btn btn-signin login-btn"
+              onClick={handleSignIn}
               disabled={submitting}
             >
               {submitting ? <Loader2 size={18} className="spin-icon" /> : null}
-              Continue with Google
+              Continue
             </button>
           </div>
         )}

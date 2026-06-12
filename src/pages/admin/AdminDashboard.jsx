@@ -9,7 +9,10 @@ import {
   fetchAuthUsersFromApi,
   fetchFirestoreUsers,
   mergeUserRecords,
+  buildUserFromSession,
 } from '../../services/adminService';
+import { auth } from '../../config/firebase';
+import { ensureUserProfile } from '../../services/userService';
 
 function formatDate(value) {
   if (!value) {
@@ -29,7 +32,6 @@ function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [apiAvailable, setApiAvailable] = useState(false);
 
   const loadUsers = async () => {
     if (!user) {
@@ -46,20 +48,38 @@ function AdminDashboard() {
         console.warn('Admin bootstrap skipped:', bootstrapError?.message);
       }
 
-      const firestoreUsers = await fetchFirestoreUsers();
-      let authUsers = null;
+      await ensureUserProfile(auth.currentUser);
+
+      let profileUsers = [];
+      let accountUsers = null;
 
       try {
-        authUsers = await fetchAuthUsersFromApi();
-        setApiAvailable(Array.isArray(authUsers));
+        accountUsers = await fetchAuthUsersFromApi();
       } catch (apiError) {
-        console.warn('Admin API unavailable:', apiError.message);
-        setApiAvailable(false);
+        console.warn('Full user list unavailable:', apiError?.message);
       }
 
-      setUsers(mergeUserRecords(authUsers, firestoreUsers));
+      try {
+        profileUsers = await fetchFirestoreUsers();
+      } catch (profileError) {
+        if (!accountUsers?.length) {
+          throw profileError;
+        }
+        console.warn('Profile list unavailable:', profileError?.message);
+      }
+
+      let merged = mergeUserRecords(accountUsers, profileUsers);
+
+      if (merged.length === 0 && auth?.currentUser) {
+        const fallback = buildUserFromSession(auth.currentUser);
+        if (fallback) {
+          merged = [fallback];
+        }
+      }
+
+      setUsers(merged);
     } catch (err) {
-      setError(err.message || 'Could not load users.');
+      setError(err.message || 'Unable to load users right now.');
     } finally {
       setLoading(false);
     }
@@ -115,13 +135,6 @@ function AdminDashboard() {
           </div>
         </div>
 
-        {!apiAvailable && (
-          <p className="admin-note">
-            Showing Firestore profiles. Add <code>FIREBASE_SERVICE_ACCOUNT</code> on Vercel to also list all
-            Firebase Auth users via <code>/api/admin-users</code>.
-          </p>
-        )}
-
         {error && <div className="form-error admin-error">{error}</div>}
 
         <div className="admin-table-wrap">
@@ -130,7 +143,6 @@ function AdminDashboard() {
               <tr>
                 <th>User</th>
                 <th>Email</th>
-                <th>Provider</th>
                 <th>Subscription</th>
                 <th>Joined</th>
                 <th>Last sign-in</th>
@@ -139,14 +151,14 @@ function AdminDashboard() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="admin-table-empty">
+                  <td colSpan={5} className="admin-table-empty">
                     Loading users…
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="admin-table-empty">
-                    No users yet. Users appear here after they sign in with Google.
+                  <td colSpan={5} className="admin-table-empty">
+                    No users yet. New members appear here after they sign in.
                   </td>
                 </tr>
               ) : (
@@ -162,7 +174,6 @@ function AdminDashboard() {
                       </div>
                     </td>
                     <td>{entry.email || '—'}</td>
-                    <td>{entry.provider || 'google.com'}</td>
                     <td>
                       <span className={`admin-badge admin-badge-${entry.subscriptionStatus || 'none'}`}>
                         {entry.subscriptionStatus || 'none'}
