@@ -70,45 +70,9 @@ function Layout() {
     return loadPromiseRef.current;
   }, []);
 
-  // Lazy load data after initial render - delay to reduce TBT
+  // Load course list for the top nav bar as soon as Layout mounts.
   useEffect(() => {
-    const triggerLoad = () => {
-      if (window.__lshDataLoadTriggered) return;
-      loadCourseData();
-    };
-
-    // Detect mobile and use longer delay to reduce TBT
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isHomeRoute = window.location.pathname === '/' || window.location.pathname === '/index.html';
-    const idleTimeout = isHomeRoute ? (isMobile ? 7000 : 6000) : (isMobile ? 800 : 500);
-    const fallbackDelay = isHomeRoute ? (isMobile ? 8000 : 7000) : (isMobile ? 400 : 200);
-
-    if (isHomeRoute) {
-      // Home page under slow-4G audits: defer heavy data graph until user intent or long-idle fallback.
-      const interactionEvents = ['scroll', 'click', 'touchstart', 'keydown'];
-      interactionEvents.forEach((eventName) => {
-        window.addEventListener(eventName, triggerLoad, { once: true, passive: true });
-      });
-
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(triggerLoad, { timeout: idleTimeout });
-      } else {
-        setTimeout(triggerLoad, fallbackDelay);
-      }
-
-      return () => {
-        interactionEvents.forEach((eventName) => {
-          window.removeEventListener(eventName, triggerLoad);
-        });
-      };
-    }
-
-    // Non-home routes should keep navigation data responsive.
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(triggerLoad, { timeout: idleTimeout });
-    } else {
-      setTimeout(triggerLoad, fallbackDelay);
-    }
+    loadCourseData();
   }, [loadCourseData]);
 
   // Auto-detect active course based on current topic
@@ -350,8 +314,8 @@ function Layout() {
         </div>
       </header>
 
-      {/* Main Topics Navigation Bar - Shows main courses */}
-      <nav className="main-topics-nav-bar">
+      {/* Main Topics Navigation Bar - Shows main courses (scroll horizontally on mobile) */}
+      <nav className="main-topics-nav-bar" aria-label="Course tracks">
         <div className="main-topics-container">
           {courseStructure ? sortCourseEntries(courseStructure).map(([courseKey, course]) => {
             const firstTopic = Object.values(course.sections)[0]?.topics[0];

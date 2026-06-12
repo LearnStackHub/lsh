@@ -6547,26 +6547,27 @@ code {
     display: none;
   }
 
-  /* Home page: course tabs are listed in page content — hide duplicate strip */
-  .app-layout--home .main-topics-nav-bar {
-    display: none;
-  }
-
+  /* Home page: keep course nav visible on mobile (same as desktop) */
   .app-layout--home .main-content {
-    margin-top: var(--header-height) !important;
+    margin-top: calc(var(--header-height) + 46px) !important;
   }
 
   .app-layout--home .sidebar {
-    top: var(--header-height);
-    height: calc(100vh - var(--header-height));
+    top: calc(var(--header-height) + 46px);
+    height: calc(100vh - var(--header-height) - 46px);
   }
 
   .app-layout--home .sidebar-overlay {
-    top: var(--header-height);
+    top: calc(var(--header-height) + 46px);
   }
 
   .app-layout--home .top-banner-ad {
-    margin-top: var(--header-height) !important;
+    margin-top: calc(var(--header-height) + 46px) !important;
+  }
+
+  .main-topics-nav-bar {
+    display: flex;
+    z-index: 999;
   }
 
   .landing-hero {
