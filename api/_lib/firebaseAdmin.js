@@ -16,11 +16,29 @@ function normalizePrivateKey(key) {
 
   value = value.replace(/\\n/g, '\n');
 
-  if (value.includes('\\n')) {
-    value = value.replace(/\\n/g, '\n');
+  if (!value.endsWith('\n') && value.includes('BEGIN PRIVATE KEY')) {
+    value += '\n';
   }
 
   return value;
+}
+
+function extractServiceAccountLoose(raw) {
+  const text = String(raw);
+  const projectId = text.match(/"project_id"\s*:\s*"([^"]+)"/)?.[1];
+  const clientEmail = text.match(/"client_email"\s*:\s*"([^"]+)"/)?.[1];
+  const pemMatch = text.match(/-----BEGIN PRIVATE KEY-----[\s\S]*?-----END PRIVATE KEY-----/);
+
+  if (!projectId || !clientEmail || !pemMatch) {
+    return null;
+  }
+
+  return {
+    type: 'service_account',
+    project_id: projectId,
+    client_email: clientEmail,
+    private_key: normalizePrivateKey(pemMatch[0]),
+  };
 }
 
 function parseServiceAccount(raw) {
@@ -83,7 +101,7 @@ function parseServiceAccount(raw) {
     }
   }
 
-  return null;
+  return extractServiceAccountLoose(trimmed);
 }
 
 function readServiceAccountFromEnv() {
