@@ -11,25 +11,39 @@ function getAdminEmails() {
     .filter(Boolean);
 }
 
+function parseServiceAccount(raw) {
+  if (!raw) {
+    return null;
+  }
+
+  const trimmed = raw.trim();
+
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    // Vercel env values are sometimes pasted with real line breaks inside the JSON.
+    try {
+      return JSON.parse(trimmed.replace(/\r?\n/g, '\\n'));
+    } catch {
+      return null;
+    }
+  }
+}
+
 function getFirebaseAdmin() {
   if (admin.apps.length > 0) {
     return admin;
   }
 
-  const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
-  if (!raw) {
+  const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
+  if (!serviceAccount) {
     return null;
   }
 
-  try {
-    const serviceAccount = JSON.parse(raw);
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-    });
-    return admin;
-  } catch {
-    return null;
-  }
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+  return admin;
 }
 
 function mapAuthUser(user) {
@@ -130,8 +144,13 @@ export default async function handler(req, res) {
       pageToken = batch.pageToken;
     } while (pageToken);
 
-    const profileSnap = await firebaseAdmin.firestore().collection('users').get();
-    const profileUsers = profileSnap.docs.map((entry) => mapProfileDoc(entry.id, entry.data()));
+    let profileUsers = [];
+    try {
+      const profileSnap = await firebaseAdmin.firestore().collection('users').get();
+      profileUsers = profileSnap.docs.map((entry) => mapProfileDoc(entry.id, entry.data()));
+    } catch (profileError) {
+      console.warn('admin-users profile merge skipped:', profileError?.message || profileError);
+    }
 
     res.status(200).json({ users: mergeUsers(authUsers, profileUsers) });
   } catch (error) {

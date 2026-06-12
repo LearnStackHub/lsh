@@ -48,7 +48,7 @@ function AdminDashboard() {
         console.warn('Admin bootstrap skipped:', bootstrapError?.message);
       }
 
-      await ensureUserProfile(auth.currentUser);
+      const savedProfile = await ensureUserProfile(auth.currentUser);
 
       let profileUsers = [];
       let accountUsers = null;
@@ -71,7 +71,7 @@ function AdminDashboard() {
       let merged = mergeUserRecords(accountUsers, profileUsers);
 
       if (merged.length === 0 && auth?.currentUser) {
-        const fallback = buildUserFromSession(auth.currentUser);
+        const fallback = buildUserFromSession(auth.currentUser, savedProfile);
         if (fallback) {
           merged = [fallback];
         }

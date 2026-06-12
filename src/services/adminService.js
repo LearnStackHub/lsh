@@ -80,7 +80,7 @@ export async function fetchAuthUsersFromApi() {
     return null;
   }
 
-  const token = await auth.currentUser.getIdToken();
+  const token = await auth.currentUser.getIdToken(true);
   const response = await fetch('/api/admin-users', {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -88,6 +88,10 @@ export async function fetchAuthUsersFromApi() {
   });
 
   if (response.status === 503) {
+    return null;
+  }
+
+  if (response.status === 403) {
     return null;
   }
 
