@@ -1,4 +1,6 @@
-import admin from 'firebase-admin';
+import { cert, getApps, initializeApp } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
 
 export const config = {
   maxDuration: 30,
@@ -11,39 +13,79 @@ function getAdminEmails() {
     .filter(Boolean);
 }
 
+function normalizePrivateKey(key) {
+  if (!key) {
+    return '';
+  }
+
+  return String(key).replace(/\\n/g, '\n');
+}
+
 function parseServiceAccount(raw) {
   if (!raw) {
     return null;
   }
 
   const trimmed = raw.trim();
+  const candidates = [trimmed, trimmed.replace(/\r?\n/g, '')];
 
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    // Vercel env values are sometimes pasted with real line breaks inside the JSON.
+  for (const candidate of candidates) {
     try {
-      return JSON.parse(trimmed.replace(/\r?\n/g, '\\n'));
+      const parsed = JSON.parse(candidate);
+      if (parsed?.client_email && parsed?.private_key && parsed?.project_id) {
+        return {
+          ...parsed,
+          private_key: normalizePrivateKey(parsed.private_key),
+        };
+      }
     } catch {
-      return null;
+      // try next candidate
     }
   }
+
+  return null;
 }
 
-function getFirebaseAdmin() {
-  if (admin.apps.length > 0) {
-    return admin;
+function buildCredential() {
+  const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
+  if (serviceAccount) {
+    return cert(serviceAccount);
   }
 
-  const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
-  if (!serviceAccount) {
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
+  const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
+  const projectId =
+    process.env.FIREBASE_PROJECT_ID?.trim() ||
+    process.env.VITE_FIREBASE_PROJECT_ID?.trim() ||
+    'learnstackhub';
+
+  if (clientEmail && privateKey) {
+    return cert({
+      projectId,
+      clientEmail,
+      privateKey,
+    });
+  }
+
+  return null;
+}
+
+function getFirebaseAdminApp() {
+  if (getApps().length > 0) {
+    return getApps()[0];
+  }
+
+  const credential = buildCredential();
+  if (!credential) {
     return null;
   }
 
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-  return admin;
+  try {
+    return initializeApp({ credential });
+  } catch (error) {
+    console.error('admin-users init failed:', error?.message || error);
+    return null;
+  }
 }
 
 function mapAuthUser(user) {
@@ -104,28 +146,34 @@ function mergeUsers(authUsers, profileUsers) {
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
-  if (req.method !== 'GET') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
-  }
-
-  const firebaseAdmin = getFirebaseAdmin();
-  if (!firebaseAdmin) {
-    res.status(503).json({ error: 'Not configured' });
-    return;
-  }
-
-  const authHeader = req.headers.authorization || '';
-  if (!authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-
-  const token = authHeader.slice('Bearer '.length);
-  const allowedEmails = getAdminEmails();
-
   try {
-    const decoded = await firebaseAdmin.auth().verifyIdToken(token);
+    if (req.method !== 'GET') {
+      res.status(405).json({ error: 'Method not allowed' });
+      return;
+    }
+
+    const app = getFirebaseAdminApp();
+    if (!app) {
+      res.status(503).json({ error: 'Not configured' });
+      return;
+    }
+
+    const authHeader = req.headers.authorization || '';
+    if (!authHeader.startsWith('Bearer ')) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    const token = authHeader.slice('Bearer '.length);
+    const allowedEmails = getAdminEmails();
+
+    if (allowedEmails.length === 0) {
+      res.status(503).json({ error: 'Not configured' });
+      return;
+    }
+
+    const auth = getAuth(app);
+    const decoded = await auth.verifyIdToken(token);
     const email = decoded.email?.toLowerCase() || '';
 
     if (!allowedEmails.includes(email)) {
@@ -137,7 +185,7 @@ export default async function handler(req, res) {
     let pageToken;
 
     do {
-      const batch = await firebaseAdmin.auth().listUsers(1000, pageToken);
+      const batch = await auth.listUsers(1000, pageToken);
       batch.users.forEach((user) => {
         authUsers.push(mapAuthUser(user));
       });
@@ -146,7 +194,7 @@ export default async function handler(req, res) {
 
     let profileUsers = [];
     try {
-      const profileSnap = await firebaseAdmin.firestore().collection('users').get();
+      const profileSnap = await getFirestore(app).collection('users').get();
       profileUsers = profileSnap.docs.map((entry) => mapProfileDoc(entry.id, entry.data()));
     } catch (profileError) {
       console.warn('admin-users profile merge skipped:', profileError?.message || profileError);

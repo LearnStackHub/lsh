@@ -87,11 +87,7 @@ export async function fetchAuthUsersFromApi() {
     },
   });
 
-  if (response.status === 503) {
-    return null;
-  }
-
-  if (response.status === 403) {
+  if (response.status === 503 || response.status === 403 || response.status === 500) {
     return null;
   }
 
