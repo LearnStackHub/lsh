@@ -134,7 +134,18 @@ export default async function handler(req, res) {
     const profileUsers = profileSnap.docs.map((entry) => mapProfileDoc(entry.id, entry.data()));
 
     res.status(200).json({ users: mergeUsers(authUsers, profileUsers) });
-  } catch {
-    res.status(401).json({ error: 'Invalid token' });
+  } catch (error) {
+    const code = error?.code || '';
+    if (
+      code.startsWith('auth/') ||
+      code === 'auth/id-token-expired' ||
+      code === 'auth/argument-error'
+    ) {
+      res.status(401).json({ error: 'Invalid token' });
+      return;
+    }
+
+    console.error('admin-users failed:', error?.message || error);
+    res.status(503).json({ error: 'Unavailable' });
   }
 }
