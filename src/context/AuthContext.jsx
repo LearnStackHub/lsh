@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 import {
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
 } from 'firebase/auth';
 import { auth, googleProvider, isAuthConfigured } from '../config/firebase';
@@ -97,6 +99,24 @@ export function AuthProvider({ children }) {
       return undefined;
     }
 
+    let cancelled = false;
+
+    const completeRedirectSignIn = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (!cancelled && result?.user) {
+          await applySignedInUser(result.user, setUser);
+          setIsLoginModalOpen(false);
+        }
+      } catch (error) {
+        if (!isUserCancelledAuth(error)) {
+          console.warn('Google redirect sign-in failed:', error?.code || error?.message);
+        }
+      }
+    };
+
+    completeRedirectSignIn();
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (!firebaseUser) {
         setUser(null);
@@ -118,7 +138,10 @@ export function AuthProvider({ children }) {
       syncUserProfile(firebaseUser);
     });
 
-    return unsubscribe;
+    return () => {
+      cancelled = true;
+      unsubscribe();
+    };
   }, []);
 
   const refreshUserProfile = useCallback(async () => {
@@ -135,6 +158,12 @@ export function AuthProvider({ children }) {
   const signInWithGoogle = async () => {
     if (!isAuthConfigured || !auth || !googleProvider) {
       throwAuthError('auth/unavailable');
+    }
+
+    // Popup is blocked by COOP on production hosting; redirect works reliably on live site.
+    if (import.meta.env.PROD) {
+      await signInWithRedirect(auth, googleProvider);
+      return null;
     }
 
     const result = await signInWithPopup(auth, googleProvider);
