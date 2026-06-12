@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
-import { getAdminEmails, getBearerToken, getFirebaseAdminApp } from './lib/firebaseAdmin.js';
-import { backfillUserProfiles } from './lib/userProfiles.js';
+import { getAdminEmails, getBearerToken, getFirebaseAdminApp } from './firebaseAdmin.js';
+import { backfillUserProfiles } from './userProfiles.js';
 
 export const config = {
   maxDuration: 30,
@@ -21,7 +21,10 @@ function mapAuthUser(user) {
 function mapProfileDoc(id, data) {
   const subscription = data.subscription || { status: 'none' };
   const createdAt = data.createdAt?.toDate?.()?.toISOString?.() || null;
-  const lastSignInAt = data.lastSignInAt?.toDate?.()?.toISOString?.() || null;
+  const lastSignInAt =
+    data.lastSignInAt?.toDate?.()?.toISOString?.() ||
+    data.updatedAt?.toDate?.()?.toISOString?.() ||
+    null;
 
   return {
     uid: id,

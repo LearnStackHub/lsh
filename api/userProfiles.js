@@ -7,12 +7,7 @@ const DEFAULT_SUBSCRIPTION = {
 };
 
 function resolveDisplayName(user) {
-  return (
-    user.displayName ||
-    user.display_name ||
-    user.email?.split('@')[0] ||
-    'User'
-  );
+  return user.displayName || user.display_name || user.email?.split('@')[0] || 'User';
 }
 
 function resolveLastSignIn(user) {
@@ -32,7 +27,6 @@ function resolveLastSignIn(user) {
 
 export function buildProfilePatch(user) {
   return {
-    uid: user.uid,
     email: user.email || '',
     displayName: resolveDisplayName(user),
     photoURL: user.photoURL || user.photo_url || '',

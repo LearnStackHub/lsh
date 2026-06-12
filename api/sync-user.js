@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
-import { getBearerToken, getFirebaseAdminApp } from './lib/firebaseAdmin.js';
-import { upsertUserProfile } from './lib/userProfiles.js';
+import { getBearerToken, getFirebaseAdminApp, userFromDecodedToken } from './firebaseAdmin.js';
+import { upsertUserProfile } from './userProfiles.js';
 
 export const config = {
   maxDuration: 15,
@@ -30,12 +30,19 @@ export default async function handler(req, res) {
 
     const auth = getAuth(app);
     const decoded = await auth.verifyIdToken(token);
-    const userRecord = await auth.getUser(decoded.uid);
     const db = getFirestore(app);
+
+    let userRecord = userFromDecodedToken(decoded);
+
+    try {
+      userRecord = await auth.getUser(decoded.uid);
+    } catch {
+      // Token claims are enough to upsert the profile.
+    }
 
     await upsertUserProfile(db, userRecord);
 
-    res.status(200).json({ ok: true, uid: userRecord.uid });
+    res.status(200).json({ ok: true, uid: decoded.uid });
   } catch (error) {
     const code = error?.code || '';
     if (code.startsWith('auth/')) {

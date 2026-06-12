@@ -62,7 +62,10 @@ export async function fetchFirestoreUsers() {
         displayName: data.displayName || '',
         photoURL: data.photoURL || '',
         createdAt: createdAt ? createdAt.toISOString() : null,
-        lastSignIn: data.lastSignInAt?.toDate?.()?.toISOString?.() || null,
+        lastSignIn:
+          data.lastSignInAt?.toDate?.()?.toISOString?.() ||
+          data.updatedAt?.toDate?.()?.toISOString?.() ||
+          null,
         subscriptionStatus: subscription.status || 'none',
         subscriptionExpiresAt: subscription.expiresAt?.toDate?.()?.toISOString?.() || null,
       };

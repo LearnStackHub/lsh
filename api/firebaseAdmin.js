@@ -33,25 +33,37 @@ function parseServiceAccount(raw) {
   return null;
 }
 
+function resolveProjectId(serviceAccount) {
+  return (
+    serviceAccount?.project_id ||
+    process.env.FIREBASE_PROJECT_ID?.trim() ||
+    process.env.VITE_FIREBASE_PROJECT_ID?.trim() ||
+    'learnstackhub'
+  );
+}
+
 function buildCredential() {
   const serviceAccount = parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT);
   if (serviceAccount) {
-    return cert(serviceAccount);
+    return {
+      credential: cert(serviceAccount),
+      projectId: resolveProjectId(serviceAccount),
+    };
   }
 
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
   const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
-  const projectId =
-    process.env.FIREBASE_PROJECT_ID?.trim() ||
-    process.env.VITE_FIREBASE_PROJECT_ID?.trim() ||
-    'learnstackhub';
+  const projectId = resolveProjectId();
 
   if (clientEmail && privateKey) {
-    return cert({
+    return {
+      credential: cert({
+        projectId,
+        clientEmail,
+        privateKey,
+      }),
       projectId,
-      clientEmail,
-      privateKey,
-    });
+    };
   }
 
   return null;
@@ -62,13 +74,16 @@ export function getFirebaseAdminApp() {
     return getApps()[0];
   }
 
-  const credential = buildCredential();
-  if (!credential) {
+  const config = buildCredential();
+  if (!config) {
     return null;
   }
 
   try {
-    return initializeApp({ credential });
+    return initializeApp({
+      credential: config.credential,
+      projectId: config.projectId,
+    });
   } catch (error) {
     console.error('firebase admin init failed:', error?.message || error);
     return null;
@@ -89,4 +104,19 @@ export function getBearerToken(req) {
   }
 
   return authHeader.slice('Bearer '.length);
+}
+
+export function userFromDecodedToken(decoded) {
+  const authTime = decoded.auth_time ? new Date(decoded.auth_time * 1000).toISOString() : null;
+
+  return {
+    uid: decoded.uid,
+    email: decoded.email || '',
+    displayName: decoded.name || decoded.email?.split('@')[0] || 'User',
+    photoURL: decoded.picture || '',
+    metadata: {
+      lastSignInTime: authTime || new Date().toISOString(),
+      creationTime: authTime,
+    },
+  };
 }

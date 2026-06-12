@@ -27,6 +27,21 @@ function buildUserProfile(firebaseUser, displayNameOverride) {
       plan: null,
       expiresAt: null,
     },
+    lastSignInAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+}
+
+function buildProfileUpdate(firebaseUser, existing) {
+  return {
+    email: firebaseUser.email || existing?.email || '',
+    displayName:
+      firebaseUser.displayName ||
+      existing?.displayName ||
+      firebaseUser.email?.split('@')[0] ||
+      'User',
+    photoURL: firebaseUser.photoURL || existing?.photoURL || '',
+    lastSignInAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   };
 }
@@ -45,6 +60,10 @@ async function syncUserProfileViaApi(firebaseUser) {
       },
     });
 
+    if (response.status === 503 || response.status === 500 || response.status === 401) {
+      return false;
+    }
+
     return response.ok;
   } catch {
     return false;
@@ -62,28 +81,13 @@ export async function ensureUserProfile(firebaseUser, displayNameOverride) {
 
     if (snapshot.exists()) {
       const existing = snapshot.data();
-      await setDoc(
-        userRef,
-        {
-          email: firebaseUser.email || existing.email || '',
-          displayName:
-            firebaseUser.displayName ||
-            existing.displayName ||
-            firebaseUser.email?.split('@')[0] ||
-            'User',
-          photoURL: firebaseUser.photoURL || existing.photoURL || '',
-          lastSignInAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-        },
-        { merge: true }
-      );
+      await setDoc(userRef, buildProfileUpdate(firebaseUser, existing), { merge: true });
       return { id: snapshot.id, ...existing };
     }
 
     const profile = buildUserProfile(firebaseUser, displayNameOverride);
     await setDoc(userRef, {
       ...profile,
-      lastSignInAt: serverTimestamp(),
       createdAt: serverTimestamp(),
     });
     return profile;
@@ -109,13 +113,9 @@ export async function persistUserProfile(firebaseUser, displayNameOverride) {
       lastProfile = clientProfile;
     }
 
-    if (serverSaved) {
+    if (serverSaved || clientProfile) {
       const profile = await getUserProfile(firebaseUser.uid);
       return profile || lastProfile || clientProfile;
-    }
-
-    if (clientProfile) {
-      return clientProfile;
     }
 
     if (attempt < SYNC_MAX_ATTEMPTS - 1) {
