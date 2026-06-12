@@ -1,3 +1,8 @@
+import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
+import { getBearerToken, getFirebaseAdminApp, userFromDecodedToken } from './_lib/firebaseAdmin.js';
+import { upsertUserProfile } from './_lib/userProfiles.js';
+
 export const config = {
   maxDuration: 15,
 };
@@ -10,13 +15,6 @@ export default async function handler(req, res) {
       res.status(405).json({ error: 'Method not allowed' });
       return;
     }
-
-    const { getAuth } = await import('firebase-admin/auth');
-    const { getFirestore } = await import('firebase-admin/firestore');
-    const { getBearerToken, getFirebaseAdminApp, userFromDecodedToken } = await import(
-      '../lib/firebaseAdmin.js'
-    );
-    const { upsertUserProfile } = await import('../lib/userProfiles.js');
 
     const app = getFirebaseAdminApp();
     if (!app) {

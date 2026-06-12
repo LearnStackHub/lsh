@@ -151,15 +151,3 @@ export function userFromDecodedToken(decoded) {
     },
   };
 }
-
-export function getAdminConfigStatus() {
-  const hasJson = Boolean(parseServiceAccount(process.env.FIREBASE_SERVICE_ACCOUNT));
-  const hasSplit = Boolean(
-    process.env.FIREBASE_CLIENT_EMAIL?.trim() && process.env.FIREBASE_PRIVATE_KEY?.trim()
-  );
-
-  return {
-    hasCredential: hasJson || hasSplit,
-    hasAdminEmails: getAdminEmails().length > 0,
-  };
-}
