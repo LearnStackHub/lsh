@@ -70,15 +70,14 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { getAdminEmails, getBearerToken, getFirebaseAdminApp } = await import(
-      './_lib/firebaseAdmin.js'
-    );
-
-    const token = getBearerToken(req);
-    if (!token) {
+    const authHeader = req.headers.authorization || '';
+    if (!authHeader.startsWith('Bearer ')) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
     }
+
+    const { getAdminEmails, getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const token = authHeader.slice('Bearer '.length);
 
     const app = getFirebaseAdminApp();
     if (!app) {
