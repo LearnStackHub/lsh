@@ -1,6 +1,10 @@
 {
   "functions": {
-    "api/*.js": {
+    "api/sync-user.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    },
+    "api/admin-users.js": {
       "memory": 1024,
       "maxDuration": 30
     }
