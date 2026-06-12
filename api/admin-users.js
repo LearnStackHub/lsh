@@ -142,6 +142,6 @@ export default async function handler(req, res) {
     }
 
     console.error('admin-users failed:', error?.message || error);
-    res.status(503).json({ error: 'Unavailable', detail: error?.message || 'unknown' });
+    res.status(503).json({ error: 'Unavailable' });
   }
 }
