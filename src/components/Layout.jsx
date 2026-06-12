@@ -9,6 +9,7 @@ import {
 import { useContributions } from '../context/ContributionContext';
 import ConsentBanner from './ConsentBanner';
 import SocialOfficialLinks from './SocialOfficialLinks';
+import AuthButton from './AuthButton';
 import AdSense from './AdSense';
 import { ADSENSE_CONFIG } from '../config/adsense';
 import { GENAIXIS, LEARNSTACKHUB } from '../config/company';
@@ -341,7 +342,7 @@ function Layout() {
             )}
           </div>
 
-          
+          <AuthButton />
         </div>
       </header>
 

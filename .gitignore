@@ -12,8 +12,7 @@ dist
 dist-ssr
 *.local
 
-# Secrets and local env (never commit)
-.env
+# Secrets and local env overrides (never commit local-only files)
 .env.*.local
 
 # Editor directories and files

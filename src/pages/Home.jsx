@@ -9,6 +9,7 @@ import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
 import { GENAIXIS, LEARNSTACKHUB, FOUNDER } from '../config/company';
 import { sortCourseEntries } from '../config/navCourseOrder';
+import { getOrderedHomeCourses } from '../config/homeCourses';
 import { getTopicPath } from '../utils/topicRoutes';
 import Java8Icon from '../components/icons/Java8Icon';
 import MicroservicesIcon from '../components/icons/MicroservicesIcon';
@@ -114,6 +115,7 @@ function Home() {
     { id: 'http-introduction', title: 'HTTP Introduction', time: '2h', level: 'Beginner' }
   ];
 
+  const availableCourses = getOrderedHomeCourses();
 
   return (
     <div className="home-page landing-page">
@@ -127,12 +129,16 @@ function Home() {
           Study with structured tutorials, a browser code runner, topic-wise MCQs, and a Practice Lab for AI chat and
           interview-style practice. Built for real interviews and project-ready backend skills.
         </p>
+        <p className="landing-hero-courses-note">
+          <strong>{availableCourses.length} learning tracks</strong> — from SDLC and Core Java through Spring Boot,
+          Microservices, Kafka, Docker, Spring AI, and more. Sign in to access all tutorials and MCQs.
+        </p>
         <div className="landing-actions">
           <Link to="/tutorial/java-introduction" className="btn btn-primary">
             <Play size={18} />
             Start with Java
           </Link>
-          <a href="#courses" className="btn btn-secondary">
+          <a href="#courses-available" className="btn btn-secondary">
             <BookOpen size={18} />
             Explore All Tracks
           </a>
@@ -150,6 +156,35 @@ function Home() {
         <article><CheckCircle size={16} /> Concept + runnable code + practical context</article>
         <article><CheckCircle size={16} /> Topic-wise MCQs and interview-style revision</article>
         <article><CheckCircle size={16} /> Practice Lab: AI tutor chat &amp; audio/video interview coach</article>
+      </section>
+
+      <section id="courses-available" className="courses-section landing-courses-available">
+        <div className="section-header">
+          <h2 className="section-title-main">Courses Available</h2>
+          <p className="home-section-subtitle">
+            Every track below is on LearnStackHub with step-by-step tutorials. Sign in with Google to access
+            courses — the homepage is open; all course content requires sign-in.
+          </p>
+        </div>
+        <ul className="landing-course-chip-grid">
+          {availableCourses.map(({ key, title }) => {
+            const IconComponent = courseIcons[key] || Code;
+            return (
+              <li key={key} className="landing-course-chip" data-course={key}>
+                <IconComponent size={16} aria-hidden />
+                {title}
+              </li>
+            );
+          })}
+        </ul>
+        <p className="landing-courses-extra">
+          Also included: <strong>Core Java, JDBC, MySQL, Spring, Hibernate &amp; Microservices MCQs</strong> and the{' '}
+          <strong>Practice Lab</strong> (AI chat + interview rehearsal).
+        </p>
+        <a href="#courses" className="landing-courses-explore-link">
+          View track details and topic counts
+          <ArrowRight size={16} aria-hidden />
+        </a>
       </section>
 
       <section className="courses-section" style={{ paddingTop: '1rem' }}>
