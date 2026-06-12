@@ -2,9 +2,19 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
+// Local dev uses Firebase default domain. Production uses your site domain so Google shows
+// "Continue to www.learnstackhub.com" instead of learnstackhub.firebaseapp.com.
+function getAuthDomain() {
+  if (import.meta.env.DEV) {
+    return 'learnstackhub.firebaseapp.com';
+  }
+
+  return import.meta.env.VITE_FIREBASE_AUTH_DOMAIN?.trim() || 'www.learnstackhub.com';
+}
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: 'learnstackhub.firebaseapp.com',
+  authDomain: getAuthDomain(),
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'learnstackhub',
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,

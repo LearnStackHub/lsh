@@ -39,6 +39,10 @@
   ],
   "rewrites": [
     {
+      "source": "/__/auth/:path*",
+      "destination": "https://learnstackhub.firebaseapp.com/__/auth/:path*"
+    },
+    {
       "source": "/sitemap.xml",
       "destination": "/sitemap.xml"
     },
