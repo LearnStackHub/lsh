@@ -123,7 +123,8 @@ function readServiceAccountFile(filePath) {
 
 function readServiceAccountFromEnv() {
   const filePath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH?.trim();
-  if (filePath) {
+  // File paths only work in local dev — never on Vercel/serverless.
+  if (filePath && !process.env.VERCEL) {
     const fromFile = readServiceAccountFile(filePath);
     if (fromFile) {
       return fromFile;
@@ -216,6 +217,37 @@ export function getFirebaseAdminApp() {
     return null;
   }
 }
+
+export async function probeFirebaseAdmin() {
+  const app = getFirebaseAdminApp();
+  if (!app) {
+    return { appReady: false, firestoreReady: false, error: 'no_app' };
+  }
+
+  try {
+    const { getFirestore } = await import('firebase-admin/firestore');
+    const db = getFirestore(app);
+    await db.collection('users').limit(1).get();
+    return { appReady: true, firestoreReady: true };
+  } catch (error) {
+    return {
+      appReady: true,
+      firestoreReady: false,
+      error: error?.code || error?.message || 'firestore_probe_failed',
+    };
+  }
+}
+
+function apiErrorPayload(error) {
+  const code = error?.code || error?.errorInfo?.code || 'UNKNOWN';
+  return {
+    error: 'Unavailable',
+    code: String(code),
+    message: String(error?.message || error?.errorInfo?.message || 'Request failed').slice(0, 200),
+  };
+}
+
+export { apiErrorPayload };
 
 export function getAdminEmails() {
   return (process.env.ADMIN_EMAILS || process.env.VITE_ADMIN_EMAILS || '')

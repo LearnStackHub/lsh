@@ -18,7 +18,9 @@ export default async function handler(req, res) {
     }
 
     const { getAuth } = await import('firebase-admin/auth');
-    const { getConfigStatus, getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const { getConfigStatus, getFirebaseAdminApp, apiErrorPayload } = await import(
+      './_lib/firebaseAdmin.js'
+    );
     const { createRazorpayOrder, isRazorpayConfigured, parseJsonBody } = await import('./_lib/razorpay.js');
     const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
 
@@ -86,6 +88,6 @@ export default async function handler(req, res) {
     }
 
     console.error('razorpay-order failed:', error?.message || error);
-    res.status(503).json({ error: 'Unavailable' });
+    res.status(503).json(apiErrorPayload(error));
   }
 }

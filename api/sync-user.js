@@ -22,9 +22,8 @@ export default async function handler(req, res) {
 
     const { getAuth } = await import('firebase-admin/auth');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { getConfigStatus, getFirebaseAdminApp, userFromDecodedToken } = await import(
-      './_lib/firebaseAdmin.js'
-    );
+    const { getConfigStatus, getFirebaseAdminApp, userFromDecodedToken, apiErrorPayload } =
+      await import('./_lib/firebaseAdmin.js');
     const { upsertUserProfile } = await import('./_lib/userProfiles.js');
 
     const app = getFirebaseAdminApp();
@@ -41,15 +40,7 @@ export default async function handler(req, res) {
     const decoded = await auth.verifyIdToken(token);
     const db = getFirestore(app);
 
-    let userRecord = userFromDecodedToken(decoded);
-
-    try {
-      userRecord = await auth.getUser(decoded.uid);
-    } catch {
-      // Token claims are enough to upsert the profile.
-    }
-
-    await upsertUserProfile(db, userRecord);
+    await upsertUserProfile(db, userFromDecodedToken(decoded));
 
     res.status(200).json({ ok: true, uid: decoded.uid });
   } catch (error) {
@@ -60,6 +51,6 @@ export default async function handler(req, res) {
     }
 
     console.error('sync-user failed:', error?.message || error);
-    res.status(503).json({ error: 'Unavailable' });
+    res.status(503).json(apiErrorPayload(error));
   }
 }

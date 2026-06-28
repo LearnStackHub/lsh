@@ -17,9 +17,14 @@ try {
     process.exit(1);
   }
 
-  console.log('\nPaste this as FIREBASE_SERVICE_ACCOUNT in Vercel (Production + Preview):\n');
+  console.log('\nOption A — paste as FIREBASE_SERVICE_ACCOUNT in Vercel:\n');
   console.log(JSON.stringify(parsed));
-  console.log('\nAlso delete FIREBASE_SERVICE_ACCOUNT_PATH from Vercel if present.\n');
+
+  const b64 = Buffer.from(JSON.stringify(parsed), 'utf8').toString('base64');
+  console.log('\nOption B (safer on Vercel) — paste as FIREBASE_SERVICE_ACCOUNT_B64:\n');
+  console.log(b64);
+
+  console.log('\nDelete FIREBASE_SERVICE_ACCOUNT_PATH from Vercel if present.\n');
 } catch (error) {
   console.error('Could not read or parse service account file:', error.message);
   console.error('\nDownload JSON from Firebase Console → Project settings → Service accounts → Generate new private key');
