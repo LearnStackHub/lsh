@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "node scripts/start-dev.mjs",
     "dev:ui": "vite",
@@ -54,5 +57,9 @@
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
     "vite": "^7.3.1"
+  },
+  "overrides": {
+    "jwks-rsa": "3.2.0",
+    "jose": "4.15.9"
   }
 }
