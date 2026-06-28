@@ -5,6 +5,10 @@ export const config = {
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
+  const { getConfigStatus, getFirebaseAdminApp, userFromDecodedToken, apiErrorPayload } =
+    await import('./_lib/firebaseAdmin.js');
+  const { upsertUserProfile } = await import('./_lib/userProfiles.js');
+
   try {
     if (req.method !== 'POST') {
       res.status(405).json({ error: 'Method not allowed' });
@@ -22,9 +26,6 @@ export default async function handler(req, res) {
 
     const { getAuth } = await import('firebase-admin/auth');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { getConfigStatus, getFirebaseAdminApp, userFromDecodedToken, apiErrorPayload } =
-      await import('./_lib/firebaseAdmin.js');
-    const { upsertUserProfile } = await import('./_lib/userProfiles.js');
 
     const app = getFirebaseAdminApp();
     if (!app) {

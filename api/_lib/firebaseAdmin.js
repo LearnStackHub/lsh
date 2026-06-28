@@ -238,7 +238,7 @@ export async function probeFirebaseAdmin() {
   }
 }
 
-function apiErrorPayload(error) {
+export function apiErrorPayload(error) {
   const code = error?.code || error?.errorInfo?.code || 'UNKNOWN';
   return {
     error: 'Unavailable',
@@ -246,8 +246,6 @@ function apiErrorPayload(error) {
     message: String(error?.message || error?.errorInfo?.message || 'Request failed').slice(0, 200),
   };
 }
-
-export { apiErrorPayload };
 
 export function getAdminEmails() {
   return (process.env.ADMIN_EMAILS || process.env.VITE_ADMIN_EMAILS || '')

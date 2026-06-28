@@ -5,6 +5,14 @@ export const config = {
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
+  const { getConfigStatus, getFirebaseAdminApp, apiErrorPayload } = await import(
+    './_lib/firebaseAdmin.js'
+  );
+  const { createRazorpayOrder, isRazorpayConfigured, parseJsonBody } = await import(
+    './_lib/razorpay.js'
+  );
+  const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
+
   try {
     if (req.method !== 'POST') {
       res.status(405).json({ error: 'Method not allowed' });
@@ -18,11 +26,6 @@ export default async function handler(req, res) {
     }
 
     const { getAuth } = await import('firebase-admin/auth');
-    const { getConfigStatus, getFirebaseAdminApp, apiErrorPayload } = await import(
-      './_lib/firebaseAdmin.js'
-    );
-    const { createRazorpayOrder, isRazorpayConfigured, parseJsonBody } = await import('./_lib/razorpay.js');
-    const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
 
     if (!isRazorpayConfigured()) {
       res.status(503).json({ error: 'Not configured', code: 'MISSING_RAZORPAY_CREDENTIALS' });
