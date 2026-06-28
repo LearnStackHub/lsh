@@ -62,17 +62,29 @@ export async function createSubscriptionOrder(planId) {
         'Payment API is not running. Stop the dev server and run npm run dev again (starts UI + API).'
       );
     }
-    if (response.status >= 500) {
+    if (response.status === 503 && payload.code === 'MISSING_RAZORPAY_CREDENTIALS') {
       throw new Error(
-        'Payment API error. Check the terminal for [local-api] logs — ensure firebase admin: ready is shown.'
+        'Payment is not configured on the server. Add RAZORPAY_KEY_SECRET (and RAZORPAY_KEY_ID) in Vercel environment variables, then redeploy.'
       );
     }
-    if (response.status === 503 && payload.code === 'MISSING_RAZORPAY_CREDENTIALS') {
-      throw new Error('Payment is not configured. Add Razorpay keys to .env.');
-    }
-    if (response.status === 503 && payload.error === 'Not configured') {
+    if (response.status === 503 && payload.code === 'MISSING_FIREBASE_CREDENTIAL') {
       throw new Error(
-        'Server is missing Firebase Admin credentials. Add FIREBASE_SERVICE_ACCOUNT to .env for local checkout.'
+        'Server is missing Firebase Admin credentials. Add FIREBASE_SERVICE_ACCOUNT (JSON on one line) in Vercel — not FIREBASE_SERVICE_ACCOUNT_PATH.'
+      );
+    }
+    if (response.status === 503 && payload.code === 'INVALID_FIREBASE_CREDENTIAL') {
+      throw new Error(
+        'Firebase Admin credentials are invalid on the server. Re-paste FIREBASE_SERVICE_ACCOUNT as one-line JSON in Vercel, then redeploy.'
+      );
+    }
+    if (response.status === 503) {
+      throw new Error(payload.error || payload.code || 'Payment service is temporarily unavailable.');
+    }
+    if (response.status >= 500) {
+      throw new Error(
+        import.meta.env.DEV
+          ? 'Payment API error. Check the terminal for [local-api] logs — ensure firebase admin: ready is shown.'
+          : 'Payment service error. Check Vercel env vars and /api/health on the live site.'
       );
     }
     throw new Error(payload.error || payload.code || 'Could not start checkout');

@@ -27,6 +27,10 @@
     "api/subscription-pricing.js": {
       "memory": 512,
       "maxDuration": 10
+    },
+    "api/health.js": {
+      "memory": 256,
+      "maxDuration": 10
     }
   },
   "headers": [

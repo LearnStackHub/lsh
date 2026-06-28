@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     }
 
     const { getAuth } = await import('firebase-admin/auth');
-    const { getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const { getConfigStatus, getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
     const { createRazorpayOrder, isRazorpayConfigured, parseJsonBody } = await import('./_lib/razorpay.js');
     const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
 
@@ -38,7 +38,11 @@ export default async function handler(req, res) {
 
     const app = getFirebaseAdminApp();
     if (!app) {
-      res.status(503).json({ error: 'Not configured' });
+      const status = getConfigStatus();
+      res.status(503).json({
+        error: 'Not configured',
+        code: status.hasCredentialEnv ? 'INVALID_FIREBASE_CREDENTIAL' : 'MISSING_FIREBASE_CREDENTIAL',
+      });
       return;
     }
 
