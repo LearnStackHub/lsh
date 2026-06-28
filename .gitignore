@@ -13,7 +13,10 @@ dist-ssr
 *.local
 
 # Secrets and local env overrides (never commit local-only files)
+.env
 .env.*.local
+firebase-service-account.json
+*-firebase-adminsdk*.json
 
 # Editor directories and files
 .vscode/*

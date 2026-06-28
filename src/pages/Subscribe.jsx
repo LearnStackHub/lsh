@@ -1,0 +1,447 @@
+import { useState, useEffect, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  BrainCircuit,
+  Check,
+  ClipboardCheck,
+  Code2,
+  CreditCard,
+  GraduationCap,
+  Loader2,
+  Lock,
+  MessageSquare,
+  Sparkles,
+  Users,
+  Video,
+  Zap,
+} from 'lucide-react';
+import SEOHead from '../components/SEOHead';
+import { useAuth } from '../context/AuthContext';
+import { BRAND } from '../config/brand';
+import {
+  SUBSCRIPTION_PLAN_CATALOG,
+  PLATFORM_FEATURES,
+  LIVE_TRAINING_DAYS,
+  EXAM_CERTIFICATE_NOTE,
+  mergeLivePricing,
+  formatInr,
+  formatPlanDuration,
+  perMonthPrice,
+} from '../config/subscriptionPlans';
+import { isRazorpayEnabled, openRazorpayCheckout } from '../services/razorpayService';
+import { fetchSubscriptionPricing, getLivePlanPricing } from '../services/subscriptionPricingService';
+import logoImage from '../assets/LSH.png';
+
+const INCLUDED = [
+  { icon: BookOpen, title: 'Full tutorial library', detail: 'Java, Spring, React & more' },
+  { icon: BrainCircuit, title: 'Topic-wise MCQs', detail: 'Unlimited practice quizzes' },
+  { icon: Code2, title: 'Practice Lab', detail: 'Hands-on coding exercises' },
+  { icon: Sparkles, title: 'Interview prep', detail: 'Career-ready question banks' },
+];
+
+const TRAINING_HIGHLIGHTS = [
+  {
+    icon: Video,
+    title: `${LIVE_TRAINING_DAYS} days live training`,
+    detail: 'Structured online sessions with real-world Java full-stack topics',
+  },
+  { icon: Users, title: 'Mentor connect', detail: 'Stay connected for guidance throughout your learning journey' },
+  { icon: MessageSquare, title: 'Doubt clearing', detail: 'Ask questions and get concepts explained clearly' },
+  { icon: GraduationCap, title: 'Technology deep dives', detail: 'Step-by-step explanations of core tools and frameworks' },
+];
+
+function Subscribe() {
+  const { user, refreshUserProfile, openLoginModal } = useAuth();
+  const navigate = useNavigate();
+  const [loadingPlanId, setLoadingPlanId] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [invoiceOrderId, setInvoiceOrderId] = useState('');
+  const [pricing, setPricing] = useState(null);
+
+  useEffect(() => {
+    fetchSubscriptionPricing().then(setPricing);
+  }, []);
+
+  const displayPlans = useMemo(
+    () =>
+      SUBSCRIPTION_PLAN_CATALOG.map((catalogPlan) =>
+        mergeLivePricing(catalogPlan, getLivePlanPricing(pricing, catalogPlan.id))
+      ),
+    [pricing]
+  );
+
+  const handleSubscribe = async (planId) => {
+    if (!user) {
+      openLoginModal();
+      return;
+    }
+
+    setError('');
+    setLoadingPlanId(planId);
+
+    try {
+      await openRazorpayCheckout({
+        planId,
+        user,
+        onSuccess: async (verified) => {
+          await refreshUserProfile();
+          setInvoiceOrderId(verified?.orderId || '');
+          setSuccess(true);
+        },
+      });
+    } catch (checkoutError) {
+      const message = checkoutError?.message || 'Checkout failed';
+      if (message !== 'Payment cancelled') {
+        setError(message);
+      }
+    } finally {
+      setLoadingPlanId('');
+    }
+  };
+
+  if (success || user?.isSubscribed) {
+    return (
+      <div className="subscribe-page subscribe-page--premium">
+        <SEOHead title="Subscription Active" description="Your LearnStackHub subscription is active." />
+        <div className="subscribe-success">
+          <div className="subscribe-success-glow" aria-hidden />
+          <div className="subscribe-success-card">
+            <div className="subscribe-success-icon">
+              <Check size={32} strokeWidth={2.5} aria-hidden />
+            </div>
+            <img src={logoImage} alt="" className="subscribe-success-logo" />
+            <h1>Welcome to {BRAND.name}</h1>
+            <p>Your subscription is active. Every tutorial, MCQ set, and Practice Lab exercise is unlocked.</p>
+            <div className="subscribe-success-actions">
+              <Link to="/tutorial/java-introduction" className="home-btn home-btn-premium">
+                Start learning
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+              {invoiceOrderId && (
+                <Link to={`/account/invoice/${invoiceOrderId}`} className="subscribe-success-secondary">
+                  View invoice
+                </Link>
+              )}
+              <button type="button" className="subscribe-success-secondary" onClick={() => navigate('/account')}>
+                My account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="subscribe-page subscribe-page--premium">
+      <SEOHead
+        title="Subscribe"
+        description="Subscribe to LearnStackHub for full access to Java full-stack tutorials, MCQs, and Practice Lab."
+      />
+
+      <section className="subscribe-hero subscribe-hero--premium">
+        <div className="subscribe-hero-glow subscribe-hero-glow--1" aria-hidden />
+        <div className="subscribe-hero-glow subscribe-hero-glow--2" aria-hidden />
+        <div className="subscribe-hero-grid" aria-hidden />
+
+        <div className="subscribe-hero-inner">
+          <div className="subscribe-hero-badge">
+            <Zap size={14} aria-hidden />
+            Premium access
+          </div>
+          <div className="subscribe-hero-brand">
+            <img src={logoImage} alt="" className="subscribe-hero-logo" />
+            <div>
+              <p className="subscribe-hero-eyebrow">
+                <GraduationCap size={15} aria-hidden />
+                {BRAND.tagline}
+              </p>
+              <h1>
+                One subscription.
+                <span className="subscribe-hero-accent"> Everything unlocked.</span>
+              </h1>
+              <p className="subscribe-hero-lead">
+                Structured Java full-stack courses, MCQs, and Practice Lab — built for students and working
+                developers who want to learn faster.
+              </p>
+            </div>
+          </div>
+
+          <ul className="subscribe-hero-stats">
+            {INCLUDED.map(({ icon: Icon, title }) => (
+              <li key={title}>
+                <Icon size={16} aria-hidden />
+                {title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {!user && (
+        <div className="subscribe-signin-banner" role="status">
+          <Lock size={18} aria-hidden />
+          <span>Sign in to subscribe — your plan is linked to your account.</span>
+          <button type="button" className="subscribe-signin-btn" onClick={openLoginModal}>
+            Sign in
+          </button>
+        </div>
+      )}
+
+      {!isRazorpayEnabled() && (
+        <div className="subscribe-alert subscribe-alert--warn" role="status">
+          Payments are not configured yet. Add Razorpay keys in your environment.
+        </div>
+      )}
+
+      {error && (
+        <div className="subscribe-alert subscribe-alert--error" role="alert">
+          {error}
+        </div>
+      )}
+
+      {pricing?.earlyBirdActive && (
+        <div className="subscribe-early-bird" role="status">
+          <Zap size={18} aria-hidden />
+          <div className="subscribe-early-bird-body">
+            <strong>Limited offer — first {pricing.earlyBirdLimit} subscribers only</strong>
+            <div className="subscribe-early-bird-stats">
+              <div className="subscribe-early-bird-stat">
+                <Users size={16} aria-hidden />
+                <span className="subscribe-early-bird-stat-value">{pricing.paidSubscriberCount}</span>
+                <span className="subscribe-early-bird-stat-label">
+                  subscriber{pricing.paidSubscriberCount === 1 ? '' : 's'} joined
+                </span>
+              </div>
+              <div className="subscribe-early-bird-stat subscribe-early-bird-stat--highlight">
+                <Sparkles size={16} aria-hidden />
+                <span className="subscribe-early-bird-stat-value">{pricing.spotsRemaining}</span>
+                <span className="subscribe-early-bird-stat-label">
+                  offer spot{pricing.spotsRemaining === 1 ? '' : 's'} left
+                </span>
+              </div>
+            </div>
+            <div
+              className="subscribe-early-bird-progress"
+              role="progressbar"
+              aria-valuenow={pricing.paidSubscriberCount}
+              aria-valuemin={0}
+              aria-valuemax={pricing.earlyBirdLimit}
+              aria-label={`${pricing.paidSubscriberCount} of ${pricing.earlyBirdLimit} early-bird spots filled`}
+            >
+              <div
+                className="subscribe-early-bird-progress-fill"
+                style={{
+                  width: `${Math.min(100, (pricing.paidSubscriberCount / pricing.earlyBirdLimit) * 100)}%`,
+                }}
+              />
+            </div>
+            <p>
+              {pricing.spotsRemaining > 0
+                ? `${pricing.paidSubscriberCount} of ${pricing.earlyBirdLimit} early-bird spots taken — ${pricing.spotsRemaining} left at offer price before prices increase.`
+                : 'All early-bird spots are taken — regular pricing applies soon.'}
+            </p>
+          </div>
+        </div>
+      )}
+
+      <section className="subscribe-pricing">
+        <div className="subscribe-pricing-head">
+          <h2>Choose your plan</h2>
+          <p>
+            Access starts immediately after payment. Every plan includes monthly certification exams — pass to earn
+            your LearnStackHub internship certificate.
+          </p>
+        </div>
+
+        <div className="subscribe-pricing-grid">
+          {displayPlans.map((plan) => {
+            const isFeatured = Boolean(plan.highlight);
+            const perMonth = perMonthPrice(plan);
+            const isLoading = loadingPlanId === plan.id;
+            const planFeatures = plan.features || PLATFORM_FEATURES;
+            const showOffer =
+              plan.earlyBird && plan.regularAmountInr && plan.regularAmountInr > plan.amountInr;
+            const discountPercent = showOffer
+              ? Math.round((1 - plan.amountInr / plan.regularAmountInr) * 100)
+              : null;
+
+            return (
+              <article
+                key={plan.id}
+                className={`subscribe-price-card${isFeatured ? ' subscribe-price-card--featured' : ''}${showOffer ? ' subscribe-price-card--offer' : ''}`}
+              >
+                {showOffer && (
+                  <span className="subscribe-price-ribbon subscribe-price-ribbon--offer">
+                    {discountPercent}% off
+                  </span>
+                )}
+                {!showOffer && plan.ribbon && (
+                  <span className="subscribe-price-ribbon subscribe-price-ribbon--training">{plan.ribbon}</span>
+                )}
+                {showOffer && plan.ribbon && isFeatured && (
+                  <span className="subscribe-price-ribbon-sub">{plan.ribbon}</span>
+                )}
+
+                <div className="subscribe-price-card-top">
+                  <h3>{plan.name}</h3>
+                  <p className="subscribe-price-duration">{formatPlanDuration(plan)} full access</p>
+                </div>
+
+                <div className="subscribe-price-offer-box">
+                  {showOffer ? (
+                    <>
+                      <span className="subscribe-price-mrp">{formatInr(plan.regularAmountInr)}</span>
+                      <span className="subscribe-price-value">{formatInr(plan.amountInr)}</span>
+                      <span className="subscribe-price-offer-label">Offer price</span>
+                    </>
+                  ) : (
+                    <span className="subscribe-price-value">{formatInr(plan.amountInr)}</span>
+                  )}
+                  {perMonth && (
+                    <span className="subscribe-price-equiv">≈ {formatInr(perMonth)}/month</span>
+                  )}
+                </div>
+
+                <p className="subscribe-price-desc">{plan.description}</p>
+
+                <ul className="subscribe-price-features">
+                  {planFeatures.map((feature) => (
+                    <li
+                      key={feature}
+                      className={
+                        plan.id === 'twelve_months' && !PLATFORM_FEATURES.includes(feature)
+                          ? 'subscribe-price-feature--premium'
+                          : undefined
+                      }
+                    >
+                      <Check size={16} aria-hidden />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  className={`subscribe-price-cta${isFeatured ? ' subscribe-price-cta--featured' : ''}`}
+                  disabled={!isRazorpayEnabled() || Boolean(loadingPlanId)}
+                  onClick={() => handleSubscribe(plan.id)}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 size={18} className="spin-icon" aria-hidden />
+                      Opening secure checkout…
+                    </>
+                  ) : (
+                    <>
+                      Subscribe now
+                      <ArrowRight size={18} aria-hidden />
+                    </>
+                  )}
+                </button>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="subscribe-includes">
+        <h2>What&apos;s included in every plan</h2>
+        <div className="subscribe-includes-grid">
+          {INCLUDED.map(({ icon: Icon, title, detail }) => (
+            <div key={title} className="subscribe-include-card">
+              <div className="subscribe-include-icon">
+                <Icon size={20} aria-hidden />
+              </div>
+              <div>
+                <strong>{title}</strong>
+                <p>{detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="subscribe-training subscribe-training--premium">
+        <div className="subscribe-training-head">
+          <span className="subscribe-training-badge">All subscribers</span>
+          <h2>Monthly exam &amp; internship certificate</h2>
+          <p>{EXAM_CERTIFICATE_NOTE}</p>
+        </div>
+        <div className="subscribe-includes-grid subscribe-includes-grid--single">
+          <div className="subscribe-include-card subscribe-include-card--training">
+            <div className="subscribe-include-icon subscribe-include-icon--training">
+              <ClipboardCheck size={20} aria-hidden />
+            </div>
+            <div>
+              <strong>Monthly assessment exam</strong>
+              <p>Test your Java full-stack knowledge every month while your subscription is active.</p>
+            </div>
+          </div>
+          <div className="subscribe-include-card subscribe-include-card--training">
+            <div className="subscribe-include-icon subscribe-include-icon--training">
+              <Award size={20} aria-hidden />
+            </div>
+            <div>
+              <strong>LearnStackHub internship certificate</strong>
+              <p>Pass the monthly exam to receive your official internship certificate from {BRAND.name}.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="subscribe-training subscribe-training--premium">
+        <div className="subscribe-training-head">
+          <span className="subscribe-training-badge">12-month plan only</span>
+          <h2>{LIVE_TRAINING_DAYS} days online live training</h2>
+          <p>
+            Upgrade to the 12-month plan for guided sessions, mentor connect, doubt clearing, and deep technology
+            explanations. After payment, open <strong>My Account</strong> to reach mentors via WhatsApp, email, or
+            phone.
+          </p>
+        </div>
+        <div className="subscribe-includes-grid">
+          {TRAINING_HIGHLIGHTS.map(({ icon: Icon, title, detail }) => (
+            <div key={title} className="subscribe-include-card subscribe-include-card--training">
+              <div className="subscribe-include-icon subscribe-include-icon--training">
+                <Icon size={20} aria-hidden />
+              </div>
+              <div>
+                <strong>{title}</strong>
+                <p>{detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="subscribe-trust subscribe-trust--premium">
+        <div className="subscribe-trust-item">
+          <CreditCard size={20} aria-hidden />
+          <div>
+            <strong>Secure Razorpay checkout</strong>
+            <p>UPI, cards, netbanking — powered by Razorpay with {BRAND.name} branding.</p>
+          </div>
+        </div>
+        <div className="subscribe-trust-item">
+          <Lock size={20} aria-hidden />
+          <div>
+            <strong>Linked to your account</strong>
+            <p>Invoice and subscription status appear in My Account after payment.</p>
+          </div>
+        </div>
+        <p className="subscribe-trust-legal">
+          By subscribing you agree to our{' '}
+          <Link to="/terms">Terms</Link> and <Link to="/privacy">Privacy Policy</Link>. All sales are final — no
+          refunds.
+        </p>
+      </footer>
+    </div>
+  );
+}
+
+export default Subscribe;

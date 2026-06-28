@@ -13,7 +13,7 @@ function Terms() {
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead
         title="Terms of Service | LearnStackHub"
-        description="Read LearnStackHub terms of service, disclaimers, usage policy, and legal conditions for using tutorials and platform features."
+        description="Read LearnStackHub terms of service, subscription and Razorpay payment terms, disclaimers, and legal conditions."
       />
       <h1 className="tutorial-title">Terms of Service & Disclaimer</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
@@ -62,6 +62,91 @@ function Terms() {
             code examples, and content are provided for educational purposes only. We strive to provide accurate 
             and up-to-date information, but we make no warranties or representations regarding the completeness 
             or accuracy of the content.
+          </p>
+        </section>
+
+        <section style={{ marginBottom: '2.5rem' }}>
+          <h2>Subscriptions and Paid Access</h2>
+          <p>
+            Certain tutorials, MCQs, Practice Lab features, and related premium content on {LEARNSTACKHUB.brand} require
+            an active paid subscription. Subscription plans, prices, and access duration are shown on the{' '}
+            <Link to="/subscribe">Subscribe</Link> page at the time of purchase.
+          </p>
+          <p>By purchasing a subscription, you agree that:</p>
+          <ul>
+            <li>You must sign in with a valid Google account before checkout</li>
+            <li>Access is granted to the account used at the time of payment and is non-transferable</li>
+            <li>Subscription access is for personal, non-commercial learning use only</li>
+            <li>Access remains active for the plan period purchased (for example, 6 months or 12 months) unless suspended for policy violations</li>
+            <li>
+              Early-bird pricing applies to the first 100 paid subscribers: 6 months at ₹999 (regular ₹1,499) and
+              12 months at ₹34,999 (regular ₹49,999), as shown on the Subscribe page at checkout
+            </li>
+            <li>
+              All active subscribers may take our monthly certification exam; passing the exam qualifies you for a
+              LearnStackHub internship certificate, subject to exam rules published by us
+            </li>
+            <li>
+              The 12-month plan includes 90 days of online live training with mentor connect, doubt clearing, and
+              technology explanations, as described on the Subscribe page
+            </li>
+            <li>We may change plan features or pricing for future purchases; existing paid periods are honored for the term already purchased</li>
+          </ul>
+        </section>
+
+        <section style={{ marginBottom: '2.5rem' }}>
+          <h2>Payments (Razorpay)</h2>
+          <p>
+            All subscription payments on {LEARNSTACKHUB.brand} are processed by{' '}
+            <strong>Razorpay Software Private Limited</strong> (&quot;Razorpay&quot;). When you click subscribe, you are
+            redirected to or shown Razorpay&apos;s secure checkout to complete payment using supported methods (such as
+            UPI, cards, or net banking, as made available by Razorpay).
+          </p>
+          <p>
+            You authorize us and Razorpay to charge the displayed amount for the plan you select. A successful payment
+            activates your subscription and generates a digital invoice available under your{' '}
+            <Link to="/account">Account</Link> page.
+          </p>
+          <p>
+            You are responsible for providing accurate billing contact details. Payment failures, bank declines, or
+            incomplete transactions do not grant subscription access. If a payment is verified successfully but access
+            is not activated, contact us at{' '}
+            <a href={`mailto:${LEARNSTACKHUB.contactEmail}`}>{LEARNSTACKHUB.contactEmail}</a> with your order ID.
+          </p>
+          <p>
+            Razorpay&apos;s terms apply to payment processing:{' '}
+            <a href="https://razorpay.com/terms/" target="_blank" rel="noopener noreferrer">
+              razorpay.com/terms
+            </a>
+          </p>
+        </section>
+
+        <section style={{ marginBottom: '2.5rem' }}>
+          <h2>No Refunds</h2>
+          <div style={{
+            background: 'linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%)',
+            border: '2px solid #bfdbfe',
+            borderRadius: '12px',
+            padding: '1.5rem',
+            marginBottom: '1rem'
+          }}>
+            <p style={{ marginTop: 0, marginBottom: '0.75rem' }}>
+              <strong>All subscription payments are final and non-refundable.</strong> Because {LEARNSTACKHUB.brand}{' '}
+              provides immediate access to digital educational content upon successful payment, we do not offer
+              refunds, partial refunds, or credits once a subscription has been activated — including if you change
+              your mind, do not use the platform, or stop using it before the access period ends.
+            </p>
+            <p style={{ marginBottom: 0 }}>
+              The only exception is where a refund is required by applicable law or explicitly approved by us in
+              writing (for example, duplicate charge verified on our side). Chargebacks or payment disputes should be
+              raised with us first at{' '}
+              <a href={`mailto:${LEARNSTACKHUB.contactEmail}`}>{LEARNSTACKHUB.contactEmail}</a> before initiating a
+              bank dispute.
+            </p>
+          </div>
+          <p>
+            Please review plan details and pricing carefully before completing payment. By proceeding with Razorpay
+            checkout, you confirm that you understand and accept this no-refund policy.
           </p>
         </section>
 
@@ -162,11 +247,16 @@ function Terms() {
         <section style={{ marginBottom: '2.5rem' }}>
           <h2>Advertising and Third-Party Services</h2>
           <p>
-            Our Site may display advertisements provided by third-party advertising services, including Google AdSense. 
+            Our Site may display advertisements provided by third-party advertising services, including Google AdSense.
             These advertisements may be personalized based on your browsing history and interests.
           </p>
           <p>
-            We use Google AdSense to serve advertisements on our Site. Google AdSense uses cookies and similar technologies 
+            Paid subscription checkout is handled by Razorpay. We are not responsible for downtime, errors, or
+            security incidents originating solely on Razorpay&apos;s systems, but we will assist you with payment
+            verification and access issues related to {LEARNSTACKHUB.brand} accounts.
+          </p>
+          <p>
+            We use Google AdSense to serve advertisements on our Site. Google AdSense uses cookies and similar technologies
             to provide personalized advertising. By using our Site, you consent to the use of cookies for advertising purposes.
           </p>
           <p>

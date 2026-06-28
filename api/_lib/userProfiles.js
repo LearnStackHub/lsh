@@ -44,7 +44,7 @@ export async function upsertUserProfile(db, user) {
   const snapshot = await ref.get();
   const patch = buildProfilePatch(user);
 
-  if (snapshot.exists()) {
+  if (snapshot.exists) {
     await ref.set(patch, { merge: true });
     return true;
   }

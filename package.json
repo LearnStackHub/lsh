@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/start-dev.mjs",
+    "dev:ui": "vite",
+    "dev:api": "node --env-file=.env scripts/local-api-server.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -12,7 +14,8 @@
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "build-indexing-candidates": "node scripts/build-indexing-candidates.js",
     "generate-sitemap:review": "STRICT_INDEXING_POLICY=1 node scripts/generate-sitemap.js",
-    "recheck-review-readiness": "STRICT_INDEXING_POLICY=1 node scripts/recheck-review-readiness.js"
+    "recheck-review-readiness": "STRICT_INDEXING_POLICY=1 node scripts/recheck-review-readiness.js",
+    "test:razorpay": "node --env-file=.env scripts/test-razorpay-local.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.1",

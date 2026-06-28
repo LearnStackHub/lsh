@@ -221,9 +221,10 @@ function Layout() {
   };
 
   const isHomePage = location.pathname === '/' || location.pathname === '/index.html';
+  const isFocusPage = /^\/(account|subscribe)(\/|$)/.test(location.pathname);
 
   return (
-    <div className={`app-layout${isHomePage ? ' app-layout--home' : ''}`}>
+    <div className={`app-layout${isHomePage ? ' app-layout--home' : ''}${isFocusPage ? ' app-layout--focus' : ''}`}>
       {/* Header */}
       <header className="header" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
         <div className="header-left">

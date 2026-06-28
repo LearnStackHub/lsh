@@ -13,7 +13,7 @@ function PrivacyPolicy() {
     <div className="tutorial-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <SEOHead
         title="Privacy Policy | LearnStackHub"
-        description="Learn how LearnStackHub collects, uses, and protects data, including cookies, analytics, ads, and chat-related privacy practices."
+        description="Learn how LearnStackHub collects, uses, and protects data, including subscriptions, Razorpay payments, cookies, analytics, and ads."
       />
       <h1 className="tutorial-title">Privacy Policy</h1>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
@@ -38,7 +38,9 @@ function PrivacyPolicy() {
           <h3>Information You Provide</h3>
           <p>We may collect information that you voluntarily provide to us, including:</p>
           <ul>
-            <li>Name and email address when you sign in or contribute content</li>
+            <li>Name and email address when you sign in with Google, email/password, or contribute content</li>
+            <li>Account and subscription status linked to your signed-in profile</li>
+            <li>Payment-related records such as order ID, payment ID, plan purchased, amount paid, and invoice details (we do not store your full card, UPI PIN, or net-banking credentials)</li>
             <li>Content you submit, such as tutorial contributions or comments</li>
             <li>Feedback and communications you send to us</li>
             <li>
@@ -64,6 +66,8 @@ function PrivacyPolicy() {
           <p>We use the information we collect to:</p>
           <ul>
             <li>Provide, maintain, and improve our services</li>
+            <li>Authenticate your account and manage subscription access</li>
+            <li>Process subscription payments and generate invoices</li>
             <li>Process your contributions and display attribution</li>
             <li>Respond to your inquiries and provide customer support</li>
             <li>Send you updates about our services (with your consent)</li>
@@ -71,6 +75,40 @@ function PrivacyPolicy() {
             <li>Detect and prevent fraud or abuse</li>
             <li>Comply with legal obligations</li>
           </ul>
+        </section>
+
+        <section style={{ marginBottom: '2.5rem' }}>
+          <h2>Subscriptions and Payments (Razorpay)</h2>
+          <p>
+            {LEARNSTACKHUB.brand} offers paid subscription plans that unlock premium learning content. When you
+            subscribe, payment is processed securely by <strong>Razorpay Software Private Limited</strong> (&quot;Razorpay&quot;),
+            our payment gateway partner. Checkout may open on Razorpay&apos;s hosted payment page or modal.
+          </p>
+          <p>When you complete a purchase, we may collect and store:</p>
+          <ul>
+            <li>Your name and email address (from your signed-in account and/or checkout prefill)</li>
+            <li>Subscription plan selected (for example, 6-month or 12-month access)</li>
+            <li>Transaction identifiers such as Razorpay order ID and payment ID</li>
+            <li>Amount paid, currency, payment status, and invoice number</li>
+            <li>Subscription start and expiry information linked to your account</li>
+          </ul>
+          <p>
+            <strong>We do not collect or store</strong> your full debit/credit card number, CVV, UPI PIN, or net-banking
+            password. Razorpay processes payment credentials directly. Razorpay may also collect device, browser, and
+            fraud-prevention data according to its own policies.
+          </p>
+          <p>
+            Payment records are stored on our servers (for example, in Firebase/Firestore) to activate your access,
+            display invoices in your account, and respond to billing support requests. For subscription terms,
+            including the no-refund policy, see our{' '}
+            <Link to="/terms">Terms of Service</Link>.
+          </p>
+          <p>
+            Razorpay privacy information:{' '}
+            <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener noreferrer">
+              razorpay.com/privacy
+            </a>
+          </p>
         </section>
 
         <section style={{ marginBottom: '2.5rem' }}>
@@ -132,11 +170,13 @@ function PrivacyPolicy() {
           <h2>Third-Party Services</h2>
           <p>We may use third-party services that collect information used to identify you, including:</p>
           <ul>
+            <li><strong>Google Sign-In / Firebase Authentication:</strong> For account sign-in and profile management</li>
+            <li><strong>Razorpay:</strong> For secure subscription payment processing</li>
             <li><strong>Google AdSense:</strong> For advertising services</li>
             <li><strong>Piston API:</strong> For code execution (no personal data collected)</li>
             <li>
               <strong>Hosting and infrastructure providers:</strong> For serving the Site and optional server-side
-              features (such as chat). Their privacy policies describe how they process network requests.
+              features (such as chat, payments, and account sync). Their privacy policies describe how they process network requests.
             </li>
             <li>
               <strong>AI providers:</strong> When you use Chat practice, your prompts are processed by a third-party AI

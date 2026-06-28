@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
 import { cert, getApps, initializeApp } from 'firebase-admin/app';
 
 function normalizePrivateKey(key) {
@@ -104,7 +106,30 @@ function parseServiceAccount(raw) {
   return extractServiceAccountLoose(trimmed);
 }
 
+function readServiceAccountFile(filePath) {
+  try {
+    const resolved = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
+    if (!existsSync(resolved)) {
+      console.error(`firebase admin: file not found at ${resolved}`);
+      return null;
+    }
+
+    return parseServiceAccount(readFileSync(resolved, 'utf8'));
+  } catch (error) {
+    console.error('firebase admin: could not read service account file:', error?.message || error);
+    return null;
+  }
+}
+
 function readServiceAccountFromEnv() {
+  const filePath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH?.trim();
+  if (filePath) {
+    const fromFile = readServiceAccountFile(filePath);
+    if (fromFile) {
+      return fromFile;
+    }
+  }
+
   const jsonRaw = process.env.FIREBASE_SERVICE_ACCOUNT || process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
   if (jsonRaw) {
     const parsed = parseServiceAccount(jsonRaw);
@@ -204,7 +229,8 @@ export function getConfigStatus() {
     process.env.FIREBASE_SERVICE_ACCOUNT ||
       process.env.FIREBASE_SERVICE_ACCOUNT_JSON ||
       process.env.FIREBASE_SERVICE_ACCOUNT_B64 ||
-      process.env.FIREBASE_SERVICE_ACCOUNT_BASE64
+      process.env.FIREBASE_SERVICE_ACCOUNT_BASE64 ||
+      process.env.FIREBASE_SERVICE_ACCOUNT_PATH?.trim()
   );
   const hasSplit = Boolean(
     process.env.FIREBASE_CLIENT_EMAIL?.trim() && process.env.FIREBASE_PRIVATE_KEY?.trim()

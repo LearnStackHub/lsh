@@ -39,5 +39,9 @@ service cloud.firestore {
         && request.resource.data.subscription == resource.data.subscription;
       allow delete: if false;
     }
+
+    match /payments/{paymentId} {
+      allow read, write: if false;
+    }
   }
 }

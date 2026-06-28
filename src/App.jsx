@@ -5,6 +5,7 @@ import { ContributionProvider } from './context/ContributionContext';
 import LoginModal from './components/LoginModal';
 import AdminRoute from './components/AdminRoute';
 import ProtectedRoute from './components/ProtectedRoute';
+import SubscriptionRoute from './components/SubscriptionRoute';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -32,6 +33,9 @@ const AiLab = lazy(() => import('./pages/ai/AiLab'));
 const AiChat = lazy(() => import('./pages/ai/AiChat'));
 const AiInterview = lazy(() => import('./pages/ai/AiInterview'));
 const AiCodeEditor = lazy(() => import('./pages/ai/AiCodeEditor'));
+const Subscribe = lazy(() => import('./pages/Subscribe'));
+const Account = lazy(() => import('./pages/Account'));
+const Invoice = lazy(() => import('./pages/Invoice'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 
 // Minimal loading fallback
@@ -145,44 +149,49 @@ function AppWithTracking() {
           path="index.html"
           element={<Navigate to="/" replace />}
         />
+        <Route path="privacy" element={<PrivacyPolicy />} />
+        <Route path="terms" element={<Terms />} />
+        <Route path="disclaimer" element={<Disclaimer />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="about" element={<About />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="tutorial/:topicId" element={<Tutorial />} />
-          <Route path="corejava/:topicId" element={<Tutorial />} />
-          <Route path="mysql/:topicId" element={<Tutorial />} />
-          <Route path="spring/:topicId" element={<Tutorial />} />
-          <Route path="springboot/:topicId" element={<Tutorial />} />
-          <Route path="hibernate/:topicId" element={<Tutorial />} />
-          <Route path="java8/:topicSlug" element={<Tutorial />} />
-          <Route path="microservices/:topicSlug" element={<Tutorial />} />
-          <Route path="springai/:topicSlug" element={<Tutorial />} />
-          <Route path="kafka/:topicSlug" element={<Tutorial />} />
-          <Route path="docker/:topicSlug" element={<Tutorial />} />
-          <Route path="privacy" element={<PrivacyPolicy />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="about" element={<About />} />
-          <Route path="careers" element={<Careers />} />
-          <Route path="career-guidance" element={<CareerGuidance />} />
-          <Route path="disclaimer" element={<Disclaimer />} />
-          <Route path="core-java-mcq" element={<CoreJavaMCQ />} />
-          <Route path="jdbc-mcq" element={<JDBCMCQ />} />
-          <Route path="mysql-mcq" element={<MySQLMCQ />} />
-          <Route path="spring-mcq" element={<SpringMCQ />} />
-          <Route path="spring-boot-mcq" element={<SpringBootMCQ />} />
-          <Route path="hibernate-mcq" element={<HibernateMCQ />} />
-          <Route path="microservices-mcq" element={<MicroservicesMCQ />} />
-          <Route path="ai-lab" element={<AiLab />} />
-          <Route path="ai-lab/chat" element={<AiChat />} />
-          <Route path="ai-lab/interview" element={<AiInterview />} />
-          <Route path="ai-lab/code-editor" element={<AiCodeEditor />} />
-          <Route
-            path="admin"
-            element={
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            }
-          />
+          <Route path="subscribe" element={<Subscribe />} />
+          <Route path="account" element={<Account />} />
+          <Route path="account/invoice/:orderId" element={<Invoice />} />
+          <Route element={<SubscriptionRoute />}>
+            <Route path="tutorial/:topicId" element={<Tutorial />} />
+            <Route path="corejava/:topicId" element={<Tutorial />} />
+            <Route path="mysql/:topicId" element={<Tutorial />} />
+            <Route path="spring/:topicId" element={<Tutorial />} />
+            <Route path="springboot/:topicId" element={<Tutorial />} />
+            <Route path="hibernate/:topicId" element={<Tutorial />} />
+            <Route path="java8/:topicSlug" element={<Tutorial />} />
+            <Route path="microservices/:topicSlug" element={<Tutorial />} />
+            <Route path="springai/:topicSlug" element={<Tutorial />} />
+            <Route path="kafka/:topicSlug" element={<Tutorial />} />
+            <Route path="docker/:topicSlug" element={<Tutorial />} />
+            <Route path="careers" element={<Careers />} />
+            <Route path="career-guidance" element={<CareerGuidance />} />
+            <Route path="core-java-mcq" element={<CoreJavaMCQ />} />
+            <Route path="jdbc-mcq" element={<JDBCMCQ />} />
+            <Route path="mysql-mcq" element={<MySQLMCQ />} />
+            <Route path="spring-mcq" element={<SpringMCQ />} />
+            <Route path="spring-boot-mcq" element={<SpringBootMCQ />} />
+            <Route path="hibernate-mcq" element={<HibernateMCQ />} />
+            <Route path="microservices-mcq" element={<MicroservicesMCQ />} />
+            <Route path="ai-lab" element={<AiLab />} />
+            <Route path="ai-lab/chat" element={<AiChat />} />
+            <Route path="ai-lab/interview" element={<AiInterview />} />
+            <Route path="ai-lab/code-editor" element={<AiCodeEditor />} />
+            <Route
+              path="admin"
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            />
+          </Route>
         </Route>
       </Route>    </Routes>
     </Suspense>

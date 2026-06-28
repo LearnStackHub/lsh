@@ -7,6 +7,26 @@
     "api/admin-users.js": {
       "memory": 1024,
       "maxDuration": 30
+    },
+    "api/razorpay-order.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    },
+    "api/razorpay-verify.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    },
+    "api/razorpay-webhook.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    },
+    "api/invoices.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    },
+    "api/subscription-pricing.js": {
+      "memory": 512,
+      "maxDuration": 10
     }
   },
   "headers": [
