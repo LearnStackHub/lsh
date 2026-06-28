@@ -23,6 +23,8 @@ export default async function handler(req, res) {
       ready: firebaseReady,
       hasCredentialEnv: firebaseStatus.hasCredentialEnv,
       credentialParses: firebaseStatus.credentialParses,
+      sources: firebaseStatus.sources,
+      fixHint: firebaseReady ? undefined : firebaseStatus.fixHint,
     },
     razorpay: {
       ready: isRazorpayConfigured(),

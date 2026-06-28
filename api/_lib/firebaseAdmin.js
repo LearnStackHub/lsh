@@ -225,21 +225,45 @@ export function getAdminEmails() {
 }
 
 export function getConfigStatus() {
-  const hasJson = Boolean(
-    process.env.FIREBASE_SERVICE_ACCOUNT ||
-      process.env.FIREBASE_SERVICE_ACCOUNT_JSON ||
-      process.env.FIREBASE_SERVICE_ACCOUNT_B64 ||
-      process.env.FIREBASE_SERVICE_ACCOUNT_BASE64 ||
-      process.env.FIREBASE_SERVICE_ACCOUNT_PATH?.trim()
-  );
-  const hasSplit = Boolean(
-    process.env.FIREBASE_CLIENT_EMAIL?.trim() && process.env.FIREBASE_PRIVATE_KEY?.trim()
-  );
+  const sources = {
+    path: Boolean(process.env.FIREBASE_SERVICE_ACCOUNT_PATH?.trim()),
+    json: Boolean(process.env.FIREBASE_SERVICE_ACCOUNT || process.env.FIREBASE_SERVICE_ACCOUNT_JSON),
+    b64: Boolean(
+      process.env.FIREBASE_SERVICE_ACCOUNT_B64 || process.env.FIREBASE_SERVICE_ACCOUNT_BASE64
+    ),
+    split: Boolean(
+      process.env.FIREBASE_CLIENT_EMAIL?.trim() && process.env.FIREBASE_PRIVATE_KEY?.trim()
+    ),
+  };
+
+  const hasCredentialEnv = sources.path || sources.json || sources.b64 || sources.split;
+  const credentialParses = Boolean(buildCredential());
+
+  let fixHint = '';
+  if (!hasCredentialEnv) {
+    fixHint =
+      'Add FIREBASE_SERVICE_ACCOUNT (one-line JSON) or FIREBASE_CLIENT_EMAIL + FIREBASE_PRIVATE_KEY in Vercel.';
+  } else if (!credentialParses) {
+    if (sources.path && !sources.json && !sources.b64 && !sources.split) {
+      fixHint =
+        'FIREBASE_SERVICE_ACCOUNT_PATH only works locally. Remove it on Vercel and add FIREBASE_SERVICE_ACCOUNT or split credentials.';
+    } else if (sources.json) {
+      fixHint =
+        'FIREBASE_SERVICE_ACCOUNT is set but invalid. Re-paste as minified one-line JSON (run: npm run prepare:firebase-env).';
+    } else if (sources.split) {
+      fixHint =
+        'FIREBASE_CLIENT_EMAIL or FIREBASE_PRIVATE_KEY is invalid. Ensure private key uses literal \\n between lines.';
+    } else {
+      fixHint = 'Firebase credential env var is present but could not be parsed.';
+    }
+  }
 
   return {
-    hasCredentialEnv: hasJson || hasSplit,
-    credentialParses: Boolean(buildCredential()),
+    hasCredentialEnv,
+    credentialParses,
     hasAdminEmails: getAdminEmails().length > 0,
+    sources,
+    fixHint,
   };
 }
 

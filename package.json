@@ -15,7 +15,8 @@
     "build-indexing-candidates": "node scripts/build-indexing-candidates.js",
     "generate-sitemap:review": "STRICT_INDEXING_POLICY=1 node scripts/generate-sitemap.js",
     "recheck-review-readiness": "STRICT_INDEXING_POLICY=1 node scripts/recheck-review-readiness.js",
-    "test:razorpay": "node --env-file=.env scripts/test-razorpay-local.js"
+    "test:razorpay": "node --env-file=.env scripts/test-razorpay-local.js",
+    "prepare:firebase-env": "node scripts/prepare-firebase-vercel-env.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.1",
