@@ -240,6 +240,12 @@ export async function probeFirebaseAdmin() {
 
 export function apiErrorPayload(error) {
   const code = error?.code || error?.errorInfo?.code || 'UNKNOWN';
+  if (process.env.NODE_ENV === 'production') {
+    return {
+      error: 'Unavailable',
+      code: 'SERVICE_UNAVAILABLE',
+    };
+  }
   return {
     error: 'Unavailable',
     code: String(code),

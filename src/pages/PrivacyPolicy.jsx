@@ -98,7 +98,7 @@ function PrivacyPolicy() {
             fraud-prevention data according to its own policies.
           </p>
           <p>
-            Payment records are stored on our servers (for example, in Firebase/Firestore) to activate your access,
+            Payment records are stored securely on our servers to activate your access,
             display invoices in your account, and respond to billing support requests. For subscription terms,
             including the no-refund policy, see our{' '}
             <Link to="/terms">Terms of Service</Link>.
@@ -170,7 +170,7 @@ function PrivacyPolicy() {
           <h2>Third-Party Services</h2>
           <p>We may use third-party services that collect information used to identify you, including:</p>
           <ul>
-            <li><strong>Google Sign-In / Firebase Authentication:</strong> For account sign-in and profile management</li>
+            <li><strong>Google Sign-In:</strong> For account sign-in and profile management</li>
             <li><strong>Razorpay:</strong> For secure subscription payment processing</li>
             <li><strong>Google AdSense:</strong> For advertising services</li>
             <li><strong>Piston API:</strong> For code execution (no personal data collected)</li>

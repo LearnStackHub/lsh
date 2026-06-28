@@ -32,6 +32,7 @@ import {
   perMonthPrice,
 } from '../config/subscriptionPlans';
 import { isRazorpayEnabled, openRazorpayCheckout } from '../services/razorpayService';
+import { sanitizeUserMessage } from '../utils/userFacingErrors';
 import { fetchSubscriptionPricing, getLivePlanPricing } from '../services/subscriptionPricingService';
 import logoImage from '../assets/LSH.png';
 
@@ -96,7 +97,7 @@ function Subscribe() {
     } catch (checkoutError) {
       const message = checkoutError?.message || 'Checkout failed';
       if (message !== 'Payment cancelled') {
-        setError(message);
+        setError(sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.'));
       }
     } finally {
       setLoadingPlanId('');
@@ -192,9 +193,9 @@ function Subscribe() {
         </div>
       )}
 
-      {!isRazorpayEnabled() && (
+      {import.meta.env.DEV && !isRazorpayEnabled() && (
         <div className="subscribe-alert subscribe-alert--warn" role="status">
-          Payments are not configured yet. Add Razorpay keys in your environment.
+          Payments are not configured yet (dev only).
         </div>
       )}
 
@@ -423,8 +424,8 @@ function Subscribe() {
         <div className="subscribe-trust-item">
           <CreditCard size={20} aria-hidden />
           <div>
-            <strong>Secure Razorpay checkout</strong>
-            <p>UPI, cards, netbanking — powered by Razorpay with {BRAND.name} branding.</p>
+            <strong>Secure checkout</strong>
+            <p>UPI, cards, and net banking — encrypted payment processing with {BRAND.name} branding.</p>
           </div>
         </div>
         <div className="subscribe-trust-item">

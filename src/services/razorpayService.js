@@ -1,5 +1,11 @@
 import { auth } from '../config/firebase';
 import { getCheckoutBranding } from '../config/brand';
+import {
+  CHECKOUT_UNAVAILABLE,
+  PAYMENT_VERIFY_FAILED,
+  devOnlyMessage,
+  sanitizeUserMessage,
+} from '../utils/userFacingErrors';
 
 const CHECKOUT_SCRIPT = 'https://checkout.razorpay.com/v1/checkout.js';
 
@@ -7,7 +13,7 @@ let scriptPromise = null;
 
 function loadRazorpayScript() {
   if (typeof window === 'undefined') {
-    return Promise.reject(new Error('Razorpay is only available in the browser'));
+    return Promise.reject(new Error('Payment checkout is only available in the browser'));
   }
 
   if (window.Razorpay) {
@@ -43,6 +49,44 @@ async function getAuthToken() {
   return auth.currentUser.getIdToken(true);
 }
 
+function mapOrderError(response, payload) {
+  if (response.status === 404) {
+    return devOnlyMessage(
+      'Payment API is not running. Stop the dev server and run npm run dev again (starts UI + API).',
+      CHECKOUT_UNAVAILABLE
+    );
+  }
+  if (response.status === 401) {
+    return 'Your session expired. Sign in again and retry checkout.';
+  }
+  if (response.status === 503 || response.status >= 500) {
+    return devOnlyMessage(
+      payload.message || payload.code || `Payment API error (${response.status})`,
+      CHECKOUT_UNAVAILABLE
+    );
+  }
+  return sanitizeUserMessage(payload.error || payload.message, CHECKOUT_UNAVAILABLE);
+}
+
+function mapVerifyError(response, payload) {
+  if (response.status === 404) {
+    return devOnlyMessage(
+      'Payment API is not running. Stop the dev server and run npm run dev again (starts UI + API).',
+      PAYMENT_VERIFY_FAILED
+    );
+  }
+  if (response.status === 401) {
+    return 'Your session expired. Sign in again and retry checkout.';
+  }
+  if (response.status === 400 && payload.code === 'INVALID_SIGNATURE') {
+    return 'Payment could not be verified. Contact careers@learnstackhub.com with your order ID.';
+  }
+  if (response.status === 503 || response.status >= 500) {
+    return devOnlyMessage(payload.message || payload.code || 'Verification failed', PAYMENT_VERIFY_FAILED);
+  }
+  return sanitizeUserMessage(payload.error, PAYMENT_VERIFY_FAILED);
+}
+
 export async function createSubscriptionOrder(planId) {
   const token = await getAuthToken();
   const response = await fetch('/api/razorpay-order', {
@@ -57,37 +101,7 @@ export async function createSubscriptionOrder(planId) {
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error(
-        'Payment API is not running. Stop the dev server and run npm run dev again (starts UI + API).'
-      );
-    }
-    if (response.status === 503 && payload.code === 'MISSING_RAZORPAY_CREDENTIALS') {
-      throw new Error(
-        'Payment is not configured on the server. Add RAZORPAY_KEY_SECRET (and RAZORPAY_KEY_ID) in Vercel environment variables, then redeploy.'
-      );
-    }
-    if (response.status === 503 && payload.code === 'MISSING_FIREBASE_CREDENTIAL') {
-      throw new Error(
-        'Server is missing Firebase Admin credentials. Add FIREBASE_SERVICE_ACCOUNT (JSON on one line) in Vercel — not FIREBASE_SERVICE_ACCOUNT_PATH.'
-      );
-    }
-    if (response.status === 503 && payload.code === 'INVALID_FIREBASE_CREDENTIAL') {
-      throw new Error(
-        'Firebase Admin credentials are invalid on the server. Re-paste FIREBASE_SERVICE_ACCOUNT as one-line JSON in Vercel, then redeploy.'
-      );
-    }
-    if (response.status === 503) {
-      throw new Error(payload.error || payload.code || 'Payment service is temporarily unavailable.');
-    }
-    if (response.status >= 500) {
-      throw new Error(
-        import.meta.env.DEV
-          ? 'Payment API error. Check the terminal for [local-api] logs — ensure firebase admin: ready is shown.'
-          : 'Payment service error. Check Vercel env vars and /api/health on the live site.'
-      );
-    }
-    throw new Error(payload.error || payload.code || 'Could not start checkout');
+    throw new Error(mapOrderError(response, payload));
   }
 
   return payload;
@@ -112,35 +126,7 @@ export async function verifySubscriptionPayment({ planId, orderId, paymentId, si
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error(
-        'Payment API is not running. Stop the dev server and run npm run dev again (starts UI + API).'
-      );
-    }
-    if (response.status === 503 && payload.code === 'MISSING_RAZORPAY_CREDENTIALS') {
-      throw new Error('Payment is not configured. Add Razorpay keys to .env.');
-    }
-    if (response.status === 503 && payload.code === 'MISSING_FIREBASE_ADMIN') {
-      throw new Error(
-        'Server is missing Firebase Admin credentials. Add FIREBASE_SERVICE_ACCOUNT_PATH to .env and restart npm run dev.'
-      );
-    }
-    if (response.status === 503 && payload.code === 'FIRESTORE_PERMISSION_DENIED') {
-      throw new Error('Could not activate subscription in Firestore. Check service account permissions.');
-    }
-    if (response.status === 503) {
-      throw new Error(
-        payload.error ||
-          'Payment verification failed. Restart npm run dev so the local API reloads, then try again.'
-      );
-    }
-    if (response.status === 401) {
-      throw new Error('Your session expired. Sign in again and retry checkout.');
-    }
-    if (response.status === 400 && payload.code === 'INVALID_SIGNATURE') {
-      throw new Error('Payment signature mismatch. Contact support with your order ID.');
-    }
-    throw new Error(payload.error || 'Payment verification failed');
+    throw new Error(mapVerifyError(response, payload));
   }
 
   return payload;
@@ -151,7 +137,7 @@ export async function openRazorpayCheckout({ planId, user, onSuccess, onDismiss 
   const Razorpay = await loadRazorpayScript();
 
   if (!order.keyId) {
-    throw new Error('Payment is not configured on the server');
+    throw new Error(CHECKOUT_UNAVAILABLE);
   }
 
   return new Promise((resolve, reject) => {

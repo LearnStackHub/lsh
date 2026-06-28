@@ -22,6 +22,7 @@ export default async function handler(req, res) {
     req.query?.deep === '1' ||
     req.url?.includes('deep=1') ||
     new URL(req.url || '', 'http://localhost').searchParams.get('deep') === '1';
+  const isProd = process.env.NODE_ENV === 'production';
 
   let firestore = { ready: false };
   if (deep && firebaseReady) {
@@ -33,23 +34,25 @@ export default async function handler(req, res) {
 
   res.status(200).json({
     ok: deep ? allReady : firebaseReady && razorpayReady,
-    firebase: {
-      ready: firebaseReady,
-      hasCredentialEnv: firebaseStatus.hasCredentialEnv,
-      credentialParses: firebaseStatus.credentialParses,
-      sources: firebaseStatus.sources,
-      fixHint: firebaseReady ? undefined : firebaseStatus.fixHint,
-      ...(deep ? { firestore } : {}),
-    },
-    razorpay: {
-      ready: razorpayReady,
-      hasKeyId: Boolean(
-        process.env.RAZORPAY_KEY_ID?.trim() || process.env.VITE_RAZORPAY_KEY_ID?.trim()
-      ),
-      hasKeySecret: Boolean(process.env.RAZORPAY_KEY_SECRET?.trim()),
-    },
-    hint: deep
-      ? undefined
-      : 'Add ?deep=1 to test Firestore connectivity (same check sync-user and checkout use).',
+    firebase: isProd
+      ? { ready: firebaseReady, ...(deep ? { firestore: { ready: firestore.firestoreReady === true } } : {}) }
+      : {
+          ready: firebaseReady,
+          hasCredentialEnv: firebaseStatus.hasCredentialEnv,
+          credentialParses: firebaseStatus.credentialParses,
+          sources: firebaseStatus.sources,
+          fixHint: firebaseReady ? undefined : firebaseStatus.fixHint,
+          ...(deep ? { firestore } : {}),
+        },
+    razorpay: isProd
+      ? { ready: razorpayReady }
+      : {
+          ready: razorpayReady,
+          hasKeyId: Boolean(
+            process.env.RAZORPAY_KEY_ID?.trim() || process.env.VITE_RAZORPAY_KEY_ID?.trim()
+          ),
+          hasKeySecret: Boolean(process.env.RAZORPAY_KEY_SECRET?.trim()),
+        },
+    hint: isProd || deep ? undefined : 'Add ?deep=1 to test Firestore connectivity.',
   });
 }

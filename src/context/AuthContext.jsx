@@ -20,7 +20,10 @@ import {
 
 import { persistUserProfile, getUserProfile, hasActiveSubscription } from '../services/userService';
 
-import { consumeRedirectResult } from '../utils/authRedirect';
+import {
+  SIGN_IN_UNAVAILABLE,
+  devOnlyMessage,
+} from '../utils/userFacingErrors';
 
 
 
@@ -118,7 +121,10 @@ function getAuthErrorMessage(error) {
 
     case 'auth/operation-not-allowed':
 
-      return 'Email/password sign-in is not enabled. Enable it in Firebase Console → Authentication → Sign-in method → Email/Password.';
+      return devOnlyMessage(
+        'Email/password sign-in is not enabled. Enable it in Firebase Console → Authentication → Sign-in method → Email/Password.',
+        SIGN_IN_UNAVAILABLE
+      );
 
     case 'auth/email-already-in-use':
 
@@ -156,12 +162,20 @@ function getAuthErrorMessage(error) {
         String(error?.message || '').includes('redirect_uri_mismatch') ||
         String(error?.customData?.message || '').includes('redirect_uri_mismatch')
       ) {
-        const redirectUri = getOAuthRedirectUri();
-        const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
-        return `Google OAuth redirect mismatch. In Google Cloud Console → Credentials → Web client (Firebase), add JavaScript origin ${origin} and redirect URI ${redirectUri}. Save, wait 1–2 minutes, then try again.`;
+        return devOnlyMessage(
+          (() => {
+            const redirectUri = getOAuthRedirectUri();
+            const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
+            return `Google OAuth redirect mismatch. In Google Cloud Console → Credentials → Web client (Firebase), add JavaScript origin ${origin} and redirect URI ${redirectUri}. Save, wait 1–2 minutes, then try again.`;
+          })(),
+          'Google sign-in is temporarily unavailable. Please try again later or use email sign-in.'
+        );
       }
       if (String(error?.message || '').includes('ERR_SSL') || code === 'auth/internal-error') {
-        return 'Use http://localhost:5173 (not https) for local development.';
+        return devOnlyMessage(
+          'Use http://localhost:5173 (not https) for local development.',
+          SIGN_IN_UNAVAILABLE
+        );
       }
 
       return 'Unable to sign in. Please try again.';
