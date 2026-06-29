@@ -94,3 +94,67 @@ export async function saveRecruitmentExam(db, payload) {
 
   return { id: ref.id };
 }
+
+function toIsoString(value) {
+  if (!value) return null;
+  if (typeof value.toDate === 'function') {
+    return value.toDate().toISOString();
+  }
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+  return null;
+}
+
+export function mapSubmissionSummary(id, data) {
+  const candidate = data.candidate || {};
+  const score = data.score || {};
+
+  return {
+    id,
+    name: candidate.name || '',
+    email: candidate.email || '',
+    mobile: candidate.mobile || '',
+    studiedInGovt: Boolean(candidate.studiedInGovt),
+    govtInstitutionName: candidate.govtInstitutionName || '',
+    hasLshCertificate: Boolean(candidate.hasLshCertificate),
+    lshCertificateId: candidate.lshCertificateId || '',
+    scoreCorrect: Number(score.correct || 0),
+    scoreTotal: Number(score.total || 0),
+    scorePercentage: Number(score.percentage || 0),
+    timeTakenSeconds: Number(data.timeTakenSeconds || 0),
+    tabSwitchCount: Number(data.security?.tabSwitchCount || 0),
+    securityWarnings: Number(data.security?.securityWarnings || 0),
+    autoSubmitted: Boolean(data.security?.autoSubmitted),
+    status: data.status || 'submitted',
+    submittedAt: toIsoString(data.submittedAt) || toIsoString(data.createdAt),
+    hasPanPhoto: Boolean(data.panPhotoDataUrl),
+  };
+}
+
+export function mapSubmissionDetail(id, data) {
+  return {
+    ...mapSubmissionSummary(id, data),
+    answers: data.answers || {},
+    securityReason: data.security?.reason || '',
+    panPhotoDataUrl: data.panPhotoDataUrl || '',
+  };
+}
+
+export async function listRecruitmentExams(db, limit = 200) {
+  const snapshot = await db
+    .collection('recruitmentExams')
+    .orderBy('submittedAt', 'desc')
+    .limit(limit)
+    .get();
+
+  return snapshot.docs.map((entry) => mapSubmissionSummary(entry.id, entry.data()));
+}
+
+export async function getRecruitmentExamById(db, id) {
+  const snapshot = await db.collection('recruitmentExams').doc(id).get();
+  if (!snapshot.exists) {
+    return null;
+  }
+  return mapSubmissionDetail(snapshot.id, snapshot.data());
+}

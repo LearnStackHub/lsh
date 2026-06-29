@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Shield, RefreshCw, ArrowLeft, Crown } from 'lucide-react';
+import { Users, Shield, RefreshCw, ArrowLeft, Crown, Briefcase } from 'lucide-react';
 import SEOHead from '../../components/SEOHead';
 import UserAvatar from '../../components/UserAvatar';
 import { useAuth } from '../../context/AuthContext';
@@ -112,10 +112,16 @@ function AdminDashboard() {
             </h1>
             <p>Signed in as {user?.email}</p>
           </div>
-          <button type="button" className="btn btn-primary admin-refresh-btn" onClick={loadUsers} disabled={loading}>
-            <RefreshCw size={16} className={loading ? 'spin-icon' : ''} aria-hidden />
-            Refresh
-          </button>
+          <div className="admin-dashboard-actions">
+            <Link to="/admin/recruitment" className="btn btn-secondary admin-refresh-btn">
+              <Briefcase size={16} aria-hidden />
+              Recruitment
+            </Link>
+            <button type="button" className="btn btn-primary admin-refresh-btn" onClick={loadUsers} disabled={loading}>
+              <RefreshCw size={16} className={loading ? 'spin-icon' : ''} aria-hidden />
+              Refresh
+            </button>
+          </div>
         </div>
 
         <div className="admin-stats-grid">

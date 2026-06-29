@@ -35,6 +35,10 @@
     "api/recruitment-exam.js": {
       "memory": 1024,
       "maxDuration": 30
+    },
+    "api/recruitment-exams.js": {
+      "memory": 1024,
+      "maxDuration": 30
     }
   },
   "headers": [

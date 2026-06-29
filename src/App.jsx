@@ -37,6 +37,7 @@ const Subscribe = lazy(() => import('./pages/Subscribe'));
 const Account = lazy(() => import('./pages/Account'));
 const Invoice = lazy(() => import('./pages/Invoice'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const RecruitmentAdmin = lazy(() => import('./pages/admin/RecruitmentAdmin'));
 const RecruitmentExam = lazy(() => import('./pages/recruitment/RecruitmentExam'));
 
 // Minimal loading fallback
@@ -185,6 +186,14 @@ function AppWithTracking() {
             <Route path="ai-lab/chat" element={<AiChat />} />
             <Route path="ai-lab/interview" element={<AiInterview />} />
             <Route path="ai-lab/code-editor" element={<AiCodeEditor />} />
+            <Route
+              path="admin/recruitment"
+              element={
+                <AdminRoute>
+                  <RecruitmentAdmin />
+                </AdminRoute>
+              }
+            />
             <Route
               path="admin"
               element={
