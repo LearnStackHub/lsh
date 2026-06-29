@@ -21,6 +21,7 @@ const ROUTE_MAP = {
   'POST /api/razorpay-order': () => import('../api/razorpay-order.js'),
   'POST /api/razorpay-verify': () => import('../api/razorpay-verify.js'),
   'POST /api/sync-user': () => import('../api/sync-user.js'),
+  'POST /api/recruitment-exam': () => import('../api/recruitment-exam.js'),
   'GET /api/admin-users': () => import('../api/admin-users.js'),
 };
 

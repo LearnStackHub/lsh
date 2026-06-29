@@ -43,5 +43,10 @@ service cloud.firestore {
     match /payments/{paymentId} {
       allow read, write: if false;
     }
+
+    match /recruitmentExams/{examId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
   }
 }
