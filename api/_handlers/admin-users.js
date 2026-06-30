@@ -77,7 +77,7 @@ export default async function handler(req, res) {
     }
 
     const { getAdminEmails, getConfigStatus, getFirebaseAdminApp } = await import(
-      './_lib/firebaseAdmin.js'
+      '../_lib/firebaseAdmin.js'
     );
     const token = authHeader.slice('Bearer '.length);
 
@@ -99,7 +99,7 @@ export default async function handler(req, res) {
 
     const { getAuth } = await import('firebase-admin/auth');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { backfillUserProfiles } = await import('./_lib/userProfiles.js');
+    const { backfillUserProfiles } = await import('../_lib/userProfiles.js');
 
     const auth = getAuth(app);
     const decoded = await auth.verifyIdToken(token);

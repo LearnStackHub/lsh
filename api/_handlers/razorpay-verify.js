@@ -37,9 +37,9 @@ export default async function handler(req, res) {
 
 
     const { isRazorpayConfigured, parseJsonBody, verifyPaymentSignature } = await import(
-      './_lib/razorpay.js'
+      '../_lib/razorpay.js'
     );
-    const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
+    const { getPaidSubscriberCount, resolvePlanPricing } = await import('../_lib/pricing.js');
 
 
 
@@ -99,9 +99,9 @@ export default async function handler(req, res) {
 
     const { getFirestore } = await import('firebase-admin/firestore');
 
-    const { getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
 
-    const { fulfillSubscription } = await import('./_lib/subscriptions.js');
+    const { fulfillSubscription } = await import('../_lib/subscriptions.js');
 
 
 

@@ -12,10 +12,10 @@ export default async function handler(req, res) {
     }
 
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
-    const { isRazorpayConfigured, verifyWebhookSignature } = await import('./_lib/razorpay.js');
-    const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
-    const { fulfillSubscription } = await import('./_lib/subscriptions.js');
+    const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
+    const { isRazorpayConfigured, verifyWebhookSignature } = await import('../_lib/razorpay.js');
+    const { getPaidSubscriberCount, resolvePlanPricing } = await import('../_lib/pricing.js');
+    const { fulfillSubscription } = await import('../_lib/subscriptions.js');
 
     if (!isRazorpayConfigured()) {
       res.status(503).json({ error: 'Not configured' });

@@ -11,10 +11,10 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { parseJsonBody } = await import('./_lib/razorpay.js');
-    const { validateRecruitmentPayload, saveRecruitmentExam } = await import('./_lib/recruitmentExams.js');
+    const { parseJsonBody } = await import('../_lib/razorpay.js');
+    const { validateRecruitmentPayload, saveRecruitmentExam } = await import('../_lib/recruitmentExams.js');
 
     const app = getFirebaseAdminApp();
     if (!app) {

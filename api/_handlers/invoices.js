@@ -19,9 +19,9 @@ export default async function handler(req, res) {
 
     const { getAuth } = await import('firebase-admin/auth');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
-    const { paymentDocToInvoice, sortInvoicesNewestFirst, enrichPaymentData } = await import('./_lib/invoices.js');
-    const { backfillPaymentDocFromPlan } = await import('./_lib/subscriptions.js');
+    const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
+    const { paymentDocToInvoice, sortInvoicesNewestFirst, enrichPaymentData } = await import('../_lib/invoices.js');
+    const { backfillPaymentDocFromPlan } = await import('../_lib/subscriptions.js');
 
     const app = getFirebaseAdminApp();
     if (!app) {

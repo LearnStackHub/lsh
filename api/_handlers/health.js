@@ -12,9 +12,9 @@ export default async function handler(req, res) {
   }
 
   const { getConfigStatus, getFirebaseAdminApp, probeFirebaseAdmin } = await import(
-    './_lib/firebaseAdmin.js'
+    '../_lib/firebaseAdmin.js'
   );
-  const { isRazorpayConfigured } = await import('./_lib/razorpay.js');
+  const { isRazorpayConfigured } = await import('../_lib/razorpay.js');
 
   const firebaseStatus = getConfigStatus();
   const firebaseReady = Boolean(getFirebaseAdminApp());

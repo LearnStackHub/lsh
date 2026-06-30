@@ -12,9 +12,9 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+    const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
     const { getFirestore } = await import('firebase-admin/firestore');
-    const { buildPricingSnapshot, getPaidSubscriberCount } = await import('./_lib/pricing.js');
+    const { buildPricingSnapshot, getPaidSubscriberCount } = await import('../_lib/pricing.js');
 
     const app = getFirebaseAdminApp();
     let subscriberCount = 0;

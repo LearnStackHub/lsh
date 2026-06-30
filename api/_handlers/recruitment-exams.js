@@ -8,7 +8,7 @@ async function verifyAdminRequest(req) {
     return { error: { status: 401, body: { error: 'Unauthorized' } } };
   }
 
-  const { getAdminEmails, getConfigStatus, getFirebaseAdminApp } = await import('./_lib/firebaseAdmin.js');
+  const { getAdminEmails, getConfigStatus, getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
   const allowedEmails = getAdminEmails();
   if (allowedEmails.length === 0) {
     return { error: { status: 503, body: { error: 'Not configured', code: 'MISSING_ADMIN_EMAILS' } } };
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { listRecruitmentExams, getRecruitmentExamById } = await import('./_lib/recruitmentExams.js');
+    const { listRecruitmentExams, getRecruitmentExamById } = await import('../_lib/recruitmentExams.js');
     const submissionId = String(req.query?.id || '').trim();
 
     if (submissionId) {

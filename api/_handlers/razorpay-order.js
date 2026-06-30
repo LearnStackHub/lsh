@@ -6,12 +6,12 @@ export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
   const { getConfigStatus, getFirebaseAdminApp, apiErrorPayload } = await import(
-    './_lib/firebaseAdmin.js'
+    '../_lib/firebaseAdmin.js'
   );
   const { createRazorpayOrder, isRazorpayConfigured, parseJsonBody } = await import(
-    './_lib/razorpay.js'
+    '../_lib/razorpay.js'
   );
-  const { getPaidSubscriberCount, resolvePlanPricing } = await import('./_lib/pricing.js');
+  const { getPaidSubscriberCount, resolvePlanPricing } = await import('../_lib/pricing.js');
 
   try {
     if (req.method !== 'POST') {

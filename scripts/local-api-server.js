@@ -5,26 +5,11 @@
 
 import http from 'node:http';
 import { URL } from 'node:url';
+import { dispatchApi, ROUTE_LOADERS } from '../api/_dispatch.js';
 import { getConfigStatus } from '../api/_lib/firebaseAdmin.js';
 import { isRazorpayConfigured } from '../api/_lib/razorpay.js';
 
 const PORT = Number(process.env.LOCAL_API_PORT || 8787);
-
-const ROUTE_MAP = {
-  'GET /api/health': async () => ({
-    default: (_req, res) => {
-      res.status(200).json({ ok: true });
-    },
-  }),
-  'GET /api/subscription-pricing': () => import('../api/subscription-pricing.js'),
-  'GET /api/invoices': () => import('../api/invoices.js'),
-  'POST /api/razorpay-order': () => import('../api/razorpay-order.js'),
-  'POST /api/razorpay-verify': () => import('../api/razorpay-verify.js'),
-  'POST /api/sync-user': () => import('../api/sync-user.js'),
-  'POST /api/recruitment-exam': () => import('../api/recruitment-exam.js'),
-  'GET /api/recruitment-exams': () => import('../api/recruitment-exams.js'),
-  'GET /api/admin-users': () => import('../api/admin-users.js'),
-};
 
 async function readBody(req) {
   const chunks = [];
@@ -96,14 +81,13 @@ const server = http.createServer(async (req, res) => {
   }
 
   const url = new URL(req.url || '/', `http://localhost:${PORT}`);
-  const routeKey = `${req.method} ${url.pathname}`;
-  const loader = ROUTE_MAP[routeKey];
-
-  if (!loader) {
+  if (!url.pathname.startsWith('/api')) {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not found', path: url.pathname }));
     return;
   }
+
+  const apiPath = url.pathname.replace(/^\/api\/?/, '');
 
   try {
     const body = await readBody(req);
@@ -111,20 +95,19 @@ const server = http.createServer(async (req, res) => {
       method: req.method,
       headers: req.headers,
       body,
-      url: url.pathname,
+      url: url.pathname + url.search,
       query: Object.fromEntries(url.searchParams),
     };
 
-    const { default: handler } = await loader();
     const mockRes = createResponse(res);
-    await handler(mockReq, mockRes);
+    await dispatchApi(mockReq, mockRes, apiPath);
 
     if (!mockRes.isEnded() && !res.headersSent) {
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Handler did not send a response' }));
     }
   } catch (error) {
-    console.error(`${routeKey} failed:`, error?.message || error);
+    console.error(`${req.method} /api/${apiPath} failed:`, error?.message || error);
     if (!res.headersSent) {
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Internal server error' }));
@@ -140,7 +123,7 @@ server.listen(PORT, () => {
   console.log(
     `[local-api] firebase admin: ${firebase.credentialParses ? 'ready' : 'missing FIREBASE_SERVICE_ACCOUNT in .env'}`
   );
-  console.log(`[local-api] routes: ${Object.keys(ROUTE_MAP).join(', ')}`);
+  console.log(`[local-api] routes: ${Object.keys(ROUTE_LOADERS).join(', ')}`);
 
   if (!firebase.credentialParses) {
     console.log('[local-api] Checkout needs Firebase Admin. Either:');
