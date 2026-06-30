@@ -9,6 +9,7 @@ export const ROUTE_LOADERS = {
   'POST /razorpay-webhook': () => import('./_handlers/razorpay-webhook.js'),
   'POST /sync-user': () => import('./_handlers/sync-user.js'),
   'POST /recruitment-exam': () => import('./_handlers/recruitment-exam.js'),
+  'POST /recruitment-register-check': () => import('./_handlers/recruitment-register-check.js'),
   'GET /recruitment-exams': () => import('./_handlers/recruitment-exams.js'),
   'GET /admin-users': () => import('./_handlers/admin-users.js'),
   'POST /execute-code': () => import('./_handlers/execute-code.js'),
@@ -41,11 +42,12 @@ export function routeKey(method, apiPath) {
 }
 
 export async function dispatchApi(req, res, apiPath) {
-  const key = routeKey(req.method, apiPath);
+  const path = String(apiPath || '').replace(/^\/+/, '');
+  const key = routeKey(req.method, path);
   const loader = ROUTE_LOADERS[key];
 
   if (!loader) {
-    res.status(404).json({ error: 'Not found' });
+    res.status(404).json({ error: 'Not found', path: `/api/${path}`, method: req.method });
     return;
   }
 

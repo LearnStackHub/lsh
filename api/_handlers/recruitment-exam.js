@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
     const { getFirestore } = await import('firebase-admin/firestore');
     const { parseJsonBody } = await import('../_lib/razorpay.js');
-    const { validateRecruitmentPayload, saveRecruitmentExam } = await import('../_lib/recruitmentExams.js');
+    const { validateRecruitmentPayload, saveRecruitmentExam, findRecruitmentDuplicate } = await import('../_lib/recruitmentExams.js');
 
     const app = getFirebaseAdminApp();
     if (!app) {
@@ -30,6 +30,16 @@ export default async function handler(req, res) {
     }
 
     const db = getFirestore(app);
+    const duplicate = await findRecruitmentDuplicate(
+      db,
+      validation.data.candidate.email,
+      validation.data.candidate.mobile
+    );
+    if (duplicate) {
+      res.status(409).json({ error: duplicate.error, field: duplicate.field });
+      return;
+    }
+
     const saved = await saveRecruitmentExam(db, validation.data);
 
     res.status(200).json({ ok: true, submissionId: saved.id });

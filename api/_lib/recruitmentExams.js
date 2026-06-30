@@ -8,6 +8,76 @@ function normalizeMobile(mobile) {
   return String(mobile || '').replace(/\D/g, '').slice(0, 10);
 }
 
+export { normalizeEmail, normalizeMobile };
+
+export function validateRegistrationContact(body) {
+  if (!body || typeof body !== 'object') {
+    return { ok: false, error: 'Invalid request body' };
+  }
+
+  const email = normalizeEmail(body.email);
+  const mobile = normalizeMobile(body.mobile);
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { ok: false, error: 'Enter a valid email' };
+  }
+  if (!/^[6-9]\d{9}$/.test(mobile)) {
+    return { ok: false, error: 'Enter a valid mobile number' };
+  }
+
+  return { ok: true, email, mobile };
+}
+
+async function hasExistingSubmission(db, field, value) {
+  const path = field === 'email' ? 'candidate.email' : 'candidate.mobile';
+
+  try {
+    const snapshot = await db.collection('recruitmentExams').where(path, '==', value).limit(1).get();
+    return !snapshot.empty;
+  } catch (error) {
+    const code = String(error?.code || '');
+    if (code !== '9' && code !== 'failed-precondition') {
+      throw error;
+    }
+
+    const snapshot = await db.collection('recruitmentExams').limit(500).get();
+    return snapshot.docs.some((entry) => {
+      const candidate = entry.data().candidate || {};
+      if (field === 'email') {
+        return normalizeEmail(candidate.email) === value;
+      }
+      return normalizeMobile(candidate.mobile) === value;
+    });
+  }
+}
+
+export async function findRecruitmentDuplicate(db, email, mobile) {
+  const normalizedEmail = normalizeEmail(email);
+  const normalizedMobile = normalizeMobile(mobile);
+
+  const [emailTaken, mobileTaken] = await Promise.all([
+    hasExistingSubmission(db, 'email', normalizedEmail),
+    hasExistingSubmission(db, 'mobile', normalizedMobile),
+  ]);
+
+  if (emailTaken) {
+    return {
+      field: 'email',
+      error: 'This email is already registered for Assessment L1. Each candidate can register only once.',
+    };
+  }
+
+  if (mobileTaken) {
+    return {
+      field: 'mobile',
+      error:
+        'This mobile number is already registered for Assessment L1. Each candidate can register only once.',
+    };
+  }
+
+  return null;
+}
+
 function sanitizeProctoringErrors(items, maxItems = 60) {
   if (!Array.isArray(items)) return [];
 

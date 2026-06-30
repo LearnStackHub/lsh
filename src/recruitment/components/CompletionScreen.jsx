@@ -34,7 +34,7 @@ export default function CompletionScreen({ submitting, error }) {
       <CheckCircle size={48} className="recruitment-complete-icon recruitment-complete-icon--success" aria-hidden />
       <h2>Exam submitted successfully</h2>
       <p>
-        Thank you for completing Assessment L1. We have received your details and answers. Our team will
+        Thank you for completing Assessment L1. We have received your details and answers. Genaixis will
         review your submission and get back to you.
       </p>
       <Link to="/" className="recruitment-btn recruitment-btn-primary">

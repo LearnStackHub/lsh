@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Camera, ClipboardList, Loader2, RotateCcw } from 'lucide-react';
 import { EXAM_TIME_LIMIT, TOTAL_QUESTIONS } from '../config';
+import { checkRecruitmentRegistration } from '../../services/recruitmentExamService';
 import { compressDataUrl } from '../compressImage';
 
 const EMPTY_FORM = {
@@ -77,6 +78,7 @@ export default function RegistrationForm({ onSubmit, submitting }) {
   const [cameraOn, setCameraOn] = useState(false);
   const [cameraStarting, setCameraStarting] = useState(false);
   const [compressing, setCompressing] = useState(false);
+  const [checkingRegistration, setCheckingRegistration] = useState(false);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
 
@@ -184,14 +186,15 @@ export default function RegistrationForm({ onSubmit, submitting }) {
     return '';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) {
       setError(validationError);
       return;
     }
-    onSubmit({
+
+    const payload = {
       ...form,
       name: form.name.trim(),
       email: form.email.trim().toLowerCase(),
@@ -199,7 +202,22 @@ export default function RegistrationForm({ onSubmit, submitting }) {
       govtInstitutionName: form.studiedInGovt === 'yes' ? form.govtInstitutionName.trim() : '',
       lshCertificateId: form.hasLshCertificate === 'yes' ? form.lshCertificateId.trim() : '',
       panPhotoDataUrl,
-    });
+    };
+
+    setCheckingRegistration(true);
+    setError('');
+
+    try {
+      await checkRecruitmentRegistration({
+        email: payload.email,
+        mobile: payload.mobile,
+      });
+      onSubmit(payload);
+    } catch (err) {
+      setError(err.message || 'Could not verify your registration details. Please try again.');
+    } finally {
+      setCheckingRegistration(false);
+    }
   };
 
   const hasCapturedPhoto = Boolean(photoPreview);
@@ -215,7 +233,7 @@ export default function RegistrationForm({ onSubmit, submitting }) {
         <ol className="recruitment-instructions-list">
           <li>
             Fill in your <strong>personal details</strong> exactly as on your PAN card. Use a valid email and
-            10-digit mobile number.
+            10-digit mobile number — each can be used only once for this assessment.
           </li>
           <li>
             For <strong>PAN verification</strong>, keep your physical PAN card handy. You must capture a live photo
@@ -454,12 +472,12 @@ export default function RegistrationForm({ onSubmit, submitting }) {
       <button
         type="submit"
         className="recruitment-btn recruitment-btn-primary recruitment-btn-block"
-        disabled={submitting || compressing}
+        disabled={submitting || compressing || checkingRegistration}
       >
-        {submitting ? (
+        {submitting || checkingRegistration ? (
           <>
             <Loader2 size={18} className="spin-icon" aria-hidden />
-            Starting exam…
+            {checkingRegistration ? 'Checking details…' : 'Starting exam…'}
           </>
         ) : (
           'Submit details & start exam'
