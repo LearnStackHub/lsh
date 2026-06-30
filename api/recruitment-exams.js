@@ -79,7 +79,15 @@ export default async function handler(req, res) {
       return;
     }
 
-    console.error('recruitment-exams list failed:', error?.message || error);
+    console.error('recruitment-exams list failed:', error?.message || error, error?.code || '');
+    if (String(error?.code || '') === '9' || String(error?.code || '') === 'failed-precondition') {
+      res.status(503).json({
+        error: 'Firestore index required for recruitment submissions. Check server logs.',
+        code: 'MISSING_FIRESTORE_INDEX',
+      });
+      return;
+    }
+
     res.status(503).json({ error: 'Unavailable' });
   }
 }

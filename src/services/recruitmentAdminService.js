@@ -21,6 +21,11 @@ async function adminFetch(path) {
     if (response.status === 403) {
       throw new Error('You do not have permission to view recruitment submissions.');
     }
+    if (response.status === 404) {
+      throw new Error(
+        'Recruitment API not found. Restart the dev server (npm run dev) so the local API picks up new routes.'
+      );
+    }
     throw new Error(payload.error || 'Could not load recruitment data.');
   }
 

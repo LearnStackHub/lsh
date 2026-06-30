@@ -145,6 +145,8 @@ function AppWithTracking() {
         path="/tutorial/java-:topicSlug"
         element={<LegacyCoreJavaRouteRedirect />}
       />
+      <Route path="/assessment" element={<RecruitmentExam />} />
+      <Route path="/recruitment-exam" element={<Navigate to="/assessment" replace />} />
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route
@@ -156,7 +158,6 @@ function AppWithTracking() {
         <Route path="disclaimer" element={<Disclaimer />} />
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
-        <Route path="recruitment-exam" element={<RecruitmentExam />} />
         <Route element={<ProtectedRoute />}>
           <Route path="subscribe" element={<Subscribe />} />
           <Route path="account" element={<Account />} />

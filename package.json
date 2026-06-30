@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "node scripts/start-dev.mjs",
     "dev:ui": "vite",
-    "dev:api": "node --env-file=.env scripts/local-api-server.js",
+    "dev:api": "node --watch --env-file=.env scripts/local-api-server.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -29,6 +29,8 @@
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/lang-sql": "^6.10.0",
     "@emailjs/browser": "^4.4.1",
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow/tfjs": "^4.22.0",
     "@uiw/react-codemirror": "^4.25.4",
     "alasql": "^4.17.2",
     "firebase": "^12.14.0",

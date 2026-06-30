@@ -20,7 +20,7 @@ export function useExamSecurity({ active, onAutoSubmit, containerRef }) {
   }, []);
 
   const requestFullscreen = useCallback(async () => {
-    const element = containerRef?.current || document.documentElement;
+    const element = document.documentElement;
     try {
       if (element.requestFullscreen) {
         await element.requestFullscreen();
@@ -91,8 +91,7 @@ export function useExamSecurity({ active, onAutoSubmit, containerRef }) {
     const onFullscreenChange = () => {
       const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
       if (!isFs) {
-        showSecurityAlert('Please stay in fullscreen mode during the exam.');
-        setTimeout(() => requestFullscreen(), 800);
+        showSecurityAlert('Fullscreen exited. Press F11 or your browser menu to enter fullscreen again if needed.');
       }
     };
 
@@ -130,5 +129,6 @@ export function useExamSecurity({ active, onAutoSubmit, containerRef }) {
     requestFullscreen,
     exitFullscreen,
     showSecurityAlert,
+    reportViolation: registerViolation,
   };
 }

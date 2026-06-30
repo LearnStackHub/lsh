@@ -7,10 +7,13 @@ export function readFileAsDataUrl(file) {
   });
 }
 
-export async function compressImageFile(file, { maxWidth = 1200, quality = 0.72, maxBytes = 900_000 } = {}) {
+export async function compressImageFile(file, { maxWidth = 1200, quality = 0.72, maxBytes = 450_000 } = {}) {
   const dataUrl = await readFileAsDataUrl(file);
-  const image = await loadImage(dataUrl);
+  return compressDataUrl(dataUrl, { maxWidth, quality, maxBytes });
+}
 
+export async function compressDataUrl(dataUrl, { maxWidth = 1200, quality = 0.72, maxBytes = 450_000 } = {}) {
+  const image = await loadImage(dataUrl);
   const scale = Math.min(1, maxWidth / Math.max(image.width, image.height));
   const width = Math.round(image.width * scale);
   const height = Math.round(image.height * scale);
@@ -18,8 +21,7 @@ export async function compressImageFile(file, { maxWidth = 1200, quality = 0.72,
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(image, 0, 0, width, height);
+  canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 
   let output = canvas.toDataURL('image/jpeg', quality);
   let q = quality;

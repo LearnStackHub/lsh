@@ -115,7 +115,7 @@ function AdminDashboard() {
           <div className="admin-dashboard-actions">
             <Link to="/admin/recruitment" className="btn btn-secondary admin-refresh-btn">
               <Briefcase size={16} aria-hidden />
-              Recruitment
+              Assessment L1
             </Link>
             <button type="button" className="btn btn-primary admin-refresh-btn" onClick={loadUsers} disabled={loading}>
               <RefreshCw size={16} className={loading ? 'spin-icon' : ''} aria-hidden />

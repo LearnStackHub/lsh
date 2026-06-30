@@ -1,0 +1,307 @@
+.recruitment-admin {
+  max-width: 1280px;
+}
+
+.recruitment-admin-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.recruitment-admin-filters {
+  margin-bottom: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+}
+
+.recruitment-admin-filters-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.recruitment-admin-filters-head h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.recruitment-admin-filters-count {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.recruitment-admin-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+}
+
+.recruitment-admin-filter label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.recruitment-admin-filter input,
+.recruitment-admin-filter select {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: 0.88rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.recruitment-admin-filter input:focus,
+.recruitment-admin-filter select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.recruitment-admin-filter--wide {
+  grid-column: span 2;
+}
+
+.recruitment-admin-filters-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.recruitment-admin-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.recruitment-admin-modal {
+  width: min(920px, 100%);
+}
+
+.recruitment-admin-modal-score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+  border: 1px solid #dbeafe;
+}
+
+.recruitment-admin-modal-score-main {
+  flex: 1;
+  min-width: 140px;
+}
+
+.recruitment-admin-modal-score-main strong {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.recruitment-admin-modal-score-main span {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.recruitment-admin-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.recruitment-admin-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.recruitment-admin-meta-pill--warn {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #c2410c;
+}
+
+.recruitment-admin-detail-section .admin-detail-grid > div {
+  min-width: 0;
+}
+
+.recruitment-admin-detail-section .admin-detail-grid p {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.admin-badge-manual {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.admin-badge-auto {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.recruitment-admin-detail-section {
+  margin-bottom: 1rem;
+}
+
+.recruitment-admin-detail-section h3 {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.recruitment-admin-pan-card {
+  margin-top: 0.25rem;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+}
+
+.recruitment-admin-pan-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.recruitment-admin-pan-head strong {
+  font-size: 0.9rem;
+}
+
+.recruitment-admin-proctor-logs {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.recruitment-admin-proctor-log h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.recruitment-admin-proctor-empty {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+}
+
+.recruitment-admin-proctor-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.recruitment-admin-proctor-item {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.recruitment-admin-proctor-item:last-child {
+  border-bottom: none;
+}
+
+.recruitment-admin-proctor-time {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+.recruitment-admin-proctor-type {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.recruitment-admin-proctor-msg {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.recruitment-admin-proctor-meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.recruitment-admin-pan-preview-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  background: #0f172a;
+}
+
+.recruitment-admin-pan-preview {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 720px) {
+  .recruitment-admin-filter--wide {
+    grid-column: span 1;
+  }
+
+  .recruitment-admin-filters-grid {
+    grid-template-columns: 1fr;
+  }
+}

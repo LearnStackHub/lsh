@@ -34,7 +34,14 @@ export default async function handler(req, res) {
 
     res.status(200).json({ ok: true, submissionId: saved.id });
   } catch (error) {
-    console.error('recruitment-exam failed:', error?.message || error);
+    const message = String(error?.message || error || '');
+    console.error('recruitment-exam failed:', message);
+
+    if (/longer than \d+ bytes|maximum allowed size|entity too large/i.test(message)) {
+      res.status(400).json({ error: 'Photo file is too large. Retake or upload a smaller image.' });
+      return;
+    }
+
     res.status(503).json({ error: 'Could not save submission' });
   }
 }
