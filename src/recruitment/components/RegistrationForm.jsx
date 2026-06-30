@@ -218,10 +218,6 @@ export default function RegistrationForm({ onSubmit, submitting }) {
             10-digit mobile number.
           </li>
           <li>
-            Answer the <strong>background</strong> questions honestly. If you studied in a government institution or
-            hold a LearnStackHub certificate, keep the name or certificate ID ready.
-          </li>
-          <li>
             For <strong>PAN verification</strong>, keep your physical PAN card handy. You must capture a live photo
             showing your face and PAN card together — screenshots or uploaded files are not accepted.
           </li>
