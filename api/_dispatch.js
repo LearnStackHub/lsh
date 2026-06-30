@@ -22,6 +22,19 @@ export function normalizeApiPath(slug) {
   return String(slug).replace(/^\/+/, '');
 }
 
+/** Resolve route segment from Vercel dynamic param or request URL. */
+export function resolveApiPath(req) {
+  const fromQuery = normalizeApiPath(req.query?.path ?? req.query?.slug);
+  if (fromQuery) return fromQuery;
+
+  const rawUrl = String(req.url || '');
+  const pathname = rawUrl.startsWith('/')
+    ? rawUrl.split('?')[0]
+    : new URL(rawUrl, 'http://localhost').pathname;
+
+  return pathname.replace(/^\/api\/?/, '').replace(/\/$/, '');
+}
+
 export function routeKey(method, apiPath) {
   const path = String(apiPath || '').replace(/^\/+/, '');
   return `${method} /${path}`;
