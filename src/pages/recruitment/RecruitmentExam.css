@@ -472,6 +472,16 @@
   color: #059669;
 }
 
+.recruitment-closed-icon {
+  color: #d97706;
+}
+
+.recruitment-closed p {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 559px) {
   .recruitment-shell {
     padding: 0.75rem;

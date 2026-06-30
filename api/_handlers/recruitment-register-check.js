@@ -11,6 +11,14 @@ export default async function handler(req, res) {
       return;
     }
 
+    const { getAssessmentClosedMessage, isAssessmentOpen } = await import(
+      '../../src/recruitment/config.js'
+    );
+    if (!isAssessmentOpen()) {
+      res.status(403).json({ error: getAssessmentClosedMessage() });
+      return;
+    }
+
     const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
     const { getFirestore } = await import('firebase-admin/firestore');
     const { parseJsonBody } = await import('../_lib/razorpay.js');

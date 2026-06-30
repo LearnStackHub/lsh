@@ -2,10 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Briefcase, Shield } from 'lucide-react';
 import SEOHead from '../../components/SEOHead';
 import { BRAND } from '../../config/brand';
-import { EXAM_TIME_LIMIT, TOTAL_QUESTIONS } from '../../recruitment/config';
+import { EXAM_TIME_LIMIT, TOTAL_QUESTIONS, getAssessmentClosedMessage, isAssessmentOpen } from '../../recruitment/config';
 import { getRecruitmentExamQuestions } from '../../recruitment/questions';
 import { useExamSecurity } from '../../recruitment/useExamSecurity';
 import { useExamWebcam } from '../../recruitment/useExamWebcam';
+import AssessmentClosedScreen from '../../recruitment/components/AssessmentClosedScreen';
 import RegistrationForm from '../../recruitment/components/RegistrationForm';
 import ExamRunner from '../../recruitment/components/ExamRunner';
 import CompletionScreen from '../../recruitment/components/CompletionScreen';
@@ -157,6 +158,8 @@ export default function RecruitmentExam() {
     return undefined;
   }, [stage]);
 
+  const assessmentClosed = !isAssessmentOpen() && stage === 'register';
+
   return (
     <>
       <SEOHead
@@ -165,7 +168,9 @@ export default function RecruitmentExam() {
         noIndex
       />
 
-      {stage === 'exam' ? (
+      {assessmentClosed ? (
+        <AssessmentClosedScreen message={getAssessmentClosedMessage()} />
+      ) : stage === 'exam' ? (
         <>
           <ExamRunner
             ref={containerRef}

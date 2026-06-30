@@ -1,5 +1,20 @@
 export const RECRUITMENT_EXAM_PATH = '/assessment';
 
+/** Set to true to reopen Assessment L1 before the next scheduled window. */
+export const ASSESSMENT_FORCE_OPEN = false;
+
+/** Registrations close at this time (IST). Format: ISO 8601 with offset. */
+export const ASSESSMENT_CLOSES_AT = '2026-07-01T15:00:00+05:30';
+
+export function isAssessmentOpen() {
+  if (ASSESSMENT_FORCE_OPEN) return true;
+  return Date.now() < Date.parse(ASSESSMENT_CLOSES_AT);
+}
+
+export function getAssessmentClosedMessage() {
+  return 'Assessment L1 registrations are currently closed. We will reopen when the next recruitment drive is announced.';
+}
+
 export const EXAM_TIME_LIMIT = 45 * 60; // 45 minutes
 export const TOTAL_QUESTIONS = 45;
 export const SECURITY_WARNINGS_LIMIT = 3;
