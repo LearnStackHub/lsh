@@ -16,8 +16,12 @@ async function backfillPaymentDoc(db, orderId, { plan, customerEmail, customerNa
   const data = snapshot.data();
   const patch = {};
 
-  if (!data.amountPaise && plan.amountPaise) {
+  if (!data.amountMinor && !data.amountPaise && plan?.amountPaise && (data.currency || 'INR') === 'INR') {
+    patch.amountMinor = plan.amountPaise;
     patch.amountPaise = plan.amountPaise;
+  }
+  if (!data.currency && plan.currency) {
+    patch.currency = plan.currency;
   }
   if (!data.planLabel || data.planLabel === data.planId) {
     patch.planLabel = plan.label;

@@ -7,10 +7,24 @@ function enrichInvoiceClient(invoice) {
   }
 
   const plan = invoice.planId ? getPlanById(invoice.planId) : null;
+  const currency = invoice.currency || 'INR';
   let amountInr = Number(invoice.amountInr || 0);
+  let amountUsd = Number(invoice.amountUsd || 0);
 
-  if ((!amountInr || amountInr <= 0) && plan?.amountInr) {
-    amountInr = plan.amountInr;
+  if (currency === 'USD') {
+    if ((!amountUsd || amountUsd <= 0) && invoice.amountMinor) {
+      amountUsd = Math.round(Number(invoice.amountMinor) / 100);
+    }
+    if ((!amountUsd || amountUsd <= 0) && plan?.earlyAmountUsd) {
+      amountUsd = plan.earlyAmountUsd;
+    }
+  } else {
+    if ((!amountInr || amountInr <= 0) && invoice.amountMinor) {
+      amountInr = Math.round(Number(invoice.amountMinor) / 100);
+    }
+    if ((!amountInr || amountInr <= 0) && plan?.amountInr) {
+      amountInr = plan.amountInr;
+    }
   }
 
   const planLabelLooksLikeId =
@@ -19,6 +33,8 @@ function enrichInvoiceClient(invoice) {
   return {
     ...invoice,
     amountInr,
+    amountUsd,
+    currency,
     planLabel: planLabelLooksLikeId ? plan?.name || invoice.planLabel : invoice.planLabel,
     durationDays: invoice.durationDays || plan?.durationDays || null,
     durationLabel: formatPlanDuration(plan),
@@ -74,11 +90,16 @@ export async function fetchInvoice(orderId) {
 }
 
 export function formatInvoiceAmount(invoice) {
-  const amount = Number(invoice?.amountInr || 0);
+  const currency = invoice?.currency || 'INR';
+  const amount =
+    currency === 'USD'
+      ? Number(invoice?.amountUsd || 0)
+      : Number(invoice?.amountInr || 0);
+  const locale = currency === 'USD' ? 'en-US' : 'en-IN';
 
-  return new Intl.NumberFormat('en-IN', {
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: invoice?.currency || 'INR',
+    currency,
     maximumFractionDigits: Number.isInteger(amount) ? 0 : 2,
   }).format(amount);
 }

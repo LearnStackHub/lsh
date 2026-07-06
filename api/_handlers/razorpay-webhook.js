@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const { getFirestore } = await import('firebase-admin/firestore');
     const { getFirebaseAdminApp } = await import('../_lib/firebaseAdmin.js');
     const { isRazorpayConfigured, verifyWebhookSignature } = await import('../_lib/razorpay.js');
-    const { getPaidSubscriberCount, resolvePlanPricing } = await import('../_lib/pricing.js');
+    const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import('../_lib/pricing.js');
     const { fulfillSubscription } = await import('../_lib/subscriptions.js');
 
     if (!isRazorpayConfigured()) {
@@ -58,14 +58,22 @@ export default async function handler(req, res) {
 
     const db = getFirestore(app);
     const subscriberCount = await getPaidSubscriberCount(db);
-    const plan = resolvePlanPricing(planId, subscriberCount);
+    const currency = normalizePaymentCurrency(notes.currency || payment?.currency);
+    const plan = resolvePlanPricing(planId, subscriberCount, currency);
     if (!plan) {
       res.status(400).json({ error: 'Invalid plan in webhook' });
       return;
     }
 
     if (payment?.amount) {
-      plan.amountPaise = Number(payment.amount);
+      plan.amountMinor = Number(payment.amount);
+      if (currency === 'INR') {
+        plan.amountPaise = plan.amountMinor;
+        plan.amountInr = Math.round(plan.amountMinor / 100);
+      } else {
+        plan.amountUsdCents = plan.amountMinor;
+        plan.amountUsd = Math.round(plan.amountMinor / 100);
+      }
     }
 
     await fulfillSubscription(db, {

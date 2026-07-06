@@ -11,7 +11,9 @@ export default async function handler(req, res) {
   const { createRazorpayOrder, isRazorpayConfigured, parseJsonBody } = await import(
     '../_lib/razorpay.js'
   );
-  const { getPaidSubscriberCount, resolvePlanPricing } = await import('../_lib/pricing.js');
+  const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import(
+    '../_lib/pricing.js'
+  );
 
   try {
     if (req.method !== 'POST') {
@@ -39,6 +41,7 @@ export default async function handler(req, res) {
     }
 
     const planId = String(body.planId || '').trim();
+    const currency = normalizePaymentCurrency(body.currency);
     const { getFirestore } = await import('firebase-admin/firestore');
 
     const app = getFirebaseAdminApp();
@@ -53,9 +56,10 @@ export default async function handler(req, res) {
 
     const db = getFirestore(app);
     const subscriberCount = await getPaidSubscriberCount(db);
-    const plan = resolvePlanPricing(planId, subscriberCount);
+    const plan = resolvePlanPricing(planId, subscriberCount, currency);
 
-    if (!plan || !plan.amountPaise || plan.amountPaise < 100) {
+    const minMinor = currency === 'USD' ? 50 : 100;
+    if (!plan || !plan.amountMinor || plan.amountMinor < minMinor) {
       res.status(400).json({ error: 'Invalid plan' });
       return;
     }
@@ -66,12 +70,15 @@ export default async function handler(req, res) {
 
     const receipt = `lsh_${decoded.uid.slice(0, 8)}_${Date.now()}`.slice(0, 40);
     const order = await createRazorpayOrder({
-      amountPaise: plan.amountPaise,
+      amountMinor: plan.amountMinor,
+      amountPaise: plan.amountPaise ?? plan.amountUsdCents ?? plan.amountMinor,
+      currency: plan.currency,
       receipt,
       notes: {
         uid: decoded.uid,
         planId: plan.id,
         email: decoded.email || '',
+        currency: plan.currency,
       },
     });
 

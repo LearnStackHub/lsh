@@ -87,7 +87,7 @@ function mapVerifyError(response, payload) {
   return sanitizeUserMessage(payload.error, PAYMENT_VERIFY_FAILED);
 }
 
-export async function createSubscriptionOrder(planId) {
+export async function createSubscriptionOrder(planId, currency = 'INR') {
   const token = await getAuthToken();
   const response = await fetch('/api/razorpay-order', {
     method: 'POST',
@@ -95,7 +95,7 @@ export async function createSubscriptionOrder(planId) {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ planId }),
+    body: JSON.stringify({ planId, currency }),
   });
 
   const payload = await response.json().catch(() => ({}));
@@ -107,7 +107,7 @@ export async function createSubscriptionOrder(planId) {
   return payload;
 }
 
-export async function verifySubscriptionPayment({ planId, orderId, paymentId, signature }) {
+export async function verifySubscriptionPayment({ planId, currency = 'INR', orderId, paymentId, signature }) {
   const token = await getAuthToken();
   const response = await fetch('/api/razorpay-verify', {
     method: 'POST',
@@ -117,6 +117,7 @@ export async function verifySubscriptionPayment({ planId, orderId, paymentId, si
     },
     body: JSON.stringify({
       planId,
+      currency,
       razorpay_order_id: orderId,
       razorpay_payment_id: paymentId,
       razorpay_signature: signature,
@@ -132,13 +133,15 @@ export async function verifySubscriptionPayment({ planId, orderId, paymentId, si
   return payload;
 }
 
-export async function openRazorpayCheckout({ planId, user, onSuccess, onDismiss }) {
-  const order = await createSubscriptionOrder(planId);
+export async function openRazorpayCheckout({ planId, currency = 'INR', user, onSuccess, onDismiss }) {
+  const order = await createSubscriptionOrder(planId, currency);
   const Razorpay = await loadRazorpayScript();
 
   if (!order.keyId) {
     throw new Error(CHECKOUT_UNAVAILABLE);
   }
+
+  const checkoutCurrency = order.currency || currency || 'INR';
 
   return new Promise((resolve, reject) => {
     const branding = getCheckoutBranding(order.planLabel);
@@ -146,7 +149,7 @@ export async function openRazorpayCheckout({ planId, user, onSuccess, onDismiss 
     const checkout = new Razorpay({
       key: order.keyId,
       amount: order.amount,
-      currency: order.currency || 'INR',
+      currency: checkoutCurrency,
       name: branding.name,
       description: branding.description,
       image: branding.image,
@@ -163,11 +166,29 @@ export async function openRazorpayCheckout({ planId, user, onSuccess, onDismiss 
         platform: 'LearnStackHub',
         product: 'EdTech Subscription',
         plan: order.planLabel || planId,
+        currency: checkoutCurrency,
       },
+      ...(checkoutCurrency === 'INR'
+        ? {}
+        : {
+            config: {
+              display: {
+                blocks: {
+                  card: {
+                    name: 'Pay with card',
+                    instruments: [{ method: 'card' }],
+                  },
+                },
+                sequence: ['block.card'],
+                preferences: { show_default_blocks: false },
+              },
+            },
+          }),
       handler: async (response) => {
         try {
           const verified = await verifySubscriptionPayment({
             planId,
+            currency: checkoutCurrency,
             orderId: response.razorpay_order_id,
             paymentId: response.razorpay_payment_id,
             signature: response.razorpay_signature,

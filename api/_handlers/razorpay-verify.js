@@ -39,7 +39,9 @@ export default async function handler(req, res) {
     const { isRazorpayConfigured, parseJsonBody, verifyPaymentSignature } = await import(
       '../_lib/razorpay.js'
     );
-    const { getPaidSubscriberCount, resolvePlanPricing } = await import('../_lib/pricing.js');
+    const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import(
+      '../_lib/pricing.js'
+    );
 
 
 
@@ -72,6 +74,7 @@ export default async function handler(req, res) {
     const signature = String(body.razorpay_signature || body.signature || '').trim();
 
     const planId = String(body.planId || '').trim();
+    const currency = normalizePaymentCurrency(body.currency);
 
 
 
@@ -126,7 +129,7 @@ export default async function handler(req, res) {
     const db = getFirestore(app);
 
     const subscriberCount = await getPaidSubscriberCount(db);
-    const plan = resolvePlanPricing(planId, subscriberCount);
+    const plan = resolvePlanPricing(planId, subscriberCount, currency);
 
     if (!plan) {
 

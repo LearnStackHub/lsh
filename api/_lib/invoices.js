@@ -13,8 +13,10 @@ export function buildInvoiceNumber(orderId) {
 
 export function buildInvoiceFields({ orderId, paymentId, uid, plan, customerEmail, customerName }) {
   const invoiceNumber = buildInvoiceNumber(orderId);
+  const currency = plan.currency || 'INR';
+  const amountMinor = Number(plan.amountMinor ?? plan.amountPaise ?? 0);
 
-  return {
+  const fields = {
     invoiceNumber,
     orderId,
     paymentId,
@@ -22,13 +24,26 @@ export function buildInvoiceFields({ orderId, paymentId, uid, plan, customerEmai
     planId: plan.id,
     planLabel: plan.label,
     durationDays: plan.durationDays,
-    amountPaise: plan.amountPaise,
-    currency: 'INR',
+    amountMinor,
+    currency,
     customerEmail: customerEmail || '',
     customerName: customerName || 'Customer',
     sellerName: 'LearnStackHub',
     sellerEmail: process.env.INVOICE_SELLER_EMAIL?.trim() || 'careers@learnstackhub.com',
     description: formatPlanAccessLabel(plan),
+  };
+
+  if (currency === 'USD') {
+    return {
+      ...fields,
+      amountUsd: plan.amountUsd ?? Math.round(amountMinor / 100),
+    };
+  }
+
+  return {
+    ...fields,
+    amountPaise: amountMinor,
+    amountInr: plan.amountInr ?? Math.round(amountMinor / 100),
   };
 }
 
@@ -38,11 +53,21 @@ export function enrichPaymentData(data) {
   }
 
   const plan = data.planId ? getPlanConfig(data.planId) : null;
-  let amountPaise = Number(data.amountPaise ?? data.amount ?? 0);
+  const currency = data.currency || 'INR';
+  let amountMinor = Number(data.amountMinor ?? data.amountPaise ?? data.amount ?? 0);
 
-  if ((!amountPaise || amountPaise <= 0) && plan?.amountPaise) {
-    amountPaise = plan.amountPaise;
+  if ((!amountMinor || amountMinor <= 0) && plan?.amountPaise && currency === 'INR') {
+    amountMinor = plan.amountPaise;
   }
+
+  const amountInr =
+    currency === 'INR'
+      ? Number(data.amountInr || (amountMinor ? Math.round(amountMinor / 100) : 0))
+      : Number(data.amountInr || 0);
+  const amountUsd =
+    currency === 'USD'
+      ? Number(data.amountUsd || (amountMinor ? Math.round(amountMinor / 100) : 0))
+      : Number(data.amountUsd || 0);
 
   const planLabelLooksLikeId =
     !data.planLabel || data.planLabel === data.planId || data.planLabel === data.planId?.toLowerCase();
@@ -51,7 +76,11 @@ export function enrichPaymentData(data) {
     ...data,
     planLabel: planLabelLooksLikeId ? plan?.label || data.planId || 'Subscription' : data.planLabel,
     durationDays: data.durationDays || plan?.durationDays || null,
-    amountPaise,
+    amountMinor,
+    amountPaise: currency === 'INR' ? amountMinor : data.amountPaise,
+    amountInr,
+    amountUsd,
+    currency,
     description:
       data.description ||
       (plan ? formatPlanAccessLabel(plan) : `${data.planId || 'Subscription'} access`),
@@ -87,7 +116,12 @@ export function paymentDocToInvoice(data) {
   }
 
   const enriched = enrichPaymentData(data);
-  const amountPaise = Number(enriched.amountPaise || 0);
+  const currency = enriched.currency || 'INR';
+  const amountMinor = Number(enriched.amountMinor || enriched.amountPaise || 0);
+  const amountDisplay =
+    currency === 'USD'
+      ? Number(enriched.amountUsd || (amountMinor ? amountMinor / 100 : 0))
+      : Number(enriched.amountInr || (amountMinor ? amountMinor / 100 : 0));
 
   return {
     invoiceNumber: enriched.invoiceNumber || buildInvoiceNumber(enriched.orderId),
@@ -96,9 +130,11 @@ export function paymentDocToInvoice(data) {
     planId: enriched.planId || '',
     planLabel: enriched.planLabel || enriched.planId || 'Subscription',
     durationDays: enriched.durationDays || null,
-    amountPaise,
-    amountInr: amountPaise / 100,
-    currency: enriched.currency || 'INR',
+    amountMinor,
+    amountPaise: currency === 'INR' ? amountMinor : enriched.amountPaise,
+    amountInr: currency === 'INR' ? amountDisplay : enriched.amountInr,
+    amountUsd: currency === 'USD' ? amountDisplay : enriched.amountUsd,
+    currency,
     customerEmail: enriched.customerEmail || '',
     customerName: enriched.customerName || 'Customer',
     sellerName: enriched.sellerName || 'LearnStackHub',

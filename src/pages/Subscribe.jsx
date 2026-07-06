@@ -26,10 +26,13 @@ import {
   PLATFORM_FEATURES,
   LIVE_TRAINING_DAYS,
   EXAM_CERTIFICATE_NOTE,
+  PAYMENT_CURRENCIES,
   mergeLivePricing,
-  formatInr,
+  formatMoney,
   formatPlanDuration,
   perMonthPrice,
+  planChargeAmount,
+  planRegularChargeAmount,
 } from '../config/subscriptionPlans';
 import { isRazorpayEnabled, openRazorpayCheckout } from '../services/razorpayService';
 import { sanitizeUserMessage } from '../utils/userFacingErrors';
@@ -62,6 +65,7 @@ function Subscribe() {
   const [success, setSuccess] = useState(false);
   const [invoiceOrderId, setInvoiceOrderId] = useState('');
   const [pricing, setPricing] = useState(null);
+  const [paymentCurrency, setPaymentCurrency] = useState('INR');
 
   useEffect(() => {
     fetchSubscriptionPricing().then(setPricing);
@@ -87,6 +91,7 @@ function Subscribe() {
     try {
       await openRazorpayCheckout({
         planId,
+        currency: paymentCurrency,
         user,
         onSuccess: async (verified) => {
           await refreshUserProfile();
@@ -257,18 +262,32 @@ function Subscribe() {
             Access starts immediately after payment. Every plan includes monthly certification exams — pass to earn
             your LearnStackHub internship certificate.
           </p>
+          <div className="subscribe-currency-toggle" role="group" aria-label="Payment currency">
+            {PAYMENT_CURRENCIES.map(({ code, label }) => (
+              <button
+                key={code}
+                type="button"
+                className={`subscribe-currency-btn${paymentCurrency === code ? ' subscribe-currency-btn--active' : ''}`}
+                aria-pressed={paymentCurrency === code}
+                onClick={() => setPaymentCurrency(code)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="subscribe-pricing-grid">
           {displayPlans.map((plan) => {
             const isFeatured = Boolean(plan.highlight);
-            const perMonth = perMonthPrice(plan);
+            const chargeAmount = planChargeAmount(plan, paymentCurrency);
+            const regularAmount = planRegularChargeAmount(plan, paymentCurrency);
+            const perMonth = perMonthPrice(plan, paymentCurrency);
             const isLoading = loadingPlanId === plan.id;
             const planFeatures = plan.features || PLATFORM_FEATURES;
-            const showOffer =
-              plan.earlyBird && plan.regularAmountInr && plan.regularAmountInr > plan.amountInr;
+            const showOffer = plan.earlyBird && regularAmount && regularAmount > chargeAmount;
             const discountPercent = showOffer
-              ? Math.round((1 - plan.amountInr / plan.regularAmountInr) * 100)
+              ? Math.round((1 - chargeAmount / regularAmount) * 100)
               : null;
 
             return (
@@ -296,15 +315,17 @@ function Subscribe() {
                 <div className="subscribe-price-offer-box">
                   {showOffer ? (
                     <>
-                      <span className="subscribe-price-mrp">{formatInr(plan.regularAmountInr)}</span>
-                      <span className="subscribe-price-value">{formatInr(plan.amountInr)}</span>
+                      <span className="subscribe-price-mrp">{formatMoney(regularAmount, paymentCurrency)}</span>
+                      <span className="subscribe-price-value">{formatMoney(chargeAmount, paymentCurrency)}</span>
                       <span className="subscribe-price-offer-label">Offer price</span>
                     </>
                   ) : (
-                    <span className="subscribe-price-value">{formatInr(plan.amountInr)}</span>
+                    <span className="subscribe-price-value">{formatMoney(chargeAmount, paymentCurrency)}</span>
                   )}
                   {perMonth && (
-                    <span className="subscribe-price-equiv">≈ {formatInr(perMonth)}/month</span>
+                    <span className="subscribe-price-equiv">
+                      ≈ {formatMoney(perMonth, paymentCurrency)}/month
+                    </span>
                   )}
                 </div>
 
@@ -425,7 +446,11 @@ function Subscribe() {
           <CreditCard size={20} aria-hidden />
           <div>
             <strong>Secure checkout</strong>
-            <p>UPI, cards, and net banking — encrypted payment processing with {BRAND.name} branding.</p>
+            <p>
+              {paymentCurrency === 'USD'
+                ? `International cards (USD) — encrypted payment processing with ${BRAND.name} branding.`
+                : `UPI, cards, and net banking (INR) — encrypted payment processing with ${BRAND.name} branding.`}
+            </p>
           </div>
         </div>
         <div className="subscribe-trust-item">

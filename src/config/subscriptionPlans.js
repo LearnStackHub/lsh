@@ -45,6 +45,8 @@ export const SUBSCRIPTION_PLAN_CATALOG = [
     durationDays: 180,
     earlyAmountInr: Number(import.meta.env.VITE_RAZORPAY_PLAN_6MONTHS_EARLY_INR || 999),
     regularAmountInr: Number(import.meta.env.VITE_RAZORPAY_PLAN_6MONTHS_INR || 1499),
+    earlyAmountUsd: Number(import.meta.env.VITE_RAZORPAY_PLAN_6MONTHS_EARLY_USD || 12),
+    regularAmountUsd: Number(import.meta.env.VITE_RAZORPAY_PLAN_6MONTHS_USD || 18),
     description: 'Self-paced platform access for 6 months with monthly certification exams.',
     highlight: false,
     features: [...PLATFORM_FEATURES],
@@ -56,6 +58,8 @@ export const SUBSCRIPTION_PLAN_CATALOG = [
     durationDays: 365,
     earlyAmountInr: Number(import.meta.env.VITE_RAZORPAY_PLAN_12MONTHS_EARLY_INR || 34999),
     regularAmountInr: Number(import.meta.env.VITE_RAZORPAY_PLAN_12MONTHS_INR || 49999),
+    earlyAmountUsd: Number(import.meta.env.VITE_RAZORPAY_PLAN_12MONTHS_EARLY_USD || 420),
+    regularAmountUsd: Number(import.meta.env.VITE_RAZORPAY_PLAN_12MONTHS_USD || 600),
     description: `12 months platform access, ${LIVE_TRAINING_DAYS} days live training, and internship certificate path via monthly exams.`,
     highlight: true,
     ribbon: 'Live training + certificate',
@@ -85,24 +89,62 @@ export function getPlanById(planId) {
   return LEGACY_PLANS[planId] || null;
 }
 
+export const PAYMENT_CURRENCIES = [
+  { code: 'INR', label: 'India (INR)', shortLabel: 'INR' },
+  { code: 'USD', label: 'International (USD)', shortLabel: 'USD' },
+];
+
 export function mergeLivePricing(catalogPlan, livePlan) {
   if (!catalogPlan) return null;
   if (!livePlan) {
-    return { ...catalogPlan, amountInr: catalogPlan.earlyAmountInr, earlyBird: true };
+    return {
+      ...catalogPlan,
+      amountInr: catalogPlan.earlyAmountInr,
+      amountUsd: catalogPlan.earlyAmountUsd,
+      earlyBird: true,
+    };
   }
   return {
     ...catalogPlan,
     amountInr: livePlan.amountInr,
+    amountUsd: livePlan.amountUsd,
     earlyBird: livePlan.earlyBird,
     regularAmountInr: livePlan.regularAmountInr,
     earlyAmountInr: livePlan.earlyAmountInr,
+    regularAmountUsd: livePlan.regularAmountUsd,
+    earlyAmountUsd: livePlan.earlyAmountUsd,
   };
 }
 
+export function planChargeAmount(plan, currency = 'INR') {
+  if (!plan) return 0;
+  if (currency === 'USD') {
+    return plan.amountUsd ?? plan.earlyAmountUsd ?? 0;
+  }
+  return plan.amountInr ?? plan.earlyAmountInr ?? 0;
+}
+
+export function planRegularChargeAmount(plan, currency = 'INR') {
+  if (!plan) return 0;
+  if (currency === 'USD') {
+    return plan.regularAmountUsd ?? 0;
+  }
+  return plan.regularAmountInr ?? 0;
+}
+
 export function formatInr(amount) {
-  return new Intl.NumberFormat('en-IN', {
+  return formatMoney(amount, 'INR');
+}
+
+export function formatUsd(amount) {
+  return formatMoney(amount, 'USD');
+}
+
+export function formatMoney(amount, currency = 'INR') {
+  const locale = currency === 'USD' ? 'en-US' : 'en-IN';
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: 'INR',
+    currency,
     maximumFractionDigits: 0,
   }).format(amount);
 }
@@ -120,9 +162,11 @@ export function formatPlanAccessDescription(plan) {
   return `${plan.name || plan.label} — ${formatPlanDuration(plan)} platform access`;
 }
 
-export function perMonthPrice(plan) {
+export function perMonthPrice(plan, currency = 'INR') {
   if (!plan?.durationMonths) return null;
-  return Math.round(plan.amountInr / plan.durationMonths);
+  const amount = planChargeAmount(plan, currency);
+  if (!amount) return null;
+  return Math.round(amount / plan.durationMonths);
 }
 
 export function comparePlanSavings(shortPlan, longPlan) {

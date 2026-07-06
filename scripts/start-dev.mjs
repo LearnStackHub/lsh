@@ -95,7 +95,7 @@ function run(label, command, args) {
 
 killPort(apiPort);
 
-const api = run('api', 'node', ['--env-file=.env', 'scripts/local-api-server.js']);
+const api = run('api', 'node', ['--watch', '--env-file=.env', 'scripts/local-api-server.js']);
 let vite = null;
 
 waitForApiReady(apiPort)

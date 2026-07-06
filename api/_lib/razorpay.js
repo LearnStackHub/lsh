@@ -68,7 +68,19 @@ function getAuthHeader() {
   return `Basic ${token}`;
 }
 
-export async function createRazorpayOrder({ amountPaise, receipt, notes }) {
+function resolveOrderAmountMinor({ amountMinor, amountPaise, amount }) {
+  const raw = amountMinor ?? amountPaise ?? amount;
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed) || parsed < 1) {
+    throw new Error('Payment amount is not configured for this plan');
+  }
+  return Math.round(parsed);
+}
+
+export async function createRazorpayOrder({ amountMinor, amountPaise, amount, currency = 'INR', receipt, notes }) {
+  const resolvedCurrency = String(currency || 'INR').toUpperCase();
+  const resolvedAmount = resolveOrderAmountMinor({ amountMinor, amountPaise, amount });
+
   const response = await fetch(`${RAZORPAY_API}/orders`, {
     method: 'POST',
     headers: {
@@ -76,8 +88,8 @@ export async function createRazorpayOrder({ amountPaise, receipt, notes }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      amount: amountPaise,
-      currency: 'INR',
+      amount: resolvedAmount,
+      currency: resolvedCurrency,
       receipt,
       notes,
     }),
