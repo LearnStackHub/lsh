@@ -62,8 +62,6 @@ function Subscribe() {
   const navigate = useNavigate();
   const [loadingPlanId, setLoadingPlanId] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [invoiceOrderId, setInvoiceOrderId] = useState('');
   const [pricing, setPricing] = useState(null);
   const [paymentCurrency, setPaymentCurrency] = useState('INR');
 
@@ -95,8 +93,9 @@ function Subscribe() {
         user,
         onSuccess: async (verified) => {
           await refreshUserProfile();
-          setInvoiceOrderId(verified?.orderId || '');
-          setSuccess(true);
+          const orderId = verified?.orderId || '';
+          const query = orderId ? `?order=${encodeURIComponent(orderId)}` : '';
+          navigate(`/subscription-success${query}`, { replace: true });
         },
       });
     } catch (checkoutError) {
@@ -108,39 +107,6 @@ function Subscribe() {
       setLoadingPlanId('');
     }
   };
-
-  if (success || user?.isSubscribed) {
-    return (
-      <div className="subscribe-page subscribe-page--premium">
-        <SEOHead title="Subscription Active" description="Your LearnStackHub subscription is active." />
-        <div className="subscribe-success">
-          <div className="subscribe-success-glow" aria-hidden />
-          <div className="subscribe-success-card">
-            <div className="subscribe-success-icon">
-              <Check size={32} strokeWidth={2.5} aria-hidden />
-            </div>
-            <img src={logoImage} alt="" className="subscribe-success-logo" />
-            <h1>Welcome to {BRAND.name}</h1>
-            <p>Your subscription is active. Every tutorial, MCQ set, and Practice Lab exercise is unlocked.</p>
-            <div className="subscribe-success-actions">
-              <Link to="/tutorial/java-introduction" className="home-btn home-btn-premium">
-                Start learning
-                <ArrowRight size={18} aria-hidden />
-              </Link>
-              {invoiceOrderId && (
-                <Link to={`/account/invoice/${invoiceOrderId}`} className="subscribe-success-secondary">
-                  View invoice
-                </Link>
-              )}
-              <button type="button" className="subscribe-success-secondary" onClick={() => navigate('/account')}>
-                My account
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="subscribe-page subscribe-page--premium">

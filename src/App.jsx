@@ -34,6 +34,7 @@ const AiChat = lazy(() => import('./pages/ai/AiChat'));
 const AiInterview = lazy(() => import('./pages/ai/AiInterview'));
 const AiCodeEditor = lazy(() => import('./pages/ai/AiCodeEditor'));
 const Subscribe = lazy(() => import('./pages/Subscribe'));
+const SubscriptionSuccess = lazy(() => import('./pages/SubscriptionSuccess'));
 const Account = lazy(() => import('./pages/Account'));
 const Invoice = lazy(() => import('./pages/Invoice'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
@@ -160,6 +161,7 @@ function AppWithTracking() {
         <Route path="about" element={<About />} />
         <Route element={<ProtectedRoute />}>
           <Route path="subscribe" element={<Subscribe />} />
+          <Route path="subscription-success" element={<SubscriptionSuccess />} />
           <Route path="account" element={<Account />} />
           <Route path="account/invoice/:orderId" element={<Invoice />} />
           <Route element={<SubscriptionRoute />}>

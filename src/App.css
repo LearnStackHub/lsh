@@ -12657,6 +12657,17 @@ code {
   line-height: 1.6;
 }
 
+.subscribe-success-order {
+  margin-top: 0.85rem !important;
+  font-size: 0.88rem !important;
+}
+
+.subscribe-success-order strong {
+  color: #e2e8f0;
+  font-weight: 600;
+  word-break: break-all;
+}
+
 .subscribe-success-actions {
   display: flex;
   flex-direction: column;
