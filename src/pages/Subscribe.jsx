@@ -176,51 +176,6 @@ function Subscribe() {
         </div>
       )}
 
-      {pricing?.earlyBirdActive && (
-        <div className="subscribe-early-bird" role="status">
-          <Zap size={18} aria-hidden />
-          <div className="subscribe-early-bird-body">
-            <strong>Limited offer — first {pricing.earlyBirdLimit} subscribers only</strong>
-            <div className="subscribe-early-bird-stats">
-              <div className="subscribe-early-bird-stat">
-                <Users size={16} aria-hidden />
-                <span className="subscribe-early-bird-stat-value">{pricing.paidSubscriberCount}</span>
-                <span className="subscribe-early-bird-stat-label">
-                  subscriber{pricing.paidSubscriberCount === 1 ? '' : 's'} joined
-                </span>
-              </div>
-              <div className="subscribe-early-bird-stat subscribe-early-bird-stat--highlight">
-                <Sparkles size={16} aria-hidden />
-                <span className="subscribe-early-bird-stat-value">{pricing.spotsRemaining}</span>
-                <span className="subscribe-early-bird-stat-label">
-                  offer spot{pricing.spotsRemaining === 1 ? '' : 's'} left
-                </span>
-              </div>
-            </div>
-            <div
-              className="subscribe-early-bird-progress"
-              role="progressbar"
-              aria-valuenow={pricing.paidSubscriberCount}
-              aria-valuemin={0}
-              aria-valuemax={pricing.earlyBirdLimit}
-              aria-label={`${pricing.paidSubscriberCount} of ${pricing.earlyBirdLimit} early-bird spots filled`}
-            >
-              <div
-                className="subscribe-early-bird-progress-fill"
-                style={{
-                  width: `${Math.min(100, (pricing.paidSubscriberCount / pricing.earlyBirdLimit) * 100)}%`,
-                }}
-              />
-            </div>
-            <p>
-              {pricing.spotsRemaining > 0
-                ? `${pricing.paidSubscriberCount} of ${pricing.earlyBirdLimit} early-bird spots taken — ${pricing.spotsRemaining} left at offer price before prices increase.`
-                : 'All early-bird spots are taken — regular pricing applies soon.'}
-            </p>
-          </div>
-        </div>
-      )}
-
       <section className="subscribe-pricing">
         <div className="subscribe-pricing-head">
           <h2>Choose your plan</h2>
