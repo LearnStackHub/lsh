@@ -1,45 +1,32 @@
 import { TOTAL_QUESTIONS } from './config';
 
-/** Assessment L1 question set — fixed order, advanced level. */
+/** Assessment L1 question set — intern / fresher basics. */
 
 export const recruitmentQuestions = [
   // Java Collections (3)
   {
     id: 1,
     topic: 'Java Collections',
-    question:
-      'In JDK 8+, when does a HashMap bucket convert a linked list into a red-black tree?',
-    options: [
-      'When load factor exceeds 0.75',
-      'When bucket size exceeds 8 and table capacity is at least 64',
-      'When hash collisions exceed 50%',
-      'When key implements Comparable',
-    ],
-    correctAnswer: 1,
+    question: 'Which collection stores unique elements only (no duplicates)?',
+    options: ['ArrayList', 'LinkedList', 'HashSet', 'Stack'],
+    correctAnswer: 2,
   },
   {
     id: 2,
     topic: 'Java Collections',
-    question:
-      'Which statement about ConcurrentHashMap in Java 8+ is correct?',
-    options: [
-      'It locks the entire map for every write operation',
-      'It uses synchronized blocks on the whole table for reads',
-      'It uses CAS and synchronized bin locks for fine-grained concurrency',
-      'It throws ConcurrentModificationException on concurrent updates',
-    ],
-    correctAnswer: 2,
+    question: 'Which collection stores data as key–value pairs?',
+    options: ['ArrayList', 'HashMap', 'HashSet', 'Queue'],
+    correctAnswer: 1,
   },
   {
     id: 3,
     topic: 'Java Collections',
-    question:
-      'You iterate an ArrayList with an enhanced for-loop and call list.remove(index) inside the loop. What typically happens?',
+    question: 'Which statement about ArrayList is correct?',
     options: [
-      'Elements are removed safely',
-      'ConcurrentModificationException is thrown',
-      'Only the last element can be removed',
-      'The list becomes thread-safe automatically',
+      'It has a fixed size like an array',
+      'It can grow dynamically and allows duplicate values',
+      'It stores only unique keys',
+      'It cannot store String values',
     ],
     correctAnswer: 1,
   },
@@ -48,97 +35,79 @@ export const recruitmentQuestions = [
   {
     id: 4,
     topic: 'Java Threads',
-    question:
-      'Which guarantee does the volatile keyword provide in Java?',
+    question: 'What does the Thread.start() method do?',
     options: [
-      'Atomic read-modify-write of long variables only',
-      'Visibility of writes across threads and ordering constraints',
-      'Mutual exclusion like synchronized',
-      'Prevention of all race conditions',
+      'It only calls run() in the same thread',
+      'It creates a new thread and then executes run()',
+      'It stops the current thread',
+      'It compiles the Java file',
     ],
     correctAnswer: 1,
   },
   {
     id: 5,
     topic: 'Java Threads',
-    question:
-      'What is the key difference between ExecutorService shutdown() and shutdownNow()?',
-    options: [
-      'shutdown() stops immediately; shutdownNow() waits for tasks',
-      'shutdown() initiates orderly termination; shutdownNow() attempts to stop running tasks',
-      'Both are identical in modern JDK versions',
-      'shutdownNow() can only be used on fixed thread pools',
-    ],
-    correctAnswer: 1,
+    question: 'Which keyword is used to make a method thread-safe by allowing only one thread at a time?',
+    options: ['volatile', 'transient', 'synchronized', 'static'],
+    correctAnswer: 2,
   },
   {
     id: 6,
     topic: 'Java Threads',
-    question:
-      'Which set of conditions is required for a deadlock to occur?',
+    question: 'What is a deadlock?',
     options: [
-      'Mutual exclusion, hold and wait, no preemption, circular wait',
-      'Race condition, starvation, priority inversion, livelock',
-      'Synchronized methods only in nested calls',
-      'Two threads accessing the same volatile variable',
+      'When a thread finishes too quickly',
+      'When two or more threads wait for each other forever',
+      'When a program has no threads',
+      'When sleep() is called once',
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
   },
 
   // MySQL (5)
   {
     id: 7,
     topic: 'MySQL',
-    question:
-      'In EXPLAIN output, which access type generally indicates the worst performance for large tables?',
-    options: ['const', 'ref', 'range', 'ALL (full table scan)'],
-    correctAnswer: 3,
+    question: 'Which SQL command is used to fetch data from a table?',
+    options: ['INSERT', 'UPDATE', 'SELECT', 'DELETE'],
+    correctAnswer: 2,
   },
   {
     id: 8,
     topic: 'MySQL',
-    question:
-      'Under InnoDB REPEATABLE READ (default), which phenomenon is prevented using MVCC and next-key locking?',
-    options: ['Dirty reads only', 'Non-repeatable reads only', 'Phantom reads in many cases', 'Lost updates always'],
-    correctAnswer: 2,
+    question: 'What does a PRIMARY KEY do?',
+    options: [
+      'Allows duplicate rows',
+      'Uniquely identifies each row and cannot be NULL',
+      'Stores only numbers',
+      'Deletes a table automatically',
+    ],
+    correctAnswer: 1,
   },
   {
     id: 9,
     topic: 'MySQL',
-    question:
-      'You LEFT JOIN orders to customers. Which rows appear when a customer has no orders?',
-    options: [
-      'Customer row is excluded',
-      'Customer row appears with NULL order columns',
-      'MySQL throws an error',
-      'Only the first order is returned',
-    ],
+    question: 'Which JOIN returns all rows from the left table and matching rows from the right table?',
+    options: ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'CROSS JOIN'],
     correctAnswer: 1,
   },
   {
     id: 10,
     topic: 'MySQL',
-    question:
-      'A composite index exists on (last_name, first_name, city). Which query can use the index most effectively?',
+    question: 'What is the purpose of an INDEX in MySQL?',
     options: [
-      'WHERE city = "Pune"',
-      'WHERE first_name = "Asha"',
-      'WHERE last_name = "Patil" AND first_name = "Asha"',
-      'WHERE UPPER(last_name) = "PATIL"',
+      'To print the table',
+      'To speed up searches on a column',
+      'To delete duplicate rows automatically',
+      'To change the table name',
     ],
-    correctAnswer: 2,
+    correctAnswer: 1,
   },
   {
     id: 11,
     topic: 'MySQL',
-    question:
-      'How does InnoDB typically handle a deadlock between two transactions?',
-    options: [
-      'Both transactions are rolled back permanently',
-      'It waits until one transaction times out after 30 minutes',
-      'It detects the cycle and rolls back one transaction (victim)',
-      'It locks the entire database until manual intervention',
-    ],
+    question: 'Which clause is used to filter rows in a SELECT query?',
+    options: ['ORDER BY', 'GROUP BY', 'WHERE', 'HAVING only'],
     correctAnswer: 2,
   },
 
@@ -146,448 +115,336 @@ export const recruitmentQuestions = [
   {
     id: 12,
     topic: 'JDBC',
-    question:
-      'Why is PreparedStatement preferred over Statement for user-supplied input?',
+    question: 'What is JDBC used for?',
     options: [
-      'It compiles SQL only once per JVM lifetime',
-      'It separates SQL structure from parameters, mitigating SQL injection',
-      'It automatically creates indexes',
-      'It disables transactions by default',
+      'To style HTML pages',
+      'To connect a Java application to a database',
+      'To compile Java files',
+      'To create React components',
     ],
     correctAnswer: 1,
   },
   {
     id: 13,
     topic: 'JDBC',
-    question:
-      'A production app exhausts the connection pool under load. What is the most common root cause?',
+    question: 'Why is PreparedStatement preferred over Statement?',
     options: [
-      'Using PreparedStatement instead of Statement',
-      'Connections not closed in finally/try-with-resources',
-      'SELECT queries without ORDER BY',
-      'Using MySQL instead of PostgreSQL',
+      'It is slower always',
+      'It helps prevent SQL injection and can reuse SQL',
+      'It cannot take parameters',
+      'It is used only for DELETE queries',
     ],
     correctAnswer: 1,
   },
   {
     id: 14,
     topic: 'JDBC',
-    question:
-      'Which JDBC API sets transaction isolation for a Connection?',
-    options: [
-      'Connection.setAutoCommit(false) only',
-      'Connection.setTransactionIsolation(int level)',
-      'Statement.setIsolationLevel()',
-      'DriverManager.setIsolation()',
-    ],
+    question: 'Which JDBC method is commonly used to run a SELECT query?',
+    options: ['executeUpdate()', 'executeQuery()', 'commit() only', 'close()'],
     correctAnswer: 1,
   },
 
-  // Hibernate (3)
+  // Spring Boot (4)
   {
     id: 15,
-    topic: 'Hibernate',
-    question:
-      'What is the standard fix for the Hibernate N+1 select problem when loading entities with associations?',
+    topic: 'Spring Boot',
+    question: 'What is the main advantage of Spring Boot?',
     options: [
-      'Disable lazy loading globally',
-      'Use JOIN FETCH or entity graph in the query',
-      'Replace Hibernate with JDBC only',
-      'Set batch size to 1',
+      'It removes the need to write Java',
+      'It helps create stand-alone applications quickly with auto-configuration',
+      'It is used only for Android apps',
+      'It replaces MySQL',
     ],
     correctAnswer: 1,
   },
   {
     id: 16,
-    topic: 'Hibernate',
-    question:
-      'LazyInitializationException occurs when:',
-    options: [
-      'A lazy association is accessed outside an open persistence context/session',
-      'Two entities have the same primary key',
-      'A transaction is committed twice',
-      'HQL syntax is invalid',
-    ],
-    correctAnswer: 0,
+    topic: 'Spring Boot',
+    question: 'Which annotation is used to create a REST API controller in Spring Boot?',
+    options: ['@Entity', '@RestController', '@Repository', '@ComponentScan only'],
+    correctAnswer: 1,
   },
   {
     id: 17,
-    topic: 'Hibernate',
-    question:
-      'Which cache is enabled by default in a typical Hibernate setup?',
+    topic: 'Spring Boot',
+    question: 'Where are common Spring Boot settings like port and database URL stored?',
     options: [
-      'Second-level cache for all entities',
-      'Query cache for all queries',
-      'First-level (session) cache only',
-      'No caching at any level',
+      'index.html',
+      'application.properties or application.yml',
+      'package.json',
+      'style.css',
     ],
-    correctAnswer: 2,
+    correctAnswer: 1,
   },
-
-  // Spring Boot (4)
   {
     id: 18,
     topic: 'Spring Boot',
-    question:
-      'Why does @Transactional often fail when called from another method in the same class?',
+    question: 'What does @Autowired do?',
     options: [
-      'Spring Boot disables transactions in development',
-      'Self-invocation bypasses the Spring proxy (AOP limitation)',
-      'Transactions work only on private methods',
-      '@Transactional requires @RestController on the class',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 19,
-    topic: 'Spring Boot',
-    question:
-      'What does @ConditionalOnClass primarily control in Spring Boot auto-configuration?',
-    options: [
-      'Bean creation based on presence of classes on the classpath',
-      'HTTP response status codes',
-      'Database migration order',
-      'CSS minification in production',
-    ],
-    correctAnswer: 0,
-  },
-  {
-    id: 20,
-    topic: 'Spring Boot',
-    question:
-      'How do Spring profiles (e.g. application-dev.yml) affect configuration?',
-    options: [
-      'They replace the JVM classpath entirely',
-      'They load profile-specific properties when the profile is active',
-      'They disable security automatically',
-      'They can only be set in web.xml',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 21,
-    topic: 'Spring Boot',
-    question:
-      'Which annotation is commonly used for global REST exception handling in Spring Boot?',
-    options: ['@ControllerAdvice / @RestControllerAdvice', '@Transactional', '@EnableWebMvc', '@Scheduled'],
-    correctAnswer: 0,
-  },
-
-  // Spring Cloud (2)
-  {
-    id: 22,
-    topic: 'Spring Cloud',
-    question:
-      'In a Eureka-based microservices setup, client-side load balancing typically means:',
-    options: [
-      'A hardware load balancer chooses instances before the request reaches the app',
-      'The service consumer (e.g. Ribbon/LoadBalancer) chooses an instance from the registry',
-      'Every service must have exactly one instance',
-      'DNS round-robin replaces service discovery',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 23,
-    topic: 'Spring Cloud',
-    question:
-      'What is the main purpose of a circuit breaker (e.g. Resilience4j) in microservices?',
-    options: [
-      'Encrypt traffic between services',
-      'Stop cascading failures by failing fast when a dependency is unhealthy',
-      'Replace API Gateway routing',
-      'Compile services into a monolith',
+      'Creates a database table',
+      'Injects a required bean/dependency automatically',
+      'Starts the browser',
+      'Compiles CSS',
     ],
     correctAnswer: 1,
   },
 
   // HTML & CSS (5)
   {
-    id: 24,
+    id: 19,
     topic: 'HTML/CSS',
-    question:
-      'Adjacent block elements with vertical margins sometimes collapse. Which scenario demonstrates margin collapse?',
-    options: [
-      'Two siblings with bottom and top margins combine into one margin',
-      'Padding always collapses with border',
-      'Flex items always collapse margins',
-      'Inline elements collapse margins by default',
-    ],
-    correctAnswer: 0,
+    question: 'Which HTML tag is used to create a hyperlink?',
+    options: ['<p>', '<a>', '<link-text>', '<img>'],
+    correctAnswer: 1,
   },
   {
-    id: 25,
+    id: 20,
     topic: 'HTML/CSS',
-    question:
-      'Which selector has the highest specificity?',
-    options: [
-      'div.card p',
-      '.card p',
-      'p#title.card',
-      'p.card',
-    ],
+    question: 'Which CSS property changes the text color?',
+    options: ['font-size', 'background-color', 'color', 'margin'],
     correctAnswer: 2,
   },
   {
-    id: 26,
+    id: 21,
     topic: 'HTML/CSS',
-    question:
-      'Why use <main>, <nav>, and <article> instead of only <div>?',
-    options: [
-      'They load faster than div',
-      'They improve semantics and accessibility for assistive technologies',
-      'They automatically apply CSS grid',
-      'Browsers block <div> in HTML5',
-    ],
+    question: 'What is the correct HTML tag for the largest heading?',
+    options: ['<h6>', '<heading>', '<h1>', '<head>'],
+    correctAnswer: 2,
+  },
+  {
+    id: 22,
+    topic: 'HTML/CSS',
+    question: 'In CSS Flexbox, which property is set on the container to place items in a row or column?',
+    options: ['align-items', 'flex-direction', 'font-weight', 'z-index'],
     correctAnswer: 1,
   },
   {
-    id: 27,
+    id: 23,
     topic: 'HTML/CSS',
-    question:
-      'In a flex container with flex-direction: row, align-items controls:',
+    question: 'What does the HTML <form> tag do?',
     options: [
-      'Horizontal distribution along the main axis',
-      'Alignment along the cross axis (perpendicular to main axis)',
-      'Z-index stacking order',
-      'Font weight of children',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 28,
-    topic: 'HTML/CSS',
-    question:
-      'position: sticky keeps an element sticky until:',
-    options: [
-      'The viewport height changes only',
-      'Its containing scroll ancestor boundary is reached',
-      'Any parent has display: inline',
-      'The element has float: left',
+      'Plays a video',
+      'Collects user input to send to a server',
+      'Creates a database',
+      'Defines a CSS class',
     ],
     correctAnswer: 1,
   },
 
   // JavaScript (5)
   {
-    id: 29,
+    id: 24,
     topic: 'JavaScript',
-    question:
-      'A function inside another function remembers variables from the outer function after it returns. This is called:',
-    options: ['Prototype chain', 'Closure', 'Hoisting', 'Currying only in TypeScript'],
+    question: 'Which keyword is used to declare a block-scoped variable in JavaScript?',
+    options: ['var only', 'let', 'int', 'define'],
     correctAnswer: 1,
   },
   {
-    id: 30,
+    id: 25,
     topic: 'JavaScript',
-    question:
-      'After synchronous code runs, which typically executes first?',
-    options: [
-      'setTimeout callback (macrotask)',
-      'Promise .then callback (microtask)',
-      'requestAnimationFrame always before microtasks',
-      'All timers before any promises',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 31,
-    topic: 'JavaScript',
-    question:
-      'What is the result of comparing 0 == false and 0 === false in JavaScript?',
-    options: [
-      'Both true',
-      'Both false',
-      '== is true, === is false',
-      '== is false, === is true',
-    ],
+    question: 'What is the result of typeof "Hello"?',
+    options: ['number', 'object', 'string', 'boolean'],
     correctAnswer: 2,
   },
   {
-    id: 32,
+    id: 26,
     topic: 'JavaScript',
-    question:
-      'Which statement about let vs var in the same scope is correct?',
-    options: [
-      'var is block-scoped; let is function-scoped',
-      'let is block-scoped; var is function-scoped (or global)',
-      'Both are hoisted identically with the same TDZ rules',
-      'let allows redeclaration in the same block',
-    ],
-    correctAnswer: 1,
+    question: 'Which operator checks both value and type (strict equality)?',
+    options: ['==', '=', '===', '!='],
+    correctAnswer: 2,
   },
   {
-    id: 33,
+    id: 27,
     topic: 'JavaScript',
-    question:
-      'How should errors from an async function be handled when using await?',
+    question: 'What does JSON.parse() do?',
     options: [
-      'Errors cannot be caught; use .then only',
-      'Wrap await calls in try/catch or use .catch on the returned promise',
-      'async functions never reject',
-      'Only window.onerror works',
-    ],
-    correctAnswer: 1,
-  },
-
-  // jQuery (2)
-  {
-    id: 34,
-    topic: 'jQuery',
-    question:
-      'Why is $(document).ready() used instead of running code at the top of the script?',
-    options: [
-      'It waits until the DOM is parsed before executing handlers',
-      'It downloads jQuery from a CDN automatically',
-      'It replaces defer on all script tags',
-      'It prevents CORS errors',
+      'Converts a JSON string into a JavaScript object',
+      'Converts an object into HTML',
+      'Deletes a file',
+      'Connects to MySQL',
     ],
     correctAnswer: 0,
   },
   {
-    id: 35,
-    topic: 'jQuery',
-    question:
-      'Event delegation with $(parent).on("click", ".child", handler) is useful because:',
-    options: [
-      'It only works for static elements created at page load',
-      'It handles clicks on current and future matching descendants efficiently',
-      'It disables bubbling permanently',
-      'It requires React to be installed',
-    ],
+    id: 28,
+    topic: 'JavaScript',
+    question: 'Which method is used to add an item at the end of an array?',
+    options: ['pop()', 'push()', 'shift()', 'slice()'],
     correctAnswer: 1,
   },
 
   // React (5)
   {
-    id: 36,
+    id: 29,
     topic: 'React',
-    question:
-      'You call setCount(count + 1) three times in one event handler without a functional update. What often happens?',
+    question: 'What is React mainly used to build?',
+    options: ['Database tables', 'User interfaces (UI) for web apps', 'Operating systems', 'MySQL queries'],
+    correctAnswer: 1,
+  },
+  {
+    id: 30,
+    topic: 'React',
+    question: 'Which hook is used to store state in a function component?',
+    options: ['useEffect', 'useState', 'useContext only', 'useRef only'],
+    correctAnswer: 1,
+  },
+  {
+    id: 31,
+    topic: 'React',
+    question: 'Why do we use keys in a React list?',
     options: [
-      'Count increases by 3 always',
-      'Count increases by 1 because state updates may batch using the same stale value',
-      'React throws a hooks error',
-      'The component unmounts',
+      'To style the list with CSS',
+      'To help React identify each item uniquely while updating the UI',
+      'To connect to the database',
+      'To create a new server',
     ],
     correctAnswer: 1,
   },
   {
-    id: 37,
+    id: 32,
     topic: 'React',
-    question:
-      'useEffect(() => { ... }, []) runs the effect:',
+    question: 'What does JSX allow you to write?',
     options: [
-      'On every render',
-      'Only once after the initial mount (empty dependency array)',
-      'Only when props change but not state',
-      'Before the component is created',
+      'SQL inside CSS',
+      'HTML-like code inside JavaScript',
+      'Only Python code',
+      'Binary machine code',
     ],
     correctAnswer: 1,
   },
   {
-    id: 38,
+    id: 33,
     topic: 'React',
-    question:
-      'Why should list items have stable unique keys in React?',
+    question: 'useEffect(() => { ... }, []) runs:',
     options: [
-      'Keys are only for CSS styling',
-      'Keys help React identify items across re-renders for efficient reconciliation',
-      'Keys prevent all re-renders of parent components',
-      'Keys are required only in class components',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 39,
-    topic: 'React',
-    question:
-      'A controlled input in React means:',
-    options: [
-      'The DOM owns the value; React never updates it',
-      'React state is the single source of truth for the input value',
-      'The input cannot use onChange',
-      'Only <textarea> can be controlled',
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 40,
-    topic: 'React',
-    question:
-      'When is React.memo most appropriate?',
-    options: [
-      'To memoize expensive calculations inside a component',
-      'To skip re-rendering a component when props are shallowly equal',
-      'To replace useState entirely',
-      'To fix incorrect keys in lists',
+      'On every key press only',
+      'Once after the component first loads (mounts)',
+      'Before the file is saved',
+      'Only when CSS changes',
     ],
     correctAnswer: 1,
   },
 
-  // Frontend ↔ Backend APIs & real-time troubleshooting (5)
+  // Aptitude / logical reasoning (6)
+  {
+    id: 34,
+    topic: 'Aptitude / Logical Reasoning',
+    question: 'Find the next number in the series: 2, 6, 12, 20, 30, ?',
+    options: ['36', '40', '42', '48'],
+    correctAnswer: 2,
+  },
+  {
+    id: 35,
+    topic: 'Aptitude / Logical Reasoning',
+    question: 'If RAM is 4th from the left in a row of 10 students, what is RAM’s position from the right?',
+    options: ['4th', '6th', '7th', '8th'],
+    correctAnswer: 2,
+  },
+  {
+    id: 36,
+    topic: 'Aptitude / Logical Reasoning',
+    question: 'A train covers 120 km in 2 hours. What is its average speed?',
+    options: ['40 km/h', '50 km/h', '60 km/h', '80 km/h'],
+    correctAnswer: 2,
+  },
+  {
+    id: 37,
+    topic: 'Aptitude / Logical Reasoning',
+    question: 'If CODING is written as DPEJOH, how is LOGIC written in the same way? (each letter +1)',
+    options: ['MPHJD', 'KNFHB', 'MPHJC', 'NQHKE'],
+    correctAnswer: 0,
+  },
+  {
+    id: 38,
+    topic: 'Aptitude / Logical Reasoning',
+    question: 'Odd one out: Keyboard, Mouse, Monitor, Compiler',
+    options: ['Keyboard', 'Mouse', 'Monitor', 'Compiler'],
+    correctAnswer: 3,
+  },
+  {
+    id: 39,
+    topic: 'Aptitude / Logical Reasoning',
+    question: 'A is taller than B. C is shorter than B. D is taller than A. Who is the tallest?',
+    options: ['A', 'B', 'C', 'D'],
+    correctAnswer: 3,
+  },
+
+  // Problem solving & debugging (6)
+  {
+    id: 40,
+    topic: 'Problem Solving & Debugging',
+    question:
+      'This Java loop is meant to print numbers 1 to 5, but it never stops: for (int i = 1; i <= 5; i--) { System.out.println(i); } What is the bug?',
+    options: [
+      'println cannot print numbers',
+      'i-- decreases i, so the loop never reaches 6 and never ends',
+      'The loop should use while instead of for',
+      'int cannot start from 1',
+    ],
+    correctAnswer: 1,
+  },
   {
     id: 41,
-    topic: 'API Integration',
+    topic: 'Problem Solving & Debugging',
     question:
-      'A browser blocks a cross-origin POST with custom headers. What usually happens first?',
+      'String a = new String("hi"); String b = new String("hi"); Why is (a == b) false but a.equals(b) true?',
     options: [
-      'The server returns 500',
-      'The browser sends an OPTIONS preflight request',
-      'JWT is automatically refreshed',
-      'WebSocket replaces HTTP',
+      'equals() always returns false for strings',
+      '== compares object references; equals() compares the text content',
+      'new String() is not allowed in Java',
+      '== compares content and equals() compares memory only',
     ],
     correctAnswer: 1,
   },
   {
     id: 42,
-    topic: 'API Integration',
+    topic: 'Problem Solving & Debugging',
     question:
-      'HTTP 401 Unauthorized typically means:',
+      'A program crashes with NullPointerException on user.getName(). What is the most likely cause?',
     options: [
-      'The user is authenticated but lacks permission',
-      'Authentication is missing or invalid',
-      'The server is down',
-      'The request body is too large',
+      'The database table name is too long',
+      'user is null, so a method is called on a null object',
+      'getName() cannot return a String',
+      'The CSS file is missing',
     ],
     correctAnswer: 1,
   },
   {
     id: 43,
-    topic: 'API Integration',
+    topic: 'Problem Solving & Debugging',
     question:
-      'Storing JWT in httpOnly cookies (with secure flags) is often preferred over localStorage because:',
+      'An intern runs DELETE FROM employees; and all rows disappear. What was missing?',
     options: [
-      'Cookies cannot be sent to the server',
-      'It reduces exposure to XSS stealing the token via JavaScript',
-      'localStorage encrypts tokens automatically',
-      'Cookies disable CORS entirely',
+      'ORDER BY clause',
+      'A WHERE clause to delete only specific rows',
+      'JOIN clause',
+      'INDEX on every column',
     ],
     correctAnswer: 1,
   },
   {
     id: 44,
-    topic: 'API Integration',
+    topic: 'Problem Solving & Debugging',
     question:
-      'For real-time chat updates, WebSockets are often chosen over short polling because:',
+      'int[] nums = {10, 20, 30}; System.out.println(nums[3]); What happens and why?',
     options: [
-      'WebSockets use more HTTP requests per message',
-      'WebSockets maintain a persistent bidirectional connection with lower overhead',
-      'Polling cannot work behind load balancers',
-      'WebSockets do not require server support',
+      'It prints 30',
+      'ArrayIndexOutOfBoundsException because valid indexes are 0, 1, and 2',
+      'It prints 0',
+      'It prints 10',
     ],
     correctAnswer: 1,
   },
   {
     id: 45,
-    topic: 'API Integration',
+    topic: 'Problem Solving & Debugging',
     question:
-      'A client retries a POST after a network timeout and creates duplicate orders. Best practice:',
+      'A function is supposed to return the sum of two numbers but always returns undefined in JavaScript: function add(a, b) { a + b; } What is the fix?',
     options: [
-      'Disable retries for all APIs',
-      'Use idempotency keys or idempotent server-side handling for safe retries',
-      'Switch POST to GET',
-      'Store duplicates in localStorage only',
+      'Rename the function to sum',
+      'Add return: return a + b;',
+      'Change + to -',
+      'Use a CSS class',
     ],
     correctAnswer: 1,
   },
