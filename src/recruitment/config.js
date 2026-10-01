@@ -4,7 +4,7 @@ export const RECRUITMENT_EXAM_PATH = '/assessment';
 export const ASSESSMENT_FORCE_OPEN = false;
 
 /** Registrations close at this time (IST). Format: ISO 8601 with offset. */
-export const ASSESSMENT_CLOSES_AT = '2026-09-03T21:00:00+05:30';
+export const ASSESSMENT_CLOSES_AT = '2026-10-02T21:00:00+05:30';
 
 export function isAssessmentOpen() {
   if (ASSESSMENT_FORCE_OPEN) return true;
