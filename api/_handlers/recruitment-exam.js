@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
     const app = getFirebaseAdminApp();
     if (!app) {
-      res.status(503).json({ error: 'Service unavailable' });
+      res.status(503).json({ error: 'Assessment is temporarily unavailable. Please try again shortly.' });
       return;
     }
 
@@ -60,6 +60,8 @@ export default async function handler(req, res) {
       return;
     }
 
-    res.status(503).json({ error: 'Could not save submission' });
+    res.status(503).json({
+      error: 'We could not save your submission. Please try again in a few minutes.',
+    });
   }
 }

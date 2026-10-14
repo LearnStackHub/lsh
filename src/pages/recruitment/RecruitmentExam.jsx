@@ -12,6 +12,7 @@ import ExamRunner from '../../recruitment/components/ExamRunner';
 import CompletionScreen from '../../recruitment/components/CompletionScreen';
 import SubmitConfirmModal from '../../recruitment/components/SubmitConfirmModal';
 import RecruitmentLogo from '../../recruitment/components/RecruitmentLogo';
+import { sanitizeAssessmentError, ASSESSMENT_SUBMIT_FALLBACK } from '../../recruitment/assessmentUserMessages';
 import { submitRecruitmentExam } from '../../services/recruitmentExamService';
 import './RecruitmentExam.css';
 
@@ -68,7 +69,9 @@ export default function RecruitmentExam() {
       } catch (error) {
         submittedRef.current = false;
         setSubmitting(false);
-        setSubmitError(error.message || 'Submission failed');
+        setSubmitError(
+          sanitizeAssessmentError(error?.message, ASSESSMENT_SUBMIT_FALLBACK)
+        );
       }
     },
     [candidate, questions, selectedAnswers]

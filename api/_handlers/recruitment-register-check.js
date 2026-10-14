@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
     const app = getFirebaseAdminApp();
     if (!app) {
-      res.status(503).json({ error: 'Service unavailable' });
+      res.status(503).json({ error: 'Registration is temporarily unavailable. Please try again shortly.' });
       return;
     }
 
@@ -49,6 +49,8 @@ export default async function handler(req, res) {
     res.status(200).json({ ok: true });
   } catch (error) {
     console.error('recruitment-register-check failed:', error?.message || error);
-    res.status(503).json({ error: 'Could not verify registration details' });
+    res.status(503).json({
+      error: 'We could not verify your registration right now. Please try again shortly.',
+    });
   }
 }

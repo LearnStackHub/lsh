@@ -1,5 +1,6 @@
 import { CheckCircle, Home, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ASSESSMENT_SUBMIT_FALLBACK, sanitizeAssessmentError } from '../assessmentUserMessages';
 import RecruitmentLogo from './RecruitmentLogo';
 
 export default function CompletionScreen({ submitting, error }) {
@@ -19,7 +20,9 @@ export default function CompletionScreen({ submitting, error }) {
       <div className="recruitment-complete">
         <RecruitmentLogo size="md" className="recruitment-complete-logo" />
         <h2>Submission issue</h2>
-        <p className="recruitment-error">{error}</p>
+        <p className="recruitment-error">
+          {sanitizeAssessmentError(error, ASSESSMENT_SUBMIT_FALLBACK)}
+        </p>
         <Link to="/" className="recruitment-btn recruitment-btn-primary">
           <Home size={18} aria-hidden />
           Return to home

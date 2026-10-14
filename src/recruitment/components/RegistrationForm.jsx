@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Camera, ClipboardList, Loader2, RotateCcw } from 'lucide-react';
 import { EXAM_TIME_LIMIT, TOTAL_QUESTIONS } from '../config';
+import {
+  ASSESSMENT_PHOTO_FALLBACK,
+  ASSESSMENT_REGISTER_FALLBACK,
+  sanitizeAssessmentError,
+} from '../assessmentUserMessages';
 import { checkRecruitmentRegistration } from '../../services/recruitmentExamService';
 import { compressDataUrl } from '../compressImage';
 
@@ -163,7 +168,7 @@ export default function RegistrationForm({ onSubmit, submitting }) {
       setPhotoPreview(dataUrl);
       stopCamera();
     } catch (err) {
-      setError(err.message || 'Could not capture photo. Try again.');
+      setError(sanitizeAssessmentError(err?.message, ASSESSMENT_PHOTO_FALLBACK));
     } finally {
       setCompressing(false);
     }
@@ -214,7 +219,7 @@ export default function RegistrationForm({ onSubmit, submitting }) {
       });
       onSubmit(payload);
     } catch (err) {
-      setError(err.message || 'Could not verify your registration details. Please try again.');
+      setError(sanitizeAssessmentError(err?.message, ASSESSMENT_REGISTER_FALLBACK));
     } finally {
       setCheckingRegistration(false);
     }
