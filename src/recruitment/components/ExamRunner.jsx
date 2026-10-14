@@ -4,6 +4,7 @@ import { BRAND } from '../../config/brand';
 import { EXAM_TIME_LIMIT } from '../config';
 import RecruitmentLogo from './RecruitmentLogo';
 import ExamWebcamMonitor from './ExamWebcamMonitor';
+import ExamQuestionBody from './ExamQuestionBody';
 
 function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
@@ -128,14 +129,23 @@ const ExamRunner = forwardRef(function ExamRunner(
                 {questionNumber}
               </div>
               <div className="rex-sheet-meta">
-                <p className="rex-sheet-label">Question {currentIndex + 1}</p>
+                <p className="rex-sheet-label">
+                  {question.topic ? (
+                    <>
+                      Section: <span className="rex-sheet-topic">{question.topic}</span>
+                    </>
+                  ) : (
+                    'Section'
+                  )}
+                </p>
                 <p className="rex-sheet-sub">
-                  {answeredCount} of {questions.length} answered · {securityWarnings}/3 warnings
+                  Question {currentIndex + 1} of {questions.length} · {answeredCount} answered ·{' '}
+                  {securityWarnings}/3 warnings
                 </p>
               </div>
             </div>
 
-            <h1 className="rex-question">{question.question}</h1>
+            <ExamQuestionBody text={question.question} />
 
             <div className="rex-choices" role="radiogroup" aria-label={`Question ${currentIndex + 1}`}>
               {question.options.map((option, index) => {
@@ -175,9 +185,9 @@ const ExamRunner = forwardRef(function ExamRunner(
           </article>
 
           <aside className="rex-sidebar">
-            <p className="rex-sidebar-title">Questions</p>
+            <p className="rex-sidebar-title">Question palette</p>
             <p className="rex-sidebar-sub">
-              {answeredCount}/{questions.length} completed
+              {answeredCount}/{questions.length} answered
             </p>
             <QuestionNavigator
               className="rex-nav--desktop"
