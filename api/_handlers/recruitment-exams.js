@@ -57,7 +57,9 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { listRecruitmentExams, getRecruitmentExamById } = await import('../_lib/recruitmentExams.js');
+    const { listRecruitmentExamsForAdmin, getRecruitmentExamById } = await import(
+      '../_lib/recruitmentExams.js'
+    );
     const submissionId = String(req.query?.id || '').trim();
 
     if (submissionId) {
@@ -70,8 +72,14 @@ export default async function handler(req, res) {
       return;
     }
 
-    const submissions = await listRecruitmentExams(verified.db);
-    res.status(200).json({ submissions, count: submissions.length });
+    const result = await listRecruitmentExamsForAdmin(verified.db);
+    res.status(200).json({
+      submissions: result.submissions,
+      count: result.submissions.length,
+      totalCount: result.totalCount,
+      truncated: result.truncated,
+      limit: result.limit,
+    });
   } catch (error) {
     const code = error?.code || '';
     if (code.startsWith('auth/')) {

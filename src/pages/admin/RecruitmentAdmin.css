@@ -1,3 +1,108 @@
+.recruitment-admin-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.recruitment-admin-pagination-summary {
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.recruitment-admin-pagination-summary strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.recruitment-admin-pagination-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recruitment-admin-pagination-size {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-right: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.recruitment-admin-pagination-size select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-size: 0.85rem;
+}
+
+.recruitment-admin-page-numbers {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.recruitment-admin-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.45rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.recruitment-admin-page-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.recruitment-admin-page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.recruitment-admin-page-btn--active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.recruitment-admin-page-ellipsis {
+  padding: 0 0.25rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.recruitment-admin-truncate-notice {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #fcd34d;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
 .recruitment-admin {
   max-width: 1280px;
 }

@@ -279,7 +279,20 @@ export function mapSubmissionDetail(id, data) {
   };
 }
 
-export async function listRecruitmentExams(db, limit = 200) {
+/** Max rows returned to admin UI (most recent first). */
+export const RECRUITMENT_ADMIN_LIST_LIMIT = 2000;
+
+export async function countRecruitmentExams(db) {
+  try {
+    const snapshot = await db.collection('recruitmentExams').count().get();
+    return snapshot.data().count;
+  } catch (error) {
+    console.warn('recruitmentExams count failed:', error?.message || error);
+    return null;
+  }
+}
+
+export async function listRecruitmentExams(db, limit = RECRUITMENT_ADMIN_LIST_LIMIT) {
   const mapDocs = (snapshot) =>
     snapshot.docs.map((entry) => mapSubmissionSummary(entry.id, entry.data()));
 
@@ -304,6 +317,21 @@ export async function listRecruitmentExams(db, limit = 200) {
       return bTime - aTime;
     });
   }
+}
+
+export async function listRecruitmentExamsForAdmin(db, limit = RECRUITMENT_ADMIN_LIST_LIMIT) {
+  const [submissions, totalCount] = await Promise.all([
+    listRecruitmentExams(db, limit),
+    countRecruitmentExams(db),
+  ]);
+
+  const total = totalCount ?? submissions.length;
+  return {
+    submissions,
+    totalCount: total,
+    limit,
+    truncated: total > submissions.length,
+  };
 }
 
 export async function getRecruitmentExamById(db, id) {

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
   Briefcase,
+  ChevronLeft,
+  ChevronRight,
   Download,
   Eye,
   FileSpreadsheet,
@@ -49,6 +51,98 @@ const EMPTY_FILTERS = {
   dateFrom: '',
   dateTo: '',
 };
+
+const PAGE_SIZE_OPTIONS = [25, 50, 100];
+
+function SubmissionPagination({ page, pageSize, totalItems, onPageChange, onPageSizeChange }) {
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const safePage = Math.min(Math.max(1, page), totalPages);
+  const start = totalItems === 0 ? 0 : (safePage - 1) * pageSize + 1;
+  const end = Math.min(safePage * pageSize, totalItems);
+
+  const pageNumbers = [];
+  const windowRadius = 2;
+  for (let p = 1; p <= totalPages; p += 1) {
+    if (p === 1 || p === totalPages || (p >= safePage - windowRadius && p <= safePage + windowRadius)) {
+      pageNumbers.push(p);
+    } else if (pageNumbers[pageNumbers.length - 1] !== '…') {
+      pageNumbers.push('…');
+    }
+  }
+
+  return (
+    <nav className="recruitment-admin-pagination" aria-label="Submission pages">
+      <div className="recruitment-admin-pagination-summary">
+        {totalItems === 0 ? (
+          'No rows'
+        ) : (
+          <>
+            Showing <strong>{start}</strong>–<strong>{end}</strong> of <strong>{totalItems}</strong>
+          </>
+        )}
+      </div>
+
+      <div className="recruitment-admin-pagination-controls">
+        <label className="recruitment-admin-pagination-size">
+          Per page
+          <select
+            value={pageSize}
+            onChange={(e) => onPageSizeChange(Number(e.target.value))}
+            aria-label="Rows per page"
+          >
+            {PAGE_SIZE_OPTIONS.map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <button
+          type="button"
+          className="recruitment-admin-page-btn"
+          onClick={() => onPageChange(safePage - 1)}
+          disabled={safePage <= 1}
+          aria-label="Previous page"
+        >
+          <ChevronLeft size={18} aria-hidden />
+        </button>
+
+        <div className="recruitment-admin-page-numbers">
+          {pageNumbers.map((token, index) =>
+            token === '…' ? (
+              <span key={`ellipsis-${index}`} className="recruitment-admin-page-ellipsis" aria-hidden>
+                …
+              </span>
+            ) : (
+              <button
+                key={token}
+                type="button"
+                className={`recruitment-admin-page-btn${
+                  token === safePage ? ' recruitment-admin-page-btn--active' : ''
+                }`}
+                onClick={() => onPageChange(token)}
+                aria-current={token === safePage ? 'page' : undefined}
+              >
+                {token}
+              </button>
+            )
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="recruitment-admin-page-btn"
+          onClick={() => onPageChange(safePage + 1)}
+          disabled={safePage >= totalPages}
+          aria-label="Next page"
+        >
+          <ChevronRight size={18} aria-hidden />
+        </button>
+      </div>
+    </nav>
+  );
+}
 
 function formatDate(value) {
   if (!value) return '—';
@@ -182,12 +276,17 @@ function hasActiveFilters(filters) {
 function RecruitmentAdmin() {
   const { user } = useAuth();
   const [submissions, setSubmissions] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [listTruncated, setListTruncated] = useState(false);
+  const [listLimit, setListLimit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedId, setSelectedId] = useState('');
   const [detail, setDetail] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
 
   const loadSubmissions = async () => {
     if (!user) return;
@@ -196,8 +295,12 @@ function RecruitmentAdmin() {
     setError('');
 
     try {
-      const rows = await fetchRecruitmentSubmissions();
+      const { submissions: rows, totalCount: total, truncated, limit } =
+        await fetchRecruitmentSubmissions();
       setSubmissions(rows);
+      setTotalCount(total);
+      setListTruncated(truncated);
+      setListLimit(limit ?? null);
     } catch (err) {
       setError(err.message || 'Unable to load submissions.');
     } finally {
@@ -227,6 +330,24 @@ function RecruitmentAdmin() {
     () => filterSubmissions(submissions, filters),
     [submissions, filters]
   );
+
+  const totalPages = Math.max(1, Math.ceil(filteredSubmissions.length / pageSize));
+  const safePage = Math.min(Math.max(1, page), totalPages);
+
+  const paginatedSubmissions = useMemo(() => {
+    const start = (safePage - 1) * pageSize;
+    return filteredSubmissions.slice(start, start + pageSize);
+  }, [filteredSubmissions, safePage, pageSize]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [filters, pageSize]);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
 
   const setFilter = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -326,9 +447,15 @@ function RecruitmentAdmin() {
           <div className="admin-stat-card">
             <Shield size={22} aria-hidden />
             <div>
-              <span className="admin-stat-value">{filteredSubmissions.length}</span>
+              <span className="admin-stat-value">
+                {filtersActive ? filteredSubmissions.length : totalCount || submissions.length}
+              </span>
               <span className="admin-stat-label">
-                {filtersActive ? `Filtered (${submissions.length} total)` : 'Total submissions'}
+                {filtersActive
+                  ? `Filtered (${filteredSubmissions.length} of ${submissions.length} loaded)`
+                  : listTruncated
+                    ? `Total in database (${submissions.length} most recent loaded)`
+                    : 'Total submissions'}
               </span>
             </div>
           </div>
@@ -348,7 +475,12 @@ function RecruitmentAdmin() {
               Filters
             </h2>
             <p className="recruitment-admin-filters-count">
-              Showing {filteredSubmissions.length} of {submissions.length} submissions
+              {filteredSubmissions.length} match filters · {submissions.length} loaded
+              {totalCount > submissions.length
+                ? ` · ${totalCount} total in database`
+                : totalCount > 0 && totalCount !== submissions.length
+                  ? ` · ${totalCount} total`
+                  : ''}
             </p>
           </div>
 
@@ -457,6 +589,13 @@ function RecruitmentAdmin() {
         </section>
 
         {error && <div className="form-error admin-error">{error}</div>}
+        {listTruncated && !loading && (
+          <div className="recruitment-admin-truncate-notice" role="status">
+            {totalCount - submissions.length} older submission
+            {totalCount - submissions.length === 1 ? '' : 's'} not shown. Displaying the most recent{' '}
+            {submissions.length} of {totalCount} total (limit {listLimit ?? submissions.length}).
+          </div>
+        )}
 
         <div className="admin-table-wrap">
           <table className="admin-table">
@@ -489,7 +628,7 @@ function RecruitmentAdmin() {
                   </td>
                 </tr>
               ) : (
-                filteredSubmissions.map((row) => (
+                paginatedSubmissions.map((row) => (
                   <tr key={row.id}>
                     <td>
                       <strong>{row.name}</strong>
@@ -542,6 +681,16 @@ function RecruitmentAdmin() {
             </tbody>
           </table>
         </div>
+
+        {!loading && filteredSubmissions.length > 0 && (
+          <SubmissionPagination
+            page={safePage}
+            pageSize={pageSize}
+            totalItems={filteredSubmissions.length}
+            onPageChange={setPage}
+            onPageSizeChange={setPageSize}
+          />
+        )}
       </div>
 
       {selectedId && (

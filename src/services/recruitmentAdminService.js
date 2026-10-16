@@ -34,7 +34,15 @@ async function adminFetch(path) {
 
 export async function fetchRecruitmentSubmissions() {
   const payload = await adminFetch('/api/recruitment-exams');
-  return payload.submissions || [];
+  const submissions = payload.submissions || [];
+  const totalCount =
+    typeof payload.totalCount === 'number' ? payload.totalCount : submissions.length;
+  return {
+    submissions,
+    totalCount,
+    truncated: Boolean(payload.truncated),
+    limit: payload.limit,
+  };
 }
 
 export async function fetchRecruitmentSubmission(id) {
