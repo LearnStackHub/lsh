@@ -102,7 +102,7 @@ export default async function handler(req, res) {
     const customerPhone = normalizeIndianPhone(body.customerPhone);
     if (!customerPhone) {
       res.status(400).json({
-        error: 'Mobile number is required. Cashfree needs it before opening checkout.',
+        error: 'Enter a valid 10-digit mobile number.',
         code: 'MISSING_CUSTOMER_PHONE',
       });
       return;

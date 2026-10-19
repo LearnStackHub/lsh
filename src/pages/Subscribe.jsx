@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
@@ -42,7 +42,7 @@ import {
 import { sanitizeUserMessage } from '../utils/userFacingErrors';
 import { fetchSubscriptionPricing, getLivePlanPricing } from '../services/subscriptionPricingService';
 import logoImage from '../assets/LSH.png';
-import { isValidIndianPhone, normalizeIndianPhone } from '../utils/phone';
+import { normalizeIndianPhone } from '../utils/phone';
 
 const BILLING_PHONE_STORAGE_KEY = 'lsh_billing_phone';
 
@@ -76,9 +76,7 @@ function Subscribe() {
     if (typeof window === 'undefined') return '';
     return window.localStorage.getItem(BILLING_PHONE_STORAGE_KEY) || '';
   });
-  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
-  const [phoneModalDraft, setPhoneModalDraft] = useState('');
-  const [pendingPlanId, setPendingPlanId] = useState('');
+  const billingPhoneRef = useRef(null);
 
   useEffect(() => {
     fetchSubscriptionPricing().then(setPricing);
@@ -161,9 +159,9 @@ function Subscribe() {
     const phone = normalizeIndianPhone(billingPhone);
 
     if (isCashfree && !phone) {
-      setPendingPlanId(planId);
-      setPhoneModalDraft(billingPhone);
-      setPhoneModalOpen(true);
+      setError('Enter your 10-digit mobile number below.');
+      billingPhoneRef.current?.focus();
+      billingPhoneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
@@ -177,9 +175,8 @@ function Subscribe() {
     } catch (checkoutError) {
       const message = checkoutError?.message || 'Checkout failed';
       if (/mobile|phone|10-digit/i.test(message)) {
-        setPendingPlanId(planId);
-        setPhoneModalDraft(billingPhone);
-        setPhoneModalOpen(true);
+        setError('Enter your 10-digit mobile number below.');
+        billingPhoneRef.current?.focus();
       } else if (message !== 'Payment cancelled') {
         setError(
           sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.')
@@ -187,41 +184,6 @@ function Subscribe() {
       }
     } finally {
       setLoadingPlanId('');
-    }
-  };
-
-  const handlePhoneModalContinue = async () => {
-    if (!isValidIndianPhone(phoneModalDraft)) {
-      setError('Enter a valid 10-digit mobile number.');
-      return;
-    }
-
-    const phone = saveBillingPhone(phoneModalDraft);
-    const planId = pendingPlanId;
-    if (!planId || !user) {
-      setPhoneModalOpen(false);
-      return;
-    }
-
-    setError('');
-    setPhoneModalOpen(false);
-    setLoadingPlanId(planId);
-
-    let settings = checkoutSettings;
-    try {
-      settings = await getCheckoutSettings(true);
-      setCheckoutSettings(settings);
-      await startCheckout(planId, settings, phone);
-    } catch (checkoutError) {
-      const message = checkoutError?.message || 'Checkout failed';
-      if (message !== 'Payment cancelled') {
-        setError(
-          sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.')
-        );
-      }
-    } finally {
-      setLoadingPlanId('');
-      setPendingPlanId('');
     }
   };
 
@@ -318,9 +280,24 @@ function Subscribe() {
           )}
           {cashfreeCheckout && (
             <p className="subscribe-currency-note" role="status">
-              Payments via Cashfree are in <strong>INR (₹)</strong> only. You will be asked for your mobile number once
-              before Cashfree opens (required by their system).
+              All prices in <strong>INR (₹)</strong>.
             </p>
+          )}
+          {cashfreeCheckout && user && (
+            <div className="subscribe-billing-phone">
+              <label htmlFor="subscribe-billing-phone">Mobile number</label>
+              <input
+                ref={billingPhoneRef}
+                id="subscribe-billing-phone"
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="10-digit mobile number"
+                value={billingPhone}
+                maxLength={14}
+                onChange={(event) => setBillingPhone(event.target.value)}
+              />
+            </div>
           )}
         </div>
 
@@ -514,59 +491,6 @@ function Subscribe() {
         </p>
       </footer>
 
-      {phoneModalOpen && (
-        <div
-          className="modal-overlay subscribe-phone-modal-overlay"
-          role="presentation"
-          onClick={() => setPhoneModalOpen(false)}
-        >
-          <div
-            className="modal-content subscribe-phone-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="subscribe-phone-modal-title"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <h2 id="subscribe-phone-modal-title">Mobile number</h2>
-            <p>
-              Cashfree requires your number <strong>before</strong> their payment page opens. After you continue, you
-              will pay on Cashfree (UPI, cards, net banking) with this number on the receipt.
-            </p>
-            <input
-              id="subscribe-phone-modal-input"
-              type="tel"
-              inputMode="numeric"
-              autoComplete="tel"
-              aria-label="10-digit mobile number"
-              className="subscribe-phone-modal-input"
-              placeholder="e.g. 9876543210"
-              value={phoneModalDraft}
-              maxLength={14}
-              autoFocus
-              onChange={(event) => setPhoneModalDraft(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  event.preventDefault();
-                  handlePhoneModalContinue();
-                }
-              }}
-            />
-            <div className="subscribe-phone-modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={() => setPhoneModalOpen(false)}>
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                disabled={!isValidIndianPhone(phoneModalDraft) || Boolean(loadingPlanId)}
-                onClick={handlePhoneModalContinue}
-              >
-                {loadingPlanId ? 'Opening Cashfree…' : 'Continue to Cashfree'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

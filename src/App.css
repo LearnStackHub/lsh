@@ -12105,7 +12105,7 @@ code {
 .subscribe-billing-phone {
   margin: 1.25rem auto 0;
   max-width: 22rem;
-  text-align: left;
+  text-align: center;
 }
 
 .subscribe-billing-phone label {
