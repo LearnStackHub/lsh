@@ -120,7 +120,7 @@ function Subscribe() {
     const currency = isCashfree ? 'INR' : paymentCurrency;
 
     try {
-      await openSubscriptionCheckout({
+      const outcome = await openSubscriptionCheckout({
         planId,
         currency,
         user,
@@ -131,6 +131,10 @@ function Subscribe() {
           navigate(`/subscription-success${query}`, { replace: true });
         },
       });
+
+      if (outcome?.redirecting) {
+        return;
+      }
     } catch (checkoutError) {
       const message = checkoutError?.message || 'Checkout failed';
       if (message !== 'Payment cancelled') {

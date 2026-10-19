@@ -107,7 +107,7 @@ export default async function handler(req, res) {
       customerId: sanitizeCashfreeCustomerId(decoded.uid),
       customerEmail: decoded.email || '',
       customerName: decoded.name || '',
-      returnUrl: `${siteUrl}/subscription-success?order=${encodeURIComponent(orderId)}`,
+      returnUrl: `${siteUrl}/subscription-success?order=${encodeURIComponent(orderId)}&plan=${encodeURIComponent(plan.id)}&currency=INR`,
       notifyUrl: `${siteUrl}/api/cashfree-webhook`,
       notes: {
         uid: decoded.uid,

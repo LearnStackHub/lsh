@@ -137,12 +137,6 @@ function buildCustomerDetails({ customerId, customerEmail, customerName, custome
   return details;
 }
 
-/** Cashfree Create Order API requires a phone field; use only when the API rejects requests without it. */
-function cashfreeApiPlaceholderPhone() {
-  const fromEnv = normalizeIndianPhone(process.env.CASHFREE_ORDER_API_PHONE);
-  return fromEnv || '9999999999';
-}
-
 async function postCashfreeOrderRequest(orderBody) {
   const response = await fetch(`${getCashfreeBaseUrl()}/orders`, {
     method: 'POST',
@@ -151,11 +145,6 @@ async function postCashfreeOrderRequest(orderBody) {
   });
   const payload = await response.json().catch(() => ({}));
   return { response, payload };
-}
-
-function orderNeedsPhoneRetry(payload) {
-  const text = JSON.stringify(payload || {}).toLowerCase();
-  return /customer_phone|customer phone|phone.*required|invalid.*phone/.test(text);
 }
 
 export async function createCashfreeOrder({
@@ -196,22 +185,10 @@ export async function createCashfreeOrder({
     order_note: orderNote,
   };
 
-  let { response, payload } = await postCashfreeOrderRequest({
+  const { response, payload } = await postCashfreeOrderRequest({
     ...baseOrder,
     customer_details: buildCustomerDetails({ customerId, customerEmail, customerName, customerPhone }),
   });
-
-  if (!response.ok && !normalizeIndianPhone(customerPhone) && orderNeedsPhoneRetry(payload)) {
-    ({ response, payload } = await postCashfreeOrderRequest({
-      ...baseOrder,
-      customer_details: buildCustomerDetails({
-        customerId,
-        customerEmail,
-        customerName,
-        customerPhone: cashfreeApiPlaceholderPhone(),
-      }),
-    }));
-  }
 
   if (!response.ok) {
     const message = formatCashfreeApiError(response.status, payload);

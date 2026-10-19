@@ -12668,6 +12668,14 @@ code {
   padding: 2rem 0 3rem;
 }
 
+.subscribe-success-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
 .subscribe-success-glow {
   position: absolute;
   width: 400px;

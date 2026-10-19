@@ -107,7 +107,7 @@ export async function openCashfreeCheckout({ planId, currency = 'INR', onSuccess
 
   const result = await cashfree.checkout({
     paymentSessionId: order.paymentSessionId,
-    redirectTarget: '_modal',
+    redirectTarget: '_self',
   });
 
   if (result?.error) {
@@ -119,8 +119,13 @@ export async function openCashfreeCheckout({ planId, currency = 'INR', onSuccess
     throw new Error(message);
   }
 
+  // Full-page Cashfree hosted checkout — user returns via return_url; verify on subscription-success.
+  if (result?.redirect) {
+    return { redirecting: true, orderId: order.orderId, planId: order.planId || planId };
+  }
+
   const verified = await verifyCashfreeSubscriptionPayment({
-    planId,
+    planId: order.planId || planId,
     currency: order.currency || currency,
     orderId: order.orderId,
   });
