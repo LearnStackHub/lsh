@@ -1,11 +1,17 @@
 const API_VERSION = '2023-08-01';
 
+function stripEnvValue(value) {
+  return String(value || '')
+    .trim()
+    .replace(/^['"]|['"]$/g, '');
+}
+
 export function getCashfreeAppId() {
-  return process.env.CASHFREE_APP_ID?.trim() || process.env.CASHFREE_CLIENT_ID?.trim() || '';
+  return stripEnvValue(process.env.CASHFREE_APP_ID) || stripEnvValue(process.env.CASHFREE_CLIENT_ID);
 }
 
 export function getCashfreeSecret() {
-  return process.env.CASHFREE_SECRET_KEY?.trim() || process.env.CASHFREE_CLIENT_SECRET?.trim() || '';
+  return stripEnvValue(process.env.CASHFREE_SECRET_KEY) || stripEnvValue(process.env.CASHFREE_CLIENT_SECRET);
 }
 
 export function getCashfreeMode() {
@@ -46,11 +52,34 @@ export function defaultCashfreeCustomerPhone() {
 
 function cashfreeHeaders() {
   return {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
     'x-api-version': API_VERSION,
     'x-client-id': getCashfreeAppId(),
     'x-client-secret': getCashfreeSecret(),
   };
+}
+
+function formatCashfreeApiError(responseStatus, payload) {
+  const parts = [
+    payload?.message,
+    payload?.error?.message,
+    payload?.error?.description,
+    payload?.code,
+    Array.isArray(payload?.details)
+      ? payload.details.map((d) => d?.message || d?.field).filter(Boolean).join('; ')
+      : '',
+  ].filter(Boolean);
+
+  if (responseStatus === 401 || payload?.type === 'authentication_error') {
+    return `Cashfree authentication failed. Use Payment Gateway Client ID + Secret from the Cashfree dashboard, and set CASHFREE_ENV to "${getCashfreeMode()}" (sandbox keys need sandbox, live keys need production).`;
+  }
+
+  if (parts.length) {
+    return `Cashfree: ${parts.join(' — ')}`;
+  }
+
+  return `Cashfree order creation failed (HTTP ${responseStatus})`;
 }
 
 /** Cashfree order_amount is in major currency units (INR rupees, USD dollars). */
@@ -78,6 +107,16 @@ export async function createCashfreeOrder({
 }) {
   const orderCurrency = String(currency || 'INR').toUpperCase();
   const orderAmount = minorToCashfreeAmount(amountMinor, orderCurrency);
+  if (orderAmount < 1) {
+    throw new Error(
+      'Payment amount is not configured for this plan (Cashfree requires at least ₹1). Check RAZORPAY_PLAN_*_PAISE env vars use paise, e.g. 99900 for ₹999.'
+    );
+  }
+
+  const orderMeta = { return_url: returnUrl };
+  if (notifyUrl) {
+    orderMeta.notify_url = notifyUrl;
+  }
 
   const response = await fetch(`${getCashfreeBaseUrl()}/orders`, {
     method: 'POST',
@@ -88,13 +127,11 @@ export async function createCashfreeOrder({
       order_currency: orderCurrency,
       customer_details: {
         customer_id: customerId,
+        customer_name: 'LearnStackHub Customer',
         customer_email: customerEmail || 'customer@learnstackhub.com',
         customer_phone: String(customerPhone || '').replace(/\D/g, '').slice(-10) || defaultCashfreeCustomerPhone(),
       },
-      order_meta: {
-        return_url: returnUrl,
-        notify_url: notifyUrl,
-      },
+      order_meta: orderMeta,
       order_note: Object.entries(notes)
         .map(([k, v]) => `${k}=${v}`)
         .join('; ')
@@ -105,14 +142,14 @@ export async function createCashfreeOrder({
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    const detail =
-      payload?.message ||
-      payload?.error?.message ||
-      (Array.isArray(payload?.details) ? payload.details.map((d) => d?.message).filter(Boolean).join('; ') : '') ||
-      '';
-    const message = detail ? `Cashfree: ${detail}` : 'Cashfree order creation failed';
+    const message = formatCashfreeApiError(response.status, payload);
     console.error('Cashfree create order failed:', response.status, JSON.stringify(payload).slice(0, 500));
     throw new Error(message);
+  }
+
+  if (!payload?.payment_session_id) {
+    console.error('Cashfree create order missing payment_session_id:', JSON.stringify(payload).slice(0, 500));
+    throw new Error('Cashfree: order created but payment session was missing. Check PG API keys and account status.');
   }
 
   return payload;

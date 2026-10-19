@@ -40,7 +40,14 @@ export default async function handler(req, res) {
     }
 
     const planId = String(body.planId || '').trim();
-    const currency = normalizePaymentCurrency(body.currency);
+    let currency = normalizePaymentCurrency(body.currency);
+    if (currency !== 'INR') {
+      res.status(400).json({
+        error: 'Cashfree checkout supports INR only. Switch payment currency to INR on the subscribe page.',
+        code: 'CASHFREE_INR_ONLY',
+      });
+      return;
+    }
 
     const app = getFirebaseAdminApp();
     if (!app) {
@@ -113,10 +120,11 @@ export default async function handler(req, res) {
     }
     const message = String(error?.message || error || 'Request failed');
     console.error('cashfree-order failed:', message);
-    if (/cashfree|order creation|payment amount/i.test(message)) {
+    if (/cashfree|order creation|payment amount|configured for this plan/i.test(message)) {
       res.status(502).json({
-        error: message.slice(0, 240),
+        error: message.slice(0, 400),
         code: 'CASHFREE_ORDER_FAILED',
+        cashfreeEnv: getCashfreeMode(),
       });
       return;
     }

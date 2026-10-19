@@ -81,6 +81,13 @@ function Subscribe() {
   }, []);
 
   const checkoutReady = isCheckoutReady(checkoutSettings);
+  const cashfreeCheckout = checkoutSettings?.activeGateway === 'cashfree';
+
+  useEffect(() => {
+    if (cashfreeCheckout && paymentCurrency !== 'INR') {
+      setPaymentCurrency('INR');
+    }
+  }, [cashfreeCheckout, paymentCurrency]);
 
   const displayPlans = useMemo(
     () =>
@@ -197,19 +204,26 @@ function Subscribe() {
             Access starts immediately after payment. Every plan includes monthly certification exams — pass to earn
             your LearnStackHub internship certificate.
           </p>
-          <div className="subscribe-currency-toggle" role="group" aria-label="Payment currency">
-            {PAYMENT_CURRENCIES.map(({ code, label }) => (
-              <button
-                key={code}
-                type="button"
-                className={`subscribe-currency-btn${paymentCurrency === code ? ' subscribe-currency-btn--active' : ''}`}
-                aria-pressed={paymentCurrency === code}
-                onClick={() => setPaymentCurrency(code)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          {!cashfreeCheckout && (
+            <div className="subscribe-currency-toggle" role="group" aria-label="Payment currency">
+              {PAYMENT_CURRENCIES.map(({ code, label }) => (
+                <button
+                  key={code}
+                  type="button"
+                  className={`subscribe-currency-btn${paymentCurrency === code ? ' subscribe-currency-btn--active' : ''}`}
+                  aria-pressed={paymentCurrency === code}
+                  onClick={() => setPaymentCurrency(code)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
+          {cashfreeCheckout && (
+            <p className="subscribe-currency-note" role="status">
+              Payments via Cashfree are in <strong>INR (₹)</strong> only.
+            </p>
+          )}
         </div>
 
         <div className="subscribe-pricing-grid">
