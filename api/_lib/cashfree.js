@@ -25,6 +25,25 @@ export function isCashfreeConfigured() {
   return Boolean(getCashfreeAppId() && getCashfreeSecret());
 }
 
+/** Cashfree customer_id: alphanumeric, `_` and `-` only. */
+export function sanitizeCashfreeCustomerId(rawId) {
+  const cleaned = String(rawId || 'guest')
+    .replace(/[^a-zA-Z0-9_-]/g, '')
+    .slice(0, 50);
+  return cleaned.length >= 3 ? cleaned : `uid_${Date.now()}`;
+}
+
+export function defaultCashfreeCustomerPhone() {
+  const fromEnv = String(
+    process.env.CASHFREE_DEFAULT_CUSTOMER_PHONE ||
+      process.env.VITE_MENTOR_PHONE_TEL ||
+      process.env.VITE_MENTOR_WHATSAPP ||
+      ''
+  ).replace(/\D/g, '');
+  const digits = fromEnv.slice(-10);
+  return digits.length === 10 ? digits : '9999999999';
+}
+
 function cashfreeHeaders() {
   return {
     'Content-Type': 'application/json',
@@ -69,8 +88,8 @@ export async function createCashfreeOrder({
       order_currency: orderCurrency,
       customer_details: {
         customer_id: customerId,
-        customer_email: customerEmail || undefined,
-        customer_phone: customerPhone || undefined,
+        customer_email: customerEmail || 'customer@learnstackhub.com',
+        customer_phone: String(customerPhone || '').replace(/\D/g, '').slice(-10) || defaultCashfreeCustomerPhone(),
       },
       order_meta: {
         return_url: returnUrl,
@@ -86,7 +105,13 @@ export async function createCashfreeOrder({
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    const message = payload?.message || payload?.error?.message || 'Cashfree order creation failed';
+    const detail =
+      payload?.message ||
+      payload?.error?.message ||
+      (Array.isArray(payload?.details) ? payload.details.map((d) => d?.message).filter(Boolean).join('; ') : '') ||
+      '';
+    const message = detail ? `Cashfree: ${detail}` : 'Cashfree order creation failed';
+    console.error('Cashfree create order failed:', response.status, JSON.stringify(payload).slice(0, 500));
     throw new Error(message);
   }
 

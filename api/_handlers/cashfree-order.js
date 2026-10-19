@@ -5,6 +5,17 @@ export const config = {
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
+  const { isCashfreeConfigured, createCashfreeOrder, getCashfreeMode, sanitizeCashfreeCustomerId } =
+    await import('../_lib/cashfree.js');
+  const { parseJsonBody } = await import('../_lib/razorpay.js');
+  const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import(
+    '../_lib/pricing.js'
+  );
+  const { assertActiveGateway } = await import('../_lib/paymentSettings.js');
+  const { getConfigStatus, getFirebaseAdminApp, apiErrorPayload } = await import(
+    '../_lib/firebaseAdmin.js'
+  );
+
   try {
     if (req.method !== 'POST') {
       res.status(405).json({ error: 'Method not allowed' });
@@ -16,18 +27,6 @@ export default async function handler(req, res) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
     }
-
-    const { isCashfreeConfigured, createCashfreeOrder, getCashfreeMode } = await import(
-      '../_lib/cashfree.js'
-    );
-    const { parseJsonBody } = await import('../_lib/razorpay.js');
-    const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import(
-      '../_lib/pricing.js'
-    );
-    const { assertActiveGateway } = await import('../_lib/paymentSettings.js');
-    const { getConfigStatus, getFirebaseAdminApp, apiErrorPayload } = await import(
-      '../_lib/firebaseAdmin.js'
-    );
 
     if (!isCashfreeConfigured()) {
       res.status(503).json({ error: 'Not configured', code: 'MISSING_CASHFREE_CREDENTIALS' });
@@ -81,7 +80,7 @@ export default async function handler(req, res) {
       orderId,
       amountMinor: plan.amountMinor,
       currency: plan.currency,
-      customerId: decoded.uid,
+      customerId: sanitizeCashfreeCustomerId(decoded.uid),
       customerEmail: decoded.email || '',
       customerPhone: '',
       returnUrl: `${siteUrl}/subscription-success?order=${encodeURIComponent(orderId)}`,
@@ -112,7 +111,15 @@ export default async function handler(req, res) {
       res.status(401).json({ error: 'Invalid token' });
       return;
     }
-    console.error('cashfree-order failed:', error?.message || error);
+    const message = String(error?.message || error || 'Request failed');
+    console.error('cashfree-order failed:', message);
+    if (/cashfree|order creation|payment amount/i.test(message)) {
+      res.status(502).json({
+        error: message.slice(0, 240),
+        code: 'CASHFREE_ORDER_FAILED',
+      });
+      return;
+    }
     res.status(503).json(apiErrorPayload(error));
   }
 }
