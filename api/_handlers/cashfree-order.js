@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     sanitizeCashfreeCustomerId,
     getCashfreeCredentialHint,
     getCashfreeAppId,
+    normalizeIndianPhone,
   } = await import('../_lib/cashfree.js');
   const { parseJsonBody } = await import('../_lib/razorpay.js');
   const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import(
@@ -98,6 +99,15 @@ export default async function handler(req, res) {
       /\/$/,
       ''
     );
+    const customerPhone = normalizeIndianPhone(body.customerPhone);
+    if (!customerPhone) {
+      res.status(400).json({
+        error: 'Mobile number is required. Cashfree needs it before opening checkout.',
+        code: 'MISSING_CUSTOMER_PHONE',
+      });
+      return;
+    }
+
     const orderId = `cf_lsh_${decoded.uid.slice(0, 8)}_${Date.now()}`.slice(0, 40);
 
     const order = await createCashfreeOrder({
@@ -107,6 +117,7 @@ export default async function handler(req, res) {
       customerId: sanitizeCashfreeCustomerId(decoded.uid),
       customerEmail: decoded.email || '',
       customerName: decoded.name || '',
+      customerPhone,
       returnUrl: `${siteUrl}/subscription-success?order=${encodeURIComponent(orderId)}&plan=${encodeURIComponent(plan.id)}&currency=INR`,
       notifyUrl: `${siteUrl}/api/cashfree-webhook`,
       notes: {

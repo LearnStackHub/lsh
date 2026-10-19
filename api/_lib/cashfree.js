@@ -159,6 +159,11 @@ export async function createCashfreeOrder({
   notifyUrl,
   notes = {},
 }) {
+  const phone = normalizeIndianPhone(customerPhone);
+  if (!phone) {
+    throw new Error('A valid 10-digit mobile number is required before Cashfree checkout can open.');
+  }
+
   const orderCurrency = String(currency || 'INR').toUpperCase();
   const orderAmount = minorToCashfreeAmount(amountMinor, orderCurrency);
   if (orderAmount < 1) {
