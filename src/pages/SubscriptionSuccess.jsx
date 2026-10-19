@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Check, Loader2 } from 'lucide-react';
+import { ArrowRight, Check, Loader2, XCircle } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import { useAuth } from '../context/AuthContext';
 import { BRAND } from '../config/brand';
@@ -14,41 +14,41 @@ function SubscriptionSuccess() {
   const orderId = searchParams.get('order')?.trim() || '';
   const planId = searchParams.get('plan')?.trim() || '';
   const currency = searchParams.get('currency')?.trim() || 'INR';
-  const [confirmingPayment, setConfirmingPayment] = useState(false);
-  const [confirmError, setConfirmError] = useState('');
+  const isCashfreeReturn = Boolean(orderId.startsWith('cf_') && planId);
+
+  /** idle | verifying | confirmed | incomplete */
+  const [verifyPhase, setVerifyPhase] = useState(() => (isCashfreeReturn ? 'idle' : 'confirmed'));
 
   useEffect(() => {
     refreshUserProfile();
   }, [refreshUserProfile]);
 
   useEffect(() => {
-    if (!user || !orderId || !planId || user.isSubscribed || !orderId.startsWith('cf_')) {
+    if (!user || !isCashfreeReturn || user.isSubscribed) {
+      if (user?.isSubscribed) {
+        setVerifyPhase('confirmed');
+      }
       return;
     }
 
     let cancelled = false;
-    setConfirmingPayment(true);
-    setConfirmError('');
+    setVerifyPhase('verifying');
 
     verifyCashfreeSubscriptionPayment({ orderId, planId, currency })
       .then(async () => {
         if (cancelled) return;
         await refreshUserProfile();
+        setVerifyPhase('confirmed');
       })
-      .catch((err) => {
+      .catch(() => {
         if (cancelled) return;
-        setConfirmError(err?.message || 'We could not confirm your payment yet. Check My Account in a minute.');
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setConfirmingPayment(false);
-        }
+        setVerifyPhase('incomplete');
       });
 
     return () => {
       cancelled = true;
     };
-  }, [user?.uid, user?.isSubscribed, orderId, planId, currency, refreshUserProfile]);
+  }, [user?.uid, user?.isSubscribed, orderId, planId, currency, isCashfreeReturn, refreshUserProfile]);
 
   useEffect(() => {
     if (!isAuthReady || !authInitialized || loading) {
@@ -73,7 +73,11 @@ function SubscriptionSuccess() {
     return null;
   }
 
-  if (confirmingPayment) {
+  const showSuccess = user.isSubscribed || verifyPhase === 'confirmed';
+  const showIncomplete = isCashfreeReturn && verifyPhase === 'incomplete' && !user.isSubscribed;
+  const showVerifying = isCashfreeReturn && verifyPhase === 'verifying' && !user.isSubscribed;
+
+  if (showVerifying) {
     return (
       <div className="subscribe-page subscribe-page--premium">
         <SEOHead title="Confirming payment" description="Confirming your subscription payment." noindex />
@@ -84,6 +88,46 @@ function SubscriptionSuccess() {
         </div>
       </div>
     );
+  }
+
+  if (showIncomplete) {
+    return (
+      <div className="subscribe-page subscribe-page--premium">
+        <SEOHead title="Payment not completed" description="Subscription payment was not completed." noindex />
+        <div className="subscribe-success">
+          <div className="subscribe-success-glow" aria-hidden />
+          <div className="subscribe-success-card subscribe-success-card--incomplete">
+            <div className="subscribe-success-icon subscribe-success-icon--warn">
+              <XCircle size={32} strokeWidth={2.5} aria-hidden />
+            </div>
+            <img src={logoImage} alt="" className="subscribe-success-logo" />
+            <h1>Payment not completed</h1>
+            <p>
+              You returned from checkout without a successful payment. Your account was not charged and your
+              subscription is not active yet.
+            </p>
+            {orderId && (
+              <p className="subscribe-success-order">
+                Reference: <strong>{orderId}</strong>
+              </p>
+            )}
+            <div className="subscribe-success-actions">
+              <Link to="/subscribe" className="home-btn home-btn-premium">
+                Back to plans
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+              <Link to="/account" className="subscribe-success-secondary">
+                My account
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!showSuccess) {
+    return null;
   }
 
   return (
@@ -101,11 +145,6 @@ function SubscriptionSuccess() {
           </div>
           <img src={logoImage} alt="" className="subscribe-success-logo" />
           <h1>Payment successful</h1>
-          {confirmError && (
-            <p className="subscribe-alert subscribe-alert--warn" role="status">
-              {confirmError}
-            </p>
-          )}
           <p>Your {BRAND.name} subscription is active. Tutorials, MCQs, and Practice Lab are unlocked.</p>
           {orderId && (
             <p className="subscribe-success-order">
