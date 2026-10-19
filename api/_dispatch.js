@@ -18,6 +18,7 @@ export const ROUTE_LOADERS = {
   'POST /recruitment-register-check': () => import('./_handlers/recruitment-register-check.js'),
   'GET /recruitment-exams': () => import('./_handlers/recruitment-exams.js'),
   'GET /admin-users': () => import('./_handlers/admin-users.js'),
+  'GET /admin-payments': () => import('./_handlers/admin-payments.js'),
   'POST /execute-code': () => import('./_handlers/execute-code.js'),
   'POST /ollama-chat': () => import('./_handlers/ollama-chat.js'),
   'POST /interview': () => import('./_handlers/interview.js'),

@@ -79,6 +79,51 @@ export async function fetchFirestoreUsers() {
   }
 }
 
+export async function fetchAdminPayments() {
+  if (!auth?.currentUser) {
+    throw new Error('Sign in required');
+  }
+
+  const token = await auth.currentUser.getIdToken(true);
+  const response = await fetch('/api/admin-payments', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const payload = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error('You do not have permission to view payments.');
+    }
+    throw new Error(payload.error || 'Unable to load payment records.');
+  }
+
+  return payload;
+}
+
+export async function fetchAdminInvoice(orderId) {
+  if (!auth?.currentUser) {
+    throw new Error('Sign in required');
+  }
+
+  const token = await auth.currentUser.getIdToken(true);
+  const response = await fetch(`/api/admin-payments?orderId=${encodeURIComponent(orderId)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const payload = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(payload.error || 'Could not load invoice');
+  }
+
+  return payload.invoice;
+}
+
 export async function fetchAuthUsersFromApi() {
   if (!auth?.currentUser) {
     return null;

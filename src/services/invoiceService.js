@@ -1,7 +1,7 @@
 import { auth } from '../config/firebase';
 import { getPlanById, formatPlanDuration, formatPlanAccessDescription } from '../config/subscriptionPlans';
 
-function enrichInvoiceClient(invoice) {
+export function enrichInvoiceClient(invoice) {
   if (!invoice) {
     return invoice;
   }
