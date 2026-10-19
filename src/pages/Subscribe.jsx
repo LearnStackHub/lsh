@@ -42,6 +42,9 @@ import {
 import { sanitizeUserMessage } from '../utils/userFacingErrors';
 import { fetchSubscriptionPricing, getLivePlanPricing } from '../services/subscriptionPricingService';
 import logoImage from '../assets/LSH.png';
+import { isValidIndianPhone, normalizeIndianPhone } from '../utils/phone';
+
+const BILLING_PHONE_STORAGE_KEY = 'lsh_billing_phone';
 
 const INCLUDED = [
   { icon: BookOpen, title: 'Full tutorial library', detail: 'Java, Spring, React & more' },
@@ -69,6 +72,10 @@ function Subscribe() {
   const [pricing, setPricing] = useState(null);
   const [paymentCurrency, setPaymentCurrency] = useState('INR');
   const [checkoutSettings, setCheckoutSettings] = useState(null);
+  const [billingPhone, setBillingPhone] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    return window.localStorage.getItem(BILLING_PHONE_STORAGE_KEY) || '';
+  });
 
   useEffect(() => {
     fetchSubscriptionPricing().then(setPricing);
@@ -103,14 +110,29 @@ function Subscribe() {
       return;
     }
 
+    if (cashfreeCheckout && !isValidIndianPhone(billingPhone)) {
+      setError('Enter your 10-digit mobile number below before subscribing.');
+      return;
+    }
+
     setError('');
     setLoadingPlanId(planId);
+
+    const normalizedPhone = normalizeIndianPhone(billingPhone);
+    if (cashfreeCheckout && normalizedPhone) {
+      try {
+        window.localStorage.setItem(BILLING_PHONE_STORAGE_KEY, normalizedPhone);
+      } catch {
+        /* ignore storage errors */
+      }
+    }
 
     try {
       await openSubscriptionCheckout({
         planId,
         currency: paymentCurrency,
         user,
+        customerPhone: cashfreeCheckout ? normalizedPhone : undefined,
         onSuccess: async (verified) => {
           await refreshUserProfile();
           const orderId = verified?.orderId || '';
@@ -224,6 +246,25 @@ function Subscribe() {
               Payments via Cashfree are in <strong>INR (₹)</strong> only.
             </p>
           )}
+          {cashfreeCheckout && user && (
+            <div className="subscribe-billing-phone">
+              <label htmlFor="subscribe-billing-phone">Mobile number for payment</label>
+              <input
+                id="subscribe-billing-phone"
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="10-digit mobile number"
+                value={billingPhone}
+                maxLength={14}
+                onChange={(event) => setBillingPhone(event.target.value)}
+              />
+              <p className="subscribe-billing-phone-hint">
+                Cashfree requires your number for UPI, cards, and payment receipts. We send this to Cashfree only for
+                checkout.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="subscribe-pricing-grid">
@@ -299,7 +340,11 @@ function Subscribe() {
                 <button
                   type="button"
                   className={`subscribe-price-cta${isFeatured ? ' subscribe-price-cta--featured' : ''}`}
-                  disabled={!checkoutReady || Boolean(loadingPlanId)}
+                  disabled={
+                    !checkoutReady ||
+                    Boolean(loadingPlanId) ||
+                    (cashfreeCheckout && user && !isValidIndianPhone(billingPhone))
+                  }
                   onClick={() => handleSubscribe(plan.id)}
                 >
                   {isLoading ? (

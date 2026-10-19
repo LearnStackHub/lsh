@@ -12095,6 +12095,43 @@ code {
   box-shadow: 0 1px 4px rgba(67, 56, 202, 0.15);
 }
 
+.subscribe-currency-note {
+  margin: 1rem auto 0;
+  max-width: 36rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.subscribe-billing-phone {
+  margin: 1.25rem auto 0;
+  max-width: 22rem;
+  text-align: left;
+}
+
+.subscribe-billing-phone label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+
+.subscribe-billing-phone input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  font-size: 1rem;
+}
+
+.subscribe-billing-phone-hint {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
 .subscribe-pricing-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

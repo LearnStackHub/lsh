@@ -62,15 +62,19 @@ export function sanitizeCashfreeCustomerId(rawId) {
   return cleaned.length >= 3 ? cleaned : `uid_${Date.now()}`;
 }
 
-export function defaultCashfreeCustomerPhone() {
-  const fromEnv = String(
-    process.env.CASHFREE_DEFAULT_CUSTOMER_PHONE ||
-      process.env.VITE_MENTOR_PHONE_TEL ||
-      process.env.VITE_MENTOR_WHATSAPP ||
-      ''
-  ).replace(/\D/g, '');
-  const digits = fromEnv.slice(-10);
-  return digits.length === 10 ? digits : '9999999999';
+/** Normalize to 10-digit Indian mobile (Cashfree PG requirement). */
+export function normalizeIndianPhone(value) {
+  const digits = String(value || '').replace(/\D/g, '');
+  if (digits.length === 12 && digits.startsWith('91')) {
+    return digits.slice(2);
+  }
+  if (digits.length === 11 && digits.startsWith('0')) {
+    return digits.slice(1);
+  }
+  if (digits.length === 10) {
+    return digits;
+  }
+  return '';
 }
 
 function cashfreeHeaders() {
@@ -128,6 +132,11 @@ export async function createCashfreeOrder({
   notifyUrl,
   notes = {},
 }) {
+  const phone = normalizeIndianPhone(customerPhone);
+  if (!phone) {
+    throw new Error('A valid 10-digit mobile number is required for payment.');
+  }
+
   const orderCurrency = String(currency || 'INR').toUpperCase();
   const orderAmount = minorToCashfreeAmount(amountMinor, orderCurrency);
   if (orderAmount < 1) {
@@ -152,7 +161,7 @@ export async function createCashfreeOrder({
         customer_id: customerId,
         customer_name: 'LearnStackHub Customer',
         customer_email: customerEmail || 'customer@learnstackhub.com',
-        customer_phone: String(customerPhone || '').replace(/\D/g, '').slice(-10) || defaultCashfreeCustomerPhone(),
+        customer_phone: normalizeIndianPhone(customerPhone),
       },
       order_meta: orderMeta,
       order_note: Object.entries(notes)
