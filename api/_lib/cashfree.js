@@ -121,22 +121,55 @@ export function minorToCashfreeAmount(amountMinor, currency = 'INR') {
   return Number((minor / 100).toFixed(2));
 }
 
+function buildCustomerDetails({ customerId, customerEmail, customerName, customerPhone }) {
+  const details = {
+    customer_id: customerId,
+    customer_name: String(customerName || 'Customer').slice(0, 100),
+  };
+  const email = String(customerEmail || '').trim();
+  if (email) {
+    details.customer_email = email;
+  }
+  const phone = normalizeIndianPhone(customerPhone);
+  if (phone) {
+    details.customer_phone = phone;
+  }
+  return details;
+}
+
+/** Cashfree Create Order API requires a phone field; use only when the API rejects requests without it. */
+function cashfreeApiPlaceholderPhone() {
+  const fromEnv = normalizeIndianPhone(process.env.CASHFREE_ORDER_API_PHONE);
+  return fromEnv || '9999999999';
+}
+
+async function postCashfreeOrderRequest(orderBody) {
+  const response = await fetch(`${getCashfreeBaseUrl()}/orders`, {
+    method: 'POST',
+    headers: cashfreeHeaders(),
+    body: JSON.stringify(orderBody),
+  });
+  const payload = await response.json().catch(() => ({}));
+  return { response, payload };
+}
+
+function orderNeedsPhoneRetry(payload) {
+  const text = JSON.stringify(payload || {}).toLowerCase();
+  return /customer_phone|customer phone|phone.*required|invalid.*phone/.test(text);
+}
+
 export async function createCashfreeOrder({
   orderId,
   amountMinor,
   currency = 'INR',
   customerId,
   customerEmail,
+  customerName,
   customerPhone,
   returnUrl,
   notifyUrl,
   notes = {},
 }) {
-  const phone = normalizeIndianPhone(customerPhone);
-  if (!phone) {
-    throw new Error('A valid 10-digit mobile number is required for payment.');
-  }
-
   const orderCurrency = String(currency || 'INR').toUpperCase();
   const orderAmount = minorToCashfreeAmount(amountMinor, orderCurrency);
   if (orderAmount < 1) {
@@ -150,28 +183,35 @@ export async function createCashfreeOrder({
     orderMeta.notify_url = notifyUrl;
   }
 
-  const response = await fetch(`${getCashfreeBaseUrl()}/orders`, {
-    method: 'POST',
-    headers: cashfreeHeaders(),
-    body: JSON.stringify({
-      order_id: orderId,
-      order_amount: orderAmount,
-      order_currency: orderCurrency,
-      customer_details: {
-        customer_id: customerId,
-        customer_name: 'LearnStackHub Customer',
-        customer_email: customerEmail || 'customer@learnstackhub.com',
-        customer_phone: normalizeIndianPhone(customerPhone),
-      },
-      order_meta: orderMeta,
-      order_note: Object.entries(notes)
-        .map(([k, v]) => `${k}=${v}`)
-        .join('; ')
-        .slice(0, 256),
-    }),
+  const orderNote = Object.entries(notes)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('; ')
+    .slice(0, 256);
+
+  const baseOrder = {
+    order_id: orderId,
+    order_amount: orderAmount,
+    order_currency: orderCurrency,
+    order_meta: orderMeta,
+    order_note: orderNote,
+  };
+
+  let { response, payload } = await postCashfreeOrderRequest({
+    ...baseOrder,
+    customer_details: buildCustomerDetails({ customerId, customerEmail, customerName, customerPhone }),
   });
 
-  const payload = await response.json().catch(() => ({}));
+  if (!response.ok && !normalizeIndianPhone(customerPhone) && orderNeedsPhoneRetry(payload)) {
+    ({ response, payload } = await postCashfreeOrderRequest({
+      ...baseOrder,
+      customer_details: buildCustomerDetails({
+        customerId,
+        customerEmail,
+        customerName,
+        customerPhone: cashfreeApiPlaceholderPhone(),
+      }),
+    }));
+  }
 
   if (!response.ok) {
     const message = formatCashfreeApiError(response.status, payload);

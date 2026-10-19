@@ -46,7 +46,7 @@ async function getAuthToken() {
   return auth.currentUser.getIdToken(true);
 }
 
-export async function createCashfreeSubscriptionOrder(planId, currency = 'INR', customerPhone = '') {
+export async function createCashfreeSubscriptionOrder(planId, currency = 'INR') {
   const token = await getAuthToken();
   const response = await fetch('/api/cashfree-order', {
     method: 'POST',
@@ -54,7 +54,7 @@ export async function createCashfreeSubscriptionOrder(planId, currency = 'INR', 
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ planId, currency, customerPhone }),
+    body: JSON.stringify({ planId, currency }),
   });
 
   const payload = await response.json().catch(() => ({}));
@@ -94,8 +94,8 @@ export async function verifyCashfreeSubscriptionPayment({ planId, currency = 'IN
   return payload;
 }
 
-export async function openCashfreeCheckout({ planId, currency = 'INR', customerPhone, onSuccess, onDismiss }) {
-  const order = await createCashfreeSubscriptionOrder(planId, currency, customerPhone);
+export async function openCashfreeCheckout({ planId, currency = 'INR', onSuccess, onDismiss }) {
+  const order = await createCashfreeSubscriptionOrder(planId, currency);
   const Cashfree = await loadCashfreeSdk();
 
   if (!order.paymentSessionId) {
