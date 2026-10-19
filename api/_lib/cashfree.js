@@ -31,6 +31,29 @@ export function isCashfreeConfigured() {
   return Boolean(getCashfreeAppId() && getCashfreeSecret());
 }
 
+/** Detect common Vercel misconfiguration before calling Cashfree. */
+export function getCashfreeCredentialHint() {
+  const appId = getCashfreeAppId();
+  const mode = getCashfreeMode();
+  if (!appId) {
+    return 'CASHFREE_APP_ID (Client ID) is missing in Vercel.';
+  }
+  if (!getCashfreeSecret()) {
+    return 'CASHFREE_SECRET_KEY (Client Secret) is missing in Vercel.';
+  }
+
+  const upper = appId.toUpperCase();
+
+  if (mode === 'sandbox' && upper.startsWith('PROD_')) {
+    return 'Client ID starts with PROD_ (live key) but CASHFREE_ENV is sandbox. In Vercel set CASHFREE_ENV=production, OR in Cashfree click Switch to Test and paste TEST_ keys.';
+  }
+  if (mode === 'production' && upper.startsWith('TEST_')) {
+    return 'Client ID starts with TEST_ but CASHFREE_ENV is production. Set CASHFREE_ENV=sandbox for test keys, or use live PROD_ keys after account activation.';
+  }
+
+  return null;
+}
+
 /** Cashfree customer_id: alphanumeric, `_` and `-` only. */
 export function sanitizeCashfreeCustomerId(rawId) {
   const cleaned = String(rawId || 'guest')

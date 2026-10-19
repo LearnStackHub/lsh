@@ -5,8 +5,14 @@ export const config = {
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
-  const { isCashfreeConfigured, createCashfreeOrder, getCashfreeMode, sanitizeCashfreeCustomerId } =
-    await import('../_lib/cashfree.js');
+  const {
+    isCashfreeConfigured,
+    createCashfreeOrder,
+    getCashfreeMode,
+    sanitizeCashfreeCustomerId,
+    getCashfreeCredentialHint,
+    getCashfreeAppId,
+  } = await import('../_lib/cashfree.js');
   const { parseJsonBody } = await import('../_lib/razorpay.js');
   const { getPaidSubscriberCount, normalizePaymentCurrency, resolvePlanPricing } = await import(
     '../_lib/pricing.js'
@@ -30,6 +36,17 @@ export default async function handler(req, res) {
 
     if (!isCashfreeConfigured()) {
       res.status(503).json({ error: 'Not configured', code: 'MISSING_CASHFREE_CREDENTIALS' });
+      return;
+    }
+
+    const credentialHint = getCashfreeCredentialHint();
+    if (credentialHint) {
+      res.status(502).json({
+        error: credentialHint,
+        code: 'CASHFREE_CREDENTIAL_MISMATCH',
+        cashfreeEnv: getCashfreeMode(),
+        clientIdPrefix: getCashfreeAppId().slice(0, 8),
+      });
       return;
     }
 
