@@ -548,14 +548,12 @@ function Subscribe() {
               Cashfree needs your number before opening checkout (similar to contact details on other gateways). Enter
               a valid 10-digit Indian mobile number.
             </p>
-            <label htmlFor="subscribe-phone-modal-input" className="sr-only">
-              Mobile number
-            </label>
             <input
               id="subscribe-phone-modal-input"
               type="tel"
               inputMode="numeric"
               autoComplete="tel"
+              aria-label="10-digit mobile number"
               className="subscribe-phone-modal-input"
               placeholder="e.g. 9876543210"
               value={phoneModalDraft}
