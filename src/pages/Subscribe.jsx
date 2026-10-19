@@ -42,7 +42,7 @@ import {
 import { sanitizeUserMessage } from '../utils/userFacingErrors';
 import { fetchSubscriptionPricing, getLivePlanPricing } from '../services/subscriptionPricingService';
 import logoImage from '../assets/LSH.png';
-import { normalizeIndianPhone } from '../utils/phone';
+import { isValidIndianPhone, normalizeIndianPhone } from '../utils/phone';
 
 const BILLING_PHONE_STORAGE_KEY = 'lsh_billing_phone';
 
@@ -76,7 +76,10 @@ function Subscribe() {
     if (typeof window === 'undefined') return '';
     return window.localStorage.getItem(BILLING_PHONE_STORAGE_KEY) || '';
   });
-  const billingPhoneRef = useRef(null);
+  const [phonePromptOpen, setPhonePromptOpen] = useState(false);
+  const [phoneDraft, setPhoneDraft] = useState('');
+  const [pendingPlanId, setPendingPlanId] = useState('');
+  const phoneInputRef = useRef(null);
 
   useEffect(() => {
     fetchSubscriptionPricing().then(setPricing);
@@ -159,9 +162,9 @@ function Subscribe() {
     const phone = normalizeIndianPhone(billingPhone);
 
     if (isCashfree && !phone) {
-      setError('Enter your 10-digit mobile number below.');
-      billingPhoneRef.current?.focus();
-      billingPhoneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setPendingPlanId(planId);
+      setPhoneDraft(billingPhone);
+      setPhonePromptOpen(true);
       return;
     }
 
@@ -175,9 +178,56 @@ function Subscribe() {
     } catch (checkoutError) {
       const message = checkoutError?.message || 'Checkout failed';
       if (/mobile|phone|10-digit/i.test(message)) {
-        setError('Enter your 10-digit mobile number below.');
-        billingPhoneRef.current?.focus();
+        setPendingPlanId(planId);
+        setPhoneDraft(billingPhone);
+        setPhonePromptOpen(true);
       } else if (message !== 'Payment cancelled') {
+        setError(
+          sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.')
+        );
+      }
+    } finally {
+      setLoadingPlanId('');
+    }
+  };
+
+  useEffect(() => {
+    if (phonePromptOpen) {
+      phoneInputRef.current?.focus();
+    }
+  }, [phonePromptOpen]);
+
+  const closePhonePrompt = () => {
+    setPhonePromptOpen(false);
+    setPendingPlanId('');
+    setPhoneDraft('');
+  };
+
+  const handlePhonePromptContinue = async () => {
+    if (!isValidIndianPhone(phoneDraft)) {
+      setError('Enter a valid 10-digit mobile number.');
+      return;
+    }
+
+    const phone = saveBillingPhone(phoneDraft);
+    const planId = pendingPlanId;
+    if (!planId || !user) {
+      closePhonePrompt();
+      return;
+    }
+
+    setError('');
+    closePhonePrompt();
+    setLoadingPlanId(planId);
+
+    let settings = checkoutSettings;
+    try {
+      settings = await getCheckoutSettings(true);
+      setCheckoutSettings(settings);
+      await startCheckout(planId, settings, phone);
+    } catch (checkoutError) {
+      const message = checkoutError?.message || 'Checkout failed';
+      if (message !== 'Payment cancelled') {
         setError(
           sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.')
         );
@@ -282,22 +332,6 @@ function Subscribe() {
             <p className="subscribe-currency-note" role="status">
               All prices in <strong>INR (₹)</strong>.
             </p>
-          )}
-          {cashfreeCheckout && user && (
-            <div className="subscribe-billing-phone">
-              <label htmlFor="subscribe-billing-phone">Mobile number</label>
-              <input
-                ref={billingPhoneRef}
-                id="subscribe-billing-phone"
-                type="tel"
-                inputMode="numeric"
-                autoComplete="tel"
-                placeholder="10-digit mobile number"
-                value={billingPhone}
-                maxLength={14}
-                onChange={(event) => setBillingPhone(event.target.value)}
-              />
-            </div>
           )}
         </div>
 
@@ -491,6 +525,51 @@ function Subscribe() {
         </p>
       </footer>
 
+      {phonePromptOpen && (
+        <div className="modal-overlay subscribe-phone-modal-overlay" role="presentation" onClick={closePhonePrompt}>
+          <div
+            className="modal-content subscribe-phone-modal subscribe-phone-modal--lsh"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="subscribe-phone-prompt-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img src={logoImage} alt="" className="subscribe-phone-modal-logo" width={40} height={40} />
+            <h2 id="subscribe-phone-prompt-title">Mobile number</h2>
+            <input
+              ref={phoneInputRef}
+              type="tel"
+              inputMode="numeric"
+              autoComplete="tel"
+              aria-label="10-digit mobile number"
+              className="subscribe-phone-modal-input"
+              placeholder="10-digit mobile number"
+              value={phoneDraft}
+              maxLength={14}
+              onChange={(event) => setPhoneDraft(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  handlePhonePromptContinue();
+                }
+              }}
+            />
+            <div className="subscribe-phone-modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={closePhonePrompt}>
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={!isValidIndianPhone(phoneDraft) || Boolean(loadingPlanId)}
+                onClick={handlePhonePromptContinue}
+              >
+                {loadingPlanId ? 'Opening checkout…' : 'Continue'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

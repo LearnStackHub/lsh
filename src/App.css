@@ -12138,6 +12138,25 @@ code {
   padding: 1.5rem 1.35rem;
 }
 
+.subscribe-phone-modal--lsh {
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+}
+
+.subscribe-phone-modal-logo {
+  display: block;
+  margin: 0 auto 0.75rem;
+  border-radius: 10px;
+}
+
+.subscribe-phone-modal--lsh h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 .subscribe-phone-modal h2 {
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
@@ -12162,9 +12181,13 @@ code {
 
 .subscribe-phone-modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0.65rem;
   flex-wrap: wrap;
+}
+
+.subscribe-phone-modal--lsh .subscribe-phone-modal-actions {
+  margin-top: 0.25rem;
 }
 
 .subscribe-pricing-grid {
