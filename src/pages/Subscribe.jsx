@@ -34,7 +34,11 @@ import {
   planChargeAmount,
   planRegularChargeAmount,
 } from '../config/subscriptionPlans';
-import { isRazorpayEnabled, openRazorpayCheckout } from '../services/razorpayService';
+import {
+  getCheckoutSettings,
+  isCheckoutReady,
+  openSubscriptionCheckout,
+} from '../services/checkoutService';
 import { sanitizeUserMessage } from '../utils/userFacingErrors';
 import { fetchSubscriptionPricing, getLivePlanPricing } from '../services/subscriptionPricingService';
 import logoImage from '../assets/LSH.png';
@@ -64,10 +68,19 @@ function Subscribe() {
   const [error, setError] = useState('');
   const [pricing, setPricing] = useState(null);
   const [paymentCurrency, setPaymentCurrency] = useState('INR');
+  const [checkoutSettings, setCheckoutSettings] = useState(null);
 
   useEffect(() => {
     fetchSubscriptionPricing().then(setPricing);
   }, []);
+
+  useEffect(() => {
+    getCheckoutSettings()
+      .then(setCheckoutSettings)
+      .catch(() => setCheckoutSettings(null));
+  }, []);
+
+  const checkoutReady = isCheckoutReady(checkoutSettings);
 
   const displayPlans = useMemo(
     () =>
@@ -87,7 +100,7 @@ function Subscribe() {
     setLoadingPlanId(planId);
 
     try {
-      await openRazorpayCheckout({
+      await openSubscriptionCheckout({
         planId,
         currency: paymentCurrency,
         user,
@@ -164,9 +177,10 @@ function Subscribe() {
         </div>
       )}
 
-      {import.meta.env.DEV && !isRazorpayEnabled() && (
+      {import.meta.env.DEV && !checkoutReady && (
         <div className="subscribe-alert subscribe-alert--warn" role="status">
-          Payments are not configured yet (dev only).
+          Payments are not configured yet (dev only). Set Razorpay or Cashfree keys in .env and choose a gateway in
+          Admin → Payment gateway.
         </div>
       )}
 
@@ -271,7 +285,7 @@ function Subscribe() {
                 <button
                   type="button"
                   className={`subscribe-price-cta${isFeatured ? ' subscribe-price-cta--featured' : ''}`}
-                  disabled={!isRazorpayEnabled() || Boolean(loadingPlanId)}
+                  disabled={!checkoutReady || Boolean(loadingPlanId)}
                   onClick={() => handleSubscribe(plan.id)}
                 >
                   {isLoading ? (

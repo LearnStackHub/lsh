@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Shield, RefreshCw, ArrowLeft, Crown, Briefcase } from 'lucide-react';
+import { Users, Shield, RefreshCw, ArrowLeft, Crown, Briefcase, CreditCard } from 'lucide-react';
 import SEOHead from '../../components/SEOHead';
 import UserAvatar from '../../components/UserAvatar';
 import { useAuth } from '../../context/AuthContext';
@@ -116,6 +116,10 @@ function AdminDashboard() {
             <Link to="/admin/recruitment" className="btn btn-secondary admin-refresh-btn">
               <Briefcase size={16} aria-hidden />
               Assessment L1
+            </Link>
+            <Link to="/admin/payments" className="btn btn-secondary admin-refresh-btn">
+              <CreditCard size={16} aria-hidden />
+              Payment gateway
             </Link>
             <button type="button" className="btn btn-primary admin-refresh-btn" onClick={loadUsers} disabled={loading}>
               <RefreshCw size={16} className={loading ? 'spin-icon' : ''} aria-hidden />

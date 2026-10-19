@@ -39,6 +39,7 @@ const Account = lazy(() => import('./pages/Account'));
 const Invoice = lazy(() => import('./pages/Invoice'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const RecruitmentAdmin = lazy(() => import('./pages/admin/RecruitmentAdmin'));
+const PaymentSettingsAdmin = lazy(() => import('./pages/admin/PaymentSettingsAdmin'));
 const RecruitmentExam = lazy(() => import('./pages/recruitment/RecruitmentExam'));
 
 // Minimal loading fallback
@@ -194,6 +195,14 @@ function AppWithTracking() {
               element={
                 <AdminRoute>
                   <RecruitmentAdmin />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="admin/payments"
+              element={
+                <AdminRoute>
+                  <PaymentSettingsAdmin />
                 </AdminRoute>
               }
             />

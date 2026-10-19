@@ -55,6 +55,9 @@ export default async function handler(req, res) {
     }
 
     const db = getFirestore(app);
+    const { assertActiveGateway } = await import('../_lib/paymentSettings.js');
+    await assertActiveGateway(db, 'razorpay');
+
     const subscriberCount = await getPaidSubscriberCount(db);
     const plan = resolvePlanPricing(planId, subscriberCount, currency);
 

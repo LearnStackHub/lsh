@@ -104,23 +104,33 @@ export async function isPaymentProcessed(db, orderId) {
   return snapshot.exists && snapshot.data()?.status === 'captured';
 }
 
-export async function activateUserSubscription(db, uid, { planId, durationDays, orderId, paymentId }) {
+export async function activateUserSubscription(
+  db,
+  uid,
+  { planId, durationDays, orderId, paymentId, provider = 'razorpay' }
+) {
   if (!db || !uid || !planId || !durationDays) {
     return false;
   }
 
   const expiresAt = buildExpiryDate(durationDays);
+  const paymentProvider = provider === 'cashfree' ? 'cashfree' : 'razorpay';
+
+  const subscription = {
+    status: 'active',
+    plan: planId,
+    expiresAt,
+    paymentProvider,
+    activatedAt: FieldValue.serverTimestamp(),
+    razorpayOrderId: paymentProvider === 'razorpay' ? orderId || null : null,
+    razorpayPaymentId: paymentProvider === 'razorpay' ? paymentId || null : null,
+    cashfreeOrderId: paymentProvider === 'cashfree' ? orderId || null : null,
+    cashfreePaymentId: paymentProvider === 'cashfree' ? paymentId || null : null,
+  };
 
   await db.collection('users').doc(uid).set(
     {
-      subscription: {
-        status: 'active',
-        plan: planId,
-        expiresAt,
-        razorpayOrderId: orderId || null,
-        razorpayPaymentId: paymentId || null,
-        activatedAt: FieldValue.serverTimestamp(),
-      },
+      subscription,
       updatedAt: FieldValue.serverTimestamp(),
     },
     { merge: true }
@@ -131,7 +141,17 @@ export async function activateUserSubscription(db, uid, { planId, durationDays, 
 
 export async function fulfillSubscription(
   db,
-  { uid, planId, durationDays, orderId, paymentId, customerEmail, customerName, plan: planOverride }
+  {
+    uid,
+    planId,
+    durationDays,
+    orderId,
+    paymentId,
+    customerEmail,
+    customerName,
+    plan: planOverride,
+    provider = 'razorpay',
+  }
 ) {
   const plan = planOverride || getPlanConfig(planId);
 
@@ -147,7 +167,7 @@ export async function fulfillSubscription(
     };
   }
 
-  await activateUserSubscription(db, uid, { planId, durationDays, orderId, paymentId });
+  await activateUserSubscription(db, uid, { planId, durationDays, orderId, paymentId, provider });
 
   const invoiceFields = plan
     ? buildInvoiceFields({
@@ -166,7 +186,7 @@ export async function fulfillSubscription(
     uid,
     planId,
     status: 'captured',
-    provider: 'razorpay',
+    provider: provider === 'cashfree' ? 'cashfree' : 'razorpay',
     capturedAt: FieldValue.serverTimestamp(),
     issuedAt: FieldValue.serverTimestamp(),
     durationDays,
