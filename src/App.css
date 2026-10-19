@@ -12132,6 +12132,41 @@ code {
   color: var(--text-secondary);
 }
 
+.subscribe-phone-modal {
+  max-width: 420px;
+  width: calc(100% - 2rem);
+  padding: 1.5rem 1.35rem;
+}
+
+.subscribe-phone-modal h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.subscribe-phone-modal p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.subscribe-phone-modal-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.subscribe-phone-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
 .subscribe-pricing-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

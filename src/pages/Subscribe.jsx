@@ -76,13 +76,16 @@ function Subscribe() {
     if (typeof window === 'undefined') return '';
     return window.localStorage.getItem(BILLING_PHONE_STORAGE_KEY) || '';
   });
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
+  const [phoneModalDraft, setPhoneModalDraft] = useState('');
+  const [pendingPlanId, setPendingPlanId] = useState('');
 
   useEffect(() => {
     fetchSubscriptionPricing().then(setPricing);
   }, []);
 
   useEffect(() => {
-    getCheckoutSettings()
+    getCheckoutSettings(true)
       .then(setCheckoutSettings)
       .catch(() => setCheckoutSettings(null));
   }, []);
@@ -104,49 +107,117 @@ function Subscribe() {
     [pricing]
   );
 
+  const persistBillingPhone = (phone) => {
+    const normalized = normalizeIndianPhone(phone);
+    if (!normalized) return '';
+    setBillingPhone(normalized);
+    try {
+      window.localStorage.setItem(BILLING_PHONE_STORAGE_KEY, normalized);
+    } catch {
+      /* ignore */
+    }
+    return normalized;
+  };
+
+  const runCheckout = async (planId, settings, customerPhone) => {
+    const isCashfree = settings?.activeGateway === 'cashfree';
+    const currency = isCashfree ? 'INR' : paymentCurrency;
+
+    await openSubscriptionCheckout({
+      planId,
+      currency,
+      user,
+      customerPhone: isCashfree ? customerPhone : undefined,
+      onSuccess: async (verified) => {
+        await refreshUserProfile();
+        const orderId = verified?.orderId || '';
+        const query = orderId ? `?order=${encodeURIComponent(orderId)}` : '';
+        navigate(`/subscription-success${query}`, { replace: true });
+      },
+    });
+  };
+
   const handleSubscribe = async (planId) => {
     if (!user) {
       openLoginModal();
       return;
     }
 
-    if (cashfreeCheckout && !isValidIndianPhone(billingPhone)) {
-      setError('Enter your 10-digit mobile number below before subscribing.');
+    setError('');
+    let settings = checkoutSettings;
+    try {
+      settings = await getCheckoutSettings(true);
+      setCheckoutSettings(settings);
+    } catch {
+      setError('Could not load payment settings. Please refresh and try again.');
+      return;
+    }
+
+    const isCashfree = settings?.activeGateway === 'cashfree';
+    const phone = normalizeIndianPhone(billingPhone);
+
+    if (isCashfree && !phone) {
+      setPendingPlanId(planId);
+      setPhoneModalDraft(billingPhone);
+      setPhoneModalOpen(true);
+      return;
+    }
+
+    setLoadingPlanId(planId);
+    if (isCashfree && phone) {
+      persistBillingPhone(phone);
+    }
+
+    try {
+      await runCheckout(planId, settings, phone);
+    } catch (checkoutError) {
+      const message = checkoutError?.message || 'Checkout failed';
+      if (/mobile number|10-digit/i.test(message)) {
+        setPendingPlanId(planId);
+        setPhoneModalDraft(billingPhone);
+        setPhoneModalOpen(true);
+      } else if (message !== 'Payment cancelled') {
+        setError(
+          sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.')
+        );
+      }
+    } finally {
+      setLoadingPlanId('');
+    }
+  };
+
+  const handlePhoneModalContinue = async () => {
+    if (!isValidIndianPhone(phoneModalDraft)) {
+      setError('Enter a valid 10-digit mobile number.');
+      return;
+    }
+
+    const phone = persistBillingPhone(phoneModalDraft);
+    const planId = pendingPlanId;
+    if (!planId || !user) {
+      setPhoneModalOpen(false);
       return;
     }
 
     setError('');
+    setPhoneModalOpen(false);
     setLoadingPlanId(planId);
 
-    const normalizedPhone = normalizeIndianPhone(billingPhone);
-    if (cashfreeCheckout && normalizedPhone) {
-      try {
-        window.localStorage.setItem(BILLING_PHONE_STORAGE_KEY, normalizedPhone);
-      } catch {
-        /* ignore storage errors */
-      }
-    }
-
+    let settings = checkoutSettings;
     try {
-      await openSubscriptionCheckout({
-        planId,
-        currency: paymentCurrency,
-        user,
-        customerPhone: cashfreeCheckout ? normalizedPhone : undefined,
-        onSuccess: async (verified) => {
-          await refreshUserProfile();
-          const orderId = verified?.orderId || '';
-          const query = orderId ? `?order=${encodeURIComponent(orderId)}` : '';
-          navigate(`/subscription-success${query}`, { replace: true });
-        },
-      });
+      settings = await getCheckoutSettings(true);
+      setCheckoutSettings(settings);
+      await runCheckout(planId, settings, phone);
     } catch (checkoutError) {
       const message = checkoutError?.message || 'Checkout failed';
       if (message !== 'Payment cancelled') {
-        setError(sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.'));
+        setError(
+          sanitizeUserMessage(message, 'Checkout failed. Please try again or contact careers@learnstackhub.com.')
+        );
       }
     } finally {
       setLoadingPlanId('');
+      setPendingPlanId('');
     }
   };
 
@@ -246,7 +317,7 @@ function Subscribe() {
               Payments via Cashfree are in <strong>INR (₹)</strong> only.
             </p>
           )}
-          {cashfreeCheckout && user && (
+          {cashfreeCheckout && (
             <div className="subscribe-billing-phone">
               <label htmlFor="subscribe-billing-phone">Mobile number for payment</label>
               <input
@@ -257,11 +328,13 @@ function Subscribe() {
                 placeholder="10-digit mobile number"
                 value={billingPhone}
                 maxLength={14}
+                disabled={!user}
                 onChange={(event) => setBillingPhone(event.target.value)}
               />
               <p className="subscribe-billing-phone-hint">
-                Cashfree requires your number for UPI, cards, and payment receipts. We send this to Cashfree only for
-                checkout.
+                {user
+                  ? 'Required before Cashfree checkout (UPI, cards, and receipts). You can also enter it when you click Subscribe.'
+                  : 'Sign in first — we will ask for your mobile number before opening secure checkout.'}
               </p>
             </div>
           )}
@@ -340,11 +413,7 @@ function Subscribe() {
                 <button
                   type="button"
                   className={`subscribe-price-cta${isFeatured ? ' subscribe-price-cta--featured' : ''}`}
-                  disabled={
-                    !checkoutReady ||
-                    Boolean(loadingPlanId) ||
-                    (cashfreeCheckout && user && !isValidIndianPhone(billingPhone))
-                  }
+                  disabled={!checkoutReady || Boolean(loadingPlanId)}
                   onClick={() => handleSubscribe(plan.id)}
                 >
                   {isLoading ? (
@@ -460,6 +529,62 @@ function Subscribe() {
           refunds.
         </p>
       </footer>
+
+      {phoneModalOpen && (
+        <div
+          className="modal-overlay subscribe-phone-modal-overlay"
+          role="presentation"
+          onClick={() => setPhoneModalOpen(false)}
+        >
+          <div
+            className="modal-content subscribe-phone-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="subscribe-phone-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2 id="subscribe-phone-modal-title">Mobile number for payment</h2>
+            <p>
+              Cashfree needs your number before opening checkout (similar to contact details on other gateways). Enter
+              a valid 10-digit Indian mobile number.
+            </p>
+            <label htmlFor="subscribe-phone-modal-input" className="sr-only">
+              Mobile number
+            </label>
+            <input
+              id="subscribe-phone-modal-input"
+              type="tel"
+              inputMode="numeric"
+              autoComplete="tel"
+              className="subscribe-phone-modal-input"
+              placeholder="e.g. 9876543210"
+              value={phoneModalDraft}
+              maxLength={14}
+              autoFocus
+              onChange={(event) => setPhoneModalDraft(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  handlePhoneModalContinue();
+                }
+              }}
+            />
+            <div className="subscribe-phone-modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setPhoneModalOpen(false)}>
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={!isValidIndianPhone(phoneModalDraft) || Boolean(loadingPlanId)}
+                onClick={handlePhoneModalContinue}
+              >
+                {loadingPlanId ? 'Opening checkout…' : 'Continue to payment'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
