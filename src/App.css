@@ -12190,6 +12190,35 @@ code {
   margin-top: 0.25rem;
 }
 
+.subscribe-phone-modal--lsh .btn-secondary {
+  background: #fff;
+  color: #4338ca;
+  border: 2px solid rgba(67, 56, 202, 0.5);
+  box-shadow: none;
+}
+
+.subscribe-phone-modal--lsh .btn-secondary:hover {
+  background: rgba(99, 102, 241, 0.08);
+  color: #3730a3;
+  border-color: #4338ca;
+}
+
+.subscribe-phone-modal--lsh .btn-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.subscribe-phone-modal--lsh .btn-primary:hover:not(:disabled) {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.subscribe-phone-modal--lsh .btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .subscribe-pricing-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
