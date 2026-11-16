@@ -73,6 +73,24 @@ export const SUBSCRIPTION_PLAN_CATALOG = [
   },
 ];
 
+/** Plans on /subscribe. Add `twelve_months` here when the 12-month plan returns. */
+export const SUBSCRIBE_VISIBLE_PLAN_IDS = ['six_months'];
+
+export function getSubscribePagePlans() {
+  if (!SUBSCRIBE_VISIBLE_PLAN_IDS?.length) {
+    return SUBSCRIPTION_PLAN_CATALOG;
+  }
+  const allowed = new Set(SUBSCRIBE_VISIBLE_PLAN_IDS);
+  return SUBSCRIPTION_PLAN_CATALOG.filter((plan) => allowed.has(plan.id));
+}
+
+export function isSubscribePlanOffered(planId) {
+  if (!SUBSCRIBE_VISIBLE_PLAN_IDS?.length) {
+    return true;
+  }
+  return SUBSCRIBE_VISIBLE_PLAN_IDS.includes(planId);
+}
+
 export const SUBSCRIPTION_PLANS = SUBSCRIPTION_PLAN_CATALOG.map((plan) => ({
   ...plan,
   amountInr: plan.earlyAmountInr,

@@ -12265,6 +12265,11 @@ code {
   gap: 1.25rem;
 }
 
+.subscribe-pricing-grid--single {
+  grid-template-columns: minmax(0, 420px);
+  justify-content: center;
+}
+
 .subscribe-price-card {
   position: relative;
   display: flex;

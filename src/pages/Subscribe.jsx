@@ -22,7 +22,8 @@ import SEOHead from '../components/SEOHead';
 import { useAuth } from '../context/AuthContext';
 import { BRAND } from '../config/brand';
 import {
-  SUBSCRIPTION_PLAN_CATALOG,
+  getSubscribePagePlans,
+  isSubscribePlanOffered,
   PLATFORM_FEATURES,
   LIVE_TRAINING_DAYS,
   EXAM_CERTIFICATE_NOTE,
@@ -102,11 +103,13 @@ function Subscribe() {
 
   const displayPlans = useMemo(
     () =>
-      SUBSCRIPTION_PLAN_CATALOG.map((catalogPlan) =>
+      getSubscribePagePlans().map((catalogPlan) =>
         mergeLivePricing(catalogPlan, getLivePlanPricing(pricing, catalogPlan.id))
       ),
     [pricing]
   );
+
+  const showTwelveMonthTraining = isSubscribePlanOffered('twelve_months');
 
   const saveBillingPhone = (raw) => {
     const phone = normalizeIndianPhone(raw);
@@ -335,7 +338,9 @@ function Subscribe() {
           )}
         </div>
 
-        <div className="subscribe-pricing-grid">
+        <div
+          className={`subscribe-pricing-grid${displayPlans.length === 1 ? ' subscribe-pricing-grid--single' : ''}`}
+        >
           {displayPlans.map((plan) => {
             const isFeatured = Boolean(plan.highlight);
             const chargeAmount = planChargeAmount(plan, paymentCurrency);
@@ -474,30 +479,32 @@ function Subscribe() {
         </div>
       </section>
 
-      <section className="subscribe-training subscribe-training--premium">
-        <div className="subscribe-training-head">
-          <span className="subscribe-training-badge">12-month plan only</span>
-          <h2>{LIVE_TRAINING_DAYS} days online live training</h2>
-          <p>
-            Upgrade to the 12-month plan for guided sessions, mentor connect, doubt clearing, and deep technology
-            explanations. After payment, open <strong>My Account</strong> to reach mentors via WhatsApp, email, or
-            phone.
-          </p>
-        </div>
-        <div className="subscribe-includes-grid">
-          {TRAINING_HIGHLIGHTS.map(({ icon: Icon, title, detail }) => (
-            <div key={title} className="subscribe-include-card subscribe-include-card--training">
-              <div className="subscribe-include-icon subscribe-include-icon--training">
-                <Icon size={20} aria-hidden />
+      {showTwelveMonthTraining && (
+        <section className="subscribe-training subscribe-training--premium">
+          <div className="subscribe-training-head">
+            <span className="subscribe-training-badge">12-month plan only</span>
+            <h2>{LIVE_TRAINING_DAYS} days online live training</h2>
+            <p>
+              Upgrade to the 12-month plan for guided sessions, mentor connect, doubt clearing, and deep technology
+              explanations. After payment, open <strong>My Account</strong> to reach mentors via WhatsApp, email, or
+              phone.
+            </p>
+          </div>
+          <div className="subscribe-includes-grid">
+            {TRAINING_HIGHLIGHTS.map(({ icon: Icon, title, detail }) => (
+              <div key={title} className="subscribe-include-card subscribe-include-card--training">
+                <div className="subscribe-include-icon subscribe-include-icon--training">
+                  <Icon size={20} aria-hidden />
+                </div>
+                <div>
+                  <strong>{title}</strong>
+                  <p>{detail}</p>
+                </div>
               </div>
-              <div>
-                <strong>{title}</strong>
-                <p>{detail}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
       <footer className="subscribe-trust subscribe-trust--premium">
         <div className="subscribe-trust-item">
