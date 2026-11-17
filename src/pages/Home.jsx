@@ -28,6 +28,7 @@ import {
   GraduationCap,
   Sparkles,
   Crown,
+  Users,
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import StructuredData from '../components/StructuredData';
@@ -126,6 +127,12 @@ function Home() {
               <p className="home-hero-lead">
                 Structured paths from Core Java to Spring Boot, microservices, and cloud — with MCQs,
                 runnable examples, and an AI Practice Lab built for interviews.
+              </p>
+              <p className="home-hero-registrations" role="status">
+                <Users size={16} aria-hidden />
+                <span>
+                  <strong>{LEARNSTACKHUB.registrationsMilestone}</strong> registrations — and still growing
+                </span>
               </p>
               <p className="home-hero-meta">
                 <strong>{trackCount}</strong> tracks · <strong>{totalTopics}+</strong> tutorials · Practice Lab included
@@ -261,6 +268,9 @@ function Home() {
             </p>
             <ul className="home-trust-list">
               <li>
+                <CheckCircle size={16} aria-hidden /> {LEARNSTACKHUB.registrationsTagline}
+              </li>
+              <li>
                 <CheckCircle size={16} aria-hidden /> Structured beginner-to-advanced progression
               </li>
               <li>
@@ -292,7 +302,10 @@ function Home() {
       <section className="home-cta-band home-cta-band--premium">
         <div className="home-cta-glow" aria-hidden />
         <h2>Your next role starts with consistent practice</h2>
-        <p>Join learners building interview-ready Java full-stack skills on a platform designed for depth, not noise.</p>
+        <p>
+          Join <strong>{LEARNSTACKHUB.registrationsMilestone}</strong> registered learners building interview-ready Java
+          full-stack skills — registrations are still open.
+        </p>
         <div className="home-cta-actions">
           <Link to="/tutorial/java-introduction" className="btn home-btn-premium home-btn-premium--light">
             <Play size={20} aria-hidden />

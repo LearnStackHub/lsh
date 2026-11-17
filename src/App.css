@@ -975,6 +975,24 @@ code {
   line-height: 1.7;
 }
 
+.home-hero-registrations {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: -0.5rem 0 1rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.home-hero-registrations strong {
+  color: #86efac;
+  font-weight: 700;
+}
+
 .home-hero-actions {
   display: flex;
   flex-wrap: wrap;

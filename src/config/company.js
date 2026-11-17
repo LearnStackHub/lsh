@@ -5,6 +5,9 @@ export const LEARNSTACKHUB = {
   url: 'https://www.learnstackhub.com',
   launchDate: '15 Feb 2026',
   contactEmail: 'careers@learnstackhub.com',
+  /** Shown on the home page — update when the milestone changes. */
+  registrationsMilestone: '2.5K+',
+  registrationsTagline: '2.5K+ registrations and counting',
 };
 
 export const GENAIXIS = {
